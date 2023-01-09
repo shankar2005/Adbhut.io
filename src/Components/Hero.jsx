@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import fb from '../../assets/ui/facebook (1).png';
-import gmail from '../../assets/ui/gmail.png';
-import instagram from '../../assets/ui/instagram.png';
-import linkedin from '../../assets/ui/linkedin.png';
+import fb from '../assets/ui/facebook (1).png';
+import gmail from '../assets/ui/gmail.png';
+import instagram from '../assets/ui/instagram.png';
+import linkedin from '../assets/ui/linkedin.png';
 
 const Hero = () => {
     const [modal, setModal] = useState(false);

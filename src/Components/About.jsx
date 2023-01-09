@@ -1,11 +1,11 @@
 import React from 'react';
-import reading from '../../assets/icon/reading.png';
-import commerce from '../../assets/icon/commerce.png';
-import employment from '../../assets/icon/employment.png';
-import energy from '../../assets/icon/energy.png';
-import gender from '../../assets/icon/gender.png';
-import skill from '../../assets/icon/skill.png';
-import tree from '../../assets/icon/tree.png';
+import reading from '../assets/icon/reading.png';
+import commerce from '../assets/icon/commerce.png';
+import employment from '../assets/icon/employment.png';
+import energy from '../assets/icon/energy.png';
+import gender from '../assets/icon/gender.png';
+import skill from '../assets/icon/skill.png';
+import tree from '../assets/icon/tree.png';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
