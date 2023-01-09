@@ -8,5 +8,18 @@ body {
 }
 
 .font-hero {
-    font-family: 'Rowdies', cursive;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.shake{
+    animation: shake 1s infinite;
+}
+
+@keyframes shake {
+  10% { transform: translate(-1px, -2px) rotate(-2deg); }
+  30% { transform: translate(0px, 2px)   rotate(0deg);  }
+  50% { transform: translate(-1px, 2px)  rotate(-1deg); }
+  70% { transform: translate(2px, 1px)   rotate(-2deg); }
+  80% { transform: translate(-1px, -1px) rotate(4deg);  }
+  100%{ transform: translate(1px, -2px)  rotate(-1deg); }
 }
