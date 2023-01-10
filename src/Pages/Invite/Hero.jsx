@@ -10,7 +10,7 @@ import InviteModal from './Components/InviteModal';
 import PlayInviteModal from './Components/PlayInviteModal';
 
 const Hero = () => {
-    const inviteURL = `${window.location.origin}/invite`;
+    const inviteURL = `https://nsnco.in/invite`;
     const [inviteFriendsModal, setInviteFriendsModal] = useState(false);
     const [playInviteModal, setPlayInviteModal] = useState(false);
     const [state, setState] = useState({ value: inviteURL, copied: false, });

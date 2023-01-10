@@ -17,7 +17,7 @@ import { MdOutlineContentCopy } from 'react-icons/md';
 const InviteModal = ({ modal, setModal, setState, inviteURL, state }) => {
     return (
         <div className={`${modal ? 'fixed' : 'hidden'} z-50 top-0 left-0 bg-black bg-opacity-70 w-full h-screen  flex items-center justify-center`}>
-            <div className='bg-white w-fit rounded-lg text-black p-5 relative'>
+            <div className='bg-white w-11/12 sm:w-fit rounded-lg text-black p-5 relative'>
                 <p onClick={() => { setModal(false); setState({ ...state, copied: false }) }} className='absolute top-0 right-0 m-3 mr-4 cursor-pointer font-bold'>✕</p>
                 <h3>Invite friends</h3>
                 <ul className='flex gap-6 py-5 px-20'>
