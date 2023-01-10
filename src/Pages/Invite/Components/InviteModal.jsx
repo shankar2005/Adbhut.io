@@ -20,7 +20,7 @@ const InviteModal = ({ modal, setModal, setState, inviteURL, state }) => {
             <div className='bg-white w-11/12 sm:w-fit rounded-lg text-black p-5 relative'>
                 <p onClick={() => { setModal(false); setState({ ...state, copied: false }) }} className='absolute top-0 right-0 m-3 mr-4 cursor-pointer font-bold'>✕</p>
                 <h3>Invite friends</h3>
-                <ul className='flex gap-6 py-5 px-20'>
+                <ul className='flex gap-6 py-5 w-fit mx-auto sm:px-20'>
                     <FacebookShareButton url={inviteURL}>
                         <FacebookIcon size={40} round={true} />
                     </FacebookShareButton>
