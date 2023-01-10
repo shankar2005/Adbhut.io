@@ -10,7 +10,7 @@ import InviteModal from './Components/InviteModal';
 import PlayInviteModal from './Components/PlayInviteModal';
 
 const Hero = () => {
-    const inviteURL = 'https://nsnco.netlify.app/invite';
+    const inviteURL = `${window.location.origin}/invite`;
     const [inviteFriendsModal, setInviteFriendsModal] = useState(false);
     const [playInviteModal, setPlayInviteModal] = useState(false);
     const [state, setState] = useState({ value: inviteURL, copied: false, });
@@ -75,11 +75,11 @@ const Hero = () => {
                         <button className='bg-white duration-100 font-bold hover:shadow-lg hover:shadow-purple-500/100 px-3 py-2 rounded hover:bg-inherit border-4 border-white hover:text-white'>We Are Hiring</button>
                     </a>
                 </div>
-            <div className='lg:hidden my-10 text-sm bg-white bg-opacity-60 text-black p-4'>
-                <h2 className='text-lg text-purple-900'>#MoonProject</h2>
-                In current times, the happy hippies are on their journey to be on the moon by 2024. They are doing this to make earth a better place, cleaner environment, less pollution, no descrimination and happiness for all. Now the happy hippies of future, year 2024, from the moon, are showing us their journey from earth to moon through this show.
-                This show inspires a series of events and conversations with leaders, changemakers and you. We the happy hippies are the GenZs, the generation of hope, for future. And this is our #MoonProject.
-            </div>
+                <div className='lg:hidden my-10 text-sm bg-white bg-opacity-60 text-black p-4'>
+                    <h2 className='text-lg text-purple-900'>#MoonProject</h2>
+                    In current times, the happy hippies are on their journey to be on the moon by 2024. They are doing this to make earth a better place, cleaner environment, less pollution, no descrimination and happiness for all. Now the happy hippies of future, year 2024, from the moon, are showing us their journey from earth to moon through this show.
+                    This show inspires a series of events and conversations with leaders, changemakers and you. We the happy hippies are the GenZs, the generation of hope, for future. And this is our #MoonProject.
+                </div>
             </div>
 
             <div className='hidden lg:block absolute top-1/2 right-0 w-[500px] text-sm bg-white bg-opacity-60 text-black p-4'>
