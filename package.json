@@ -13,10 +13,12 @@
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
+    "react-hook-form": "^7.41.5",
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.6.1",
     "react-share": "^4.4.1",
-    "swiper": "^8.4.5"
+    "swiper": "^8.4.5",
+    "universal-cookie": "^4.0.4"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",

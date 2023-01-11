@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import avatar from '../../assets/placeholders/avatar.png';
 import { AiFillHome } from 'react-icons/ai';
 import { MdCelebration } from 'react-icons/md';
+import { FiLogOut } from 'react-icons/fi';
 import LeftAside from './LeftAside';
 import RightAside from './RightAside';
+import Cookies from 'universal-cookie';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const Home = () => {
+    const { setIsAuthenticated } = useContext(AuthContext);
+    const handleLogout = () => {
+        const cookies = new Cookies();
+        cookies.remove("auth_token");
+        setIsAuthenticated(false);
+    }
+
     return (
         <div className='bg-gray-100'>
             <nav className='bg-white shadow-md py-5 sticky top-0 z-50'>
@@ -17,6 +27,9 @@ const Home = () => {
                     <ul className='flex gap-4 text-gray-500'>
                         <li><AiFillHome className='w-6 h-6' /></li>
                         <li><MdCelebration className='w-6 h-6' /></li>
+                        <li>
+                            <button onClick={handleLogout}><FiLogOut className='w-6 h-6' /></button>
+                        </li>
                     </ul>
                 </div>
             </nav>
