@@ -32,7 +32,7 @@ const Hero = () => {
                         <div>
                             <img className='w-8 mx-auto' src={commerce} alt="" />
                         </div>
-                        <p className='opacity-75 text-sm'>Cause Driven Cansumerism</p>
+                        <p className='opacity-75 text-sm'>Cause Driven Consumerism</p>
                     </div>
                     <div className='text-center flex flex-col items-center justify-center h-[100px] bg-purple-700 bg-opacity-40 px-2 gap-1'>
                         <div>
