@@ -10,8 +10,8 @@ const Home = () => {
         <div className='bg-gray-100'>
             <nav className='bg-white shadow-md py-5 sticky top-0 z-50'>
                 <div className='w-11/12 mx-auto flex items-center justify-between'>
-                    <div className='flex items-center gap-3'>
-                        <h4 className='font-medium'>Nsn Co</h4>
+                    <div className='flex items-center gap-8'>
+                        <h4 className='font-medium text-lg'>NsN Co</h4>
                         <input type="text" className='border border-purple-700 py-1 px-2' placeholder='Search your artist here...' />
                     </div>
                     <ul className='flex gap-4 text-gray-500'>
