@@ -10,7 +10,7 @@ const AuthProvider = ({ children }) => {
         isAuthenticated,
         setIsAuthenticated
     }
-
+    
     useEffect(() => {
         const cookies = new Cookies();
         if (cookies.get('auth_token')) {
