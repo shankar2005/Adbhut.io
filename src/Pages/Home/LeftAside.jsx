@@ -25,7 +25,7 @@ const LeftAside = () => {
 
             <section className='bg-white rounded-lg p-4 shadow-md mb-5'>
                 <h2 className="mb-3 text-2xl font-semibold text-center">Login to your account</h2>
-                <p className="text-sm text-center">Dont have account?
+                <p className="text-sm text-center text-gray-400">Dont have account?
                     <a href="#" rel="noopener noreferrer" className="focus:underline hover:underline ml-1">Sign up here</a>
                 </p>
                 <div className="my-6 space-y-4">
@@ -34,22 +34,22 @@ const LeftAside = () => {
                     <button className='border border-blue-500 hover:bg-blue-500 hover:text-white w-full py-3 rounded mb-2 flex items-center justify-center gap-2'><AiFillLinkedin className='w-7 h-7' /> Login with LinkedIn</button>
                 </div>
                 <div className="flex items-center w-full my-4">
-                    <hr className="w-full" />
-                    <p className="px-3">OR</p>
-                    <hr className="w-full" />
+                    <hr className="w-full text-gray-400" />
+                    <p className="px-3 text-gray-400">OR</p>
+                    <hr className="w-full text-gray-400" />
                 </div>
                 <form novalidate="" action="" className="space-y-8 ng-untouched ng-pristine ng-valid">
                     <div className="space-y-4">
                         <div className="space-y-2">
                             <label for="email" className="block text-sm">Email address</label>
-                            <input type="email" name="email" id="email" placeholder="example@gmail.com" className="w-full px-3 py-2 border rounded-md" data-temp-mail-org="2" />
+                            <input type="email" name="email" id="email" placeholder="example@gmail.com" className="w-full px-3 py-2 border rounded-md border-gray-700" data-temp-mail-org="2" />
                         </div>
                         <div className="space-y-2">
                             <div className="flex justify-between">
                                 <label for="password" className="text-sm">Password</label>
-                                <a rel="noopener noreferrer" href="#" className="text-xs hover:underline">Forgot password?</a>
+                                <a rel="noopener noreferrer" href="#" className="text-xs hover:underline text-gray-400">Forgot password?</a>
                             </div>
-                            <input type="password" name="password" id="password" placeholder="*****" className="w-full px-3 py-2 border rounded-md" />
+                            <input type="password" name="password" id="password" placeholder="*****" className="w-full px-3 py-2 border rounded-md border-gray-700" />
                         </div>
                     </div>
                     <button type="button" className="w-full px-8 py-3 font-medium rounded-md bg-blue-500 text-white">Sign in</button>
