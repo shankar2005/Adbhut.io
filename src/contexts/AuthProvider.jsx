@@ -10,13 +10,26 @@ const AuthProvider = ({ children }) => {
         isAuthenticated,
         setIsAuthenticated
     }
-    
+
     useEffect(() => {
         const cookies = new Cookies();
-        if (cookies.get('auth_token')) {
-            setIsAuthenticated(true);
+        const token = cookies.get('auth_token');
+        if (token) {
+            fetch('https://dev.nsnco.in/api/v1/auth/verify/', {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify({ token })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        setIsAuthenticated(true);
+                    }
+                });
         }
-    })
+    }, [isAuthenticated])
 
     return (
         <AuthContext.Provider value={value}>

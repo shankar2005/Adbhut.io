@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import avatar from '../../assets/placeholders/avatar.png';
 import { MdCelebration } from 'react-icons/md';
 import { BsHash } from 'react-icons/bs';
-import Login from '../Auth/Login';
+import AuthSection from '../Auth/AuthSection';
 import { ImOffice } from 'react-icons/im';
 import { TfiWorld } from 'react-icons/tfi';
 import { AuthContext } from '../../contexts/AuthProvider';
@@ -24,14 +24,14 @@ const LeftAside = () => {
                             </div>
                             <div className='mt-12 pt-0 p-4 text-center'>
                                 <h4 className='font-medium text-lg'>Md Maruf Hossain</h4>
-                                <p className='text-sm text-gray-600'>
+                                <div className='text-sm text-gray-600'>
                                     @maruf <br />
                                     <p className='flex items-center justify-center gap-1 mt-1'><ImOffice /> NsN Co</p>
                                     <p className='flex items-center justify-center gap-1 mt-1'><TfiWorld /> https://nsnco.in/</p>
-                                </p>
+                                </div>
                             </div>
                         </>
-                        : <Login />
+                        : <AuthSection />
                 }
 
             </section>
@@ -53,19 +53,19 @@ const LeftAside = () => {
                     <p className='text-black mb-2 font-medium'>Followed Hashtags</p>
                     <p className='flex items-center'><BsHash className='w-5 h-5 text-purple-700' />6monthsofcodechallenge</p>
                 </div>
-                <div>
-                    About
-                    Accessibility
-                    Help Center
-                    Privacy & Terms
-                    Ad Choices
-                    Advertising
-                    Business Services
-                    Get the LinkedIn app
-                    More
-                    LinkedIn Corporation © 2023
-                </div>
             </section>
+            <footer>
+                About
+                Accessibility
+                Help Center
+                Privacy & Terms
+                Ad Choices
+                Advertising
+                Business Services
+                Get the LinkedIn app
+                More
+                LinkedIn Corporation © 2023
+            </footer>
         </>
     );
 };
