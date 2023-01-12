@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import avatar from '../../assets/placeholders/avatar.png';
 import { AiOutlineGif } from 'react-icons/ai';
 import { BsImageFill, BsThreeDots } from 'react-icons/bs';
@@ -6,6 +6,12 @@ import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
 
 const LeftAside = () => {
+    const chatboxRef = useRef();
+    useEffect(() => {
+        const chatboxElement = chatboxRef.current;
+        chatboxElement.scrollTo(0, chatboxElement.scrollHeight);
+    }, [])
+
     return (
         <>
             <section className='bg-white shadow-md rounded-lg'>
@@ -14,7 +20,7 @@ const LeftAside = () => {
                     <BsThreeDots className='cursor-pointer' />
                 </div>
 
-                <div className='h-80 overflow-y-scroll p-3'>
+                <div ref={chatboxRef} className='h-80 overflow-y-scroll p-3'>
                     <div className='flex flex-col'>
                         <div className='text-sm flex gap-2 mb-5'>
                             <img className='w-10 h-10' src="https://media.licdn.com/dms/image/D4D0BAQErxzI3ZO8CEA/company-logo_200_200/0/1665423690851?e=2147483647&v=beta&t=lNNe6O9RDmoigkZam6o8yn-abUNDT-L_F2MCusFSQ3E" alt="" />
