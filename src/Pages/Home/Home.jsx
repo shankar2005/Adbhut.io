@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import avatar from '../../assets/placeholders/avatar.png';
 import { AiFillHome, AiOutlineSearch } from 'react-icons/ai';
 import { MdCelebration } from 'react-icons/md';
 import { FiLogOut } from 'react-icons/fi';
@@ -8,6 +7,7 @@ import RightAside from './RightAside';
 import Cookies from 'universal-cookie';
 import { AuthContext } from '../../contexts/AuthProvider';
 import { Link } from 'react-router-dom';
+import Feed from './Feed';
 
 const Home = () => {
     const [showSearch, setShowSearch] = useState(false);
@@ -52,76 +52,20 @@ const Home = () => {
                 <div onClick={() => setShowSearch(false)} className={`${!showSearch && 'hidden'} fixed left-0 top-0 h-screen w-screen bg-black bg-opacity-70 z-30`}></div>
                 {/* bg unfocused layer */}
 
-                <aside className='col-span-3'>
-                    <LeftAside />
-                </aside>
 
-                <main className='col-span-6'>
-                    <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
-                        <div className='flex items-center gap-2 mb-3'>
-                            <img className='w-12 h-12' src={avatar} alt="" />
-                            <div className='text-sm'>
-                                <p className='font-medium'>Märuf</p>
-                                <p>2022-11-05</p>
-                            </div>
-                        </div>
-                        <div>
-                            <p className='text-sm mb-2'>
-                                People have already started building awesome apps on top of #ChatGPT
-                                Here are 10 use cases I liked most.
-                                1. Connect your ChatGPT with your Whatsapp.
-                                Link: http://bit.ly/3ZfmyzC
-                                2. ChatGPT Writer : It use ChatGPT to generate emails or replies based on your prompt!
-                                Link: http://bit.ly/3vGB3if <a className='text-blue-500' href="#">see more...</a>
-                            </p>
-                            <img className='w-full rounded-lg' src="https://media.licdn.com/dms/image/C4D22AQHenxuQDLXLIQ/feedshare-shrink_1280/0/1673346557857?e=1676505600&v=beta&t=pn0YmhYRFIjhQLBdZ9L_A8TRzfmexFDcag_qWFzx9R4" alt="" />
-                        </div>
-                    </div>
-                    <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
-                        <div className='flex items-center gap-2 mb-3'>
-                            <img className='w-12 h-12' src={avatar} alt="" />
-                            <div className='text-sm'>
-                                <p className='font-medium'>Märuf</p>
-                                <p>2022-11-05</p>
-                            </div>
-                        </div>
-                        <div>
-                            <p className='text-sm mb-2'>
-                                People have already started building awesome apps on top of #ChatGPT
-                                Here are 10 use cases I liked most.
-                                1. Connect your ChatGPT with your Whatsapp.
-                                Link: http://bit.ly/3ZfmyzC
-                                2. ChatGPT Writer : It use ChatGPT to generate emails or replies based on your prompt!
-                                Link: http://bit.ly/3vGB3if <a className='text-blue-500' href="#">see more...</a>
-                            </p>
-                            <img className='w-full rounded-lg' src="https://media.licdn.com/dms/image/C4D22AQHenxuQDLXLIQ/feedshare-shrink_1280/0/1673346557857?e=1676505600&v=beta&t=pn0YmhYRFIjhQLBdZ9L_A8TRzfmexFDcag_qWFzx9R4" alt="" />
-                        </div>
-                    </div>
-                    <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
-                        <div className='flex items-center gap-2 mb-3'>
-                            <img className='w-12 h-12' src={avatar} alt="" />
-                            <div className='text-sm'>
-                                <p className='font-medium'>Märuf</p>
-                                <p>2022-11-05</p>
-                            </div>
-                        </div>
-                        <div>
-                            <p className='text-sm mb-2'>
-                                People have already started building awesome apps on top of #ChatGPT
-                                Here are 10 use cases I liked most.
-                                1. Connect your ChatGPT with your Whatsapp.
-                                Link: http://bit.ly/3ZfmyzC
-                                2. ChatGPT Writer : It use ChatGPT to generate emails or replies based on your prompt!
-                                Link: http://bit.ly/3vGB3if <a className='text-blue-500' href="#">see more...</a>
-                            </p>
-                            <img className='w-full rounded-lg' src="https://media.licdn.com/dms/image/C4D22AQHenxuQDLXLIQ/feedshare-shrink_1280/0/1673346557857?e=1676505600&v=beta&t=pn0YmhYRFIjhQLBdZ9L_A8TRzfmexFDcag_qWFzx9R4" alt="" />
-                        </div>
-                    </div>
-                </main>
 
                 <aside className='col-span-3 sticky top-20'>
                     <RightAside />
                 </aside>
+
+                <main className='col-span-6'>
+                    <Feed />
+                </main>
+                
+                <aside className='col-span-3'>
+                    <LeftAside />
+                </aside>
+
             </div>
         </div>
     );
