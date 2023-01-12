@@ -2,20 +2,21 @@ import React, { useEffect, useState } from 'react';
 import avatar from '../../assets/placeholders/avatar.png';
 import useYoutubeEmbaded from '../../hooks/useYoutubeEmbaded';
 
-const Feed = () => {
+const Feed = ({ searchText, demoType }) => {
     const [artists, setArtists] = useState([]);
     useEffect(() => {
-        fetch('https://dev.nsnco.in/api/v1/get_feed/')
+        fetch(`https://dev.nsnco.in/api/v1/get_feed/?search=${searchText}&demo_type=${demoType}`)
             .then(res => res.json())
             .then(data => {
                 setArtists(data);
             })
-    }, []);
+            .catch(err => console.log(err))
+    }, [searchText, demoType]);
 
     return (
         <>
             {
-                artists.map(artist => (
+                artists?.map(artist => (
                     <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
                         <div className='flex items-center gap-2 mb-3'>
                             <img className='w-12 h-12' src={avatar} alt="" />
@@ -37,8 +38,8 @@ const Feed = () => {
                             }
                             {
                                 artist.demo_type === "Instagram Link"
-                                && <div className='border rounded-lg'>
-                                    <iframe src={artist.weblink} className="mx-auto" width="400" height="550" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+                                && <div className='border rounded-lg bg-gray-200'>
+                                    <iframe src={artist.weblink} className="mx-auto border-l border-r" height="550" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
                                 </div>
                             }
                             {
