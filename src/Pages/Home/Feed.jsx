@@ -5,6 +5,7 @@ import ViewArtistModal from '../Artist/ViewArtistModal';
 
 const Feed = ({ searchText, demoType }) => {
     const [artistModal, setArtistModal] = useState();
+    const [viewArtist, setviewArtist] = useState();
 
     const [artists, setArtists] = useState([]);
     useEffect(() => {
@@ -13,8 +14,18 @@ const Feed = ({ searchText, demoType }) => {
             .then(data => {
                 setArtists(data);
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
     }, [searchText, demoType]);
+
+    const handlesetViewArtist = id => {
+        setArtistModal(true);
+        fetch(`https://dev.nsnco.in/api/v1/get_artist/${id}/`)
+            .then(res => res.json())
+            .then(data => {
+                setviewArtist(data);
+            })
+            .catch(err => console.log(err));
+    }
 
     return (
         <>
@@ -27,7 +38,7 @@ const Feed = ({ searchText, demoType }) => {
                                 <p className='font-medium'>{artist.owner_name}</p>
                                 <p>2022-11-05</p>
                             </div>
-                            <button onClick={() => setArtistModal(true)} className='ml-auto text-blue-500 text-sm font-medium'>View Profile</button>
+                            <button onClick={() => handlesetViewArtist(artist.owner_id)} className='ml-auto text-blue-500 text-sm font-medium'>View Profile</button>
                         </div>
                         <div>
                             <p className='text-sm mb-2'>
@@ -75,10 +86,15 @@ const Feed = ({ searchText, demoType }) => {
                 ))
             }
 
-            <ViewArtistModal
-                modal={artistModal}
-                setModal={setArtistModal}
-            />
+            {
+                viewArtist &&
+                <ViewArtistModal
+                    modal={artistModal}
+                    setModal={setArtistModal}
+                    viewArtist={viewArtist}
+                    setviewArtist={setviewArtist}
+                />
+            }
 
         </>
     );
