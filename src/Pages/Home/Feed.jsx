@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import avatar from '../../assets/placeholders/avatar.png';
 import useYoutubeEmbaded from '../../hooks/useYoutubeEmbaded';
+import ViewArtistModal from '../Artist/ViewArtistModal';
 
 const Feed = ({ searchText, demoType }) => {
+    const [artistModal, setArtistModal] = useState();
+
     const [artists, setArtists] = useState([]);
     useEffect(() => {
         fetch(`https://dev.nsnco.in/api/v1/get_feed/?search=${searchText}&demo_type=${demoType}`)
@@ -24,6 +27,7 @@ const Feed = ({ searchText, demoType }) => {
                                 <p className='font-medium'>{artist.owner_name}</p>
                                 <p>2022-11-05</p>
                             </div>
+                            <button onClick={() => setArtistModal(true)} className='ml-auto text-blue-500 text-sm font-medium'>View Profile</button>
                         </div>
                         <div>
                             <p className='text-sm mb-2'>
@@ -70,6 +74,12 @@ const Feed = ({ searchText, demoType }) => {
                     </div>
                 ))
             }
+
+            <ViewArtistModal
+                modal={artistModal}
+                setModal={setArtistModal}
+            />
+
         </>
     );
 };

@@ -87,9 +87,13 @@ const LeftAside = () => {
                         </div>
                     </div>
 
-                    <div className='flex gap-2 text-sm font-medium mt-8'>
-                        <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>Home</div>
-                        <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>Working</div>
+                    <div className='flex flex-wrap gap-2 text-sm font-medium mt-8'>
+                        <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>Please shortlist an artist</div>
+                        <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>Add to Dream Project</div>
+                        <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>Send Briefing</div>
+                        <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>Please shortlist an artist</div>
+                        <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>Add to Dream Project</div>
+                        <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>Send Briefing</div>
                         <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>I'm done here</div>
                     </div>
                 </div>
