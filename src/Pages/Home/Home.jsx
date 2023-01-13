@@ -60,14 +60,17 @@ const Home = () => {
                             <div className={`${!showSearch && 'hidden'} absolute left-0 bg-white w-full border rounded-md p-3 shadow-md`}>
                                 <h3 className='font-medium border-b pb-2 mb-3'>Advance Search</h3>
                                 {/* dropdown */}
-                                <label for="demo-type" class="block mb-2 text-sm font-medium text">Category</label>
-                                <select onChange={(e) => setdemoType(e.target.value)} id="demo-type" class="outline-0 bg-gray-50 border border-gray-300  text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500">
+                                <label for="demo-type" class="block mb-2 text-sm font-medium text">Type</label>
+                                <select onChange={(e) => {setdemoType(e.target.value)}} id="demo-type" class="outline-0 bg-gray-50 border border-gray-300  text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500">
                                     <option value="" selected>All</option>
                                     <option value="Video">Video</option>
                                     <option value="Image">Image</option>
+                                    <option value="Instagram Link">Instagram</option>
+                                    <option value="Youtube Link">YouTube</option>
+                                    <option value="Soundcloud Link">SoundCloud</option>
                                 </select>
-                                {/* search with skills */}
 
+                                {/* filter with skills */}
                                 <label for="demo-type" class="block mb-2 text-sm font-medium text mt-5">Filter with skills</label>
                                 <ul onChange={handleSkillsCheckbox} className='flex flex-wrap gap-x-1 gap-y-2 text-sm'>
                                     {
