@@ -23,7 +23,7 @@ const ViewArtistModal = ({ modal, setModal, viewArtist, setviewArtist }) => {
                 </div>
                 <div className='relative'>
                     <img className='w-full h-[200px] rounded-lg' src="https://deepcreekcenter.com/wp-content/uploads/2017/08/btx-placeholder-04-6.jpg" alt="" />
-                    <img className='w-36 h-36 object-cover absolute top-1/2 left-5 rounded-lg' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQopuHQRxABuBbEX_KBYl9W05K1S7KlYQ4OnU2SI-LYfMCYmL2ytnZ1qXfq03lcWmtbpig&usqp=CAU" alt="" />
+                    <img className='w-36 h-36 object-cover absolute top-1/2 left-5 rounded-lg bg-white' src={profile_pic} alt="" />
                     <div className='flex gap-1 text-gray-500 absolute -bottom-10 right-0'>
                         {social?.instagram && <a target="_blank" href={social.instagram}><AiOutlineInstagram className='w-8 h-8' /></a>}
                         {social?.facebook && <a target="_blank" href={social.facebook}><AiFillLinkedin className='w-8 h-8' /></a>}
