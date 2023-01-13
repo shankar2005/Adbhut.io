@@ -3,19 +3,21 @@ import avatar from '../../assets/placeholders/avatar.png';
 import useYoutubeEmbaded from '../../hooks/useYoutubeEmbaded';
 import ViewArtistModal from '../Artist/ViewArtistModal';
 
-const Feed = ({ searchText, demoType }) => {
+const Feed = ({ searchText, demoType, checkedSkills }) => {
     const [artistModal, setArtistModal] = useState();
     const [viewArtist, setviewArtist] = useState();
 
+    const skillQuery = checkedSkills?.map(skill => `&skill=${skill}`).join('');
+
     const [artists, setArtists] = useState([]);
     useEffect(() => {
-        fetch(`https://dev.nsnco.in/api/v1/get_feed/?search=${searchText}&demo_type=${demoType}`)
+        fetch(`https://dev.nsnco.in/api/v1/get_feed/?search=${searchText}&demo_type=${demoType}${skillQuery}`)
             .then(res => res.json())
             .then(data => {
                 setArtists(data);
             })
             .catch(err => console.log(err));
-    }, [searchText, demoType]);
+    }, [searchText, demoType, checkedSkills]);
 
     const handlesetViewArtist = id => {
         setArtistModal(true);

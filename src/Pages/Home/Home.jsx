@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AiFillHome, AiOutlineSearch } from 'react-icons/ai';
 import { MdCelebration } from 'react-icons/md';
 import { FiLogOut } from 'react-icons/fi';
@@ -12,6 +12,7 @@ import RightAside from './RightAside';
 const Home = () => {
     const [showSearch, setShowSearch] = useState(false);
     const { setIsAuthenticated } = useContext(AuthContext);
+
     const handleLogout = () => {
         const cookies = new Cookies();
         cookies.remove("auth_token");
@@ -28,6 +29,23 @@ const Home = () => {
         e.target.reset();
     }
 
+    // handle skills
+    const [skills, setSkills] = useState([]);
+    const [checkedSkills, setcheckedSkills] = useState([]);
+    useEffect(() => {
+        fetch(`https://dev.nsnco.in/api/v1/get_skill/`)
+            .then(res => res.json())
+            .then(data => {
+                setSkills(data);
+            })
+            .catch(err => console.log(err));
+    }, [])
+    const handleSkillsCheckbox = (e) => {
+        e.target.checked && setcheckedSkills(current => [...current, e.target.value]);
+        e.target.checked || setcheckedSkills(current => [...current.filter(skill => skill !== e.target.value)]);
+    }
+    console.log(checkedSkills);
+
     return (
         <div className='bg-gray-100'>
             <nav className='bg-white shadow-md sticky top-0 z-50'>
@@ -42,12 +60,29 @@ const Home = () => {
                             <div className={`${!showSearch && 'hidden'} absolute left-0 bg-white w-full border rounded-md p-3 shadow-md`}>
                                 <h3 className='font-medium border-b pb-2 mb-3'>Advance Search</h3>
                                 {/* dropdown */}
-                                <label for="demo-type" class="block mb-2 text-sm font-medium text">Demo Type</label>
+                                <label for="demo-type" class="block mb-2 text-sm font-medium text">Category</label>
                                 <select onChange={(e) => setdemoType(e.target.value)} id="demo-type" class="outline-0 bg-gray-50 border border-gray-300  text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500">
                                     <option value="" selected>All</option>
                                     <option value="Video">Video</option>
                                     <option value="Image">Image</option>
                                 </select>
+                                {/* search with skills */}
+
+                                <label for="demo-type" class="block mb-2 text-sm font-medium text mt-5">Filter with skills</label>
+                                <ul onChange={handleSkillsCheckbox} className='flex flex-wrap gap-x-1 gap-y-2 text-sm'>
+                                    {
+                                        skills?.map(skill => (
+                                            <li key={skill.pk}>
+                                                <input type="checkbox" id={'#' + skill.name} value={skill.pk} class="hidden peer" required="" />
+                                                <label for={'#' + skill.name} class="inline-flex  text-gray-500 bg-white border-2 border-gray-200 rounded-full px-2 py-1 cursor-pointer peer-checked:bg-blue-500 peer-checked:border-blue-500 hover:text-gray-600 peer-checked:text-white">
+                                                    <p>{skill.name}</p>
+                                                </label>
+                                            </li>)
+                                        )
+                                    }
+
+                                </ul>
+
                             </div>
                         </div>
                     </div>
@@ -73,6 +108,7 @@ const Home = () => {
                     <Feed
                         searchText={searchText}
                         demoType={demoType}
+                        checkedSkills={checkedSkills}
                     />
                 </main>
 
