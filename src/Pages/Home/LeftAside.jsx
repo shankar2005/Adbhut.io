@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import avatar from '../../assets/placeholders/avatar.png';
 import { AiOutlineGif } from 'react-icons/ai';
 import { BsImageFill, BsThreeDots } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
 
-const LeftAside = () => {
+const LeftAside = ({ shortlistedArtist }) => {
     const chatboxRef = useRef();
     useEffect(() => {
         const chatboxElement = chatboxRef.current;
@@ -24,76 +24,33 @@ const LeftAside = () => {
                     <div className='flex flex-col'>
                         <div className='text-sm flex gap-2 mb-5'>
                             <img className='w-10 h-10' src="https://media.licdn.com/dms/image/D4D0BAQErxzI3ZO8CEA/company-logo_200_200/0/1665423690851?e=2147483647&v=beta&t=lNNe6O9RDmoigkZam6o8yn-abUNDT-L_F2MCusFSQ3E" alt="" />
-                            <div>
+                            <div className='mr-12'>
                                 <h4 className='font-medium'>NsN Co Servicing</h4>
-                                <p className='bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg'>
-                                    How am I help you?
+                                <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
+                                    Please shortlist an artist, skill or content product or send your inputs here
                                 </p>
+                                {
+                                    shortlistedArtist &&
+                                    shortlistedArtist.map(artist => <p className='w-fit bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
+                                        You've shortlisted {artist.name}
+                                    </p>)
+                                }
                             </div>
                         </div>
-                        <div className='text-sm flex gap-2 mb-5 ml-auto'>
+                        {/* <div className='text-sm flex gap-2 mb-5 ml-auto'>
                             <div>
-                                <h4 className='font-medium'>NsN Co Servicing</h4>
-                                <p className='bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg'>
-                                    How am I help you?
-                                </p>
-                            </div>
-                            <img className='w-10 h-10' src={avatar} alt="" />
-                        </div>
-                        <div className='text-sm flex gap-2 mb-5'>
-                            <img className='w-10 h-10' src="https://media.licdn.com/dms/image/D4D0BAQErxzI3ZO8CEA/company-logo_200_200/0/1665423690851?e=2147483647&v=beta&t=lNNe6O9RDmoigkZam6o8yn-abUNDT-L_F2MCusFSQ3E" alt="" />
-                            <div>
-                                <h4 className='font-medium'>NsN Co Servicing</h4>
-                                <p className='bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg'>
-                                    How am I help you?
-                                </p>
-                            </div>
-                        </div>
-                        <div className='text-sm flex gap-2 mb-5 ml-auto'>
-                            <div>
-                                <h4 className='font-medium'>NsN Co Servicing</h4>
-                                <p className='bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg'>
+                                <h4 className='font-medium'>Md Maruf Hossain</h4>
+                                <p className='w-fit bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg mb-1'>
                                     How am I help you?
                                 </p>
                             </div>
                             <img className='w-10 h-10' src={avatar} alt="" />
-                        </div>
-                        <div className='text-sm flex gap-2 mb-5'>
-                            <img className='w-10 h-10' src="https://media.licdn.com/dms/image/D4D0BAQErxzI3ZO8CEA/company-logo_200_200/0/1665423690851?e=2147483647&v=beta&t=lNNe6O9RDmoigkZam6o8yn-abUNDT-L_F2MCusFSQ3E" alt="" />
-                            <div>
-                                <h4 className='font-medium'>NsN Co Servicing</h4>
-                                <p className='bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg'>
-                                    How am I help you?
-                                </p>
-                            </div>
-                        </div>
-                        <div className='text-sm flex gap-2 mb-5 ml-auto'>
-                            <div>
-                                <h4 className='font-medium'>NsN Co Servicing</h4>
-                                <p className='bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg'>
-                                    How am I help you?
-                                </p>
-                            </div>
-                            <img className='w-10 h-10' src={avatar} alt="" />
-                        </div>
-                        <div className='text-sm flex gap-2 mb-5'>
-                            <img className='w-10 h-10' src="https://media.licdn.com/dms/image/D4D0BAQErxzI3ZO8CEA/company-logo_200_200/0/1665423690851?e=2147483647&v=beta&t=lNNe6O9RDmoigkZam6o8yn-abUNDT-L_F2MCusFSQ3E" alt="" />
-                            <div>
-                                <h4 className='font-medium'>NsN Co Servicing</h4>
-                                <p className='bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg'>
-                                    How am I help you?
-                                </p>
-                            </div>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className='flex flex-wrap gap-2 text-sm font-medium mt-8'>
                         <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>Please shortlist an artist</div>
-                        <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>Add to Dream Project</div>
-                        <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>Send Briefing</div>
                         <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>Please shortlist an artist</div>
-                        <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>Add to Dream Project</div>
-                        <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>Send Briefing</div>
                         <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>I'm done here</div>
                     </div>
                 </div>

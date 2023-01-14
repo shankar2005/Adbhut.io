@@ -52,7 +52,9 @@ const Home = () => {
         e.target.checked && setcheckedSkills(current => [...current, e.target.value]);
         e.target.checked || setcheckedSkills(current => [...current.filter(skill => skill !== e.target.value)]);
     }
-    console.log(checkedSkills);
+
+    // artist shortlisting
+    const [shortlistedArtist, setshortlistedArtist] = useState([]);
 
     return (
         <div className='bg-gray-100'>
@@ -167,7 +169,9 @@ const Home = () => {
                 {/* bg unfocused layer */}
 
                 <aside className='col-span-4 sticky top-20'>
-                    <LeftAside />
+                    <LeftAside
+                        shortlistedArtist={shortlistedArtist}
+                    />
                 </aside>
 
                 <main className='col-span-5'>
@@ -175,6 +179,9 @@ const Home = () => {
                         searchText={searchText}
                         demoType={demoType}
                         checkedSkills={checkedSkills}
+                        // shortlist artist
+                        setshortlistedArtist={setshortlistedArtist}
+                        shortlistedArtist={shortlistedArtist}
                     />
                 </main>
 

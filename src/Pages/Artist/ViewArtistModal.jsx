@@ -2,13 +2,22 @@ import React from 'react';
 import { AiFillLinkedin, AiOutlineInstagram } from 'react-icons/ai';
 import { FiArrowLeft } from 'react-icons/fi';
 
-const ViewArtistModal = ({ modal, setModal, viewArtist, setviewArtist }) => {
-    const { name, email, profile_pic, phone, skills, social } = viewArtist;
+const ViewArtistModal = ({ modal, setModal, viewArtist, setviewArtist, setshortlistedArtist, shortlistedArtist }) => {
+    const { artistID, name, email, profile_pic, phone, skills, social } = viewArtist;
 
     const handleCloseModal = () => {
         setviewArtist(null);
-        setModal(false)
+        setModal(false);
     }
+
+    const handleShortlist = () => {
+        const artistIsExist = shortlistedArtist.find(artist => artist.artistID === artistID);
+        if (!artistIsExist) {
+            setshortlistedArtist(current => [...current, { name, artistID }]);
+        }
+        handleCloseModal();
+    }
+
 
     return (
         <div className={`${modal ? 'fixed' : 'hidden'} z-50 top-0 left-0 bg-black bg-opacity-70 w-full h-screen flex items-center justify-center`}>
@@ -19,7 +28,7 @@ const ViewArtistModal = ({ modal, setModal, viewArtist, setviewArtist }) => {
                         <h1 className='text-2xl font-medium'>Profile for {name}</h1>
                         <p>This is a profile page. Easy to shortlist</p>
                     </div>
-                    <button className='ml-auto text-blue-500 border-2 border-blue-500 hover:bg-sky-100 hover:border-sky-100 py-3 px-4 rounded-lg font-medium'>Shortlist</button>
+                    <button onClick={handleShortlist} className='ml-auto text-blue-500 border-2 border-blue-500 hover:bg-sky-100 hover:border-sky-100 py-3 px-4 rounded-lg font-medium'>Shortlist</button>
                 </div>
                 <div className='relative'>
                     <img className='w-full h-[200px] rounded-lg' src="https://deepcreekcenter.com/wp-content/uploads/2017/08/btx-placeholder-04-6.jpg" alt="" />

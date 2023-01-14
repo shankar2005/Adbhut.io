@@ -3,7 +3,7 @@ import avatar from '../../assets/placeholders/avatar.png';
 import useYoutubeEmbaded from '../../hooks/useYoutubeEmbaded';
 import ViewArtistModal from '../Artist/ViewArtistModal';
 
-const Feed = ({ searchText, demoType, checkedSkills }) => {
+const Feed = ({ searchText, demoType, checkedSkills, setshortlistedArtist, shortlistedArtist}) => {
     const [artistModal, setArtistModal] = useState();
     const [viewArtist, setviewArtist] = useState();
 
@@ -95,6 +95,9 @@ const Feed = ({ searchText, demoType, checkedSkills }) => {
                     setModal={setArtistModal}
                     viewArtist={viewArtist}
                     setviewArtist={setviewArtist}
+                    // shortlist artist
+                    setshortlistedArtist={setshortlistedArtist}
+                    shortlistedArtist={shortlistedArtist}
                 />
             }
 
