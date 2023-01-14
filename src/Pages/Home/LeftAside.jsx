@@ -5,7 +5,7 @@ import { BsImageFill, BsThreeDots } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
 
-const LeftAside = ({ shortlistedArtist, selectedContentProducts }) => {
+const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog }) => {
     const chatboxRef = useRef();
     useEffect(() => {
         const chatboxElement = chatboxRef.current;
@@ -14,6 +14,7 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts }) => {
 
     const artistIDs = shortlistedArtist?.map(artist => artist.artistID).join(",");
 
+    // for showing chat suggestions (artists skills) when shortlisted an artist
     const [skills, setSkills] = useState([]);
     useEffect(() => {
         fetch('https://dev.nsnco.in/api/v1/chatflow_skills/', {
@@ -21,13 +22,16 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts }) => {
             headers: {
                 "content-type": "application/json"
             },
-            body: JSON.stringify({ artists: artistIDs })
+            body: JSON.stringify({
+                artists: artistIDs,
+                product: selectedContentProducts || 0
+            })
         })
             .then(res => res.json())
             .then(data => {
                 setSkills(data.skills);
             });
-    }, [shortlistedArtist]);
+    }, [shortlistedArtist, selectedContentProducts]);
 
     return (
         <>
@@ -47,15 +51,9 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts }) => {
                                     Please shortlist an artist, skill or content product or send your inputs here
                                 </p>
                                 {
-                                    shortlistedArtist &&
-                                    shortlistedArtist.map(artist => <p className='w-fit bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
-                                        You've shortlisted {artist.name}
-                                    </p>)
-                                }
-                                {
-                                    selectedContentProducts &&
-                                    selectedContentProducts.map(product => <p className='w-fit bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
-                                        You've seleced {product.name}
+                                    chatLog &&
+                                    chatLog.map(chat => <p className='w-fit bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
+                                        {chat.bot}
                                     </p>)
                                 }
                             </div>

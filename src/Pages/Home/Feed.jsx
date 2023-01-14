@@ -3,7 +3,7 @@ import avatar from '../../assets/placeholders/avatar.png';
 import useYoutubeEmbaded from '../../hooks/useYoutubeEmbaded';
 import ViewArtistModal from '../Artist/ViewArtistModal';
 
-const Feed = ({ searchText, demoType, checkedSkills, setshortlistedArtist, shortlistedArtist}) => {
+const Feed = ({ searchText, demoType, checkedSkills, setshortlistedArtist, shortlistedArtist, setchatLog }) => {
     const [artistModal, setArtistModal] = useState();
     const [viewArtist, setviewArtist] = useState();
 
@@ -39,6 +39,7 @@ const Feed = ({ searchText, demoType, checkedSkills, setshortlistedArtist, short
                             <div className='text-sm'>
                                 <p className='font-medium'>{artist.owner_name}</p>
                                 <p>{artist.skills.join(", ")}</p>
+                                <p>{console.log(artist.skills)}</p>
                             </div>
                             <button onClick={() => handlesetViewArtist(artist.owner_id)} className='ml-auto text-blue-500 text-sm font-medium'>View Profile</button>
                         </div>
@@ -98,6 +99,8 @@ const Feed = ({ searchText, demoType, checkedSkills, setshortlistedArtist, short
                     // shortlist artist
                     setshortlistedArtist={setshortlistedArtist}
                     shortlistedArtist={shortlistedArtist}
+                    // chatlog
+                    setchatLog={setchatLog}
                 />
             }
 

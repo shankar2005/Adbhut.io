@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import { AiFillLinkedin, AiOutlineInstagram } from 'react-icons/ai';
 import { FiArrowLeft } from 'react-icons/fi';
 
-const ViewArtistModal = ({ modal, setModal, viewArtist, setviewArtist, setshortlistedArtist, shortlistedArtist }) => {
+const ViewArtistModal = ({ modal, setModal, viewArtist, setviewArtist, setshortlistedArtist, shortlistedArtist, setchatLog }) => {
     const { artistID, name, email, profile_pic, phone, skills, social } = viewArtist;
 
     const handleCloseModal = () => {
@@ -15,12 +15,13 @@ const ViewArtistModal = ({ modal, setModal, viewArtist, setviewArtist, setshortl
         const artistIsExist = shortlistedArtist.find(artist => artist.artistID === artistID);
         if (!artistIsExist) {
             setshortlistedArtist(current => [...current, { name, artistID }]);
+            // chatlog
+            setchatLog(current => [...current, { bot: `You've shortlisted ${name}` }]);
         } else {
             toast('Already added');
         }
         handleCloseModal();
     }
-
 
     return (
         <div className={`${modal ? 'fixed' : 'hidden'} z-50 top-0 left-0 bg-black bg-opacity-70 w-full h-screen flex items-center justify-center`}>

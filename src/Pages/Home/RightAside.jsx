@@ -25,29 +25,31 @@ const category = [
         image: "https://img.icons8.com/color-glass/48/null/documentary.png"
     },
     {
-        pk: 4,
+        pk: 1,
         name: "Fiction & Reality",
         image: "https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-fiction-literature-flaticons-lineal-color-flat-icons.png"
     },
     {
-        pk: 5,
+        pk: 2,
         name: "Musical",
         image: "https://img.icons8.com/cute-clipart/64/null/musical.png"
     },
     {
-        pk: 6,
+        pk: 3,
         name: "Web 3.0 Solutions",
         image: "https://img.icons8.com/color/48/null/bitcoin--v1.png"
     },
 ]
 
-const RightAside = ({ selectedContentProducts, setselectedContentProducts }) => {
+const RightAside = ({ selectedContentProducts, setselectedContentProducts, setchatLog }) => {
     const { isAuthenticated } = useContext(AuthContext);
 
     const handleSelectContentProducts = (product) => {
-        const artistIsExist = selectedContentProducts.find(item => item.pk === product.pk);
+        const artistIsExist = selectedContentProducts === product.pk;
         if (!artistIsExist) {
-            setselectedContentProducts(current => [...current, { pk: product.pk, name: product.name }]);
+            setselectedContentProducts(product.pk);
+            // chatlog
+            setchatLog(current => [...current, { bot: `You've selected ${product.name}` }]);
         } else {
             toast('Already added');
         }
@@ -59,8 +61,8 @@ const RightAside = ({ selectedContentProducts, setselectedContentProducts }) => 
                 <h3 className='font-medium mb-3 text-gray-600'>Content Products</h3>
                 <div className='grid grid-cols-3 gap-x-2 gap-y-4 text-center'>
                     {
-                        category?.map(item => (
-                            <div onClick={() => handleSelectContentProducts(item)} key={item.pk} className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
+                        category?.map((item, idx) => (
+                            <div onClick={() => handleSelectContentProducts(item)} key={idx} className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
                                 <div className='w-12 h-12 p-2 border rounded-md '>
                                     <img className='group-hover:scale-110 duration-150 overflow-hidden' src={item.image} />
                                 </div>
@@ -68,7 +70,6 @@ const RightAside = ({ selectedContentProducts, setselectedContentProducts }) => 
                             </div>)
                         )
                     }
-
                 </div>
             </section>
             <section className='bg-white rounded-lg p-4 shadow-md mb-5'>

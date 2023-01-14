@@ -55,8 +55,11 @@ const Home = () => {
 
     // artist shortlisting
     const [shortlistedArtist, setshortlistedArtist] = useState([]);
-    // 
+    // clicking content products
     const [selectedContentProducts, setselectedContentProducts] = useState([]);
+
+    // chatlog
+    const [chatLog, setchatLog] = useState([]);
 
     return (
         <div className='bg-gray-100'>
@@ -152,8 +155,6 @@ const Home = () => {
                                     }
                                 </ul>
                             </div>
-
-
                         </div>
                     </div>
                     <ul onClick={() => setShowSearch(false)} className='flex gap-4 text-gray-500 flex-1 py-3'>
@@ -173,6 +174,9 @@ const Home = () => {
                 <aside className='col-span-4 sticky top-20'>
                     <LeftAside
                         shortlistedArtist={shortlistedArtist}
+                        // chatlog
+                        chatLog={chatLog}
+                        // 
                         selectedContentProducts={selectedContentProducts}
                     />
                 </aside>
@@ -185,6 +189,8 @@ const Home = () => {
                         // shortlist artist
                         setshortlistedArtist={setshortlistedArtist}
                         shortlistedArtist={shortlistedArtist}
+                        // chatlog
+                        setchatLog={setchatLog}
                     />
                 </main>
 
@@ -192,6 +198,8 @@ const Home = () => {
                     <RightAside
                         selectedContentProducts={selectedContentProducts}
                         setselectedContentProducts={setselectedContentProducts}
+                        // chatlog
+                        setchatLog={setchatLog}
                     />
                 </aside>
 
