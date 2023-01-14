@@ -12,6 +12,23 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts }) => {
         chatboxElement.scrollTo(0, chatboxElement.scrollHeight);
     }, [])
 
+    const artistIDs = shortlistedArtist?.map(artist => artist.artistID).join(",");
+
+    const [skills, setSkills] = useState([]);
+    useEffect(() => {
+        fetch('https://dev.nsnco.in/api/v1/chatflow_skills/', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({ artists: artistIDs })
+        })
+            .then(res => res.json())
+            .then(data => {
+                setSkills(data.skills);
+            });
+    }, [shortlistedArtist]);
+
     return (
         <>
             <section className='bg-white shadow-md rounded-lg'>
@@ -55,9 +72,10 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts }) => {
                     </div>
 
                     <div className='flex flex-wrap gap-2 text-sm font-medium mt-8'>
-                        <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>Please shortlist an artist</div>
-                        <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>Please shortlist an artist</div>
-                        <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>I'm done here</div>
+                        {
+                            skills &&
+                            skills.map(skill => <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>{skill[0]}</div>)
+                        }
                     </div>
                 </div>
 
@@ -77,38 +95,6 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts }) => {
                     </div>
                 </div>
             </section>
-
-            {/* messaging */}
-            {/* <div className='bg-white shadow-md rounded-lg p-3'>
-                        <h3 className='font-medium mb-3 text-gray-600'>Message</h3>
-                        <div className='flex items-center gap-2 mb-3 border-b pb-3 hover:bg-gray-200'>
-                            <img className='w-12 h-12' src={avatar} alt="" />
-                            <div className='text-sm'>
-                                <p className='font-medium'>Märuf</p>
-                                <p className='text-xs'>
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                            </div>
-                        </div>
-                        <div className='flex items-center gap-2 mb-3 border-b pb-3 hover:bg-gray-200'>
-                            <img className='w-12 h-12' src={avatar} alt="" />
-                            <div className='text-sm'>
-                                <p className='font-medium'>Märuf</p>
-                                <p className='text-xs'>
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                            </div>
-                        </div>
-                        <div className='flex items-center gap-2 mb-3 border-b pb-3 hover:bg-gray-200'>
-                            <img className='w-12 h-12' src={avatar} alt="" />
-                            <div className='text-sm'>
-                                <p className='font-medium'>Märuf</p>
-                                <p className='text-xs'>
-                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                                </p>
-                            </div>
-                        </div>
-                    </div> */}
         </>
     );
 };
