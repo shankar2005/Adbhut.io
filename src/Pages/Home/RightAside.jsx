@@ -13,7 +13,7 @@ const RightAside = () => {
     return (
         <>
             <section className='mb-5 bg-white shadow-md rounded-lg p-3'>
-                <h3 className='font-medium mb-3 text-gray-600'>Category</h3>
+                <h3 className='font-medium mb-3 text-gray-600'>Content Products</h3>
                 <div className='grid grid-cols-3 gap-x-2 gap-y-4 text-center'>
                     <div className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
                         <div className='w-12 h-12 p-2 border rounded-md '>

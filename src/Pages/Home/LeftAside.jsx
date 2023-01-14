@@ -107,8 +107,9 @@ const LeftAside = () => {
                             <BsImageFill />
                             <AiOutlineGif />
                         </div>
-                        <div>
-                            <button className='bg-gray-400 py-[3px] px-3 rounded-full text-sm'>Send</button>
+                        <div className='space-x-1'>
+                            <button className='bg-gray-400 py-[3px] px-3 rounded-full text-sm'>Add to Dream Project</button>
+                            <button className='bg-gray-400 py-[3px] px-3 rounded-full text-sm'>Send Brief</button>
                         </div>
                     </div>
                 </div>

@@ -38,7 +38,7 @@ const Feed = ({ searchText, demoType, checkedSkills }) => {
                             <img className='w-12 h-12' src={avatar} alt="" />
                             <div className='text-sm'>
                                 <p className='font-medium'>{artist.owner_name}</p>
-                                <p>2022-11-05</p>
+                                <p>{artist.skills.join(", ")}</p>
                             </div>
                             <button onClick={() => handlesetViewArtist(artist.owner_id)} className='ml-auto text-blue-500 text-sm font-medium'>View Profile</button>
                         </div>
