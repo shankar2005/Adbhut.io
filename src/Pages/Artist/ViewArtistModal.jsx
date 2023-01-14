@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-hot-toast';
 import { AiFillLinkedin, AiOutlineInstagram } from 'react-icons/ai';
 import { FiArrowLeft } from 'react-icons/fi';
 
@@ -14,6 +15,8 @@ const ViewArtistModal = ({ modal, setModal, viewArtist, setviewArtist, setshortl
         const artistIsExist = shortlistedArtist.find(artist => artist.artistID === artistID);
         if (!artistIsExist) {
             setshortlistedArtist(current => [...current, { name, artistID }]);
+        } else {
+            toast('Already added');
         }
         handleCloseModal();
     }

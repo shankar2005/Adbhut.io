@@ -5,7 +5,7 @@ import { BsImageFill, BsThreeDots } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
 
-const LeftAside = ({ shortlistedArtist }) => {
+const LeftAside = ({ shortlistedArtist, selectedContentProducts }) => {
     const chatboxRef = useRef();
     useEffect(() => {
         const chatboxElement = chatboxRef.current;
@@ -33,6 +33,12 @@ const LeftAside = ({ shortlistedArtist }) => {
                                     shortlistedArtist &&
                                     shortlistedArtist.map(artist => <p className='w-fit bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
                                         You've shortlisted {artist.name}
+                                    </p>)
+                                }
+                                {
+                                    selectedContentProducts &&
+                                    selectedContentProducts.map(product => <p className='w-fit bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
+                                        You've seleced {product.name}
                                     </p>)
                                 }
                             </div>

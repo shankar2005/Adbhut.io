@@ -55,6 +55,8 @@ const Home = () => {
 
     // artist shortlisting
     const [shortlistedArtist, setshortlistedArtist] = useState([]);
+    // 
+    const [selectedContentProducts, setselectedContentProducts] = useState([]);
 
     return (
         <div className='bg-gray-100'>
@@ -171,6 +173,7 @@ const Home = () => {
                 <aside className='col-span-4 sticky top-20'>
                     <LeftAside
                         shortlistedArtist={shortlistedArtist}
+                        selectedContentProducts={selectedContentProducts}
                     />
                 </aside>
 
@@ -186,7 +189,10 @@ const Home = () => {
                 </main>
 
                 <aside className='col-span-3'>
-                    <RightAside />
+                    <RightAside
+                        selectedContentProducts={selectedContentProducts}
+                        setselectedContentProducts={setselectedContentProducts}
+                    />
                 </aside>
 
             </div>

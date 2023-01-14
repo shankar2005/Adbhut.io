@@ -6,51 +6,69 @@ import AuthSection from '../Auth/AuthSection';
 import { ImOffice } from 'react-icons/im';
 import { TfiWorld } from 'react-icons/tfi';
 import { AuthContext } from '../../contexts/AuthProvider';
+import { toast } from 'react-hot-toast';
 
-const RightAside = () => {
+const category = [
+    {
+        pk: 1,
+        name: "Artwork",
+        image: "https://img.icons8.com/external-ddara-flat-ddara/64/null/external-artwork-digital-marketing-ddara-flat-ddara.png"
+    },
+    {
+        pk: 2,
+        name: "Chat Show",
+        image: "https://img.icons8.com/color/48/null/filled-chat.png"
+    },
+    {
+        pk: 3,
+        name: "Documentary",
+        image: "https://img.icons8.com/color-glass/48/null/documentary.png"
+    },
+    {
+        pk: 4,
+        name: "Fiction & Reality",
+        image: "https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-fiction-literature-flaticons-lineal-color-flat-icons.png"
+    },
+    {
+        pk: 5,
+        name: "Musical",
+        image: "https://img.icons8.com/cute-clipart/64/null/musical.png"
+    },
+    {
+        pk: 6,
+        name: "Web 3.0 Solutions",
+        image: "https://img.icons8.com/color/48/null/bitcoin--v1.png"
+    },
+]
+
+const RightAside = ({ selectedContentProducts, setselectedContentProducts }) => {
     const { isAuthenticated } = useContext(AuthContext);
+
+    const handleSelectContentProducts = (product) => {
+        const artistIsExist = selectedContentProducts.find(item => item.pk === product.pk);
+        if (!artistIsExist) {
+            setselectedContentProducts(current => [...current, { pk: product.pk, name: product.name }]);
+        } else {
+            toast('Already added');
+        }
+    }
 
     return (
         <>
             <section className='mb-5 bg-white shadow-md rounded-lg p-3'>
                 <h3 className='font-medium mb-3 text-gray-600'>Content Products</h3>
                 <div className='grid grid-cols-3 gap-x-2 gap-y-4 text-center'>
-                    <div className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
-                        <div className='w-12 h-12 p-2 border rounded-md '>
-                            <img className='group-hover:scale-110 duration-150 overflow-hidden' src="https://img.icons8.com/external-ddara-flat-ddara/64/null/external-artwork-digital-marketing-ddara-flat-ddara.png" />
-                        </div>
-                        <p className='text-sm'>Artwork</p>
-                    </div>
-                    <div className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
-                        <div className='w-12 h-12 p-2 border rounded-md '>
-                            <img className='group-hover:scale-110 duration-150 overflow-hidden' src="https://img.icons8.com/color/48/null/filled-chat.png" />
-                        </div>
-                        <p className='text-sm'>Chat Show</p>
-                    </div>
-                    <div className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
-                        <div className='w-12 h-12 p-2 border rounded-md '>
-                            <img className='group-hover:scale-110 duration-150 overflow-hidden' src="https://img.icons8.com/color-glass/48/null/documentary.png" />
-                        </div>
-                        <p className='text-sm'>Documentary</p>
-                    </div>
-                    <div className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
-                        <div className='w-12 h-12 p-2 border rounded-md '>
-                            <img className='group-hover:scale-110 duration-150 overflow-hidden' src="https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-fiction-literature-flaticons-lineal-color-flat-icons.png" />
-                        </div>
-                        <p className='text-sm'>Fiction & Reality</p>
-                    </div>
-                    <div className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
-                        <div className='w-12 h-12 p-2 border rounded-md '>
-                            <img className='group-hover:scale-110 duration-150 overflow-hidden' src="https://img.icons8.com/cute-clipart/64/null/musical.png" />
-                        </div>
-                        <p className='text-sm'>Musical</p>
-                    </div>
-                    <div className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
-                        <div className='w-12 h-12 p-2 border rounded-md '>
-                            <img className='group-hover:scale-110 duration-150 overflow-hidden' src="https://img.icons8.com/color/48/null/bitcoin--v1.png" />
-                        </div>
-                        <p className='text-sm'>Web 3.0 Solutions</p>
-                    </div>
+                    {
+                        category?.map(item => (
+                            <div onClick={() => handleSelectContentProducts(item)} key={item.pk} className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
+                                <div className='w-12 h-12 p-2 border rounded-md '>
+                                    <img className='group-hover:scale-110 duration-150 overflow-hidden' src={item.image} />
+                                </div>
+                                <p className='text-sm'>{item.name}</p>
+                            </div>)
+                        )
+                    }
+
                 </div>
             </section>
             <section className='bg-white rounded-lg p-4 shadow-md mb-5'>
