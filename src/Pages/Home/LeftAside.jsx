@@ -12,6 +12,15 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog, setcha
         chatboxElement.scrollTo(0, chatboxElement.scrollHeight);
     }, [])
 
+    useEffect(() => {
+        if (chatboxRef) {
+            chatboxRef.current.addEventListener('DOMNodeInserted', event => {
+                const { currentTarget: target } = event;
+                target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+            });
+        }
+    }, [])
+
     const artistIDs = shortlistedArtist?.map(artist => artist.artistID).join(",");
 
     // for showing chat suggestions (artists skills) when shortlisted an artist
@@ -37,12 +46,12 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog, setcha
     //      handle select skill
     // -------------------------------
     const handleSelectSkill = (skill) => {
-        const isExist = checkedSkills.includes(skill[1]);
-        if (!isExist) {
-            setcheckedSkills(current => [...current, skill[1]]);
-            // chatlog
-            setchatLog(current => [...current, { msgID: current.length + 1, user: skill[0] }]);
-        }
+        // const isExist = checkedSkills.includes(skill[1]);
+        // if (!isExist) {
+        setcheckedSkills(current => [...current, skill[1]]);
+        // chatlog
+        setchatLog(current => [...current, { msgID: current.length + 1, user: skill[0] }]);
+        // }
     }
 
     console.table(chatLog)
@@ -93,7 +102,7 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog, setcha
                         }
                     </div>
 
-                    <div className='flex flex-wrap gap-2 text-sm font-medium mt-8'>
+                    <div className='flex flex-wrap gap-2 text-sm font-medium mt-8 select-none'>
                         {
                             skills &&
                             skills.map(skill => <div
