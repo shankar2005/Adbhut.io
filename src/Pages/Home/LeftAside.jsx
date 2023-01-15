@@ -24,7 +24,7 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog }) => {
             },
             body: JSON.stringify({
                 artists: artistIDs,
-                product: selectedContentProducts || 0
+                product: selectedContentProducts + '' || 0
             })
         })
             .then(res => res.json())

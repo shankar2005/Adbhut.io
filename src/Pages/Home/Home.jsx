@@ -60,8 +60,6 @@ const Home = () => {
 
     // chatlog
     const [chatLog, setchatLog] = useState([]);
-    console.log('chatLog', chatLog);
-    console.log('shortlistedArtist', shortlistedArtist);
 
     return (
         <div className='bg-gray-100'>
