@@ -53,8 +53,6 @@ const Home = () => {
         e.target.checked || setcheckedSkills(current => [...current.filter(skill => skill !== e.target.value)]);
     }
 
-    console.log(checkedSkills);
-
     // artist shortlisting
     const [shortlistedArtist, setshortlistedArtist] = useState([]);
     // clicking content products

@@ -54,8 +54,6 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog, setcha
         // }
     }
 
-    console.table(chatLog)
-
     return (
         <>
             <section className='bg-white shadow-md rounded-lg'>
