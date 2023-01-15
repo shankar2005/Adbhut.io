@@ -45,8 +45,8 @@ const RightAside = ({ selectedContentProducts, setselectedContentProducts, setch
     const { isAuthenticated } = useContext(AuthContext);
 
     const handleSelectContentProducts = (product) => {
-        const artistIsExist = selectedContentProducts === product.pk;
-        if (!artistIsExist) {
+        const isExist = selectedContentProducts === product.pk;
+        if (!isExist) {
             setselectedContentProducts(product.pk);
             // chatlog
             setchatLog(current => [...current, { msgID: current.length + 1, bot: `You've selected ${product.name}` }]);

@@ -53,6 +53,8 @@ const Home = () => {
         e.target.checked || setcheckedSkills(current => [...current.filter(skill => skill !== e.target.value)]);
     }
 
+    console.log(checkedSkills);
+
     // artist shortlisting
     const [shortlistedArtist, setshortlistedArtist] = useState([]);
     // clicking content products
@@ -176,8 +178,12 @@ const Home = () => {
                         shortlistedArtist={shortlistedArtist}
                         // chatlog
                         chatLog={chatLog}
+                        setchatLog={setchatLog}
                         // 
                         selectedContentProducts={selectedContentProducts}
+                        // skills
+                        checkedSkills={checkedSkills}
+                        setcheckedSkills={setcheckedSkills}
                     />
                 </aside>
 

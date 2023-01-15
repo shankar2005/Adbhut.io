@@ -19,8 +19,8 @@ const ViewArtistModal = ({ modal, setModal, viewArtist, setviewArtist, setshortl
     }
 
     const handleShortlist = () => {
-        const artistIsExist = shortlistedArtist.find(artist => artist.artistID === artistID);
-        if (!artistIsExist) {
+        const isExist = shortlistedArtist.find(artist => artist.artistID === artistID);
+        if (!isExist) {
             setshortlistedArtist(current => [...current, { name, artistID }]);
             // chatlog
             setchatLog(current => [...current, { msgID: current.length + 1, bot: <>You've shortlisted <img className='w-8 h-8 inline bg-white object-cover' src={profile_pic} alt="" /> {name} <FiDelete onClick={() => handleRemoveShortlistedArtist(current.length + 1)} className='inline w-5 h-5' /></> }]);

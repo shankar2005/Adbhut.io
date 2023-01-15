@@ -5,7 +5,7 @@ import { BsImageFill, BsThreeDots } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
 
-const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog }) => {
+const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog, setchatLog, checkedSkills, setcheckedSkills }) => {
     const chatboxRef = useRef();
     useEffect(() => {
         const chatboxElement = chatboxRef.current;
@@ -33,6 +33,20 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog }) => {
             });
     }, [shortlistedArtist, selectedContentProducts]);
 
+    // ------------------------------
+    //      handle select skill
+    // -------------------------------
+    const handleSelectSkill = (skill) => {
+        const isExist = checkedSkills.includes(skill[1]);
+        if (!isExist) {
+            setcheckedSkills(current => [...current, skill[1]]);
+            // chatlog
+            setchatLog(current => [...current, { msgID: current.length + 1, user: skill[0] }]);
+        }
+    }
+
+    console.table(chatLog)
+
     return (
         <>
             <section className='bg-white shadow-md rounded-lg'>
@@ -50,29 +64,44 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog }) => {
                                 <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
                                     Please shortlist an artist, skill or content product or send your inputs here
                                 </p>
-                                {
-                                    chatLog &&
-                                    chatLog.map(chat => <p key={`msg${chat.msgID}`} className='w-fit bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
-                                        {chat.bot}
-                                    </p>)
-                                }
                             </div>
                         </div>
-                        {/* <div className='text-sm flex gap-2 mb-5 ml-auto'>
-                            <div>
-                                <h4 className='font-medium'>Md Maruf Hossain</h4>
-                                <p className='w-fit bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg mb-1'>
-                                    How am I help you?
-                                </p>
-                            </div>
-                            <img className='w-10 h-10' src={avatar} alt="" />
-                        </div> */}
+                        {
+                            chatLog &&
+                            chatLog.map(chat => (
+                                chat.bot ?
+                                    <div className='text-sm flex gap-2 mb-5'>
+                                        <img className='w-10 h-10' src="https://media.licdn.com/dms/image/D4D0BAQErxzI3ZO8CEA/company-logo_200_200/0/1665423690851?e=2147483647&v=beta&t=lNNe6O9RDmoigkZam6o8yn-abUNDT-L_F2MCusFSQ3E" alt="" />
+                                        <div className='mr-12'>
+                                            <h4 className='font-medium'>NsN Co Servicing</h4>
+                                            <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
+                                                {chat.bot}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    :
+                                    <div className='text-sm flex gap-2 mb-5 ml-auto'>
+                                        <div>
+                                            <h4 className='font-medium'>Md Maruf Hossain</h4>
+                                            <p className='w-fit ml-auto bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg mb-1'>
+                                                {chat.user}
+                                            </p>
+                                        </div>
+                                        <img className='w-10 h-10' src={avatar} alt="" />
+                                    </div>
+                            ))
+                        }
                     </div>
 
                     <div className='flex flex-wrap gap-2 text-sm font-medium mt-8'>
                         {
                             skills &&
-                            skills.map(skill => <div className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>{skill[0]}</div>)
+                            skills.map(skill => <div
+                                onClick={() => handleSelectSkill(skill)}
+                                key={`suggested-skill${skill[1]}`}
+                                className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>
+                                {skill[0]}
+                            </div>)
                         }
                     </div>
                 </div>
