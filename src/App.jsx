@@ -15,7 +15,7 @@ function App() {
             color: 'white',
             borderRadius: '50px',
           },
-          duration: 500,
+          duration: 1000,
         }}
       />
     </>

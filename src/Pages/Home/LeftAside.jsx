@@ -52,7 +52,7 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog }) => {
                                 </p>
                                 {
                                     chatLog &&
-                                    chatLog.map(chat => <p className='w-fit bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
+                                    chatLog.map(chat => <p key={`msg${chat.msgID}`} className='w-fit bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
                                         {chat.bot}
                                     </p>)
                                 }

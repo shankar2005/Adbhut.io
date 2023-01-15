@@ -21,7 +21,7 @@ const Watch = () => {
                     {
                         showPlaylist?.map(item => (
                             <div className="w-full h-64 sm:h-[350px]">
-                                <iframe className='w-full h-full rounded-lg' src={`https://www.youtube.com/embed/${item.contentDetails.videoId}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                <iframe className='w-full h-full rounded-lg' src={`https://www.youtube.com/embed/${item.contentDetails.videoId}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                             </div>
                         ))
                     }
@@ -33,7 +33,7 @@ const Watch = () => {
                     {
                         btsPlaylist?.map(item => (
                             <div className="w-full h-64 sm:h-[350px]">
-                                <iframe className='w-full h-full rounded-lg' src={`https://www.youtube.com/embed/${item.contentDetails.videoId}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                <iframe className='w-full h-full rounded-lg' src={`https://www.youtube.com/embed/${item.contentDetails.videoId}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                             </div>
                         ))
                     }

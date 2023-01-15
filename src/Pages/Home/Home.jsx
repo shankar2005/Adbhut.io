@@ -60,6 +60,8 @@ const Home = () => {
 
     // chatlog
     const [chatLog, setchatLog] = useState([]);
+    console.log('chatLog', chatLog);
+    console.log('shortlistedArtist', shortlistedArtist);
 
     return (
         <div className='bg-gray-100'>
@@ -75,23 +77,23 @@ const Home = () => {
 
                             {/* skill dropdown */}
                             <div className='relative ml-2'>
-                                <button onClick={() => setShowSearch(true)} id="dropdownSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" class="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-blue-500 hover:bg-blue-600" type="button">Skill search <IoIosArrowDown className='ml-2 w-4 h-4' /></button>
+                                <button onClick={() => setShowSearch(true)} id="dropdownSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-blue-500 hover:bg-blue-600" type="button">Skill search <IoIosArrowDown className='ml-2 w-4 h-4' /></button>
 
-                                <div id="dropdownSearch" class={`${!showSearch && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
-                                    <div class="p-3">
-                                        <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <div id="dropdownSearch" className={`${!showSearch && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
+                                    <div className="p-3">
+                                        <div className="relative">
+                                            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                                 <AiOutlineSearch className='text-gray-500 w-5 h-5' />
                                             </div>
-                                            <input type="text" class="block w-full p-2 pl-10 text-sm border border-gray-300 rounded bg-gray-50 focus:border-blue-500 placeholder-gray-400 text-white focus:ring-blue-500" placeholder="Search skill" />
+                                            <input type="text" className="block w-full p-2 pl-10 text-sm border border-gray-300 rounded bg-gray-50 focus:border-blue-500 placeholder-gray-400 text-white focus:ring-blue-500" placeholder="Search skill" />
                                         </div>
                                     </div>
-                                    <ul onChange={handleSkillsCheckbox} class="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSearchButton">
+                                    <ul onChange={handleSkillsCheckbox} className="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSearchButton">
                                         {skills?.map(skill => (
                                             <li key={skill.pk}>
-                                                <div class="flex items-center pl-2 rounded hover:bg-gray-100">
-                                                    <input id={'#' + skill.name} type="checkbox" value={skill.pk} class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" />
-                                                    <label for={'#' + skill.name} class="w-full py-2 ml-2 text-sm font-medium text-gray-900 rounded">{skill.name}</label>
+                                                <div className="flex items-center pl-2 rounded hover:bg-gray-100">
+                                                    <input id={'#' + skill.name} type="checkbox" value={skill.pk} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" />
+                                                    <label htmlFor={'#' + skill.name} className="w-full py-2 ml-2 text-sm font-medium text-gray-900 rounded">{skill.name}</label>
                                                 </div>
                                             </li>
                                         ))}
@@ -101,23 +103,23 @@ const Home = () => {
 
                             {/* location dropdown */}
                             <div className='relative ml-2'>
-                                <button onClick={() => setshowLocationDropdown(!showLocationDropdown)} id="dropdownSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" class="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-blue-500 hover:bg-blue-600" type="button">Location search <IoIosArrowDown className='ml-2 w-4 h-4' /></button>
+                                <button onClick={() => setshowLocationDropdown(!showLocationDropdown)} id="dropdownSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-blue-500 hover:bg-blue-600" type="button">Location search <IoIosArrowDown className='ml-2 w-4 h-4' /></button>
 
-                                <div id="dropdownSearch" class={`${!showLocationDropdown && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
-                                    <div class="p-3">
-                                        <div class="relative">
-                                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <div id="dropdownSearch" className={`${!showLocationDropdown && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
+                                    <div className="p-3">
+                                        <div className="relative">
+                                            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                                 <AiOutlineSearch className='text-gray-500 w-5 h-5' />
                                             </div>
-                                            <input type="text" class="block w-full p-2 pl-10 text-sm border border-gray-300 rounded bg-gray-50 focus:border-blue-500 placeholder-gray-400 text-white focus:ring-blue-500" placeholder="Search location" />
+                                            <input type="text" className="block w-full p-2 pl-10 text-sm border border-gray-300 rounded bg-gray-50 focus:border-blue-500 placeholder-gray-400 text-white focus:ring-blue-500" placeholder="Search location" />
                                         </div>
                                     </div>
-                                    <ul onChange={handleSkillsCheckbox} class="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSearchButton">
+                                    <ul onChange={handleSkillsCheckbox} className="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSearchButton">
                                         {skills?.map(skill => (
                                             <li key={skill.pk}>
-                                                <div class="flex items-center pl-2 rounded hover:bg-gray-100">
-                                                    <input id={'#' + skill.name} type="checkbox" value={skill.pk} class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" />
-                                                    <label for={'#' + skill.name} class="w-full py-2 ml-2 text-sm font-medium text-gray-900 rounded">{skill.name}</label>
+                                                <div className="flex items-center pl-2 rounded hover:bg-gray-100">
+                                                    <input id={'#' + skill.name} type="checkbox" value={skill.pk} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" />
+                                                    <label htmlFor={'#' + skill.name} className="w-full py-2 ml-2 text-sm font-medium text-gray-900 rounded">{skill.name}</label>
                                                 </div>
                                             </li>
                                         ))}
@@ -130,8 +132,8 @@ const Home = () => {
                             <div className={`hidden ${!showSearch && 'hidden'} absolute left-0 bg-white w-full border rounded-md p-3 shadow-md`}>
                                 <h3 className='font-medium border-b pb-2 mb-3'>Advance Search</h3>
                                 {/* dropdown */}
-                                <label for="demo-type" class="block mb-2 text-sm font-medium text">Type</label>
-                                <select onChange={(e) => { setdemoType(e.target.value) }} id="demo-type" class="outline-0 bg-gray-50 border border-gray-300  text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500">
+                                <label htmlFor="demo-type" className="block mb-2 text-sm font-medium text">Type</label>
+                                <select onChange={(e) => { setdemoType(e.target.value) }} id="demo-type" className="outline-0 bg-gray-50 border border-gray-300  text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500">
                                     <option value="" selected>All</option>
                                     <option value="Video">Video</option>
                                     <option value="Image">Image</option>
@@ -141,13 +143,13 @@ const Home = () => {
                                 </select>
 
                                 {/* filter with skills */}
-                                <label for="demo-type" class="block mb-2 text-sm font-medium text mt-5">Filter with skills</label>
+                                <label htmlFor="demo-type" className="block mb-2 text-sm font-medium text mt-5">Filter with skills</label>
                                 <ul onChange={handleSkillsCheckbox} className='flex flex-wrap gap-x-1 gap-y-2 text-sm'>
                                     {
                                         skills?.map(skill => (
                                             <li key={skill.pk}>
-                                                <input type="checkbox" id={'#' + skill.name} value={skill.pk} class="hidden peer" required="" />
-                                                <label for={'#' + skill.name} class="inline-flex  text-gray-500 bg-white border-2 border-gray-200 rounded-full px-2 py-1 cursor-pointer peer-checked:bg-blue-500 peer-checked:border-blue-500 hover:text-gray-600 peer-checked:text-white">
+                                                <input type="checkbox" id={'#' + skill.name} value={skill.pk} className="hidden peer" required="" />
+                                                <label htmlFor={'#' + skill.name} className="inline-flex  text-gray-500 bg-white border-2 border-gray-200 rounded-full px-2 py-1 cursor-pointer peer-checked:bg-blue-500 peer-checked:border-blue-500 hover:text-gray-600 peer-checked:text-white">
                                                     <p>{skill.name}</p>
                                                 </label>
                                             </li>)

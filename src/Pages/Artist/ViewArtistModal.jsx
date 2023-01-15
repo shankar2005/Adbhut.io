@@ -1,7 +1,7 @@
 import React from 'react';
 import { toast } from 'react-hot-toast';
 import { AiFillLinkedin, AiOutlineInstagram } from 'react-icons/ai';
-import { FiArrowLeft } from 'react-icons/fi';
+import { FiArrowLeft, FiDelete } from 'react-icons/fi';
 
 const ViewArtistModal = ({ modal, setModal, viewArtist, setviewArtist, setshortlistedArtist, shortlistedArtist, setchatLog }) => {
     const { artistID, name, email, profile_pic, phone, skills, social } = viewArtist;
@@ -11,12 +11,19 @@ const ViewArtistModal = ({ modal, setModal, viewArtist, setviewArtist, setshortl
         setModal(false);
     }
 
+    const handleRemoveShortlistedArtist = msgID => {
+        // remove chatlog
+        setchatLog(current => [...current.filter(msg => msg.msgID !== msgID)]);
+        // remove selected artist
+        setshortlistedArtist(current => [...current.filter(artist => artist.artistID !== artistID)]);
+    }
+
     const handleShortlist = () => {
         const artistIsExist = shortlistedArtist.find(artist => artist.artistID === artistID);
         if (!artistIsExist) {
             setshortlistedArtist(current => [...current, { name, artistID }]);
             // chatlog
-            setchatLog(current => [...current, { bot: `You've shortlisted ${name}` }]);
+            setchatLog(current => [...current, { msgID: current.length + 1, bot: <>You've shortlisted <img className='w-8 h-8 inline bg-white object-cover' src={profile_pic} alt="" /> {name} <FiDelete onClick={() => handleRemoveShortlistedArtist(current.length + 1)} className='inline w-5 h-5' /></> }]);
         } else {
             toast('Already added');
         }
@@ -53,7 +60,7 @@ const ViewArtistModal = ({ modal, setModal, viewArtist, setviewArtist, setshortl
                     </p>
                     <div className='flex flex-wrap gap-2 text-sm font-medium mt-3'>
                         {
-                            skills?.map(skill => <div className='py-1 px-3 border text-gray-500 border-gray-500 rounded-full'>{skill}</div>)
+                            skills?.map((skill, idx) => <div key={`skills${idx}`} className='py-1 px-3 border text-gray-500 border-gray-500 rounded-full'>{skill}</div>)
                         }
                     </div>
                     <div className='flex gap-2 text-sm font-medium mt-8'>

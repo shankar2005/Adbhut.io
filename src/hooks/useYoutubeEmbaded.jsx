@@ -10,7 +10,7 @@ function getId(url) {
 
 const useYoutubeEmbaded = (ytUrl) => {
     const videoId = getId(ytUrl);
-    return <iframe className="w-full h-full" src={`//www.youtube.com/embed/${videoId}`} frameborder="0" allowfullscreen></iframe>
+    return <iframe className="w-full h-full" src={`//www.youtube.com/embed/${videoId}`} frameBorder="0" allowFullScreen></iframe>
 };
 
 export default useYoutubeEmbaded;

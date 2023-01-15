@@ -33,13 +33,12 @@ const Feed = ({ searchText, demoType, checkedSkills, setshortlistedArtist, short
         <>
             {
                 artists?.map(artist => (
-                    <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
+                    <div key={artist.artistID} className='mb-5 p-5 bg-white rounded-lg shadow-md'>
                         <div className='flex items-center gap-2 mb-3'>
                             <img className='w-12 h-12' src={avatar} alt="" />
                             <div className='text-sm'>
                                 <p className='font-medium'>{artist.owner_name}</p>
                                 <p>{artist.skills.join(", ")}</p>
-                                <p>{console.log(artist.skills)}</p>
                             </div>
                             <button onClick={() => handlesetViewArtist(artist.owner_id)} className='ml-auto text-blue-500 text-sm font-medium'>View Profile</button>
                         </div>
@@ -57,13 +56,13 @@ const Feed = ({ searchText, demoType, checkedSkills, setshortlistedArtist, short
                             {
                                 artist.demo_type === "Instagram Link"
                                 && <div className='border rounded-lg bg-gray-200'>
-                                    <iframe src={artist.weblink} className="mx-auto border-l border-r" height="550" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+                                    <iframe src={artist.weblink} className="mx-auto border-l border-r" height="550" frameBorder="0" scrolling="no" allowtransparency="true"></iframe>
                                 </div>
                             }
                             {
                                 artist.demo_type === "Soundcloud Link"
                                 && <div className='border rounded-lg'>
-                                    <iframe width="100%" height="166" scrolling="no" frameborder="no" src={`https://w.soundcloud.com/player/?url=${artist.weblink};auto_play=false&amp;show_artwork=true`}></iframe>
+                                    <iframe width="100%" height="166" scrolling="no" frameBorder="no" src={`https://w.soundcloud.com/player/?url=${artist.weblink};auto_play=false&amp;show_artwork=true`}></iframe>
                                 </div>
                             }
                             {
