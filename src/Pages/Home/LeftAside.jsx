@@ -39,6 +39,8 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog, setcha
             .then(res => res.json())
             .then(data => {
                 setSkills(data.skills);
+                // filter on content products
+                setcheckedSkills(data.skills.map(skill => skill[1]));
             });
     }, [shortlistedArtist, selectedContentProducts]);
 

@@ -125,6 +125,9 @@ const Home = () => {
                                 </div>
                             </div>
 
+                            {/* reset */}
+                            <button onClick={() => setcheckedSkills([])} className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="button">Reset</button>
+
 
                             {/* COMMENT:::hidden now */}
                             <div className={`hidden ${!showSearch && 'hidden'} absolute left-0 bg-white w-full border rounded-md p-3 shadow-md`}>
