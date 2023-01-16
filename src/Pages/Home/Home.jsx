@@ -56,7 +56,7 @@ const Home = () => {
     // artist shortlisting
     const [shortlistedArtist, setshortlistedArtist] = useState([]);
     // clicking content products
-    const [selectedContentProducts, setselectedContentProducts] = useState([]);
+    const [selectedContentProducts, setselectedContentProducts] = useState("");
 
     // chatlog
     const [chatLog, setchatLog] = useState([]);
