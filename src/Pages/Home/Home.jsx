@@ -189,8 +189,8 @@ const Home = () => {
                         setchatLog={setchatLog}
                         // 
                         selectedContentProducts={selectedContentProducts}
+                        setselectedContentProducts={setselectedContentProducts}
                         // skills
-                        checkedSkills={checkedSkills}
                         setcheckedSkills={setcheckedSkills}
                     />
                 </aside>

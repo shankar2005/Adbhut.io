@@ -6,7 +6,7 @@ import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
 import { motion } from "framer-motion"
 
-const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog, setchatLog, checkedSkills, setcheckedSkills }) => {
+const LeftAside = ({ shortlistedArtist, selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills }) => {
     const chatboxRef = useRef();
     useEffect(() => {
         const chatboxElement = chatboxRef.current;
@@ -26,6 +26,7 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog, setcha
 
     // for showing chat suggestions (artists skills) when shortlisted an artist
     const [skills, setSkills] = useState([]);
+    const [contentProducts, setcontentProducts] = useState([]);
     useEffect(() => {
         fetch('https://dev.nsnco.in/api/v1/chatflow_skills/', {
             method: "POST",
@@ -40,22 +41,24 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog, setcha
             .then(res => res.json())
             .then(data => {
                 setSkills(data.skills);
+                setcontentProducts(data.projects);
                 // filter on content products
                 setcheckedSkills(data.skills.map(skill => skill[1] + ''));
             });
     }, [shortlistedArtist, selectedContentProducts]);
 
     // ------------------------------
-    //      handle select skill
+    //      handle select skill & content
     // -------------------------------
     const handleSelectSkill = (skill) => {
-        // const isExist = checkedSkills.includes(skill[1]);
-        // if (!isExist) {
-        // setcheckedSkills(current => [...current, skill[1]]);
         setcheckedSkills([skill[1] + '']);
         // chatlog
         setchatLog(current => [...current, { msgID: current.length + 1, user: skill[0] }]);
-        // }
+    }
+    const handleSelectContent = (content) => {
+        setselectedContentProducts(content[1] + '');
+        // chatlog
+        setchatLog(current => [...current, { msgID: current.length + 1, user: content[0] }]);
     }
 
     return (
@@ -130,6 +133,15 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog, setcha
                                 {skill[0]}
                             </div>)
                         }
+                        {
+                            contentProducts &&
+                            contentProducts.map(contentProduct => <div
+                                onClick={() => handleSelectContent(contentProduct)}
+                                key={`suggested-content${contentProduct[1]}`}
+                                className='py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
+                                {contentProduct[0]}
+                            </div>)
+                        }
                     </div>
                 </div>
 
@@ -142,10 +154,19 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog, setcha
                             <BsImageFill />
                             <AiOutlineGif />
                         </div>
-                        <div className='space-x-1'>
-                            <button className='bg-gray-400 py-[3px] px-3 rounded-full text-sm'>Add to Dream Project</button>
-                            <button className='bg-gray-400 py-[3px] px-3 rounded-full text-sm'>Send Brief</button>
-                        </div>
+                        {
+                            shortlistedArtist[0] || selectedContentProducts
+                                ?
+                                <div className='space-x-1'>
+                                    <button className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Add to Dream Project</button>
+                                    <button className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send Brief</button>
+                                </div>
+                                :
+                                <div className='space-x-1'>
+                                    <button disabled className='bg-gray-300 text-gray-400 py-[3px] px-3 rounded-full text-sm'>Add to Dream Project</button>
+                                    <button disabled className='bg-gray-300 text-gray-400 py-[3px] px-3 rounded-full text-sm'>Send Brief</button>
+                                </div>
+                        }
                     </div>
                 </div>
             </section>
