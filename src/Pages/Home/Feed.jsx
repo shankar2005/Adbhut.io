@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import avatar from '../../assets/placeholders/avatar.png';
+import { useRootContext } from '../../contexts/RootProvider';
 import useYoutubeEmbaded from '../../hooks/useYoutubeEmbaded';
 import ViewArtistModal from '../Artist/ViewArtistModal';
 
-const Feed = ({ searchText, demoType, checkedSkills, setshortlistedArtist, shortlistedArtist, setchatLog }) => {
+const Feed = () => {
+    const { searchText, demoType, checkedSkills, setshortlistedArtist, shortlistedArtist, setchatLog } = useRootContext();
+
     const [artistModal, setArtistModal] = useState();
     const [viewArtist, setviewArtist] = useState();
 

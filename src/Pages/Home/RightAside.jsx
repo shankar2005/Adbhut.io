@@ -7,6 +7,7 @@ import { ImOffice } from 'react-icons/im';
 import { TfiWorld } from 'react-icons/tfi';
 import { AuthContext } from '../../contexts/AuthProvider';
 import { toast } from 'react-hot-toast';
+import { useRootContext } from '../../contexts/RootProvider';
 
 const category = [
     {
@@ -41,7 +42,9 @@ const category = [
     },
 ]
 
-const RightAside = ({ selectedContentProducts, setselectedContentProducts, setchatLog }) => {
+const RightAside = () => {
+    const { selectedContentProducts, setselectedContentProducts, setchatLog } = useRootContext();
+
     const { isAuthenticated } = useContext(AuthContext);
 
     const handleSelectContentProducts = (product) => {

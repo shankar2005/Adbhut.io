@@ -5,8 +5,11 @@ import { BsImageFill, BsThreeDots } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
 import { motion } from "framer-motion"
+import { useRootContext } from '../../contexts/RootProvider';
 
-const LeftAside = ({ shortlistedArtist, selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills }) => {
+const LeftAside = () => {
+    const { shortlistedArtist, selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills } = useRootContext();
+
     const chatboxRef = useRef();
     useEffect(() => {
         const chatboxElement = chatboxRef.current;
