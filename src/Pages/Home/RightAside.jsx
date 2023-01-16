@@ -49,7 +49,7 @@ const RightAside = ({ selectedContentProducts, setselectedContentProducts, setch
         if (!isExist) {
             setselectedContentProducts(product.pk);
             // chatlog
-            setchatLog(current => [...current, { msgID: current.length + 1, bot: `You've selected ${product.name}` }]);
+            setchatLog(current => [...current, { msgID: current.length + 1, user: product.name }]);
         } else {
             toast('Already selected');
         }

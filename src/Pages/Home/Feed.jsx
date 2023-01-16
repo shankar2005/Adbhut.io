@@ -13,7 +13,6 @@ const Feed = ({ searchText, demoType, checkedSkills, setshortlistedArtist, short
     useEffect(() => {
         // fetch(`https://dev.nsnco.in/api/v1/get_feed/?search=${searchText}&demo_type=${demoType}${skillQuery}`)
         const url = `https://dev.nsnco.in/api/v1/get_feed/?${searchText && `search=${searchText}`}${demoType && `&demo_type=${demoType}`}${skillQuery && skillQuery}`;
-        console.log(url);
         fetch(url)
             .then(res => res.json())
             .then(data => {

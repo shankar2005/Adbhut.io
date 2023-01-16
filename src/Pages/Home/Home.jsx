@@ -52,7 +52,6 @@ const Home = () => {
         e.target.checked && setcheckedSkills(current => [...current, e.target.value]);
         e.target.checked || setcheckedSkills(current => [...current.filter(skill => skill !== e.target.value)]);
     }
-    console.log(checkedSkills);
 
     // artist shortlisting
     const [shortlistedArtist, setshortlistedArtist] = useState([]);
@@ -61,6 +60,13 @@ const Home = () => {
 
     // chatlog
     const [chatLog, setchatLog] = useState([]);
+
+    // setting response msg on first action
+    useEffect(() => {
+        if (chatLog.length === 1) {
+            setchatLog(chatLog => [...chatLog, { actionResponse: true, msgID: chatLog.length + 1, bot: 'Great! Maruf let’s proceed with the project briefing. Share us your thoughts and inputs on your creative project.' }]);
+        }
+    }, [chatLog])
 
     return (
         <div className='bg-gray-100'>

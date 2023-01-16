@@ -84,23 +84,6 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog, setcha
                             </div>
                         </motion.div>
                         {
-                            chatLog[0] &&
-                            <motion.div
-                                initial={{ translateX: '-15%' }}
-                                animate={{ translateX: '0%' }}
-                            >
-                                <div className='text-sm flex gap-2 mb-5'>
-                                    <img className='w-10 h-10' src="https://media.licdn.com/dms/image/D4D0BAQErxzI3ZO8CEA/company-logo_200_200/0/1665423690851?e=2147483647&v=beta&t=lNNe6O9RDmoigkZam6o8yn-abUNDT-L_F2MCusFSQ3E" alt="" />
-                                    <div className='mr-12'>
-                                        <h4 className='font-medium'>NsN Co Servicing</h4>
-                                        <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
-                                            Great! Maruf let’s proceed with the project briefing. Share us your thoughts and inputs on your creative project.
-                                        </p>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        }
-                        {
                             chatLog &&
                             chatLog.map(chat => (
                                 chat.bot ?
