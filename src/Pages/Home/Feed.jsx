@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import avatar from '../../assets/placeholders/avatar.png';
 import { useRootContext } from '../../contexts/RootProvider';
 import useYoutubeEmbaded from '../../hooks/useYoutubeEmbaded';
-import ViewArtistModal from '../Artist/ViewArtistModal';
 
 const Feed = () => {
-    const { searchText, demoType, checkedSkills, setshortlistedArtist, shortlistedArtist, setchatLog } = useRootContext();
-
-    const [artistModal, setArtistModal] = useState();
-    const [viewArtist, setviewArtist] = useState();
+    const { searchText, demoType, checkedSkills, handleShortlist } = useRootContext();
 
     const skillQuery = checkedSkills?.map(skill => `&owner__skill=${skill}`).join('');
 
@@ -24,28 +21,18 @@ const Feed = () => {
             .catch(err => console.log(err));
     }, [searchText, demoType, checkedSkills]);
 
-    const handlesetViewArtist = id => {
-        setArtistModal(true);
-        fetch(`https://dev.nsnco.in/api/v1/get_artist/${id}/`)
-            .then(res => res.json())
-            .then(data => {
-                setviewArtist(data);
-            })
-            .catch(err => console.log(err));
-    }
-
     return (
         <>
             {
                 artists?.map(artist => (
-                    <div key={artist.artistID} className='mb-5 p-5 bg-white rounded-lg shadow-md'>
+                    <div key={artist.pk} className='mb-5 p-5 bg-white rounded-lg shadow-md'>
                         <div className='flex items-center gap-2 mb-3'>
-                            <img className='w-12 h-12' src={artist.profile_pic || avatar} alt="" />
+                            <Link to={`/artist/${artist.owner_id}`}><img className='w-12 h-12' src={artist.profile_pic || avatar} alt="" /></Link>
                             <div className='text-sm'>
-                                <p className='font-medium'>{artist.owner_name}</p>
+                                <Link to={`/artist/${artist.owner_id}`}><p className='font-medium'>{artist.owner_name}</p></Link>
                                 <p>{artist.skills.join(", ")}</p>
                             </div>
-                            <button className='ml-auto text-blue-500 border-2 border-blue-500 hover:bg-sky-100 hover:border-sky-100 py-2.5 px-4 rounded-lg font-medium'>Shortlist</button>
+                            <button onClick={() => handleShortlist(artist.owner_id, artist.name, artist.profile_pic)} className='ml-auto text-blue-500 border-2 border-blue-500 hover:bg-sky-100 hover:border-sky-100 py-2.5 px-4 rounded-lg font-medium'>Shortlist</button>
                         </div>
                         <div>
                             <p className='text-sm mb-2'>
@@ -92,22 +79,6 @@ const Feed = () => {
                     </div>
                 ))
             }
-
-            {
-                viewArtist &&
-                <ViewArtistModal
-                    modal={artistModal}
-                    setModal={setArtistModal}
-                    viewArtist={viewArtist}
-                    setviewArtist={setviewArtist}
-                    // shortlist artist
-                    setshortlistedArtist={setshortlistedArtist}
-                    shortlistedArtist={shortlistedArtist}
-                    // chatlog
-                    setchatLog={setchatLog}
-                />
-            }
-
         </>
     );
 };

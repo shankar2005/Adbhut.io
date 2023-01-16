@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "../layouts/Root";
+import ArtistProfile from "../Pages/Artist/ArtistProfile";
 import Home from "../Pages/Home/Home";
 import Invite from "../Pages/Invite/Invite";
 
@@ -11,6 +12,11 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home />
+            },
+            {
+                path: '/artist/:id',
+                loader: ({ params }) => fetch(`https://dev.nsnco.in/api/v1/get_artist/${params.id}/`),
+                element: <ArtistProfile />
             },
         ]
     },
