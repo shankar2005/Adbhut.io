@@ -7,7 +7,7 @@ const Feed = ({ searchText, demoType, checkedSkills, setshortlistedArtist, short
     const [artistModal, setArtistModal] = useState();
     const [viewArtist, setviewArtist] = useState();
 
-    const skillQuery = checkedSkills?.map(skill => `&skill=${skill}`).join('');
+    const skillQuery = checkedSkills?.map(skill => `&owner__skill=${skill}`).join('');
 
     const [artists, setArtists] = useState([]);
     useEffect(() => {
