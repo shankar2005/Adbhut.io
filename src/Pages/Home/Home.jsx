@@ -52,6 +52,7 @@ const Home = () => {
         e.target.checked && setcheckedSkills(current => [...current, e.target.value]);
         e.target.checked || setcheckedSkills(current => [...current.filter(skill => skill !== e.target.value)]);
     }
+    console.log(checkedSkills);
 
     // artist shortlisting
     const [shortlistedArtist, setshortlistedArtist] = useState([]);
@@ -90,7 +91,7 @@ const Home = () => {
                                         {skills?.map(skill => (
                                             <li key={skill.pk}>
                                                 <div className="flex items-center pl-2 rounded hover:bg-gray-100">
-                                                    <input id={'#' + skill.name} type="checkbox" value={skill.pk} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" />
+                                                    <input checked={checkedSkills.includes(skill.pk.toString())} id={'#' + skill.name} type="checkbox" value={skill.pk} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" />
                                                     <label htmlFor={'#' + skill.name} className="w-full py-2 ml-2 text-sm font-medium text-gray-900 rounded">{skill.name}</label>
                                                 </div>
                                             </li>

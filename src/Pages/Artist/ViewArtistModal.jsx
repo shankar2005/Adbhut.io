@@ -25,7 +25,7 @@ const ViewArtistModal = ({ modal, setModal, viewArtist, setviewArtist, setshortl
             // chatlog
             setchatLog(current => [...current, { msgID: current.length + 1, bot: <>You've shortlisted <img className='w-8 h-8 inline bg-white object-cover' src={profile_pic} alt="" /> {name} <FiDelete onClick={() => handleRemoveShortlistedArtist(current.length + 1)} className='inline w-5 h-5 cursor-pointer' /></> }]);
         } else {
-            toast('Already added');
+            toast('Already shortlisted');
         }
         handleCloseModal();
     }

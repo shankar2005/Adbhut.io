@@ -10,32 +10,32 @@ import { toast } from 'react-hot-toast';
 
 const category = [
     {
-        pk: 1,
+        pk: 6,
         name: "Artwork",
         image: "https://img.icons8.com/external-ddara-flat-ddara/64/null/external-artwork-digital-marketing-ddara-flat-ddara.png"
     },
     {
-        pk: 2,
+        pk: 1,
         name: "Chat Show",
         image: "https://img.icons8.com/color/48/null/filled-chat.png"
     },
     {
-        pk: 3,
+        pk: 2,
         name: "Documentary",
         image: "https://img.icons8.com/color-glass/48/null/documentary.png"
     },
     {
-        pk: 1,
+        pk: 4,
         name: "Fiction & Reality",
         image: "https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-fiction-literature-flaticons-lineal-color-flat-icons.png"
     },
     {
-        pk: 2,
+        pk: 3,
         name: "Musical",
         image: "https://img.icons8.com/cute-clipart/64/null/musical.png"
     },
     {
-        pk: 3,
+        pk: 5,
         name: "Web 3.0 Solutions",
         image: "https://img.icons8.com/color/48/null/bitcoin--v1.png"
     },
@@ -51,7 +51,7 @@ const RightAside = ({ selectedContentProducts, setselectedContentProducts, setch
             // chatlog
             setchatLog(current => [...current, { msgID: current.length + 1, bot: `You've selected ${product.name}` }]);
         } else {
-            toast('Already added');
+            toast('Already selected');
         }
     }
 

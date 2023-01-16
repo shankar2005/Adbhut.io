@@ -34,14 +34,14 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog, setcha
             },
             body: JSON.stringify({
                 artists: artistIDs,
-                product: selectedContentProducts + '' || 0
+                product: selectedContentProducts || 0
             })
         })
             .then(res => res.json())
             .then(data => {
                 setSkills(data.skills);
                 // filter on content products
-                setcheckedSkills(data.skills.map(skill => skill[1]));
+                setcheckedSkills(data.skills.map(skill => skill[1] + ''));
             });
     }, [shortlistedArtist, selectedContentProducts]);
 
@@ -51,7 +51,8 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog, setcha
     const handleSelectSkill = (skill) => {
         // const isExist = checkedSkills.includes(skill[1]);
         // if (!isExist) {
-        setcheckedSkills(current => [...current, skill[1]]);
+        // setcheckedSkills(current => [...current, skill[1]]);
+        setcheckedSkills([skill[1] + '']);
         // chatlog
         setchatLog(current => [...current, { msgID: current.length + 1, user: skill[0] }]);
         // }
@@ -67,20 +68,21 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts, chatLog, setcha
 
                 <div ref={chatboxRef} className='h-80 overflow-y-scroll overflow-x-hidden p-3'>
                     <div className='flex flex-col'>
-                        <div className='text-sm flex gap-2 mb-5'>
-                            <img className='w-10 h-10' src="https://media.licdn.com/dms/image/D4D0BAQErxzI3ZO8CEA/company-logo_200_200/0/1665423690851?e=2147483647&v=beta&t=lNNe6O9RDmoigkZam6o8yn-abUNDT-L_F2MCusFSQ3E" alt="" />
-                            <div className='mr-12'>
-                                <h4 className='font-medium'>NsN Co Servicing</h4>
-                                <motion.div
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                >
+                        <motion.div
+                            initial={{ translateX: '-100%' }}
+                            animate={{ translateX: '0%' }}
+                            transition={{ delay: 0.2 }}
+                        >
+                            <div className='text-sm flex gap-2 mb-5'>
+                                <img className='w-10 h-10' src="https://media.licdn.com/dms/image/D4D0BAQErxzI3ZO8CEA/company-logo_200_200/0/1665423690851?e=2147483647&v=beta&t=lNNe6O9RDmoigkZam6o8yn-abUNDT-L_F2MCusFSQ3E" alt="" />
+                                <div className='mr-12'>
+                                    <h4 className='font-medium'>NsN Co Servicing</h4>
                                     <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
                                         Please shortlist an artist, skill or content product or send your inputs here
                                     </p>
-                                </motion.div>
+                                </div>
                             </div>
-                        </div>
+                        </motion.div>
                         {
                             chatLog[0] &&
                             <motion.div
