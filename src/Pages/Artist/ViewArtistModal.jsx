@@ -23,7 +23,7 @@ const ViewArtistModal = ({ modal, setModal, viewArtist, setviewArtist, setshortl
         if (!isExist) {
             setshortlistedArtist(current => [...current, { name, artistID }]);
             // chatlog
-            setchatLog(current => [...current, { msgID: current.length + 1, bot: <>You've shortlisted <img className='w-8 h-8 inline bg-white object-cover' src={profile_pic} alt="" /> {name} <FiDelete onClick={() => handleRemoveShortlistedArtist(current.length + 1)} className='inline w-5 h-5 cursor-pointer' /></> }]);
+            setchatLog(current => [...current, { msgID: current.length + 1, user: <>Shortlisted <img className='w-8 h-8 inline bg-white object-cover' src={profile_pic} alt="" /> {name} <FiDelete onClick={() => handleRemoveShortlistedArtist(current.length + 1)} className='inline w-5 h-5 cursor-pointer' /></> }]);
         } else {
             toast('Already shortlisted');
         }
@@ -62,10 +62,6 @@ const ViewArtistModal = ({ modal, setModal, viewArtist, setviewArtist, setshortl
                         {
                             skills?.map((skill, idx) => <div key={`skills${idx}`} className='py-1 px-3 border text-gray-500 border-gray-500 rounded-full'>{skill}</div>)
                         }
-                    </div>
-                    <div className='flex gap-2 text-sm font-medium mt-8'>
-                        <div className='py-1 px-3 border bg-blue-500 text-white rounded-lg'>Follow</div>
-                        <div className='py-1 px-3 border text-blue-600 border-blue-500 rounded-lg'>View Profile</div>
                     </div>
                 </div>
             </div>

@@ -12,12 +12,12 @@ const router = createBrowserRouter([
                 path: '/',
                 element: <Home />
             },
-            {
-                path: '/invite',
-                element: <Invite />
-            },
         ]
-    }
+    },
+    {
+        path: '/invite',
+        element: <Invite />
+    },
 ]);
 
 export default router;

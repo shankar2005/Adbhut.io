@@ -69,7 +69,7 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts, setselectedCont
                     <BsThreeDots className='cursor-pointer' />
                 </div>
 
-                <div ref={chatboxRef} className='h-80 overflow-y-scroll overflow-x-hidden p-3'>
+                <div ref={chatboxRef} className='h-96 overflow-y-scroll overflow-x-hidden p-3'>
                     <div className='flex flex-col'>
                         <motion.div
                             initial={{ translateX: '-100%' }}
@@ -97,6 +97,7 @@ const LeftAside = ({ shortlistedArtist, selectedContentProducts, setselectedCont
                                             <motion.div
                                                 initial={{ scale: 0 }}
                                                 animate={{ scale: 1 }}
+                                                transition={chat.actionResponse && { delay: 0.2 }}
                                             >
                                                 <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
                                                     {chat.bot}

@@ -37,12 +37,12 @@ const Feed = ({ searchText, demoType, checkedSkills, setshortlistedArtist, short
                 artists?.map(artist => (
                     <div key={artist.artistID} className='mb-5 p-5 bg-white rounded-lg shadow-md'>
                         <div className='flex items-center gap-2 mb-3'>
-                            <img className='w-12 h-12' src={avatar} alt="" />
+                            <img className='w-12 h-12' src={artist.profile_pic || avatar} alt="" />
                             <div className='text-sm'>
                                 <p className='font-medium'>{artist.owner_name}</p>
                                 <p>{artist.skills.join(", ")}</p>
                             </div>
-                            <button onClick={() => handlesetViewArtist(artist.owner_id)} className='ml-auto text-blue-500 text-sm font-medium'>View Profile</button>
+                            <button className='ml-auto text-blue-500 border-2 border-blue-500 hover:bg-sky-100 hover:border-sky-100 py-2.5 px-4 rounded-lg font-medium'>Shortlist</button>
                         </div>
                         <div>
                             <p className='text-sm mb-2'>
