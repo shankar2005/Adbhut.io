@@ -25,7 +25,10 @@ const Root = () => {
     const handleBodyTapModalClose = () => {
         setShowSearch(false);
         setshowLocationDropdown(false);
+        setskillSearchDropDown(false);
     }
+
+    const [skillSearchDropDown, setskillSearchDropDown] = useState(false);
 
     // handle search
     const [showSearch, setShowSearch] = useState(false);
@@ -87,13 +90,14 @@ const Root = () => {
                             <form onSubmit={handleSearch}>
                                 <input onClick={() => setShowSearch(true)} type="text" name="search" className='border bg-blue-50 py-2 w-72 pl-10 pr-3 rounded text-sm' placeholder='Search your artist here...' />
                                 <AiOutlineSearch className='w-6 h-6 text-gray-500 absolute top-1/2 -translate-y-1/2 left-2' />
+                                <button className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="button">Search</button>
                             </form>
 
                             {/* skill dropdown */}
                             <div className='relative ml-2'>
-                                <button onClick={() => setShowSearch(true)} id="dropdownSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-blue-500 hover:bg-blue-600" type="button">Skill search <IoIosArrowDown className='ml-2 w-4 h-4' /></button>
+                                <button onClick={() => setskillSearchDropDown(!skillSearchDropDown)} id="dropdownSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-blue-500 hover:bg-blue-600" type="button">Skill search {skillSearchDropDown ? <IoIosArrowDown className='ml-2 w-4 h-4 rotate-180' /> : <IoIosArrowDown className='ml-2 w-4 h-4' />}</button>
 
-                                <div id="dropdownSearch" className={`${!showSearch && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
+                                <div id="dropdownSearch" className={`${!skillSearchDropDown && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
                                     <div className="p-3">
                                         <div className="relative">
                                             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -102,12 +106,12 @@ const Root = () => {
                                             <input type="text" className="block w-full p-2 pl-10 text-sm border border-gray-300 rounded bg-gray-50 focus:border-blue-500 placeholder-gray-400 text-white focus:ring-blue-500" placeholder="Search skill" />
                                         </div>
                                     </div>
-                                    <ul onChange={handleSkillsCheckbox} className="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSearchButton">
+                                    <ul onChange={handleSkillsCheckbox} className="min-h-fit max-h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSearchButton">
                                         {skills?.map(skill => (
                                             <li key={skill.pk}>
                                                 <div className="flex items-center pl-2 rounded hover:bg-gray-100">
                                                     <input defaultChecked={checkedSkills.includes(skill.pk.toString())} id={'#' + skill.name} type="checkbox" value={skill.pk} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" />
-                                                    <label htmlFor={'#' + skill.name} className="w-full py-2 ml-2 text-sm font-medium text-gray-900 rounded">{skill.name}</label>
+                                                    <label htmlFor={'#' + skill.name} className="w-full py-2 ml-2 text-xs font-medium text-gray-900 rounded">{skill.name}</label>
                                                 </div>
                                             </li>
                                         ))}
@@ -124,12 +128,12 @@ const Root = () => {
                                                     <input type="text" className="block w-full p-2 pl-10 text-sm border border-gray-300 rounded bg-gray-50 focus:border-blue-500 placeholder-gray-400 text-white focus:ring-blue-500" placeholder="Search genre" />
                                                 </div>
                                             </div>
-                                            <ul onChange={handleGenreCheckbox} className="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSearchButton">
+                                            <ul onChange={handleGenreCheckbox} className="min-h-fit max-h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSearchButton">
                                                 {allGenres?.map(genre => (
                                                     <li key={genre[1]}>
                                                         <div className="flex items-center pl-2 rounded hover:bg-gray-100">
                                                             <input id={'genre_' + genre[1]} type="checkbox" value={genre[1]} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" />
-                                                            <label htmlFor={'genre_' + genre[1]} className="w-full py-2 ml-2 text-sm font-medium text-gray-900 rounded">{genre[0]}</label>
+                                                            <label htmlFor={'genre_' + genre[1]} className="w-full py-2 ml-2 text-xs font-medium text-gray-900 rounded">{genre[0]}</label>
                                                         </div>
                                                     </li>
                                                 ))}
@@ -152,12 +156,12 @@ const Root = () => {
                                             <input type="text" className="block w-full p-2 pl-10 text-sm border border-gray-300 rounded bg-gray-50 focus:border-blue-500 placeholder-gray-400 text-white focus:ring-blue-500" placeholder="Search location" />
                                         </div>
                                     </div>
-                                    <ul onChange={handleSkillsCheckbox} className="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSearchButton">
+                                    <ul onChange={handleSkillsCheckbox} className="min-h-fit max-h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSearchButton">
                                         {skills?.map(skill => (
                                             <li key={skill.pk}>
                                                 <div className="flex items-center pl-2 rounded hover:bg-gray-100">
                                                     <input id={'#' + skill.name} type="checkbox" value={skill.pk} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" />
-                                                    <label htmlFor={'#' + skill.name} className="w-full py-2 ml-2 text-sm font-medium text-gray-900 rounded">{skill.name}</label>
+                                                    <label htmlFor={'#' + skill.name} className="w-full py-2 ml-2 text-xs font-medium text-gray-900 rounded">{skill.name}</label>
                                                 </div>
                                             </li>
                                         ))}
@@ -165,12 +169,8 @@ const Root = () => {
                                 </div>
                             </div>
 
-                            <button className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="button">Search</button>
-
-                            {/* COMMENT:::hidden now */}
-                            <div className={`hidden ${!showSearch && 'hidden'} absolute left-0 bg-white w-full border rounded-md p-3 shadow-md`}>
+                            {/* <div className={`${!showSearch && 'hidden'} absolute left-0 bg-white w-full border rounded-md p-3 shadow-md`}>
                                 <h3 className='font-medium border-b pb-2 mb-3'>Advance Search</h3>
-                                {/* dropdown */}
                                 <label htmlFor="demo-type" className="block mb-2 text-sm font-medium text">Type</label>
                                 <select onChange={(e) => { setdemoType(e.target.value) }} id="demo-type" className="outline-0 bg-gray-50 border border-gray-300  text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500">
                                     <option defaultValue="">All</option>
@@ -181,7 +181,6 @@ const Root = () => {
                                     <option value="Soundcloud Link">SoundCloud</option>
                                 </select>
 
-                                {/* filter with skills */}
                                 <label htmlFor="demo-type" className="block mb-2 text-sm font-medium text mt-5">Filter with skills</label>
                                 <ul onChange={handleSkillsCheckbox} className='flex flex-wrap gap-x-1 gap-y-2 text-sm'>
                                     {
@@ -195,7 +194,7 @@ const Root = () => {
                                         )
                                     }
                                 </ul>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <ul onClick={() => setShowSearch(false)} className='flex gap-4 text-gray-500 flex-1 py-3'>

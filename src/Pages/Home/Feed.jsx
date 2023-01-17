@@ -14,7 +14,6 @@ const Feed = () => {
     useEffect(() => {
         // fetch(`https://dev.nsnco.in/api/v1/get_feed/?search=${searchText}&demo_type=${demoType}${skillQuery}`)
         const url = `https://dev.nsnco.in/api/v1/get_feed/?${searchText && `search=${searchText}`}${demoType && `&demo_type=${demoType}`}${skillQuery && skillQuery}${genreQuery && genreQuery}`;
-        // https://dev.nsnco.in/api/v1/get_feed/?owner__skill=23&owner__skill_genres=8
         fetch(url)
             .then(res => res.json())
             .then(data => {
@@ -43,14 +42,14 @@ const Feed = () => {
                             </p>
                             {
                                 artist.demo_type === "Youtube Link"
-                                && <div className='h-[350px]'>
-                                    {useYoutubeEmbaded(artist.weblink)}
+                                && <div className='h-[270px] 2xl:h-[350px]'>
+                                    {useYoutubeEmbaded(artist.weblink, 'rounded-lg')}
                                 </div>
                             }
                             {
                                 artist.demo_type === "Instagram Link"
-                                && <div className='border rounded-lg bg-gray-200'>
-                                    <iframe src={artist.weblink} className="mx-auto border-l border-r" height="550" frameBorder="0" scrolling="no" allowtransparency="true"></iframe>
+                                && <div className='border rounded-lg bg-gray-200 overflow-hidden'>
+                                    <iframe src={artist.weblink} className="mx-auto border-l border-r -mt-14" height="430" frameBorder="0" scrolling="no" allowtransparency="true"></iframe>
                                 </div>
                             }
                             {

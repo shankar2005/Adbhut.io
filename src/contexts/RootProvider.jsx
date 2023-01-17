@@ -56,6 +56,7 @@ const RootProvider = ({ children }) => {
     // stored values
     const value = {
         searchText,
+        setSearchText,
         demoType,
         setdemoType,
         checkedSkills,
