@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { FiDelete } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 const RootContext = createContext();
 
@@ -11,6 +12,7 @@ const RootProvider = ({ children }) => {
     const [searchText, setSearchText] = useState("");
 
     const [checkedSkills, setcheckedSkills] = useState([]);
+    const [checkedGenres, setcheckedGenres] = useState([]);
 
 
     //-------------------------------------------------------------
@@ -25,7 +27,8 @@ const RootProvider = ({ children }) => {
 
     // setting response msg on first action
     useEffect(() => {
-        if (chatLog.length === 1) {
+        const isExist = chatLog.find(chat => chat.actionResponse);
+        if (chatLog.length === 1 && !isExist) {
             setchatLog(chatLog => [...chatLog, { actionResponse: true, msgID: chatLog.length + 1, bot: 'Great! Maruf let’s proceed with the project briefing. Share us your thoughts and inputs on your creative project.' }]);
         }
     }, [chatLog]);
@@ -44,7 +47,7 @@ const RootProvider = ({ children }) => {
         if (!isExist) {
             setshortlistedArtist(current => [...current, { name, artistID }]);
             // chatlog
-            setchatLog(current => [...current, { msgID: current.length + 1, user: <>Shortlisted <img className='w-8 h-8 inline bg-white object-cover' src={profile_pic} alt="" /> {name} <FiDelete onClick={() => handleRemoveShortlistedArtist(current.length + 1, artistID)} className='inline w-5 h-5 cursor-pointer' /></> }]);
+            setchatLog(current => [...current, { msgID: current.length + 1, user: <>Shortlisted <Link to={`/artist/${artistID}`} className='hover:underline'><img className='w-8 h-8 inline bg-white object-cover' src={profile_pic} alt="" /> {name}</Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(current.length + 1, artistID)} className='inline w-5 h-5 cursor-pointer' /></> }]);
         } else {
             toast('Already shortlisted');
         }
@@ -57,6 +60,8 @@ const RootProvider = ({ children }) => {
         setdemoType,
         checkedSkills,
         setcheckedSkills,
+        checkedGenres,
+        setcheckedGenres,
         shortlistedArtist,
         setshortlistedArtist,
         selectedContentProducts,

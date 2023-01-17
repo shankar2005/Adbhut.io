@@ -8,7 +8,7 @@ import { motion } from "framer-motion"
 import { useRootContext } from '../../contexts/RootProvider';
 
 const LeftAside = () => {
-    const { shortlistedArtist, selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills } = useRootContext();
+    const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills } = useRootContext();
 
     const chatboxRef = useRef();
     useEffect(() => {
@@ -72,7 +72,7 @@ const LeftAside = () => {
                     <BsThreeDots className='cursor-pointer' />
                 </div>
 
-                <div ref={chatboxRef} className='h-96 overflow-y-scroll overflow-x-hidden p-3'>
+                <div ref={chatboxRef} className='h-80 overflow-y-scroll overflow-x-hidden p-3'>
                     <div className='flex flex-col'>
                         <motion.div
                             initial={{ translateX: '-100%' }}

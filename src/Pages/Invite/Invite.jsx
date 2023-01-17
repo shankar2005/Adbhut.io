@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../Shared/Navbar';
+import Navbar from './Navbar';
 import Hero from './Hero';
 import Watch from './Watch';
 

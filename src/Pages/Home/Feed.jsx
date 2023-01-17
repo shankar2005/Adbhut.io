@@ -5,14 +5,16 @@ import { useRootContext } from '../../contexts/RootProvider';
 import useYoutubeEmbaded from '../../hooks/useYoutubeEmbaded';
 
 const Feed = () => {
-    const { searchText, demoType, checkedSkills, handleShortlist } = useRootContext();
+    const { searchText = "", demoType, checkedSkills, handleShortlist, checkedGenres } = useRootContext();
 
     const skillQuery = checkedSkills?.map(skill => `&owner__skill=${skill}`).join('');
+    const genreQuery = checkedGenres?.map(genre => `&owner__skill_genres=${genre}`).join('');
 
     const [artists, setArtists] = useState([]);
     useEffect(() => {
         // fetch(`https://dev.nsnco.in/api/v1/get_feed/?search=${searchText}&demo_type=${demoType}${skillQuery}`)
-        const url = `https://dev.nsnco.in/api/v1/get_feed/?${searchText && `search=${searchText}`}${demoType && `&demo_type=${demoType}`}${skillQuery && skillQuery}`;
+        const url = `https://dev.nsnco.in/api/v1/get_feed/?${searchText && `search=${searchText}`}${demoType && `&demo_type=${demoType}`}${skillQuery && skillQuery}${genreQuery && genreQuery}`;
+        // https://dev.nsnco.in/api/v1/get_feed/?owner__skill=23&owner__skill_genres=8
         fetch(url)
             .then(res => res.json())
             .then(data => {
@@ -32,7 +34,7 @@ const Feed = () => {
                                 <Link to={`/artist/${artist.owner_id}`}><p className='font-medium'>{artist.owner_name}</p></Link>
                                 <p>{artist.skills.join(", ")}</p>
                             </div>
-                            <button onClick={() => handleShortlist(artist.owner_id, artist.name, artist.profile_pic)} className='ml-auto text-blue-500 border-2 border-blue-500 hover:bg-sky-100 hover:border-sky-100 py-2.5 px-4 rounded-lg font-medium'>Shortlist</button>
+                            <button onClick={() => handleShortlist(artist.owner_id, artist.owner_name, artist.profile_pic)} className='ml-auto text-blue-500 border-2 border-blue-500 hover:bg-sky-100 hover:border-sky-100 py-2.5 px-4 rounded-lg font-medium'>Shortlist</button>
                         </div>
                         <div>
                             <p className='text-sm mb-2'>

@@ -4,7 +4,7 @@ import RightAside from './RightAside';
 
 const Home = () => {
     return (
-        <div className='grid grid-cols-8'>
+        <div className='grid grid-cols-8 gap-5'>
             <main className='col-span-5'>
                 <Feed />
             </main>
