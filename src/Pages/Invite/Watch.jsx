@@ -16,7 +16,7 @@ const Watch = () => {
     return (
         <>
             <section className='max-w-screen-xl mx-auto px-10 xl:px-0 py-10 my-5'>
-                <h1 className='text-center text-4xl font-bold mb-10 text-purple-700 text-opacity-80'>Watch Episode</h1>
+                <h1 className='text-center text-4xl font-bold mb-10 text-purple-700 text-opacity-80'>Watch Episodes</h1>
                 <div className={` ${showPlaylist?.length <= 1 ? 'md:w-[630px] mx-auto' : 'grid lg:grid-cols-2'} gap-5`}>
                     {
                         showPlaylist?.map(item => (
