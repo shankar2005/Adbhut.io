@@ -88,7 +88,7 @@ const LeftAside = () => {
             },
             body: JSON.stringify({
                 "stage": "Lead",
-                "brief": chatLog,
+                "brief": JSON.stringify(chatLog),
                 "product": selectedContentProducts,
                 "shortlisted_artists": shortlistedArtist.map(artist => artist.artistID)
             })

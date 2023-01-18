@@ -48,6 +48,19 @@ const RootProvider = ({ children }) => {
         }
     }
 
+    // show project history on click
+    const handleShowProjectHistory = (projectID) => {
+        fetch(`https://dev.nsnco.in/api/v1/edit_project/${projectID}/`, {
+            headers: { Authorization: `token ${authToken}` },
+        }).then(res => res.json())
+            .then(data => {
+                if (data.detail === 'Authentication credentials were not provided.') {
+                    return;
+                }
+                setchatLog(JSON.parse(data.brief));
+            });
+    }
+
     // stored values
     const value = {
         searchText,
@@ -65,7 +78,8 @@ const RootProvider = ({ children }) => {
         chatLog,
         setchatLog,
         handleShortlist,
-        authToken
+        authToken,
+        handleShowProjectHistory
     }
 
     return (
