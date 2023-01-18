@@ -20,7 +20,6 @@ const RootProvider = ({ children }) => {
     //-------------------------------------------------------------
     // artist shortlisting
     const [shortlistedArtist, setshortlistedArtist] = useState([]);
-    const [shortlistedArtistInfo, setshortlistedArtistInfo] = useState([]);
 
     // clicking content products
     const [selectedContentProducts, setselectedContentProducts] = useState("");

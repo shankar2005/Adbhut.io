@@ -67,7 +67,12 @@ const RightAside = () => {
                 Authorization: `token ${authToken}`
             },
         }).then(res => res.json())
-            .then(data => setCurrentProjects(data));
+            .then(data => {
+                if (data.detail === 'Invalid token.') {
+                    return;
+                }
+                setCurrentProjects(data);
+            });
     }, [])
 
     return (
