@@ -3,6 +3,10 @@ import { RouterProvider } from 'react-router-dom';
 import router from './Routes/Routes';
 import { Toaster } from 'react-hot-toast';
 
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+
 function App() {
   return (
     <>

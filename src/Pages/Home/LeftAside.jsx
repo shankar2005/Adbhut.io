@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import avatar from '../../assets/placeholders/avatar.png';
 import { AiOutlineGif } from 'react-icons/ai';
-import { BsImageFill, BsThreeDots } from 'react-icons/bs';
+import { BsChevronLeft, BsChevronRight, BsImageFill, BsThreeDots } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
 import { motion } from "framer-motion"
@@ -57,6 +57,9 @@ const LeftAside = () => {
         setcheckedSkills([skill[1] + '']);
         // chatlog
         setchatLog(current => [...current, { msgID: current.length + 1, user: skill[0] }]);
+
+        // removing suggested skills after click
+        setSkills(current => current.filter(i => i[1] + '' !== skill[1] + ''));
     }
     const handleSelectContent = (content) => {
         setselectedContentProducts(content[1] + '');
@@ -127,17 +130,22 @@ const LeftAside = () => {
                         }
                     </div>
 
-                    <div className='flex flex-wrap gap-2 text-sm font-medium mt-8 select-none'>
-                        {
-                            skills &&
-                            skills.map(skill => <div
-                                onClick={() => handleSelectSkill(skill)}
-                                key={`suggested-skill${skill[1]}`}
-                                className='py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>
-                                {skill[0]}
-                            </div>)
-                        }
-                        {
+                    {
+                        skills.length > 0 &&
+                        <div className='flex skillScroll overflow-x-scroll pb-2 gap-2 text-sm font-medium select-none'>
+                            {
+                                skills &&
+                                skills.map(skill => <div
+                                    onClick={() => handleSelectSkill(skill)}
+                                    key={`suggested-skill${skill[1]}`}
+                                    className='whitespace-nowrap py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>
+                                    {skill[0]}
+                                </div>)
+                            }
+                        </div>
+                    }
+                </div>
+                {/* {
                             contentProducts &&
                             contentProducts.map(contentProduct => <div
                                 onClick={() => handleSelectContent(contentProduct)}
@@ -145,9 +153,7 @@ const LeftAside = () => {
                                 className='py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
                                 {contentProduct[0]}
                             </div>)
-                        }
-                    </div>
-                </div>
+                        } */}
 
                 <div className='p-3 border-t-[3px] border-gray-300'>
                     <textarea name="" className="p-2 rounded-lg border border-blue-500 w-full focus:outline-none" rows="4" placeholder='Start a briefing...' ></textarea>

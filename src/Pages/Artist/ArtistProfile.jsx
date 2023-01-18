@@ -10,16 +10,12 @@ import useYoutubeEmbaded from '../../hooks/useYoutubeEmbaded';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-
 const ArtistProfile = () => {
     const { handleShortlist } = useRootContext();
 
     const artistInfo = useLoaderData();
-    const { artistID, name, email, profile_pic, phone, skills, social, languages } = artistInfo;
     console.log(artistInfo);
+    const { artistID, name, email, profile_pic, phone, skills, social, languages, workLinks } = artistInfo;
     return (
         <div className='bg-white rounded-lg p-10'>
             <div className='flex items-center gap-5 mb-7'>
@@ -54,21 +50,46 @@ const ArtistProfile = () => {
                     modules={[Navigation]}
                     navigation
                 >
-                    <SwiperSlide>
-                        <div className='h-[400px]'>
-                            {useYoutubeEmbaded("https://www.youtube.com/watch?v=YlikPdOlhkQ&ab_channel=NsNCo", "rounded-lg")}
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className='h-[400px]'>
-                            {useYoutubeEmbaded("https://www.youtube.com/watch?v=YlikPdOlhkQ&ab_channel=NsNCo", "rounded-lg")}
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className='h-[400px]'>
-                            {useYoutubeEmbaded("https://www.youtube.com/watch?v=YlikPdOlhkQ&ab_channel=NsNCo", "rounded-lg")}
-                        </div>
-                    </SwiperSlide>
+                    {
+                        workLinks.map(link => <SwiperSlide>
+                            {
+                                link[1] === "Youtube Link"
+                                && <div className='h-[400px]'>
+                                    {useYoutubeEmbaded(link[0], 'rounded-lg')}
+                                </div>
+                            }
+                            {
+                                link[1] === "Instagram Link"
+                                && <div className='border rounded-lg bg-gray-200 overflow-hidden'>
+                                    <iframe src={link[0]} className="mx-auto border-l border-r -mt-14" height="430" frameBorder="0" scrolling="no" allowtransparency="true"></iframe>
+                                </div>
+                            }
+                            {
+                                link[1] === "Soundcloud Link"
+                                && <div className='border rounded-lg'>
+                                    <iframe width="100%" height="166" scrolling="no" frameBorder="no" src={`https://w.soundcloud.com/player/?url=${link[0]};auto_play=false&amp;show_artwork=true`}></iframe>
+                                </div>
+                            }
+                            {
+                                link[1] === "Image"
+                                && <div className='bg-black'>
+                                    <img className='w-1/2 mx-auto bg-white' src={link[0]} alt="" />
+                                </div>
+                            }
+                            {
+                                link[1] === "Video"
+                                && <div className='border rounded-lg'>
+                                    <video controls autoPlay width="300" className='mx-auto'>
+                                        <source src={link[0]} type="video/mp4" />
+                                    </video>
+                                </div>
+                            }
+                            {
+                                link[1] === "Other Document"
+                                && <embed src={link[0]} className="w-full" height="500" />
+                            }
+                        </SwiperSlide>)
+                    }
                 </Swiper>
             </div>
         </div>
