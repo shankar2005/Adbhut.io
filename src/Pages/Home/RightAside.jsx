@@ -116,15 +116,18 @@ const RightAside = () => {
             </section>
 
             <section className='bg-white text-gray-700 rounded-lg shadow-md text-sm'>
-                <div className='border-b mb-3 pb-6 p-4'>
-                    <p className='text-black mb-2 font-medium'>Current Projects</p>
-                    {
-                        currentProjects.map(project => <p className='flex items-center gap-1 underline hover:text-blue-700 cursor-pointer'>
-                            <MdCelebration className='w-5 h-5 text-yellow-400' />
-                            {project.template[1]}
-                        </p>)
-                    }
-                </div>
+                {
+                    currentProjects.length > 0 &&
+                    <div className='border-b mb-3 pb-6 p-4'>
+                        <p className='text-black mb-2 font-medium'>Current Projects</p>
+                        {
+                            currentProjects.map(project => <p className='flex items-center gap-1 underline hover:text-blue-700 cursor-pointer'>
+                                <MdCelebration className='w-5 h-5 text-yellow-400' />
+                                {project.template[1]}
+                            </p>)
+                        }
+                    </div>
+                }
                 <div className='border-b mb-3 pb-6 p-4'>
                     <p className='text-black mb-2 font-medium'>Recent Artists</p>
                     <p className='flex gap-1 mb-1'><img className='w-5 h-5' src="https://media.licdn.com/dms/image/D4D0BAQErxzI3ZO8CEA/company-logo_200_200/0/1665423690851?e=2147483647&v=beta&t=lNNe6O9RDmoigkZam6o8yn-abUNDT-L_F2MCusFSQ3E" alt="" /> JavaScript Developer</p>
