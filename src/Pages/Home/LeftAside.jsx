@@ -142,18 +142,18 @@ const LeftAside = () => {
                                     {skill[0]}
                                 </div>)
                             }
+                            {/* {
+                                contentProducts &&
+                                contentProducts.map(contentProduct => <div
+                                    onClick={() => handleSelectContent(contentProduct)}
+                                    key={`suggested-content${contentProduct[1]}`}
+                                    className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
+                                    {contentProduct[0]}
+                                </div>)
+                            } */}
                         </div>
                     }
                 </div>
-                {/* {
-                            contentProducts &&
-                            contentProducts.map(contentProduct => <div
-                                onClick={() => handleSelectContent(contentProduct)}
-                                key={`suggested-content${contentProduct[1]}`}
-                                className='py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
-                                {contentProduct[0]}
-                            </div>)
-                        } */}
 
                 <div className='p-3 border-t-[3px] border-gray-300'>
                     <textarea name="" className="p-2 rounded-lg border border-blue-500 w-full focus:outline-none" rows="4" placeholder='Start a briefing...' ></textarea>

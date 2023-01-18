@@ -119,17 +119,19 @@ const RightAside = () => {
 
 
 
-            <footer>
-                About
-                Accessibility
-                Help Center
-                Privacy & Terms
-                Ad Choices
-                Advertising
-                Business Services
-                Get the LinkedIn app
-                More
-                LinkedIn Corporation © 2023
+            <footer className='text-xs text-gray-600'>
+                <ul className='flex flex-wrap gap-3 justify-center mt-6'>
+                    <li className='hover:underline'>About</li>
+                    <li className='hover:underline'>Accessibility</li>
+                    <li className='hover:underline'>Help Center</li>
+                    <li className='hover:underline'>Privacy & Terms</li>
+                    <li className='hover:underline'>Ad Choices</li>
+                    <li className='hover:underline'>Advertising</li>
+                    <li className='hover:underline'>Business Services</li>
+                    <li className='hover:underline'>Get the NsN Co app</li>
+                    <li className='hover:underline'>More</li>
+                </ul>
+                <p className='text-center mt-4'>NsN Co © 2023</p>
             </footer>
         </>
     );
