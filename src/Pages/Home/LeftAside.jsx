@@ -1,14 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import avatar from '../../assets/placeholders/avatar.png';
 import { AiOutlineGif } from 'react-icons/ai';
-import { BsChevronLeft, BsChevronRight, BsImageFill, BsThreeDots } from 'react-icons/bs';
+import { BsImageFill, BsThreeDots } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
 import { motion } from "framer-motion"
 import { useRootContext } from '../../contexts/RootProvider';
+import { Link } from 'react-router-dom';
+import { FiDelete } from 'react-icons/fi';
+import { toast } from 'react-hot-toast';
 
 const LeftAside = () => {
-    const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills } = useRootContext();
+    const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken } = useRootContext();
 
     const chatboxRef = useRef();
     useEffect(() => {
@@ -67,6 +70,38 @@ const LeftAside = () => {
         setchatLog(current => [...current, { msgID: current.length + 1, user: content[0] }]);
     }
 
+    // handle remove shortlisted artist
+    const handleRemoveShortlistedArtist = (msgID, artistID) => {
+        // remove chatlog
+        setchatLog(current => [...current.filter(msg => msg.msgID !== msgID)]);
+        // remove selected artist
+        setshortlistedArtist(current => [...current.filter(artist => artist.artistID !== artistID)]);
+    }
+
+    // send brief
+    const handleSendBrief = () => {
+        fetch('https://dev.nsnco.in/api/v1/create_project/', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                Authorization: `token ${authToken}`
+            },
+            body: JSON.stringify({
+                "stage": "Lead",
+                "brief": chatLog,
+                "product": selectedContentProducts,
+                "shortlisted_artists": shortlistedArtist.map(artist => artist.artistID)
+            })
+        }).then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    toast.success(data.success);
+                } else if (data.error) {
+                    toast.error(data.error);
+                }
+            });
+    }
+
     return (
         <>
             <section className='bg-white shadow-md rounded-lg'>
@@ -113,14 +148,18 @@ const LeftAside = () => {
                                     </div>
                                     :
                                     <div className='text-sm flex gap-2 mb-5 ml-auto'>
-                                        <div>
+                                        <div className='ml-8'>
                                             <h4 className='font-medium'>Md Maruf Hossain</h4>
                                             <motion.div
                                                 initial={{ scale: 0 }}
                                                 animate={{ scale: 1 }}
                                             >
                                                 <p className='w-fit ml-auto bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg mb-1'>
-                                                    {chat.user}
+                                                    {
+                                                        chat.user ||
+                                                        chat.type === 'shortlistedArtist' &&
+                                                        <>Shortlisted <Link to={`/artist/${chat.artist.artistID}`} className='hover:underline'><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> {chat.artist.name}</Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
+                                                    }
                                                 </p>
                                             </motion.div>
                                         </div>
@@ -137,7 +176,7 @@ const LeftAside = () => {
                                 skills &&
                                 skills.map(skill => <div
                                     onClick={() => handleSelectSkill(skill)}
-                                    key={`suggested-skill${skill[1]}`}
+                                    key={`suggested - skill${skill[1]}`}
                                     className='whitespace-nowrap py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>
                                     {skill[0]}
                                 </div>)
@@ -146,7 +185,7 @@ const LeftAside = () => {
                                 contentProducts &&
                                 contentProducts.map(contentProduct => <div
                                     onClick={() => handleSelectContent(contentProduct)}
-                                    key={`suggested-content${contentProduct[1]}`}
+                                    key={`suggested - content${ contentProduct[1]}`}
                                     className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
                                     {contentProduct[0]}
                                 </div>)
@@ -169,7 +208,7 @@ const LeftAside = () => {
                                 ?
                                 <div className='space-x-1'>
                                     <button className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Add to Dream Project</button>
-                                    <button className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send Brief</button>
+                                    <button onClick={handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send Brief</button>
                                 </div>
                                 :
                                 <div className='space-x-1'>

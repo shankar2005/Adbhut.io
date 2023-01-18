@@ -76,7 +76,7 @@ const Root = () => {
     const checkedSkillsWithAllValues = checkedSkills.map(checkedSkill => skills.find(skill => checkedSkill === skill.pk + ''));
     const genres = checkedSkillsWithAllValues.map(skill => skill.genre);
     const allGenres = [];
-    genres.forEach(genre => {
+    genres?.forEach(genre => {
         allGenres.push(...genre);
     })
 

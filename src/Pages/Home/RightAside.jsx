@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import avatar from '../../assets/placeholders/avatar.png';
 import { MdCelebration } from 'react-icons/md';
 import { BsHash } from 'react-icons/bs';
@@ -43,7 +43,7 @@ const category = [
 ]
 
 const RightAside = () => {
-    const { selectedContentProducts, setselectedContentProducts, setchatLog } = useRootContext();
+    const { selectedContentProducts, setselectedContentProducts, setchatLog, authToken } = useRootContext();
 
     const { isAuthenticated } = useContext(AuthContext);
 
@@ -57,6 +57,18 @@ const RightAside = () => {
             toast('Already selected');
         }
     }
+
+    // get current projects
+    const [currentProjects, setCurrentProjects] = useState([]);
+    useEffect(() => {
+        fetch('https://dev.nsnco.in/api/v1/get_my_projects/', {
+            headers: {
+                "content-type": "application/json",
+                Authorization: `token ${authToken}`
+            },
+        }).then(res => res.json())
+            .then(data => setCurrentProjects(data));
+    }, [])
 
     return (
         <>
@@ -101,9 +113,12 @@ const RightAside = () => {
             <section className='bg-white text-gray-700 rounded-lg shadow-md text-sm'>
                 <div className='border-b mb-3 pb-6 p-4'>
                     <p className='text-black mb-2 font-medium'>Current Projects</p>
-                    <p className='flex items-center gap-1 underline hover:text-blue-700 cursor-pointer'><MdCelebration className='w-5 h-5 text-yellow-400' />JavaScript Developer</p>
-                    <p className='flex items-center gap-1 underline hover:text-blue-700 cursor-pointer'><MdCelebration className='w-5 h-5 text-yellow-400' />International Jobs for Web Developer</p>
-                    <p className='flex items-center gap-1 underline hover:text-blue-700 cursor-pointer'><MdCelebration className='w-5 h-5 text-yellow-400' />hashtag6monthsofcodechallenge</p>
+                    {
+                        currentProjects.map(project => <p className='flex items-center gap-1 underline hover:text-blue-700 cursor-pointer'>
+                            <MdCelebration className='w-5 h-5 text-yellow-400' />
+                            {project.template[1]}
+                        </p>)
+                    }
                 </div>
                 <div className='border-b mb-3 pb-6 p-4'>
                     <p className='text-black mb-2 font-medium'>Recent Artists</p>

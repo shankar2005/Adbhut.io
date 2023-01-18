@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { FiDelete } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 const RootContext = createContext();
 
@@ -14,11 +13,15 @@ const RootProvider = ({ children }) => {
     const [checkedSkills, setcheckedSkills] = useState([]);
     const [checkedGenres, setcheckedGenres] = useState([]);
 
+    const cookies = new Cookies();
+    const authToken = cookies.get('auth_token');
 
     //-------------------------------------------------------------
     //-------------------------------------------------------------
     // artist shortlisting
     const [shortlistedArtist, setshortlistedArtist] = useState([]);
+    const [shortlistedArtistInfo, setshortlistedArtistInfo] = useState([]);
+
     // clicking content products
     const [selectedContentProducts, setselectedContentProducts] = useState("");
 
@@ -35,19 +38,12 @@ const RootProvider = ({ children }) => {
     //-------------------------------------------------------------
     //-------------------------------------------------------------
 
-    const handleRemoveShortlistedArtist = (msgID, artistID) => {
-        // remove chatlog
-        setchatLog(current => [...current.filter(msg => msg.msgID !== msgID)]);
-        // remove selected artist
-        setshortlistedArtist(current => [...current.filter(artist => artist.artistID !== artistID)]);
-    }
-
     const handleShortlist = (artistID, name, profile_pic) => {
         const isExist = shortlistedArtist.find(artist => artist.artistID === artistID);
         if (!isExist) {
             setshortlistedArtist(current => [...current, { name, artistID }]);
             // chatlog
-            setchatLog(current => [...current, { msgID: current.length + 1, user: <>Shortlisted <Link to={`/artist/${artistID}`} className='hover:underline'><img className='w-8 h-8 inline bg-white object-cover' src={profile_pic} alt="" /> {name}</Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(current.length + 1, artistID)} className='inline w-5 h-5 cursor-pointer' /></> }]);
+            setchatLog(current => [...current, { type: 'shortlistedArtist', msgID: current.length + 1, artist: { artistID, name, profile_pic } }]);
         } else {
             toast('Already shortlisted');
         }
@@ -70,6 +66,7 @@ const RootProvider = ({ children }) => {
         chatLog,
         setchatLog,
         handleShortlist,
+        authToken
     }
 
     return (
