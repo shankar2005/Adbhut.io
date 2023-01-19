@@ -14,7 +14,7 @@ const Root = () => {
 
     const [showLocationDropdown, setshowLocationDropdown] = useState(false);
 
-    const { setIsAuthenticated } = useContext(AuthContext);
+    const { setIsAuthenticated, isAuthenticated } = useContext(AuthContext);
 
     const handleLogout = () => {
         const cookies = new Cookies();
@@ -85,7 +85,9 @@ const Root = () => {
             <nav className='bg-white shadow-md sticky top-0 z-50'>
                 <div className='w-11/12 mx-auto flex items-center justify-between'>
                     <div className='flex items-center gap-8 py-3'>
-                        <Link to="/"><h4 className='font-medium text-lg'>NsN Co</h4></Link>
+                        <Link to="/">
+                            <img className='w-10' src="https://nsnco.in/assets/img/new-logo.png" alt="" />
+                        </Link>
                         <div className='relative flex'>
                             <form onSubmit={handleSearch}>
                                 <input onClick={() => setShowSearch(true)} type="text" name="search" className='border bg-blue-50 py-2 w-72 pl-10 pr-3 rounded text-sm' placeholder='Search your artist here...' />
@@ -108,7 +110,7 @@ const Root = () => {
                                     </div>
                                     <ul onChange={handleSkillsCheckbox} className="min-h-fit max-h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSearchButton">
                                         {skills?.map(skill => (
-                                            <li key={skill.pk}>
+                                            <li key={`skill${skill.pk}`}>
                                                 <div className="flex items-center pl-2 rounded hover:bg-gray-100">
                                                     <input defaultChecked={checkedSkills.includes(skill.pk.toString())} id={'#' + skill.name} type="checkbox" value={skill.pk} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" />
                                                     <label htmlFor={'#' + skill.name} className="w-full py-2 ml-2 text-xs font-medium text-gray-900 rounded">{skill.name}</label>
@@ -129,14 +131,16 @@ const Root = () => {
                                                 </div>
                                             </div>
                                             <ul onChange={handleGenreCheckbox} className="min-h-fit max-h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSearchButton">
-                                                {allGenres?.map(genre => (
-                                                    <li key={genre[1]}>
-                                                        <div className="flex items-center pl-2 rounded hover:bg-gray-100">
-                                                            <input id={'genre_' + genre[1]} type="checkbox" value={genre[1]} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" />
-                                                            <label htmlFor={'genre_' + genre[1]} className="w-full py-2 ml-2 text-xs font-medium text-gray-900 rounded">{genre[0]}</label>
-                                                        </div>
-                                                    </li>
-                                                ))}
+                                                {
+                                                    allGenres?.map(genre => (
+                                                        <li key={`dropdownGenre${genre[1]}`}>
+                                                            <div className="flex items-center pl-2 rounded hover:bg-gray-100">
+                                                                <input id={'genre_' + genre[1]} type="checkbox" value={genre[1]} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" />
+                                                                <label htmlFor={'genre_' + genre[1]} className="w-full py-2 ml-2 text-xs font-medium text-gray-900 rounded">{genre[0]}</label>
+                                                            </div>
+                                                        </li>
+                                                    ))
+                                                }
                                             </ul>
                                         </>
                                     }
@@ -157,14 +161,14 @@ const Root = () => {
                                         </div>
                                     </div>
                                     <ul onChange={handleSkillsCheckbox} className="min-h-fit max-h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSearchButton">
-                                        {skills?.map(skill => (
+                                        {/* {skills?.map(skill => (
                                             <li key={skill.pk}>
                                                 <div className="flex items-center pl-2 rounded hover:bg-gray-100">
                                                     <input id={'#' + skill.name} type="checkbox" value={skill.pk} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" />
                                                     <label htmlFor={'#' + skill.name} className="w-full py-2 ml-2 text-xs font-medium text-gray-900 rounded">{skill.name}</label>
                                                 </div>
                                             </li>
-                                        ))}
+                                        ))} */}
                                     </ul>
                                 </div>
                             </div>
@@ -200,9 +204,12 @@ const Root = () => {
                     <ul onClick={() => setShowSearch(false)} className='flex gap-4 text-gray-500 flex-1 py-3'>
                         <li className='ml-auto'><AiFillHome className='w-6 h-6' /></li>
                         <li><MdCelebration className='w-6 h-6' /></li>
-                        <li>
-                            <button onClick={handleLogout}><FiLogOut className='w-6 h-6' /></button>
-                        </li>
+                        {
+                            isAuthenticated &&
+                            <li>
+                                <button onClick={handleLogout}><FiLogOut className='w-6 h-6' /></button>
+                            </li>
+                        }
                     </ul>
                 </div>
             </nav>

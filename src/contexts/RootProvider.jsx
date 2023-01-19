@@ -58,7 +58,8 @@ const RootProvider = ({ children }) => {
                     return;
                 }
                 setchatLog(JSON.parse(data.brief));
-                console.log(data);
+                setshortlistedArtist(data.shortlisted_artists);
+                setselectedContentProducts(data.template[0]);
             });
     }
 

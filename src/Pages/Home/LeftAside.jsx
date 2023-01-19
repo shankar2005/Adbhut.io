@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import avatar from '../../assets/placeholders/avatar.png';
 import { AiOutlineGif } from 'react-icons/ai';
 import { BsImageFill, BsThreeDots } from 'react-icons/bs';
@@ -9,9 +9,11 @@ import { useRootContext } from '../../contexts/RootProvider';
 import { Link } from 'react-router-dom';
 import { FiDelete } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const LeftAside = () => {
     const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken } = useRootContext();
+    const { isAuthenticated } = useContext(AuthContext);
 
     const chatboxRef = useRef();
     useEffect(() => {
@@ -80,6 +82,9 @@ const LeftAside = () => {
 
     // send brief
     const handleSendBrief = () => {
+        if (!isAuthenticated) {
+            toast("You must have to login");
+        }
         fetch('https://dev.nsnco.in/api/v1/create_project/', {
             method: "POST",
             headers: {
@@ -109,8 +114,8 @@ const LeftAside = () => {
             fetch('https://dev.nsnco.in/api/v1/get_content_products/')
                 .then(res => res.json())
                 .then(data => {
-                    const test = data.map(skill => [skill.name, skill.pk])
-                    setinitialContentProducts(test);
+                    const content = data.map(skill => [skill.name, skill.pk])
+                    setinitialContentProducts(content);
                 });
         }
     }, [])
