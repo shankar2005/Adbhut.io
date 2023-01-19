@@ -28,7 +28,7 @@ const LeftAside = () => {
         }
     }, [])
 
-    const artistIDs = shortlistedArtist?.map(artist => artist.artistID).join(",");
+    const artistIDs = shortlistedArtist?.join(",");
 
     // for showing chat suggestions (artists skills) when shortlisted an artist
     const [skills, setSkills] = useState([]);
@@ -75,7 +75,7 @@ const LeftAside = () => {
         // remove chatlog
         setchatLog(current => [...current.filter(msg => msg.msgID !== msgID)]);
         // remove selected artist
-        setshortlistedArtist(current => [...current.filter(artist => artist.artistID !== artistID)]);
+        setshortlistedArtist(current => [...current.filter(id => id !== artistID)]);
     }
 
     // send brief
@@ -90,7 +90,7 @@ const LeftAside = () => {
                 "stage": "Lead",
                 "brief": JSON.stringify(chatLog),
                 "product": selectedContentProducts,
-                "shortlisted_artists": shortlistedArtist.map(artist => artist.artistID)
+                "shortlisted_artists": shortlistedArtist
             })
         }).then(res => res.json())
             .then(data => {
@@ -102,6 +102,7 @@ const LeftAside = () => {
             });
     }
 
+    // initially showing content products in chatbox
     const [initialContentProducts, setinitialContentProducts] = useState([]);
     useEffect(() => {
         if (skills.length === 0) {
@@ -143,7 +144,7 @@ const LeftAside = () => {
                             chatLog &&
                             chatLog.map(chat => (
                                 chat.bot ?
-                                    <div className='text-sm flex gap-2 mb-5'>
+                                    <div key={`msg${chat.msgID}`} className='text-sm flex gap-2 mb-5'>
                                         <img className='w-10 h-10' src="https://media.licdn.com/dms/image/D4D0BAQErxzI3ZO8CEA/company-logo_200_200/0/1665423690851?e=2147483647&v=beta&t=lNNe6O9RDmoigkZam6o8yn-abUNDT-L_F2MCusFSQ3E" alt="" />
                                         <div className='mr-12'>
                                             <h4 className='font-medium'>NsN Co Servicing</h4>
@@ -159,7 +160,7 @@ const LeftAside = () => {
                                         </div>
                                     </div>
                                     :
-                                    <div className='text-sm flex gap-2 mb-5 ml-auto'>
+                                    <div key={`msg${chat.msgID}`} className='text-sm flex gap-2 mb-5 ml-auto'>
                                         <div className='ml-8'>
                                             <h4 className='font-medium'>Md Maruf Hossain</h4>
                                             <motion.div
@@ -188,7 +189,7 @@ const LeftAside = () => {
                                 skills &&
                                 skills.map(skill => <div
                                     onClick={() => handleSelectSkill(skill)}
-                                    key={`suggested - skill${skill[1]}`}
+                                    key={`suggestedSkill${skill[1]}`}
                                     className='whitespace-nowrap py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>
                                     {skill[0]}
                                 </div>)
@@ -196,12 +197,12 @@ const LeftAside = () => {
                         </div>
                     }
                     {
-                        initialContentProducts.length > 0 && !selectedContentProducts && shortlistedArtist.length === 0 &&
+                        initialContentProducts.length > 0 && !selectedContentProducts && shortlistedArtist.length === 0 && chatLog.length === 0 &&
                         <div className='flex flex-wrap pb-2 gap-2 text-sm font-medium select-none absolute bottom-0'>
                             {
                                 initialContentProducts.map(contentProduct => <div
                                     onClick={() => handleSelectContent(contentProduct)}
-                                    key={`suggested - content${contentProduct[1]}`}
+                                    key={`suggestedContent${contentProduct[1]}`}
                                     className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
                                     {contentProduct[0]}
                                 </div>)

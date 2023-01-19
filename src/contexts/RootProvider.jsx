@@ -38,9 +38,9 @@ const RootProvider = ({ children }) => {
     //-------------------------------------------------------------
 
     const handleShortlist = (artistID, name, profile_pic) => {
-        const isExist = shortlistedArtist.find(artist => artist.artistID === artistID);
+        const isExist = shortlistedArtist.includes(artistID);
         if (!isExist) {
-            setshortlistedArtist(current => [...current, { name, artistID }]);
+            setshortlistedArtist(current => [...current, artistID]);
             // chatlog
             setchatLog(current => [...current, { type: 'shortlistedArtist', msgID: current.length + 1, artist: { artistID, name, profile_pic } }]);
         } else {
@@ -58,6 +58,7 @@ const RootProvider = ({ children }) => {
                     return;
                 }
                 setchatLog(JSON.parse(data.brief));
+                console.log(data);
             });
     }
 
