@@ -102,6 +102,18 @@ const LeftAside = () => {
             });
     }
 
+    const [initialContentProducts, setinitialContentProducts] = useState([]);
+    useEffect(() => {
+        if (skills.length === 0) {
+            fetch('https://dev.nsnco.in/api/v1/get_content_products/')
+                .then(res => res.json())
+                .then(data => {
+                    const test = data.map(skill => [skill.name, skill.pk])
+                    setinitialContentProducts(test);
+                });
+        }
+    }, [])
+
     return (
         <>
             <section className='bg-white shadow-md rounded-lg'>
@@ -110,7 +122,7 @@ const LeftAside = () => {
                     <BsThreeDots className='cursor-pointer' />
                 </div>
 
-                <div ref={chatboxRef} className='h-80 overflow-y-scroll overflow-x-hidden p-3'>
+                <div ref={chatboxRef} className='h-80 overflow-y-scroll overflow-x-hidden p-3 relative'>
                     <div className='flex flex-col'>
                         <motion.div
                             initial={{ translateX: '-100%' }}
@@ -181,15 +193,19 @@ const LeftAside = () => {
                                     {skill[0]}
                                 </div>)
                             }
-                            {/* {
-                                contentProducts &&
-                                contentProducts.map(contentProduct => <div
+                        </div>
+                    }
+                    {
+                        initialContentProducts.length > 0 && !selectedContentProducts && shortlistedArtist.length === 0 &&
+                        <div className='flex flex-wrap pb-2 gap-2 text-sm font-medium select-none absolute bottom-0'>
+                            {
+                                initialContentProducts.map(contentProduct => <div
                                     onClick={() => handleSelectContent(contentProduct)}
-                                    key={`suggested - content${ contentProduct[1]}`}
+                                    key={`suggested - content${contentProduct[1]}`}
                                     className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
                                     {contentProduct[0]}
                                 </div>)
-                            } */}
+                            }
                         </div>
                     }
                 </div>
