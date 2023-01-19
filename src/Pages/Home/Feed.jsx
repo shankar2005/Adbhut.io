@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { Link } from 'react-router-dom';
 import avatar from '../../assets/placeholders/avatar.png';
 import { useRootContext } from '../../contexts/RootProvider';
@@ -10,19 +11,41 @@ const Feed = () => {
     const skillQuery = checkedSkills?.map(skill => `&owner__skill=${skill}`).join('');
     const genreQuery = checkedGenres?.map(genre => `&owner__skill_genres=${genre}`).join('');
 
+    const [page, setPage] = useState(1);
+    const [hasNext, setHasNext] = useState(true);
+
     const [artists, setArtists] = useState([]);
+
     useEffect(() => {
-        const url = `https://dev.nsnco.in/api/v1/get_feed/?${searchText && `search=${searchText}`}${demoType && `&demo_type=${demoType}`}${skillQuery && skillQuery}${genreQuery && genreQuery}`;
+        const url = `https://dev.nsnco.in/api/v1/get_feed/?page=${page}&${searchText && `search=${searchText}`}${demoType && `&demo_type=${demoType}`}${skillQuery && skillQuery}${genreQuery && genreQuery}`;
         fetch(url)
             .then(res => res.json())
             .then(data => {
-                setArtists(data.results);
+                setArtists(data.results)
+                setHasNext(data.next)
             })
-            .catch(err => console.log(err));
-    }, [searchText, demoType, checkedSkills]);
+            .catch(err => console.log(err))
+    }, [searchText, demoType, checkedSkills, page])
+
+    const fetchMoreData = () => {
+        setPage(page + 1)
+        const url = `https://dev.nsnco.in/api/v1/get_feed/?page=${page}&${searchText && `search=${searchText}`}${demoType && `&demo_type=${demoType}`}${skillQuery && skillQuery}${genreQuery && genreQuery}`;
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                setArtists(artists.concat(data.results))
+                setHasNext(data.next)
+            })
+            .catch(err => console.log(err))
+    };
 
     return (
-        <>
+        <InfiniteScroll
+            dataLength={artists.length}
+            next={fetchMoreData}
+            hasMore={hasNext}
+            loader={<h4>Loading...</h4>}
+        >
             {
                 artists?.map(artist => (
                     <div key={artist.pk} className='mb-5 p-5 bg-white rounded-lg shadow-md'>
@@ -79,7 +102,7 @@ const Feed = () => {
                     </div>
                 ))
             }
-        </>
+        </InfiniteScroll>
     );
 };
 
