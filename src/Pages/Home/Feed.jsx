@@ -11,21 +11,22 @@ const Feed = () => {
     const skillQuery = checkedSkills?.map(skill => `&owner__skill=${skill}`).join('');
     const genreQuery = checkedGenres?.map(genre => `&owner__skill_genres=${genre}`).join('');
 
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(2);
     const [hasNext, setHasNext] = useState(true);
 
     const [artists, setArtists] = useState([]);
 
     useEffect(() => {
-        const url = `https://dev.nsnco.in/api/v1/get_feed/?page=${page}&${searchText && `search=${searchText}`}${demoType && `&demo_type=${demoType}`}${skillQuery && skillQuery}${genreQuery && genreQuery}`;
+        const url = `https://dev.nsnco.in/api/v1/get_feed/?${searchText && `search=${searchText}`}${demoType && `&demo_type=${demoType}`}${skillQuery && skillQuery}${genreQuery && genreQuery}`;
         fetch(url)
             .then(res => res.json())
             .then(data => {
+                setPage(1);
                 setArtists(data.results)
                 setHasNext(data.next)
             })
             .catch(err => console.log(err))
-    }, [searchText, demoType, checkedSkills, page])
+    }, [searchText, demoType, checkedSkills])
 
     const fetchMoreData = () => {
         setPage(page + 1)
