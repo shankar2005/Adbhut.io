@@ -62,12 +62,11 @@ const RightAside = () => {
     // get current projects
     const [currentProjects, setCurrentProjects] = useState([]);
     useEffect(() => {
-        if (!isAuthenticated) return;
-
         fetch('https://dev.nsnco.in/api/v1/get_my_projects/', {
             headers: { Authorization: `token ${authToken}` },
         }).then(res => res.json())
             .then(data => {
+                console.log(data);
                 if (data.detail === 'Invalid token.') {
                     return;
                 }
