@@ -9,6 +9,9 @@ import { AuthContext } from '../contexts/AuthProvider';
 import { Link, Outlet } from 'react-router-dom';
 import { useRootContext } from '../contexts/RootProvider';
 import avatar from '../assets/placeholders/avatar.png';
+import { ImOffice } from 'react-icons/im';
+import { TfiWorld } from 'react-icons/tfi';
+import logo from '../assets/logo.jpeg';
 
 const Root = () => {
     const { setdemoType, setSearchText, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres } = useRootContext();
@@ -88,7 +91,7 @@ const Root = () => {
                 <div className='w-11/12 mx-auto flex items-center justify-between'>
                     <div className='flex items-center gap-8 py-3'>
                         <Link to="/">
-                            <img className='w-10' src="https://nsnco.in/assets/img/new-logo.png" alt="" />
+                            <img className='w-10' src={logo} alt="" />
                         </Link>
                         <div className='relative flex'>
                             <form onSubmit={handleSearch}>
@@ -210,9 +213,23 @@ const Root = () => {
                                 <h4 className='text-xs'>Md Maruf Hossain</h4>
                                 <img onClick={() => setshowUser(!showUser)} className='w-10 h-10' src={avatar} alt="" />
                                 {/* modal */}
-                                <div className={`${!showUser && 'hidden'} absolute top-12 left-0 bg-white w-full border rounded-md p-3 shadow-md`}>
+                                <div className={`${!showUser && 'hidden'} absolute top-12 right-0 bg-white w-52 border rounded-md p-3 shadow-md`}>
+                                    <div className='relative'>
+                                        <img className='rounded-t-lg' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8ATiUg17HuXkHqkRB436JTxNVqh55NdWSZQ&usqp=CAU" alt="" />
+                                        <div className='w-16 rounded-full absolute bottom-0 right-1/2 translate-y-1/2 translate-x-1/2 border-4 border-white'>
+                                            <img className='w-full h-full' src={avatar} alt="" />
+                                        </div>
+                                    </div>
+                                    <div className='mt-12 pt-0 p-4 text-center'>
+                                        <h4 className='font-medium text-lg'>Md Maruf Hossain</h4>
+                                        <div className='text-sm text-gray-600'>
+                                            @maruf <br />
+                                            <p className='flex items-center justify-center gap-1 mt-1'><ImOffice /> NsN Co</p>
+                                            <p className='flex items-center justify-center gap-1 mt-1'><TfiWorld /> https://nsnco.in/</p>
+                                        </div>
+                                    </div>
                                     <li>
-                                        <button className='flex items-center gap-1' onClick={handleLogout}>Logout <FiLogOut className='w-6 h-6' /></button>
+                                        <button className='flex items-center gap-1 mx-auto border p-1 rounded-lg' onClick={handleLogout}>Logout <FiLogOut className='w-5 h-5' /></button>
                                     </li>
                                 </div>
                             </li>

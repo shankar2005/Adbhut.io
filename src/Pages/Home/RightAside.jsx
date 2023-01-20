@@ -110,22 +110,6 @@ const RightAside = () => {
                 </section>
             }
 
-            {/* <div className='relative'>
-                <img className='rounded-t-lg' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8ATiUg17HuXkHqkRB436JTxNVqh55NdWSZQ&usqp=CAU" alt="" />
-                <div className='w-20 rounded-full absolute bottom-0 right-1/2 translate-y-1/2 translate-x-1/2 border-4 border-white'>
-                    <img className='w-full h-full' src={avatar} alt="" />
-                </div>
-            </div>
-            <div className='mt-12 pt-0 p-4 text-center'>
-                <h4 className='font-medium text-lg'>Md Maruf Hossain</h4>
-                <div className='text-sm text-gray-600'>
-                    @maruf <br />
-                    <p className='flex items-center justify-center gap-1 mt-1'><ImOffice /> NsN Co</p>
-                    <p className='flex items-center justify-center gap-1 mt-1'><TfiWorld /> https://nsnco.in/</p>
-                </div>
-            </div> */}
-
-
             <section className='bg-white text-gray-700 rounded-lg shadow-md text-sm'>
                 {
                     currentProjects.length > 0 &&
