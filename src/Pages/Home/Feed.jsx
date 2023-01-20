@@ -31,6 +31,7 @@ const Feed = () => {
     const fetchMoreData = () => {
         setPage(page + 1)
         const url = `https://dev.nsnco.in/api/v1/get_feed/?page=${page}&${searchText && `search=${searchText}`}${demoType && `&demo_type=${demoType}`}${skillQuery && skillQuery}${genreQuery && genreQuery}`;
+        console.log(url);
         fetch(url)
             .then(res => res.json())
             .then(data => {
@@ -48,8 +49,8 @@ const Feed = () => {
             loader={<h4>Loading...</h4>}
         >
             {
-                artists?.map(artist => (
-                    <div key={artist.pk} className='mb-5 p-5 bg-white rounded-lg shadow-md'>
+                artists?.map((artist, idx) => (
+                    <div key={`artistFeed${idx}`} className='mb-5 p-5 bg-white rounded-lg shadow-md'>
                         <div className='flex items-center gap-2 mb-3'>
                             <Link to={`/artist/${artist.owner_id}`}><img className='w-12 h-12' src={artist.profile_pic || avatar} alt="" /></Link>
                             <div className='text-sm'>

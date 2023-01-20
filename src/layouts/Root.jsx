@@ -210,20 +210,20 @@ const Root = () => {
                         {
                             isAuthenticated &&
                             <li className='ml-auto flex items-center gap-2 relative'>
-                                <h4 className='text-xs'>Md Maruf Hossain</h4>
-                                <img onClick={() => setshowUser(!showUser)} className='w-10 h-10' src={avatar} alt="" />
+                                <h4 className='text-sm'>Puneet Anand</h4>
+                                <img onClick={() => setshowUser(!showUser)} className='w-12 h-10' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmN9YNgC9pkDxbeHskYdAskajaX3sG4TBFR6i6YQaq&s" alt="" />
                                 {/* modal */}
-                                <div className={`${!showUser && 'hidden'} absolute top-12 right-0 bg-white w-52 border rounded-md p-3 shadow-md`}>
+                                <div className={`${!showUser && 'hidden'} absolute top-12 right-0 bg-white w-60 border rounded-md p-3 shadow-2xl`}>
                                     <div className='relative'>
                                         <img className='rounded-t-lg' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8ATiUg17HuXkHqkRB436JTxNVqh55NdWSZQ&usqp=CAU" alt="" />
-                                        <div className='w-16 rounded-full absolute bottom-0 right-1/2 translate-y-1/2 translate-x-1/2 border-4 border-white'>
-                                            <img className='w-full h-full' src={avatar} alt="" />
+                                        <div className='rounded-full bg-white absolute bottom-0 right-1/2 translate-y-1/2 translate-x-1/2 border-4 border-white'>
+                                            <img className='w-16 h-16 px-1 border rounded-full object-contain' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmN9YNgC9pkDxbeHskYdAskajaX3sG4TBFR6i6YQaq&s" alt="" />
                                         </div>
                                     </div>
                                     <div className='mt-12 pt-0 p-4 text-center'>
-                                        <h4 className='font-medium text-lg'>Md Maruf Hossain</h4>
+                                        <h4 className='font-medium text-lg'>Puneet Anand</h4>
                                         <div className='text-sm text-gray-600'>
-                                            @maruf <br />
+                                            @puneet <br />
                                             <p className='flex items-center justify-center gap-1 mt-1'><ImOffice /> NsN Co</p>
                                             <p className='flex items-center justify-center gap-1 mt-1'><TfiWorld /> https://nsnco.in/</p>
                                         </div>
