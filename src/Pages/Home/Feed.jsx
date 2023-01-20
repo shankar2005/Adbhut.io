@@ -6,18 +6,19 @@ import { useRootContext } from '../../contexts/RootProvider';
 import useYoutubeEmbaded from '../../hooks/useYoutubeEmbaded';
 
 const Feed = () => {
-    const { searchText = "", demoType, checkedSkills, handleShortlist, checkedGenres } = useRootContext();
+    const { searchText = "", demoType, checkedSkills, handleShortlist, checkedGenres, checkedLocations } = useRootContext();
 
     const skillQuery = checkedSkills?.map(skill => `&owner__skill=${skill}`).join('');
     const genreQuery = checkedGenres?.map(genre => `&owner__skill_genres=${genre}`).join('');
+    const checkedLocationQuery = checkedLocations?.map(location => `&owner__location=${location}`).join('');
 
-    const [page, setPage] = useState(2);
+    const [page, setPage] = useState(1);
     const [hasNext, setHasNext] = useState(true);
 
     const [artists, setArtists] = useState([]);
 
     useEffect(() => {
-        const url = `https://dev.nsnco.in/api/v1/get_feed/?${searchText && `search=${searchText}`}${demoType && `&demo_type=${demoType}`}${skillQuery && skillQuery}${genreQuery && genreQuery}`;
+        const url = `https://dev.nsnco.in/api/v1/get_feed/?${searchText && `search=${searchText}`}${demoType && `&demo_type=${demoType}`}${skillQuery && skillQuery}${genreQuery && genreQuery}${checkedLocationQuery && checkedLocationQuery}`;
         fetch(url)
             .then(res => res.json())
             .then(data => {
@@ -30,8 +31,7 @@ const Feed = () => {
 
     const fetchMoreData = () => {
         setPage(page + 1)
-        const url = `https://dev.nsnco.in/api/v1/get_feed/?page=${page}&${searchText && `search=${searchText}`}${demoType && `&demo_type=${demoType}`}${skillQuery && skillQuery}${genreQuery && genreQuery}`;
-        console.log(url);
+        const url = `https://dev.nsnco.in/api/v1/get_feed/?page=${page}&${searchText && `search=${searchText}`}${demoType && `&demo_type=${demoType}`}${skillQuery && skillQuery}${genreQuery && genreQuery}${checkedLocationQuery && checkedLocationQuery}`;
         fetch(url)
             .then(res => res.json())
             .then(data => {

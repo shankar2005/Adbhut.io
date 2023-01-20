@@ -12,6 +12,7 @@ const RootProvider = ({ children }) => {
 
     const [checkedSkills, setcheckedSkills] = useState([]);
     const [checkedGenres, setcheckedGenres] = useState([]);
+    const [checkedLocations, setcheckedLocations] = useState([]);
 
     const cookies = new Cookies();
     const authToken = cookies.get('auth_token');
@@ -81,7 +82,9 @@ const RootProvider = ({ children }) => {
         setchatLog,
         handleShortlist,
         authToken,
-        handleShowProjectHistory
+        handleShowProjectHistory,
+        checkedLocations,
+        setcheckedLocations,
     }
 
     return (
