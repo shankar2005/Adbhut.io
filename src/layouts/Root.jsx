@@ -8,11 +8,13 @@ import Cookies from 'universal-cookie';
 import { AuthContext } from '../contexts/AuthProvider';
 import { Link, Outlet } from 'react-router-dom';
 import { useRootContext } from '../contexts/RootProvider';
+import avatar from '../assets/placeholders/avatar.png';
 
 const Root = () => {
     const { setdemoType, setSearchText, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres } = useRootContext();
 
     const [showLocationDropdown, setshowLocationDropdown] = useState(false);
+    const [showUser, setshowUser] = useState(false);
 
     const { setIsAuthenticated, isAuthenticated } = useContext(AuthContext);
 
@@ -201,15 +203,21 @@ const Root = () => {
                             </div> */}
                         </div>
                     </div>
-                    <ul onClick={() => setShowSearch(false)} className='flex gap-4 text-gray-500 flex-1 py-3'>
-                        <li className='ml-auto'><AiFillHome className='w-6 h-6' /></li>
-                        <li><MdCelebration className='w-6 h-6' /></li>
+                    <ul onClick={() => setShowSearch(false)} className='flex items-center gap-4 text-gray-500 flex-1 py-3'>
                         {
                             isAuthenticated &&
-                            <li>
-                                <button onClick={handleLogout}><FiLogOut className='w-6 h-6' /></button>
+                            <li className='ml-auto flex items-center gap-2 relative'>
+                                <h4 className='text-xs'>Md Maruf Hossain</h4>
+                                <img onClick={() => setshowUser(!showUser)} className='w-10 h-10' src={avatar} alt="" />
+                                {/* modal */}
+                                <div className={`${!showUser && 'hidden'} absolute top-12 left-0 bg-white w-full border rounded-md p-3 shadow-md`}>
+                                    <li>
+                                        <button className='flex items-center gap-1' onClick={handleLogout}>Logout <FiLogOut className='w-6 h-6' /></button>
+                                    </li>
+                                </div>
                             </li>
                         }
+
                     </ul>
                 </div>
             </nav>
