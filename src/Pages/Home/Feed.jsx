@@ -19,6 +19,7 @@ const Feed = () => {
 
     useEffect(() => {
         const url = `https://dev.nsnco.in/api/v1/get_feed/?${searchText && `search=${searchText}`}${demoType && `&demo_type=${demoType}`}${skillQuery && skillQuery}${genreQuery && genreQuery}${checkedLocationQuery && checkedLocationQuery}`;
+        console.log(url);
         fetch(url)
             .then(res => res.json())
             .then(data => {
@@ -27,7 +28,7 @@ const Feed = () => {
                 setHasNext(data.next)
             })
             .catch(err => console.log(err))
-    }, [searchText, demoType, checkedSkills])
+    }, [searchText, demoType, checkedSkills, checkedLocations])
 
     const fetchMoreData = () => {
         setPage(page + 1)
