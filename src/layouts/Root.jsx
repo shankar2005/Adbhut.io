@@ -137,8 +137,8 @@ const Root = () => {
                                             </div>
                                             <ul onChange={handleGenreCheckbox} className="min-h-fit max-h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSearchButton">
                                                 {
-                                                    allGenres?.map(genre => (
-                                                        <li key={`dropdownGenre${genre[1]}`}>
+                                                    allGenres?.map((genre, idx) => (
+                                                        <li key={`dropdownGenre${idx}`}>
                                                             <div className="flex items-center pl-2 rounded hover:bg-gray-100">
                                                                 <input id={'genre_' + genre[1]} type="checkbox" value={genre[1]} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded" />
                                                                 <label htmlFor={'genre_' + genre[1]} className="w-full py-2 ml-2 text-xs font-medium text-gray-900 rounded">{genre[0]}</label>

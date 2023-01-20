@@ -66,7 +66,6 @@ const RightAside = () => {
             headers: { Authorization: `token ${authToken}` },
         }).then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.detail === 'Invalid token.') {
                     return;
                 }
