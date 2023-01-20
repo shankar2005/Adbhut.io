@@ -167,7 +167,7 @@ const LeftAside = () => {
                                     :
                                     <div key={`msg${chat.msgID}`} className='text-sm flex gap-2 mb-5 ml-auto'>
                                         <div className='ml-8'>
-                                            <h4 className='font-medium'>Md Maruf Hossain</h4>
+                                            <h4 className='font-medium'>Hyundai Servicing</h4>
                                             <motion.div
                                                 initial={{ scale: 0 }}
                                                 animate={{ scale: 1 }}
