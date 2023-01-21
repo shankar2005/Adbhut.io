@@ -94,8 +94,8 @@ const RightAside = () => {
 
                         {
                             category?.map((item, idx) => (
-                                <SwiperSlide>
-                                    <div onClick={() => handleSelectContentProducts(item)} key={idx} className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
+                                <SwiperSlide key={idx}>
+                                    <div onClick={() => handleSelectContentProducts(item)} className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
                                         <div className='w-9 h-9 p-1 border rounded-md '>
                                             <img className='group-hover:scale-110 duration-150 overflow-hidden' src={item.image} />
                                         </div>
