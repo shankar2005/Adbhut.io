@@ -1,13 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import avatar from '../../assets/placeholders/avatar.png';
 import { MdCelebration } from 'react-icons/md';
-import { BsHash } from 'react-icons/bs';
-import AuthSection from '../Auth/AuthSection';
-import { ImOffice } from 'react-icons/im';
-import { TfiWorld } from 'react-icons/tfi';
 import { AuthContext } from '../../contexts/AuthProvider';
 import { toast } from 'react-hot-toast';
 import { useRootContext } from '../../contexts/RootProvider';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 const category = [
     {
@@ -87,28 +83,30 @@ const RightAside = () => {
     }, [])
 
     return (
-        <div className='h-screen overflow-y-scroll'>
+        <>
             <section className='mb-5 bg-white shadow-md rounded-lg p-3'>
                 <h3 className='font-medium mb-3 text-gray-600'>Content Products</h3>
-                <div className='grid grid-cols-4 gap-2 text-center'>
-                    {
-                        category?.map((item, idx) => (
-                            <div onClick={() => handleSelectContentProducts(item)} key={idx} className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
-                                <div className='w-9 h-9 p-1 border rounded-md '>
-                                    <img className='group-hover:scale-110 duration-150 overflow-hidden' src={item.image} />
-                                </div>
-                                <p className='text-xs'>{item.name}</p>
-                            </div>)
-                        )
-                    }
+                <div className='text-center'>
+                    <Swiper
+                        spaceBetween={5}
+                        slidesPerView={4}
+                    >
+
+                        {
+                            category?.map((item, idx) => (
+                                <SwiperSlide>
+                                    <div onClick={() => handleSelectContentProducts(item)} key={idx} className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
+                                        <div className='w-9 h-9 p-1 border rounded-md '>
+                                            <img className='group-hover:scale-110 duration-150 overflow-hidden' src={item.image} />
+                                        </div>
+                                        <p className='text-xs'>{item.name}</p>
+                                    </div>
+                                </SwiperSlide>
+                            ))
+                        }
+                    </Swiper>
                 </div>
             </section>
-            {
-                isAuthenticated ||
-                <section className='bg-white rounded-lg p-4 shadow-md mb-5'>
-                    <AuthSection />
-                </section>
-            }
 
             <section className='bg-white text-gray-700 rounded-lg shadow-md text-sm'>
                 {
@@ -151,7 +149,7 @@ const RightAside = () => {
                 </ul>
                 <p className='text-center mt-4'>NsN Co © 2023</p>
             </footer>
-        </div>
+        </>
     );
 };
 

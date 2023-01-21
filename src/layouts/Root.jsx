@@ -12,12 +12,14 @@ import avatar from '../assets/placeholders/avatar.png';
 import { ImOffice } from 'react-icons/im';
 import { TfiWorld } from 'react-icons/tfi';
 import logo from '../assets/logo.jpeg';
+import AuthSection from '../Pages/Auth/AuthSection';
 
 const Root = () => {
     const { setdemoType, setSearchText, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations } = useRootContext();
 
     const [showLocationDropdown, setshowLocationDropdown] = useState(false);
     const [showUser, setshowUser] = useState(false);
+    const [loginModal, setLoginModal] = useState(false);
 
     const { setIsAuthenticated, isAuthenticated } = useContext(AuthContext);
 
@@ -31,6 +33,8 @@ const Root = () => {
         setShowSearch(false);
         setshowLocationDropdown(false);
         setskillSearchDropDown(false);
+        setshowUser(false);
+        setLoginModal(false);
     }
 
     const [skillSearchDropDown, setskillSearchDropDown] = useState(false);
@@ -245,7 +249,7 @@ const Root = () => {
                             </div> */}
                         </div>
                     </div>
-                    <ul onClick={() => setShowSearch(false)} className='flex items-center gap-4 text-gray-500 flex-1 py-3'>
+                    <ul className='flex items-center gap-4 text-gray-500 flex-1 py-3'>
                         {
                             isAuthenticated &&
                             <li className='ml-auto flex items-center gap-2 relative'>
@@ -271,13 +275,22 @@ const Root = () => {
                                 </div>
                             </li>
                         }
-
+                        {
+                            !isAuthenticated &&
+                            <li className='ml-auto relative'>
+                                <button onClick={() => setLoginModal(!loginModal)} className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="button">Login</button>
+                                {/* login modal */}
+                                <div className={`${!loginModal && 'hidden'} absolute top-[51px] right-0 bg-white w-72 border rounded-md p-5 shadow-2xl`}>
+                                    <AuthSection />
+                                </div>
+                            </li>
+                        }
                     </ul>
                 </div>
             </nav>
             <div className='w-11/12 mx-auto grid grid-cols-12 gap-5 items-start mt-5 pb-5'>
                 {/* bg unfocused layer */}
-                <div onClick={handleBodyTapModalClose} className={`${!showSearch && !showLocationDropdown && 'hidden'} fixed left-0 top-0 h-screen w-screen`}></div>
+                <div onClick={handleBodyTapModalClose} className={`${!showSearch && !showLocationDropdown && !loginModal && !loginModal && 'hidden'} fixed left-0 top-0 h-screen w-screen`}></div>
                 {/* bg unfocused layer */}
 
                 <aside className='col-span-4 sticky top-20'>

@@ -1,8 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { AiFillLinkedin, AiOutlineMail, AiOutlineGoogle } from 'react-icons/ai';
-import { useForm } from "react-hook-form";
-import Cookies from 'universal-cookie';
-import { AuthContext } from '../../contexts/AuthProvider';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 
@@ -27,12 +24,12 @@ const AuthSection = () => {
                         </p>
                     </>
             }
-            <div className="my-6 space-y-4">
-                <button className='border border-purple-500 hover:bg-purple-500 hover:text-white w-full py-3 rounded mb-2 flex items-center justify-center gap-2'><AiOutlineMail className='w-6 h-6' /> Login with Email</button>
-                <button className='border border-green-600 hover:bg-green-600 hover:text-white w-full py-3 rounded mb-2 flex items-center justify-center gap-2'><AiOutlineGoogle className='w-7 h-7' /> Login with Google</button>
-                <button className='border border-blue-500 hover:bg-blue-500 hover:text-white w-full py-3 rounded mb-2 flex items-center justify-center gap-2'><AiFillLinkedin className='w-7 h-7' /> Login with LinkedIn</button>
+            <div className="flex items-center justify-center gap-2 my-3">
+                <button className=''><AiOutlineMail className='w-6 h-6' /></button>
+                <button className=''><AiOutlineGoogle className='w-7 h-7' /></button>
+                <button className=''><AiFillLinkedin className='w-6 h-6' /></button>
             </div>
-            <div className="flex items-center w-full my-4">
+            <div className="flex items-center w-full mb-2">
                 <hr className="w-full text-gray-400" />
                 <p className="px-3 text-gray-400">OR</p>
                 <hr className="w-full text-gray-400" />
