@@ -27,7 +27,7 @@ const Feed = () => {
                 setHasNext(data.next)
             })
             .catch(err => console.log(err))
-    }, [searchText, demoType, checkedSkills, checkedLocations])
+    }, [searchText, demoType, checkedSkills, checkedGenres, checkedLocations])
 
     const fetchMoreData = () => {
         setPage(page + 1)

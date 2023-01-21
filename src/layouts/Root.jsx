@@ -36,6 +36,15 @@ const Root = () => {
         setskillSearchDropDown(false);
         setshowUser(false);
         setLoginModal(false);
+        setskillSearchDropDown(false)
+    }
+
+    const resetFeed = () => {
+        setSearchText("")
+        setdemoType("")
+        setcheckedSkills([]);
+        setcheckedGenres([]);
+        setcheckedLocations([]);
     }
 
     const [skillSearchDropDown, setskillSearchDropDown] = useState(false);
@@ -128,7 +137,7 @@ const Root = () => {
                 <div className='w-11/12 mx-auto flex items-center justify-between'>
                     <div className='flex items-center gap-8 py-3'>
                         <Link to="/">
-                            <img className='w-10' src={logo} alt="" />
+                            <img onClick={resetFeed} className='w-10' src={logo} alt="" />
                         </Link>
                         <div className='relative flex'>
                             <form onSubmit={handleSearch}>
@@ -295,7 +304,7 @@ const Root = () => {
             </nav>
             <div className='w-11/12 mx-auto grid grid-cols-12 gap-5 items-start mt-5 pb-5'>
                 {/* bg unfocused layer */}
-                <div onClick={handleBodyTapModalClose} className={`${!showSearch && !showLocationDropdown && !loginModal && !showUser && 'hidden'} fixed left-0 top-0 h-screen w-screen`}></div>
+                <div onClick={handleBodyTapModalClose} className={`${!showSearch && !showLocationDropdown && !loginModal && !showUser && !skillSearchDropDown && 'hidden'} fixed left-0 top-0 h-screen w-screen`}></div>
                 {/* bg unfocused layer */}
 
                 <aside className='col-span-4 sticky top-20'>
