@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { AiFillHome, AiOutlineSearch } from 'react-icons/ai';
-import { MdCelebration } from 'react-icons/md';
+import { AiOutlineSearch } from 'react-icons/ai';
 import { FiLogOut } from 'react-icons/fi';
 import LeftAside from '../Pages/Home/LeftAside';
 import { IoIosArrowDown } from 'react-icons/io';
@@ -11,6 +10,7 @@ import { useRootContext } from '../contexts/RootProvider';
 import avatar from '../assets/placeholders/avatar.png';
 import { ImOffice } from 'react-icons/im';
 import { TfiWorld } from 'react-icons/tfi';
+import { HiUsers } from 'react-icons/hi';
 import logo from '../assets/logo.jpeg';
 import AuthSection from '../Pages/Auth/AuthSection';
 
@@ -27,6 +27,7 @@ const Root = () => {
         const cookies = new Cookies();
         cookies.remove("auth_token");
         setIsAuthenticated(false);
+        setshowUser(false);
     }
 
     const handleBodyTapModalClose = () => {
@@ -252,28 +253,32 @@ const Root = () => {
                     <ul className='flex items-center gap-4 text-gray-500 flex-1 py-3'>
                         {
                             isAuthenticated &&
-                            <li className='ml-auto flex items-center gap-2 relative'>
-                                <h4 className='text-sm'>Puneet Anand</h4>
-                                <img onClick={() => setshowUser(!showUser)} className='w-12 h-10' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmN9YNgC9pkDxbeHskYdAskajaX3sG4TBFR6i6YQaq&s" alt="" />
-                                {/* modal */}
-                                <div className={`${!showUser && 'hidden'} absolute top-12 right-0 bg-white w-60 border rounded-md p-3 shadow-2xl`}>
-                                    <div className='relative'>
-                                        <img className='rounded-t-lg' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8ATiUg17HuXkHqkRB436JTxNVqh55NdWSZQ&usqp=CAU" alt="" />
-                                        <div className='rounded-full bg-white absolute bottom-0 right-1/2 translate-y-1/2 translate-x-1/2 border-4 border-white'>
-                                            <img className='w-16 h-16 px-1 border rounded-full object-contain' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmN9YNgC9pkDxbeHskYdAskajaX3sG4TBFR6i6YQaq&s" alt="" />
+                            <>
+                                <li className='ml-auto'>
+                                    <Link to="/shortlisted-artists"><HiUsers className='w-5 h-5' /></Link>
+                                </li>
+                                <li className='flex items-center gap-2 relative'>
+                                    <img onClick={() => setshowUser(!showUser)} className='w-12 h-10' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmN9YNgC9pkDxbeHskYdAskajaX3sG4TBFR6i6YQaq&s" alt="" />
+                                    {/* modal */}
+                                    <div className={`${!showUser && 'hidden'} absolute top-12 right-0 bg-white w-60 border rounded-md p-3 shadow-2xl`}>
+                                        <div className='relative'>
+                                            <img className='rounded-t-lg' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8ATiUg17HuXkHqkRB436JTxNVqh55NdWSZQ&usqp=CAU" alt="" />
+                                            <div className='rounded-full bg-white absolute bottom-0 right-1/2 translate-y-1/2 translate-x-1/2 border-4 border-white'>
+                                                <img className='w-16 h-16 px-1 border rounded-full object-contain' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmN9YNgC9pkDxbeHskYdAskajaX3sG4TBFR6i6YQaq&s" alt="" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className='mt-12 pt-0 p-4 text-center'>
-                                        <h4 className='font-medium text-lg'>Puneet Anand</h4>
-                                        <div className='text-sm text-gray-600'>
-                                            @puneet <br />
-                                            <p className='flex items-center justify-center gap-1 mt-1'><ImOffice /> NsN Co</p>
-                                            <p className='flex items-center justify-center gap-1 mt-1'><TfiWorld /> https://nsnco.in/</p>
+                                        <div className='mt-12 pt-0 p-4 text-center'>
+                                            <h4 className='font-medium text-lg'>Puneet Anand</h4>
+                                            <div className='text-sm text-gray-600'>
+                                                @puneet <br />
+                                                <p className='flex items-center justify-center gap-1 mt-1'><ImOffice /> NsN Co</p>
+                                                <p className='flex items-center justify-center gap-1 mt-1'><TfiWorld /> https://nsnco.in/</p>
+                                            </div>
                                         </div>
+                                        <button className='flex items-center gap-1 mx-auto border p-1 rounded-lg' onClick={handleLogout}>Logout <FiLogOut className='w-5 h-5' /></button>
                                     </div>
-                                    <button className='flex items-center gap-1 mx-auto border p-1 rounded-lg' onClick={handleLogout}>Logout <FiLogOut className='w-5 h-5' /></button>
-                                </div>
-                            </li>
+                                </li>
+                            </>
                         }
                         {
                             !isAuthenticated &&
@@ -290,7 +295,7 @@ const Root = () => {
             </nav>
             <div className='w-11/12 mx-auto grid grid-cols-12 gap-5 items-start mt-5 pb-5'>
                 {/* bg unfocused layer */}
-                <div onClick={handleBodyTapModalClose} className={`${!showSearch && !showLocationDropdown && !loginModal && !loginModal && 'hidden'} fixed left-0 top-0 h-screen w-screen`}></div>
+                <div onClick={handleBodyTapModalClose} className={`${!showSearch && !showLocationDropdown && !loginModal && !showUser && 'hidden'} fixed left-0 top-0 h-screen w-screen`}></div>
                 {/* bg unfocused layer */}
 
                 <aside className='col-span-4 sticky top-20'>

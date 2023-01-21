@@ -67,7 +67,7 @@ const RightAside = () => {
                 }
                 setCurrentProjects(data);
             });
-    }, [])
+    }, [isAuthenticated])
 
     // dream projects
     const [dreamProjects, setdreamProjects] = useState([]);
@@ -110,7 +110,7 @@ const RightAside = () => {
 
             <section className='bg-white text-gray-700 rounded-lg shadow-md text-sm'>
                 {
-                    currentProjects.length > 0 &&
+                    isAuthenticated && currentProjects.length > 0 &&
                     <div className='border-b pb-6 p-4'>
                         <p className='text-black mb-2 font-medium'>Current Projects</p>
                         {
