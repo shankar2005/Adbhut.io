@@ -22,21 +22,24 @@ const Feed = () => {
         fetch(url)
             .then(res => res.json())
             .then(data => {
-                setPage(1);
+                // this solved the problem of repeating first 10 feeds on first render
+                setPage(2);
                 setArtists(data.results)
                 setHasNext(data.next)
             })
             .catch(err => console.log(err))
     }, [searchText, demoType, checkedSkills, checkedGenres, checkedLocations])
 
+    artists.forEach(i => console.log(i.pk))
+
     const fetchMoreData = () => {
-        setPage(page + 1)
         const url = `https://dev.nsnco.in/api/v1/get_feed/?page=${page}&${searchText && `search=${searchText}`}${demoType && `&demo_type=${demoType}`}${skillQuery && skillQuery}${genreQuery && genreQuery}${checkedLocationQuery && checkedLocationQuery}`;
         fetch(url)
             .then(res => res.json())
             .then(data => {
                 setArtists(artists.concat(data.results))
                 setHasNext(data.next)
+                setPage(page + 1)
             })
             .catch(err => console.log(err))
     };
