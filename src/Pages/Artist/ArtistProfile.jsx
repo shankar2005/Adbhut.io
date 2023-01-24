@@ -33,8 +33,8 @@ const ArtistProfile = () => {
                     <h4 className='text-lg font-medium'>{name}</h4>
                     <img className='w-5' src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/800px-Twitter_Verified_Badge.svg.png" alt="" />
                 </div>
-                <p className='flex items-center gap-2'><FaRegEnvelope />{email}</p>
-                <p className='flex items-center gap-2'><HiPhone />{phone}</p>
+                {email && <p className='flex items-center gap-2'><FaRegEnvelope />{email}</p>}
+                {phone && <p className='flex items-center gap-2'><HiPhone />{phone}</p>}
                 {
                     languages &&
                     <p className='flex items-center gap-2'><IoLanguageSharp /> {languages.join(", ")}</p>
