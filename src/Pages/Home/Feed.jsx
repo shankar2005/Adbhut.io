@@ -30,8 +30,6 @@ const Feed = () => {
             .catch(err => console.log(err))
     }, [searchText, demoType, checkedSkills, checkedGenres, checkedLocations])
 
-    artists.forEach(i => console.log(i.pk))
-
     const fetchMoreData = () => {
         const url = `https://dev.nsnco.in/api/v1/get_feed/?page=${page}&${searchText && `search=${searchText}`}${demoType && `&demo_type=${demoType}`}${skillQuery && skillQuery}${genreQuery && genreQuery}${checkedLocationQuery && checkedLocationQuery}`;
         fetch(url)

@@ -4,6 +4,8 @@ import { AuthContext } from '../../contexts/AuthProvider';
 import { toast } from 'react-hot-toast';
 import { useRootContext } from '../../contexts/RootProvider';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper';
+import { Link } from 'react-router-dom';
 
 const category = [
     {
@@ -84,12 +86,15 @@ const RightAside = () => {
 
     return (
         <>
-            <section className='mb-5 bg-white shadow-md rounded-lg p-3'>
-                <h3 className='font-medium mb-3 text-gray-600'>Content Products</h3>
-                <div className='text-center'>
+            <section className='mb-5 bg-white shadow-md rounded-lg'>
+                <h3 className='font-medium mb-3 text-gray-600 p-3 pb-0'>Content Products</h3>
+                <div className='contentProducts text-center py-3 px-2 select-none'>
                     <Swiper
                         spaceBetween={5}
                         slidesPerView={4}
+                        modules={[Navigation]}
+                        navigation
+                        className='px-3'
                     >
 
                         {
@@ -114,10 +119,12 @@ const RightAside = () => {
                     <div className='border-b pb-6 p-4'>
                         <p className='text-black mb-2 font-medium'>Current Projects</p>
                         {
-                            currentProjects.slice(0, 3).map(project => project.stage === "Lead" && <p onClick={() => handleShowProjectHistory(project.pk)} key={`recent-project${project.pk}`} className='flex items-center gap-1 underline hover:text-blue-700 cursor-pointer'>
-                                <MdCelebration className='w-5 h-5 text-yellow-400' />
-                                {project.name}
-                            </p>)
+                            currentProjects.slice(0, 3).map(project => project.stage === "Lead" && <Link to="/shortlisted-artists">
+                                <p onClick={() => handleShowProjectHistory(project.pk)} key={`recent-project${project.pk}`} className='flex items-center gap-1 underline hover:text-blue-700 cursor-pointer'>
+                                    <MdCelebration className='w-5 h-5 text-yellow-400' />
+                                    {project.name}
+                                </p>
+                            </Link>)
                         }
                     </div>
                 }

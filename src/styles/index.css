@@ -25,6 +25,20 @@ body {
 }
 
 
-.swiper-button-next:after, .swiper-button-prev:after {
+.artistProfile .swiper-button-next:after, .artistProfile .swiper-button-prev:after {
     color: white;
+}
+
+.contentProducts .swiper-button-next:after, .contentProducts .swiper-button-prev:after {
+    font-size: 22px;
+}
+
+.contentProducts .swiper-button-prev {
+    left: -6px;
+    margin-top: -35px;
+}
+
+.contentProducts .swiper-button-next {
+    right: -8px;
+    margin-top: -35px;
 }

@@ -55,7 +55,6 @@ const RootProvider = ({ children }) => {
             headers: { Authorization: `token ${authToken}` },
         }).then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.detail === 'Authentication credentials were not provided.') {
                     return;
                 }

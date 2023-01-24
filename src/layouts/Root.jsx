@@ -174,7 +174,7 @@ const Root = () => {
                                     </ul>
                                     {/* genre */}
                                     {
-                                        allGenres.length > 0 &&
+                                        allGenres?.length > 0 &&
                                         <>
                                             <div className="p-3 border-t-2">
                                                 <div className="relative">
@@ -263,23 +263,20 @@ const Root = () => {
                         {
                             isAuthenticated &&
                             <>
-                                <li className='ml-auto'>
-                                    <Link to="/shortlisted-artists"><HiUsers className='w-5 h-5' /></Link>
-                                </li>
-                                <li className='flex items-center gap-2 relative'>
-                                    <img onClick={() => setshowUser(!showUser)} className='w-12 h-10' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmN9YNgC9pkDxbeHskYdAskajaX3sG4TBFR6i6YQaq&s" alt="" />
+                                <li className='ml-auto flex items-center gap-2 relative'>
+                                    <img onClick={() => setshowUser(!showUser)} className='w-10 h-10' src="https://thhs.in/assets/avatar-2200a5cf.png" alt="" />
                                     {/* modal */}
                                     <div className={`${!showUser && 'hidden'} absolute top-12 right-0 bg-white w-60 border rounded-md p-3 shadow-2xl`}>
                                         <div className='relative'>
                                             <img className='rounded-t-lg' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8ATiUg17HuXkHqkRB436JTxNVqh55NdWSZQ&usqp=CAU" alt="" />
                                             <div className='rounded-full bg-white absolute bottom-0 right-1/2 translate-y-1/2 translate-x-1/2 border-4 border-white'>
-                                                <img className='w-16 h-16 px-1 border rounded-full object-contain' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmN9YNgC9pkDxbeHskYdAskajaX3sG4TBFR6i6YQaq&s" alt="" />
+                                                <img className='w-16 h-16 rounded-full' src="https://thhs.in/assets/avatar-2200a5cf.png" alt="" />
                                             </div>
                                         </div>
                                         <div className='mt-12 pt-0 p-4 text-center'>
-                                            <h4 className='font-medium text-lg'>Puneet Anand</h4>
+                                            <h4 className='font-medium text-lg'>Md Maruf Hossain</h4>
                                             <div className='text-sm text-gray-600'>
-                                                @puneet <br />
+                                                @maruf <br />
                                                 <p className='flex items-center justify-center gap-1 mt-1'><ImOffice /> NsN Co</p>
                                                 <p className='flex items-center justify-center gap-1 mt-1'><TfiWorld /> https://nsnco.in/</p>
                                             </div>
