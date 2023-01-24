@@ -80,7 +80,7 @@ const ArtistDetails = ({ artistID, viewAs }) => {
                             }
                             <p className='flex items-center gap-1'><IoLocationSharp /> {artist.location}</p>
                         </div>
-                        <div className='text-xs flex justify-center flex-wrap gap-2 mb-4'>
+                        <div className='text-xs flex justify-center flex-wrap gap-1 mb-4'>
                             {
                                 artist?.skills?.map((skill, idx) => <div key={idx} className='bg-sky-400 p-1 rounded text-white'>{skill}</div>)
                             }
