@@ -10,6 +10,8 @@ import useYoutubeEmbaded from '../../hooks/useYoutubeEmbaded';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
+import { ImOffice } from 'react-icons/im';
+import { TfiWorld } from 'react-icons/tfi';
 
 const ArtistProfile = () => {
     const { handleShortlist } = useRootContext();
@@ -17,40 +19,31 @@ const ArtistProfile = () => {
     const artistInfo = useLoaderData();
     const { artistID, name, email, profile_pic, phone, skills, social, languages, workLinks, location } = artistInfo;
     return (
-        <div className='bg-white rounded-lg p-10'>
-            <div className='mb-40 relative'>
-                <div className='absolute -bottom-16 px-3 z-10 flex items-center justify-between w-full'>
-                    <Link className='' to="/"><FiArrowLeft className='w-6 h-6 text-blue-500 cursor-pointer' /></Link>
-                    <button onClick={() => handleShortlist(artistID, name, profile_pic)} className='ml-auto text-blue-500 border-2 hover:border-blue-500 bg-sky-100 border-sky-100 py-3 px-4 rounded-lg font-medium z-10'>Shortlist</button>
+        <div className='bg-white rounded-lg p-3 shadow-xl'>
+            <div className='flex items-start'>
+                <div className="flex gap-3 items-center">
+                    <Link className='' to="/"><FiArrowLeft className='w-6 h-6 text-blue-500 cursor-pointer ml-2' /></Link>
+                    <img className='w-14 h-14 rounded-full' src="https://thhs.in/assets/avatar-2200a5cf.png" alt="" />
+                    <div>
+                        <h4 className='font-medium text-lg'>Md Maruf Hossain</h4>
+                        <div className='text-sm text-gray-600'>
+                            {email && <p className='flex items-center gap-1'><FaRegEnvelope />{email}</p>}
+                            {phone && <p className='flex items-center gap-1'><HiPhone />{phone} - <IoLocationSharp /> {location}</p>}
+                            {
+                                languages &&
+                                <p className='flex items-center gap-2'><IoLanguageSharp /> {languages.join(", ")}</p>
+                            }
+                        </div>
+                    </div>
                 </div>
-                <img className='absolute top-0 left-0 h-40 w-full rounded-lg' src="https://worgs.net/wp-content/uploads/2014/08/picture-bg.gif" alt="" />
-                <div className='absolute top-20 left-10'>
-                    <img className='w-36 h-36 object-cover rounded-lg bg-white border' src={profile_pic} alt="" />
-                </div>
-            </div>
-            <div className='ml-10 pt-20'>
-                <div className='flex gap-1 items-center'>
-                    <h4 className='text-lg font-medium'>{name}</h4>
-                    <img className='w-5' src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Twitter_Verified_Badge.svg/800px-Twitter_Verified_Badge.svg.png" alt="" />
-                </div>
-                {email && <p className='flex items-center gap-2'><FaRegEnvelope />{email}</p>}
-                {phone && <p className='flex items-center gap-2'><HiPhone />{phone}</p>}
-                {
-                    languages &&
-                    <p className='flex items-center gap-2'><IoLanguageSharp /> {languages.join(", ")}</p>
-                }
-                <p className='flex items-center gap-2'><IoLocationSharp /> {location}</p>
-                <p className='text-gray-500 text-sm'>
-                    Vestibulum rutrum rutrum neque. Aenean auctor gravida sem quam pede lobortis ligula, sit amet eleifend.
-                    Product Infrastructure
-                </p>
-                <div className='flex flex-wrap gap-2 text-sm font-medium mt-3'>
+                <div className='flex flex-wrap gap-2 text-sm font-medium ml-8'>
                     {
-                        skills?.map((skill, idx) => <div key={`skills${idx}`} className='py-1 px-3 border text-gray-500 border-gray-500 rounded-full'>{skill}</div>)
+                        skills?.map((skill, idx) => <div key={`skills${idx}`} className='py-1 px-2 border text-gray-500 border-gray-500 rounded-full'>{skill}</div>)
                     }
                 </div>
+                <button onClick={() => handleShortlist(artistID, name, profile_pic)} className='ml-auto text-blue-500 border-2 hover:border-blue-500 bg-sky-100 border-sky-100 py-3 px-4 rounded-lg font-medium z-10'>Shortlist</button>
             </div>
-            <div className='artistProfile mt-10'>
+            <div className='artistProfile px-10 mt-5 pb-3'>
                 <Swiper
                     slidesPerView={1}
                     modules={[Navigation]}
