@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "../layouts/Root";
+import ArtistAdmin from "../Pages/Admins/ArtistAdmin/ArtistAdmin";
 import ArtistProfile from "../Pages/Artist/ArtistProfile";
 import ShortlistedArtists from "../Pages/Artist/ShortlistedArtists";
 import Feed from "../Pages/Home/Feed";
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
                     {
                         path: '/shortlisted-artists',
                         element: <ShortlistedArtists />,
+                    },
+                    {
+                        path: '/artist-admin',
+                        element: <ArtistAdmin />,
                     }
                 ]
             },

@@ -119,7 +119,7 @@ const RightAside = () => {
                     <div className='border-b pb-6 p-4'>
                         <p className='text-black mb-2 font-medium'>Recommended Projects</p>
                         {
-                            currentProjects.slice(0, 3).map(project => project.stage === "Lead" && <Link to="/shortlisted-artists" key={`recent-project${project.pk}`}>
+                            currentProjects.map(project => project.stage === "Lead" && <Link to="/shortlisted-artists" key={`recent-project${project.pk}`}>
                                 <p onClick={() => handleShowProjectHistory(project.pk)} className='flex items-center gap-1 underline hover:text-blue-700 cursor-pointer'>
                                     <MdCelebration className='w-5 h-5 text-yellow-400' />
                                     {project.name}

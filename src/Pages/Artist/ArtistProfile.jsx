@@ -18,6 +18,7 @@ const ArtistProfile = () => {
 
     const artistInfo = useLoaderData();
     const { artistID, name, email, profile_pic, phone, skills, social, languages, workLinks, location } = artistInfo;
+    console.log(workLinks);
     return (
         <div className='bg-white rounded-lg p-3 shadow-xl'>
             <div className='flex items-start'>
@@ -28,11 +29,9 @@ const ArtistProfile = () => {
                         <h4 className='font-medium text-lg'>Md Maruf Hossain</h4>
                         <div className='text-sm text-gray-600'>
                             {email && <p className='flex items-center gap-1'><FaRegEnvelope />{email}</p>}
-                            {phone && <p className='flex items-center gap-1'><HiPhone />{phone} - <IoLocationSharp /> {location}</p>}
-                            {
-                                languages &&
-                                <p className='flex items-center gap-2'><IoLanguageSharp /> {languages.join(", ")}</p>
-                            }
+                            {phone && <p className='flex items-center gap-1'><HiPhone />{phone}</p>}
+                            {location && <p className='flex items-center gap-1'><IoLocationSharp /> {location}</p>}
+                            {languages && <p className='flex items-center gap-2'><IoLanguageSharp /> {languages.join(", ")}</p>}
                         </div>
                     </div>
                 </div>
@@ -91,7 +90,7 @@ const ArtistProfile = () => {
                     }
                 </Swiper>
             </div>
-        </div>
+        </div >
     );
 };
 

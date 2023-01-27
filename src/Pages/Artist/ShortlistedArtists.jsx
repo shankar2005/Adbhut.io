@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useRootContext } from '../../contexts/RootProvider';
 import { FaRegEnvelope } from 'react-icons/fa';
 import { HiPhone } from 'react-icons/hi';
@@ -18,7 +18,7 @@ const ShortlistedArtists = () => {
     return (
         <div className=''>
             <div className='flex justify-end mb-2'>
-                <select onChange={handleViewAs} name="" id="">
+                <select className='text-sm p-1 rounded shadow outline-gray-100' onChange={handleViewAs}>
                     <option value="large">Large</option>
                     <option value="details">Details</option>
                 </select>
