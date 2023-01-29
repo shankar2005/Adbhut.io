@@ -175,7 +175,7 @@ const Root = () => {
 
                             {/* skill dropdown */}
                             <div className='relative ml-2'>
-                                <button onClick={() => dispatch({ type: "SHOW_SKILL" })} id="dropdownSkillSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-blue-500 hover:bg-blue-600" type="button">Skill search {state.skillDropdown ? <IoIosArrowDown className='ml-2 w-4 h-4 rotate-180' /> : <IoIosArrowDown className='ml-2 w-4 h-4' />}</button>
+                                <button onClick={() => dispatch({ type: "SHOW_SKILL" })} id="dropdownSkillSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-sky-500 hover:bg-sky-600" type="button">Skill search {state.skillDropdown ? <IoIosArrowDown className='ml-2 w-4 h-4 rotate-180' /> : <IoIosArrowDown className='ml-2 w-4 h-4' />}</button>
 
                                 <div id="dropdownSkillSearch" className={`${!state.skillDropdown && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
                                     <div className="p-3">
@@ -231,7 +231,7 @@ const Root = () => {
 
                             {/* location dropdown */}
                             <div className='relative ml-2'>
-                                <button onClick={() => dispatch({ type: "SHOW_LOCATION" })} id="dropdownLocationSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-blue-500 hover:bg-blue-600" type="button">Location search <IoIosArrowDown className='ml-2 w-4 h-4' /></button>
+                                <button onClick={() => dispatch({ type: "SHOW_LOCATION" })} id="dropdownLocationSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-sky-500 hover:bg-sky-600" type="button">Location search <IoIosArrowDown className='ml-2 w-4 h-4' /></button>
 
                                 <div id="dropdownLocationSearch" className={`${!state.locationDropdown && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
                                     <div className="p-3">

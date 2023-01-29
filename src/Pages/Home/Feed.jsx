@@ -31,7 +31,6 @@ const Feed = () => {
                 setPage(2);
                 setArtists(data.results)
                 setHasNext(data.next)
-                console.log('hi its me');
                 setLoading(false);
             })
             .catch(err => {
