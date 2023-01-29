@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FiLogOut } from 'react-icons/fi';
 import LeftAside from '../Pages/Home/LeftAside';
@@ -7,19 +7,60 @@ import Cookies from 'universal-cookie';
 import { AuthContext } from '../contexts/AuthProvider';
 import { Link, Outlet } from 'react-router-dom';
 import { useRootContext } from '../contexts/RootProvider';
-import avatar from '../assets/placeholders/avatar.png';
 import { ImOffice } from 'react-icons/im';
 import { TfiWorld } from 'react-icons/tfi';
-import { HiUsers } from 'react-icons/hi';
 import logo from '../assets/logo.jpeg';
 import AuthSection from '../Pages/Auth/AuthSection';
+import { useReducer } from 'react';
 
 const Root = () => {
     const { setdemoType, setSearchText, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations } = useRootContext();
 
-    const [showLocationDropdown, setshowLocationDropdown] = useState(false);
-    const [showUser, setshowUser] = useState(false);
-    const [loginModal, setLoginModal] = useState(false);
+    // modals visiblity
+    const initialState = {
+        skillDropdown: false,
+        locationDropdown: false,
+        loginModal: false,
+        accountModal: false,
+        searchAndFilterModal: false
+    }
+    const reducer = (state, action) => {
+        switch (action.type) {
+            case "SHOW_SKILL":
+                return {
+                    ...state,
+                    skillDropdown: !state.skillDropdown,
+                    locationDropdown: false,
+                }
+            case "SHOW_LOCATION":
+                return {
+                    ...state,
+                    skillDropdown: false,
+                    locationDropdown: !state.locationDropdown,
+                }
+            case "SHOW_LOGIN":
+                return {
+                    ...state,
+                    loginModal: !state.loginModal,
+                }
+            case "SHOW_ACCOUNT":
+                return {
+                    ...state,
+                    accountModal: !state.accountModal,
+                }
+            // case "SHOW_SEARCH_AND_FILTER_MODAL":
+            //     return {
+            //         ...state,
+            //         searchAndFilterModal: !state.searchAndFilterModal,
+            //     }
+            case "BODY_TAP_ALL_MODAL_CLOSE":
+                return initialState;
+            default:
+                return state;
+        }
+    }
+    const [state, dispatch] = useReducer(reducer, initialState);
+    // 
 
     const { setIsAuthenticated, isAuthenticated } = useContext(AuthContext);
 
@@ -27,16 +68,6 @@ const Root = () => {
         const cookies = new Cookies();
         cookies.remove("auth_token");
         setIsAuthenticated(false);
-        setshowUser(false);
-    }
-
-    const handleBodyTapModalClose = () => {
-        setShowSearch(false);
-        setshowLocationDropdown(false);
-        setskillSearchDropDown(false);
-        setshowUser(false);
-        setLoginModal(false);
-        setskillSearchDropDown(false)
     }
 
     const resetFeed = () => {
@@ -47,14 +78,10 @@ const Root = () => {
         setcheckedLocations([]);
     }
 
-    const [skillSearchDropDown, setskillSearchDropDown] = useState(false);
-
     // handle search
-    const [showSearch, setShowSearch] = useState(false);
     const handleSearch = (e) => {
         e.preventDefault();
         setSearchText(e.target.search.value);
-        setShowSearch(false);
         e.target.reset();
     }
 
@@ -141,16 +168,16 @@ const Root = () => {
                         </Link>
                         <div className='relative flex'>
                             <form onSubmit={handleSearch}>
-                                <input onClick={() => setShowSearch(true)} type="text" name="search" className='border bg-blue-50 py-2 w-72 pl-10 pr-3 rounded text-sm' placeholder='Search your artist here...' required />
+                                <input onClick={() => dispatch({ type: "SHOW_SEARCH_AND_FILTER_MODAL" })} type="text" name="search" className='border bg-blue-50 py-2 w-72 pl-10 pr-3 rounded text-sm' placeholder='Search your artist here...' required />
                                 <AiOutlineSearch className='w-6 h-6 text-gray-500 absolute top-1/2 -translate-y-1/2 left-2' />
                                 <button className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="submit">Search</button>
                             </form>
 
                             {/* skill dropdown */}
                             <div className='relative ml-2'>
-                                <button onClick={() => setskillSearchDropDown(!skillSearchDropDown)} id="dropdownSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-blue-500 hover:bg-blue-600" type="button">Skill search {skillSearchDropDown ? <IoIosArrowDown className='ml-2 w-4 h-4 rotate-180' /> : <IoIosArrowDown className='ml-2 w-4 h-4' />}</button>
+                                <button onClick={() => dispatch({ type: "SHOW_SKILL" })} id="dropdownSkillSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-blue-500 hover:bg-blue-600" type="button">Skill search {state.skillDropdown ? <IoIosArrowDown className='ml-2 w-4 h-4 rotate-180' /> : <IoIosArrowDown className='ml-2 w-4 h-4' />}</button>
 
-                                <div id="dropdownSearch" className={`${!skillSearchDropDown && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
+                                <div id="dropdownSkillSearch" className={`${!state.skillDropdown && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
                                     <div className="p-3">
                                         <div className="relative">
                                             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -159,7 +186,7 @@ const Root = () => {
                                             <input onKeyUp={searchSkill} type="text" className="block w-full p-2 pl-10 text-sm border border-gray-300 rounded bg-gray-50 focus:border-blue-500 placeholder-gray-400 focus:ring-blue-500" placeholder="Search skill" />
                                         </div>
                                     </div>
-                                    <ul onChange={handleSkillsCheckbox} className="min-h-fit max-h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSearchButton">
+                                    <ul onChange={handleSkillsCheckbox} className="min-h-fit max-h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSkillSearchButton">
                                         {
                                             skills?.filter(skill => skill.name.toLowerCase().startsWith(skillSearchText))
                                                 .map(skill => (
@@ -204,9 +231,9 @@ const Root = () => {
 
                             {/* location dropdown */}
                             <div className='relative ml-2'>
-                                <button onClick={() => setshowLocationDropdown(!showLocationDropdown)} id="dropdownSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-blue-500 hover:bg-blue-600" type="button">Location search <IoIosArrowDown className='ml-2 w-4 h-4' /></button>
+                                <button onClick={() => dispatch({ type: "SHOW_LOCATION" })} id="dropdownLocationSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-blue-500 hover:bg-blue-600" type="button">Location search <IoIosArrowDown className='ml-2 w-4 h-4' /></button>
 
-                                <div id="dropdownSearch" className={`${!showLocationDropdown && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
+                                <div id="dropdownLocationSearch" className={`${!state.locationDropdown && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
                                     <div className="p-3">
                                         <div className="relative">
                                             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -215,7 +242,7 @@ const Root = () => {
                                             <input onKeyUp={searchLocation} type="text" className="block w-full p-2 pl-10 text-sm border border-gray-300 rounded bg-gray-50 focus:border-blue-500 placeholder-gray-400 focus:ring-blue-500" placeholder="Search location" />
                                         </div>
                                     </div>
-                                    <ul onChange={handleLocationCheckbox} className="min-h-fit max-h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSearchButton">
+                                    <ul onChange={handleLocationCheckbox} className="min-h-fit max-h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownLocationSearchButton">
                                         {
                                             locations?.filter(location => location.name.toLowerCase().startsWith(locationSearchText))
                                                 .map(location => (
@@ -231,7 +258,8 @@ const Root = () => {
                                 </div>
                             </div>
 
-                            {/* <div className={`${!showSearch && 'hidden'} absolute left-0 bg-white w-full border rounded-md p-3 shadow-md`}>
+                            {/* search and filter modal */}
+                            <div className={`${!state.searchAndFilterModal && 'hidden'} absolute left-0 bg-white w-full border rounded-md p-3 shadow-md`}>
                                 <h3 className='font-medium border-b pb-2 mb-3'>Advance Search</h3>
                                 <label htmlFor="demo-type" className="block mb-2 text-sm font-medium text">Type</label>
                                 <select onChange={(e) => { setdemoType(e.target.value) }} id="demo-type" className="outline-0 bg-gray-50 border border-gray-300  text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500">
@@ -256,7 +284,8 @@ const Root = () => {
                                         )
                                     }
                                 </ul>
-                            </div> */}
+                            </div>
+
                         </div>
                     </div>
                     <ul className='flex items-center gap-4 text-gray-500 flex-1 py-3'>
@@ -264,9 +293,9 @@ const Root = () => {
                             isAuthenticated &&
                             <>
                                 <li className='ml-auto flex items-center gap-2 relative'>
-                                    <img onClick={() => setshowUser(!showUser)} className='w-10 h-10' src="https://thhs.in/assets/avatar-2200a5cf.png" alt="" />
+                                    <img onClick={() => dispatch({ type: "SHOW_ACCOUNT" })} className='w-10 h-10' src="https://thhs.in/assets/avatar-2200a5cf.png" alt="" />
                                     {/* modal */}
-                                    <div className={`${!showUser && 'hidden'} absolute top-12 right-0 bg-white w-60 border rounded-md p-3 shadow-2xl`}>
+                                    <div className={`${!state.accountModal && 'hidden'} absolute top-12 right-0 bg-white w-60 border rounded-md p-3 shadow-2xl`}>
                                         <div className='relative'>
                                             <img className='rounded-t-lg' src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8ATiUg17HuXkHqkRB436JTxNVqh55NdWSZQ&usqp=CAU" alt="" />
                                             <div className='rounded-full bg-white absolute bottom-0 right-1/2 translate-y-1/2 translate-x-1/2 border-4 border-white'>
@@ -289,9 +318,9 @@ const Root = () => {
                         {
                             !isAuthenticated &&
                             <li className='ml-auto relative'>
-                                <button onClick={() => setLoginModal(!loginModal)} className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="button">Login</button>
+                                <button onClick={() => dispatch({ type: "SHOW_LOGIN" })} className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="button">Login</button>
                                 {/* login modal */}
-                                <div className={`${!loginModal && 'hidden'} absolute top-[51px] right-0 bg-white w-72 border rounded-md p-5 shadow-2xl`}>
+                                <div className={`${!state.loginModal && 'hidden'} absolute top-[51px] right-0 bg-white w-72 border rounded-md p-5 shadow-2xl`}>
                                     <AuthSection />
                                 </div>
                             </li>
@@ -301,7 +330,7 @@ const Root = () => {
             </nav>
             <div className='w-11/12 mx-auto grid grid-cols-12 gap-5 items-start mt-5 pb-5'>
                 {/* bg unfocused layer */}
-                <div onClick={handleBodyTapModalClose} className={`${!showSearch && !showLocationDropdown && !loginModal && !showUser && !skillSearchDropDown && 'hidden'} fixed left-0 top-0 h-screen w-screen`}></div>
+                <div onClick={() => dispatch({ type: "BODY_TAP_ALL_MODAL_CLOSE" })} className={`${!state.searchAndFilterModal && !state.locationDropdown && !state.loginModal && !state.accountModal && !state.skillDropdown && 'hidden'} fixed left-0 top-0 h-screen w-screen`}></div>
                 {/* bg unfocused layer */}
 
                 <aside className='col-span-4 sticky top-20'>

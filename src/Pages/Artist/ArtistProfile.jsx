@@ -1,24 +1,21 @@
 import React from 'react';
-import { FaRegEnvelope } from 'react-icons/fa';
 import { FiArrowLeft } from 'react-icons/fi';
-import { HiPhone } from 'react-icons/hi';
 import { IoLanguageSharp, IoLocationSharp } from 'react-icons/io5';
 import { Link, useLoaderData } from 'react-router-dom';
 import { useRootContext } from '../../contexts/RootProvider';
 import useYoutubeEmbaded from '../../hooks/useYoutubeEmbaded';
+import { GiCheckMark } from 'react-icons/gi';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
-import { ImOffice } from 'react-icons/im';
-import { TfiWorld } from 'react-icons/tfi';
 
 const ArtistProfile = () => {
-    const { handleShortlist } = useRootContext();
+    const { handleShortlist, shortlistedArtist } = useRootContext();
 
     const artistInfo = useLoaderData();
-    const { artistID, name, email, profile_pic, phone, skills, social, languages, workLinks, location } = artistInfo;
-    console.log(workLinks);
+    const { artistID, name, profile_pic, skills, languages, workLinks, location_name } = artistInfo;
+
     return (
         <div className='bg-white rounded-lg p-3 shadow-xl'>
             <div className='flex items-start'>
@@ -28,19 +25,21 @@ const ArtistProfile = () => {
                     <div>
                         <h4 className='font-medium text-lg'>Md Maruf Hossain</h4>
                         <div className='text-sm text-gray-600'>
-                            {email && <p className='flex items-center gap-1'><FaRegEnvelope />{email}</p>}
-                            {phone && <p className='flex items-center gap-1'><HiPhone />{phone}</p>}
-                            {location && <p className='flex items-center gap-1'><IoLocationSharp /> {location}</p>}
+                            {location_name && <p className='flex items-center gap-1'><IoLocationSharp /> {location_name}</p>}
                             {languages && <p className='flex items-center gap-2'><IoLanguageSharp /> {languages.join(", ")}</p>}
+                        </div>
+                        <div className='flex flex-wrap gap-1 text-xs font-medium mt-1'>
+                            {
+                                skills?.map((skill, idx) => <div key={`skills${idx}`} className='px-1 border text-gray-500 border-gray-500 rounded-full'>{skill}</div>)
+                            }
                         </div>
                     </div>
                 </div>
-                <div className='flex flex-wrap gap-2 text-sm font-medium ml-8'>
-                    {
-                        skills?.map((skill, idx) => <div key={`skills${idx}`} className='py-1 px-2 border text-gray-500 border-gray-500 rounded-full'>{skill}</div>)
-                    }
-                </div>
-                <button onClick={() => handleShortlist(artistID, name, profile_pic)} className='ml-auto text-blue-500 border-2 hover:border-blue-500 bg-sky-100 border-sky-100 py-3 px-4 rounded-lg font-medium z-10'>Shortlist</button>
+                {
+                    shortlistedArtist.includes(artistID)
+                        ? <button className='ml-auto text-green-600 border-2 bg-sky-100 border-sky-100 py-2.5 px-4 rounded-lg font-medium'><GiCheckMark /></button>
+                        : <button onClick={() => handleShortlist(artistID, name, profile_pic)} className='ml-auto text-blue-500 border-2 hover:border-blue-500 bg-sky-100 border-sky-100 py-3 px-4 rounded-lg font-medium z-10'>Shortlist</button>
+                }
             </div>
             <div className='artistProfile px-10 mt-5 pb-3'>
                 <Swiper

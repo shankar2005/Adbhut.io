@@ -7,6 +7,8 @@ import { Toaster } from 'react-hot-toast';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
+import 'react-loading-skeleton/dist/skeleton.css'
+
 function App() {
   return (
     <>

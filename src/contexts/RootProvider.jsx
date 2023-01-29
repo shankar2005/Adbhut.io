@@ -32,7 +32,7 @@ const RootProvider = ({ children }) => {
     useEffect(() => {
         const isExist = chatLog.find(chat => chat.actionResponse);
         if (chatLog.length === 1 && !isExist) {
-            setchatLog(chatLog => [...chatLog, { actionResponse: true, msgID: chatLog.length + 1, bot: 'Great! Hyundai Account let’s proceed with the project briefing. Share us your thoughts and inputs on your creative project.' }]);
+            setchatLog(chatLog => [...chatLog, { actionResponse: true, msgID: chatLog.length + 1, bot: 'Great! Guest Account let’s proceed with the project briefing. Share us your thoughts and inputs on your creative project.' }]);
         }
     }, [chatLog]);
     //-------------------------------------------------------------
@@ -50,7 +50,9 @@ const RootProvider = ({ children }) => {
     }
 
     // show project history on click
+    const [currentProjectID, setcurrentProjectID] = useState(null);
     const handleShowProjectHistory = (projectID) => {
+        setcurrentProjectID(projectID);
         fetch(`https://dev.nsnco.in/api/v1/edit_project/${projectID}/`, {
             headers: { Authorization: `token ${authToken}` },
         }).then(res => res.json())
@@ -85,6 +87,7 @@ const RootProvider = ({ children }) => {
         handleShowProjectHistory,
         checkedLocations,
         setcheckedLocations,
+        currentProjectID
     }
 
     return (

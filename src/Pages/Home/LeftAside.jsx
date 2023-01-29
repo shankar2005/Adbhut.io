@@ -12,7 +12,7 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 const LeftAside = () => {
-    const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken } = useRootContext();
+    const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProjectID } = useRootContext();
     const { isAuthenticated } = useContext(AuthContext);
 
     const chatboxRef = useRef();
@@ -53,7 +53,7 @@ const LeftAside = () => {
                 // filter on content products
                 setcheckedSkills(data.skills.map(skill => skill[1] + ''));
             });
-    }, [shortlistedArtist, selectedContentProducts]);
+    }, [selectedContentProducts]);
 
     // ------------------------------
     //      handle select skill & content
@@ -128,9 +128,28 @@ const LeftAside = () => {
     }
     const handleSendUserInput = () => {
         // chatlog
-        setchatLog(current => [...current, { msgID: current.length + 1, user: userInputText }]);
+        const message = { msgID: chatLog.length + 1, user: userInputText };
+        setchatLog(current => [...current, message]);
         setuserInputText("");
         userInputRef.current.value = "";
+        fetch('https://dev.nsnco.in/api/v1/create_project/', {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+                Authorization: `token ${authToken}`
+            },
+            body: JSON.stringify({
+                project_id: currentProjectID,
+                message: message
+            })
+        }).then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    toast.success(data.success);
+                } else if (data.error) {
+                    toast.error(data.error);
+                }
+            });
     }
 
     return (
@@ -149,7 +168,7 @@ const LeftAside = () => {
                             transition={{ delay: 0.2 }}
                         >
                             <div className='text-sm flex gap-2 mb-5'>
-                                <img className='w-10 h-10' src="https://media.licdn.com/dms/image/D4D0BAQErxzI3ZO8CEA/company-logo_200_200/0/1665423690851?e=2147483647&v=beta&t=lNNe6O9RDmoigkZam6o8yn-abUNDT-L_F2MCusFSQ3E" alt="" />
+                                <img className='w-10 h-10 rounded-full border' src="https://thhs.in/assets/logo-63665b8e.jpeg" alt="" />
                                 <div className='mr-12'>
                                     <h4 className='font-medium'>NsN Co Servicing</h4>
                                     <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
@@ -163,7 +182,7 @@ const LeftAside = () => {
                             chatLog.map(chat => (
                                 chat.bot ?
                                     <div key={`msg${chat.msgID}`} className='text-sm flex gap-2 mb-5'>
-                                        <img className='w-10 h-10' src="https://media.licdn.com/dms/image/D4D0BAQErxzI3ZO8CEA/company-logo_200_200/0/1665423690851?e=2147483647&v=beta&t=lNNe6O9RDmoigkZam6o8yn-abUNDT-L_F2MCusFSQ3E" alt="" />
+                                        <img className='w-10 h-10 rounded-full border' src="https://thhs.in/assets/logo-63665b8e.jpeg" alt="" />
                                         <div className='mr-12'>
                                             <h4 className='font-medium'>NsN Co Servicing</h4>
                                             <motion.div
@@ -180,7 +199,7 @@ const LeftAside = () => {
                                     :
                                     <div key={`msg${chat.msgID}`} className='text-sm flex gap-2 mb-5 ml-auto'>
                                         <div className='ml-8'>
-                                            <h4 className='font-medium'>Hyundai Account</h4>
+                                            <h4 className='font-medium text-right'>Guest Account</h4>
                                             <motion.div
                                                 initial={{ scale: 0 }}
                                                 animate={{ scale: 1 }}
@@ -189,7 +208,7 @@ const LeftAside = () => {
                                                     {
                                                         chat.user ||
                                                         chat.type === 'shortlistedArtist' &&
-                                                        <>Shortlisted <Link to={`/artist/${chat.artist.artistID}`} className='hover:underline'><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> {chat.artist.name}</Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
+                                                        <>Shortlisted <Link to={`/artist/${chat.artist.artistID}`}><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
                                                     }
                                                 </p>
                                             </motion.div>
@@ -230,7 +249,7 @@ const LeftAside = () => {
                 </div>
 
                 <div className='p-3 border-t-[3px] border-gray-300'>
-                    <textarea ref={userInputRef} onKeyUp={handleChatInput} className="p-2 rounded-lg border border-blue-500 w-full focus:outline-none" rows="4" placeholder='Start a briefing...' ></textarea>
+                    <textarea ref={userInputRef} onKeyUp={handleChatInput} className="p-2 rounded-lg bg-gray-100 w-full focus:outline-none text-sm" rows="4" placeholder='Start a briefing...' ></textarea>
                     <div className='flex justify-between items-center'>
                         <div className='flex gap-2'>
                             <BsEmojiSmile />
