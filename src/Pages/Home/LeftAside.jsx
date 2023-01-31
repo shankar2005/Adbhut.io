@@ -12,7 +12,7 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 const LeftAside = () => {
-    const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProjectID } = useRootContext();
+    const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject } = useRootContext();
     const { isAuthenticated } = useContext(AuthContext);
 
     const chatboxRef = useRef();
@@ -127,6 +127,10 @@ const LeftAside = () => {
         setuserInputText(e.target.value);
     }
     const handleSendUserInput = () => {
+        if (!userInputRef.current.value) {
+            userInputRef.current.focus();
+            return;
+        };
         // chatlog
         const message = { msgID: chatLog.length + 1, user: userInputText };
         setchatLog(current => [...current, message]);
@@ -139,7 +143,7 @@ const LeftAside = () => {
                 Authorization: `token ${authToken}`
             },
             body: JSON.stringify({
-                project_id: currentProjectID,
+                project_id: currentProject.pk,
                 message: message
             })
         }).then(res => res.json())
@@ -152,11 +156,16 @@ const LeftAside = () => {
             });
     }
 
+    const [projectTitle, setprojectTitle] = useState("");
+    useEffect(() => {
+        setprojectTitle(currentProject?.title)
+    }, [currentProject])
+
     return (
         <>
             <section className='bg-white shadow-md rounded-lg'>
                 <div className='border-b shadow-sm p-3 rounded-t-lg flex items-center justify-between'>
-                    <h4 className='font-medium'>Project Servicing Chat</h4>
+                    <h4 className='font-medium'>{projectTitle || 'Project Servicing Chat'}</h4>
                     <BsThreeDots className='cursor-pointer' />
                 </div>
 
@@ -249,7 +258,7 @@ const LeftAside = () => {
                 </div>
 
                 <div className='p-3 border-t-[3px] border-gray-300'>
-                    <textarea ref={userInputRef} onKeyUp={handleChatInput} className="p-2 rounded-lg bg-gray-100 w-full focus:outline-none text-sm" rows="4" placeholder='Start a briefing...' ></textarea>
+                    <textarea ref={userInputRef} onKeyUp={handleChatInput} className="p-2 rounded-lg bg-gray-100 w-full focus:outline-none text-sm" rows="4" placeholder='Start a briefing...'></textarea>
                     <div className='flex justify-between items-center'>
                         <div className='flex gap-2'>
                             <BsEmojiSmile />
@@ -258,7 +267,7 @@ const LeftAside = () => {
                             <AiOutlineGif />
                         </div>
                         {
-                            userInputText ?
+                            userInputText || currentProject?.pk ?
                                 <div className='space-x-1'>
                                     <button onClick={handleSendUserInput} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
                                 </div>

@@ -9,7 +9,7 @@ const Home = () => {
                 <Outlet />
             </main>
 
-            <aside className='col-span-3 sticky top-20'>
+            <aside className='col-span-3 sticky top-20 rightSide max-h-[88vh] overflow-y-scroll'>
                 <RightAside />
             </aside>
         </div>

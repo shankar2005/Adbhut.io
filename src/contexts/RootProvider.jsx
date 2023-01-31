@@ -50,10 +50,8 @@ const RootProvider = ({ children }) => {
     }
 
     // show project history on click
-    const [currentProjectID, setcurrentProjectID] = useState(null);
+    const [currentProject, setcurrentProject] = useState(null);
     const handleShowProjectHistory = (projectID, stage) => {
-        setcurrentProjectID(projectID);
-
         if (stage === "DreamProject") {
             fetch(`https://dev.nsnco.in/api/v1/edit_project/${projectID}/`)
                 .then(res => res.json())
@@ -61,6 +59,7 @@ const RootProvider = ({ children }) => {
                     if (data.detail === 'Authentication credentials were not provided.') {
                         return;
                     }
+                    setcurrentProject(data);
                     setchatLog(JSON.parse(data.brief));
                     setshortlistedArtist(data.shortlisted_artists);
                     setselectedContentProducts(data.template[0]);
@@ -73,6 +72,7 @@ const RootProvider = ({ children }) => {
                     if (data.detail === 'Authentication credentials were not provided.') {
                         return;
                     }
+                    setcurrentProject(data);
                     setchatLog(JSON.parse(data.brief));
                     setshortlistedArtist(data.shortlisted_artists);
                     setselectedContentProducts(data.template[0]);
@@ -122,7 +122,7 @@ const RootProvider = ({ children }) => {
         handleShowProjectHistory,
         checkedLocations,
         setcheckedLocations,
-        currentProjectID,
+        currentProject,
         locations,
         skills
     }

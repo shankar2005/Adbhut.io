@@ -23,8 +23,8 @@ const router = createBrowserRouter([
                         element: <Feed />
                     },
                     {
-                        path: '/shortlisted-artists',
-                        element: <ShortlistedArtists />,
+                        path: '/project',
+                        element: <ProjectManagement />,
                     },
                     {
                         path: '/artist-admin',
@@ -33,10 +33,6 @@ const router = createBrowserRouter([
                     {
                         path: '/artist-entry',
                         element: <ArtistEntry />,
-                    },
-                    {
-                        path: '/project-management',
-                        element: <ProjectManagement />,
                     }
                 ]
             },

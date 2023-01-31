@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
 import { useRootContext } from '../../../contexts/RootProvider';
 import { FcCheckmark } from 'react-icons/fc'
 import { RxCross2 } from 'react-icons/rx'
-import { BsMessenger } from 'react-icons/bs';
+import { BsMessenger, BsThreeDots } from 'react-icons/bs';
 
 const ProjectManagement = () => {
-    const { locations, skills } = useRootContext();
+    const { locations, skills, currentProject } = useRootContext();
 
     const allSkills = [];
     skills.forEach(skill => {
@@ -17,35 +17,26 @@ const ProjectManagement = () => {
         { value: 62, label: "Hindi" }
     ]
 
+    const [shortlisted_artists, set_shortlisted_artists] = useState([]);
+    useEffect(() => {
+        set_shortlisted_artists(currentProject?.shortlisted_artists)
+    }, [currentProject])
+
+    const [assignedArtist, setassignedArtist] = useState([]);
+    const handleAssignArtist = (artistID) => {
+        setassignedArtist(state => [...state, artistID]);
+        set_shortlisted_artists(state => state.filter(id => id !== artistID));
+    }
+
     const { register, handleSubmit, formState: { errors }, control } = useForm();
     const onSubmit = data => {
-        console.log(data);
-        return
-        fetch('https://dev.nsnco.in/api/v1/artist_action/', {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({
-                ...data,
-                "genre": [198, 197],
-                "works_links": [984, 983],
-                "has_manager": false,
-                "budget_idea": "Good Morning",
-                "am_notes": "good evening",
-                "professional_rating": 4,
-                "attitude_rating": 3
-            })
-        })
-            .then(res => res.json())
-            .then(data => console.log(data));
     }
 
     return (
         <div className='bg-white rounded-lg shadow-lg'>
             <div className='border-b shadow-sm font-medium p-3 flex justify-between items-center'>
                 <h3>Projects Requirements</h3>
-                <BsMessenger className='text-blue-500' size={20} />
+                <BsThreeDots className='cursor-pointer' />
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className='p-4'>
@@ -66,12 +57,12 @@ const ProjectManagement = () => {
                 <div class="mb-4">
                     <label class="block mb-2 text-sm font-medium text-gray-900">Content Product</label>
                     <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                        <option>Artwork</option>
-                        <option>Chat Show</option>
-                        <option>Documentary</option>
-                        <option>Fiction & Reality</option>
-                        <option>Musical</option>
-                        <option>Web 3.0 Solutions</option>
+                        <option selected={currentProject?.template[1] === "Artwork"}>Artwork</option>
+                        <option selected={currentProject?.template[1] === "Chat Show"}>Chat Show</option>
+                        <option selected={currentProject?.template[1] === "Documentary"}>Documentary</option>
+                        <option selected={currentProject?.template[1] === "Fiction & Reality"}>Fiction & Reality</option>
+                        <option selected={currentProject?.template[1] === "Musical"}>Musical</option>
+                        <option selected={currentProject?.template[1] === "Web 3.0 Solutions"}>Web 3.0 Solutions</option>
                     </select>
                 </div>
                 <div class="mb-4">
@@ -85,50 +76,26 @@ const ProjectManagement = () => {
 
                 <div class="mb-4 mt-8">
                     <label class="block mb-2 text-sm font-medium text-gray-900">Shortlisted Artists</label>
-                    <div className='flex items-center gap-2 text-sm bg-gray-100 p-2 mb-1'>
-                        <img className='w-10 h-10 rounded-full' src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="" />
-                        <div>
-                            <p className='font-medium'>Maruf Hossain</p>
-                            <p>Status: Available</p>
-                        </div>
-                        <div className='flex ml-auto pr-2 gap-1'>
-                            <button><RxCross2 size={20} color='red' /></button>
-                            <button><FcCheckmark size={20} /></button>
-                        </div>
-                    </div>
-                    <div className='flex items-center gap-2 text-sm bg-gray-100 p-2 mb-1'>
-                        <img className='w-10 h-10 rounded-full' src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="" />
-                        <div>
-                            <p className='font-medium'>Maruf Hossain</p>
-                            <p>Status: Available</p>
-                        </div>
-                        <div className='flex ml-auto pr-2 gap-1'>
-                            <button><RxCross2 size={20} color='red' /></button>
-                            <button><FcCheckmark size={20} /></button>
-                        </div>
-                    </div>
-                    <div className='flex items-center gap-2 text-sm bg-gray-100 p-2 mb-1'>
-                        <img className='w-10 h-10 rounded-full' src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="" />
-                        <div>
-                            <p className='font-medium'>Maruf Hossain</p>
-                            <p>Status: Available</p>
-                        </div>
-                        <div className='flex ml-auto pr-2 gap-1'>
-                            <button><RxCross2 size={20} color='red' /></button>
-                            <button><FcCheckmark size={20} /></button>
-                        </div>
-                    </div>
+                    {
+                        shortlisted_artists?.length
+                            ? shortlisted_artists.map(artist => <ArtistRow
+                                key={artist}
+                                artistID={artist}
+                                handleAssignArtist={handleAssignArtist}
+                            />)
+                            : <div className='bg-gray-100 p-3 text-sm'>No artists left!</div>
+                    }
                 </div>
 
                 <div class="mb-4">
                     <label class="block mb-2 text-sm font-medium text-gray-900">Assigned Artists</label>
-                    <div className='flex items-center gap-2 text-sm bg-gray-100 p-2 mb-1'>
-                        <img className='w-10 h-10 rounded-full' src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="" />
-                        <div>
-                            <p className='font-medium'>Maruf Hossain</p>
-                            <p>Status: Available</p>
-                        </div>
-                    </div>
+                    {
+                        assignedArtist?.map(artist => <ArtistRow
+                            key={artist}
+                            artistID={artist}
+                            handleAssignArtist={handleAssignArtist}
+                        />)
+                    }
                 </div>
 
                 <div class="mb-4">
@@ -174,3 +141,26 @@ const ProjectManagement = () => {
 };
 
 export default ProjectManagement;
+
+const ArtistRow = ({ artistID, handleAssignArtist }) => {
+    const [artist, setArtist] = useState({});
+    useEffect(() => {
+        fetch(`https://dev.nsnco.in/api/v1/get_artist/${artistID}/`)
+            .then(res => res.json())
+            .then(data => setArtist(data));
+    }, [artistID])
+
+    return (
+        <div className='flex items-center gap-2 text-sm bg-gray-100 p-2 mb-1'>
+            <img className='w-10 h-10 rounded-full' src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="" />
+            <div>
+                <p className='font-medium'>{artist.name}</p>
+                <p>Status: Available</p>
+            </div>
+            <div className='flex ml-auto pr-2 gap-1'>
+                <button type='button'><RxCross2 size={20} color='red' /></button>
+                <button type='button' onClick={() => handleAssignArtist(artist.artistID)}><FcCheckmark size={20} /></button>
+            </div>
+        </div>
+    )
+}
