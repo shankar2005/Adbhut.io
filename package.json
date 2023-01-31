@@ -20,6 +20,7 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-loading-skeleton": "^3.1.0",
     "react-router-dom": "^6.6.1",
+    "react-select": "^5.7.0",
     "react-share": "^4.4.1",
     "swiper": "^8.4.5",
     "universal-cookie": "^4.0.4"

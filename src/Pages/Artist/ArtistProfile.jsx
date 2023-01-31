@@ -23,7 +23,7 @@ const ArtistProfile = () => {
                     <Link className='' to="/"><FiArrowLeft className='w-6 h-6 text-blue-500 cursor-pointer ml-2' /></Link>
                     <img className='w-14 h-14 rounded-full' src="https://thhs.in/assets/avatar-2200a5cf.png" alt="" />
                     <div>
-                        <h4 className='font-medium text-lg'>Md Maruf Hossain</h4>
+                        <h4 className='font-medium text-lg'>{name}</h4>
                         <div className='text-sm text-gray-600'>
                             {location_name && <p className='flex items-center gap-1'><IoLocationSharp /> {location_name}</p>}
                             {languages && <p className='flex items-center gap-2'><IoLanguageSharp /> {languages.join(", ")}</p>}

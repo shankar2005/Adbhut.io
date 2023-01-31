@@ -14,7 +14,7 @@ import AuthSection from '../Pages/Auth/AuthSection';
 import { useReducer } from 'react';
 
 const Root = () => {
-    const { setdemoType, setSearchText, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations } = useRootContext();
+    const { setdemoType, setSearchText, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills } = useRootContext();
 
     // modals visiblity
     const initialState = {
@@ -85,16 +85,6 @@ const Root = () => {
         e.target.reset();
     }
 
-    // handle skills
-    const [skills, setSkills] = useState([]);
-    useEffect(() => {
-        fetch(`https://dev.nsnco.in/api/v1/get_skill/`)
-            .then(res => res.json())
-            .then(data => {
-                setSkills(data);
-            })
-            .catch(err => console.log(err));
-    }, [])
     const handleSkillsCheckbox = (e) => {
         e.target.checked && setcheckedSkills(current => [...current, e.target.value]);
         e.target.checked || setcheckedSkills(current => [...current.filter(skill => skill !== e.target.value)]);
@@ -141,17 +131,6 @@ const Root = () => {
     const searchLocation = (e) => {
         setlocationSearchText(e.target.value.toLowerCase());
     }
-
-    // location search
-    const [locations, setLocations] = useState([]);
-    useEffect(() => {
-        fetch(`https://dev.nsnco.in/api/v1/get_location/`)
-            .then(res => res.json())
-            .then(data => {
-                setLocations(data);
-            })
-            .catch(err => console.log(err));
-    }, [])
 
     const handleLocationCheckbox = (e) => {
         e.target.checked && setcheckedLocations(current => [...current, e.target.value]);

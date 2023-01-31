@@ -51,20 +51,55 @@ const RootProvider = ({ children }) => {
 
     // show project history on click
     const [currentProjectID, setcurrentProjectID] = useState(null);
-    const handleShowProjectHistory = (projectID) => {
+    const handleShowProjectHistory = (projectID, stage) => {
         setcurrentProjectID(projectID);
-        fetch(`https://dev.nsnco.in/api/v1/edit_project/${projectID}/`, {
-            headers: { Authorization: `token ${authToken}` },
-        }).then(res => res.json())
-            .then(data => {
-                if (data.detail === 'Authentication credentials were not provided.') {
-                    return;
-                }
-                setchatLog(JSON.parse(data.brief));
-                setshortlistedArtist(data.shortlisted_artists);
-                setselectedContentProducts(data.template[0]);
-            });
+
+        if (stage === "DreamProject") {
+            fetch(`https://dev.nsnco.in/api/v1/edit_project/${projectID}/`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.detail === 'Authentication credentials were not provided.') {
+                        return;
+                    }
+                    setchatLog(JSON.parse(data.brief));
+                    setshortlistedArtist(data.shortlisted_artists);
+                    setselectedContentProducts(data.template[0]);
+                });
+        } else {
+            fetch(`https://dev.nsnco.in/api/v1/edit_project/${projectID}/`, {
+                headers: { Authorization: `token ${authToken}` },
+            }).then(res => res.json())
+                .then(data => {
+                    if (data.detail === 'Authentication credentials were not provided.') {
+                        return;
+                    }
+                    setchatLog(JSON.parse(data.brief));
+                    setshortlistedArtist(data.shortlisted_artists);
+                    setselectedContentProducts(data.template[0]);
+                });
+        }
     }
+
+    // location search
+    const [locations, setLocations] = useState([]);
+    useEffect(() => {
+        fetch(`https://dev.nsnco.in/api/v1/get_location/`)
+            .then(res => res.json())
+            .then(data => {
+                setLocations(data);
+            })
+            .catch(err => console.log(err));
+    }, [])
+    // handle skills
+    const [skills, setSkills] = useState([]);
+    useEffect(() => {
+        fetch(`https://dev.nsnco.in/api/v1/get_skill/`)
+            .then(res => res.json())
+            .then(data => {
+                setSkills(data);
+            })
+            .catch(err => console.log(err));
+    }, [])
 
     // stored values
     const value = {
@@ -87,7 +122,9 @@ const RootProvider = ({ children }) => {
         handleShowProjectHistory,
         checkedLocations,
         setcheckedLocations,
-        currentProjectID
+        currentProjectID,
+        locations,
+        skills
     }
 
     return (

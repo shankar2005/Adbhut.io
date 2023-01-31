@@ -204,7 +204,7 @@ const LeftAside = () => {
                                                 initial={{ scale: 0 }}
                                                 animate={{ scale: 1 }}
                                             >
-                                                <p className='w-fit ml-auto bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg whitespace-nowrap'>
+                                                <p className='w-fit ml-auto bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg'>
                                                     {
                                                         chat.user ||
                                                         chat.type === 'shortlistedArtist' &&
