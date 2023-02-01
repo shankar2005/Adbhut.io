@@ -158,7 +158,7 @@ const LeftAside = () => {
 
     const [projectTitle, setprojectTitle] = useState("");
     useEffect(() => {
-        setprojectTitle(currentProject?.title)
+        setprojectTitle(currentProject?.name)
     }, [currentProject])
 
     return (
@@ -208,7 +208,7 @@ const LeftAside = () => {
                                     :
                                     <div key={`msg${chat.msgID}`} className='text-sm flex gap-2 mb-5 ml-auto'>
                                         <div className='ml-8'>
-                                            <h4 className='font-medium text-right'>Guest Account</h4>
+                                            <h4 className='font-medium text-right'>Arjun Rastogi</h4>
                                             <motion.div
                                                 initial={{ scale: 0 }}
                                                 animate={{ scale: 1 }}

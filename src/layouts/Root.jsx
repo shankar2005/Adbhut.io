@@ -282,11 +282,11 @@ const Root = () => {
                                             </div>
                                         </div>
                                         <div className='mt-12 pt-0 p-4 text-center'>
-                                            <h4 className='font-medium text-lg'>Md Maruf Hossain</h4>
+                                            <h4 className='font-medium text-lg'>Arjun Rastogi</h4>
                                             <div className='text-sm text-gray-600'>
-                                                @maruf <br />
-                                                <p className='flex items-center justify-center gap-1 mt-1'><ImOffice /> NsN Co</p>
-                                                <p className='flex items-center justify-center gap-1 mt-1'><TfiWorld /> https://nsnco.in/</p>
+                                                @Founder  <br />
+                                                <p className='flex items-center justify-center gap-1 mt-1'><ImOffice /> Naagin Sauce</p>
+                                                <p className='flex items-center justify-center gap-1 mt-1'><TfiWorld /> https://www.naaginsauce.com/</p>
                                             </div>
                                         </div>
                                         <button className='flex items-center gap-1 mx-auto border p-1 rounded-lg' onClick={handleLogout}>Logout <FiLogOut className='w-5 h-5' /></button>
