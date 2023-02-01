@@ -1,10 +1,16 @@
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import Cookies from 'universal-cookie';
+import { getCurrentProjects } from '../apis/projects/projects';
+import { AuthContext } from './AuthProvider';
 
 const RootContext = createContext();
 
 const RootProvider = ({ children }) => {
+    const { isAuthenticated } = useContext(AuthContext);
+
     // filtering feeds with type -> search bar
     const [demoType, setdemoType] = useState("");
     // navbar search text
@@ -81,25 +87,24 @@ const RootProvider = ({ children }) => {
     }
 
     // location search
-    const [locations, setLocations] = useState([]);
-    useEffect(() => {
-        fetch(`https://dev.nsnco.in/api/v1/get_location/`)
-            .then(res => res.json())
-            .then(data => {
-                setLocations(data);
-            })
-            .catch(err => console.log(err));
-    }, [])
+    const { data: locations = [] } = useQuery({
+        queryKey: ['locations'],
+        queryFn: () => axios('https://dev.nsnco.in/api/v1/get_location/')
+            .then(response => response.data)
+    })
+
     // handle skills
-    const [skills, setSkills] = useState([]);
-    useEffect(() => {
-        fetch(`https://dev.nsnco.in/api/v1/get_skill/`)
-            .then(res => res.json())
-            .then(data => {
-                setSkills(data);
-            })
-            .catch(err => console.log(err));
-    }, [])
+    const { data: skills = [] } = useQuery({
+        queryKey: ['skills'],
+        queryFn: () => axios('https://dev.nsnco.in/api/v1/get_skill/')
+            .then(response => response.data)
+    })
+
+    // get current projects
+    const { data: currentProjects = [], refetch: currentProjectsRefetch } = useQuery({
+        queryKey: ['currentProjects', isAuthenticated],
+        queryFn: () => getCurrentProjects(authToken)
+    })
 
     // stored values
     const value = {
@@ -124,7 +129,9 @@ const RootProvider = ({ children }) => {
         setcheckedLocations,
         currentProject,
         locations,
-        skills
+        skills,
+        currentProjects,
+        currentProjectsRefetch,
     }
 
     return (

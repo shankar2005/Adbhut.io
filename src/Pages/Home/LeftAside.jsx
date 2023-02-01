@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import avatar from '../../assets/placeholders/avatar.png';
 import { AiOutlineGif } from 'react-icons/ai';
 import { BsImageFill, BsThreeDots } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
@@ -10,9 +9,12 @@ import { Link } from 'react-router-dom';
 import { FiDelete } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../contexts/AuthProvider';
+import nsnlogo from '../../assets/logo.jpeg';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 const LeftAside = () => {
-    const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject } = useRootContext();
+    const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch } = useRootContext();
     const { isAuthenticated } = useContext(AuthContext);
 
     const chatboxRef = useRef();
@@ -55,9 +57,9 @@ const LeftAside = () => {
             });
     }, [selectedContentProducts]);
 
-    // ------------------------------
-    //      handle select skill & content
-    // -------------------------------
+    // -----------------------------------
+    //    handle select skill & content
+    // -----------------------------------
     const handleSelectSkill = (skill) => {
         setcheckedSkills([skill[1] + '']);
         // chatlog
@@ -99,8 +101,10 @@ const LeftAside = () => {
             })
         }).then(res => res.json())
             .then(data => {
+                console.log(data);
                 if (data.success) {
                     toast.success(data.success);
+                    currentProjectsRefetch();
                 } else if (data.error) {
                     toast.error(data.error);
                 }
@@ -108,17 +112,17 @@ const LeftAside = () => {
     }
 
     // initially showing content products in chatbox
-    const [initialContentProducts, setinitialContentProducts] = useState([]);
-    useEffect(() => {
-        if (skills.length === 0) {
-            fetch('https://dev.nsnco.in/api/v1/get_content_products/')
-                .then(res => res.json())
-                .then(data => {
-                    const content = data.map(skill => [skill.name, skill.pk])
-                    setinitialContentProducts(content);
-                });
+    const { data: initialContentProducts = [] } = useQuery({
+        queryKey: ['initialContentProducts'],
+        queryFn: () => {
+            if (skills.length === 0) {
+                return axios('https://dev.nsnco.in/api/v1/get_content_products/')
+                    .then(response => {
+                        return response.data.map(skill => [skill.name, skill.pk])
+                    })
+            }
         }
-    }, [])
+    })
 
     // handle Chat Input
     const userInputRef = useRef();
@@ -179,7 +183,7 @@ const LeftAside = () => {
                                     transition={{ delay: 0.2 }}
                                 >
                                     <div className='text-sm flex gap-2 mb-5'>
-                                        <img className='w-10 h-10 rounded-full border' src="https://thhs.in/assets/logo-63665b8e.jpeg" alt="" />
+                                        <img className='w-10 h-10 rounded-full border' src={nsnlogo} alt="" />
                                         <div className='mr-12'>
                                             <h4 className='font-medium'>NsN Co Servicing</h4>
                                             <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
@@ -193,7 +197,7 @@ const LeftAside = () => {
                                     chatLog.map(chat => (
                                         chat.bot ?
                                             <div key={`msg${chat.msgID}`} className='text-sm flex gap-2 mb-5'>
-                                                <img className='w-10 h-10 rounded-full border' src="https://thhs.in/assets/logo-63665b8e.jpeg" alt="" />
+                                                <img className='w-10 h-10 rounded-full border' src={nsnlogo} alt="" />
                                                 <div className='mr-12'>
                                                     <h4 className='font-medium'>NsN Co Servicing</h4>
                                                     <motion.div
@@ -244,7 +248,7 @@ const LeftAside = () => {
                                                     Please shortlist an artist, skill or content product or send your inputs here
                                                 </p>
                                             </div>
-                                            <img className='w-10 h-10 rounded-full border' src="https://thhs.in/assets/logo-63665b8e.jpeg" alt="" />
+                                            <img className='w-10 h-10 rounded-full border' src={nsnlogo} alt="" />
                                         </div>
                                     </motion.div>
                                 </div>
@@ -284,7 +288,7 @@ const LeftAside = () => {
                                                         </p>
                                                     </motion.div>
                                                 </div>
-                                                <img className='w-10 h-10 rounded-full border border-cyan-300' src="https://thhs.in/assets/logo-63665b8e.jpeg" alt="" />
+                                                <img className='w-10 h-10 rounded-full border border-cyan-300' src={nsnlogo} alt="" />
                                             </div>
                                     ))
                                 }

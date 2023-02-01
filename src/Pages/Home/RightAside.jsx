@@ -7,6 +7,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import { Link } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
+import { useQuery } from '@tanstack/react-query';
+import { getDreamProjects } from '../../apis/projects/projects';
 
 const category = [
     {
@@ -42,7 +44,7 @@ const category = [
 ]
 
 const RightAside = () => {
-    const { selectedContentProducts, setselectedContentProducts, setchatLog, authToken, handleShowProjectHistory } = useRootContext();
+    const { selectedContentProducts, setselectedContentProducts, setchatLog, handleShowProjectHistory, currentProjects } = useRootContext();
 
     const { isAuthenticated } = useContext(AuthContext);
 
@@ -57,33 +59,11 @@ const RightAside = () => {
         }
     }
 
-
-    // get current projects
-    const [currentProjects, setCurrentProjects] = useState([]);
-    useEffect(() => {
-        fetch('https://dev.nsnco.in/api/v1/get_my_projects/', {
-            headers: { Authorization: `token ${authToken}` },
-        }).then(res => res.json())
-            .then(data => {
-                if (data.detail === 'Invalid token.') {
-                    return;
-                }
-                setCurrentProjects(data);
-            });
-    }, [isAuthenticated])
-
     // dream projects
-    const [dreamProjects, setdreamProjects] = useState([]);
-    useEffect(() => {
-        fetch('https://dev.nsnco.in/api/v1/get_dreamproject/')
-            .then(res => res.json())
-            .then(data => {
-                if (data.detail === 'Invalid token.') {
-                    return;
-                }
-                setdreamProjects(data);
-            });
-    }, [])
+    const { data: dreamProjects = [] } = useQuery({
+        queryKey: ['dreamProjects'],
+        queryFn: () => getDreamProjects(),
+    })
 
     return (
         <>
@@ -97,7 +77,6 @@ const RightAside = () => {
                         navigation
                         className='px-3'
                     >
-
                         {
                             category?.map((item, idx) => (
                                 <SwiperSlide key={idx}>
@@ -156,12 +135,12 @@ const RightAside = () => {
             <footer className='text-xs text-gray-600'>
                 <ul className='flex flex-wrap gap-3 justify-center mt-6'>
                     <li className='hover:underline'>About</li>
-                    <li className='hover:underline'>Accessibility</li>
-                    <li className='hover:underline'>Help Center</li>
-                    <li className='hover:underline'>Privacy & Terms</li>
-                    <li className='hover:underline'>Ad Choices</li>
+                    {/* <li className='hover:underline'>Accessibility</li> */}
+                    {/* <li className='hover:underline'>Help Center</li> */}
+                    {/* <li className='hover:underline'>Privacy & Terms</li> */}
+                    {/* <li className='hover:underline'>Ad Choices</li> */}
                     <li className='hover:underline'>Advertising</li>
-                    <li className='hover:underline'>Business Services</li>
+                    {/* <li className='hover:underline'>Business Services</li> */}
                     <li className='hover:underline'>Get the NsN Co app</li>
                     <li className='hover:underline'>More</li>
                 </ul>

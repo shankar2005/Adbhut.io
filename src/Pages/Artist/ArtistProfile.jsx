@@ -20,7 +20,9 @@ const ArtistProfile = () => {
         <div className='bg-white rounded-lg p-3 shadow-xl'>
             <div className='flex items-start'>
                 <div className="flex gap-3 items-center">
-                    <Link className='' to="/"><FiArrowLeft className='w-6 h-6 text-blue-500 cursor-pointer ml-2' /></Link>
+                    <button onClick={() => history.back()} type='button'>
+                        <FiArrowLeft className='w-6 h-6 text-blue-500 cursor-pointer ml-2' />
+                    </button>
                     <img className='w-14 h-14 rounded-full' src="https://thhs.in/assets/avatar-2200a5cf.png" alt="" />
                     <div>
                         <h4 className='font-medium text-lg'>{name}</h4>
