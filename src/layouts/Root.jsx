@@ -9,7 +9,8 @@ import { Link, Outlet } from 'react-router-dom';
 import { useRootContext } from '../contexts/RootProvider';
 import { ImOffice } from 'react-icons/im';
 import { TfiWorld } from 'react-icons/tfi';
-import logo from '../assets/logo.jpeg';
+// import logo from '../assets/logo.jpeg';
+import logo from '../assets/cn.jpeg';
 import AuthSection from '../Pages/Auth/AuthSection';
 import { useReducer } from 'react';
 
@@ -192,7 +193,8 @@ const Root = () => {
                                             </div>
                                             <ul onChange={handleGenreCheckbox} className="min-h-fit max-h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSearchButton">
                                                 {
-                                                    allGenres?.filter(genre => genre[0].toLowerCase().startsWith(genreSearchText))
+                                                    allGenres &&
+                                                    allGenres.filter(genre => genre[0].toLowerCase().startsWith(genreSearchText))
                                                         .map((genre, idx) => (
                                                             <li key={`dropdownGenre${idx}`}>
                                                                 <div className="flex items-center pl-2 rounded hover:bg-gray-100">

@@ -170,63 +170,127 @@ const LeftAside = () => {
                 </div>
 
                 <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden p-3 relative'>
-                    <div className='flex flex-col'>
-                        <motion.div
-                            initial={{ translateX: '-100%' }}
-                            animate={{ translateX: '0%' }}
-                            transition={{ delay: 0.2 }}
-                        >
-                            <div className='text-sm flex gap-2 mb-5'>
-                                <img className='w-10 h-10 rounded-full border' src="https://thhs.in/assets/logo-63665b8e.jpeg" alt="" />
-                                <div className='mr-12'>
-                                    <h4 className='font-medium'>NsN Co Servicing</h4>
-                                    <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
-                                        Please shortlist an artist, skill or content product or send your inputs here
-                                    </p>
-                                </div>
-                            </div>
-                        </motion.div>
-                        {
-                            chatLog &&
-                            chatLog.map(chat => (
-                                chat.bot ?
-                                    <div key={`msg${chat.msgID}`} className='text-sm flex gap-2 mb-5'>
+                    {
+                        true
+                            ? <div className='flex flex-col'>
+                                <motion.div
+                                    initial={{ translateX: '-100%' }}
+                                    animate={{ translateX: '0%' }}
+                                    transition={{ delay: 0.2 }}
+                                >
+                                    <div className='text-sm flex gap-2 mb-5'>
                                         <img className='w-10 h-10 rounded-full border' src="https://thhs.in/assets/logo-63665b8e.jpeg" alt="" />
                                         <div className='mr-12'>
                                             <h4 className='font-medium'>NsN Co Servicing</h4>
-                                            <motion.div
-                                                initial={{ scale: 0 }}
-                                                animate={{ scale: 1 }}
-                                                transition={chat.actionResponse && { delay: 0.2 }}
-                                            >
-                                                <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg'>
-                                                    {chat.bot}
-                                                </p>
-                                            </motion.div>
+                                            <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
+                                                Please shortlist an artist, skill or content product or send your inputs here
+                                            </p>
                                         </div>
                                     </div>
-                                    :
-                                    <div key={`msg${chat.msgID}`} className='text-sm flex gap-2 mb-5 ml-auto'>
-                                        <div className='ml-8'>
-                                            <h4 className='font-medium text-right'>Arjun Rastogi</h4>
-                                            <motion.div
-                                                initial={{ scale: 0 }}
-                                                animate={{ scale: 1 }}
-                                            >
-                                                <p className='w-fit ml-auto bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg'>
-                                                    {
-                                                        chat.user ||
-                                                        chat.type === 'shortlistedArtist' &&
-                                                        <>Shortlisted <Link to={`/artist/${chat.artist.artistID}`}><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
-                                                    }
+                                </motion.div>
+                                {
+                                    chatLog.length > 0 &&
+                                    chatLog.map(chat => (
+                                        chat.bot ?
+                                            <div key={`msg${chat.msgID}`} className='text-sm flex gap-2 mb-5'>
+                                                <img className='w-10 h-10 rounded-full border' src="https://thhs.in/assets/logo-63665b8e.jpeg" alt="" />
+                                                <div className='mr-12'>
+                                                    <h4 className='font-medium'>NsN Co Servicing</h4>
+                                                    <motion.div
+                                                        initial={{ scale: 0 }}
+                                                        animate={{ scale: 1 }}
+                                                        transition={chat.actionResponse && { delay: 0.2 }}
+                                                    >
+                                                        <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg'>
+                                                            {chat.bot}
+                                                        </p>
+                                                    </motion.div>
+                                                </div>
+                                            </div>
+                                            :
+                                            <div key={`msg${chat.msgID}`} className='text-sm flex gap-2 mb-5 ml-auto'>
+                                                <div className='ml-8'>
+                                                    <h4 className='font-medium text-right'>Arjun Rastogi</h4>
+                                                    <motion.div
+                                                        initial={{ scale: 0 }}
+                                                        animate={{ scale: 1 }}
+                                                    >
+                                                        <p className='w-fit ml-auto bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg'>
+                                                            {
+                                                                chat.user ||
+                                                                chat.type === 'shortlistedArtist' &&
+                                                                <>Shortlisted <Link to={`/artist/${chat.artist.artistID}`}><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
+                                                            }
+                                                        </p>
+                                                    </motion.div>
+                                                </div>
+                                                <img className='w-10 h-10 rounded-full border border-cyan-300' src="https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo" alt="" />
+                                            </div>
+                                    ))
+                                }
+                            </div>
+                            :
+                            <div className='flex flex-col'>
+                                <div className='text-sm flex gap-2 mb-5 ml-auto'>
+                                    <motion.div
+                                        initial={{ translateX: '100%' }}
+                                        animate={{ translateX: '0%' }}
+                                        transition={{ delay: 0.2 }}
+                                    >
+                                        <div className='text-sm flex gap-2 mb-5'>
+                                            <div className='ml-12'>
+                                                <h4 className='font-medium text-right'>NsN Co Servicing</h4>
+                                                <p className='bg-sky-100 w-fit ml-auto  p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg'>
+                                                    Please shortlist an artist, skill or content product or send your inputs here
                                                 </p>
-                                            </motion.div>
+                                            </div>
+                                            <img className='w-10 h-10 rounded-full border' src="https://thhs.in/assets/logo-63665b8e.jpeg" alt="" />
                                         </div>
-                                        <img className='w-10 h-10 rounded-full border border-cyan-300' src="https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo" alt="" />
-                                    </div>
-                            ))
-                        }
-                    </div>
+                                    </motion.div>
+                                </div>
+                                {
+                                    chatLog.length > 0 &&
+                                    chatLog.map(chat => (
+                                        chat.user ?
+                                            <div key={`msg${chat.msgID}`} className='text-sm flex gap-2 mb-5'>
+                                                <img className='w-10 h-10 rounded-full border' src="https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo" alt="" />
+                                                <div className='mr-12'>
+                                                    <h4 className='font-medium'>Arjun Rastogi</h4>
+                                                    <motion.div
+                                                        initial={{ scale: 0 }}
+                                                        animate={{ scale: 1 }}
+                                                        transition={chat.actionResponse && { delay: 0.2 }}
+                                                    >
+                                                        <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg'>
+                                                            {chat.user}
+                                                        </p>
+                                                    </motion.div>
+                                                </div>
+                                            </div>
+                                            :
+                                            <div key={`msg${chat.msgID}`} className='text-sm flex gap-2 mb-5 ml-auto'>
+                                                <div className='ml-8'>
+                                                    <h4 className='font-medium text-right'>NsN Co Servicing</h4>
+                                                    <motion.div
+                                                        initial={{ scale: 0 }}
+                                                        animate={{ scale: 1 }}
+                                                    >
+                                                        <p className='w-fit ml-auto bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg'>
+                                                            {
+                                                                chat.bot ||
+                                                                chat.type === 'shortlistedArtist' &&
+                                                                <>Shortlisted <Link to={`/artist/${chat.artist.artistID}`}><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
+                                                            }
+                                                        </p>
+                                                    </motion.div>
+                                                </div>
+                                                <img className='w-10 h-10 rounded-full border border-cyan-300' src="https://thhs.in/assets/logo-63665b8e.jpeg" alt="" />
+                                            </div>
+                                    ))
+                                }
+                            </div>
+                    }
+
 
                     {
                         skills.length > 0 &&
