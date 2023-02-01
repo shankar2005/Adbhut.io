@@ -222,7 +222,7 @@ const LeftAside = () => {
                                                 </p>
                                             </motion.div>
                                         </div>
-                                        <img className='w-10 h-10' src={avatar} alt="" />
+                                        <img className='w-10 h-10 rounded-full border border-cyan-300' src="https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo" alt="" />
                                     </div>
                             ))
                         }
