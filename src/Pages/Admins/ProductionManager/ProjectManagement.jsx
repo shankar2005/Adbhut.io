@@ -35,7 +35,7 @@ const ProjectManagement = () => {
     return (
         <div className='bg-white rounded-lg shadow-lg'>
             <div className='border-b shadow-sm font-medium p-3 flex justify-between items-center'>
-                <h3>Projects Dashboard</h3>
+                <h3>Project Dashboard</h3>
                 <BsThreeDots className='cursor-pointer' />
             </div>
 
