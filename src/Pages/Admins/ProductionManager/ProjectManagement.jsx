@@ -35,14 +35,14 @@ const ProjectManagement = () => {
     return (
         <div className='bg-white rounded-lg shadow-lg'>
             <div className='border-b shadow-sm font-medium p-3 flex justify-between items-center'>
-                <h3>Projects Requirements</h3>
+                <h3>Projects Dashboard</h3>
                 <BsThreeDots className='cursor-pointer' />
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className='p-4'>
                 <div class="mb-4">
                     <label class="block mb-2 text-sm font-medium text-gray-900">Client</label>
-                    <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your name" value="Maruf" />
+                    <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your name" value="Naagin" />
                 </div>
                 <div class="mb-4">
                     <label class="block mb-2 text-sm font-medium text-gray-900">Stage</label>

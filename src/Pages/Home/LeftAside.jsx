@@ -158,7 +158,7 @@ const LeftAside = () => {
 
     const [projectTitle, setprojectTitle] = useState("");
     useEffect(() => {
-        setprojectTitle(currentProject?.name)
+        setprojectTitle(currentProject?.name.replace("Lead", "Project"))
     }, [currentProject])
 
     return (
