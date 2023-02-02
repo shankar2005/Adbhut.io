@@ -46,14 +46,16 @@ const category = [
 const RightAside = () => {
     const { selectedContentProducts, setselectedContentProducts, setchatLog, handleShowProjectHistory, currentProjects } = useRootContext();
 
-    const { isAuthenticated } = useContext(AuthContext);
+    const { isAuthenticated, user } = useContext(AuthContext);
+
+    const sender = user.role === "Client" ? "user" : "bot";
 
     const handleSelectContentProducts = (product) => {
         const isExist = selectedContentProducts === product.pk;
         if (!isExist) {
             setselectedContentProducts(product.pk);
             // chatlog
-            setchatLog(current => [...current, { msgID: current.length + 1, user: product.name }]);
+            setchatLog(current => [...current, { msgID: current.length + 1, [sender]: product.name }]);
         } else {
             toast('Already selected');
         }

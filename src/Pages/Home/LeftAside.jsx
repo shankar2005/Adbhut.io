@@ -7,6 +7,7 @@ import { motion } from "framer-motion"
 import { useRootContext } from '../../contexts/RootProvider';
 import { Link } from 'react-router-dom';
 import { FiDelete } from 'react-icons/fi';
+import { RiRefreshLine } from 'react-icons/ri';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../contexts/AuthProvider';
 import nsnlogo from '../../assets/logo.jpeg';
@@ -14,8 +15,8 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 const LeftAside = () => {
-    const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch } = useRootContext();
-    const { isAuthenticated } = useContext(AuthContext);
+    const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory } = useRootContext();
+    const { isAuthenticated, user } = useContext(AuthContext);
 
     const chatboxRef = useRef();
     useEffect(() => {
@@ -31,6 +32,8 @@ const LeftAside = () => {
             });
         }
     }, [])
+
+    const sender = user.role === "Client" ? "user" : "bot";
 
     const artistIDs = shortlistedArtist?.join(",");
 
@@ -63,7 +66,7 @@ const LeftAside = () => {
     const handleSelectSkill = (skill) => {
         setcheckedSkills([skill[1] + '']);
         // chatlog
-        setchatLog(current => [...current, { msgID: current.length + 1, user: skill[0] }]);
+        setchatLog(current => [...current, { msgID: current.length + 1, [sender]: skill[0] }]);
 
         // removing suggested skills after click
         setSkills(current => current.filter(i => i[1] + '' !== skill[1] + ''));
@@ -71,7 +74,7 @@ const LeftAside = () => {
     const handleSelectContent = (content) => {
         setselectedContentProducts(content[1] + '');
         // chatlog
-        setchatLog(current => [...current, { msgID: current.length + 1, user: content[0] }]);
+        setchatLog(current => [...current, { msgID: current.length + 1, [sender]: content[0] }]);
     }
 
     // handle remove shortlisted artist
@@ -136,7 +139,7 @@ const LeftAside = () => {
             return;
         };
         // chatlog
-        const message = { msgID: chatLog.length + 1, user: userInputText };
+        const message = { msgID: chatLog.length + 1, [sender]: userInputText };
         setchatLog(current => [...current, message]);
         setuserInputText("");
         userInputRef.current.value = "";
@@ -165,17 +168,27 @@ const LeftAside = () => {
         setprojectTitle(currentProject?.name.replace("Lead", "Project"))
     }, [currentProject])
 
+    useEffect(() => {
+        if (!currentProject?.pk) return;
+        // setInterval(() => {
+        //     handleShowProjectHistory(currentProject.pk, currentProject.stage);
+        // }, 10000)
+    }, [currentProject?.pk])
+
     return (
         <>
             <section className='bg-white shadow-md rounded-lg'>
                 <div className='border-b shadow-sm p-3 rounded-t-lg flex items-center justify-between'>
-                    <h4 className='font-medium'>{projectTitle || 'Project Servicing Chat'}</h4>
+                    <div className='flex gap-2'>
+                        <h4 className='font-medium'>{projectTitle || 'Project Servicing Chat'}</h4>
+                        <button className='active:rotate-180 duration-300' onClick={() => handleShowProjectHistory(currentProject.pk, currentProject.stage)} type="button"><RiRefreshLine size={20} /></button>
+                    </div>
                     <BsThreeDots className='cursor-pointer' />
                 </div>
 
                 <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden p-3 relative'>
                     {
-                        true
+                        user.role === "Client"
                             ? <div className='flex flex-col'>
                                 <motion.div
                                     initial={{ translateX: '-100%' }}

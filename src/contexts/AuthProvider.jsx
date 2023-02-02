@@ -5,10 +5,12 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [user, setUser] = useState({});
 
     const value = {
         isAuthenticated,
-        setIsAuthenticated
+        setIsAuthenticated,
+        user
     }
 
     useEffect(() => {
@@ -26,6 +28,7 @@ const AuthProvider = ({ children }) => {
                 .then(data => {
                     if (data.status === "success") {
                         setIsAuthenticated(true);
+                        setUser(data.user);
                     }
                 });
         }
