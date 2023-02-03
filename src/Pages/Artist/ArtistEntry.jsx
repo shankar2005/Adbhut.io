@@ -108,10 +108,25 @@ const ArtistEntry = () => {
                     />
                 </div>
 
-                {/* <div class="mb-4">
-                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Genre</label>
-                    <input type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your name" />
-                </div> */}
+                <div class="mb-4">
+                    <label for="genre" class="block mb-2 text-sm font-medium text-gray-900">Select genre</label>
+                    <Controller
+                        control={control}
+                        name='genre'
+                        id='genre'
+                        render={({ field: { onChange, ref } }) => (
+                            <Select
+                                isMulti
+                                name="colors"
+                                options={allSkills}
+                                inputRef={ref}
+                                onChange={(val) => onChange(val.map((c) => c.value))}
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                            />
+                        )}
+                    />
+                </div>
 
                 <div class="mb-4">
                     <label for="intro" class="block mb-2 text-sm font-medium text-gray-900">Intro</label>

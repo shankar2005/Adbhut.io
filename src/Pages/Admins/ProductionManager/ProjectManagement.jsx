@@ -8,9 +8,12 @@ import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { useContext } from 'react';
+import { AuthContext } from '../../../contexts/AuthProvider';
 
 const ProjectManagement = () => {
     const { currentProject, setchatLog, setshortlistedArtist, selectedContentProducts, currentProjectsRefetch, authToken, handleShowProjectHistory } = useRootContext();
+    const { isAuthenticated } = useContext(AuthContext);
 
     const [shortlisted_artists, set_shortlisted_artists] = useState([]);
     useEffect(() => {
@@ -34,6 +37,11 @@ const ProjectManagement = () => {
 
     const { register, handleSubmit, reset } = useForm();
     const onSubmit = data => {
+        if (!isAuthenticated) {
+            toast("Login to submit project");
+            return
+        }
+
         const formData = {
             ...currentProject,
             "shortlisted_artists": shortlisted_artists.filter(id => !rejectedArtist.includes(id) && !assignedArtist.includes(id)),

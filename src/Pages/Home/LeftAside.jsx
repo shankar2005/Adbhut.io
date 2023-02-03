@@ -39,7 +39,6 @@ const LeftAside = () => {
 
     // for showing chat suggestions (artists skills) when shortlisted an artist
     const [skills, setSkills] = useState([]);
-    const [contentProducts, setcontentProducts] = useState([]);
     useEffect(() => {
         fetch('https://dev.nsnco.in/api/v1/chatflow_skills/', {
             method: "POST",
@@ -54,12 +53,11 @@ const LeftAside = () => {
             .then(res => res.json())
             .then(data => {
                 setSkills(data.skills);
-                setcontentProducts(data.projects);
                 // filter on content products
                 setcheckedSkills(data.skills.map(skill => skill[1] + ''));
             });
     }, [selectedContentProducts]);
-
+    
     // -----------------------------------
     //    handle select skill & content
     // -----------------------------------
