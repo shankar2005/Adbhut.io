@@ -10,7 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
 const ProjectManagement = () => {
-    const { currentProject, setchatLog, setshortlistedArtist, selectedContentProducts, currentProjectsRefetch } = useRootContext();
+    const { currentProject, setchatLog, setshortlistedArtist, selectedContentProducts, currentProjectsRefetch, authToken, handleShowProjectHistory } = useRootContext();
 
     const [shortlisted_artists, set_shortlisted_artists] = useState([]);
     useEffect(() => {
@@ -18,8 +18,9 @@ const ProjectManagement = () => {
     }, [currentProject?.shortlisted_artists])
 
     useEffect(() => {
-        setassignedArtist([]);
+        setassignedArtist(currentProject?.assigned_artists);
         setrejectedArtist([]);
+        reset(currentProject);
     }, [currentProject])
 
     const [assignedArtist, setassignedArtist] = useState([]);
@@ -31,8 +32,26 @@ const ProjectManagement = () => {
         setrejectedArtist(prev => [...prev, artistID]);
     }
 
-    const { register, handleSubmit, formState: { errors }, control } = useForm();
+    const { register, handleSubmit, reset } = useForm();
     const onSubmit = data => {
+        const formData = {
+            ...currentProject,
+            "shortlisted_artists": shortlisted_artists.filter(id => !rejectedArtist.includes(id) && !assignedArtist.includes(id)),
+            "assigned_artists": assignedArtist,
+            "production_solution": data.production_solution,
+        }
+
+        fetch(`https://dev.nsnco.in/api/v1/edit_project/${currentProject.pk}/`, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json",
+                Authorization: `token ${authToken}`
+            },
+            body: JSON.stringify(formData)
+        }).then(res => res.json())
+            .then(data => {
+                handleShowProjectHistory(data?.pk, data?.stage);
+            });
     }
 
     const [actionToggle, setactionToggle] = useState(false);
@@ -68,11 +87,11 @@ const ProjectManagement = () => {
             <form onSubmit={handleSubmit(onSubmit)} className='p-4'>
                 <div class="mb-4">
                     <label class="block mb-2 text-sm font-medium text-gray-900">Client</label>
-                    <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your name" value="Naagin" />
+                    <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your name" value={currentProject?.client_details?.name} disabled />
                 </div>
                 <div class="mb-4">
                     <label class="block mb-2 text-sm font-medium text-gray-900">Stage</label>
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" disabled>
                         <option>Dream Project</option>
                         <option selected>Lead</option>
                         <option>In Progress</option>
@@ -82,7 +101,7 @@ const ProjectManagement = () => {
                 </div>
                 <div class="mb-4">
                     <label class="block mb-2 text-sm font-medium text-gray-900">Content Product</label>
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" disabled>
                         <option selected={currentProject?.template[1] === "Artwork"}>Artwork</option>
                         <option selected={currentProject?.template[1] === "Chat Show"}>Chat Show</option>
                         <option selected={currentProject?.template[1] === "Documentary"}>Documentary</option>
@@ -93,7 +112,7 @@ const ProjectManagement = () => {
                 </div>
                 <div class="mb-4">
                     <label class="block mb-2 text-sm font-medium text-gray-900">Production solution</label>
-                    <textarea rows="5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Production solution"></textarea>
+                    <textarea {...register("production_solution")} rows="5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Production solution"></textarea>
                 </div>
                 <div class="mb-4">
                     <label class="block mb-2 text-sm font-medium text-gray-900">Artist discussion updates</label>
@@ -103,18 +122,30 @@ const ProjectManagement = () => {
                 <div class="mb-4 mt-8">
                     <label class="block mb-2 text-sm font-medium text-gray-900">Shortlisted Artists</label>
                     {
-                        shortlisted_artists?.length
-                            ? shortlisted_artists.map(artist => <ArtistRow
-                                key={artist}
-                                artistID={artist}
-                                handleAssignArtist={handleAssignArtist}
-                                assignedArtist={assignedArtist}
-                                handleRejectArtist={handleRejectArtist}
-                                rejectedArtist={rejectedArtist}
-                            />)
-                            : <div className='bg-gray-100 p-3 text-sm'>No artists left!</div>
+                        shortlisted_artists?.length > 0 &&
+                        shortlisted_artists.map(artist => <ArtistRow
+                            key={artist}
+                            artistID={artist}
+                            handleAssignArtist={handleAssignArtist}
+                            assignedArtist={assignedArtist}
+                            handleRejectArtist={handleRejectArtist}
+                            rejectedArtist={rejectedArtist}
+                        />)
                     }
                 </div>
+
+                {
+                    currentProject?.assigned_artists?.length > 0 &&
+                    <div class="mb-4 mt-8">
+                        <label class="block mb-2 text-sm font-medium text-gray-900">Selected Artists</label>
+                        {
+                            currentProject.assigned_artists.map(artist => <AssignedArtistRow
+                                key={artist}
+                                artistID={artist}
+                            />)
+                        }
+                    </div>
+                }
 
                 <div class="mb-4">
                     <label class="block mb-2 text-sm font-medium text-gray-900">Showcase Demos</label>
@@ -152,7 +183,7 @@ const ProjectManagement = () => {
                 </div>
 
                 <button type="submit" class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
-            </form>
+            </form >
 
         </div >
     );
@@ -191,6 +222,28 @@ const ArtistRow = ({ artistID, handleAssignArtist, handleRejectArtist, assignedA
                 {
                     content
                 }
+            </div>
+        </div>
+    )
+}
+
+const AssignedArtistRow = ({ artistID, handleAssignArtist, handleRejectArtist, assignedArtist, rejectedArtist }) => {
+    const { data: artist = [] } = useQuery({
+        queryKey: ['artist', artistID],
+        queryFn: () => axios(`https://dev.nsnco.in/api/v1/get_artist/${artistID}/`)
+            .then(response => response.data)
+    })
+
+
+    return (
+        <div className='flex items-center gap-2 text-sm bg-green-100 p-2 mb-1 border border-blue-300 rounded-lg'>
+            <img className='w-10 h-10 rounded-full' src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="" />
+            <div>
+                <Link to={`/artist/${artistID}`}><p className='font-medium hover:underline'>{artist.name}</p></Link>
+                <p className='text-xs'>Status: <span className='bg-gray-400 p-0.5 px-1 rounded text-gray-50'>available</span></p>
+            </div>
+            <div className='flex ml-auto pr-2 gap-1'>
+                <span className='bg-green-500 text-xs text-white px-2 py-0.5 rounded-full font-medium scale-95 active:scale-100 cursor-pointer select-none duration-200'>Assigned</span>
             </div>
         </div>
     )

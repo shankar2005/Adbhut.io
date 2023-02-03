@@ -63,7 +63,7 @@ const Root = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
     // 
 
-    const { setIsAuthenticated, isAuthenticated } = useContext(AuthContext);
+    const { setIsAuthenticated, isAuthenticated, user } = useContext(AuthContext);
 
     const handleLogout = () => {
         const cookies = new Cookies();
@@ -212,7 +212,7 @@ const Root = () => {
 
                             {/* location dropdown */}
                             <div className='relative ml-2'>
-                                <button onClick={() => dispatch({ type: "SHOW_LOCATION" })} id="dropdownLocationSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-sky-500 hover:bg-sky-600" type="button">Location search <IoIosArrowDown className='ml-2 w-4 h-4' /></button>
+                                <button onClick={() => dispatch({ type: "SHOW_LOCATION" })} id="dropdownLocationSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-sky-500 hover:bg-sky-600" type="button">Location search {state.locationDropdown ? <IoIosArrowDown className='ml-2 w-4 h-4 rotate-180' /> : <IoIosArrowDown className='ml-2 w-4 h-4' />}</button>
 
                                 <div id="dropdownLocationSearch" className={`${!state.locationDropdown && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
                                     <div className="p-3">
@@ -284,7 +284,7 @@ const Root = () => {
                                             </div>
                                         </div>
                                         <div className='mt-12 pt-0 p-4 text-center'>
-                                            <h4 className='font-medium text-lg'>Arjun Rastogi</h4>
+                                            <h4 className='font-medium text-lg'>{user.name || user.username}</h4>
                                             <div className='text-sm text-gray-600'>
                                                 @Founder  <br />
                                                 <p className='flex items-center justify-center gap-1 mt-1'><ImOffice /> Naagin Sauce</p>

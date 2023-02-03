@@ -155,11 +155,11 @@ const LeftAside = () => {
             })
         }).then(res => res.json())
             .then(data => {
-                if (data.success) {
-                    toast.success(data.success);
-                } else if (data.error) {
-                    toast.error(data.error);
-                }
+                // if (data.success) {
+                //     toast.success(data.success);
+                // } else if (data.error) {
+                //     toast.error(data.error);
+                // }
             });
     }
 
@@ -174,6 +174,13 @@ const LeftAside = () => {
         //     handleShowProjectHistory(currentProject.pk, currentProject.stage);
         // }, 10000)
     }, [currentProject?.pk])
+
+    let name;
+    if (user.name?.length <= 1) {
+        name = user.username;
+    } else {
+        name = user.name;
+    }
 
     return (
         <>
@@ -199,7 +206,7 @@ const LeftAside = () => {
                                         <img className='w-10 h-10 rounded-full border' src={nsnlogo} alt="" />
                                         <div className='mr-12'>
                                             <h4 className='font-medium'>NsN Co Servicing</h4>
-                                            <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg mb-1'>
+                                            <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg w-fit mb-1'>
                                                 Please shortlist an artist, skill or content product or send your inputs here
                                             </p>
                                         </div>
@@ -218,7 +225,7 @@ const LeftAside = () => {
                                                         animate={{ scale: 1 }}
                                                         transition={chat.actionResponse && { delay: 0.2 }}
                                                     >
-                                                        <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg'>
+                                                        <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg w-fit'>
                                                             {chat.bot}
                                                         </p>
                                                     </motion.div>
@@ -227,7 +234,7 @@ const LeftAside = () => {
                                             :
                                             <div key={`msg${chat.msgID}`} className='text-sm flex gap-2 mb-5 ml-auto'>
                                                 <div className='ml-8'>
-                                                    <h4 className='font-medium text-right'>Arjun Rastogi</h4>
+                                                    <h4 className='font-medium text-right'>{name}</h4>
                                                     <motion.div
                                                         initial={{ scale: 0 }}
                                                         animate={{ scale: 1 }}
@@ -272,13 +279,13 @@ const LeftAside = () => {
                                             <div key={`msg${chat.msgID}`} className='text-sm flex gap-2 mb-5'>
                                                 <img className='w-10 h-10 rounded-full border' src="https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo" alt="" />
                                                 <div className='mr-12'>
-                                                    <h4 className='font-medium'>Arjun Rastogi</h4>
+                                                    <h4 className='font-medium'>{currentProject.client_details?.name}</h4>
                                                     <motion.div
                                                         initial={{ scale: 0 }}
                                                         animate={{ scale: 1 }}
                                                         transition={chat.actionResponse && { delay: 0.2 }}
                                                     >
-                                                        <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg'>
+                                                        <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg w-fit'>
                                                             {chat.user}
                                                         </p>
                                                     </motion.div>

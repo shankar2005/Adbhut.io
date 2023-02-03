@@ -9,7 +9,7 @@ import { AuthContext } from './AuthProvider';
 const RootContext = createContext();
 
 const RootProvider = ({ children }) => {
-    const { isAuthenticated } = useContext(AuthContext);
+    const { isAuthenticated, user } = useContext(AuthContext);
 
     // filtering feeds with type -> search bar
     const [demoType, setdemoType] = useState("");
@@ -38,7 +38,7 @@ const RootProvider = ({ children }) => {
     useEffect(() => {
         const isExist = chatLog.find(chat => chat.actionResponse);
         if (chatLog.length === 1 && !isExist) {
-            setchatLog(chatLog => [...chatLog, { actionResponse: true, msgID: chatLog.length + 1, bot: 'Great! Guest Account let’s proceed with the project briefing. Share us your thoughts and inputs on your creative project.' }]);
+            setchatLog(chatLog => [...chatLog, { actionResponse: true, msgID: chatLog.length + 1, bot: `Great! ${user?.name || 'Guest Account'} let’s proceed with the project briefing. Share us your thoughts and inputs on your creative project.` }]);
         }
     }, [chatLog]);
     //-------------------------------------------------------------
