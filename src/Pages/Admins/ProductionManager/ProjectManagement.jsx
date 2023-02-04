@@ -13,7 +13,7 @@ import { AuthContext } from '../../../contexts/AuthProvider';
 
 const ProjectManagement = () => {
     const { currentProject, setchatLog, setshortlistedArtist, selectedContentProducts, currentProjectsRefetch, authToken, handleShowProjectHistory } = useRootContext();
-    const { isAuthenticated } = useContext(AuthContext);
+    const { isAuthenticated, user } = useContext(AuthContext);
 
     const [shortlisted_artists, set_shortlisted_artists] = useState([]);
     useEffect(() => {
@@ -92,81 +92,77 @@ const ProjectManagement = () => {
                 }
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className='p-4'>
-                <div class="mb-4">
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Client</label>
-                    <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your name" value={currentProject?.client_details?.name} disabled />
-                </div>
-                <div class="mb-4">
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Stage</label>
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" disabled>
-                        <option>Dream Project</option>
-                        <option selected>Lead</option>
-                        <option>In Progress</option>
-                        <option>Halt</option>
-                        <option>Finish</option>
-                    </select>
-                </div>
-                <div class="mb-4">
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Content Product</label>
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" disabled>
-                        <option selected={currentProject?.template[1] === "Artwork"}>Artwork</option>
-                        <option selected={currentProject?.template[1] === "Chat Show"}>Chat Show</option>
-                        <option selected={currentProject?.template[1] === "Documentary"}>Documentary</option>
-                        <option selected={currentProject?.template[1] === "Fiction & Reality"}>Fiction & Reality</option>
-                        <option selected={currentProject?.template[1] === "Musical"}>Musical</option>
-                        <option selected={currentProject?.template[1] === "Web 3.0 Solutions"}>Web 3.0 Solutions</option>
-                    </select>
-                </div>
-                <div class="mb-4">
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Production solution</label>
-                    <textarea {...register("production_solution")} rows="5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Production solution"></textarea>
-                </div>
-                <div class="mb-4">
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Artist discussion updates</label>
-                    <textarea rows="5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Artist discussion updates"></textarea>
-                </div>
-
-                <div class="mb-4 mt-8">
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Shortlisted Artists</label>
-                    {
-                        shortlisted_artists?.length > 0 &&
-                        shortlisted_artists.map(artist => <ArtistRow
-                            key={artist}
-                            artistID={artist}
-                            handleAssignArtist={handleAssignArtist}
-                            assignedArtist={assignedArtist}
-                            handleRejectArtist={handleRejectArtist}
-                            rejectedArtist={rejectedArtist}
-                        />)
-                    }
-                </div>
-
-                {
-                    currentProject?.assigned_artists?.length > 0 &&
-                    <div class="mb-4 mt-8">
-                        <label class="block mb-2 text-sm font-medium text-gray-900">Selected Artists</label>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="p-4">
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-medium text-gray-900">Client</label>
+                        <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your name" value={currentProject?.client_details?.name} disabled />
+                    </div>
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-medium text-gray-900">Stage</label>
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" disabled>
+                            <option>Dream Project</option>
+                            <option selected>Lead</option>
+                            <option>In Progress</option>
+                            <option>Halt</option>
+                            <option>Finish</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-medium text-gray-900">Content Product</label>
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" disabled>
+                            <option selected={currentProject?.template[1] === "Artwork"}>Artwork</option>
+                            <option selected={currentProject?.template[1] === "Chat Show"}>Chat Show</option>
+                            <option selected={currentProject?.template[1] === "Documentary"}>Documentary</option>
+                            <option selected={currentProject?.template[1] === "Fiction & Reality"}>Fiction & Reality</option>
+                            <option selected={currentProject?.template[1] === "Musical"}>Musical</option>
+                            <option selected={currentProject?.template[1] === "Web 3.0 Solutions"}>Web 3.0 Solutions</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-medium text-gray-900">Production solution</label>
                         {
-                            currentProject.assigned_artists.map(artist => <AssignedArtistRow
-                                key={artist}
-                                artistID={artist}
-                            />)
+                            user.role === "Client"
+                                ? <p className='border border-pink-200 rounded p-3 text-sm'>{currentProject?.production_solution}</p>
+                                : <textarea {...register("production_solution")} rows="5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Production solution"></textarea>
                         }
                     </div>
-                }
-
-                <div class="mb-4">
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Showcase Demos</label>
-                    <div className='flex items-center gap-2 text-sm bg-gray-100 p-2 mb-1'>
-                        <img className='w-36 rounded' src="https://fbutube.com/media/images/play_button/play_button_added.webp" alt="" />
-                        <div>
-                            <p className='font-medium'>Maruf Hossain</p>
-                            <p className='text-xs'>Status: available</p>
-                        </div>
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-medium text-gray-900">Artist discussion updates</label>
+                        <textarea rows="5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Artist discussion updates"></textarea>
                     </div>
-                </div>
 
-                {/* <div class="mb-4">
+                    {
+                        shortlisted_artists?.length > 0 &&
+                        <div class="mb-4 mt-8">
+                            <label class="block mb-2 text-sm font-medium text-gray-900">Shortlisted Artists</label>
+                            {
+                                shortlisted_artists.map(artist => <ArtistRow
+                                    key={artist}
+                                    artistID={artist}
+                                    handleAssignArtist={handleAssignArtist}
+                                    assignedArtist={assignedArtist}
+                                    handleRejectArtist={handleRejectArtist}
+                                    rejectedArtist={rejectedArtist}
+                                />)
+                            }
+                        </div>
+                    }
+
+                    {
+                        currentProject?.assigned_artists?.length > 0 &&
+                        <div class="mb-4 mt-8">
+                            <label class="block mb-2 text-sm font-medium text-gray-900">Assigned Artists</label>
+                            {
+                                currentProject.assigned_artists.map(artist => <AssignedArtistRow
+                                    key={artist}
+                                    artistID={artist}
+                                />)
+                            }
+                        </div>
+                    }
+
+                    {/* <div class="mb-4">
                     <label class="block mb-2 text-sm font-medium text-gray-900">Project Demos</label>
                     <div className='flex items-center gap-2 text-sm bg-gray-100 p-2 mb-1'>
                         <img className='w-36 rounded' src="https://www.clickfunnels.com/business-tools/assets/add_play_button_after-de5ac961f7fb0b1c3b5bd920a3d0703820e4157e9d63074e9dfcdf0f5aff8557.jpg" alt="" />
@@ -177,20 +173,66 @@ const ProjectManagement = () => {
                     </div>
                 </div> */}
 
-                <div class="mb-4 mt-8">
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Post project client feedback:</label>
-                    <textarea rows="5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Client feedback"></textarea>
-                </div>
-                <div class="mb-4">
-                    <label class="block mb-2 text-sm font-medium text-gray-900">Project fee Status:</label>
-                    <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                        <option selected>Unpaid</option>
-                        <option>Partially Paid</option>
-                        <option>Paid</option>
-                    </select>
+                    <div class="mb-4 mt-8">
+                        <label class="block mb-2 text-sm font-medium text-gray-900">Post project client feedback:</label>
+                        <textarea rows="5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Client feedback"></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-medium text-gray-900">Project fee Status:</label>
+                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <option selected>Unpaid</option>
+                            <option>Partially Paid</option>
+                            <option>Paid</option>
+                        </select>
+                    </div>
                 </div>
 
-                <button type="submit" class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
+                <div className='border-y py-3 px-4 mb-4 text-gray-400 text-sm font-medium bg-gray-100'>
+                    Project Fee
+                </div>
+
+                {/* project cost */}
+                <div className='px-4 grid grid-cols-2 gap-2'>
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-medium text-gray-900">Solution Fee</label>
+                        <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                    </div>
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-medium text-gray-900">Production Advance</label>
+                        <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                    </div>
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-medium text-gray-900">Negotiated Advance</label>
+                        <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                    </div>
+                    <div class="mb-4">
+                        <label class="block mb-2 text-sm font-medium text-gray-900">Final Advance</label>
+                        <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                    </div>
+                    <div class="mb-4 col-span-2">
+                        <label class="block mb-2 text-sm font-medium text-gray-900">Post-Project Client’s Total Payout</label>
+                        <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                    </div>
+                    <div class="mb-4 col-span-2 flex items-center gap-2">
+                        <label class="block text-sm font-medium text-gray-900">Advance Status:</label>
+                        <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-gray-200 rounded-full'>Pending</p>
+                    </div>
+                    <div class="mb-4 col-span-2">
+                        <label class="block mb-2 text-sm font-medium text-gray-900">Assigned artist payouts</label>
+                        <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                    </div>
+                    <div class="mb-4 col-span-2 flex items-center gap-2">
+                        <label class="block text-sm font-medium text-gray-900">Artist payout status: </label>
+                        <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-gray-200 rounded-full'>Pending</p>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 rounded ring-offset-gray-800 bg-gray-700 border-gray-600" />
+                        <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900">Final fee settlement</label>
+                    </div>
+                </div>
+                <div className='p-4 pt-0'>
+                    <button type="submit" class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
+                </div>
             </form >
 
         </div >
@@ -244,15 +286,18 @@ const AssignedArtistRow = ({ artistID, handleAssignArtist, handleRejectArtist, a
 
 
     return (
-        <div className='flex items-center gap-2 text-sm bg-green-100 p-2 mb-1 border border-blue-300 rounded-lg'>
-            <img className='w-10 h-10 rounded-full' src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="" />
-            <div>
-                <Link to={`/artist/${artistID}`}><p className='font-medium hover:underline'>{artist.name}</p></Link>
-                <p className='text-xs'>Status: <span className='bg-gray-400 p-0.5 px-1 rounded text-gray-50'>available</span></p>
+        <div className=' text-sm bg-green-100 p-2 mb-1 border border-blue-300 rounded-lg'>
+            <div className='flex items-center gap-2'>
+                <img className='w-10 h-10 rounded-full' src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="" />
+                <div>
+                    <Link to={`/artist/${artistID}`}><p className='font-medium hover:underline'>{artist.name}</p></Link>
+                    <p className='text-xs'>Status: <span className='bg-gray-400 p-0.5 px-1 rounded text-gray-50'>available</span></p>
+                </div>
+                <div className='flex ml-auto pr-2 gap-1'>
+                    <span className='bg-green-500 text-xs text-white px-2 py-0.5 rounded-full font-medium scale-95 active:scale-100 cursor-pointer select-none duration-200'>Assigned</span>
+                </div>
             </div>
-            <div className='flex ml-auto pr-2 gap-1'>
-                <span className='bg-green-500 text-xs text-white px-2 py-0.5 rounded-full font-medium scale-95 active:scale-100 cursor-pointer select-none duration-200'>Assigned</span>
-            </div>
+            <img className='w-36 rounded mt-2 ml-12' src="https://fbutube.com/media/images/play_button/play_button_added.webp" alt="" />
         </div>
     )
 }

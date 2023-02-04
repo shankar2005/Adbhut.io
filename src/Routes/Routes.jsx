@@ -8,6 +8,7 @@ import ShortlistedArtists from "../Pages/Artist/ShortlistedArtists";
 import Feed from "../Pages/Home/Feed";
 import Home from "../Pages/Home/Home";
 import Invite from "../Pages/Invite/Invite";
+import RequiredAuth from "./AuthRoutes/RequiredAuth";
 
 const router = createBrowserRouter([
     {
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path: '/artist-entry',
-                        element: <ArtistEntry />,
+                        element: <RequiredAuth><ArtistEntry /></RequiredAuth>,
                     }
                 ]
             },

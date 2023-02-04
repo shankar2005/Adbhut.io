@@ -144,9 +144,9 @@ const Root = () => {
             <nav className='bg-white shadow-md sticky top-0 z-50'>
                 <div className='w-11/12 mx-auto flex items-center justify-between'>
                     <div className='flex items-center gap-8 py-3'>
-                        <Link to="/">
-                            <img onClick={resetFeed} className='w-10' src={logo} alt="" />
-                        </Link>
+                        {/* <Link to="/">
+                            <img onClick={resetFeed} className='w-24' src={logo} alt="" />
+                        </Link> */}
                         <div className='relative flex'>
                             <form onSubmit={handleSearch}>
                                 <input onClick={() => dispatch({ type: "SHOW_SEARCH_AND_FILTER_MODAL" })} type="text" name="search" className='border bg-blue-50 py-2 w-72 pl-10 pr-3 rounded text-sm' placeholder='Search your artist here...' required />
@@ -194,7 +194,7 @@ const Root = () => {
                                             </div>
                                             <ul onChange={handleGenreCheckbox} className="min-h-fit max-h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSearchButton">
                                                 {
-                                                    allGenres &&
+                                                    allGenres?.length > 0 &&
                                                     allGenres.filter(genre => genre[0].toLowerCase().startsWith(genreSearchText))
                                                         .map((genre, idx) => (
                                                             <li key={`dropdownGenre${idx}`}>
@@ -275,6 +275,7 @@ const Root = () => {
                             isAuthenticated &&
                             <>
                                 <li className='ml-auto flex items-center gap-2 relative'>
+                                <img onClick={resetFeed} className='w-24' src={logo} alt="" />
                                     <img onClick={() => dispatch({ type: "SHOW_ACCOUNT" })} className='w-10 h-10 rounded-full border-2 border-gray-400' src={user?.role === "Client" ? 'https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo' : nsnlogo} alt="" />
                                     {/* modal */}
                                     <div className={`${!state.accountModal && 'hidden'} absolute top-12 right-0 bg-white w-60 border rounded-md p-3 shadow-2xl`}>
