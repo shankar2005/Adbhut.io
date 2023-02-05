@@ -181,6 +181,7 @@ const LeftAside = () => {
                 <ChatHeading
                     projectTitle={currentProject?.name}
                     handleShowProjectHistory={handleShowProjectHistory}
+                    currentProject={currentProject}
                 />
 
                 <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden p-3 relative'>
