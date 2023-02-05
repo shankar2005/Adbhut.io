@@ -70,7 +70,11 @@ const RightAside = () => {
     return (
         <>
             <section className='mb-5 bg-white shadow-md rounded-lg'>
-                <h3 className='font-medium mb-3 text-gray-600 p-3 pb-0'>Content Products</h3>
+                <div className='border-b shadow-sm font-medium p-3 py-[15px]'>
+                    <h3>Toolkit</h3>
+                </div>
+
+                <h3 className='font-medium mb-1 text-sm p-4 pb-0'>Content Products</h3>
                 <div className='contentProducts text-center py-3 px-2 select-none'>
                     <Swiper
                         spaceBetween={5}

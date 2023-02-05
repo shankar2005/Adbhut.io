@@ -14,6 +14,7 @@ import logo from '../assets/cn.jpeg';
 import nsnlogo from '../assets/logo.jpeg';
 import AuthSection from '../Pages/Auth/AuthSection';
 import { useReducer } from 'react';
+import Menu from './Shared/Menu';
 
 const Root = () => {
     const { setdemoType, setSearchText, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills } = useRootContext();
@@ -275,7 +276,7 @@ const Root = () => {
                             isAuthenticated &&
                             <>
                                 <li className='ml-auto flex items-center gap-2 relative'>
-                                <img onClick={resetFeed} className='w-24' src={logo} alt="" />
+                                    <img onClick={resetFeed} className='w-24' src={logo} alt="" />
                                     <img onClick={() => dispatch({ type: "SHOW_ACCOUNT" })} className='w-10 h-10 rounded-full border-2 border-gray-400' src={user?.role === "Client" ? 'https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo' : nsnlogo} alt="" />
                                     {/* modal */}
                                     <div className={`${!state.accountModal && 'hidden'} absolute top-12 right-0 bg-white w-60 border rounded-md p-3 shadow-2xl`}>
@@ -310,6 +311,9 @@ const Root = () => {
                         }
                     </ul>
                 </div>
+                {/* menu */}
+                {/* <Menu /> */}
+                {/* menu */}
             </nav>
             <div className='w-11/12 mx-auto grid grid-cols-12 gap-5 items-start mt-5 pb-5'>
                 {/* bg unfocused layer */}

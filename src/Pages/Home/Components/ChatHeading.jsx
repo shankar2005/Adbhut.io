@@ -2,8 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { BiPencil } from 'react-icons/bi';
 import { RiRefreshLine } from 'react-icons/ri';
 import nsnlogo from '../../../assets/logo.jpeg'
+import { useRootContext } from '../../../contexts/RootProvider';
 
 const ChatHeading = ({ projectTitle, handleShowProjectHistory, currentProject }) => {
+    const { currentProjectsRefetch } = useRootContext();
+
     const renameInputRef = useRef();
     const [renameState, setRenameState] = useState(false);
     const [renamedTitle, setrenamedTitle] = useState("");
@@ -19,8 +22,21 @@ const ChatHeading = ({ projectTitle, handleShowProjectHistory, currentProject })
     }
 
     useEffect(() => {
-        console.log(renamedTitle);
+        fetch(`https://dev.nsnco.in/api/v1/update_title/${currentProject?.pk}/`, {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({ title: renamedTitle })
+        }).then(res => res.json())
+            .then(data => {
+                console.log(data);
+                currentProjectsRefetch();
+                handleShowProjectHistory(currentProject.pk, currentProject.stage);
+            });
     }, [renamedTitle])
+
+    console.log(currentProject);
 
     return (
         <div className='border-b shadow-sm p-2 rounded-t-lg flex items-center justify-between'>

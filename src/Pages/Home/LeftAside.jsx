@@ -152,21 +152,8 @@ const LeftAside = () => {
                 message: message
             })
         }).then(res => res.json())
-            .then(data => {
-                // if (data.success) {
-                //     toast.success(data.success);
-                // } else if (data.error) {
-                //     toast.error(data.error);
-                // }
-            });
+            .then(data => {});
     }
-
-    useEffect(() => {
-        if (!currentProject?.pk) return;
-        // setInterval(() => {
-        //     handleShowProjectHistory(currentProject.pk, currentProject.stage);
-        // }, 5000)
-    }, [currentProject?.pk])
 
     let name;
     if (user.name?.length <= 1) {

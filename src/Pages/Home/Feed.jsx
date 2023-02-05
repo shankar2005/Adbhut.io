@@ -51,6 +51,12 @@ const Feed = () => {
             .catch(err => console.log(err))
     };
 
+    // views
+    const [viewAs, setViewAs] = useState("large");
+    const handleViewAs = e => {
+        setViewAs(e.target.value);
+    }
+
     return (
         <InfiniteScroll
             dataLength={artists.length}
@@ -58,6 +64,12 @@ const Feed = () => {
             hasMore={hasNext}
             loader={<FeedCardSkeleton />}
         >
+            <div className='flex justify-end mb-2'>
+                <select onChange={handleViewAs} className='text-sm p-1 rounded shadow outline-gray-100'>
+                    <option value="large">Large</option>
+                    <option value="details">Details</option>
+                </select>
+            </div>
             {
                 loading
                     ? <FeedCardSkeleton />

@@ -48,6 +48,12 @@ const ProjectManagement = () => {
             "shortlisted_artists": shortlisted_artists.filter(id => !rejectedArtist.includes(id) && !assignedArtist.includes(id)),
             "assigned_artists": assignedArtist,
             "production_solution": data.production_solution,
+            solution_fee: +data.solution_fee,
+            production_advance: +data.production_advance,
+            negotiated_advance: +data.negotiated_advance,
+            final_advance: +data.final_advance,
+            post_project_client_total_payout: +data.post_project_client_total_payout,
+            final_fee_settlement_status: data.final_fee_settlement_status,
         }
 
         fetch(`https://dev.nsnco.in/api/v1/edit_project/${currentProject.pk}/`, {
@@ -59,8 +65,10 @@ const ProjectManagement = () => {
             body: JSON.stringify(formData)
         }).then(res => res.json())
             .then(data => {
+                console.log('data', data);
                 handleShowProjectHistory(data?.pk, data?.stage);
-            });
+            })
+            .catch(err => console.log(err))
     }
 
     const [actionToggle, setactionToggle] = useState(false);
@@ -80,12 +88,31 @@ const ProjectManagement = () => {
             });
     }
 
+    useEffect(() => {
+        document.onkeydown = function (e) {
+            e = e || window.event;//Get event
+            if (e.ctrlKey) {
+                var c = e.which || e.keyCode;//Get key code
+                switch (c) {
+                    case 83://Block Ctrl+S
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('saved');
+                        document.getElementById("saveProjectForm").click();
+                        break;
+                }
+            }
+        };
+    }, [])
+
     return (
         <div className='bg-white rounded-lg shadow-lg'>
-            <div className='border-b shadow-sm font-medium p-3 flex justify-between items-center relative'>
+            <div className='border-b shadow-sm font-medium p-3 py-[15px] flex justify-between items-center relative'>
                 <div className='flex gap-2 items-center'>
                     <h3>Project Dashboard</h3>
-                    <RiSave3Fill size={23} className="text-purple-800" />
+                    <button type='submit' form='projectForm' id='saveProjectForm'>
+                        <RiSave3Fill size={23} className="text-purple-800" />
+                    </button>
                 </div>
                 <BsThreeDots onClick={() => setactionToggle(!actionToggle)} className='cursor-pointer' />
                 {
@@ -96,7 +123,7 @@ const ProjectManagement = () => {
                 }
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form id='projectForm' onSubmit={handleSubmit(onSubmit)}>
                 <div className="p-4">
                     <div class="mb-4 items-center gap-2">
                         <label class="block mb-2 text-sm font-medium text-gray-900">Project Title</label>
@@ -115,26 +142,15 @@ const ProjectManagement = () => {
                             </div>
                         </div>
                     </div>
-                    <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-900">Stage</label>
-                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" disabled>
-                            <option>Dream Project</option>
-                            <option selected>Lead</option>
-                            <option>In Progress</option>
-                            <option>Halt</option>
-                            <option>Finish</option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-900">Content Product</label>
-                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" disabled>
-                            <option selected={currentProject?.template[1] === "Artwork"}>Artwork</option>
-                            <option selected={currentProject?.template[1] === "Chat Show"}>Chat Show</option>
-                            <option selected={currentProject?.template[1] === "Documentary"}>Documentary</option>
-                            <option selected={currentProject?.template[1] === "Fiction & Reality"}>Fiction & Reality</option>
-                            <option selected={currentProject?.template[1] === "Musical"}>Musical</option>
-                            <option selected={currentProject?.template[1] === "Web 3.0 Solutions"}>Web 3.0 Solutions</option>
-                        </select>
+                    <div className='flex gap-4'>
+                        <div class="mb-4 flex items-center gap-2">
+                            <label class="text-sm font-medium text-gray-900">Stage: </label>
+                            <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-blue-200 rounded-full'>{currentProject?.stage}</p>
+                        </div>
+                        <div class="mb-4 flex items-center gap-2">
+                            <label class="text-sm font-medium text-gray-900">Content Product: </label>
+                            <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-blue-200 rounded-full'>{currentProject?.template[1]}</p>
+                        </div>
                     </div>
                     {
                         user.role === "Client" || !user.email ?
@@ -196,13 +212,9 @@ const ProjectManagement = () => {
                         <label class="block mb-2 text-sm font-medium text-gray-900">Post project client feedback:</label>
                         <textarea rows="5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Client feedback"></textarea>
                     </div>
-                    <div class="mb-4">
-                        <label class="block mb-2 text-sm font-medium text-gray-900">Project fee Status:</label>
-                        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" disabled>
-                            <option selected>Unpaid</option>
-                            <option>Partially Paid</option>
-                            <option>Paid</option>
-                        </select>
+                    <div class="mb-4 flex items-center gap-2">
+                        <label class="text-sm font-medium text-gray-900">Project fee Status:</label>
+                        <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-blue-200 rounded-full'>{currentProject?.project_fee_Status || "N/A"}</p>
                     </div>
                 </div>
 
@@ -251,23 +263,23 @@ const ProjectManagement = () => {
                         <div className='px-4 grid grid-cols-2 gap-2'>
                             <div class="mb-4">
                                 <label class="block mb-2 text-sm font-medium text-gray-900">Solution Fee</label>
-                                <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                                <input {...register("solution_fee")} type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
                             </div>
                             <div class="mb-4">
                                 <label class="block mb-2 text-sm font-medium text-gray-900">Production Advance</label>
-                                <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                                <input {...register("production_advance")} type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
                             </div>
                             <div class="mb-4">
                                 <label class="block mb-2 text-sm font-medium text-gray-900">Negotiated Advance</label>
-                                <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                                <input {...register("negotiated_advance")} type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
                             </div>
                             <div class="mb-4">
                                 <label class="block mb-2 text-sm font-medium text-gray-900">Final Advance</label>
-                                <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                                <input {...register("final_advance")} type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
                             </div>
                             <div class="mb-4">
                                 <label class="block mb-2 text-sm font-medium text-gray-900">Post-Project Client’s Total Payout</label>
-                                <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                                <input {...register("post_project_client_total_payout")} type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
                             </div>
                             <div class="mb-4">
                                 <label class="block mb-2 text-sm font-medium text-gray-900">Assigned artist payouts</label>
@@ -275,30 +287,33 @@ const ProjectManagement = () => {
                             </div>
                             <div class="mb-4 flex items-center gap-2">
                                 <label class="block text-sm font-medium text-gray-900">Advance Status:</label>
-                                <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-gray-200 rounded-full'>Pending</p>
+                                <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-gray-200 rounded-full'>{currentProject?.advance_status || 'N/A'}</p>
                             </div>
                             <div class="mb-4 flex items-center gap-2">
                                 <label class="block text-sm font-medium text-gray-900">Artist payout status: </label>
-                                <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-gray-200 rounded-full'>Pending</p>
+                                <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-gray-200 rounded-full'>{currentProject?.artist_payout_status || 'N/A'}</p>
                             </div>
                             <div class="flex items-center mb-4">
-                                <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 rounded ring-offset-gray-800 bg-gray-700 border-gray-600" />
+                                <input {...register("final_fee_settlement_status")} id="default-checkbox" type="checkbox" class="w-4 h-4 text-blue-600 rounded ring-offset-gray-800 bg-gray-700 border-gray-600" />
                                 <label for="default-checkbox" class="ml-2 text-sm font-medium text-gray-900">Final fee settlement</label>
                             </div>
                         </div>
                 }
                 {
-                    user.role === "Client" &&
-                    <div className='p-4 pt-0 space-x-2'>
-                        <button type="submit" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Approve</button>
-                        <button type="submit" class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Decline</button>
-                    </div>
+                    user.role === "Client" && isAuthenticated
+                        ? <div className='p-4 pt-0 space-x-2'>
+                            <button type="submit" class="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Approve</button>
+                            <button type="submit" class="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Decline</button>
+                        </div>
+                        : <div className='p-4 pt-0 space-x-2'>
+                            <button type="submit" class="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit to client</button>
+                        </div>
                 }
                 {
-                    !user.email &&
-                    <p className='text-sm p-4 text-gray-800'>Login to continue with the project. <span className='text-blue-500 underline'>Login Now</span></p>
+                    isAuthenticated ||
+                    <p className='text-xs p-4 text-gray-800'>Login to continue with this project. <span className='text-blue-500 underline'>Login Now</span></p>
                 }
-            </form >
+            </form>
         </div >
     );
 };

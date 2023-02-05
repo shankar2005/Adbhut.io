@@ -10,10 +10,7 @@ import { IoLanguageSharp, IoLocationSharp } from 'react-icons/io5';
 const ShortlistedArtists = () => {
     const { shortlistedArtist } = useRootContext();
 
-    const [viewAs, setViewAs] = useState("large");
-    const handleViewAs = e => {
-        setViewAs(e.target.value);
-    }
+    
 
     return (
         <div className=''>
