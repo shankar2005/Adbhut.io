@@ -4,6 +4,8 @@ const Watch = () => {
     const [btsPlaylist, setBtsPlaylist] = useState([]);
     const [showPlaylist, setShowPlaylist] = useState([]);
 
+    console.log(showPlaylist);
+
     useEffect(() => {
         fetch('https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails&maxResults=25&playlistId=PLxNKsHD8bM1mPUBrFSmXy7lJD5tWdit-w&key=AIzaSyAxW8h9knx67oUIxLc_pAFTljByXQ0gJzY')
             .then(res => res.json())
@@ -19,11 +21,13 @@ const Watch = () => {
                 <h1 className='text-center text-4xl font-bold mb-10 text-purple-700 text-opacity-80'>Watch Episodes</h1>
                 <div className={` ${showPlaylist?.length <= 1 ? 'md:w-[630px] mx-auto' : 'grid lg:grid-cols-2'} gap-5`}>
                     {
-                        showPlaylist?.map(item => (
-                            <div className="w-full h-64 sm:h-[350px]">
-                                <iframe className='w-full h-full rounded-lg' src={`https://www.youtube.com/embed/${item.contentDetails.videoId}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
-                            </div>
-                        ))
+                        showPlaylist
+                            ?.sort((a, b) => b.snippet?.position - a.snippet?.position)
+                            .map(item => (
+                                <div className="w-full h-64 sm:h-[350px]">
+                                    <iframe className='w-full h-full rounded-lg' src={`https://www.youtube.com/embed/${item.contentDetails.videoId}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                                </div>
+                            ))
                     }
                 </div>
             </section>
@@ -31,11 +35,13 @@ const Watch = () => {
                 <h1 className='text-center text-4xl font-bold mb-10 text-purple-700 text-opacity-80'>Behind The Scenes</h1>
                 <div className={` ${btsPlaylist?.length <= 1 ? 'md:w-[630px] mx-auto' : 'grid lg:grid-cols-2'} gap-5`}>
                     {
-                        btsPlaylist?.map(item => (
-                            <div className="w-full h-64 sm:h-[350px]">
-                                <iframe className='w-full h-full rounded-lg' src={`https://www.youtube.com/embed/${item.contentDetails.videoId}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
-                            </div>
-                        ))
+                        btsPlaylist
+                            ?.sort((a, b) => b.snippet?.position - a.snippet?.position)
+                            .map(item => (
+                                <div className="w-full h-64 sm:h-[350px]">
+                                    <iframe className='w-full h-full rounded-lg' src={`https://www.youtube.com/embed/${item.contentDetails.videoId}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+                                </div>
+                            ))
                     }
                 </div>
             </section>
