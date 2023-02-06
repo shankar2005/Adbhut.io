@@ -7,6 +7,7 @@ import ArtistProfile from "../Pages/Artist/ArtistProfile";
 import ShortlistedArtists from "../Pages/Artist/ShortlistedArtists";
 import Feed from "../Pages/Home/Feed";
 import Home from "../Pages/Home/Home";
+import HomeContent from "../Pages/Home/HomeContent";
 import Invite from "../Pages/Invite/Invite";
 import RequiredAuth from "./AuthRoutes/RequiredAuth";
 
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
         path: '/invite',
         element: <Invite />
     },
+    {
+        path: '/home-content',
+        element: <HomeContent />
+    }
 ]);
 
 export default router;

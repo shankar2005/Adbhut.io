@@ -24,3 +24,23 @@
 .rightSide::-webkit-scrollbar {
     width: 0;
 }
+
+/*  */
+
+.homeContent .swiper-pagination {
+    position: relative;
+    top: 5px;
+}
+
+.homeContent .swiper-button-next:after,
+.homeContent .swiper-button-prev:after {
+    font-size: 22px;
+}
+
+.homeContent .swiper-button-prev {
+    left: 45px;
+}
+
+.homeContent .swiper-button-next {
+    right: 45px;
+}
