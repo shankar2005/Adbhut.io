@@ -76,8 +76,8 @@ const RightAside = () => {
 
                 <div className='flex justify-between mb-1 text-sm p-4 pb-0'>
                     <h3 className='font-medium'>Content Products</h3>
-                    <Link to="/home-content">
-                        <p className='text-blue-500'>Sell all</p>
+                    <Link to="/home">
+                        <p className='text-blue-500'>See all</p>
                     </Link>
                 </div>
                 <div className='contentProducts text-center py-3 px-2 select-none'>

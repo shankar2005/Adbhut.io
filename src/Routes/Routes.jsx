@@ -57,7 +57,7 @@ const router = createBrowserRouter([
         element: <Invite />
     },
     {
-        path: '/home-content',
+        path: '/home',
         element: <HomeContent />
     }
 ]);

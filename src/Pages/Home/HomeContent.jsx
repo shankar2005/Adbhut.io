@@ -5,9 +5,15 @@ import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css/pagination';
 import nsnlogo from '../../assets/logo.jpeg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const HomeContent = () => {
+    const navigate = useNavigate();
+    const handleNavigateProject = (e) => {
+        e.preventDefault();
+        navigate(`/project/${e.target.project.value}/DreamProject`);
+    }
+
     return (
         <section className='h-screen flex justify-center items-center'>
             <nav className='absolute left-0 top-2 ml-16'>
@@ -21,11 +27,11 @@ const HomeContent = () => {
                     </h1>
                     <p className='text-lg text-gray-500'>We dissected the production processes and built a secure, business content servicing platform. NsNco is here to make entertainment content affordable and available for all. </p>
                     <div className='mt-12 flex gap-6 border-b pb-10 border-gray-300'>
-                        <Link to="/project">
+                        <Link to="/">
                             <button type="button" className="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none font-medium rounded w-full sm:w-auto px-5 py-2.5 text-center flex items-center gap-2"><IoCreateOutline className='mb-1' size={25} /> New Project</button>
                         </Link>
-                        <form className='relative'>
-                            <input type="text" name="search" className='border py-3.5 w-72 focus:w-80 pl-10 pr-3 rounded text-sm outline-none border-gray-700' placeholder='Enter email to login' required />
+                        <form onSubmit={handleNavigateProject} className='relative'>
+                            <input type="text" name="project" className='border py-3.5 w-72 focus:w-80 pl-10 pr-3 rounded text-sm outline-none border-gray-700' placeholder='Enter project id to continue' required />
                             <MdKeyboard className='w-6 h-6 text-gray-500 absolute top-1/2 -translate-y-1/2 left-2' />
                         </form>
                     </div>

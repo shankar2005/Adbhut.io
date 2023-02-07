@@ -101,7 +101,7 @@ const ProjectManagement = () => {
 
     useEffect(() => {
         if (!isAuthenticated) return;
-        
+
         document.onkeydown = function (e) {
             e = e || window.event;//Get event
             if (e.ctrlKey) {
@@ -189,7 +189,7 @@ const ProjectManagement = () => {
                 <div className="p-4">
                     <div className="mb-4 items-center gap-2">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Project Title</label>
-                        <input type="text" {...register('title')} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+                        <input type="text" {...register('title')} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" disabled={!isAuthenticated} />
                     </div>
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Creator</label>
@@ -283,15 +283,15 @@ const ProjectManagement = () => {
                     }
 
                     {
-                        user.role === "Client" || !isAuthenticated ?
-                            currentProject?.artist_discussion_updates
+                        user.role === "Product Manager" || user.role === "Artist Manager" ?
+                            currentProject?.post_project_client_feedback
                             && <div className="mb-4">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">Send feedback:</label>
-                                <textarea {...register("post_project_client_feedback")} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your feedback"></textarea>
+                                <label className="block mb-2 text-sm font-medium text-gray-900">Artist feedback</label>
+                                <p className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-yellow-100 font-sans'>{currentProject?.post_project_client_feedback}</p>
                             </div>
                             : <div className="mb-4">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">Artist feedback</label>
-                                <p className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-yellow-100 font-sans'>{currentProject?.artist_discussion_updates}</p>
+                                <label className="block mb-2 text-sm font-medium text-gray-900">Send feedback:</label>
+                                <textarea {...register("post_project_client_feedback")} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your feedback"></textarea>
                             </div>
                     }
 
