@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRootContext } from '../../../contexts/RootProvider';
-import { FcCheckmark } from 'react-icons/fc'
-import { RxCross2 } from 'react-icons/rx'
 import { RiSave3Fill } from 'react-icons/ri'
 import { BsThreeDots, BsTrash } from 'react-icons/bs';
 import { toast } from 'react-hot-toast';
-import { Link, useLoaderData, useNavigate } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import { AiOutlinePlus } from 'react-icons/ai';
+import ShortlistedArtistRow from './Components/ShortlistedArtistRow';
+import AssignedArtistRow from './Components/AssignedArtistRow';
 
 const ProjectManagement = () => {
     const { chatLog, setchatLog, setshortlistedArtist, selectedContentProducts, setselectedContentProducts, currentProjectsRefetch, authToken, handleShowProjectHistory, setcurrentProject } = useRootContext();
@@ -61,10 +59,9 @@ const ProjectManagement = () => {
             assigned_artists: assignedArtist,
             post_project_client_feedback: data.post_project_client_feedback,
             production_solution: data.production_solution,
+            artist_discussion_updates: data.artist_discussion_updates,
             // fees
             assigned_artist_payouts: +data.assigned_artist_payouts,
-            // solution_fee: +data.solution_fee,
-            // production_advance: +data.production_advance,
             negotiated_advance: +data.negotiated_advance,
             final_advance: +data.final_advance,
             post_project_client_total_payout: +data.post_project_client_total_payout,
@@ -103,6 +100,8 @@ const ProjectManagement = () => {
     }
 
     useEffect(() => {
+        if (!isAuthenticated) return;
+        
         document.onkeydown = function (e) {
             e = e || window.event;//Get event
             if (e.ctrlKey) {
@@ -122,9 +121,9 @@ const ProjectManagement = () => {
     const navigate = useNavigate();
     // handle add more artist
     const handleAddMoreArtist = () => {
+        navigate("/");
+        return
         if (user.role === "Client") {
-            navigate("/");
-
             // save api used in LeftAsie Component
             // chatlog
             const message = { msgID: chatLog.length + 1, bot: "Please shortlist artists for your project!" };
@@ -145,18 +144,41 @@ const ProjectManagement = () => {
         }
     }
 
+    const handleAddToMyProject = () => {
+        if (!isAuthenticated) {
+            toast("Login to submit project");
+            return
+        }
+
+        fetch(`https://dev.nsnco.in/api/v1/edit_project/${currentProject.pk}/`, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json",
+                Authorization: `token ${authToken}`
+            },
+            body: JSON.stringify({ stage: "Lead" })
+        }).then(res => res.json())
+            .then(data => {
+                handleShowProjectHistory(data?.pk, data?.stage);
+            })
+            .catch(err => console.log(err))
+    }
+
     return (
         <div className='bg-white rounded-lg shadow-lg'>
             <div className='border-b shadow-sm font-medium p-3 py-[15px] flex justify-between items-center relative'>
                 <div className='flex gap-2 items-center'>
                     <h3>Project Dashboard</h3>
-                    <button type='submit' form='projectForm' id='saveProjectForm'>
-                        <RiSave3Fill size={23} className="text-purple-800" />
-                    </button>
+                    {
+                        isAuthenticated &&
+                        <button type='submit' form='projectForm' id='saveProjectForm'>
+                            <RiSave3Fill size={23} className="text-purple-800" />
+                        </button>
+                    }
                 </div>
                 <BsThreeDots onClick={() => setactionToggle(!actionToggle)} className='cursor-pointer' />
                 {
-                    actionToggle &&
+                    actionToggle && isAuthenticated &&
                     <div className='absolute right-0 -bottom-3/4 border bg-white shadow-lg select-none'>
                         <button onClick={handleDeleteProject} className='flex items-center gap-2 text-sm py-3 px-5'>Delete <BsTrash size={20} /></button>
                     </div>
@@ -170,7 +192,7 @@ const ProjectManagement = () => {
                         <input type="text" {...register('title')} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
                     </div>
                     <div className="mb-4">
-                        <label className="block mb-2 text-sm font-medium text-gray-900">Client Info</label>
+                        <label className="block mb-2 text-sm font-medium text-gray-900">Creator</label>
                         <div className='flex items-center gap-2 rounded'>
                             <div className='relative'>
                                 <img className='w-14 border rounded-full' src="https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo" alt="" />
@@ -205,7 +227,7 @@ const ProjectManagement = () => {
                             currentProject?.production_solution
                             && <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Production solution</label>
-                                <p className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-sky-100'>{currentProject?.production_solution}</p>
+                                <p className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-sky-100 font-sans'>{currentProject?.production_solution}</p>
                             </div>
                             : <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Production solution</label>
@@ -215,14 +237,14 @@ const ProjectManagement = () => {
 
                     {
                         user.role === "Client" || !user.email ?
-                            currentProject?.production_solution
+                            currentProject?.artist_discussion_updates
                             && <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Artist discussion updates</label>
-                                <p className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-sky-100'>{currentProject?.production_solution}</p>
+                                <p className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-sky-100 font-sans'>{currentProject?.artist_discussion_updates}</p>
                             </div>
                             : <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Artist discussion updates</label>
-                                <textarea rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Artist discussion updates"></textarea>
+                                <textarea {...register("artist_discussion_updates")} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Artist discussion updates"></textarea>
                             </div>
                     }
 
@@ -234,13 +256,14 @@ const ProjectManagement = () => {
                                 <button type='button' onClick={handleAddMoreArtist} className='text-sm font-meidum flex items-center gap-1'>Add More Artist <AiOutlinePlus size={20} /></button>
                             </div>
                             {
-                                shortlisted_artists.map(artist => <ArtistRow
+                                shortlisted_artists.map(artist => <ShortlistedArtistRow
                                     key={artist}
                                     artistID={artist}
                                     handleAssignArtist={handleAssignArtist}
                                     assignedArtist={assignedArtist}
                                     handleRejectArtist={handleRejectArtist}
                                     rejectedArtist={rejectedArtist}
+                                    user={user}
                                 />)
                             }
                         </div>
@@ -259,10 +282,19 @@ const ProjectManagement = () => {
                         </div>
                     }
 
-                    <div className="mb-4 mt-8">
-                        <label className="block mb-2 text-sm font-medium text-gray-900">Send feedback:</label>
-                        <textarea {...register("post_project_client_feedback")} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your feedback"></textarea>
-                    </div>
+                    {
+                        user.role === "Client" || !isAuthenticated ?
+                            currentProject?.artist_discussion_updates
+                            && <div className="mb-4">
+                                <label className="block mb-2 text-sm font-medium text-gray-900">Send feedback:</label>
+                                <textarea {...register("post_project_client_feedback")} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your feedback"></textarea>
+                            </div>
+                            : <div className="mb-4">
+                                <label className="block mb-2 text-sm font-medium text-gray-900">Artist feedback</label>
+                                <p className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-yellow-100 font-sans'>{currentProject?.artist_discussion_updates}</p>
+                            </div>
+                    }
+
                 </div>
 
                 <div className='border-y py-3 px-4 mb-4 text-gray-400 text-sm font-medium bg-gray-100'>
@@ -301,14 +333,19 @@ const ProjectManagement = () => {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="mb-5 flex items-center gap-2">
-                                <label className="text-sm font-medium text-gray-900">Project fee Status:</label>
-                                <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-blue-200 rounded-full'>{currentProject?.project_fee_Status || "N/A"}</p>
-                            </div>
-                            <div className="mb-5 flex items-center gap-2">
-                                <label className="block text-sm font-medium text-gray-900">Advance Status:</label>
-                                <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-gray-200 rounded-full'>Pending</p>
-                            </div>
+                            {
+                                isAuthenticated &&
+                                <>
+                                    <div className="mb-5 flex items-center gap-2">
+                                        <label className="text-sm font-medium text-gray-900">Project fee Status:</label>
+                                        <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-blue-200 rounded-full'>{currentProject?.project_fee_Status || "N/A"}</p>
+                                    </div>
+                                    <div className="mb-5 flex items-center gap-2">
+                                        <label className="block text-sm font-medium text-gray-900">Advance Status:</label>
+                                        <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-gray-200 rounded-full'>Pending</p>
+                                    </div>
+                                </>
+                            }
                         </div>
                         :
                         <div className='px-4 grid grid-cols-2 gap-2'>
@@ -355,19 +392,24 @@ const ProjectManagement = () => {
                         </div>
                 }
                 {
-                    user.role === "Client" && isAuthenticated
-                        ? <div className='p-4 pt-0 space-x-2'>
-                            <button type="submit" className="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Approve</button>
-                            <button type="submit" className="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Decline</button>
-                            <button type="submit" className="text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Put On Hold</button>
-                        </div>
-                        : <div className='p-4 pt-0 space-x-2'>
-                            <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit to client</button>
-                        </div>
+                    user.role === "Client" && currentProject.stage === "In Progress"
+                    && <div className='p-4 pt-0 space-x-2'>
+                        <button type="submit" className="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Approve</button>
+                        <button type="submit" className="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Decline</button>
+                        <button type="submit" className="text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Put On Hold</button>
+                    </div>
                 }
                 {
-                    isAuthenticated ||
-                    <p className='text-xs p-4 text-gray-800'>Login to continue with this project. <span className='text-blue-500 underline'>Login Now</span></p>
+                    user.role !== "Client" && isAuthenticated &&
+                    <div className='p-4 pt-0 space-x-2'>
+                        <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit to client</button>
+                    </div>
+                }
+                {
+                    isAuthenticated && currentProject.stage === "DeamProject" ||
+                    <div className='p-4 pt-0 space-x-2'>
+                        <button type="button" onClick={handleAddToMyProject} className="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Add to Dream Project</button>
+                    </div>
                 }
             </form>
         </div >
@@ -375,64 +417,3 @@ const ProjectManagement = () => {
 };
 
 export default ProjectManagement;
-
-// Artist Row
-
-const ArtistRow = ({ artistID, handleAssignArtist, handleRejectArtist, assignedArtist, rejectedArtist }) => {
-    const { data: artist = [] } = useQuery({
-        queryKey: ['artist', artistID],
-        queryFn: () => axios(`https://dev.nsnco.in/api/v1/get_artist/${artistID}/`)
-            .then(response => response.data)
-    })
-
-    let content = <>
-        <button type='button' onClick={() => handleRejectArtist(artist.artistID)}><RxCross2 size={20} color='red' /></button>
-        <button type='button' onClick={() => handleAssignArtist(artist.artistID)}><FcCheckmark size={20} /></button>
-    </>;
-
-    if (assignedArtist.includes(artistID)) {
-        content = <span className='bg-green-500 text-xs text-white px-2 py-0.5 rounded-full font-medium scale-95 active:scale-100 cursor-pointer select-none duration-200'>Assigned</span>
-    } else if (rejectedArtist.includes(artistID)) {
-        content = <span className='bg-red-500 text-xs text-white px-2 py-0.5 rounded-full font-medium scale-95 active:scale-100 cursor-pointer select-none duration-200'>Rejected</span>
-    }
-
-    return (
-        <div className='flex items-center gap-2 text-sm bg-gray-100 p-2 mb-1 border border-blue-300 rounded-lg'>
-            <img className='w-10 h-10 rounded-full' src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="" />
-            <div>
-                <Link to={`/artist/${artistID}`}><p className='font-medium hover:underline'>{artist.name}</p></Link>
-                <p className='text-xs'>Status: <span className='bg-gray-400 p-0.5 px-1 rounded text-gray-50'>available</span></p>
-            </div>
-            <div className='flex ml-auto pr-2 gap-1'>
-                {
-                    content
-                }
-            </div>
-        </div>
-    )
-}
-
-const AssignedArtistRow = ({ artistID, handleAssignArtist, handleRejectArtist, assignedArtist, rejectedArtist }) => {
-    const { data: artist = [] } = useQuery({
-        queryKey: ['artist', artistID],
-        queryFn: () => axios(`https://dev.nsnco.in/api/v1/get_artist/${artistID}/`)
-            .then(response => response.data)
-    })
-
-
-    return (
-        <div className=' text-sm bg-green-100 p-2 mb-1 border border-blue-300 rounded-lg'>
-            <div className='flex items-center gap-2'>
-                <img className='w-10 h-10 rounded-full' src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="" />
-                <div>
-                    <Link to={`/artist/${artistID}`}><p className='font-medium hover:underline'>{artist.name}</p></Link>
-                    <p className='text-xs'>Status: <span className='bg-gray-400 p-0.5 px-1 rounded text-gray-50'>available</span></p>
-                </div>
-                <div className='flex ml-auto pr-2 gap-1'>
-                    <span className='bg-green-500 text-xs text-white px-2 py-0.5 rounded-full font-medium scale-95 active:scale-90 cursor-pointer select-none duration-200'>Assigned</span>
-                </div>
-            </div>
-            <img className='w-36 rounded mt-2 ml-12' src="https://fbutube.com/media/images/play_button/play_button_added.webp" alt="" />
-        </div>
-    )
-}
