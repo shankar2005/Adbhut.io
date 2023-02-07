@@ -51,6 +51,7 @@ const ProjectManagement = () => {
             post_project_client_feedback: data.post_project_client_feedback,
             production_solution: data.production_solution,
             // fees
+            assigned_artist_payouts: +data.assigned_artist_payouts,
             solution_fee: +data.solution_fee,
             production_advance: +data.production_advance,
             negotiated_advance: +data.negotiated_advance,
@@ -325,7 +326,7 @@ const ProjectManagement = () => {
                             </div>
                             <div class="mb-4">
                                 <label class="block mb-2 text-sm font-medium text-gray-900">Assigned artist payouts</label>
-                                <input type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                                <input {...register("assigned_artist_payouts")} type="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
                             </div>
                             <div class="mb-4 flex items-center gap-2">
                                 <label class="block text-sm font-medium text-gray-900">Advance Status:</label>
