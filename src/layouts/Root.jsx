@@ -69,7 +69,7 @@ const Root = () => {
 
     const handleLogout = () => {
         const cookies = new Cookies();
-        cookies.remove("auth_token");
+        cookies.remove("auth_token", { path: '/' });
         setIsAuthenticated(false);
     }
 

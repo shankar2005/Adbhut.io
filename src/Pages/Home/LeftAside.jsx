@@ -102,7 +102,6 @@ const LeftAside = () => {
             })
         }).then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.success) {
                     toast.success(data.success);
                     currentProjectsRefetch();
@@ -152,7 +151,7 @@ const LeftAside = () => {
                 message: message
             })
         }).then(res => res.json())
-            .then(data => {});
+            .then(data => { });
     }
 
     let name;
@@ -192,9 +191,9 @@ const LeftAside = () => {
                                 </motion.div>
                                 {
                                     chatLog.length > 0 &&
-                                    chatLog.map(chat => (
+                                    chatLog.map((chat, idx) => (
                                         chat.bot ?
-                                            <div key={`msg${chat.msgID}`} className='text-sm flex gap-2 mb-5'>
+                                            <div key={idx} className='text-sm flex gap-2 mb-5'>
                                                 <img className='w-10 h-10 rounded-full border' src={nsnlogo} alt="" />
                                                 <div className='mr-12'>
                                                     <h4 className='font-medium'>NsN Co Servicing</h4>
@@ -210,7 +209,7 @@ const LeftAside = () => {
                                                 </div>
                                             </div>
                                             :
-                                            <div key={`msg${chat.msgID}`} className='text-sm flex gap-2 mb-5 ml-auto'>
+                                            <div key={idx} className='text-sm flex gap-2 mb-5 ml-auto'>
                                                 <div className='ml-8'>
                                                     <h4 className='font-medium text-right'>{name}</h4>
                                                     <motion.div
@@ -252,9 +251,9 @@ const LeftAside = () => {
                                 </div>
                                 {
                                     chatLog.length > 0 &&
-                                    chatLog.map(chat => (
+                                    chatLog.map((chat, idx) => (
                                         chat.user ?
-                                            <div key={`msg${chat.msgID}`} className='text-sm flex gap-2 mb-5'>
+                                            <div key={idx} className='text-sm flex gap-2 mb-5'>
                                                 <img className='w-10 h-10 rounded-full border' src="https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo" alt="" />
                                                 <div className='mr-12'>
                                                     <h4 className='font-medium'>{currentProject.client_details?.name}</h4>
@@ -270,7 +269,7 @@ const LeftAside = () => {
                                                 </div>
                                             </div>
                                             :
-                                            <div key={`msg${chat.msgID}`} className='text-sm flex gap-2 mb-5 ml-auto'>
+                                            <div key={idx} className='text-sm flex gap-2 mb-5 ml-auto'>
                                                 <div className='ml-8'>
                                                     <h4 className='font-medium text-right'>NsN Co Servicing</h4>
                                                     <motion.div

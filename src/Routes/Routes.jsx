@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import useAuthToken from "../hooks/useAuthToken";
 import Root from "../layouts/Root";
 import ArtistAdmin from "../Pages/Admins/ArtistAdmin/ArtistAdmin";
 import ProjectManagement from "../Pages/Admins/ProductionManager/ProjectManagement";
@@ -24,8 +25,15 @@ const router = createBrowserRouter([
                         element: <Feed />
                     },
                     {
-                        path: '/project',
+                        path: '/project/:id/:stage',
                         element: <ProjectManagement />,
+                        loader: ({ params }) => {
+                            const url = `https://dev.nsnco.in/api/v1/edit_project/${params.id}/`;
+                            if (params.stage === "DreamProject") {
+                                return fetch(url)
+                            }
+                            return fetch(url, { headers: { Authorization: `token ${useAuthToken()}` } });
+                        }
                     },
                     {
                         path: '/artist-admin',

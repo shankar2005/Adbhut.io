@@ -4,8 +4,6 @@ const Watch = () => {
     const [btsPlaylist, setBtsPlaylist] = useState([]);
     const [showPlaylist, setShowPlaylist] = useState([]);
 
-    console.log(showPlaylist);
-
     useEffect(() => {
         fetch('https://youtube.googleapis.com/youtube/v3/playlistItems?part=snippet%2CcontentDetails&maxResults=25&playlistId=PLxNKsHD8bM1mPUBrFSmXy7lJD5tWdit-w&key=AIzaSyAxW8h9knx67oUIxLc_pAFTljByXQ0gJzY')
             .then(res => res.json())

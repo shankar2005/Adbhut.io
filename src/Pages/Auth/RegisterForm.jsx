@@ -23,7 +23,6 @@ const RegisterForm = ({ formError, setformError }) => {
                 if (data.error) {
                     setformError(data.error);
                 }
-                console.log(data)
                 if (data.success) {
                     fetch('https://dev.nsnco.in/api/v1/auth/login/', {
                         method: "POST",

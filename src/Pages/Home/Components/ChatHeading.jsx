@@ -22,21 +22,20 @@ const ChatHeading = ({ projectTitle, handleShowProjectHistory, currentProject })
     }
 
     useEffect(() => {
-        fetch(`https://dev.nsnco.in/api/v1/update_title/${currentProject?.pk}/`, {
-            method: "PATCH",
-            headers: {
-                "content-type": "application/json",
-            },
-            body: JSON.stringify({ title: renamedTitle })
-        }).then(res => res.json())
-            .then(data => {
-                console.log(data);
-                currentProjectsRefetch();
-                handleShowProjectHistory(currentProject.pk, currentProject.stage);
-            });
+        if (currentProject?.pk) {
+            fetch(`https://dev.nsnco.in/api/v1/update_title/${currentProject?.pk}/`, {
+                method: "PATCH",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify({ title: renamedTitle })
+            }).then(res => res.json())
+                .then(data => {
+                    currentProjectsRefetch();
+                    handleShowProjectHistory(currentProject.pk, currentProject.stage);
+                });
+        }
     }, [renamedTitle])
-
-    console.log(currentProject);
 
     return (
         <div className='border-b shadow-sm p-2 rounded-t-lg flex items-center justify-between'>
@@ -49,7 +48,7 @@ const ChatHeading = ({ projectTitle, handleShowProjectHistory, currentProject })
                     {
                         renameState
                             ? <form onSubmit={handleRenameSubmit}>
-                                <input onBlur={handleRenameTitle} ref={renameInputRef} type="text" class="block font-medium w-full text-gray-900 bg-transparent border-0 border-b-2 appearance-none border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600" defaultValue={projectTitle} />
+                                <input onBlur={handleRenameTitle} ref={renameInputRef} type="text" className="block font-medium w-full text-gray-900 bg-transparent border-0 border-b-2 appearance-none border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600" defaultValue={projectTitle} />
                             </form>
                             : <h4 className='font-medium'>{projectTitle || 'Project Servicing Chat'}</h4>
                     }

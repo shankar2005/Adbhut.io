@@ -206,7 +206,7 @@ const Feed = () => {
         )
     }
 
-    const [toggleProjects, settoggleProjects] = useState(true);
+    const [toggleProjects, settoggleProjects] = useState(false);
 
     return (
         <InfiniteScroll
@@ -253,7 +253,9 @@ const FeedProjectCard = () => {
                         Voice Over Artist, Singing, Dancing
                     </p>
                 </div>
-                <button className='ml-auto text-green-600 border-2 bg-sky-100 border-sky-100 py-2.5 px-4 rounded-lg font-medium'><GiCheckMark /></button>
+                <button className='ml-auto text-green-600 border-2 bg-sky-100 border-sky-100 py-2.5 px-4 rounded-lg font-medium'>
+                    80$
+                </button>
             </div>
             <p className='text-sm mb-2'>
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, eaque. Lorem ipsum dolor sit amet...

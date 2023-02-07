@@ -62,9 +62,6 @@ const RootProvider = ({ children }) => {
             fetch(`https://dev.nsnco.in/api/v1/edit_project/${projectID}/`)
                 .then(res => res.json())
                 .then(data => {
-                    if (data.detail === 'Authentication credentials were not provided.') {
-                        return;
-                    }
                     setcurrentProject(data);
                     setchatLog(JSON.parse(data.brief));
                     setshortlistedArtist(data.shortlisted_artists);
@@ -131,6 +128,7 @@ const RootProvider = ({ children }) => {
         locations,
         skills,
         currentProjects,
+        setcurrentProject,
         currentProjectsRefetch,
     }
 

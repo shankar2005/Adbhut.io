@@ -110,8 +110,8 @@ const RightAside = () => {
                     <div className='border-b pb-6 p-4'>
                         <p className='text-black mb-2 font-medium'>Recommended Projects</p>
                         {
-                            currentProjects.map(project => project.stage === "Lead" && <Link to="/project" key={`recent-project${project.pk}`}>
-                                <p onClick={() => handleShowProjectHistory(project.pk)} className='flex items-center gap-1 underline hover:text-blue-700 cursor-pointer'>
+                            currentProjects.map(project => <Link to={`/project/${project.pk}/${project.stage}`} key={`recent-project${project.pk}`}>
+                                <p className='flex items-center gap-1 underline hover:text-blue-700 cursor-pointer'>
                                     <MdCelebration className='w-5 h-5 text-yellow-400' />
                                     {project.name}
                                 </p>
@@ -124,8 +124,8 @@ const RightAside = () => {
                     <div className='border-b mb-3 pb-6 p-4'>
                         <p className='text-black mb-2 font-medium'>Dream Projects</p>
                         {
-                            dreamProjects.map(project => <Link to="/project" key={`recent-project${project.pk}`}>
-                                <p onClick={() => handleShowProjectHistory(project.pk, project.stage)} className='flex items-center gap-1 underline hover:text-blue-700 cursor-pointer'>
+                            dreamProjects.map(project => <Link to={`/project/${project.pk}/${project.stage}`} key={`recent-project${project.pk}`}>
+                                <p className='flex items-center gap-1 underline hover:text-blue-700 cursor-pointer'>
                                     <MdCelebration className='w-5 h-5 text-yellow-400' />
                                     {project.name}
                                 </p>
