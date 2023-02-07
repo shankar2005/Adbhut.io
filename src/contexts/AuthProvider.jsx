@@ -19,7 +19,6 @@ const AuthProvider = ({ children }) => {
         setAuthLoading(true);
         const cookies = new Cookies();
         const token = cookies.get('auth_token');
-        console.log(token);
         if (token) {
             fetch('https://dev.nsnco.in/api/v1/auth/verify/', {
                 method: "POST",
@@ -39,8 +38,6 @@ const AuthProvider = ({ children }) => {
                 .catch(err => setAuthLoading(false));
         }
     }, [isAuthenticated])
-
-    console.log(user, isAuthenticated);
 
     return (
         <AuthContext.Provider value={value}>
