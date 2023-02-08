@@ -27,13 +27,6 @@ const router = createBrowserRouter([
                     {
                         path: '/project/:id/:stage',
                         element: <ProjectManagement />,
-                        loader: ({ params }) => {
-                            const url = `https://dev.nsnco.in/api/v1/edit_project/${params.id}/`;
-                            if (params.stage === "DreamProject") {
-                                return fetch(url)
-                            }
-                            return fetch(url, { headers: { Authorization: `token ${useAuthToken()}` } });
-                        }
                     },
                     {
                         path: '/artist-admin',

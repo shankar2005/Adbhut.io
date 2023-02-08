@@ -4,26 +4,41 @@ import { useRootContext } from '../../../contexts/RootProvider';
 import { RiSave3Fill } from 'react-icons/ri'
 import { BsThreeDots, BsTrash } from 'react-icons/bs';
 import { toast } from 'react-hot-toast';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import { AiOutlinePlus } from 'react-icons/ai';
 import ShortlistedArtistRow from './Components/ShortlistedArtistRow';
 import AssignedArtistRow from './Components/AssignedArtistRow';
 import { sendMessageAPI } from '../../../apis/messages/messages';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 const ProjectManagement = () => {
     const { chatLog, setchatLog, setshortlistedArtist, selectedContentProducts, currentProjectsRefetch, authToken, handleShowProjectHistory, setcurrentProject } = useRootContext();
     const { isAuthenticated, user } = useContext(AuthContext);
 
-    const currentProject = useLoaderData();
+    const params = useParams();
+    const { data: currentProject = {}, refetch } = useQuery({
+        queryKey: ['currentProject', params],
+        queryFn: async () => {
+            const url = `https://dev.nsnco.in/api/v1/edit_project/${params.id}/`;
+            if (params.stage === "DreamProject") {
+                return fetch(url)
+                    .then(res => res.json())
+            }
+            return fetch(url, { headers: { Authorization: `token ${authToken}` } })
+                .then(res => res.json())
+        }
+    })
 
     useEffect(() => {
         if (currentProject.error || currentProject.detail) return;
-        setcurrentProject(currentProject);
-        setchatLog(JSON.parse(currentProject.brief));
-        debugger;
-        setshortlistedArtist(currentProject.shortlisted_artists_details?.map(artist => artist.id));
+        if (currentProject.pk) {
+            setcurrentProject(currentProject);
+            setchatLog(JSON.parse(currentProject.brief));
+            setshortlistedArtist(currentProject.shortlisted_artists_details?.map(artist => artist.id));
+        }
     }, [currentProject])
 
     useEffect(() => {
@@ -250,6 +265,8 @@ const ProjectManagement = () => {
                                 currentProject.shortlisted_artists_details?.map(artist => <ShortlistedArtistRow
                                     key={artist.id}
                                     artist={artist}
+                                    projectId={currentProject.pk}
+                                    refetch={refetch}
                                 />)
                             }
                         </div>
@@ -263,6 +280,8 @@ const ProjectManagement = () => {
                                 currentProject.assigned_artists_details?.map(artist => <AssignedArtistRow
                                     key={artist.id}
                                     artist={artist}
+                                    projectId={currentProject.pk}
+                                    refetch={refetch}
                                 />)
                             }
                         </div>

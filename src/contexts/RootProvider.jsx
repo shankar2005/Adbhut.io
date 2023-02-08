@@ -27,7 +27,6 @@ const RootProvider = ({ children }) => {
     //-------------------------------------------------------------
     // artist shortlisting
     const [shortlistedArtist, setshortlistedArtist] = useState([]);
-    console.log(shortlistedArtist);
 
     // clicking content products
     const [selectedContentProducts, setselectedContentProducts] = useState("");
@@ -46,7 +45,6 @@ const RootProvider = ({ children }) => {
     //-------------------------------------------------------------
 
     const handleShortlist = (artistID, name, profile_pic) => {
-        console.log(shortlistedArtist);
         const isExist = shortlistedArtist?.includes(artistID);
         if (!isExist) {
             setshortlistedArtist(current => [...current, artistID]);

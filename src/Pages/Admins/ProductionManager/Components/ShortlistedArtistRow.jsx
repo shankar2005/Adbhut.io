@@ -3,11 +3,27 @@ import { FcCheckmark } from 'react-icons/fc'
 import { RxCross2 } from 'react-icons/rx'
 import { Link } from "react-router-dom";
 import { AuthContext } from '../../../../contexts/AuthProvider';
+import { useRootContext } from '../../../../contexts/RootProvider';
 
-const ShortlistedArtistRow = ({ artist }) => {
+const ShortlistedArtistRow = ({ artist, projectId, refetch }) => {
     const { isAuthenticated } = useContext(AuthContext);
+    const { authToken } = useRootContext();
 
-    const handleAssignArtist = () => { }
+    const handleAssignArtist = () => {
+        fetch(`https://dev.nsnco.in/api/v1/assign_artist/${projectId}/${artist.id}/`, {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+                Authorization: `token ${authToken}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.project.pk) {
+                    refetch();
+                }
+            })
+    }
     const handleRejectArtist = () => { }
 
     return (
@@ -20,8 +36,8 @@ const ShortlistedArtistRow = ({ artist }) => {
             {
                 isAuthenticated &&
                 <div className='flex ml-auto pr-2 gap-1'>
-                    <button type='button' onClick={() => handleRejectArtist(artist.artistID)}><RxCross2 size={20} color='red' /></button>
-                    <button type='button' onClick={() => handleAssignArtist(artist.artistID)}><FcCheckmark size={20} /></button>
+                    <button type='button' onClick={handleRejectArtist}><RxCross2 size={20} color='red' /></button>
+                    <button type='button' onClick={handleAssignArtist}><FcCheckmark size={20} /></button>
                 </div>
             }
         </div>

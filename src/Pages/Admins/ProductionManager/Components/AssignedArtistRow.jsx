@@ -1,7 +1,24 @@
 import { Link } from "react-router-dom";
+import { useRootContext } from "../../../../contexts/RootProvider";
 
-const AssignedArtistRow = ({ artist }) => {
-    const handleUnassignArtist = () => { }
+const AssignedArtistRow = ({ artist, projectId, refetch }) => {
+    const { authToken } = useRootContext();
+
+    const handleUnassignArtist = () => {
+        fetch(`https://dev.nsnco.in/api/v1/unassign_artist/${projectId}/${artist.id}/`, {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+                Authorization: `token ${authToken}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.project.pk) {
+                    refetch();
+                }
+            })
+    }
 
     return (
         <div className=' text-sm bg-green-100 p-2 mb-1 border border-blue-300 rounded-lg'>
