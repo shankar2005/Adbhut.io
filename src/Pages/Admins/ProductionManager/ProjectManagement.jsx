@@ -12,7 +12,7 @@ import ShortlistedArtistRow from './Components/ShortlistedArtistRow';
 import AssignedArtistRow from './Components/AssignedArtistRow';
 
 const ProjectManagement = () => {
-    const { chatLog, setchatLog, setshortlistedArtist, selectedContentProducts, setselectedContentProducts, currentProjectsRefetch, authToken, handleShowProjectHistory, setcurrentProject } = useRootContext();
+    const { chatLog, setchatLog, setshortlistedArtist, selectedContentProducts, currentProjectsRefetch, authToken, handleShowProjectHistory, setcurrentProject } = useRootContext();
     const { isAuthenticated, user } = useContext(AuthContext);
 
     const currentProject = useLoaderData();
@@ -22,9 +22,7 @@ const ProjectManagement = () => {
         setcurrentProject(currentProject);
         setchatLog(JSON.parse(currentProject.brief));
         setshortlistedArtist(currentProject.shortlisted_artists);
-        setselectedContentProducts(currentProject.template[0]);
     }, [currentProject])
-
 
     const [shortlisted_artists, set_shortlisted_artists] = useState([]);
     useEffect(() => {
@@ -253,7 +251,7 @@ const ProjectManagement = () => {
                         <div className="mb-4 mt-8">
                             <div className='flex justify-between'>
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Shortlisted Artists</label>
-                                <button type='button' onClick={handleAddMoreArtist} className='text-sm font-meidum flex items-center gap-1'>Add More Artist <AiOutlinePlus size={20} /></button>
+                                {/* <button type='button' onClick={handleAddMoreArtist} className='text-sm font-meidum flex items-center gap-1'>Add More Artist <AiOutlinePlus size={20} /></button> */}
                             </div>
                             {
                                 shortlisted_artists.map(artist => <ShortlistedArtistRow
@@ -286,12 +284,12 @@ const ProjectManagement = () => {
                         user.role === "Product Manager" || user.role === "Artist Manager" ?
                             currentProject?.post_project_client_feedback
                             && <div className="mb-4">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">Artist feedback</label>
+                                <label className="block mb-2 text-sm font-medium text-gray-900">Artist assignment</label>
                                 <p className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-yellow-100 font-sans'>{currentProject?.post_project_client_feedback}</p>
                             </div>
                             : <div className="mb-4">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">Send feedback:</label>
-                                <textarea {...register("post_project_client_feedback")} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your feedback"></textarea>
+                                <label className="block mb-2 text-sm font-medium text-gray-900">Send assignment:</label>
+                                <textarea {...register("post_project_client_feedback")} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your assignment"></textarea>
                             </div>
                     }
 
@@ -309,7 +307,7 @@ const ProjectManagement = () => {
                                 <table className="min-w-full text-sm">
                                     <thead className="bg-gray-200">
                                         <tr className="text-left">
-                                            <th className="p-3">Fee #</th>
+                                            <th className="p-3">Estimate Fee #</th>
                                             <th className="p-3 text-right">Amount</th>
                                         </tr>
                                     </thead>

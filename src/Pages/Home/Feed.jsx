@@ -215,7 +215,7 @@ const Feed = () => {
             hasMore={hasNext}
             loader={<FeedCardSkeleton />}
         >
-            <div className='bg-white shadow p-2 mb-2 rounded-lg flex justify-between items-center'>
+            {/* <div className='bg-white shadow p-2 mb-2 rounded-lg flex justify-between items-center'>
                 <div className='text-sm'>
                     <button onClick={() => settoggleProjects(true)} className={`border px-3 py-1 rounded-full ${toggleProjects && 'bg-blue-400 text-white'}  mr-2`}>View Projects</button>
                     <button onClick={() => settoggleProjects(false)} className={`border px-3 py-1 rounded-full ${toggleProjects || 'bg-blue-400 text-white'}`}>View Artists</button>
@@ -227,7 +227,7 @@ const Feed = () => {
                         <option value="small">Small</option>
                     </select>
                 </div>
-            </div>
+            </div> */}
             {
                 toggleProjects
                     ? <FeedProjectCard />

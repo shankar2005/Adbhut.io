@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import { IoCreateOutline } from 'react-icons/io5';
 import { MdKeyboard } from 'react-icons/md';
 import { Navigation, Pagination } from 'swiper';
@@ -6,6 +6,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css/pagination';
 import nsnlogo from '../../assets/logo.jpeg';
 import { Link, useNavigate } from 'react-router-dom';
+import Navbar from '../../layouts/Shared/Navbar';
+import { dropdownInitialState, dropdownReducers } from '../../state/reducers/dropdownReducer';
 
 const HomeContent = () => {
     const navigate = useNavigate();
@@ -14,11 +16,14 @@ const HomeContent = () => {
         navigate(`/project/${e.target.project.value}/DreamProject`);
     }
 
+    const [state, dispatch] = useReducer(dropdownReducers, dropdownInitialState);
+
     return (
-        <section className='h-screen flex justify-center items-center'>
-            <nav className='absolute left-0 top-2 ml-16'>
-                <img className='w-10' src={nsnlogo} alt="" />
-            </nav>
+        <section className='h-screen'>
+            <Navbar
+                state={state}
+                dispatch={dispatch}
+            />
             <div className='w-11/12 mx-auto pt-10 grid grid-cols-2 items-center justify-between gap-20'>
                 <div>
                     <h1 className='text-[40px] leading-tight mb-5'>

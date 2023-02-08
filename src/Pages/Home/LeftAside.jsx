@@ -38,8 +38,11 @@ const LeftAside = () => {
     const artistIDs = shortlistedArtist?.join(",");
 
     // for showing chat suggestions (artists skills) when shortlisted an artist
-    const [skills, setSkills] = useState([]);
+    const [suggestions, setSuggestions] = useState([]);
     useEffect(() => {
+        // if no selectedContentProducts then don't show skills suggestions
+        if (!selectedContentProducts) return;
+
         fetch('https://dev.nsnco.in/api/v1/chatflow_skills/', {
             method: "POST",
             headers: {
@@ -52,7 +55,7 @@ const LeftAside = () => {
         })
             .then(res => res.json())
             .then(data => {
-                setSkills(data.skills);
+                setSuggestions(data.skills);
                 // filter on content products
                 setcheckedSkills(data.skills.map(skill => skill[1] + ''));
             });
@@ -67,7 +70,7 @@ const LeftAside = () => {
         setchatLog(current => [...current, { msgID: current.length + 1, [sender]: skill[0] }]);
 
         // removing suggested skills after click
-        setSkills(current => current.filter(i => i[1] + '' !== skill[1] + ''));
+        setSuggestions(current => current.filter(i => i[1] + '' !== skill[1] + ''));
     }
     const handleSelectContent = (content) => {
         setselectedContentProducts(content[1] + '');
@@ -115,7 +118,7 @@ const LeftAside = () => {
     const { data: initialContentProducts = [] } = useQuery({
         queryKey: ['initialContentProducts'],
         queryFn: () => {
-            if (skills.length === 0) {
+            if (suggestions.length === 0) {
                 return axios('https://dev.nsnco.in/api/v1/get_content_products/')
                     .then(response => {
                         return response.data.map(skill => [skill.name, skill.pk])
@@ -294,11 +297,11 @@ const LeftAside = () => {
 
 
                     {
-                        skills.length > 0 &&
+                        suggestions.length > 0 &&
                         <div className='flex skillScroll overflow-x-scroll pb-2 gap-2 text-sm font-medium select-none'>
                             {
-                                skills &&
-                                skills.map(skill => <div
+                                suggestions &&
+                                suggestions.map(skill => <div
                                     onClick={() => handleSelectSkill(skill)}
                                     key={`suggestedSkill${skill[1]}`}
                                     className='whitespace-nowrap py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>

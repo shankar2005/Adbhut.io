@@ -2,53 +2,10 @@ import LeftAside from '../Pages/Home/LeftAside';
 import { Outlet } from 'react-router-dom';
 import { useReducer } from 'react';
 import Navbar from './Shared/Navbar';
+import { dropdownInitialState, dropdownReducers } from '../state/reducers/dropdownReducer';
 
 const Root = () => {
-    // modals visiblity
-    const initialState = {
-        skillDropdown: false,
-        locationDropdown: false,
-        loginModal: false,
-        accountModal: false,
-        searchAndFilterModal: false
-    }
-    const reducer = (state, action) => {
-        switch (action.type) {
-            case "SHOW_SKILL":
-                return {
-                    ...state,
-                    skillDropdown: !state.skillDropdown,
-                    locationDropdown: false,
-                }
-            case "SHOW_LOCATION":
-                return {
-                    ...state,
-                    skillDropdown: false,
-                    locationDropdown: !state.locationDropdown,
-                }
-            case "SHOW_LOGIN":
-                return {
-                    ...state,
-                    loginModal: !state.loginModal,
-                }
-            case "SHOW_ACCOUNT":
-                return {
-                    ...state,
-                    accountModal: !state.accountModal,
-                }
-            // case "SHOW_SEARCH_AND_FILTER_MODAL":
-            //     return {
-            //         ...state,
-            //         searchAndFilterModal: !state.searchAndFilterModal,
-            //     }
-            case "BODY_TAP_ALL_MODAL_CLOSE":
-                return initialState;
-            default:
-                return state;
-        }
-    }
-    const [state, dispatch] = useReducer(reducer, initialState);
-    // 
+    const [state, dispatch] = useReducer(dropdownReducers, dropdownInitialState);
 
     return (
         <div className='bg-gray-100'>

@@ -11,6 +11,7 @@ import { TfiWorld } from 'react-icons/tfi';
 import logo from '../../assets/cn.jpeg';
 import nsnlogo from '../../assets/logo.jpeg';
 import AuthSection from '../../Pages/Auth/AuthSection';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = ({ dispatch, state }) => {
     const { setdemoType, setSearchText, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills } = useRootContext();
@@ -31,9 +32,11 @@ const Navbar = ({ dispatch, state }) => {
         setcheckedLocations([]);
     }
 
+    const navigate = useNavigate();
     // handle search
     const handleSearch = (e) => {
         e.preventDefault();
+        navigate("/");
         setSearchText(e.target.search.value);
         e.target.reset();
     }
