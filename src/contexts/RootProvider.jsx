@@ -27,6 +27,7 @@ const RootProvider = ({ children }) => {
     //-------------------------------------------------------------
     // artist shortlisting
     const [shortlistedArtist, setshortlistedArtist] = useState([]);
+    console.log(shortlistedArtist);
 
     // clicking content products
     const [selectedContentProducts, setselectedContentProducts] = useState("");
@@ -45,7 +46,8 @@ const RootProvider = ({ children }) => {
     //-------------------------------------------------------------
 
     const handleShortlist = (artistID, name, profile_pic) => {
-        const isExist = shortlistedArtist.includes(artistID);
+        console.log(shortlistedArtist);
+        const isExist = shortlistedArtist?.includes(artistID);
         if (!isExist) {
             setshortlistedArtist(current => [...current, artistID]);
             // chatlog
@@ -65,7 +67,6 @@ const RootProvider = ({ children }) => {
                     setcurrentProject(data);
                     setchatLog(JSON.parse(data.brief));
                     setshortlistedArtist(data.shortlisted_artists);
-                    setselectedContentProducts(data.template[0]);
                 });
         } else {
             fetch(`https://dev.nsnco.in/api/v1/edit_project/${projectID}/`, {
@@ -78,7 +79,6 @@ const RootProvider = ({ children }) => {
                     setcurrentProject(data);
                     setchatLog(JSON.parse(data.brief));
                     setshortlistedArtist(data.shortlisted_artists);
-                    setselectedContentProducts(data.template[0]);
                 });
         }
     }

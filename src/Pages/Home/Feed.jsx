@@ -84,7 +84,7 @@ const Feed = () => {
                                         </p>
                                     </div>
                                     {
-                                        shortlistedArtist.includes(artist.owner_id)
+                                        shortlistedArtist?.includes(artist.owner_id)
                                             ? <button className='ml-auto text-green-600 border-2 bg-sky-100 border-sky-100 py-2.5 px-4 rounded-lg font-medium'><GiCheckMark /></button>
                                             : <button onClick={() => handleShortlist(artist.owner_id, artist.owner_name, artist.profile_pic)} className='ml-auto text-blue-500 border-2 border-blue-500 hover:bg-sky-100 hover:border-sky-100 py-2.5 px-4 rounded-lg font-medium'>Shortlist</button>
                                     }

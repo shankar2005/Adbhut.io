@@ -13,6 +13,7 @@ import nsnlogo from '../../assets/logo.jpeg';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import ChatHeading from './Components/ChatHeading';
+import { sendMessageAPI } from '../../apis/messages/messages';
 
 const LeftAside = () => {
     const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory } = useRootContext();
@@ -143,18 +144,11 @@ const LeftAside = () => {
         setchatLog(current => [...current, message]);
         setuserInputText("");
         userInputRef.current.value = "";
-        fetch('https://dev.nsnco.in/api/v1/create_project/', {
-            method: "PATCH",
-            headers: {
-                "content-type": "application/json",
-                Authorization: `token ${authToken}`
-            },
-            body: JSON.stringify({
-                project_id: currentProject.pk,
-                message: message
-            })
-        }).then(res => res.json())
-            .then(data => { });
+
+        sendMessageAPI({
+            project_id: currentProject.pk,
+            message: message
+        });
     }
 
     let name;
@@ -175,7 +169,7 @@ const LeftAside = () => {
 
                 <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden p-3 relative'>
                     {
-                        user.role === "Client"
+                        user.role === "Client" || !isAuthenticated
                             ? <div className='flex flex-col'>
                                 <motion.div
                                     initial={{ translateX: '-100%' }}
@@ -214,7 +208,7 @@ const LeftAside = () => {
                                             :
                                             <div key={idx} className='text-sm flex gap-2 mb-5 ml-auto'>
                                                 <div className='ml-8'>
-                                                    <h4 className='font-medium text-right'>{name}</h4>
+                                                    <h4 className='font-medium text-right'>{name || "Guest Account"}</h4>
                                                     <motion.div
                                                         initial={{ scale: 0 }}
                                                         animate={{ scale: 1 }}
@@ -228,7 +222,11 @@ const LeftAside = () => {
                                                         </p>
                                                     </motion.div>
                                                 </div>
-                                                <img className='w-10 h-10 rounded-full border border-cyan-300' src="https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo" alt="" />
+                                                {
+                                                    isAuthenticated
+                                                        ? <img className='w-10 h-10 rounded-full border border-cyan-300' src='https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo' alt="" />
+                                                        : <img className='w-10 h-10 rounded-full' src='https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541' alt="" />
+                                                }
                                             </div>
                                     ))
                                 }

@@ -10,6 +10,7 @@ import { AuthContext } from '../../../contexts/AuthProvider';
 import { AiOutlinePlus } from 'react-icons/ai';
 import ShortlistedArtistRow from './Components/ShortlistedArtistRow';
 import AssignedArtistRow from './Components/AssignedArtistRow';
+import { sendMessageAPI } from '../../../apis/messages/messages';
 
 const ProjectManagement = () => {
     const { chatLog, setchatLog, setshortlistedArtist, selectedContentProducts, currentProjectsRefetch, authToken, handleShowProjectHistory, setcurrentProject } = useRootContext();
@@ -21,28 +22,14 @@ const ProjectManagement = () => {
         if (currentProject.error || currentProject.detail) return;
         setcurrentProject(currentProject);
         setchatLog(JSON.parse(currentProject.brief));
-        setshortlistedArtist(currentProject.shortlisted_artists);
+        debugger;
+        setshortlistedArtist(currentProject.shortlisted_artists_details?.map(artist => artist.id));
     }, [currentProject])
 
-    const [shortlisted_artists, set_shortlisted_artists] = useState([]);
     useEffect(() => {
-        set_shortlisted_artists(currentProject?.shortlisted_artists)
-    }, [currentProject?.shortlisted_artists])
-
-    useEffect(() => {
-        setassignedArtist(currentProject?.assigned_artists);
-        setrejectedArtist([]);
+        // 888
         reset(currentProject);
     }, [currentProject])
-
-    const [assignedArtist, setassignedArtist] = useState([]);
-    const [rejectedArtist, setrejectedArtist] = useState([]);
-    const handleAssignArtist = (artistID) => {
-        setassignedArtist(prev => [...prev, artistID]);
-    }
-    const handleRejectArtist = (artistID) => {
-        setrejectedArtist(prev => [...prev, artistID]);
-    }
 
     const { register, handleSubmit, reset } = useForm();
     const onSubmit = data => {
@@ -53,8 +40,6 @@ const ProjectManagement = () => {
 
         const formData = {
             title: data.title,
-            shortlisted_artists: shortlisted_artists.filter(id => !rejectedArtist.includes(id) && !assignedArtist.includes(id)),
-            assigned_artists: assignedArtist,
             post_project_client_feedback: data.post_project_client_feedback,
             production_solution: data.production_solution,
             artist_discussion_updates: data.artist_discussion_updates,
@@ -98,8 +83,6 @@ const ProjectManagement = () => {
     }
 
     useEffect(() => {
-        if (!isAuthenticated) return;
-
         document.onkeydown = function (e) {
             e = e || window.event;//Get event
             if (e.ctrlKey) {
@@ -108,8 +91,10 @@ const ProjectManagement = () => {
                     case 83://Block Ctrl+S
                         e.preventDefault();
                         e.stopPropagation();
-                        console.log('saved');
-                        document.getElementById("saveProjectForm").click();
+                        if (isAuthenticated) {
+                            document.getElementById("saveProjectForm").click();
+                            console.log('saved');
+                        }
                         break;
                 }
             }
@@ -120,28 +105,9 @@ const ProjectManagement = () => {
     // handle add more artist
     const handleAddMoreArtist = () => {
         navigate("/");
-        return
-        if (user.role === "Client") {
-            // save api used in LeftAsie Component
-            // chatlog
-            const message = { msgID: chatLog.length + 1, bot: "Please shortlist artists for your project!" };
-            setchatLog(current => [...current, message]);
-            fetch('https://dev.nsnco.in/api/v1/create_project/', {
-                method: "PATCH",
-                headers: {
-                    "content-type": "application/json",
-                    Authorization: `token ${authToken}`
-                },
-                body: JSON.stringify({
-                    project_id: currentProject.pk,
-                    message: message
-                })
-            }).then(res => res.json())
-                .then(data => { });
-
-        }
     }
 
+    const [assignmentField, setassignmentField] = useState("");
     const handleAddToMyProject = () => {
         if (!isAuthenticated) {
             toast("Login to submit project");
@@ -154,10 +120,22 @@ const ProjectManagement = () => {
                 "content-type": "application/json",
                 Authorization: `token ${authToken}`
             },
-            body: JSON.stringify({ stage: "Lead" })
+            body: JSON.stringify({ stage: "Lead", post_project_client_feedback: assignmentField })
         }).then(res => res.json())
             .then(data => {
                 handleShowProjectHistory(data?.pk, data?.stage);
+                navigate(`/project/${data?.pk}/${data?.stage}`);
+                currentProjectsRefetch();
+
+                // send assignment to the chatbox
+                // chatlog
+                const message = { msgID: chatLog.length + 1, user: assignmentField };
+                setchatLog(current => [...current, message]);
+                // send message api
+                sendMessageAPI({
+                    project_id: currentProject.pk,
+                    message: message
+                })
             })
             .catch(err => console.log(err))
     }
@@ -191,16 +169,29 @@ const ProjectManagement = () => {
                     </div>
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Creator</label>
-                        <div className='flex items-center gap-2 rounded'>
-                            <div className='relative'>
-                                <img className='w-14 border rounded-full' src="https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo" alt="" />
-                                <div className='w-3 h-3 bg-green-500 rounded-full absolute bottom-0 right-0 -translate-x-1/2'></div>
-                            </div>
-                            <div className='text-sm'>
-                                <p className="font-medium">{currentProject?.client_details?.name}</p>
-                                <p className='bg-gray-200 px-2 text-xs rounded-full'>{currentProject?.client_details?.email}</p>
-                            </div>
-                        </div>
+                        {
+                            isAuthenticated
+                                ? <div className='flex items-center gap-2 rounded'>
+                                    <div className='relative'>
+                                        <img className='w-14 border rounded-full' src="https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo" alt="" />
+                                        <div className='w-3 h-3 bg-green-500 rounded-full absolute bottom-0 right-0 -translate-x-1/2'></div>
+                                    </div>
+                                    <div className='text-sm'>
+                                        <p className="font-medium">{currentProject?.client_details?.name}</p>
+                                        <p className='bg-gray-200 px-2 text-xs rounded-full'>{currentProject?.client_details?.email}</p>
+                                    </div>
+                                </div>
+                                : <div className='flex items-center gap-2 rounded'>
+                                    <div className='relative'>
+                                        <img className='w-14 border rounded-full' src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541" alt="" />
+                                        <div className='w-3 h-3 bg-green-500 rounded-full absolute bottom-0 right-0 -translate-x-1/2'></div>
+                                    </div>
+                                    <div className='text-sm'>
+                                        <p className="font-medium">Guest Account</p>
+                                        <p className='bg-gray-200 px-2 text-xs rounded-full w-fit'>N/A</p>
+                                    </div>
+                                </div>
+                        }
                     </div>
                     <div className='flex gap-4'>
                         <div className="mb-4 flex items-center gap-2">
@@ -212,14 +203,14 @@ const ProjectManagement = () => {
                             <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-blue-200 rounded-full'>{currentProject.template?.length > 0 && currentProject?.template[1]}</p>
                         </div>
                     </div>
-                    <div className="mb-4">
+                    {/* <div className="mb-4">
                         <label className="text-sm font-medium text-gray-900">Project Reference Link </label>
                         <p className='text-sm text-blue-500'>http://localhost:5173/project</p>
                         <p className='text-sm text-blue-500'>http://localhost:5173/project</p>
                         <p className='text-sm text-blue-500'>http://localhost:5173/project</p>
                         <p className='text-sm text-blue-500'>http://localhost:5173/project</p>
                         <p className='text-sm text-blue-500'>http://localhost:5173/project</p>
-                    </div>
+                    </div> */}
                     {
                         user.role === "Client" || !user.email ?
                             currentProject?.production_solution
@@ -247,34 +238,31 @@ const ProjectManagement = () => {
                     }
 
                     {
-                        shortlisted_artists?.length > 0 &&
                         <div className="mb-4 mt-8">
                             <div className='flex justify-between'>
-                                <label className="block mb-2 text-sm font-medium text-gray-900">Shortlisted Artists</label>
-                                {/* <button type='button' onClick={handleAddMoreArtist} className='text-sm font-meidum flex items-center gap-1'>Add More Artist <AiOutlinePlus size={20} /></button> */}
+                                <label className="block mb-2 text-sm font-medium text-gray-900">{
+                                    currentProject.shortlisted_artists_details?.length ? 'Shortlisted Artists' : 'Shortlist Artists'
+                                }</label>
+                                <button type='button' onClick={handleAddMoreArtist} className='text-sm font-meidum flex items-center gap-1'>Add More Artist <AiOutlinePlus size={20} /></button>
                             </div>
                             {
-                                shortlisted_artists.map(artist => <ShortlistedArtistRow
-                                    key={artist}
-                                    artistID={artist}
-                                    handleAssignArtist={handleAssignArtist}
-                                    assignedArtist={assignedArtist}
-                                    handleRejectArtist={handleRejectArtist}
-                                    rejectedArtist={rejectedArtist}
-                                    user={user}
+                                currentProject.shortlisted_artists_details?.length > 0 &&
+                                currentProject.shortlisted_artists_details?.map(artist => <ShortlistedArtistRow
+                                    key={artist.id}
+                                    artist={artist}
                                 />)
                             }
                         </div>
                     }
 
                     {
-                        currentProject?.assigned_artists?.length > 0 &&
+                        currentProject?.assigned_artists_details?.length > 0 &&
                         <div className="mb-4 mt-8">
                             <label className="block mb-2 text-sm font-medium text-gray-900">Assigned Artists</label>
                             {
-                                currentProject.assigned_artists.map(artist => <AssignedArtistRow
-                                    key={artist}
-                                    artistID={artist}
+                                currentProject.assigned_artists_details?.map(artist => <AssignedArtistRow
+                                    key={artist.id}
+                                    artist={artist}
                                 />)
                             }
                         </div>
@@ -289,7 +277,7 @@ const ProjectManagement = () => {
                             </div>
                             : <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Send assignment:</label>
-                                <textarea {...register("post_project_client_feedback")} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your assignment"></textarea>
+                                <textarea {...register("post_project_client_feedback")} onBlur={(e) => setassignmentField(e.target.value)} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your assignment"></textarea>
                             </div>
                     }
 
@@ -404,7 +392,13 @@ const ProjectManagement = () => {
                     </div>
                 }
                 {
-                    isAuthenticated && currentProject.stage === "DeamProject" ||
+                    currentProject.stage === "DreamProject" &&
+                    <div className='p-4 pt-0 space-x-2'>
+                        <button type="button" onClick={handleAddToMyProject} className="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Add to Dream Project</button>
+                    </div>
+                }
+                {
+                    currentProject.stage === "In Progress" &&
                     <div className='p-4 pt-0 space-x-2'>
                         <button type="button" onClick={handleAddToMyProject} className="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Add to Dream Project</button>
                     </div>
