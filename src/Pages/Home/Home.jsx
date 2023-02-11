@@ -1,8 +1,14 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import { useRootContext } from '../../contexts/RootProvider';
 import RightAside from './RightAside';
 
 const Home = () => {
+    const { setViewAs } = useRootContext();
+    const handleViewAs = e => {
+        setViewAs(e.target.value);
+    }
+
     return (
         <div className='grid grid-cols-8 gap-5 items-start'>
             <main className='col-span-5'>
@@ -13,7 +19,7 @@ const Home = () => {
                         <button className={`bg-white border px-3 py-1 rounded-full`}>View Artists</button>
                     </div>
                     <div>
-                        <select className='text-sm p-1 rounded border outline-gray-100'>
+                        <select onChange={handleViewAs} className='text-sm p-1 rounded border outline-gray-100'>
                             <option value="large">Large</option>
                             <option value="details">Details</option>
                             <option value="small">Small</option>

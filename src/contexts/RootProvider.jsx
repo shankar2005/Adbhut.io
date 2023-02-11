@@ -118,6 +118,9 @@ const RootProvider = ({ children }) => {
         queryFn: () => getCurrentProjects(authToken)
     })
 
+    // views
+    const [viewAs, setViewAs] = useState("large");
+
     // stored values
     const value = {
         searchText,
@@ -145,6 +148,8 @@ const RootProvider = ({ children }) => {
         currentProjects,
         setcurrentProject,
         currentProjectsRefetch,
+        viewAs,
+        setViewAs
     }
 
     return (

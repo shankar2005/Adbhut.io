@@ -11,7 +11,7 @@ import { HiPhone } from 'react-icons/hi';
 import { IoLanguageSharp, IoLocationSharp } from 'react-icons/io5';
 
 const Feed = () => {
-    const { searchText = "", demoType, checkedSkills, handleShortlist, checkedGenres, checkedLocations, shortlistedArtist } = useRootContext();
+    const { searchText = "", demoType, checkedSkills, handleShortlist, checkedGenres, checkedLocations, shortlistedArtist, viewAs } = useRootContext();
 
     const skillQuery = checkedSkills?.map(skill => `&owner__skill=${skill}`).join('');
     const genreQuery = checkedGenres?.map(genre => `&owner__skill_genres=${genre}`).join('');
@@ -54,11 +54,7 @@ const Feed = () => {
             .catch(err => console.log(err))
     };
 
-    // views
-    const [viewAs, setViewAs] = useState("large");
-    const handleViewAs = e => {
-        setViewAs(e.target.value);
-    }
+    console.log(artists)
 
     let content;
     if (viewAs === "large") {
