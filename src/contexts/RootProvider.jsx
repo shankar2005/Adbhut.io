@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import Cookies from 'universal-cookie';
+import { sendMessageAPI } from '../apis/messages/messages';
 import { getCurrentProjects } from '../apis/projects/projects';
 import { AuthContext } from './AuthProvider';
 
@@ -45,14 +46,30 @@ const RootProvider = ({ children }) => {
     //-------------------------------------------------------------
 
     const handleShortlist = (artistID, name, profile_pic) => {
-        const isExist = shortlistedArtist?.includes(artistID);
-        if (!isExist) {
-            setshortlistedArtist(current => [...current, artistID]);
-            // chatlog
-            setchatLog(current => [...current, { type: 'shortlistedArtist', msgID: current.length + 1, artist: { artistID, name, profile_pic } }]);
-        } else {
-            toast('Already shortlisted');
+        setshortlistedArtist(current => [...current, artistID]);
+        // chatlog
+        const message = { type: 'shortlistedArtist', msgID: chatLog.length + 1, artist: { artistID, name, profile_pic } };
+        setchatLog(current => [...current, message]);
+
+        // saving shortlisted artist in the db
+        if (currentProject.pk) {
+            sendMessageAPI({
+                project_id: currentProject.pk,
+                message: message
+            })
+
+            // shortlist artist api
+            fetch(`https://dev.nsnco.in/api/v1/shortlist_artist/${currentProject.pk}/${artistID}/`, {
+                method: "PATCH",
+                headers: {
+                    "content-type": "application/json",
+                    Authorization: `token ${authToken}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => { })
         }
+
     }
 
     // show project history on click

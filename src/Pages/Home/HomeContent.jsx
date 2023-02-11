@@ -8,6 +8,8 @@ import nsnlogo from '../../assets/logo.jpeg';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../../layouts/Shared/Navbar';
 import { dropdownInitialState, dropdownReducers } from '../../state/reducers/dropdownReducer';
+import { BsArrowRightCircleFill } from 'react-icons/bs';
+import { TfiBackRight } from 'react-icons/tfi';
 
 const HomeContent = () => {
     const navigate = useNavigate();
@@ -25,6 +27,9 @@ const HomeContent = () => {
                 dispatch={dispatch}
             />
             <div className='w-11/12 mx-auto pt-10 grid grid-cols-2 items-center justify-between gap-20'>
+                <button onClick={() => history.back()} type='button' className='absolute z-50 top-32 right-20 bg-gray-100 p-3 rounded-l-full text-blue-500'>
+                    <TfiBackRight size={30} />
+                </button>
                 <div>
                     <h1 className='text-[40px] leading-tight mb-5'>
                         Premium content production. <br />

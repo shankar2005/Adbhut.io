@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { BiPencil } from 'react-icons/bi';
 import { RiRefreshLine } from 'react-icons/ri';
+import { Link } from 'react-router-dom';
 import nsnlogo from '../../../assets/logo.jpeg'
 import { useRootContext } from '../../../contexts/RootProvider';
 
@@ -50,7 +51,7 @@ const ChatHeading = ({ projectTitle, handleShowProjectHistory, currentProject })
                             ? <form onSubmit={handleRenameSubmit}>
                                 <input onBlur={handleRenameTitle} ref={renameInputRef} type="text" className="block font-medium w-full text-gray-900 bg-transparent border-0 border-b-2 appearance-none border-gray-600 focus:outline-none focus:ring-0 focus:border-blue-600" defaultValue={projectTitle} />
                             </form>
-                            : <h4 className='font-medium'>{projectTitle || 'Project Servicing Chat'}</h4>
+                            : <h4 className='underline underline-offset-2 text-blue-600 hover:text-blue-800'>{<Link to={`project/${currentProject.pk}/${currentProject.stage}`}>{projectTitle}</Link> || 'Project Servicing Chat'}</h4>
                     }
                     <BiPencil className='cursor-pointer' onClick={() => {
                         setRenameState(true);

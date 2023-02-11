@@ -254,20 +254,21 @@ const ProjectManagement = () => {
 
                     {
                         <div className="mb-4 mt-8">
-                            <div className='flex justify-between'>
+                            <div className='flex justify-between mb-1'>
                                 <label className="block mb-2 text-sm font-medium text-gray-900">{
                                     currentProject.shortlisted_artists_details?.length ? 'Shortlisted Artists' : 'Shortlist Artists'
                                 }</label>
-                                <button type='button' onClick={handleAddMoreArtist} className='text-sm font-meidum flex items-center gap-1'>Add More Artist <AiOutlinePlus size={20} /></button>
+                                <button type='button' onClick={handleAddMoreArtist} className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add More Artist <AiOutlinePlus size={18} /></button>
                             </div>
                             {
-                                currentProject.shortlisted_artists_details?.length > 0 &&
+                                currentProject.shortlisted_artists_details?.length > 0 ?
                                 currentProject.shortlisted_artists_details?.map(artist => <ShortlistedArtistRow
                                     key={artist.id}
                                     artist={artist}
                                     projectId={currentProject.pk}
                                     refetch={refetch}
                                 />)
+                                : <div className='bg-gray-200 p-3 rounded-lg text-sm'>No artist selected!</div>
                             }
                         </div>
                     }
@@ -417,9 +418,9 @@ const ProjectManagement = () => {
                     </div>
                 }
                 {
-                    currentProject.stage === "In Progress" &&
+                    currentProject.stage === "Lead" &&
                     <div className='p-4 pt-0 space-x-2'>
-                        <button type="button" onClick={handleAddToMyProject} className="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Add to Dream Project</button>
+                        <button type="submit" className="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Save Changes</button>
                     </div>
                 }
             </form>
