@@ -124,8 +124,17 @@ const RootProvider = ({ children }) => {
         queryFn: () => getDreamProjects(),
     })
 
+    // content products
+    const [contentProducts, setcontentProducts] = useState([]);
+    useEffect(() => {
+        axios('https://dev.nsnco.in/api/v1/get_content_products/')
+            .then(response => setcontentProducts(response.data));
+    }, [])
+
     // views
     const [viewAs, setViewAs] = useState("large");
+    // view toggle
+    const [toggleProjects, settoggleProjects] = useState(false);
 
     // stored values
     const value = {
@@ -157,7 +166,10 @@ const RootProvider = ({ children }) => {
         currentProjectsRefetch,
         dreamProjectsRefetch,
         viewAs,
-        setViewAs
+        setViewAs,
+        contentProducts,
+        toggleProjects,
+        settoggleProjects,
     }
 
     return (

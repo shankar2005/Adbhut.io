@@ -131,8 +131,11 @@ const RightAside = () => {
                 isAuthenticated &&
                 <div className='text-xs text-gray-600'>
                     <ul className='flex flex-wrap gap-3 justify-center mt-6'>
-                        <li className='border-b border-gray-100 hover:border-gray-400'>
+                        {/* <li className='border-b border-gray-100 hover:border-gray-400 flex flex-wrap gap-3'>
                             <Link className='flex items-center gap-2' to="/artist-entry">Add Artist <FaPlus /></Link>
+                        </li> */}
+                        <li className='border-b border-gray-100 hover:border-gray-400 flex flex-wrap gap-3'>
+                            <Link className='flex items-center gap-2' to="/create-project">Create Project <FaPlus /></Link>
                         </li>
                     </ul>
                 </div>

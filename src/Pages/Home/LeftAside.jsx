@@ -110,7 +110,7 @@ const LeftAside = () => {
                 if (data.success) {
                     toast.success(data.success);
                     currentProjectsRefetch();
-                    navigate(`project/${data.projectId}/Lead`);
+                    navigate(`/project/${data.projectId}/Lead`);
                 } else if (data.error) {
                     toast.error(data.error);
                 }

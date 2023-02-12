@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRootContext } from '../../../contexts/RootProvider';
-import { RiSave3Fill } from 'react-icons/ri'
 import { BsThreeDots, BsTrash } from 'react-icons/bs';
 import { toast } from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -152,12 +151,6 @@ const ProjectManagement = () => {
             <div className='border-b shadow-sm font-medium p-3 py-[15px] flex justify-between items-center relative'>
                 <div className='flex gap-2 items-center'>
                     <h3>Project Dashboard</h3>
-                    {
-                        isAuthenticated &&
-                        <button type='submit' form='projectForm'>
-                            <RiSave3Fill size={23} className="text-purple-800" />
-                        </button>
-                    }
                 </div>
                 <BsThreeDots onClick={() => setactionToggle(!actionToggle)} className='cursor-pointer' />
                 {
@@ -426,7 +419,7 @@ const ProjectManagement = () => {
                     </>
                 }
             </form>
-        </div >
+        </div>
     );
 };
 

@@ -9,9 +9,12 @@ import FeedCardSkeleton from '../../Components/Skeleton/FeedCardSkeleton';
 import { FaRegEnvelope } from 'react-icons/fa';
 import { HiPhone } from 'react-icons/hi';
 import { IoLanguageSharp, IoLocationSharp } from 'react-icons/io5';
+import { getCurrentProjects } from '../../apis/projects/projects';
+import axios from 'axios';
+import { useQuery } from '@tanstack/react-query';
 
 const Feed = () => {
-    const { searchText = "", demoType, checkedSkills, handleShortlist, checkedGenres, checkedLocations, shortlistedArtist, viewAs } = useRootContext();
+    const { searchText = "", demoType, checkedSkills, handleShortlist, checkedGenres, checkedLocations, shortlistedArtist, viewAs, toggleProjects, authToken } = useRootContext();
 
     const skillQuery = checkedSkills?.map(skill => `&owner__skill=${skill}`).join('');
     const genreQuery = checkedGenres?.map(genre => `&owner__skill_genres=${genre}`).join('');
@@ -53,8 +56,6 @@ const Feed = () => {
             })
             .catch(err => console.log(err))
     };
-
-    console.log(artists)
 
     let content;
     if (viewAs === "large") {
@@ -202,40 +203,55 @@ const Feed = () => {
         )
     }
 
-    const [toggleProjects, settoggleProjects] = useState(false);
+    // projects
+    // projects
+
+    const [allProject, setAllProject] = useState([]);
+    useEffect(() => {
+        axios('https://dev.nsnco.in/api/v1/all_projects/', {
+            headers: { Authorization: `token ${authToken}` },
+        }).then(response => setAllProject(response.data));
+    }, [])
+
+    // projects
+    // projects
 
     return (
-        <InfiniteScroll
-            dataLength={artists.length}
-            next={fetchMoreData}
-            hasMore={hasNext}
-            loader={<FeedCardSkeleton />}
-        >
-            {/* <div className='bg-white shadow p-2 mb-2 rounded-lg flex justify-between items-center'>
-                <div className='text-sm'>
-                    <button onClick={() => settoggleProjects(true)} className={`border px-3 py-1 rounded-full ${toggleProjects && 'bg-blue-400 text-white'}  mr-2`}>View Projects</button>
-                    <button onClick={() => settoggleProjects(false)} className={`border px-3 py-1 rounded-full ${toggleProjects || 'bg-blue-400 text-white'}`}>View Artists</button>
-                </div>
-                <div>
-                    <select onChange={handleViewAs} className='text-sm p-1 rounded border outline-gray-100'>
-                        <option value="large">Large</option>
-                        <option value="details">Details</option>
-                        <option value="small">Small</option>
-                    </select>
-                </div>
-            </div> */}
-            {
-                toggleProjects
-                    ? <FeedProjectCard />
-                    : content
-            }
-        </InfiniteScroll>
+
+        toggleProjects ?
+            <InfiniteScroll
+                dataLength={allProject.length}
+                next={fetchMoreData}
+                hasMore={hasNext}
+            // loader={<FeedCardSkeleton />}
+            >
+                {
+                    allProject.map(project => <FeedProjectCard projectDetails={project} />)
+                }
+            </InfiniteScroll>
+
+            : <InfiniteScroll
+                dataLength={artists.length}
+                next={fetchMoreData}
+                hasMore={hasNext}
+                loader={<FeedCardSkeleton />}
+            >
+                {content}
+            </InfiniteScroll>
+
     );
 };
 
 export default Feed;
 
-const FeedProjectCard = () => {
+const FeedProjectCard = ({ projectDetails }) => {
+    const { data: project = {} } = useQuery({
+        queryKey: ['project', projectDetails],
+        queryFn: () => {
+            axios(`https://dev.nsnco.in/api/v1/edit_project/${projectDetails?.pk}/`)
+                .then(response => response.data)
+        }
+    })
     const artist = {};
     return (
         <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
@@ -244,19 +260,19 @@ const FeedProjectCard = () => {
                     <img className='w-12 h-12' src={artist.profile_pic || avatar} alt="" />
                 </Link>
                 <div className='text-sm'>
-                    <Link><span className='font-medium'>Project Title</span></Link>
+                    <Link><span className='font-medium'>{projectDetails?.title}</span></Link>
                     <p>
                         Voice Over Artist, Singing, Dancing
                     </p>
                 </div>
-                <button className='ml-auto text-green-600 border-2 bg-sky-100 border-sky-100 py-2.5 px-4 rounded-lg font-medium'>
-                    80$
+                <button className='ml-auto text-blue-600 border-2 bg-sky-100 border-blue-100 py-2.5 px-4 rounded-lg font-medium'>
+                    Get Inspired
                 </button>
             </div>
-            <p className='text-sm mb-2'>
+            {/* <p className='text-sm mb-2'>
                 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, eaque. Lorem ipsum dolor sit amet...
                 <a className='text-blue-500 ml-1' href="#">see more</a>
-            </p>
+            </p> */}
             <div>
                 {
                     <div className='h-[270px] 2xl:h-[350px]'>

@@ -4,6 +4,8 @@ import { useRootContext } from '../../contexts/RootProvider';
 import RightAside from './RightAside';
 
 const Home = () => {
+    const { settoggleProjects, toggleProjects } = useRootContext();
+
     const { setViewAs } = useRootContext();
     const handleViewAs = e => {
         setViewAs(e.target.value);
@@ -15,8 +17,8 @@ const Home = () => {
                 {/*  */}
                 <div className='bg-white bg-opacity-90 border border-blue-100 shadow p-2 mb-2 rounded-lg flex justify-between items-center fixed w-[37.40%] z-30'>
                     <div className='text-sm'>
-                        <button className={`bg-white border px-3 py-1 rounded-full mr-2`}>Project View</button>
-                        <button className={`bg-white border px-3 py-1 rounded-full`}>Artist View</button>
+                        <button onClick={() => settoggleProjects(true)} className={`border px-3 py-1 rounded-full ${toggleProjects && 'bg-blue-400 text-white'}  mr-2`}>View Projects</button>
+                        <button onClick={() => settoggleProjects(false)} className={`border px-3 py-1 rounded-full ${toggleProjects || 'bg-blue-400 text-white'}`}>View Artists</button>
                     </div>
                     <div>
                         <select onChange={handleViewAs} className='text-sm p-1 rounded border outline-gray-100'>

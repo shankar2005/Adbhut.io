@@ -9,6 +9,7 @@ import Feed from "../Pages/Home/Feed";
 import Home from "../Pages/Home/Home";
 import HomeContent from "../Pages/Home/HomeContent";
 import Invite from "../Pages/Invite/Invite";
+import CreateProject from "../Pages/Project/CreateProject";
 import RequiredAuth from "./AuthRoutes/RequiredAuth";
 
 const router = createBrowserRouter([
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
                     {
                         path: '/project/:id/:stage',
                         element: <ProjectManagement />,
+                    },
+                    {
+                        path: '/create-project',
+                        element: <CreateProject />,
                     },
                     {
                         path: '/artist-admin',

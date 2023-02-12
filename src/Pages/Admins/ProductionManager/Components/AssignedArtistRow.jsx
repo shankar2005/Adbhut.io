@@ -32,7 +32,7 @@ const AssignedArtistRow = ({ artist, projectId, refetch }) => {
                     <button onClick={handleUnassignArtist} className='bg-red-500 text-xs text-white px-2 py-0.5 rounded-full font-medium scale-95 active:scale-90 cursor-pointer select-none duration-200'>Unassigned</button>
                 </div>
             </div>
-            <img className='w-36 rounded mt-2 ml-12' src="https://fbutube.com/media/images/play_button/play_button_added.webp" alt="" />
+            {/* <img className='w-36 rounded mt-2 ml-12' src="https://fbutube.com/media/images/play_button/play_button_added.webp" alt="" /> */}
         </div>
     )
 }
