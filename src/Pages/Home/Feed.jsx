@@ -208,9 +208,8 @@ const Feed = () => {
 
     const [allProject, setAllProject] = useState([]);
     useEffect(() => {
-        axios('https://dev.nsnco.in/api/v1/all_projects/', {
-            headers: { Authorization: `token ${authToken}` },
-        }).then(response => setAllProject(response.data));
+        axios('https://dev.nsnco.in/api/v1/get_dreamproject/')
+            .then(response => setAllProject(response.data));
     }, [])
 
     // projects
@@ -245,13 +244,14 @@ const Feed = () => {
 export default Feed;
 
 const FeedProjectCard = ({ projectDetails }) => {
-    const { data: project = {} } = useQuery({
-        queryKey: ['project', projectDetails],
-        queryFn: () => {
-            axios(`https://dev.nsnco.in/api/v1/edit_project/${projectDetails?.pk}/`)
-                .then(response => response.data)
-        }
-    })
+    const [project, setProject] = useState({})
+    useEffect(() => {
+        fetch(`https://dev.nsnco.in/api/v1/edit_project/${projectDetails?.pk}/`)
+            .then(res => res.json())
+            .then(data => setProject(data))
+    }, [projectDetails])
+
+
     const artist = {};
     return (
         <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
@@ -260,24 +260,31 @@ const FeedProjectCard = ({ projectDetails }) => {
                     <img className='w-12 h-12' src={artist.profile_pic || avatar} alt="" />
                 </Link>
                 <div className='text-sm'>
-                    <Link><span className='font-medium'>{projectDetails?.title}</span></Link>
-                    <p>
+                    <Link><span className='font-medium'>{project?.title?.slice(0, 40)}</span></Link>
+                    {/* <p>
                         Voice Over Artist, Singing, Dancing
-                    </p>
+                    </p> */}
                 </div>
                 <button className='ml-auto text-blue-600 border-2 bg-sky-100 border-blue-100 py-2.5 px-4 rounded-lg font-medium'>
                     Get Inspired
                 </button>
             </div>
-            {/* <p className='text-sm mb-2'>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, eaque. Lorem ipsum dolor sit amet...
-                <a className='text-blue-500 ml-1' href="#">see more</a>
-            </p> */}
+            <p className='text-sm mb-2'>
+                {project?.production_solution}
+                {/* <a className='text-blue-500 ml-1' href="#">see more</a> */}
+            </p>
             <div>
                 {
-                    <div className='h-[270px] 2xl:h-[350px]'>
-                        {useYoutubeEmbaded('https://www.youtube.com/watch?v=WvN1hAZFzFg', 'rounded-lg')}
-                    </div>
+                    project?.reference_links &&
+                    <>
+                        {
+                            project.reference_links?.includes("youtu") ?
+                                <div className='h-[270px] 2xl:h-[350px]'>
+                                    {useYoutubeEmbaded(project?.reference_links)}
+                                </div>
+                                : <embed src={project?.reference_links} className="w-full" height="500" />
+                        }
+                    </>
                 }
             </div>
         </div>

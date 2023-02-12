@@ -47,6 +47,7 @@ const CreateProject = () => {
                 "stage": "Lead",
                 "title": title,
                 "brief": JSON.stringify(chatLog),
+                "reference_links": projectReferenceLink,
                 "product": selectedcontentProduct,
                 "shortlisted_artists": shortlistedArtist,
                 "post_project_client_feedback": assignmentField
@@ -77,6 +78,7 @@ const CreateProject = () => {
             body: JSON.stringify({
                 "title": title,
                 "stage": "DreamProject",
+                "reference_links": projectReferenceLink,
                 "brief": JSON.stringify(chatLog),
                 "product": selectedcontentProduct,
                 "shortlisted_artists": shortlistedArtist,
@@ -93,10 +95,12 @@ const CreateProject = () => {
                 }
             });
     }
-
+    
     const [selectedcontentProduct, setselectedcontentProduct] = useState("");
     const [assignmentField, setassignmentField] = useState("");
     const [title, setTitle] = useState("project-title");
+    const [projectReferenceLink, setprojectReferenceLink] = useState("");
+    console.log(projectReferenceLink);
 
     return (
         <div className='bg-white rounded-lg shadow-lg'>
@@ -119,6 +123,9 @@ const CreateProject = () => {
                         <label className="block mb-2 text-sm font-medium text-gray-900">Project Title</label>
                         <input type="text" {...register('title')} onBlur={(e) => setTitle(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
                     </div>
+
+
+
                     {/* <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Creator</label>
                         {
@@ -164,6 +171,12 @@ const CreateProject = () => {
                         <p className='text-sm text-blue-500'>http://localhost:5173/project</p>
                         <p className='text-sm text-blue-500'>http://localhost:5173/project</p>
                     </div> */}
+
+
+                    <div className="mb-4">
+                        <label className="block mb-2 text-sm font-medium text-gray-900">Project Reference Link:</label>
+                        <textarea onBlur={(e) => setprojectReferenceLink(e.target.value)} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your assignment"></textarea>
+                    </div>
 
 
                     {
