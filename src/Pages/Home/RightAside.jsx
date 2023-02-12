@@ -103,7 +103,7 @@ const RightAside = () => {
                         <p className='text-black mb-2 font-medium'>Current Projects</p>
                         {
                             currentProjects.map(project => <Link to={`/project/${project.pk}/${project.stage}`} key={`recent-project${project.pk}`}>
-                                <p className={`flex items-center gap-1 underline hover:text-blue-700 ${project.pk === currentProject.pk && 'text-blue-700'} cursor-pointer`}>
+                                <p className={`flex items-center gap-1 underline hover:text-blue-700 ${project.pk === currentProject?.pk && 'text-blue-700'} cursor-pointer`}>
                                     <MdCelebration className='w-5 h-5 text-yellow-400' />
                                     {project.name}
                                 </p>
@@ -117,7 +117,7 @@ const RightAside = () => {
                         <p className='text-black mb-2 font-medium'>Dream Projects</p>
                         {
                             dreamProjects.map(project => <Link to={`/project/${project.pk}/${project.stage}`} key={`recent-project${project.pk}`}>
-                                <p className={`flex items-center gap-1 underline hover:text-blue-700 ${project.pk === currentProject.pk && 'text-blue-700'} cursor-pointer`}>
+                                <p className={`flex items-center gap-1 underline hover:text-blue-700 ${project.pk === currentProject?.pk && 'text-blue-700'} cursor-pointer`}>
                                     <MdCelebration className='w-5 h-5 text-yellow-400' />
                                     {project.name}
                                 </p>

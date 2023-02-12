@@ -145,6 +145,24 @@ const LeftAside = () => {
                 }
             });
     }
+    // handle change stage
+    const handleChangeStage = () => {
+        fetch(`https://dev.nsnco.in/api/v1/edit_project/${currentProject.pk}/`, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json",
+                Authorization: `token ${authToken}`
+            },
+            body: JSON.stringify({ stage: "Lead" })
+        })
+            .then(res => res.json())
+            .then(data => {
+                handleShowProjectHistory(data?.pk, data?.stage);
+                navigate(`/project/${data?.pk}/${data?.stage}`);
+                currentProjectsRefetch();
+                dreamProjectsRefetch();
+            })
+    }
 
     // initially showing content products in chatbox
     const { data: initialContentProducts = [] } = useQuery({
@@ -376,11 +394,15 @@ const LeftAside = () => {
                                             typeof currentProject?.pk === "number" ||
                                             <button onClick={handleAddToDreamProject} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Add to Dream Project</button>
                                         }
-                                        <button onClick={handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>
-                                            {
-                                                currentProject?.pk && currentProject?.stage !== "DreamProject" ? "Update Brief" : "Send Brief"
-                                            }
-                                        </button>
+                                        {
+                                            currentProject?.pk && currentProject?.stage !== "DreamProject" ?
+                                                <button onClick={handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>
+                                                    Update Brief
+                                                </button>
+                                                : <button onClick={handleChangeStage} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>
+                                                    Send Brief
+                                                </button>
+                                        }
                                     </div>
                                     :
                                     <div className='space-x-1'>

@@ -72,7 +72,8 @@ const ProjectManagement = () => {
                 Authorization: `token ${authToken}`
             },
             body: JSON.stringify(formData)
-        }).then(res => res.json())
+        })
+            .then(res => res.json())
             .then(data => {
                 handleShowProjectHistory(data?.pk, data?.stage);
             })
