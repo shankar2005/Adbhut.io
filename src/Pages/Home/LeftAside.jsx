@@ -110,8 +110,7 @@ const LeftAside = () => {
                 if (data.success) {
                     toast.success(data.success);
                     currentProjectsRefetch();
-                    // 2023
-                    navigate(`project/59/Lead`);
+                    navigate(`project/${data.projectId}/Lead`);
                 } else if (data.error) {
                     toast.error(data.error);
                 }
@@ -399,7 +398,8 @@ const LeftAside = () => {
                                                 <button onClick={handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>
                                                     Update Brief
                                                 </button>
-                                                : <button onClick={handleChangeStage} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>
+                                                // below logic means if we have currentProject && if it's stage is Dream then we will let user to sendBrief(with handleChangeStage)
+                                                : <button onClick={currentProject?.stage === "DreamProject" ? handleChangeStage : handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>
                                                     Send Brief
                                                 </button>
                                         }

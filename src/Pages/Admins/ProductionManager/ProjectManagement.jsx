@@ -14,7 +14,7 @@ import { sendMessageAPI } from '../../../apis/messages/messages';
 import { useQuery } from '@tanstack/react-query';
 
 const ProjectManagement = () => {
-    const { chatLog, setchatLog, setshortlistedArtist, selectedContentProducts, currentProjectsRefetch, authToken, handleShowProjectHistory, setcurrentProject, dreamProjectsRefetch } = useRootContext();
+    const { chatLog, setchatLog, setshortlistedArtist, currentProjectsRefetch, authToken, handleShowProjectHistory, setcurrentProject, dreamProjectsRefetch } = useRootContext();
     const { isAuthenticated, user } = useContext(AuthContext);
 
     const params = useParams();
@@ -75,7 +75,18 @@ const ProjectManagement = () => {
         })
             .then(res => res.json())
             .then(data => {
-                handleShowProjectHistory(data?.pk, data?.stage);
+                if (formData.post_project_client_feedback) {
+                    // send assignment to the chatbox
+                    // chatlog
+                    const message = { msgID: chatLog.length + 1, user: data.post_project_client_feedback };
+                    setchatLog(current => [...current, message]);
+                    // send message api
+                    sendMessageAPI({
+                        project_id: currentProject.pk,
+                        message: message
+                    })
+                    handleShowProjectHistory(data?.pk, data?.stage);
+                }
             })
             .catch(err => console.log(err))
     }
@@ -94,28 +105,8 @@ const ProjectManagement = () => {
                 setactionToggle(false);
                 setchatLog([]);
                 setshortlistedArtist([]);
-                selectedContentProducts("");
             });
     }
-
-    useEffect(() => {
-        document.onkeydown = function (e) {
-            e = e || window.event;//Get event
-            if (e.ctrlKey) {
-                var c = e.which || e.keyCode;//Get key code
-                switch (c) {
-                    case 83://Block Ctrl+S
-                        e.preventDefault();
-                        e.stopPropagation();
-                        if (isAuthenticated) {
-                            document.getElementById("saveProjectForm").click();
-                            console.log('saved');
-                        }
-                        break;
-                }
-            }
-        };
-    }, [])
 
     const navigate = useNavigate();
     // handle add more artist
@@ -163,7 +154,7 @@ const ProjectManagement = () => {
                     <h3>Project Dashboard</h3>
                     {
                         isAuthenticated &&
-                        <button type='submit' form='projectForm' id='saveProjectForm'>
+                        <button type='submit' form='projectForm'>
                             <RiSave3Fill size={23} className="text-purple-800" />
                         </button>
                     }
@@ -399,30 +390,40 @@ const ProjectManagement = () => {
                         </div>
                 }
                 {
-                    user.role === "Client" && currentProject.stage === "In Progress"
-                    && <div className='p-4 pt-0 space-x-2'>
-                        <button type="submit" className="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Approve</button>
-                        <button type="submit" className="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Decline</button>
-                        <button type="submit" className="text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Put On Hold</button>
-                    </div>
+                    // user.role === "Client" && currentProject.stage === "In Progress"
+                    // && <div className='p-4 pt-0 space-x-2'>
+                    //     <button type="submit" className="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Approve</button>
+                    //     <button type="submit" className="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Decline</button>
+                    //     <button type="submit" className="text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Put On Hold</button>
+                    // </div>
                 }
                 {
-                    user.role !== "Client" && isAuthenticated &&
-                    <div className='p-4 pt-0 space-x-2'>
-                        <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit to client</button>
-                    </div>
+                    // user.role !== "Client" && isAuthenticated &&
+                    // <div className='p-4 pt-0 space-x-2'>
+                    //     <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit to client</button>
+                    // </div>
                 }
                 {
-                    currentProject.stage === "DreamProject" &&
-                    <div className='p-4 pt-0 space-x-2'>
-                        <button type="button" onClick={handleAddToMyProject} className="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Add to Dream Project</button>
-                    </div>
+                    // !currentProject.stage &&
+                    // <div className='p-4 pt-0 space-x-2'>
+                    //     <button type="button" onClick={handleAddToMyProject} className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Add to Dream Project</button>
+                    //     <button type="button" onClick={handleAddToMyProject} className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Send Brief</button>
+                    // </div>
                 }
                 {
-                    currentProject.stage === "Lead" &&
-                    <div className='p-4 pt-0 space-x-2'>
-                        <button type="submit" className="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Save Changes</button>
-                    </div>
+                    isAuthenticated &&
+                    <>
+                        {
+                            currentProject.stage !== "DreamProject" ?
+                                <div className='p-4 pt-0 space-x-2'>
+                                    <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Save Changes</button>
+                                </div>
+                                : <div className='p-4 pt-0 space-x-2'>
+                                    <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Save Changes</button>
+                                    <button type="button" onClick={handleAddToMyProject} className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Send Brief</button>
+                                </div>
+                        }
+                    </>
                 }
             </form>
         </div >
