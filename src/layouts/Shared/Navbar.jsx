@@ -120,7 +120,7 @@ const Navbar = ({ dispatch, state }) => {
                                         <input onKeyUp={searchSkill} type="text" className="block w-full p-2 pl-10 text-sm border border-gray-300 rounded bg-gray-50 focus:border-blue-500 placeholder-gray-400 focus:ring-blue-500" placeholder="Search skill" />
                                     </div>
                                 </div>
-                                <ul onChange={handleSkillsCheckbox} className="min-h-fit max-h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownSkillSearchButton">
+                                <ul onChange={handleSkillsCheckbox} className="min-h-fit max-h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 z-40" aria-labelledby="dropdownSkillSearchButton">
                                     {
                                         skills?.filter(skill => skill.name.toLowerCase().startsWith(skillSearchText))
                                             .map(skill => (
@@ -177,7 +177,7 @@ const Navbar = ({ dispatch, state }) => {
                                         <input onKeyUp={searchLocation} type="text" className="block w-full p-2 pl-10 text-sm border border-gray-300 rounded bg-gray-50 focus:border-blue-500 placeholder-gray-400 focus:ring-blue-500" placeholder="Search location" />
                                     </div>
                                 </div>
-                                <ul onChange={handleLocationCheckbox} className="min-h-fit max-h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700" aria-labelledby="dropdownLocationSearchButton">
+                                <ul onChange={handleLocationCheckbox} className="min-h-fit max-h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 z-40" aria-labelledby="dropdownLocationSearchButton">
                                     {
                                         locations?.filter(location => location.name.toLowerCase().startsWith(locationSearchText))
                                             .map(location => (

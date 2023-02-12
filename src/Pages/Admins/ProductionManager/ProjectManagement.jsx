@@ -12,10 +12,9 @@ import ShortlistedArtistRow from './Components/ShortlistedArtistRow';
 import AssignedArtistRow from './Components/AssignedArtistRow';
 import { sendMessageAPI } from '../../../apis/messages/messages';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 
 const ProjectManagement = () => {
-    const { chatLog, setchatLog, setshortlistedArtist, selectedContentProducts, currentProjectsRefetch, authToken, handleShowProjectHistory, setcurrentProject } = useRootContext();
+    const { chatLog, setchatLog, setshortlistedArtist, selectedContentProducts, currentProjectsRefetch, authToken, handleShowProjectHistory, setcurrentProject, dreamProjectsRefetch } = useRootContext();
     const { isAuthenticated, user } = useContext(AuthContext);
 
     const params = useParams();
@@ -89,6 +88,7 @@ const ProjectManagement = () => {
             .then(res => res.json())
             .then(data => {
                 toast.success(data.message);
+                dreamProjectsRefetch();
                 currentProjectsRefetch();
                 setactionToggle(false);
                 setchatLog([]);
@@ -262,13 +262,13 @@ const ProjectManagement = () => {
                             </div>
                             {
                                 currentProject.shortlisted_artists_details?.length > 0 ?
-                                currentProject.shortlisted_artists_details?.map(artist => <ShortlistedArtistRow
-                                    key={artist.id}
-                                    artist={artist}
-                                    projectId={currentProject.pk}
-                                    refetch={refetch}
-                                />)
-                                : <div className='bg-gray-200 p-3 rounded-lg text-sm'>No artist selected!</div>
+                                    currentProject.shortlisted_artists_details?.map(artist => <ShortlistedArtistRow
+                                        key={artist.id}
+                                        artist={artist}
+                                        projectId={currentProject.pk}
+                                        refetch={refetch}
+                                    />)
+                                    : <div className='bg-gray-200 p-3 rounded-lg text-sm'>No artist selected!</div>
                             }
                         </div>
                     }

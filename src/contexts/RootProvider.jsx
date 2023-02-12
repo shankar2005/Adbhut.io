@@ -4,7 +4,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import Cookies from 'universal-cookie';
 import { sendMessageAPI } from '../apis/messages/messages';
-import { getCurrentProjects } from '../apis/projects/projects';
+import { getCurrentProjects, getDreamProjects } from '../apis/projects/projects';
 import { AuthContext } from './AuthProvider';
 
 const RootContext = createContext();
@@ -118,6 +118,12 @@ const RootProvider = ({ children }) => {
         queryFn: () => getCurrentProjects(authToken)
     })
 
+    // dream projects
+    const { data: dreamProjects = [], refetch: dreamProjectsRefetch } = useQuery({
+        queryKey: ['dreamProjects'],
+        queryFn: () => getDreamProjects(),
+    })
+
     // views
     const [viewAs, setViewAs] = useState("large");
 
@@ -143,11 +149,13 @@ const RootProvider = ({ children }) => {
         checkedLocations,
         setcheckedLocations,
         currentProject,
+        dreamProjects,
         locations,
         skills,
         currentProjects,
         setcurrentProject,
         currentProjectsRefetch,
+        dreamProjectsRefetch,
         viewAs,
         setViewAs
     }

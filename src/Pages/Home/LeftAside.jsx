@@ -5,7 +5,7 @@ import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
 import { motion } from "framer-motion"
 import { useRootContext } from '../../contexts/RootProvider';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FiDelete } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../contexts/AuthProvider';
@@ -16,7 +16,7 @@ import ChatHeading from './Components/ChatHeading';
 import { sendMessageAPI } from '../../apis/messages/messages';
 
 const LeftAside = () => {
-    const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory } = useRootContext();
+    const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch } = useRootContext();
     const { isAuthenticated, user } = useContext(AuthContext);
 
     const chatboxRef = useRef();
@@ -87,6 +87,7 @@ const LeftAside = () => {
         setshortlistedArtist(current => [...current.filter(id => id !== artistID)]);
     }
 
+    const navigate = useNavigate();
     // send brief
     const handleSendBrief = () => {
         if (!isAuthenticated) {
@@ -109,6 +110,36 @@ const LeftAside = () => {
                 if (data.success) {
                     toast.success(data.success);
                     currentProjectsRefetch();
+                    // 2023
+                    navigate(`project/59/Lead`);
+                } else if (data.error) {
+                    toast.error(data.error);
+                }
+            });
+    }
+    // above and below both events are the same code repeated (just state changes)
+    // add to dream project
+    const handleAddToDreamProject = () => {
+        if (!isAuthenticated) {
+            toast("You must have to login");
+        }
+        fetch('https://dev.nsnco.in/api/v1/create_project/', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                Authorization: `token ${authToken}`
+            },
+            body: JSON.stringify({
+                "stage": "DreamProject",
+                "brief": JSON.stringify(chatLog),
+                "product": selectedContentProducts,
+                "shortlisted_artists": shortlistedArtist
+            })
+        }).then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    toast.success(data.success);
+                    dreamProjectsRefetch();
                 } else if (data.error) {
                     toast.error(data.error);
                 }
@@ -333,16 +364,23 @@ const LeftAside = () => {
                             <AiOutlineGif />
                         </div>
                         {
-                            userInputText || currentProject?.pk ?
+                            userInputText ?
                                 <div className='space-x-1'>
                                     <button onClick={handleSendUserInput} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
                                 </div>
                                 :
-                                shortlistedArtist[0] || selectedContentProducts
+                                shortlistedArtist[0] || selectedContentProducts || typeof currentProject?.pk === "number"
                                     ?
                                     <div className='space-x-1'>
-                                        <button className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Add to Dream Project</button>
-                                        <button onClick={handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send Brief</button>
+                                        {
+                                            typeof currentProject?.pk === "number" ||
+                                            <button onClick={handleAddToDreamProject} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Add to Dream Project</button>
+                                        }
+                                        <button onClick={handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>
+                                            {
+                                                currentProject?.pk && currentProject?.stage !== "DreamProject" ? "Update Brief" : "Send Brief"
+                                            }
+                                        </button>
                                     </div>
                                     :
                                     <div className='space-x-1'>

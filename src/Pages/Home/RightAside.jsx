@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { MdCelebration } from 'react-icons/md';
 import { AuthContext } from '../../contexts/AuthProvider';
 import { toast } from 'react-hot-toast';
@@ -7,8 +7,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import { Link } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
-import { useQuery } from '@tanstack/react-query';
-import { getDreamProjects } from '../../apis/projects/projects';
 
 const category = [
     {
@@ -44,7 +42,7 @@ const category = [
 ]
 
 const RightAside = () => {
-    const { selectedContentProducts, setselectedContentProducts, setchatLog, handleShowProjectHistory, currentProjects } = useRootContext();
+    const { selectedContentProducts, setselectedContentProducts, setchatLog, currentProjects, dreamProjects, currentProject } = useRootContext();
 
     const { isAuthenticated, user } = useContext(AuthContext);
 
@@ -60,12 +58,6 @@ const RightAside = () => {
             toast('Already selected');
         }
     }
-
-    // dream projects
-    const { data: dreamProjects = [] } = useQuery({
-        queryKey: ['dreamProjects'],
-        queryFn: () => getDreamProjects(),
-    })
 
     return (
         <>
@@ -108,10 +100,10 @@ const RightAside = () => {
                 {
                     isAuthenticated && currentProjects.length > 0 &&
                     <div className='border-b pb-6 p-4'>
-                        <p className='text-black mb-2 font-medium'>Recommended Projects</p>
+                        <p className='text-black mb-2 font-medium'>Current Projects</p>
                         {
                             currentProjects.map(project => <Link to={`/project/${project.pk}/${project.stage}`} key={`recent-project${project.pk}`}>
-                                <p className='flex items-center gap-1 underline hover:text-blue-700 cursor-pointer'>
+                                <p className={`flex items-center gap-1 underline hover:text-blue-700 ${project.pk === currentProject.pk && 'text-blue-700'} cursor-pointer`}>
                                     <MdCelebration className='w-5 h-5 text-yellow-400' />
                                     {project.name}
                                 </p>
@@ -125,7 +117,7 @@ const RightAside = () => {
                         <p className='text-black mb-2 font-medium'>Dream Projects</p>
                         {
                             dreamProjects.map(project => <Link to={`/project/${project.pk}/${project.stage}`} key={`recent-project${project.pk}`}>
-                                <p className='flex items-center gap-1 underline hover:text-blue-700 cursor-pointer'>
+                                <p className={`flex items-center gap-1 underline hover:text-blue-700 ${project.pk === currentProject.pk && 'text-blue-700'} cursor-pointer`}>
                                     <MdCelebration className='w-5 h-5 text-yellow-400' />
                                     {project.name}
                                 </p>
