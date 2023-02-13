@@ -4,12 +4,15 @@ import { MdKeyboard } from 'react-icons/md';
 import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css/pagination';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../../layouts/Shared/Navbar';
 import { dropdownInitialState, dropdownReducers } from '../../state/reducers/dropdownReducer';
 import { TfiBackRight } from 'react-icons/tfi';
+import { useRootContext } from '../../contexts/RootProvider';
 
 const HomeContent = () => {
+    const { contentProducts } = useRootContext();
+
     const navigate = useNavigate();
     const handleNavigateProject = (e) => {
         e.preventDefault();
@@ -55,20 +58,15 @@ const HomeContent = () => {
                         navigation
                         pagination={{ clickable: true }}
                     >
-                        <SwiperSlide>
-                            <div className='text-center w-4/6 mx-auto'>
-                                <img className='w-80 mx-auto' src="https://www.gstatic.com/meet/meet_google_one_carousel_promo_icon_0f14bf8fc61484b019827c071ed8111d.svg" alt="" />
-                                <h3 className='text-2xl mt-4'>Artwork</h3>
-                                <p className='mt-2 text-sm'>Select for writing & designing Artworks for Website, Banners & Social Media Posts (Static / Animated / Graphical), OOH, Business Collaterals and more</p>
-                            </div>
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <div className='text-center w-4/6 mx-auto'>
-                                <img className='w-80 mx-auto' src="https://www.gstatic.com/meet/meet_google_one_carousel_promo_icon_0f14bf8fc61484b019827c071ed8111d.svg" alt="" />
-                                <h3 className='text-2xl mt-4'>Chat Show</h3>
-                                <p className='mt-2 text-sm'>Design & create your own chat show series for Social Media Video Content</p>
-                            </div>
-                        </SwiperSlide>
+                        {
+                            contentProducts.map(content => <SwiperSlide>
+                                <div className='text-center w-4/6 mx-auto'>
+                                    <img className='w-80 mx-auto' src="https://www.gstatic.com/meet/meet_google_one_carousel_promo_icon_0f14bf8fc61484b019827c071ed8111d.svg" alt="" />
+                                    <h3 className='text-2xl mt-4'>{content.name}</h3>
+                                    <p className='mt-2 text-sm'>{content.details}</p>
+                                </div>
+                            </SwiperSlide>)
+                        }
                     </Swiper>
 
                 </div>

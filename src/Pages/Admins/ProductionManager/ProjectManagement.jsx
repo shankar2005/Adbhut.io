@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useRootContext } from '../../../contexts/RootProvider';
 import { BsThreeDots, BsTrash } from 'react-icons/bs';
 import { toast } from 'react-hot-toast';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -108,10 +108,6 @@ const ProjectManagement = () => {
     }
 
     const navigate = useNavigate();
-    // handle add more artist
-    const handleAddMoreArtist = () => {
-        navigate("/");
-    }
 
     const [assignmentField, setassignmentField] = useState("");
     const handleAddToMyProject = () => {
@@ -203,14 +199,7 @@ const ProjectManagement = () => {
                             <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-blue-200 rounded-full'>{currentProject.template?.length > 0 && currentProject?.template[1]}</p>
                         </div>
                     </div>
-                    {/* <div className="mb-4">
-                        <label className="text-sm font-medium text-gray-900">Project Reference Link </label>
-                        <p className='text-sm text-blue-500'>http://localhost:5173/project</p>
-                        <p className='text-sm text-blue-500'>http://localhost:5173/project</p>
-                        <p className='text-sm text-blue-500'>http://localhost:5173/project</p>
-                        <p className='text-sm text-blue-500'>http://localhost:5173/project</p>
-                        <p className='text-sm text-blue-500'>http://localhost:5173/project</p>
-                    </div> */}
+
                     {
                         user.role === "Client" || !user.email ?
                             currentProject?.production_solution
@@ -243,7 +232,9 @@ const ProjectManagement = () => {
                                 <label className="block mb-2 text-sm font-medium text-gray-900">{
                                     currentProject.shortlisted_artists_details?.length ? 'Shortlisted Artists' : 'Shortlist Artists'
                                 }</label>
-                                <button type='button' onClick={handleAddMoreArtist} className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add More Artist <AiOutlinePlus size={18} /></button>
+                                <Link to="/artists">
+                                    <button type='button' className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add More Artist <AiOutlinePlus size={18} /></button>
+                                </Link>
                             </div>
                             {
                                 currentProject.shortlisted_artists_details?.length > 0 ?

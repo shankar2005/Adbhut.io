@@ -8,41 +8,8 @@ import { Navigation } from 'swiper';
 import { Link, useLocation } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 
-const category = [
-    {
-        pk: 6,
-        name: "Artwork",
-        image: "https://img.icons8.com/external-ddara-flat-ddara/64/null/external-artwork-digital-marketing-ddara-flat-ddara.png"
-    },
-    {
-        pk: 1,
-        name: "Chat Show",
-        image: "https://img.icons8.com/color/48/null/filled-chat.png"
-    },
-    {
-        pk: 2,
-        name: "Documentary",
-        image: "https://img.icons8.com/color-glass/48/null/documentary.png"
-    },
-    {
-        pk: 4,
-        name: "Fiction & Reality",
-        image: "https://img.icons8.com/external-flaticons-lineal-color-flat-icons/64/null/external-fiction-literature-flaticons-lineal-color-flat-icons.png"
-    },
-    {
-        pk: 3,
-        name: "Musical",
-        image: "https://img.icons8.com/cute-clipart/64/null/musical.png"
-    },
-    {
-        pk: 5,
-        name: "Web 3.0 Solutions",
-        image: "https://img.icons8.com/color/48/null/bitcoin--v1.png"
-    },
-]
-
 const RightAside = () => {
-    const { selectedContentProducts, setselectedContentProducts, setchatLog, currentProjects, dreamProjects, currentProject } = useRootContext();
+    const { selectedContentProducts, setselectedContentProducts, setchatLog, currentProjects, dreamProjects, currentProject, contentProducts } = useRootContext();
 
     const { isAuthenticated, user } = useContext(AuthContext);
 
@@ -81,13 +48,13 @@ const RightAside = () => {
                         className='px-3'
                     >
                         {
-                            category?.map((item, idx) => (
-                                <SwiperSlide key={idx}>
-                                    <div onClick={() => handleSelectContentProducts(item)} className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
-                                        <div className='w-9 h-9 p-1 border rounded-md '>
-                                            <img className='group-hover:scale-110 duration-150 overflow-hidden' src={item.image} />
+                            contentProducts?.map(content => (
+                                <SwiperSlide key={content.pk}>
+                                    <div onClick={() => handleSelectContentProducts(content)} className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
+                                        <div className='w-9 h-9 p-1 border rounded-md'>
+                                            <img className='group-hover:scale-110 duration-150 overflow-hidden' src={content.weblink} />
                                         </div>
-                                        <p className='text-xs'>{item.name}</p>
+                                        <p className={`${currentProject?.project_template === content.pk && 'text-blue-600 font-medium'} text-xs`}>{content.name}</p>
                                     </div>
                                 </SwiperSlide>
                             ))
@@ -128,7 +95,6 @@ const RightAside = () => {
             </section>
 
             {
-                isAuthenticated &&
                 <div className='text-xs text-gray-600'>
                     <ul className='flex flex-wrap gap-3 justify-center mt-6'>
                         {/* <li className='border-b border-gray-100 hover:border-gray-400 flex flex-wrap gap-3'>

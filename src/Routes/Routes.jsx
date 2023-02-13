@@ -10,6 +10,7 @@ import Home from "../Pages/Home/Home";
 import HomeContent from "../Pages/Home/HomeContent";
 import Invite from "../Pages/Invite/Invite";
 import CreateProject from "../Pages/Project/CreateProject";
+import Projects from "../Pages/Project/Projects";
 import RequiredAuth from "./AuthRoutes/RequiredAuth";
 
 const router = createBrowserRouter([
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
                 children: [
                     {
                         path: '/',
+                        element: <Projects />
+                    },
+                    {
+                        path: '/artists',
                         element: <Feed />
                     },
                     {

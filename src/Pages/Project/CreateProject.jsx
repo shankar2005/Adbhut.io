@@ -95,7 +95,7 @@ const CreateProject = () => {
                 }
             });
     }
-    
+
     const [selectedcontentProduct, setselectedcontentProduct] = useState("");
     const [assignmentField, setassignmentField] = useState("");
     const [title, setTitle] = useState("project-title");
@@ -121,10 +121,8 @@ const CreateProject = () => {
                 <div className="p-4">
                     <div className="mb-4 items-center gap-2">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Project Title</label>
-                        <input type="text" {...register('title')} onBlur={(e) => setTitle(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
+                        <input type="text" {...register('title')} onBlur={(e) => setTitle(e.target.value)} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter a Project title" />
                     </div>
-
-
 
                     {/* <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Creator</label>
@@ -185,7 +183,9 @@ const CreateProject = () => {
                                 <label className="block mb-2 text-sm font-medium text-gray-900">{
                                     shortlistedArtist?.length ? 'Shortlisted Artists' : 'Shortlist Artists'
                                 }</label>
-                                <button type='button' onClick={handleAddMoreArtist} className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add More Artist <AiOutlinePlus size={18} /></button>
+                                <Link to="/artists">
+                                    <button type='button' onClick={handleAddMoreArtist} className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add More Artist <AiOutlinePlus size={18} /></button>
+                                </Link>
                             </div>
                             {
                                 shortlistedArtist?.length > 0 ?

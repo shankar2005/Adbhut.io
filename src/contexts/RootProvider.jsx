@@ -133,8 +133,6 @@ const RootProvider = ({ children }) => {
 
     // views
     const [viewAs, setViewAs] = useState("large");
-    // view toggle
-    const [toggleProjects, settoggleProjects] = useState(true);
 
     // stored values
     const value = {
@@ -168,8 +166,6 @@ const RootProvider = ({ children }) => {
         viewAs,
         setViewAs,
         contentProducts,
-        toggleProjects,
-        settoggleProjects,
     }
 
     return (
