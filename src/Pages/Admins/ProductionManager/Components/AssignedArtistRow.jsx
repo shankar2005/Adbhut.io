@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useRootContext } from "../../../../contexts/RootProvider";
+import { routes } from "../../../../Routes/Routes";
 
 const AssignedArtistRow = ({ artist, projectId, refetch }) => {
     const { authToken } = useRootContext();
@@ -25,7 +26,7 @@ const AssignedArtistRow = ({ artist, projectId, refetch }) => {
             <div className='flex items-center gap-2'>
                 <img className='w-10 h-10 rounded-full' src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541" alt="" />
                 <div>
-                    <Link to={`/artist/${artist.id}`}><p className='font-medium hover:underline'>{artist.name}</p></Link>
+                    <Link to={routes.artist(artist.id)}><p className='font-medium hover:underline'>{artist.name}</p></Link>
                     <p className='text-xs'>Status: <span className='bg-gray-400 p-0.5 px-1 rounded text-gray-50'>available</span></p>
                 </div>
                 <div className='flex ml-auto pr-2 gap-1'>

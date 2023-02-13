@@ -6,62 +6,72 @@ import ProjectManagement from "../Pages/Admins/ProductionManager/ProjectManageme
 import ArtistEntry from "../Pages/Artist/ArtistEntry";
 import ArtistProfile from "../Pages/Artist/ArtistProfile";
 import Feed from "../Pages/Home/Feed";
-import Home from "../Pages/Home/Home";
-import HomeContent from "../Pages/Home/HomeContent";
+import HomeContent from "../Pages/Home/Home";
 import Invite from "../Pages/Invite/Invite";
 import CreateProject from "../Pages/Project/CreateProject";
 import Projects from "../Pages/Project/Projects";
 import RequiredAuth from "./AuthRoutes/RequiredAuth";
 
+// named urls
+export const routes = {
+    createProject: "/projects/create-project",
+    project: (pk, stage) => {
+        return `/projects/${pk}/${stage}`
+    },
+    artist: id => {
+        return `/artists/${id}/`
+    }
+}
+
 const router = createBrowserRouter([
     {
         path: '/',
+        element: <HomeContent />,
+    },
+    {
+        path: '/projects',
         element: <Root />,
         children: [
             {
-                path: '/',
-                element: <Home />,
-                children: [
-                    {
-                        path: '/',
-                        element: <Projects />
-                    },
-                    {
-                        path: '/artists',
-                        element: <Feed />
-                    },
-                    {
-                        path: '/project/:id/:stage',
-                        element: <ProjectManagement />,
-                    },
-                    {
-                        path: '/create-project',
-                        element: <CreateProject />,
-                    },
-                    {
-                        path: '/artist-admin',
-                        element: <ArtistAdmin />,
-                    },
-                    {
-                        path: '/artist-entry',
-                        element: <RequiredAuth><ArtistEntry /></RequiredAuth>,
-                    }
-                ]
+                path: '/projects',
+                element: <Projects />,
             },
             {
-                path: '/artist/:id',
+                path: '/projects/:id/:stage',
+                element: <ProjectManagement />,
+            },
+            {
+                path: routes.createProject,
+                element: <CreateProject />,
+            }
+        ]
+    },
+    {
+        path: '/artists',
+        element: <Root />,
+        children: [
+            {
+                path: '/artists',
+                element: <Feed />
+            },
+            {
+                path: '/artists/:id',
                 loader: ({ params }) => fetch(`https://dev.nsnco.in/api/v1/get_artist/${params.id}/`),
                 element: <ArtistProfile />
+            },
+            {
+                path: '/artists/artist-admin',
+                element: <ArtistAdmin />,
+            },
+            {
+                path: '/artists/artist-entry',
+                element: <RequiredAuth><ArtistEntry /></RequiredAuth>,
             },
         ]
     },
     {
         path: '/invite',
         element: <Invite />
-    },
-    {
-        path: '/home',
-        element: <HomeContent />
     }
 ]);
 

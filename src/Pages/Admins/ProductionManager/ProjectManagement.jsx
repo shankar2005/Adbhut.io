@@ -11,6 +11,7 @@ import ShortlistedArtistRow from './Components/ShortlistedArtistRow';
 import AssignedArtistRow from './Components/AssignedArtistRow';
 import { sendMessageAPI } from '../../../apis/messages/messages';
 import { useQuery } from '@tanstack/react-query';
+import { routes } from '../../../Routes/Routes';
 
 const ProjectManagement = () => {
     const { chatLog, setchatLog, setshortlistedArtist, currentProjectsRefetch, authToken, handleShowProjectHistory, setcurrentProject, dreamProjectsRefetch } = useRootContext();
@@ -126,7 +127,8 @@ const ProjectManagement = () => {
         }).then(res => res.json())
             .then(data => {
                 handleShowProjectHistory(data?.pk, data?.stage);
-                navigate(`/project/${data?.pk}/${data?.stage}`);
+                navigate(routes.project(data.pk, data.stage));
+
                 currentProjectsRefetch();
 
                 // send assignment to the chatbox

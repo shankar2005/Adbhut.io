@@ -9,6 +9,7 @@ import FeedCardSkeleton from '../../Components/Skeleton/FeedCardSkeleton';
 import { FaRegEnvelope } from 'react-icons/fa';
 import { HiPhone } from 'react-icons/hi';
 import { IoLanguageSharp, IoLocationSharp } from 'react-icons/io5';
+import { routes } from '../../Routes/Routes';
 
 const Feed = () => {
     const { searchText = "", demoType, checkedSkills, handleShortlist, checkedGenres, checkedLocations, shortlistedArtist, viewAs } = useRootContext();
@@ -64,11 +65,11 @@ const Feed = () => {
                         artists?.map((artist, idx) => (
                             <div key={`artistFeed${idx}`} className='mb-5 p-5 bg-white rounded-lg shadow-md'>
                                 <div className='flex items-center gap-2 mb-3'>
-                                    <Link to={`/artist/${artist.owner_id}`}>
+                                    <Link to={routes.artist(artist.owner_id)}>
                                         <img className='w-12 h-12' src={artist.profile_pic || avatar} alt="" />
                                     </Link>
                                     <div className='text-sm'>
-                                        <Link to={`/artist/${artist.owner_id}`}><span className='font-medium'>{artist.owner_name}</span></Link>
+                                        <Link to={routes.artist(artist.owner_id)}><span className='font-medium'>{artist.owner_name}</span></Link>
                                         <p>
                                             {
                                                 artist.skills.join(", ").length >= 40
@@ -143,7 +144,7 @@ const Feed = () => {
                                     <img className='w-16 border p-0.5 bg-white rounded-full' src={artist.profile_pic || avatar} alt="" />
                                 </div>
                                 <div>
-                                    <Link className='hover:underline' to={`/artist/${artist.owner_id}`}><p className='font-medium'>{artist.owner_name}</p></Link>
+                                    <Link className='hover:underline' to={routes.artist(artist.owner_id)}><p className='font-medium'>{artist.owner_name}</p></Link>
                                     <p className='text-xs mb-2'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequuntur, aliquida dipisicing elit. Consequuntur, aliquid?</p>
                                     <div className='text-xs mb-2'>
                                         {artist.email && <p className='flex items-center gap-2'><FaRegEnvelope />{artist.email}</p>}
@@ -190,7 +191,7 @@ const Feed = () => {
                                         artist?.skills?.map((skill, idx) => <div key={idx} className='bg-sky-400 p-1 rounded text-white'>{skill}</div>)
                                     }
                                 </div>
-                                <Link className='mt-auto w-full' to={`/artist/${artist.owner_id}`}>
+                                <Link className='mt-auto w-full' to={routes.artist(artist.owner_id)}>
                                     <button className='w-full border-2 border-sky-100 hover:border-blue-500 font-medium bg-sky-100 text-blue-500 py-2 rounded-lg'>View Profile</button>
                                 </Link>
                             </div>
