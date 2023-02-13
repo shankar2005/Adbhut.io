@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast';
 import { useRootContext } from '../../contexts/RootProvider';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 
 const category = [

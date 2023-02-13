@@ -4,7 +4,7 @@ import { MdKeyboard } from 'react-icons/md';
 import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css/pagination';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../../layouts/Shared/Navbar';
 import { dropdownInitialState, dropdownReducers } from '../../state/reducers/dropdownReducer';
 import { TfiBackRight } from 'react-icons/tfi';
