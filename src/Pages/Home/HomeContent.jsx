@@ -43,7 +43,9 @@ const HomeContent = () => {
                             <MdKeyboard className='w-6 h-6 text-gray-500 absolute top-1/2 -translate-y-1/2 left-2' />
                         </form>
                     </div>
-                    <p className='mt-6 text-gray-500'><span className='text-blue-500'>Learn more</span> about NsNco</p>
+                    <a target="_blank" href="https://nsnco.in/">
+                        <p className='mt-6 text-gray-500'><span className='text-blue-500'>Learn more</span> about NsNco</p>
+                    </a>
                 </div>
 
                 <div className='homeContent'>
