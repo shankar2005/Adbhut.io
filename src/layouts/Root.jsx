@@ -42,7 +42,6 @@ const Root = () => {
                 <div className='col-span-5'>
 
 
-
                     {/*  */}
                     <div className='bg-white bg-opacity-90 border border-blue-100 shadow p-2 mb-2 rounded-lg flex justify-between items-center fixed w-[37.40%] z-30'>
                         <div className='text-sm flex items-center gap-2'>

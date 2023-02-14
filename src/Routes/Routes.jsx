@@ -1,12 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
-import useAuthToken from "../hooks/useAuthToken";
 import Root from "../layouts/Root";
 import ArtistAdmin from "../Pages/Admins/ArtistAdmin/ArtistAdmin";
 import ProjectManagement from "../Pages/Admins/ProductionManager/ProjectManagement";
 import ArtistEntry from "../Pages/Artist/ArtistEntry";
 import ArtistProfile from "../Pages/Artist/ArtistProfile";
 import Feed from "../Pages/Home/Feed";
-import HomeContent from "../Pages/Home/Home";
+import Home from "../Pages/Home/Home";
 import Invite from "../Pages/Invite/Invite";
 import CreateProject from "../Pages/Project/CreateProject";
 import Projects from "../Pages/Project/Projects";
@@ -26,7 +25,7 @@ export const routes = {
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <HomeContent />,
+        element: <Home />,
     },
     {
         path: '/projects',
