@@ -11,17 +11,6 @@ import CreateProject from "../Pages/Project/CreateProject";
 import Projects from "../Pages/Project/Projects";
 import RequiredAuth from "./AuthRoutes/RequiredAuth";
 
-// named urls
-export const routes = {
-    createProject: "/projects/create-project",
-    project: (pk, stage) => {
-        return `/projects/${pk}/${stage}`
-    },
-    artist: id => {
-        return `/artists/${id}/`
-    }
-}
-
 const router = createBrowserRouter([
     {
         path: '/',
@@ -40,7 +29,7 @@ const router = createBrowserRouter([
                 element: <ProjectManagement />,
             },
             {
-                path: routes.createProject,
+                path: '/projects/create-project',
                 element: <CreateProject />,
             }
         ]
@@ -73,5 +62,16 @@ const router = createBrowserRouter([
         element: <Invite />
     }
 ]);
+
+// named urls
+export const routes = {
+    createProject: "/projects/create-project",
+    project: (pk, stage) => {
+        return `/projects/${pk}/${stage}`
+    },
+    artist: id => {
+        return `/artists/${id}/`
+    }
+}
 
 export default router;

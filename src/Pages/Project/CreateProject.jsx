@@ -12,7 +12,7 @@ import { useRootContext } from '../../contexts/RootProvider';
 import { routes } from '../../Routes/Routes';
 
 const CreateProject = () => {
-    const { shortlistedArtist, setchatLog, setshortlistedArtist, setcurrentProject, chatLog, contentProducts, dreamProjectsRefetch, currentProjectsRefetch, authToken } = useRootContext();
+    const { shortlistedArtist, setchatLog, setshortlistedArtist, setcurrentProject, chatLog, contentProducts, dreamProjectsRefetch, currentProjectsRefetch, authToken, selectedContentProducts } = useRootContext();
     const { isAuthenticated, user } = useContext(AuthContext);
 
     useEffect(() => {
@@ -77,7 +77,7 @@ const CreateProject = () => {
                 if (data.pk) {
                     toast.success("Project created successfully!", { id: "createNewProject" });
                     currentProjectsRefetch();
-                    navigate(routes.project(data.projectId, "Lead"));
+                    navigate(routes.project(data.pk, "Lead"));
                 } else {
                     toast.error("Something went wrong!", { id: "createNewProject" });
                 }
@@ -135,11 +135,11 @@ const CreateProject = () => {
 
                     <div className='flex gap-4'>
                         <div className="mb-4 flex items-center gap-2">
-                            <label className="text-sm font-medium text-gray-900">Content Product: </label>
-                            <select name="project_template" onChange={e => dispatch(register(e))} className='border border-black p-1'>
+                            <label className="flex-1 text-sm font-medium text-gray-900">Content Product: </label>
+                            <select name="project_template" onChange={e => dispatch(register(e))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-fit p-2.5">
                                 <option selected disabled>Select content product</option>
                                 {
-                                    contentProducts.map(content => <option value={content.pk}>{content.name}</option>)
+                                    contentProducts.map(content => <option selected={selectedContentProducts === content.pk} value={content.pk}>{content.name}</option>)
                                 }
                             </select>
                         </div>

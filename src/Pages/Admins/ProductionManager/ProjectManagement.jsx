@@ -105,6 +105,7 @@ const ProjectManagement = () => {
                 setactionToggle(false);
                 setchatLog([]);
                 setshortlistedArtist([]);
+                navigate(routes.createProject);
             });
     }
 
