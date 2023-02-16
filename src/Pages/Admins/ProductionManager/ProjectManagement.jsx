@@ -398,19 +398,27 @@ const ProjectManagement = () => {
                     // </div>
                 }
                 {
-                    isAuthenticated &&
-                    <>
-                        {
-                            currentProject.stage !== "DreamProject" ?
+                    isAuthenticated ?
+                        <>
+                            {
+                                currentProject.stage !== "DreamProject" ?
+                                    <div className='p-4 pt-0 space-x-2'>
+                                        <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Save Changes</button>
+                                    </div>
+                                    : <div className='p-4 pt-0 space-x-2'>
+                                        <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Save Changes</button>
+                                        <button type="button" onClick={handleAddToMyProject} className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Send Brief</button>
+                                    </div>
+                            }
+                        </>
+                        : <>
+                            {
+                                currentProject.stage === "DreamProject" &&
                                 <div className='p-4 pt-0 space-x-2'>
-                                    <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Save Changes</button>
-                                </div>
-                                : <div className='p-4 pt-0 space-x-2'>
-                                    <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Save Changes</button>
                                     <button type="button" onClick={handleAddToMyProject} className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Send Brief</button>
                                 </div>
-                        }
-                    </>
+                            }
+                        </>
                 }
             </form>
         </div>

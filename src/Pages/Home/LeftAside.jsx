@@ -43,7 +43,7 @@ const LeftAside = () => {
     const [suggestions, setSuggestions] = useState([]);
     useEffect(() => {
         // if no selectedContentProducts then don't show skills suggestions
-        if (!selectedContentProducts || currentProject.pk) return;
+        if (!selectedContentProducts || currentProject?.pk) return;
 
         fetch('https://dev.nsnco.in/api/v1/chatflow_skills/', {
             method: "POST",
@@ -92,7 +92,7 @@ const LeftAside = () => {
     // send brief
     const handleSendBrief = () => {
         if (!isAuthenticated) {
-            toast("You must have to login");
+            return toast("You must have to login");
         }
         fetch('https://dev.nsnco.in/api/v1/create_project/', {
             method: "POST",
@@ -121,7 +121,7 @@ const LeftAside = () => {
     // add to dream project
     const handleAddToDreamProject = () => {
         if (!isAuthenticated) {
-            toast("You must have to login");
+            return toast("You must have to login");
         }
         fetch('https://dev.nsnco.in/api/v1/create_project/', {
             method: "POST",
@@ -147,6 +147,9 @@ const LeftAside = () => {
     }
     // handle change stage
     const handleChangeStage = () => {
+        if (!isAuthenticated) {
+            return toast("You must have to login");
+        }
         fetch(`https://dev.nsnco.in/api/v1/edit_project/${currentProject.pk}/`, {
             method: "PUT",
             headers: {
