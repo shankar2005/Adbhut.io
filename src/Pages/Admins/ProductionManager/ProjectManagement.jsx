@@ -11,7 +11,6 @@ import ShortlistedArtistRow from './Components/ShortlistedArtistRow';
 import AssignedArtistRow from './Components/AssignedArtistRow';
 import { sendMessageAPI } from '../../../apis/messages/messages';
 import { useQuery } from '@tanstack/react-query';
-import { routes } from '../../../Routes/Routes';
 
 const ProjectManagement = () => {
     const { chatLog, setchatLog, setshortlistedArtist, currentProjectsRefetch, authToken, handleShowProjectHistory, setcurrentProject, dreamProjectsRefetch, setselectedContentProducts } = useRootContext();
@@ -105,7 +104,7 @@ const ProjectManagement = () => {
                 setactionToggle(false);
                 setchatLog([]);
                 setshortlistedArtist([]);
-                navigate(routes.createProject);
+                navigate("/projects/create-project");
             });
     }
 
@@ -125,10 +124,11 @@ const ProjectManagement = () => {
                 Authorization: `token ${authToken}`
             },
             body: JSON.stringify({ stage: "Lead", post_project_client_feedback: assignmentField })
-        }).then(res => res.json())
+        })
+            .then(res => res.json())
             .then(data => {
                 handleShowProjectHistory(data?.pk, data?.stage);
-                navigate(routes.project(data.pk, data.stage));
+                navigate(`/projects/${data.pk}/${data.stage}`);
 
                 currentProjectsRefetch();
 
@@ -141,6 +141,34 @@ const ProjectManagement = () => {
                     project_id: currentProject.pk,
                     message: message
                 })
+            })
+            .catch(err => console.log(err))
+    }
+
+    const handleSubmitToClient = () => {
+        fetch(`https://dev.nsnco.in/api/v1/edit_project/${currentProject.pk}/`, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json",
+                Authorization: `token ${authToken}`
+            },
+            body: JSON.stringify({ stage: "In Progress" })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.pk) {
+                    handleShowProjectHistory(data?.pk, data?.stage);
+
+                    // chatlog
+                    const message = { msgID: chatLog.length + 1, bot: "Project is in progress. Waiting for client's response!" };
+                    setchatLog(current => [...current, message]);
+                    // send message api
+                    sendMessageAPI({
+                        project_id: currentProject.pk,
+                        message: message
+                    })
+                }
             })
             .catch(err => console.log(err))
     }
@@ -385,25 +413,16 @@ const ProjectManagement = () => {
                     // </div>
                 }
                 {
-                    // user.role !== "Client" && isAuthenticated &&
-                    // <div className='p-4 pt-0 space-x-2'>
-                    //     <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit to client</button>
-                    // </div>
-                }
-                {
-                    // !currentProject.stage &&
-                    // <div className='p-4 pt-0 space-x-2'>
-                    //     <button type="button" onClick={handleAddToMyProject} className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Add to Dream Project</button>
-                    //     <button type="button" onClick={handleAddToMyProject} className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Send Brief</button>
-                    // </div>
-                }
-                {
                     isAuthenticated ?
                         <>
                             {
                                 currentProject.stage !== "DreamProject" ?
                                     <div className='p-4 pt-0 space-x-2'>
                                         <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Save Changes</button>
+                                        {
+                                            user.role === "Product Manager" &&
+                                            <button type="button" onClick={handleSubmitToClient} className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit to client</button>
+                                        }
                                     </div>
                                     : <div className='p-4 pt-0 space-x-2'>
                                         <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Save Changes</button>

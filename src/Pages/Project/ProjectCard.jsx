@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import avatar from "../../assets/placeholders/avatar.png";
 import useYoutubeEmbaded from "../../hooks/useYoutubeEmbaded";
-import { routes } from "../../Routes/Routes";
 
 const ProjectCard = ({ projectDetails }) => {
     const [project, setProject] = useState({})
@@ -17,18 +16,18 @@ const ProjectCard = ({ projectDetails }) => {
     return (
         <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
             <div className='flex items-center gap-2 mb-3'>
-                <Link to={routes.project(project.pk, project.stage)} className='w-[11%] block'>
+                <Link to={`/projects/${project.pk}/${project.stage}`} className='w-[11%] block'>
                     <img className='w-12 h-12' src={artist.profile_pic || avatar} alt="" />
                 </Link>
                 <div className='w-[60%] text-sm'>
-                    <Link to={routes.project(project.pk, project.stage)}>
+                    <Link to={`/projects/${project.pk}/${project.stage}`}>
                         <span className='font-medium'>{project?.title}</span>
                     </Link>
                     {/* <p>
                         Voice Over Artist, Singing, Dancing
                     </p> */}
                 </div>
-                <Link to={routes.project(project.pk, project.stage)} className='w-[29%] ml-auto'>
+                <Link to={`/projects/${project.pk}/${project.stage}`} className='w-[29%] ml-auto'>
                     <button className='text-blue-600 border-2 bg-sky-100 border-blue-100 py-2.5 px-4 rounded-lg font-medium'>
                         Get Inspired
                     </button>

@@ -63,18 +63,4 @@ const router = createBrowserRouter([
     }
 ]);
 
-// named urls
-export let routes = {};
-if (router.state.initialized) {
-    routes = {
-        createProject: "/projects/create-project",
-        project: (pk, stage) => {
-            return `/projects/${pk}/${stage}`
-        },
-        artist: id => {
-            return `/artists/${id}/`
-        }
-    }
-}
-
 export default router;

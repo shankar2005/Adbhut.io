@@ -6,7 +6,6 @@ import RightAside from '../Pages/Home/RightAside';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { IoIosArrowBack } from "react-icons/io";
 import { useRootContext } from '../contexts/RootProvider';
-import { routes } from '../Routes/Routes';
 
 const Root = () => {
     const [state, dispatch] = useReducer(dropdownReducers, dropdownInitialState);
@@ -47,7 +46,7 @@ const Root = () => {
                         <div className='text-sm flex items-center gap-2'>
                             {
                                 currentProject?.pk && !pathname.includes("/projects/") &&
-                                <Link to={routes.project(currentProject.pk, currentProject.stage)}>
+                                <Link to={`/projects/${currentProject.pk}/${currentProject.stage})`}>
                                     <button className='bg-gray-200 rounded-full p-2'><IoIosArrowBack /></button>
                                 </Link>
                             }

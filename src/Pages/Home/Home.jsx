@@ -9,7 +9,6 @@ import Navbar from '../../layouts/Shared/Navbar';
 import { dropdownInitialState, dropdownReducers } from '../../state/reducers/dropdownReducer';
 import { TfiBackRight } from 'react-icons/tfi';
 import { useRootContext } from '../../contexts/RootProvider';
-import { routes } from '../../Routes/Routes';
 
 const Home = () => {
     const { contentProducts } = useRootContext();
@@ -17,7 +16,7 @@ const Home = () => {
     const navigate = useNavigate();
     const handleNavigateProject = (e) => {
         e.preventDefault();
-        navigate(routes.project(e.target.project.value, "DreamProject"));
+        navigate(`/projects/${e.target.project.value}/DreamProject/`);
     }
 
     const [state, dispatch] = useReducer(dropdownReducers, dropdownInitialState);
@@ -39,7 +38,7 @@ const Home = () => {
                     </h1>
                     <p className='text-lg text-gray-500'>We dissected the production processes and built a secure, business content servicing platform. NsNco is here to make entertainment content affordable and available for all. </p>
                     <div className='mt-12 flex gap-6 border-b pb-10 border-gray-300'>
-                        <Link to={routes.createProject}>
+                        <Link to="/projects/create-project">
                             <button type="button" className="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none font-medium rounded w-full sm:w-auto px-5 py-2.5 text-center flex items-center gap-2"><IoCreateOutline className='mb-1' size={25} /> New Project</button>
                         </Link>
                         <form onSubmit={handleNavigateProject} className='relative'>

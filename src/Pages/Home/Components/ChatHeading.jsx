@@ -4,7 +4,6 @@ import { RiRefreshLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import nsnlogo from '../../../assets/logo.jpeg'
 import { useRootContext } from '../../../contexts/RootProvider';
-import { routes } from '../../../Routes/Routes';
 
 const ChatHeading = ({ projectTitle, handleShowProjectHistory, currentProject }) => {
     const { currentProjectsRefetch } = useRootContext();
@@ -56,7 +55,7 @@ const ChatHeading = ({ projectTitle, handleShowProjectHistory, currentProject })
                                 <h4 className='font-medium underline underline-offset-2 text-blue-600 hover:text-blue-800'>
                                     <Link to={`/projects/${currentProject.pk}/${currentProject.stage}`}>{projectTitle.length > 30 ? projectTitle?.slice(0, 30) + '...' : projectTitle}</Link>
                                 </h4>
-                                : <Link to={routes.createProject}><h4 className='font-medium text-blue-500 underline'>Project Servicing Chat</h4></Link>
+                                : <Link to="/projects/create-project"><h4 className='font-medium text-blue-500 underline'>Project Servicing Chat</h4></Link>
                     }
                     <BiPencil className='cursor-pointer' onClick={() => {
                         setRenameState(true);

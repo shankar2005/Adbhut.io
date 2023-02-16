@@ -14,7 +14,6 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import ChatHeading from './Components/ChatHeading';
 import { sendMessageAPI } from '../../apis/messages/messages';
-import { routes } from '../../Routes/Routes';
 
 const LeftAside = () => {
     const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch } = useRootContext();
@@ -111,7 +110,7 @@ const LeftAside = () => {
                 if (data.success) {
                     toast.success(data.success);
                     currentProjectsRefetch();
-                    navigate(routes.project(data.projectId, "Lead"));
+                    navigate(`/projects/${data.projectId}/Lead/`);
                 } else if (data.error) {
                     toast.error(data.error);
                 }
@@ -161,7 +160,7 @@ const LeftAside = () => {
             .then(res => res.json())
             .then(data => {
                 handleShowProjectHistory(data?.pk, data?.stage);
-                navigate(routes.project(data?.pk, data?.stage));
+                navigate(`/projects/${data?.pk}/${data?.stage}/`);
                 currentProjectsRefetch();
                 dreamProjectsRefetch();
             })
@@ -269,7 +268,7 @@ const LeftAside = () => {
                                                             {
                                                                 chat.user ||
                                                                 chat.type === 'shortlistedArtist' &&
-                                                                <>Shortlisted <Link to={routes.artist(chat.artist.artistID)}><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
+                                                                <>Shortlisted <Link to={`/artists/${chat.artist.artistID}/`}><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
                                                             }
                                                         </p>
                                                     </motion.div>
@@ -332,8 +331,8 @@ const LeftAside = () => {
                                                         <p className='w-fit ml-auto bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg'>
                                                             {
                                                                 chat.bot ||
-                                                                chat.type === 'shortlistedArtist' &&
-                                                                <>Shortlisted <Link to={routes.artist(chat.artist.artistID)}><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
+                                                                chat.type === 'shortlistedArtist' &
+                                                                <>Shortlisted <Link to={`/artists/${chat.artist.artistID}`}><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
                                                             }
                                                         </p>
                                                     </motion.div>

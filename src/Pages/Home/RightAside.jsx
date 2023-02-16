@@ -7,7 +7,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import { Link, useLocation } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
-import { routes } from '../../Routes/Routes';
 
 const RightAside = () => {
     const { selectedContentProducts, setselectedContentProducts, setchatLog, currentProjects, dreamProjects, currentProject, contentProducts } = useRootContext();
@@ -68,7 +67,7 @@ const RightAside = () => {
                     <div className='border-b pb-6 p-4'>
                         <p className='text-black mb-2 font-medium'>Current Projects</p>
                         {
-                            currentProjects.map(project => <Link to={routes.project(project.pk, project.stage)} key={`recent-project${project.pk}`}>
+                            currentProjects.map(project => <Link to={`/projects/${project.pk}/${project.stage}/`} key={`recent-project${project.pk}`}>
                                 <p className={`flex items-center gap-1 underline hover:text-blue-700 ${project.pk === currentProject?.pk && 'text-blue-700'} cursor-pointer`}>
                                     <MdCelebration className='w-5 h-5 text-yellow-400' />
                                     {project.name?.length > 30 ? project.name.slice(0, 30) + '...' : project.name}
@@ -82,7 +81,7 @@ const RightAside = () => {
                     <div className='border-b mb-3 pb-6 p-4'>
                         <p className='text-black mb-2 font-medium'>Dream Projects</p>
                         {
-                            dreamProjects.map(project => <Link to={routes.project(project.pk, project.stage)} key={`recent-project${project.pk}`}>
+                            dreamProjects.map(project => <Link to={`/projects/${project.pk}/${project.stage}`} key={`recent-project${project.pk}`}>
                                 <p className={`flex items-center gap-1 underline hover:text-blue-700 ${project.pk === currentProject?.pk && 'text-blue-700'} cursor-pointer`}>
                                     <MdCelebration className='w-5 h-5 text-yellow-400' />
                                     {project.name.length > 30 ? project.name?.slice(0, 30) + '...' : project.name}
@@ -100,7 +99,7 @@ const RightAside = () => {
                             <Link className='flex items-center gap-2' to="/artist-entry">Add Artist <FaPlus /></Link>
                         </li> */}
                         <li className='border-b border-gray-100 hover:border-gray-400 flex flex-wrap gap-3'>
-                            <Link className='flex items-center gap-2' to={routes.createProject}>Create Project <FaPlus /></Link>
+                            <Link className='flex items-center gap-2' to="/projects/create-project">Create Project <FaPlus /></Link>
                         </li>
                     </ul>
                 </div>
