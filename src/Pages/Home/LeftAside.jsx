@@ -43,7 +43,7 @@ const LeftAside = () => {
     const [suggestions, setSuggestions] = useState([]);
     useEffect(() => {
         // if no selectedContentProducts then don't show skills suggestions
-        if (!selectedContentProducts) return;
+        if (!selectedContentProducts || currentProject.pk) return;
 
         fetch('https://dev.nsnco.in/api/v1/chatflow_skills/', {
             method: "POST",

@@ -12,13 +12,14 @@ import { useRootContext } from '../../contexts/RootProvider';
 import { routes } from '../../Routes/Routes';
 
 const CreateProject = () => {
-    const { shortlistedArtist, setchatLog, setshortlistedArtist, setcurrentProject, chatLog, contentProducts, dreamProjectsRefetch, currentProjectsRefetch, authToken, selectedContentProducts } = useRootContext();
+    const { shortlistedArtist, setchatLog, setshortlistedArtist, setselectedContentProducts, setcurrentProject, chatLog, contentProducts, dreamProjectsRefetch, currentProjectsRefetch, authToken, selectedContentProducts } = useRootContext();
     const { isAuthenticated, user } = useContext(AuthContext);
 
     useEffect(() => {
-        setcurrentProject({});
-        // setchatLog([]);
-        // setshortlistedArtist([]);
+        setcurrentProject(null);
+        setchatLog([]);
+        setshortlistedArtist([]);
+        setselectedContentProducts("");
     }, [])
 
     const currentProject = [];

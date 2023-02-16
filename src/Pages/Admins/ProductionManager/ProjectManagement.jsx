@@ -14,7 +14,7 @@ import { useQuery } from '@tanstack/react-query';
 import { routes } from '../../../Routes/Routes';
 
 const ProjectManagement = () => {
-    const { chatLog, setchatLog, setshortlistedArtist, currentProjectsRefetch, authToken, handleShowProjectHistory, setcurrentProject, dreamProjectsRefetch } = useRootContext();
+    const { chatLog, setchatLog, setshortlistedArtist, currentProjectsRefetch, authToken, handleShowProjectHistory, setcurrentProject, dreamProjectsRefetch, setselectedContentProducts } = useRootContext();
     const { isAuthenticated, user } = useContext(AuthContext);
 
     const params = useParams();
@@ -37,11 +37,11 @@ const ProjectManagement = () => {
             setcurrentProject(currentProject);
             setchatLog(JSON.parse(currentProject.brief));
             setshortlistedArtist(currentProject.shortlisted_artists_details?.map(artist => artist.id));
+            setselectedContentProducts(currentProject.project_template);
         }
     }, [currentProject])
 
     useEffect(() => {
-        // 888
         reset(currentProject);
     }, [currentProject])
 

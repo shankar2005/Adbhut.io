@@ -22,8 +22,6 @@ const RightAside = () => {
             setselectedContentProducts(product.pk);
             // chatlog
             setchatLog(current => [...current, { msgID: current.length + 1, [sender]: product.name }]);
-        } else {
-            toast('Already selected');
         }
     }
 
@@ -52,10 +50,10 @@ const RightAside = () => {
                             contentProducts?.map(content => (
                                 <SwiperSlide key={content.pk}>
                                     <div onClick={() => handleSelectContentProducts(content)} className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
-                                        <div className='w-9 h-9 p-1 border rounded-md'>
+                                        <div className={`${currentProject?.project_template === content.pk || selectedContentProducts === content.pk ? 'w-10 h-10' : 'w-9 h-9'} p-1 border rounded-md`}>
                                             <img className='group-hover:scale-110 duration-150 overflow-hidden' src={content.weblink} />
                                         </div>
-                                        <p className={`${currentProject?.project_template === content.pk && 'text-blue-600 font-medium'} text-xs`}>{content.name}</p>
+                                        <p className={`${currentProject?.project_template === content.pk || selectedContentProducts === content.pk && 'text-blue-600 font-medium'} text-[0.6rem] leading-tight`}>{content.name}</p>
                                     </div>
                                 </SwiperSlide>
                             ))

@@ -64,13 +64,16 @@ const router = createBrowserRouter([
 ]);
 
 // named urls
-export const routes = {
-    createProject: "/projects/create-project",
-    project: (pk, stage) => {
-        return `/projects/${pk}/${stage}`
-    },
-    artist: id => {
-        return `/artists/${id}/`
+export let routes = {};
+if (router.state.initialized) {
+    routes = {
+        createProject: "/projects/create-project",
+        project: (pk, stage) => {
+            return `/projects/${pk}/${stage}`
+        },
+        artist: id => {
+            return `/artists/${id}/`
+        }
     }
 }
 
