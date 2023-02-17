@@ -11,7 +11,6 @@ const ProjectCard = ({ projectDetails }) => {
             .then(data => setProject(data))
     }, [projectDetails])
 
-
     const artist = {};
     return (
         <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
