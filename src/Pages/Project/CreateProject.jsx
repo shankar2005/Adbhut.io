@@ -5,20 +5,20 @@ import { useReducer } from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import { useRootContext } from '../../contexts/RootProvider';
 
 const CreateProject = () => {
-    const { shortlistedArtist, setchatLog, setshortlistedArtist, setselectedContentProducts, setcurrentProject, chatLog, contentProducts, dreamProjectsRefetch, currentProjectsRefetch, authToken, selectedContentProducts } = useRootContext();
+    const { shortlistedArtist, setchatLog, setshortlistedArtist, setselectedContentProducts, setcurrentProject, chatLog, contentProducts, dreamProjectsRefetch, currentProjectsRefetch, authToken, selectedContentProducts, createProjectFormState: state, createProjectFormDispatch: dispatch } = useRootContext();
     const { isAuthenticated, user } = useContext(AuthContext);
 
-    useEffect(() => {
-        setcurrentProject(null);
-        setchatLog([]);
-        setshortlistedArtist([]);
-        setselectedContentProducts("");
-    }, [])
+    // useEffect(() => {
+    //     setcurrentProject(null);
+    //     setchatLog([]);
+    //     setshortlistedArtist([]);
+    //     setselectedContentProducts("");
+    // }, [])
 
     const currentProject = [];
 
@@ -27,27 +27,15 @@ const CreateProject = () => {
         navigate("/");
     }
 
-
-    const initialState = {
-        title: "",
-        project_template: "",
-        reference_links: "",
-        post_project_client_feedback: "",
-    }
-    const reducer = (state, action) => {
-        switch (action.type) {
-            case "FORM":
-                return { ...state, [action.payload.name]: action.payload.value }
-            default:
-                return state;
-        }
-    };
-    const [state, dispatch] = useReducer(reducer, initialState);
-
     const register = (e) => ({
         type: "FORM",
         payload: { name: e.target.name, value: e.target.value }
     })
+
+    // select content product on changing selectedContentProducts value from right side
+    useEffect(() => {
+        dispatch({ type: "FORM", payload: { name: "project_template", value: selectedContentProducts } })
+    }, [selectedContentProducts])
 
 
     // send brief
@@ -117,6 +105,8 @@ const CreateProject = () => {
             });
     }
 
+    const location = useLocation();
+
     return (
         <div className='bg-white rounded-lg shadow-lg'>
             <div className='border-b shadow-sm font-medium p-3 py-[15px] flex justify-between items-center relative'>
@@ -129,7 +119,7 @@ const CreateProject = () => {
                 <div className="p-4">
                     <div className="mb-4 items-center gap-2">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Project Title</label>
-                        <input type="text" name="title" onBlur={e => dispatch(register(e))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter a Project title" required />
+                        <input type="text" name="title" onBlur={e => dispatch(register(e))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter a Project title" defaultValue={state.title} />
                     </div>
 
                     <div className='flex gap-4'>
@@ -146,7 +136,7 @@ const CreateProject = () => {
 
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Project Reference Link:</label>
-                        <textarea name="reference_links" onBlur={e => dispatch(register(e))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your assignment" required></textarea>
+                        <textarea name="reference_links" onBlur={e => dispatch(register(e))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="https://www.youtube.com/watch?v=RhdXPesyRGk" defaultValue={state.reference_links}></textarea>
                     </div>
 
                     {
@@ -155,7 +145,7 @@ const CreateProject = () => {
                                 <label className="block mb-2 text-sm font-medium text-gray-900">{
                                     shortlistedArtist?.length ? 'Shortlisted Artists' : 'Shortlist Artists'
                                 }</label>
-                                <Link to="/artists">
+                                <Link to="/artists" state={{ from: location }}>
                                     <button type='button' onClick={handleAddMoreArtist} className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add More Artist <AiOutlinePlus size={18} /></button>
                                 </Link>
                             </div>
@@ -184,7 +174,7 @@ const CreateProject = () => {
 
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Send assignment:</label>
-                        <textarea name="post_project_client_feedback" onBlur={e => dispatch(register(e))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your assignment"></textarea>
+                        <textarea name="post_project_client_feedback" onBlur={e => dispatch(register(e))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your assignment" defaultValue={state.post_project_client_feedback}></textarea>
                     </div>
                 </div>
 

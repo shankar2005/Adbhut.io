@@ -10,7 +10,9 @@ import { useRootContext } from '../contexts/RootProvider';
 const Root = () => {
     const [state, dispatch] = useReducer(dropdownReducers, dropdownInitialState);
 
-    const pathname = useLocation().pathname;
+    const location = useLocation();
+    const pathname = location.pathname;
+    const fromCreateProject = location.state?.from?.pathname?.includes("/create-project");
 
     const { setViewAs, currentProject } = useRootContext();
     const handleViewAs = e => {
@@ -45,8 +47,14 @@ const Root = () => {
                     <div className='bg-white bg-opacity-90 border border-blue-100 shadow p-2 mb-2 rounded-lg flex justify-between items-center fixed w-[37.40%] z-30'>
                         <div className='text-sm flex items-center gap-2'>
                             {
-                                currentProject?.pk && !pathname.includes("/projects/") &&
-                                <Link to={`/projects/${currentProject.pk}/${currentProject.stage})`}>
+                                currentProject?.pk && pathname.includes("/artists") &&
+                                <Link to={`/projects/${currentProject.pk}/${currentProject.stage}`}>
+                                    <button className='bg-gray-200 rounded-full p-2'><IoIosArrowBack /></button>
+                                </Link>
+                            }
+                            {
+                                fromCreateProject && pathname.includes("/artists") &&
+                                <Link to="/projects/create-project">
                                     <button className='bg-gray-200 rounded-full p-2'><IoIosArrowBack /></button>
                                 </Link>
                             }

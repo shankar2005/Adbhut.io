@@ -32,9 +32,9 @@ const Home = () => {
                     <TfiBackRight size={30} />
                 </button>
                 <div>
-                    <h1 className='text-[40px] leading-tight mb-5'>
+                    <h1 className='text-4xl leading-tight mb-5'>
                         The Most Efficient Content Production Platform. <br />
-Now Accessible to Everyone Across the Globe.
+                        Now Accessible to Everyone Across the Globe.
                     </h1>
                     <p className='text-lg text-gray-500'>We dissected the production processes and built a secure, business content servicing platform. NsNco is here to make entertainment content affordable and available for all. </p>
                     <div className='mt-12 flex gap-6 border-b pb-10 border-gray-300'>

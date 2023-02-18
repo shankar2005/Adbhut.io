@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useReducer, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import Cookies from 'universal-cookie';
 import { sendMessageAPI } from '../apis/messages/messages';
@@ -134,6 +134,24 @@ const RootProvider = ({ children }) => {
     // views
     const [viewAs, setViewAs] = useState("large");
 
+
+    // holding state of create new project
+    const createProjectFormInitialState = {
+        title: "",
+        project_template: "",
+        reference_links: "",
+        post_project_client_feedback: "",
+    }
+    const createProjectFormReducer = (state, action) => {
+        switch (action.type) {
+            case "FORM":
+                return { ...state, [action.payload.name]: action.payload.value }
+            default:
+                return state;
+        }
+    };
+    const [createProjectFormState, createProjectFormDispatch] = useReducer(createProjectFormReducer, createProjectFormInitialState);
+
     // stored values
     const value = {
         searchText,
@@ -166,6 +184,8 @@ const RootProvider = ({ children }) => {
         viewAs,
         setViewAs,
         contentProducts,
+        createProjectFormState,
+        createProjectFormDispatch,
     }
 
     return (
