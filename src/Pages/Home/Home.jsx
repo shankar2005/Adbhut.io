@@ -1,18 +1,55 @@
-import { IoCreateOutline } from 'react-icons/io5';import { MdKeyboard } from 'react-icons/md';
+import { IoCreateOutline } from 'react-icons/io5'; import { MdKeyboard } from 'react-icons/md';
 import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css/pagination';
 import { Link, useNavigate } from 'react-router-dom';
 import { TfiBackRight } from 'react-icons/tfi';
 import { useRootContext } from '../../contexts/RootProvider';
+import { useState } from 'react';
+import Cookies from 'universal-cookie';
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const Home = () => {
     const { contentProducts } = useRootContext();
+    const { setIsAuthenticated } = useContext(AuthContext);
+
+    const [username, setUsername] = useState("");
+    const [formError, setformError] = useState("");
 
     const navigate = useNavigate();
     const handleNavigateProject = (e) => {
+        setformError("");
         e.preventDefault();
-        navigate(`/projects/${e.target.project.value}/DreamProject/`);
+        setUsername(e.target.username.value);
+        if (username) {
+            if (e.target.password.value) {
+                // login
+                fetch('https://dev.nsnco.in/api/v1/auth/login/', {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        username,
+                        password: e.target.password.value
+                    })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.token) {
+                            const cookies = new Cookies();
+                            cookies.set('auth_token', data.token, { path: '/' });
+                            setIsAuthenticated(true);
+                            navigate("/projects")
+                        } else {
+                            setformError("Username or password is incorrect");
+                            setUsername("");
+                        }
+                    });
+            }
+        }
+        e.target.reset();
     }
 
     return (
@@ -27,16 +64,24 @@ const Home = () => {
                         Now Accessible to Everyone Across the Globe.
                     </h1>
                     <p className='text-gray-500'>We dissected the production processes and built a secure, business content servicing platform. ADBHUT.IO is here to make entertainment content affordable and available for all. </p>
-                    <div className='mt-12 flex gap-6 border-b pb-10 border-gray-300'>
+                    <div className='mt-12 flex gap-6'>
                         <Link to="/projects/create-project">
                             <button type="button" className="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none font-medium rounded w-full sm:w-auto px-5 py-2.5 text-center flex items-center gap-2"><IoCreateOutline className='mb-1' size={25} /> New Project</button>
                         </Link>
                         <form onSubmit={handleNavigateProject} className='relative'>
-                            <input type="text" name="project" className='border py-3.5 w-72 focus:w-80 pl-10 pr-3 rounded text-sm outline-none border-gray-700' placeholder='Enter project id to continue' required />
+                            {
+                                username
+                                    ? <input type="password" name="password" className='border py-3.5 w-72 focus:w-80 pl-10 pr-3 rounded text-sm outline-none border-gray-700' placeholder='Enter your password' required />
+                                    : <input type="text" name="username" className='border py-3.5 w-72 focus:w-80 pl-10 pr-3 rounded text-sm outline-none border-gray-700' placeholder='Enter your username continue' required />
+
+                            }
                             <MdKeyboard className='w-6 h-6 text-gray-500 absolute top-1/2 -translate-y-1/2 left-2' />
                         </form>
                     </div>
-                    <a target="_blank" href="https://nsnco.in/">
+                    <p className='text-sm mt-2 text-red-500 pb-5 ml-48'>
+                        {formError}
+                    </p>
+                    <a className='border-t border-gray-300 block' target="_blank" href="https://nsnco.in/">
                         <p className='mt-6 text-gray-500'><span className='text-blue-500'>Learn more</span> about NsNco</p>
                     </a>
                 </div>

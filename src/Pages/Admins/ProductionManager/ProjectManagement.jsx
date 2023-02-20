@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRootContext } from '../../../contexts/RootProvider';
-import { BsThreeDots, BsTrash } from 'react-icons/bs';
+import { BsArrowDown, BsThreeDots, BsTrash } from 'react-icons/bs';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthProvider';
-import { AiOutlinePlus } from 'react-icons/ai';
+import { AiFillEye, AiOutlinePlus } from 'react-icons/ai';
 import ShortlistedArtistRow from './Components/ShortlistedArtistRow';
 import AssignedArtistRow from './Components/AssignedArtistRow';
 import { sendMessageAPI } from '../../../apis/messages/messages';
 import { useQuery } from '@tanstack/react-query';
+import { GrDocumentPdf } from "react-icons/gr";
 
 const ProjectManagement = () => {
     const { chatLog, setchatLog, setshortlistedArtist, currentProjectsRefetch, authToken, handleShowProjectHistory, setcurrentProject, dreamProjectsRefetch, setselectedContentProducts } = useRootContext();
@@ -39,6 +40,8 @@ const ProjectManagement = () => {
             setselectedContentProducts(currentProject.project_template);
         }
     }, [currentProject])
+
+    console.log(currentProject);
 
     useEffect(() => {
         reset(currentProject);
@@ -178,7 +181,7 @@ const ProjectManagement = () => {
     }
 
     const handleApproveProject = () => {
-        
+
         navigate("/projects/sign-project");
     }
 
@@ -303,6 +306,24 @@ const ProjectManagement = () => {
                             }
                         </div>
                     }
+
+                    <div className="mb-4">
+                        <label className="block mb-2 text-sm font-medium text-gray-900">Assignment:</label>
+                        <div className='flex justify-between bg-gray-200 rounded-lg'>
+                            <div className='flex items-center gap-2'>
+                                <div className='bg-red-500 p-5 rounded-l-lg'>
+                                    <GrDocumentPdf size={30} />
+                                </div>
+                                <p className='text-xs font-medium'>Design Hiring Assignment - Naagin (1).pdf</p>
+                            </div>
+                            <div className='flex items-center gap-2 p-3'>
+                                {/* <button type='button' className='text-xs font-medium bg-blue-300 rounded-lg p-2 px-4'><AiFillEye size={15} /></button> */}
+                                <a href={currentProject?.post_project_client_feedback} target="_blank">
+                                    <button type='button' className='text-xs font-medium bg-blue-300 rounded-lg p-2 px-4'><AiFillEye size={15} /></button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
                     {
                         user.role === "Product Manager" || user.role === "Artist Manager" ?

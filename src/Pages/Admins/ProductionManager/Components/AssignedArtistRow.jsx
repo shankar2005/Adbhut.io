@@ -1,3 +1,4 @@
+import { BsBoxArrowUpRight } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useRootContext } from "../../../../contexts/RootProvider";
 
@@ -32,7 +33,10 @@ const AssignedArtistRow = ({ artist, projectId, refetch }) => {
                     <button onClick={handleUnassignArtist} className='bg-red-500 text-xs text-white px-2 py-0.5 rounded-full font-medium scale-95 active:scale-90 cursor-pointer select-none duration-200'>Unassigned</button>
                 </div>
             </div>
-            {/* <img className='w-36 rounded mt-2 ml-12' src="https://fbutube.com/media/images/play_button/play_button_added.webp" alt="" /> */}
+            <div className="mt-2 ml-12">
+                <a className="font-medium flex items-center gap-2 hover:underline text-blue-500" href="https://drive.google.com/file/d/1-EshWLh4nuzBdQffHrLXq-lbKQPRqJ2j/view?usp=share_link" target="_blank">Submission <BsBoxArrowUpRight /></a>
+            </div>
+            {/* <img className='w-36 rounded' src="https://fbutube.com/media/images/play_button/play_button_added.webp" alt="" /> */}
         </div>
     )
 }
