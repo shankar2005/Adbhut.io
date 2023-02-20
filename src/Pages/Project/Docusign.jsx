@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { BsBoxArrowUpRight } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 
 const Docusign = () => {
@@ -23,7 +24,7 @@ const Docusign = () => {
                 }
             </div>
             <Link to="/projects/completed">
-            <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center flex items-center gap-2">Proceed to Signing <BsBoxArrowUpRight size="20" /></button>
+                <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center flex items-center gap-2">Proceed to Signing <BsBoxArrowUpRight size="20" /></button>
             </Link>
         </div>
     );
