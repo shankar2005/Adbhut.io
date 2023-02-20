@@ -331,7 +331,7 @@ const LeftAside = () => {
                                                         <p className='w-fit ml-auto bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg'>
                                                             {
                                                                 chat.bot ||
-                                                                chat.type === 'shortlistedArtist' &
+                                                                chat.type === 'shortlistedArtist' &&
                                                                 <>Shortlisted <Link to={`/artists/${chat.artist.artistID}`}><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
                                                             }
                                                         </p>

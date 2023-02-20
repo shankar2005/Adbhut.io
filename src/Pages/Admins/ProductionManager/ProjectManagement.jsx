@@ -76,15 +76,17 @@ const ProjectManagement = () => {
             .then(data => {
                 if (formData.post_project_client_feedback) {
                     // send assignment to the chatbox
-                    // chatlog
-                    const message = { msgID: chatLog.length + 1, user: data.post_project_client_feedback };
-                    setchatLog(current => [...current, message]);
-                    // send message api
-                    sendMessageAPI({
-                        project_id: currentProject.pk,
-                        message: message
-                    })
-                    handleShowProjectHistory(data?.pk, data?.stage);
+                    if (user.role === "Client") {
+                        // chatlog
+                        const message = { msgID: chatLog.length + 1, user: data.post_project_client_feedback };
+                        setchatLog(current => [...current, message]);
+                        // send message api
+                        sendMessageAPI({
+                            project_id: currentProject.pk,
+                            message: message
+                        })
+                        handleShowProjectHistory(data?.pk, data?.stage);
+                    }
                 }
             })
             .catch(err => console.log(err))
@@ -145,6 +147,8 @@ const ProjectManagement = () => {
             .catch(err => console.log(err))
     }
 
+    console.log(authToken);
+
     const handleSubmitToClient = () => {
         fetch(`https://dev.nsnco.in/api/v1/edit_project/${currentProject.pk}/`, {
             method: "PUT",
@@ -171,6 +175,11 @@ const ProjectManagement = () => {
                 }
             })
             .catch(err => console.log(err))
+    }
+
+    const handleApproveProject = () => {
+        
+        navigate("/projects/sign-project");
     }
 
     return (
@@ -405,12 +414,12 @@ const ProjectManagement = () => {
                         </div>
                 }
                 {
-                    // user.role === "Client" && currentProject.stage === "In Progress"
-                    // && <div className='p-4 pt-0 space-x-2'>
-                    //     <button type="submit" className="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Approve</button>
-                    //     <button type="submit" className="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Decline</button>
-                    //     <button type="submit" className="text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Put On Hold</button>
-                    // </div>
+                    user.role === "Client" && currentProject.stage === "In Progress"
+                    && <div className='p-4 pb-0 pt-0 space-x-2'>
+                        <button onClick={handleApproveProject} type="button" className="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Approve</button>
+                        <button onClick={handleApproveProject} type="button" className="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Decline</button>
+                        <button onClick={handleApproveProject} type="button" className="text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Put On Hold</button>
+                    </div>
                 }
                 {
                     isAuthenticated ?
@@ -418,7 +427,9 @@ const ProjectManagement = () => {
                             {
                                 currentProject.stage !== "DreamProject" ?
                                     <div className='p-4 pt-0 space-x-2'>
-                                        <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Save Changes</button>
+                                        {
+                                            (currentProject.stage === "Lead" || currentProject.stage === "DreamProject") && <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Save Changes</button>
+                                        }
                                         {
                                             user.role === "Product Manager" &&
                                             <button type="button" onClick={handleSubmitToClient} className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit to client</button>

@@ -8,6 +8,8 @@ import Feed from "../Pages/Home/Feed";
 import Home from "../Pages/Home/Home";
 import Invite from "../Pages/Invite/Invite";
 import CreateProject from "../Pages/Project/CreateProject";
+import Docusign from "../Pages/Project/Docusign";
+import ProjectDone from "../Pages/Project/ProjectDone";
 import Projects from "../Pages/Project/Projects";
 import RequiredAuth from "./AuthRoutes/RequiredAuth";
 
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
             {
                 path: '/projects/create-project',
                 element: <CreateProject />,
+            },
+            {
+                path: '/projects/sign-project',
+                element: <Docusign />,
+            },
+            {
+                path: '/projects/completed',
+                element: <ProjectDone />,
             }
         ]
     },
