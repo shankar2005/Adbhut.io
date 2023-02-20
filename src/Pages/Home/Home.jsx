@@ -1,12 +1,8 @@
-import React, { useReducer } from 'react';
-import { IoCreateOutline } from 'react-icons/io5';
-import { MdKeyboard } from 'react-icons/md';
+import { IoCreateOutline } from 'react-icons/io5';import { MdKeyboard } from 'react-icons/md';
 import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css/pagination';
 import { Link, useNavigate } from 'react-router-dom';
-import Navbar from '../../layouts/Shared/Navbar';
-import { dropdownInitialState, dropdownReducers } from '../../state/reducers/dropdownReducer';
 import { TfiBackRight } from 'react-icons/tfi';
 import { useRootContext } from '../../contexts/RootProvider';
 
@@ -19,24 +15,18 @@ const Home = () => {
         navigate(`/projects/${e.target.project.value}/DreamProject/`);
     }
 
-    const [state, dispatch] = useReducer(dropdownReducers, dropdownInitialState);
-
     return (
-        <section className='h-screen'>
-            <Navbar
-                state={state}
-                dispatch={dispatch}
-            />
+        <section className='h-screen flex items-center justify-center'>
             <div className='w-11/12 mx-auto pt-10 grid grid-cols-2 items-center justify-between gap-20'>
                 <button onClick={() => history.back()} type='button' className='absolute z-50 top-32 right-20 bg-gray-100 p-3 rounded-l-full text-blue-500'>
                     <TfiBackRight size={30} />
                 </button>
                 <div>
-                    <h1 className='text-4xl leading-tight mb-5'>
+                    <h1 className='text-2xl leading-tight mb-5'>
                         The Most Efficient Content Production Platform. <br />
                         Now Accessible to Everyone Across the Globe.
                     </h1>
-                    <p className='text-lg text-gray-500'>We dissected the production processes and built a secure, business content servicing platform. NsNco is here to make entertainment content affordable and available for all. </p>
+                    <p className='text-gray-500'>We dissected the production processes and built a secure, business content servicing platform. ADBHUT.IO is here to make entertainment content affordable and available for all. </p>
                     <div className='mt-12 flex gap-6 border-b pb-10 border-gray-300'>
                         <Link to="/projects/create-project">
                             <button type="button" className="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none font-medium rounded w-full sm:w-auto px-5 py-2.5 text-center flex items-center gap-2"><IoCreateOutline className='mb-1' size={25} /> New Project</button>
