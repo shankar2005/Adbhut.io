@@ -5,11 +5,11 @@ import { toast } from 'react-hot-toast';
 import { useRootContext } from '../../contexts/RootProvider';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 
 const RightAside = () => {
-    const { selectedContentProducts, setselectedContentProducts, setchatLog, currentProjects, dreamProjects, currentProject, contentProducts } = useRootContext();
+    const { selectedContentProducts, setselectedContentProducts, setchatLog, currentProjects, dreamProjects, currentProject, contentProducts, setcurrentProject, setshortlistedArtist, createProjectFormDispatch } = useRootContext();
 
     const { isAuthenticated, user } = useContext(AuthContext);
 
@@ -22,6 +22,15 @@ const RightAside = () => {
             // chatlog
             setchatLog(current => [...current, { msgID: current.length + 1, [sender]: product.name }]);
         }
+    }
+
+    const navigate = useNavigate();
+    const navigateCreateProject = () => {
+        setcurrentProject(null);
+        setchatLog([]);
+        setshortlistedArtist([]);
+        setselectedContentProducts("");
+        navigate("/projects/create-project");
     }
 
     return (
@@ -99,7 +108,7 @@ const RightAside = () => {
                             <Link className='flex items-center gap-2' to="/artist-entry">Add Artist <FaPlus /></Link>
                         </li> */}
                         <li className='border-b border-gray-100 hover:border-gray-400 flex flex-wrap gap-3'>
-                            <Link className='flex items-center gap-2' to="/projects/create-project">Create Project <FaPlus /></Link>
+                            <button onClick={navigateCreateProject} className='flex items-center gap-2' to="/projects/create-project">Create Project <FaPlus /></button>
                         </li>
                     </ul>
                 </div>
@@ -108,12 +117,7 @@ const RightAside = () => {
             <footer className='text-xs text-gray-600'>
                 <ul className='flex flex-wrap gap-3 justify-center mt-6'>
                     <li className='hover:underline'>About</li>
-                    {/* <li className='hover:underline'>Accessibility</li> */}
-                    {/* <li className='hover:underline'>Help Center</li> */}
-                    {/* <li className='hover:underline'>Privacy & Terms</li> */}
-                    {/* <li className='hover:underline'>Ad Choices</li> */}
                     <li className='hover:underline'>Advertising</li>
-                    {/* <li className='hover:underline'>Business Services</li> */}
                     <li className='hover:underline'>Get the NsN Co app</li>
                     <li className='hover:underline'>More</li>
                 </ul>

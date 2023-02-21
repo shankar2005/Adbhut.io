@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useContext } from 'react';
-import { useReducer } from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -10,15 +9,8 @@ import { AuthContext } from '../../contexts/AuthProvider';
 import { useRootContext } from '../../contexts/RootProvider';
 
 const CreateProject = () => {
-    const { shortlistedArtist, setchatLog, setshortlistedArtist, setselectedContentProducts, setcurrentProject, chatLog, contentProducts, dreamProjectsRefetch, currentProjectsRefetch, authToken, selectedContentProducts, createProjectFormState: state, createProjectFormDispatch: dispatch } = useRootContext();
-    const { isAuthenticated, user } = useContext(AuthContext);
-
-    // useEffect(() => {
-    //     setcurrentProject(null);
-    //     setchatLog([]);
-    //     setshortlistedArtist([]);
-    //     setselectedContentProducts("");
-    // }, [])
+    const { shortlistedArtist, chatLog, contentProducts, dreamProjectsRefetch, currentProjectsRefetch, authToken, selectedContentProducts, createProjectFormState: state, createProjectFormDispatch: dispatch } = useRootContext();
+    const { isAuthenticated } = useContext(AuthContext);
 
     const currentProject = [];
 
@@ -126,7 +118,7 @@ const CreateProject = () => {
                         <div className="mb-4 flex items-center gap-2">
                             <label className="flex-1 text-sm font-medium text-gray-900">Content Product: </label>
                             <select name="project_template" onChange={e => dispatch(register(e))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-fit p-2.5">
-                                <option selected disabled>Select content product</option>
+                                <option selected>Select content product</option>
                                 {
                                     contentProducts.map(content => <option selected={selectedContentProducts === content.pk} value={content.pk}>{content.name}</option>)
                                 }
