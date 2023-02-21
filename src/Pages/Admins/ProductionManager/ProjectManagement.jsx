@@ -304,23 +304,26 @@ const ProjectManagement = () => {
                         </div>
                     }
 
-                    <div className="mb-4">
-                        <label className="block mb-2 text-sm font-medium text-gray-900">Assignment:</label>
-                        <div className='flex justify-between bg-gray-200 rounded-lg'>
-                            <div className='flex items-center gap-2'>
-                                <div className='bg-red-500 p-5 rounded-l-lg'>
-                                    <GrDocumentPdf size={30} />
+                    {
+                        currentProject.pk === 77 &&
+                        <div className="mb-4">
+                            <label className="block mb-2 text-sm font-medium text-gray-900">Assignment:</label>
+                            <div className='flex justify-between bg-gray-200 rounded-lg'>
+                                <div className='flex items-center gap-2'>
+                                    <div className='bg-red-500 p-5 rounded-l-lg'>
+                                        <GrDocumentPdf size={30} />
+                                    </div>
+                                    <p className='text-xs font-medium'>Design Hiring Assignment - Naagin (1).pdf</p>
                                 </div>
-                                <p className='text-xs font-medium'>Design Hiring Assignment - Naagin (1).pdf</p>
-                            </div>
-                            <div className='flex items-center gap-2 p-3'>
-                                {/* <button type='button' className='text-xs font-medium bg-blue-300 rounded-lg p-2 px-4'><AiFillEye size={15} /></button> */}
-                                <a href={currentProject?.post_project_client_feedback} target="_blank">
-                                    <button type='button' className='text-xs font-medium bg-blue-300 rounded-lg p-2 px-4'><AiFillEye size={15} /></button>
-                                </a>
+                                <div className='flex items-center gap-2 p-3'>
+                                    {/* <button type='button' className='text-xs font-medium bg-blue-300 rounded-lg p-2 px-4'><AiFillEye size={15} /></button> */}
+                                    <a href={currentProject?.post_project_client_feedback} target="_blank">
+                                        <button type='button' className='text-xs font-medium bg-blue-300 rounded-lg p-2 px-4'><AiFillEye size={15} /></button>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
 
                     {
                         user.role === "Product Manager" || user.role === "Artist Manager" ?
