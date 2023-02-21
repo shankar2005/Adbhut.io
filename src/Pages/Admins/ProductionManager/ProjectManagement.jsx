@@ -150,8 +150,6 @@ const ProjectManagement = () => {
             .catch(err => console.log(err))
     }
 
-    console.log(authToken);
-
     const handleSubmitToClient = () => {
         fetch(`https://dev.nsnco.in/api/v1/edit_project/${currentProject.pk}/`, {
             method: "PUT",
@@ -181,7 +179,6 @@ const ProjectManagement = () => {
     }
 
     const handleApproveProject = () => {
-
         navigate("/projects/sign-project");
     }
 

@@ -33,9 +33,12 @@ const AssignedArtistRow = ({ artist, projectId, refetch }) => {
                     <button onClick={handleUnassignArtist} className='bg-red-500 text-xs text-white px-2 py-0.5 rounded-full font-medium scale-95 active:scale-90 cursor-pointer select-none duration-200'>Unassigned</button>
                 </div>
             </div>
-            <div className="mt-2 ml-12">
-                <a className="font-medium flex items-center gap-2 hover:underline text-blue-500" href="https://drive.google.com/file/d/1-EshWLh4nuzBdQffHrLXq-lbKQPRqJ2j/view?usp=share_link" target="_blank">Submission <BsBoxArrowUpRight /></a>
-            </div>
+            {
+                artist.name === "Neelabja Debnath" &&
+                <div className="mt-2 ml-12">
+                    <a className="font-medium flex items-center gap-2 hover:underline text-blue-500 w-fit" href="https://drive.google.com/file/d/1-EshWLh4nuzBdQffHrLXq-lbKQPRqJ2j/view?usp=share_link" target="_blank">Submission <BsBoxArrowUpRight /></a>
+                </div>
+            }
             {/* <img className='w-36 rounded' src="https://fbutube.com/media/images/play_button/play_button_added.webp" alt="" /> */}
         </div>
     )
