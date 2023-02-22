@@ -59,7 +59,7 @@ const ChatHeading = ({ projectTitle, handleShowProjectHistory, currentProject })
                                         </form>
                                         : currentProject?.pk ?
                                             <h4 className='font-medium underline underline-offset-2 text-blue-600 hover:text-blue-800'>
-                                                <Link to={`/projects/${currentProject.pk}/${currentProject.stage}`}>{projectTitle.length > 30 ? projectTitle?.slice(0, 30) + '...' : projectTitle}</Link>
+                                                <Link to={`/projects/${currentProject.pk}/${currentProject.stage}`}>{projectTitle?.length > 30 ? projectTitle?.slice(0, 30) + '...' : projectTitle}</Link>
                                             </h4>
                                             : <Link to="/projects/create-project"><h4 className='font-medium text-blue-500 underline'>Project Servicing Chat</h4></Link>
                                 }

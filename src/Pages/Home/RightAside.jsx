@@ -93,7 +93,7 @@ const RightAside = () => {
                             dreamProjects.map(project => <Link to={`/projects/${project.pk}/${project.stage}`} key={`recent-project${project.pk}`}>
                                 <p className={`flex items-center gap-1 underline hover:text-blue-700 ${project.pk === currentProject?.pk && 'text-blue-700'} cursor-pointer`}>
                                     <MdCelebration className='w-5 h-5 text-yellow-400' />
-                                    {project.name.length > 30 ? project.name?.slice(0, 30) + '...' : project.name}
+                                    {project.name?.length > 30 ? project.name?.slice(0, 30) + '...' : project.name}
                                 </p>
                             </Link>)
                         }
