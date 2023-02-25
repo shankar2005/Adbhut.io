@@ -209,8 +209,7 @@ const ProjectManagement = () => {
                             isAuthenticated
                                 ? <div className='flex items-center gap-2 rounded'>
                                     <div className='relative'>
-                                        <img className='w-14 border rounded-full' src="https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo" alt="" />
-                                        <div className='w-3 h-3 bg-green-500 rounded-full absolute bottom-0 right-0 -translate-x-1/2'></div>
+                                        <img className='w-10 border rounded-full' src="https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo" alt="" />
                                     </div>
                                     <div className='text-sm'>
                                         <p className="font-medium">{currentProject?.client_details?.name}</p>
@@ -219,12 +218,11 @@ const ProjectManagement = () => {
                                 </div>
                                 : <div className='flex items-center gap-2 rounded'>
                                     <div className='relative'>
-                                        <img className='w-14 border rounded-full' src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541" alt="" />
-                                        <div className='w-3 h-3 bg-green-500 rounded-full absolute bottom-0 right-0 -translate-x-1/2'></div>
+                                        <img className='w-10 border rounded-full' src="https://adbhut.io/assets/logo-63665b8e.jpeg" alt="" />
                                     </div>
                                     <div className='text-sm'>
-                                        <p className="font-medium">Guest Account</p>
-                                        <p className='bg-gray-200 px-2 text-xs rounded-full w-fit'>N/A</p>
+                                        <p className="font-medium">ADBHUT.IO</p>
+                                        <p className='bg-gray-200 px-2 text-xs rounded-full w-fit'>servicing@adbhut.io</p>
                                     </div>
                                 </div>
                         }

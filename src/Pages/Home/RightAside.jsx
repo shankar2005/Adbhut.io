@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import { MdCelebration } from 'react-icons/md';
 import { AuthContext } from '../../contexts/AuthProvider';
-import { toast } from 'react-hot-toast';
 import { useRootContext } from '../../contexts/RootProvider';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 
 const RightAside = () => {
@@ -104,9 +103,9 @@ const RightAside = () => {
             {
                 <div className='text-xs text-gray-600'>
                     <ul className='flex flex-wrap gap-3 justify-center mt-6'>
-                        {/* <li className='border-b border-gray-100 hover:border-gray-400 flex flex-wrap gap-3'>
-                            <Link className='flex items-center gap-2' to="/artist-entry">Add Artist <FaPlus /></Link>
-                        </li> */}
+                        <li className='border-b border-gray-100 hover:border-gray-400 flex flex-wrap gap-3'>
+                            <Link className='flex items-center gap-2' to="/artists/artist-entry">Add Artist <FaPlus /></Link>
+                        </li>
                         <li className='border-b border-gray-100 hover:border-gray-400 flex flex-wrap gap-3'>
                             <button onClick={navigateCreateProject} className='flex items-center gap-2' to="/projects/create-project">Create Project <FaPlus /></button>
                         </li>

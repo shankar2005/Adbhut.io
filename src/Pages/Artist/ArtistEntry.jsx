@@ -16,6 +16,8 @@ const ArtistEntry = () => {
 
     const { register, handleSubmit, formState: { errors }, control } = useForm();
     const onSubmit = data => {
+        console.log(data)
+        return
         fetch('https://dev.nsnco.in/api/v1/artist_action/', {
             method: "POST",
             headers: {

@@ -63,7 +63,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/artists/artist-entry',
-                element: <RequiredAuth><ArtistEntry /></RequiredAuth>,
+                element: <ArtistEntry />
             },
         ]
     },

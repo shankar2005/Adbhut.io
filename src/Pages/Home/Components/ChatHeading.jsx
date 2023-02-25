@@ -6,7 +6,7 @@ import nsnlogo from '../../../assets/logo.jpeg'
 import { useRootContext } from '../../../contexts/RootProvider';
 
 const ChatHeading = ({ projectTitle, handleShowProjectHistory, currentProject }) => {
-    const { currentProjectsRefetch, createProjectFormState } = useRootContext();
+    const { currentProjectsRefetch } = useRootContext();
 
     const renameInputRef = useRef();
     const [renameState, setRenameState] = useState(false);
