@@ -41,8 +41,6 @@ const ProjectManagement = () => {
         }
     }, [currentProject])
 
-    console.log(currentProject);
-
     useEffect(() => {
         reset(currentProject);
     }, [currentProject])
@@ -147,7 +145,6 @@ const ProjectManagement = () => {
                     message: message
                 })
             })
-            .catch(err => console.log(err))
     }
 
     const handleSubmitToClient = () => {
@@ -161,7 +158,6 @@ const ProjectManagement = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.pk) {
                     handleShowProjectHistory(data?.pk, data?.stage);
 

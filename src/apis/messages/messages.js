@@ -14,5 +14,7 @@ export const sendMessageAPI = async (message) => {
         body: JSON.stringify(message)
     })
 
-    return response.data;
+    const data = await response.json();
+
+    return data;
 }

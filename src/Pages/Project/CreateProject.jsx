@@ -86,7 +86,6 @@ const CreateProject = () => {
             })
         }).then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.pk) {
                     toast.success("Added to dreamproject!", { id: "createNewProject" });
                     dreamProjectsRefetch();

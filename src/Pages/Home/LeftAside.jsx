@@ -199,7 +199,11 @@ const LeftAside = () => {
         sendMessageAPI({
             project_id: currentProject.pk,
             message: message
-        });
+        }).then(data => {
+            if (data?.project?.pk) {
+                setchatLog(JSON.parse(data?.project?.brief));
+            }
+        })
     }
 
     let name;
