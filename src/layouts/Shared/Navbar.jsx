@@ -36,7 +36,7 @@ const Navbar = ({ dispatch, state }) => {
     // handle search
     const handleSearch = (e) => {
         e.preventDefault();
-        navigate("/");
+        navigate("/artists");
         setSearchText(e.target.search.value);
         e.target.reset();
     }
