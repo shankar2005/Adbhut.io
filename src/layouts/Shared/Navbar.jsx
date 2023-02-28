@@ -227,7 +227,7 @@ const Navbar = ({ dispatch, state }) => {
                         isAuthenticated &&
                         <>
                             <li className='ml-auto flex items-center gap-2 relative'>
-                                <img onClick={resetFeed} className='w-24' src={logo} alt="" />
+                                <img className='hidden md:block w-24' src={logo} alt="" />
                                 <img onClick={() => dispatch({ type: "SHOW_ACCOUNT" })} className='w-10 h-10 rounded-full border-2 border-gray-400' src={user?.role === "Client" ? 'https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo' : nsnlogo} alt="" />
                                 {/* modal */}
                                 <div className={`${!state.accountModal && 'hidden'} absolute top-12 right-0 bg-white w-60 border rounded-md p-3 shadow-2xl`}>
