@@ -6,6 +6,8 @@ import ArtistEntry from "../Pages/Artist/ArtistEntry";
 import ArtistProfile from "../Pages/Artist/ArtistProfile";
 import Feed from "../Pages/Home/Feed";
 import Home from "../Pages/Home/Home";
+import LeftAside from "../Pages/Home/LeftAside";
+import RightAside from "../Pages/Home/RightAside";
 import Invite from "../Pages/Invite/Invite";
 import CreateProject from "../Pages/Project/CreateProject";
 import Docusign from "../Pages/Project/Docusign";
@@ -41,7 +43,15 @@ const router = createBrowserRouter([
             {
                 path: '/projects/completed',
                 element: <ProjectDone />,
-            }
+            },
+            {
+                path: '/projects/chat',
+                element: <div className="md:hidden"><LeftAside /></div>,
+            },
+            {
+                path: '/projects/toolkit',
+                element: <div className="lg:hidden"><RightAside /></div>,
+            },
         ]
     },
     {
