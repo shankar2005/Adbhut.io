@@ -9,9 +9,10 @@ import FeedCardSkeleton from '../../Components/Skeleton/FeedCardSkeleton';
 import { FaRegEnvelope } from 'react-icons/fa';
 import { HiPhone } from 'react-icons/hi';
 import { IoLanguageSharp, IoLocationSharp } from 'react-icons/io5';
+import { CiCircleRemove } from 'react-icons/ci';
 
 const Feed = () => {
-    const { searchText = "", demoType, checkedSkills, handleShortlist, checkedGenres, checkedLocations, shortlistedArtist, viewAs } = useRootContext();
+    const { searchText = "", setSearchText, demoType, checkedSkills, handleShortlist, checkedGenres, checkedLocations, shortlistedArtist, viewAs } = useRootContext();
 
     const skillQuery = checkedSkills?.map(skill => `&owner__skill=${skill}`).join('');
     const genreQuery = checkedGenres?.map(genre => `&owner__skill_genres=${genre}`).join('');
@@ -60,6 +61,13 @@ const Feed = () => {
             loading
                 ? <FeedCardSkeleton />
                 : <>
+                    {
+                        searchText &&
+                        <div className='flex items-center gap-2'>
+                            <h1 className='text-3xl my-3 font-medium text-gray-500'>Results for "{searchText}"</h1>
+                            <button className='bg-sky-500 text-white p-1 pr-3 rounded-md text-xs flex items-center gap-1' onClick={() => setSearchText("")}><CiCircleRemove size={20} /> Clear search</button>
+                        </div>
+                    }
                     {
                         artists?.map((artist, idx) => (
                             <div key={`artistFeed${idx}`} className='mb-5 p-5 bg-white rounded-lg shadow-md'>

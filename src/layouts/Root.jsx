@@ -47,7 +47,7 @@ const Root = () => {
 
 
                     {/*  */}
-                    <div className='hidden bg-white border border-blue-100 shadow p-2 py-3 mb-2 rounded-lg lg:flex justify-between items-center fixed w-11/12 md:max-w-[37.40%] z-30'>
+                    <div className='hidden bg-white border border-blue-100 shadow p-2 py-3 mb-2 rounded-t-lg lg:flex justify-between items-center fixed w-11/12 md:max-w-[37.40%] z-30'>
                         <div className='text-sm flex items-center gap-2'>
                             {
                                 currentProject?.pk && pathname.includes("/artists") &&
@@ -83,7 +83,7 @@ const Root = () => {
 
 
 
-                    <main className='lg:pt-14'>
+                    <main className='lg:pt-16'>
                         <Outlet />
                     </main>
 
@@ -98,13 +98,13 @@ const Root = () => {
 
                 <div className='lg:hidden z-50 fixed left-0 top-1/2 -translate-y-20 bg-white'>
                     <Link to="/projects/chat">
-                        <div className='p-3 border md:hidden'><BiMessageDots /></div>
+                        <div className='p-3 border border-b-0 md:hidden'><BiMessageDots /></div>
                     </Link>
                     <Link to="/artists">
                         <div className='p-3 border border-b-0'><CiViewTimeline /></div>
                     </Link>
                     <Link to="/projects/toolkit">
-                        <div className='p-3 border border-b-0'><TbTools /></div>
+                        <div className='p-3 border'><TbTools /></div>
                     </Link>
                 </div>
 
