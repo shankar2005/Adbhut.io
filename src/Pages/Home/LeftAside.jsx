@@ -238,7 +238,7 @@ const LeftAside = () => {
                                     <div className='text-sm flex gap-2 mb-5'>
                                         <img className='w-10 h-10' src={nsnlogo} alt="" />
                                         <div className='mr-12'>
-                                            <h4 className='font-medium'>NsN Co Servicing</h4>
+                                            <h4 className='font-medium'>Adbhut.io</h4>
                                             <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg w-fit mb-1'>
                                                 Please shortlist an artist, skill or content product or send your inputs here
                                             </p>
@@ -252,7 +252,7 @@ const LeftAside = () => {
                                             <div key={idx} className='text-sm flex gap-2 mb-5'>
                                                 <img className='w-10 h-10' src={nsnlogo} alt="" />
                                                 <div className='mr-12'>
-                                                    <h4 className='font-medium'>NsN Co Servicing</h4>
+                                                    <h4 className='font-medium'>Adbhut.io</h4>
                                                     <motion.div
                                                         initial={{ scale: 0 }}
                                                         animate={{ scale: 1 }}
@@ -300,7 +300,7 @@ const LeftAside = () => {
                                     >
                                         <div className='text-sm flex gap-2 mb-5'>
                                             <div className='ml-12'>
-                                                <h4 className='font-medium text-right'>NsN Co Servicing</h4>
+                                                <h4 className='font-medium text-right'>Adbhut.io</h4>
                                                 <p className='bg-sky-100 w-fit ml-auto  p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg'>
                                                     Please shortlist an artist, skill or content product or send your inputs here
                                                 </p>
@@ -331,7 +331,7 @@ const LeftAside = () => {
                                             :
                                             <div key={idx} className='text-sm flex gap-2 mb-5 ml-auto'>
                                                 <div className='ml-8'>
-                                                    <h4 className='font-medium text-right'>NsN Co Servicing</h4>
+                                                    <h4 className='font-medium text-right'>Adbhut.io</h4>
                                                     <motion.div
                                                         initial={{ scale: 0 }}
                                                         animate={{ scale: 1 }}
