@@ -4,13 +4,22 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useRootContext } from '../../contexts/RootProvider';
 import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
+import { useState } from 'react';
 
 const Home = () => {
-    const { contentProducts, handleSelectContentProduct } = useRootContext();
+    const { contentProducts, handleSelectContentProduct, skills, setSearchText } = useRootContext();
 
+    const [skillInputValue, setskillInputValue] = useState("");
     const navigate = useNavigate();
-    const handleNavigateProject = (e) => {
 
+    const handleNavigateProject = (e) => {
+        setSearchText(skillInputValue);
+        navigate("/artists");
+    }
+
+    const skillSearchInput = (e) => {
+        setskillInputValue(e.target.value);
+        console.log(skillInputValue);
     }
 
     return (
@@ -20,7 +29,7 @@ const Home = () => {
             </div>
             <div className='w-11/12 mx-auto pt-24 pb-10 lg:pt-10 grid grid-cols-1 lg:grid-cols-2 items-center justify-between gap-20'>
                 <div className='order-last lg:order-first'>
-                    <h1 className='text-3xl leading-tight font-bold'>
+                    <h1 className='text-2xl sm:text-3xl leading-tight font-bold'>
                         The Most Efficient <br />
                         Content Production Platform. <br />
                         Now Accessible to Everyone <br />
@@ -35,10 +44,27 @@ const Home = () => {
                         <Link to="/projects/create-project">
                             <button type="button" className="text-white bg-sky-500 hover:bg-sky-600 focus:outline-none font-medium rounded w-full sm:w-auto px-5 py-3.5 text-center flex items-center gap-2 whitespace-nowrap">New Project</button>
                         </Link>
-                        <form onSubmit={handleNavigateProject} className='relative'>
-                            <input type="text" name="username" className='border py-3.5 w-72 md:focus:w-80 pl-10 pr-3 rounded text-sm outline-none border-gray-700' placeholder='Try "Chatshow"' required />
-                            <MdKeyboard className='w-6 h-6 text-gray-500 absolute top-1/2 -translate-y-1/2 left-2' />
-                        </form>
+                        <div className='relative'>
+                            <form onSubmit={handleNavigateProject} className='relative'>
+                                <input onKeyUp={skillSearchInput} type="text" name="skill" className='border py-3.5 w-60 md:w-72 pl-10 pr-3 rounded text-sm outline-none border-gray-700' placeholder='Search your artist by skills' required />
+                                <MdKeyboard className='w-6 h-6 text-gray-500 absolute top-1/2 -translate-y-1/2 left-2' />
+                            </form>
+                            {
+                                skillInputValue &&
+                                <ul id='homeSkillScrollSearch' className='absolute bottom-1 translate-y-full w-full h-fit max-h-52 overflow-y-scroll rounded-b-lg bg-white border shadow-xl'>
+                                    {
+                                        skills
+                                            ?.filter(skill => skill.name?.toLowerCase()?.startsWith(skillInputValue.toLowerCase()))
+                                            ?.map(skill => <li className='py-2.5 px-3 hover:bg-gray-200 text-sm font-medium'>
+                                                <button onClick={() => {
+                                                    setSearchText(skill.name)
+                                                    navigate("/artists/")
+                                                }} className='w-full text-left'>{skill.name}</button>
+                                            </li>)
+                                    }
+                                </ul>
+                            }
+                        </div>
                     </div>
                     <div className='my-5 flex flex-wrap items-center gap-2 font-medium'>
                         Popular: {

@@ -5,6 +5,7 @@
     background-repeat: no-repeat;
 }
 
+/*  */
 
 .skillScroll::-webkit-scrollbar {
     height: 8px;
@@ -44,3 +45,24 @@
 .homeContent .swiper-button-next {
     right: 45px;
 }
+
+/* homeSkillScrollSearch */
+/* homeSkillScrollSearch */
+/* homeSkillScrollSearch */
+
+#homeSkillScrollSearch::-webkit-scrollbar {
+    width: 0px;
+}
+
+/* #homeSkillScrollSearch::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(131, 141, 150, 0.3);
+}
+
+#homeSkillScrollSearch::-webkit-scrollbar-thumb {
+    background-color: #9f9f9f;
+    border-radius: 10px;
+} */
+
+/* homeSkillScrollSearch */
+/* homeSkillScrollSearch */
+/* homeSkillScrollSearch */
