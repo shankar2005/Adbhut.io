@@ -9,7 +9,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FiDelete } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../contexts/AuthProvider';
-import logo from '../../assets/logo.jpeg';
+import nsnlogo from '../../assets/logo.jpeg';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import ChatHeading from './Components/ChatHeading';
@@ -184,6 +184,10 @@ const LeftAside = () => {
     const [userInputText, setuserInputText] = useState("");
     const handleChatInput = (e) => {
         setuserInputText(e.target.value);
+        // on key enter submit input
+        if (e.key === "Enter") {
+            handleSendUserInput();
+        }
     }
     const handleSendUserInput = () => {
         if (!userInputRef.current.value) {
@@ -232,7 +236,7 @@ const LeftAside = () => {
                                     transition={{ delay: 0.2 }}
                                 >
                                     <div className='text-sm flex gap-2 mb-5'>
-                                        <img className='w-10 h-10' src={logo} alt="" />
+                                        <img className='w-10 h-10' src={nsnlogo} alt="" />
                                         <div className='mr-12'>
                                             <h4 className='font-medium'>NsN Co Servicing</h4>
                                             <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg w-fit mb-1'>
@@ -246,7 +250,7 @@ const LeftAside = () => {
                                     chatLog.map((chat, idx) => (
                                         chat.bot ?
                                             <div key={idx} className='text-sm flex gap-2 mb-5'>
-                                                <img className='w-10 h-10' src={logo} alt="" />
+                                                <img className='w-10 h-10' src={nsnlogo} alt="" />
                                                 <div className='mr-12'>
                                                     <h4 className='font-medium'>NsN Co Servicing</h4>
                                                     <motion.div
@@ -301,7 +305,7 @@ const LeftAside = () => {
                                                     Please shortlist an artist, skill or content product or send your inputs here
                                                 </p>
                                             </div>
-                                            <img className='w-10 h-10' src={logo} alt="" />
+                                            <img className='w-10 h-10' src={nsnlogo} alt="" />
                                         </div>
                                     </motion.div>
                                 </div>
@@ -341,7 +345,7 @@ const LeftAside = () => {
                                                         </p>
                                                     </motion.div>
                                                 </div>
-                                                <img className='w-10 h-10 rounded-full border border-cyan-300' src={logo} alt="" />
+                                                <img className='w-10 h-10 rounded-full border border-cyan-300' src={nsnlogo} alt="" />
                                             </div>
                                     ))
                                 }

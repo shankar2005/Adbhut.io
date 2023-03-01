@@ -33,10 +33,10 @@ const Home = () => {
                     </p> */}
                     <div className='mt-8 flex gap-4'>
                         <Link to="/projects/create-project">
-                            <button type="button" className="text-white bg-sky-500 hover:bg-sky-600 focus:outline-none font-medium rounded w-full sm:w-auto px-5 py-3.5 text-center flex items-center gap-2">New Project</button>
+                            <button type="button" className="text-white bg-sky-500 hover:bg-sky-600 focus:outline-none font-medium rounded w-full sm:w-auto px-5 py-3.5 text-center flex items-center gap-2 whitespace-nowrap">New Project</button>
                         </Link>
                         <form onSubmit={handleNavigateProject} className='relative'>
-                            <input type="text" name="username" className='border py-3.5 w-72 focus:w-80 pl-10 pr-3 rounded text-sm outline-none border-gray-700' placeholder='Try "Chatshow"' required />
+                            <input type="text" name="username" className='border py-3.5 w-72 md:focus:w-80 pl-10 pr-3 rounded text-sm outline-none border-gray-700' placeholder='Try "Chatshow"' required />
                             <MdKeyboard className='w-6 h-6 text-gray-500 absolute top-1/2 -translate-y-1/2 left-2' />
                         </form>
                     </div>
@@ -63,7 +63,9 @@ const Home = () => {
                         {
                             contentProducts.map(content => <SwiperSlide>
                                 <div className='text-center w-4/6 mx-auto'>
-                                    <img className='w-80 mx-auto' src="https://www.gstatic.com/meet/meet_google_one_carousel_promo_icon_0f14bf8fc61484b019827c071ed8111d.svg" alt="" />
+                                    <div className='h-60 md:h-80 border border-sky-100 bg-sky-50 rounded-full p-14 flex justify-center items-center'>
+                                        <img className='w-80' src={content.weblink} alt="" />
+                                    </div>
                                     <h3 className='text-2xl mt-4'>{content.name}</h3>
                                     <p className='mt-2 text-sm'>{content.details}</p>
                                 </div>
