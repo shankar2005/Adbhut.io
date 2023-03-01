@@ -15,7 +15,7 @@ const Home = () => {
 
     return (
         <section className='h-screen lg:flex items-center justify-center'>
-            <div className='fixed top-5 left-16'>
+            <div className='relative lg:absolute top-5 left-5 md:left-16'>
                 <img src={adbhutGIF} className='w-32' />
             </div>
             <div className='w-11/12 mx-auto pt-24 pb-10 lg:pt-10 grid grid-cols-1 lg:grid-cols-2 items-center justify-between gap-20'>
@@ -33,7 +33,7 @@ const Home = () => {
                     </p> */}
                     <div className='mt-8 flex gap-4'>
                         <Link to="/projects/create-project">
-                            <button type="button" className="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none font-medium rounded w-full sm:w-auto px-5 py-3.5 text-center flex items-center gap-2">New Project</button>
+                            <button type="button" className="text-white bg-sky-500 hover:bg-sky-600 focus:outline-none font-medium rounded w-full sm:w-auto px-5 py-3.5 text-center flex items-center gap-2">New Project</button>
                         </Link>
                         <form onSubmit={handleNavigateProject} className='relative'>
                             <input type="text" name="username" className='border py-3.5 w-72 focus:w-80 pl-10 pr-3 rounded text-sm outline-none border-gray-700' placeholder='Try "Chatshow"' required />
@@ -49,7 +49,7 @@ const Home = () => {
                         }
                     </div>
                     <div className='border-t border-gray-300 block pt-5 text-gray-700'>
-                        <a target="_blank" href="https://nsnco.in/" className='text-blue-500'>Learn more</a> about NsNco
+                        <a target="_blank" href="https://nsnco.in/" className='text-blue-600'>Learn more</a> about NsNco
                     </div>
                 </div>
 

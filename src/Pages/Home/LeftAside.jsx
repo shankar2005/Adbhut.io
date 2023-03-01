@@ -9,7 +9,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FiDelete } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../contexts/AuthProvider';
-import nsnlogo from '../../assets/logo.jpeg';
+import logo from '../../assets/logo.jpeg';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import ChatHeading from './Components/ChatHeading';
@@ -232,7 +232,7 @@ const LeftAside = () => {
                                     transition={{ delay: 0.2 }}
                                 >
                                     <div className='text-sm flex gap-2 mb-5'>
-                                        <img className='w-10 h-10 rounded-full border' src={nsnlogo} alt="" />
+                                        <img className='w-10 h-10' src={logo} alt="" />
                                         <div className='mr-12'>
                                             <h4 className='font-medium'>NsN Co Servicing</h4>
                                             <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg w-fit mb-1'>
@@ -246,7 +246,7 @@ const LeftAside = () => {
                                     chatLog.map((chat, idx) => (
                                         chat.bot ?
                                             <div key={idx} className='text-sm flex gap-2 mb-5'>
-                                                <img className='w-10 h-10 rounded-full border' src={nsnlogo} alt="" />
+                                                <img className='w-10 h-10' src={logo} alt="" />
                                                 <div className='mr-12'>
                                                     <h4 className='font-medium'>NsN Co Servicing</h4>
                                                     <motion.div
@@ -301,7 +301,7 @@ const LeftAside = () => {
                                                     Please shortlist an artist, skill or content product or send your inputs here
                                                 </p>
                                             </div>
-                                            <img className='w-10 h-10 rounded-full border' src={nsnlogo} alt="" />
+                                            <img className='w-10 h-10' src={logo} alt="" />
                                         </div>
                                     </motion.div>
                                 </div>
@@ -310,9 +310,9 @@ const LeftAside = () => {
                                     chatLog.map((chat, idx) => (
                                         chat.user ?
                                             <div key={idx} className='text-sm flex gap-2 mb-5'>
-                                                <img className='w-10 h-10 rounded-full border' src="https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo" alt="" />
+                                                <img className='w-10 h-10' src="https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo" alt="" />
                                                 <div className='mr-12'>
-                                                    <h4 className='font-medium'>{currentProject.client_details?.name}</h4>
+                                                    <h4 className='font-medium'>{currentProject?.client_details?.name}</h4>
                                                     <motion.div
                                                         initial={{ scale: 0 }}
                                                         animate={{ scale: 1 }}
@@ -341,7 +341,7 @@ const LeftAside = () => {
                                                         </p>
                                                     </motion.div>
                                                 </div>
-                                                <img className='w-10 h-10 rounded-full border border-cyan-300' src={nsnlogo} alt="" />
+                                                <img className='w-10 h-10 rounded-full border border-cyan-300' src={logo} alt="" />
                                             </div>
                                     ))
                                 }
