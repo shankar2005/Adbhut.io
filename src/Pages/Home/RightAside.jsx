@@ -8,20 +8,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 
 const RightAside = () => {
-    const { selectedContentProducts, setselectedContentProducts, setchatLog, currentProjects, dreamProjects, currentProject, contentProducts, setcurrentProject, setshortlistedArtist, createProjectFormDispatch } = useRootContext();
+    const { selectedContentProducts, setselectedContentProducts, setchatLog, currentProjects, dreamProjects, currentProject, contentProducts, setcurrentProject, setshortlistedArtist, handleSelectContentProduct } = useRootContext();
 
-    const { isAuthenticated, user } = useContext(AuthContext);
-
-    const sender = user.role === "Client" ? "user" : "bot";
-
-    const handleSelectContentProducts = (product) => {
-        const isExist = selectedContentProducts === product.pk;
-        if (!isExist) {
-            setselectedContentProducts(product.pk);
-            // chatlog
-            setchatLog(current => [...current, { msgID: current.length + 1, [sender]: product.name }]);
-        }
-    }
+    const { isAuthenticated } = useContext(AuthContext);
 
     const navigate = useNavigate();
     const navigateCreateProject = () => {
@@ -56,7 +45,7 @@ const RightAside = () => {
                         {
                             contentProducts?.map(content => (
                                 <SwiperSlide key={content.pk}>
-                                    <div onClick={() => handleSelectContentProducts(content)} className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
+                                    <div onClick={() => handleSelectContentProduct(content)} className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
                                         <div className={`${currentProject?.project_template === content.pk || selectedContentProducts === content.pk ? 'w-10 h-10' : 'w-9 h-9'} p-1 border rounded-md`}>
                                             <img className='group-hover:scale-110 duration-150 overflow-hidden' src={content.weblink} />
                                         </div>

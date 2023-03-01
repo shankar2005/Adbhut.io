@@ -152,6 +152,19 @@ const RootProvider = ({ children }) => {
     };
     const [createProjectFormState, createProjectFormDispatch] = useReducer(createProjectFormReducer, createProjectFormInitialState);
 
+    // handle select content product login from RightAside
+
+    const sender = (user.role === "Client" || !isAuthenticated) ? "user" : "bot";
+
+    const handleSelectContentProduct = (product) => {
+        const isExist = selectedContentProducts === product.pk;
+        if (!isExist) {
+            setselectedContentProducts(product.pk);
+            // chatlog
+            setchatLog(current => [...current, { msgID: current.length + 1, [sender]: product.name }]);
+        }
+    }
+
     // stored values
     const value = {
         searchText,
@@ -186,6 +199,7 @@ const RootProvider = ({ children }) => {
         contentProducts,
         createProjectFormState,
         createProjectFormDispatch,
+        handleSelectContentProduct
     }
 
     return (

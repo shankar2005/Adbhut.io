@@ -34,7 +34,7 @@ const LeftAside = () => {
         }
     }, [])
 
-    const sender = user.role === "Client" ? "user" : "bot";
+    const sender = (user.role === "Client" || !isAuthenticated) ? "user" : "bot";
 
     const artistIDs = shortlistedArtist?.join(",");
 

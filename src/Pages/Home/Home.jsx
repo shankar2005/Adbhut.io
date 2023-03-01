@@ -1,89 +1,56 @@
-import { IoCreateOutline } from 'react-icons/io5'; import { MdKeyboard } from 'react-icons/md';
+import { MdKeyboard } from 'react-icons/md';
 import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css/pagination';
 import { Link, useNavigate } from 'react-router-dom';
-import { TfiBackRight } from 'react-icons/tfi';
 import { useRootContext } from '../../contexts/RootProvider';
-import { useState } from 'react';
-import Cookies from 'universal-cookie';
-import { useContext } from 'react';
-import { AuthContext } from '../../contexts/AuthProvider';
+import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
 
 const Home = () => {
-    const { contentProducts } = useRootContext();
-    const { setIsAuthenticated } = useContext(AuthContext);
-
-    const [username, setUsername] = useState("");
-    const [formError, setformError] = useState("");
+    const { contentProducts, handleSelectContentProduct } = useRootContext();
 
     const navigate = useNavigate();
     const handleNavigateProject = (e) => {
-        setformError("");
-        e.preventDefault();
-        setUsername(e.target.username.value);
-        if (username) {
-            if (e.target.password.value) {
-                // login
-                fetch('https://dev.nsnco.in/api/v1/auth/login/', {
-                    method: "POST",
-                    headers: {
-                        "content-type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        username,
-                        password: e.target.password.value
-                    })
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.token) {
-                            const cookies = new Cookies();
-                            cookies.set('auth_token', data.token, { path: '/' });
-                            setIsAuthenticated(true);
-                            navigate("/projects")
-                        } else {
-                            setformError("Username or password is incorrect");
-                            setUsername("");
-                        }
-                    });
-            }
-        }
-        e.target.reset();
+
     }
 
     return (
-        <section className='h-screen flex items-center justify-center'>
-            <div className='w-11/12 mx-auto pt-10 grid grid-cols-2 items-center justify-between gap-20'>
-                <button onClick={() => history.back()} type='button' className='absolute z-50 top-32 right-20 bg-gray-100 p-3 rounded-l-full text-blue-500'>
-                    <TfiBackRight size={30} />
-                </button>
-                <div>
-                    <h1 className='text-2xl leading-tight mb-5'>
-                        The Most Efficient Content Production Platform. <br />
-                        Now Accessible to Everyone Across the Globe.
+        <section className='h-screen lg:flex items-center justify-center'>
+            <div className='fixed top-5 left-16'>
+                <img src={adbhutGIF} className='w-32' />
+            </div>
+            <div className='w-11/12 mx-auto pt-24 pb-10 lg:pt-10 grid grid-cols-1 lg:grid-cols-2 items-center justify-between gap-20'>
+                <div className='order-last lg:order-first'>
+                    <h1 className='text-3xl leading-tight font-bold'>
+                        The Most Efficient <br />
+                        Content Production Platform. <br />
+                        Now Accessible to Everyone <br />
+                        Across the Globe.
                     </h1>
-                    <p className='text-gray-500'>We dissected the production processes and built a secure, business content servicing platform. ADBHUT.IO is here to make entertainment content affordable and available for all. </p>
-                    <div className='mt-12 flex gap-6'>
+                    {/* <p>
+                        We dissected the production processes and built a secure, <br />
+                        business content servicing platform. ADBHUT.IO is here to make <br />
+                        entertainment content affordable and available for all.
+                    </p> */}
+                    <div className='mt-8 flex gap-4'>
                         <Link to="/projects/create-project">
-                            <button type="button" className="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none font-medium rounded w-full sm:w-auto px-5 py-2.5 text-center flex items-center gap-2"><IoCreateOutline className='mb-1' size={25} /> New Project</button>
+                            <button type="button" className="text-white bg-blue-500 hover:bg-blue-600 focus:outline-none font-medium rounded w-full sm:w-auto px-5 py-3.5 text-center flex items-center gap-2">New Project</button>
                         </Link>
                         <form onSubmit={handleNavigateProject} className='relative'>
-                            {
-                                username
-                                    ? <input type="password" name="password" className='border py-3.5 w-72 focus:w-80 pl-10 pr-3 rounded text-sm outline-none border-gray-700' placeholder='Enter your password' required />
-                                    : <input type="text" name="username" className='border py-3.5 w-72 focus:w-80 pl-10 pr-3 rounded text-sm outline-none border-gray-700' placeholder='Enter your username continue' required />
-
-                            }
+                            <input type="text" name="username" className='border py-3.5 w-72 focus:w-80 pl-10 pr-3 rounded text-sm outline-none border-gray-700' placeholder='Try "Chatshow"' required />
                             <MdKeyboard className='w-6 h-6 text-gray-500 absolute top-1/2 -translate-y-1/2 left-2' />
                         </form>
                     </div>
-                    <p className='text-sm mt-2 text-red-500 pb-5 ml-48'>
-                        {formError}
-                    </p>
-                    <a className='border-t border-gray-300 block' target="_blank" href="https://nsnco.in/">
-                        <p className='mt-6 text-gray-500'><span className='text-blue-500'>Learn more</span> about NsNco</p>
-                    </a>
+                    <div className='my-5 flex flex-wrap items-center gap-2 font-medium'>
+                        Popular: {
+                            contentProducts?.map(content => <button type='button' onClick={() => {
+                                handleSelectContentProduct(content);
+                                navigate("/artists");
+                            }} className='border whitespace-nowrap border-gray-400 hover:bg-gray-200 text-sm py-1 px-2 rounded-full'>{content.name}</button>)
+                        }
+                    </div>
+                    <div className='border-t border-gray-300 block pt-5 text-gray-700'>
+                        <a target="_blank" href="https://nsnco.in/" className='text-blue-500'>Learn more</a> about NsNco
+                    </div>
                 </div>
 
                 <div className='homeContent'>
