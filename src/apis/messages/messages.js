@@ -18,3 +18,17 @@ export const sendMessageAPI = async (message) => {
 
     return data;
 }
+
+export const openAIMessageAPI = async (message) => {
+    const response = await fetch('https://dev.nsnco.in/api/v1/openai/', {
+        method: "POST",
+        headers: {
+            "content-type": "application/json",
+        },
+        body: JSON.stringify(message)
+    })
+
+    const data = await response.json();
+
+    return data;
+}

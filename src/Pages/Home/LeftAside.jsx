@@ -13,7 +13,8 @@ import nsnlogo from '../../assets/logo.jpeg';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import ChatHeading from './Components/ChatHeading';
-import { sendMessageAPI } from '../../apis/messages/messages';
+import { openAIMessageAPI, sendMessageAPI } from '../../apis/messages/messages';
+import TypingIndicator from '../../Components/TypingIndicator';
 
 const LeftAside = () => {
     const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch } = useRootContext();
@@ -179,6 +180,8 @@ const LeftAside = () => {
         }
     })
 
+    const [isTyping, setIsTyping] = useState(false);
+
     // handle Chat Input
     const userInputRef = useRef();
     const [userInputText, setuserInputText] = useState("");
@@ -194,20 +197,38 @@ const LeftAside = () => {
             userInputRef.current.focus();
             return;
         };
+        setIsTyping(true);
+
         // chatlog
         const message = { msgID: chatLog.length + 1, [sender]: userInputText };
         setchatLog(current => [...current, message]);
         setuserInputText("");
         userInputRef.current.value = "";
 
-        sendMessageAPI({
-            project_id: currentProject.pk,
-            message: message
-        }).then(data => {
-            if (data?.project?.pk) {
-                setchatLog(JSON.parse(data?.project?.brief));
-            }
-        })
+        if (isAuthenticated && currentProject?.pk) {
+            sendMessageAPI({
+                project_id: currentProject.pk,
+                message: message
+            }).then(data => {
+                if (data?.project?.pk) {
+                    setchatLog(JSON.parse(data?.project?.brief));
+                    setIsTyping(false);
+                }
+            }).catch((err) => {
+                setIsTyping(false);
+            })
+        } else {
+            openAIMessageAPI({
+                message: userInputText
+            }).then(data => {
+                if (data.response) {
+                    setchatLog(current => [...current, { msgID: chatLog.length + 1, bot: data.response }]);
+                    setIsTyping(false);
+                }
+            }).catch((err) => {
+                setIsTyping(false);
+            })
+        }
     }
 
     let name;
@@ -216,6 +237,14 @@ const LeftAside = () => {
     } else {
         name = user.name;
     }
+
+    const TypingElement = isTyping &&
+        <div className='text-sm flex mb-5'>
+            <img className='w-10 h-10' src={nsnlogo} alt="" />
+            <div>
+                <TypingIndicator />
+            </div>
+        </div>
 
     return (
         <>
@@ -245,6 +274,7 @@ const LeftAside = () => {
                                         </div>
                                     </div>
                                 </motion.div>
+
                                 {
                                     chatLog.length > 0 &&
                                     chatLog.map((chat, idx) => (
@@ -289,6 +319,15 @@ const LeftAside = () => {
                                             </div>
                                     ))
                                 }
+
+
+                                {/*  */}
+                                {
+                                    TypingElement
+                                }
+                                {/*  */}
+
+
                             </div>
                             :
                             <div className='flex flex-col'>
@@ -349,6 +388,15 @@ const LeftAside = () => {
                                             </div>
                                     ))
                                 }
+
+
+                                {/*  */}
+                                {
+                                    TypingElement
+                                }
+                                {/*  */}
+
+
                             </div>
                     }
 
