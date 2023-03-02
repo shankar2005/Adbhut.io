@@ -51,11 +51,11 @@ const Home = () => {
                             </form>
                             {
                                 skillInputValue &&
-                                <ul id='homeSkillScrollSearch' className='absolute bottom-1 translate-y-full w-full h-fit max-h-52 overflow-y-scroll rounded-b-lg bg-white border shadow-xl'>
+                                <ul id='homeSkillScrollSearch' className='absolute bottom-0.5 translate-y-full w-full h-fit max-h-52 overflow-y-scroll rounded-lg bg-white border shadow-xl'>
                                     {
                                         skills
                                             ?.filter(skill => skill.name?.toLowerCase()?.startsWith(skillInputValue.toLowerCase()))
-                                            ?.map(skill => <li className='py-2.5 px-3 hover:bg-gray-200 text-sm font-medium'>
+                                            ?.map(skill => <li className='py-2.5 px-3 hover:bg-gray-200 active:bg-blue-200 text-sm font-medium border-b'>
                                                 <button onClick={() => {
                                                     setSearchText(skill.name)
                                                     navigate("/artists/")
