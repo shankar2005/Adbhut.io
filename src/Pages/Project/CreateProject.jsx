@@ -9,7 +9,7 @@ import { AuthContext } from '../../contexts/AuthProvider';
 import { useRootContext } from '../../contexts/RootProvider';
 
 const CreateProject = () => {
-    const { shortlistedArtist, chatLog, contentProducts, dreamProjectsRefetch, currentProjectsRefetch, authToken, selectedContentProducts, createProjectFormState: state, createProjectFormDispatch: dispatch } = useRootContext();
+    const { shortlistedArtist, chatLog, contentProducts, dreamProjectsRefetch, currentProjectsRefetch, authToken, selectedContentProducts, createProjectFormState: state, createProjectFormDispatch: dispatch, dropdownDispatch } = useRootContext();
     const { isAuthenticated } = useContext(AuthContext);
 
     const currentProject = [];
@@ -33,7 +33,7 @@ const CreateProject = () => {
     // send brief
     const handleSendBrief = () => {
         if (!isAuthenticated) {
-            return toast("You must have to login");
+            return dropdownDispatch({ type: "SHOW_LOGIN" });
         }
         if (!state.project_template) {
             return toast("Select a content product!");
@@ -66,7 +66,7 @@ const CreateProject = () => {
     // add to dream project
     const handleAddToDreamProject = () => {
         if (!isAuthenticated) {
-            return toast("You must have to login");
+            return dropdownDispatch({ type: "SHOW_LOGIN" });
         }
         if (!state.project_template) {
             return toast("Select a content product!");

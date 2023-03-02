@@ -1,7 +1,5 @@
 import LeftAside from '../Pages/Home/LeftAside';
-import { useReducer } from 'react';
 import Navbar from './Shared/Navbar';
-import { dropdownInitialState, dropdownReducers } from '../state/reducers/dropdownReducer';
 import RightAside from '../Pages/Home/RightAside';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { IoIosArrowBack } from "react-icons/io";
@@ -11,7 +9,7 @@ import { TbTools } from 'react-icons/tb';
 import { CiViewTimeline } from 'react-icons/ci';
 
 const Root = () => {
-    const [state, dispatch] = useReducer(dropdownReducers, dropdownInitialState);
+    const { dropdownState, dropdownDispatch } = useRootContext();
 
     const location = useLocation();
     const pathname = location.pathname;
@@ -25,16 +23,11 @@ const Root = () => {
     return (
         <div className='bg-gray-100 min-h-screen'>
 
-
-            <Navbar
-                state={state}
-                dispatch={dispatch}
-            />
-
+            <Navbar />
 
             <div className='w-11/12 mx-auto md:grid grid-cols-12 gap-5 items-start mt-5 pb-5'>
                 {/* bg unfocused layer */}
-                <div onClick={() => dispatch({ type: "BODY_TAP_ALL_MODAL_CLOSE" })} className={`${!state.searchAndFilterModal && !state.locationDropdown && !state.loginModal && !state.accountModal && !state.skillDropdown && 'hidden'} fixed left-0 top-0 h-screen w-screen`}></div>
+                <div onClick={() => dropdownDispatch({ type: "BODY_TAP_ALL_MODAL_CLOSE" })} className={`${!dropdownState.searchAndFilterModal && !dropdownState.locationDropdown && !dropdownState.loginModal && !dropdownState.accountModal && !dropdownState.skillDropdown && 'hidden'} fixed left-0 top-0 h-screen w-screen`}></div>
                 {/* bg unfocused layer */}
 
                 <aside className='hidden md:block col-span-5 lg:col-span-4 sticky top-20'>

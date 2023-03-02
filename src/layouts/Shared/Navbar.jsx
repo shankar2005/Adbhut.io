@@ -11,10 +11,9 @@ import logo from '../../assets/cn.jpeg';
 import nsnlogo from '../../assets/logo.jpeg';
 import AuthSection from '../../Pages/Auth/AuthSection';
 import { useNavigate } from 'react-router-dom';
-import { RxCross1 } from 'react-icons/rx';
 
-const Navbar = ({ dispatch, state }) => {
-    const { setdemoType, setSearchText, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills } = useRootContext();
+const Navbar = () => {
+    const { setdemoType, setSearchText, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills, dropdownState, dropdownDispatch } = useRootContext();
 
     const { setIsAuthenticated, isAuthenticated, user } = useContext(AuthContext);
 
@@ -102,16 +101,16 @@ const Navbar = ({ dispatch, state }) => {
                         </Link> */}
                     <div className='relative flex'>
                         <form onSubmit={handleSearch} className="flex">
-                            <input onClick={() => dispatch({ type: "SHOW_SEARCH_AND_FILTER_MODAL" })} type="text" name="search" className='border bg-blue-50 py-2 w-72 pl-10 pr-3 rounded text-sm' placeholder='Search your artist here...' required />
+                            <input onClick={() => dropdownDispatch({ type: "SHOW_SEARCH_AND_FILTER_MODAL" })} type="text" name="search" className='border bg-blue-50 py-2 w-72 pl-10 pr-3 rounded text-sm' placeholder='Search your artist here...' required />
                             <AiOutlineSearch className='w-6 h-6 text-gray-500 absolute top-1/2 -translate-y-1/2 left-2' />
                             <button className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="submit">Search</button>
                         </form>
 
                         {/* skill dropdown */}
                         <div className='hidden md:block relative ml-2'>
-                            <button onClick={() => dispatch({ type: "SHOW_SKILL" })} id="dropdownSkillSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-sky-500 hover:bg-sky-600" type="button">Skill search {state.skillDropdown ? <IoIosArrowDown className='ml-2 w-4 h-4 rotate-180' /> : <IoIosArrowDown className='ml-2 w-4 h-4' />}</button>
+                            <button onClick={() => dropdownDispatch({ type: "SHOW_SKILL" })} id="dropdownSkillSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-sky-500 hover:bg-sky-600" type="button">Skill search {dropdownState.skillDropdown ? <IoIosArrowDown className='ml-2 w-4 h-4 rotate-180' /> : <IoIosArrowDown className='ml-2 w-4 h-4' />}</button>
 
-                            <div id="dropdownSkillSearch" className={`${!state.skillDropdown && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
+                            <div id="dropdownSkillSearch" className={`${!dropdownState.skillDropdown && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
                                 <div className="p-3">
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -166,9 +165,9 @@ const Navbar = ({ dispatch, state }) => {
 
                         {/* location dropdown */}
                         <div className='hidden md:block relative ml-2'>
-                            <button onClick={() => dispatch({ type: "SHOW_LOCATION" })} id="dropdownLocationSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-sky-500 hover:bg-sky-600" type="button">Location search {state.locationDropdown ? <IoIosArrowDown className='ml-2 w-4 h-4 rotate-180' /> : <IoIosArrowDown className='ml-2 w-4 h-4' />}</button>
+                            <button onClick={() => dropdownDispatch({ type: "SHOW_LOCATION" })} id="dropdownLocationSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-sky-500 hover:bg-sky-600" type="button">Location search {dropdownState.locationDropdown ? <IoIosArrowDown className='ml-2 w-4 h-4 rotate-180' /> : <IoIosArrowDown className='ml-2 w-4 h-4' />}</button>
 
-                            <div id="dropdownLocationSearch" className={`${!state.locationDropdown && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
+                            <div id="dropdownLocationSearch" className={`${!dropdownState.locationDropdown && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
                                 <div className="p-3">
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -194,7 +193,7 @@ const Navbar = ({ dispatch, state }) => {
                         </div>
 
                         {/* search and filter modal */}
-                        <div className={`${!state.searchAndFilterModal && 'hidden'} absolute left-0 bg-white w-full border rounded-md p-3 shadow-md`}>
+                        <div className={`${!dropdownState.searchAndFilterModal && 'hidden'} absolute left-0 bg-white w-full border rounded-md p-3 shadow-md`}>
                             <h3 className='font-medium border-b pb-2 mb-3'>Advance Search</h3>
                             <label htmlFor="demo-type" className="block mb-2 text-sm font-medium text">Type</label>
                             <select onChange={(e) => { setdemoType(e.target.value) }} id="demo-type" className="outline-0 bg-gray-50 border border-gray-300  text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500">
@@ -229,9 +228,9 @@ const Navbar = ({ dispatch, state }) => {
                         <>
                             <li className='ml-auto flex items-center gap-2 relative'>
                                 <img className='hidden md:block w-24' src={logo} alt="" />
-                                <img onClick={() => dispatch({ type: "SHOW_ACCOUNT" })} className='w-10 h-10 rounded-full border-2 border-gray-400' src={user?.role === "Client" ? 'https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo' : nsnlogo} alt="" />
+                                <img onClick={() => dropdownDispatch({ type: "SHOW_ACCOUNT" })} className='w-10 h-10 rounded-full border-2 border-gray-400' src={user?.role === "Client" ? 'https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo' : nsnlogo} alt="" />
                                 {/* modal */}
-                                <div className={`${!state.accountModal && 'hidden'} absolute top-12 right-0 bg-white w-60 border rounded-md p-3 shadow-2xl`}>
+                                <div className={`${!dropdownState.accountModal && 'hidden'} absolute top-12 right-0 bg-white w-60 border rounded-md p-3 shadow-2xl`}>
                                     <div className='relative'>
                                         <img className='rounded-t-lg border-b border-orange-400' src="https://cdn.shopify.com/s/files/1/0581/8230/3937/files/Naagin-Logo.png?height=628&pad_color=fff&v=1630922387&width=1200" alt="" />
                                         <div className='rounded-full bg-white absolute bottom-0 right-1/2 translate-y-1/2 translate-x-1/2 border-4 border-white'>
@@ -254,10 +253,10 @@ const Navbar = ({ dispatch, state }) => {
                     {
                         !isAuthenticated &&
                         <li className='ml-auto'>
-                            <button onClick={() => dispatch({ type: "SHOW_LOGIN" })} className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="button">Login</button>
+                            <button onClick={() => dropdownDispatch({ type: "SHOW_LOGIN" })} className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="button">Login</button>
                             {/* login modal */}
-                            <div className={`${state.loginModal ? 'fixed' : 'hidden'} z-50 top-0 left-0 bg-black bg-opacity-70 backdrop-blur-sm w-full h-screen flex items-center justify-center`}>
-                                <AuthSection dispatch={dispatch}  />
+                            <div className={`${dropdownState.loginModal ? 'fixed' : 'hidden'} z-50 top-0 left-0 bg-black bg-opacity-70 backdrop-blur-sm w-full h-screen flex items-center justify-center`}>
+                                <AuthSection />
                             </div>
                         </li>
                     }

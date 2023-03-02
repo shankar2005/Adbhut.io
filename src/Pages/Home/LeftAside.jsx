@@ -16,7 +16,7 @@ import ChatHeading from './Components/ChatHeading';
 import { sendMessageAPI } from '../../apis/messages/messages';
 
 const LeftAside = () => {
-    const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch } = useRootContext();
+    const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch } = useRootContext();
     const { isAuthenticated, user } = useContext(AuthContext);
 
     const chatboxRef = useRef();
@@ -91,7 +91,7 @@ const LeftAside = () => {
     // send brief
     const handleSendBrief = () => {
         if (!isAuthenticated) {
-            return toast("You must have to login");
+            return dropdownDispatch({ type: "SHOW_LOGIN" });
         }
         fetch('https://dev.nsnco.in/api/v1/create_project/', {
             method: "POST",
@@ -120,7 +120,7 @@ const LeftAside = () => {
     // add to dream project
     const handleAddToDreamProject = () => {
         if (!isAuthenticated) {
-            return toast("You must have to login");
+            return dropdownDispatch({ type: "SHOW_LOGIN" });
         }
         fetch('https://dev.nsnco.in/api/v1/create_project/', {
             method: "POST",
@@ -147,7 +147,7 @@ const LeftAside = () => {
     // handle change stage
     const handleChangeStage = () => {
         if (!isAuthenticated) {
-            return toast("You must have to login");
+            return dropdownDispatch({ type: "SHOW_LOGIN" });
         }
         fetch(`https://dev.nsnco.in/api/v1/edit_project/${currentProject.pk}/`, {
             method: "PUT",

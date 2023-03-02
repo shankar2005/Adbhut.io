@@ -14,7 +14,7 @@ import { useQuery } from '@tanstack/react-query';
 import { GrDocumentPdf } from "react-icons/gr";
 
 const ProjectManagement = () => {
-    const { chatLog, setchatLog, setshortlistedArtist, currentProjectsRefetch, authToken, handleShowProjectHistory, setcurrentProject, dreamProjectsRefetch, setselectedContentProducts } = useRootContext();
+    const { chatLog, setchatLog, setshortlistedArtist, currentProjectsRefetch, authToken, handleShowProjectHistory, setcurrentProject, dreamProjectsRefetch, setselectedContentProducts, dropdownDispatch } = useRootContext();
     const { isAuthenticated, user } = useContext(AuthContext);
 
     const params = useParams();
@@ -48,8 +48,7 @@ const ProjectManagement = () => {
     const { register, handleSubmit, reset } = useForm();
     const onSubmit = data => {
         if (!isAuthenticated) {
-            toast("Login to submit project");
-            return
+            return dropdownDispatch({ type: "SHOW_LOGIN" });
         }
 
         const formData = {
@@ -116,8 +115,7 @@ const ProjectManagement = () => {
     const [assignmentField, setassignmentField] = useState("");
     const handleAddToMyProject = () => {
         if (!isAuthenticated) {
-            toast("Login to submit project");
-            return
+            return dropdownDispatch({ type: "SHOW_LOGIN" });
         }
 
         fetch(`https://dev.nsnco.in/api/v1/edit_project/${currentProject.pk}/`, {

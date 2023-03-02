@@ -4,18 +4,21 @@ import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import logo from '../../assets/logos/adbeta.jpeg';
 import { RxCross1 } from 'react-icons/rx';
+import { useRootContext } from '../../contexts/RootProvider';
 
-const AuthSection = ({ dispatch }) => {
+const AuthSection = () => {
     const [isLoginForm, setsIsLoginForm] = useState(true);
     const [formError, setformError] = useState(null);
 
+    const { dropdownDispatch } = useRootContext();
+
     const closeModal = () => {
-        dispatch({ type: "SHOW_LOGIN" });
+        dropdownDispatch({ type: "SHOW_LOGIN" });
         setsIsLoginForm(true);
     }
 
     return (
-        <div id='authScroll' className={`pt-6 text-black absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 bg-white w-96 h-[90vh] border rounded-md p-5 shadow-2xl ${!isLoginForm && 'overflow-y-scroll'}`}>
+        <div id='authScroll' className="pt-6 text-black absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 bg-white w-96 h-[90vh] border rounded-md p-5 shadow-2xl overflow-y-auto">
             <button onClick={closeModal} className='absolute right-3 top-3'><RxCross1 size={25} /></button>
 
             <img className='w-16 mx-auto mb-5' src={logo} alt="" />

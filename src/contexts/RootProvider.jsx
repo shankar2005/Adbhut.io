@@ -5,6 +5,7 @@ import { toast } from 'react-hot-toast';
 import Cookies from 'universal-cookie';
 import { sendMessageAPI } from '../apis/messages/messages';
 import { getCurrentProjects, getDreamProjects } from '../apis/projects/projects';
+import { dropdownInitialState, dropdownReducers } from '../state/reducers/dropdownReducer';
 import { AuthContext } from './AuthProvider';
 
 const RootContext = createContext();
@@ -165,6 +166,8 @@ const RootProvider = ({ children }) => {
         }
     }
 
+    const [dropdownState, dropdownDispatch] = useReducer(dropdownReducers, dropdownInitialState);
+
     // stored values
     const value = {
         searchText,
@@ -199,7 +202,9 @@ const RootProvider = ({ children }) => {
         contentProducts,
         createProjectFormState,
         createProjectFormDispatch,
-        handleSelectContentProduct
+        handleSelectContentProduct,
+        dropdownState,
+        dropdownDispatch,
     }
 
     return (
