@@ -11,6 +11,7 @@ import logo from '../../assets/cn.jpeg';
 import nsnlogo from '../../assets/logo.jpeg';
 import AuthSection from '../../Pages/Auth/AuthSection';
 import { useNavigate } from 'react-router-dom';
+import { RxCross1 } from 'react-icons/rx';
 
 const Navbar = ({ dispatch, state }) => {
     const { setdemoType, setSearchText, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills } = useRootContext();
@@ -252,11 +253,11 @@ const Navbar = ({ dispatch, state }) => {
                     }
                     {
                         !isAuthenticated &&
-                        <li className='ml-auto relative'>
+                        <li className='ml-auto'>
                             <button onClick={() => dispatch({ type: "SHOW_LOGIN" })} className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="button">Login</button>
                             {/* login modal */}
-                            <div className={`${!state.loginModal && 'hidden'} absolute top-[51px] right-0 bg-white w-72 border rounded-md p-5 shadow-2xl`}>
-                                <AuthSection />
+                            <div className={`${state.loginModal ? 'fixed' : 'hidden'} z-50 top-0 left-0 bg-black bg-opacity-70 backdrop-blur-sm w-full h-screen flex items-center justify-center`}>
+                                <AuthSection dispatch={dispatch}  />
                             </div>
                         </li>
                     }
