@@ -25,7 +25,7 @@ const Root = () => {
 
             <Navbar />
 
-            <div className='w-11/12 mx-auto md:grid grid-cols-12 gap-5 items-start mt-5 pb-5'>
+            <div className='w-11/12 max-w-screen-xl mx-auto md:grid grid-cols-12 gap-5 items-start mt-5 pb-5'>
                 {/* bg unfocused layer */}
                 <div onClick={() => dropdownDispatch({ type: "BODY_TAP_ALL_MODAL_CLOSE" })} className={`${!dropdownState.searchAndFilterModal && !dropdownState.locationDropdown && !dropdownState.loginModal && !dropdownState.accountModal && !dropdownState.skillDropdown && 'hidden'} fixed left-0 top-0 h-screen w-screen`}></div>
                 {/* bg unfocused layer */}
@@ -36,11 +36,11 @@ const Root = () => {
 
 
 
-                <div className='col-span-7 lg:col-span-5'>
+                <div className='col-span-7 lg:col-span-5 relative'>
 
 
                     {/*  */}
-                    <div className='hidden bg-white border border-blue-100 shadow p-2 py-3 mb-2 rounded-t-lg lg:flex justify-between items-center fixed w-11/12 md:max-w-[37.40%] z-30'>
+                    <div className='hidden lg:flex bg-white border border-blue-100 shadow p-2 py-3 mb-2 rounded-t-lg justify-between items-center sticky top-20 w-full z-30'>
                         <div className='text-sm flex items-center gap-2'>
                             {
                                 currentProject?.pk && pathname.includes("/artists") &&
@@ -76,7 +76,7 @@ const Root = () => {
 
 
 
-                    <main className='lg:pt-16'>
+                    <main>
                         <Outlet />
                     </main>
 

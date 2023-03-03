@@ -16,7 +16,7 @@ const Hero = () => {
     const [state, setState] = useState({ value: inviteURL, copied: false, });
 
     return (
-        <section className='w-full md:w-11/12 mx-auto px-10 xl:px-0 min-h-[800px] sm:min-h-[700px] md:min-h-[600px] flex items-center pt-10 relative'>
+        <section className='w-11/12 max-w-screen-xl mx-auto px-10 xl:px-0 min-h-[800px] sm:min-h-[700px] md:min-h-[600px] flex items-center pt-10 relative'>
             <div>
                 <p className='w-full lg:w-7/12 text-lg md:text-xl xl:text-2xl mt-16'>
                     We invite you to join us and take part in this moment for change. Driven by our GenZs, The Happy Hippies Show is a web series of discussions by the leaders, on these social themes.

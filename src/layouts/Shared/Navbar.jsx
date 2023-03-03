@@ -94,7 +94,7 @@ const Navbar = () => {
 
     return (
         <nav className='bg-white shadow-md sticky top-0 z-50'>
-            <div className='w-11/12 mx-auto flex items-center justify-between'>
+            <div className='w-11/12 max-w-screen-xl mx-auto flex items-center justify-between'>
                 <div className='flex items-center gap-8 py-3'>
                     {/* <Link to="/">
                             <img onClick={resetFeed} className='w-24' src={logo} alt="" />

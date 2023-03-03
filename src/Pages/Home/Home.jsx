@@ -27,7 +27,7 @@ const Home = () => {
             <div className='relative lg:absolute top-5 left-5 md:left-16'>
                 <img src={adbhutGIF} className='w-32' />
             </div>
-            <div className='w-11/12 mx-auto pt-24 pb-10 lg:pt-10 grid grid-cols-1 lg:grid-cols-2 items-center justify-between gap-20'>
+            <div className='w-11/12 max-w-screen-xl mx-auto pt-24 pb-10 lg:pt-10 grid grid-cols-1 lg:grid-cols-2 items-center justify-between gap-20'>
                 <div className='order-last lg:order-first'>
                     <h1 className='text-2xl sm:text-3xl leading-tight font-bold'>
                         The Most Efficient <br />
