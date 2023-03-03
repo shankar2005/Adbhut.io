@@ -10,14 +10,12 @@ import { FiDelete } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../contexts/AuthProvider';
 import nsnlogo from '../../assets/logo.jpeg';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import ChatHeading from './Components/ChatHeading';
 import { openAIMessageAPI, sendMessageAPI } from '../../apis/messages/messages';
 import TypingIndicator from '../../Components/TypingIndicator';
 
 const LeftAside = () => {
-    const { shortlistedArtist = [], selectedContentProducts, setselectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch } = useRootContext();
+    const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch, handleSelectContentProduct, contentProducts } = useRootContext();
     const { isAuthenticated, user } = useContext(AuthContext);
 
     const chatboxRef = useRef();
@@ -73,11 +71,6 @@ const LeftAside = () => {
 
         // removing suggested skills after click
         setSuggestions(current => current.filter(i => i[1] + '' !== skill[1] + ''));
-    }
-    const handleSelectContent = (content) => {
-        setselectedContentProducts(content[1] + '');
-        // chatlog
-        setchatLog(current => [...current, { msgID: current.length + 1, [sender]: content[0] }]);
     }
 
     // handle remove shortlisted artist
@@ -166,19 +159,6 @@ const LeftAside = () => {
                 dreamProjectsRefetch();
             })
     }
-
-    // initially showing content products in chatbox
-    const { data: initialContentProducts = [] } = useQuery({
-        queryKey: ['initialContentProducts'],
-        queryFn: () => {
-            if (suggestions.length === 0) {
-                return axios('https://dev.nsnco.in/api/v1/get_content_products/')
-                    .then(response => {
-                        return response.data.map(skill => [skill.name, skill.pk])
-                    })
-            }
-        }
-    })
 
     const [isTyping, setIsTyping] = useState(false);
 
@@ -416,14 +396,14 @@ const LeftAside = () => {
                         </div>
                     }
                     {
-                        initialContentProducts.length > 0 && !selectedContentProducts && shortlistedArtist.length === 0 && chatLog.length === 0 &&
+                        suggestions.length === 0 && contentProducts.length > 0 && !selectedContentProducts && shortlistedArtist.length === 0 && chatLog.length === 0 &&
                         <div className='flex flex-wrap pb-2 gap-2 text-sm font-medium select-none absolute bottom-0'>
                             {
-                                initialContentProducts.map(contentProduct => <div
-                                    onClick={() => handleSelectContent(contentProduct)}
-                                    key={`suggestedContent${contentProduct[1]}`}
+                                contentProducts.map(contentProduct => <div
+                                    onClick={() => handleSelectContentProduct(contentProduct)}
+                                    key={contentProduct.pk}
                                     className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
-                                    {contentProduct[0]}
+                                    {contentProduct.name}
                                 </div>)
                             }
                         </div>

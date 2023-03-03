@@ -44,12 +44,15 @@ const ChatHeading = ({ projectTitle, handleShowProjectHistory, currentProject })
         <div className='border-b shadow-sm p-2 rounded-t-lg flex items-center justify-between'>
             <div className='flex gap-1 justify-between items-center w-full'>
                 <div className='flex gap-2'>
-                    <img onClick={() => handleShowProjectHistory(currentProject.pk, currentProject.stage)} className='w-10 cursor-pointer' src={nsnlogo} alt="" />
-                    <button className='active:rotate-180 duration-300' onClick={() => handleShowProjectHistory(currentProject.pk, currentProject.stage)} type="button"><RiRefreshLine size={20} /></button>
+                    <img onClick={() => currentProject?.pk && handleShowProjectHistory(currentProject.pk, currentProject.stage)} className='w-10 cursor-pointer' src={nsnlogo} alt="" />
+                    {
+                        currentProject?.pk &&
+                        <button className='active:rotate-180 duration-300' onClick={() => handleShowProjectHistory(currentProject.pk, currentProject.stage)} type="button"><RiRefreshLine size={20} /></button>
+                    }
                 </div>
                 <div className='flex gap-1 pr-1'>
                     {
-                        pathname.includes("create-project")
+                        !currentProject?.pk
                             ? <h4 className='font-medium'>Project Servicing Chat</h4>
                             : <>
                                 {
