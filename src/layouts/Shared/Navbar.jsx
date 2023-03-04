@@ -11,6 +11,7 @@ import logo from '../../assets/cn.jpeg';
 import nsnlogo from '../../assets/logo.jpeg';
 import AuthSection from '../../Pages/Auth/AuthSection';
 import { useNavigate } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const Navbar = () => {
     const { setdemoType, setSearchText, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills, dropdownState, dropdownDispatch } = useRootContext();
@@ -255,9 +256,20 @@ const Navbar = () => {
                         <li className='ml-auto'>
                             <button onClick={() => dropdownDispatch({ type: "SHOW_LOGIN" })} className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="button">Login</button>
                             {/* login modal */}
-                            <div className={`${dropdownState.loginModal ? 'fixed' : 'hidden'} z-50 top-0 left-0 bg-black bg-opacity-70 backdrop-blur-sm w-full h-screen flex items-center justify-center`}>
-                                <AuthSection />
-                            </div>
+                            <AnimatePresence>
+                                {dropdownState.loginModal && (
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 0.1 }}
+                                    >
+                                        <div className={`${dropdownState.loginModal ? 'fixed' : 'hidden'} z-50 top-0 left-0 bg-black bg-opacity-70 backdrop-blur-sm w-full h-screen flex items-center justify-center`}>
+                                            <AuthSection />
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </li>
                     }
                 </ul>
