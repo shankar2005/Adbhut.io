@@ -53,7 +53,7 @@ const RootProvider = ({ children }) => {
         setchatLog(current => [...current, message]);
 
         // saving shortlisted artist in the db
-        if (currentProject.pk) {
+        if (currentProject?.pk) {
             sendMessageAPI({
                 project_id: currentProject.pk,
                 message: message
@@ -168,6 +168,8 @@ const RootProvider = ({ children }) => {
 
     const [dropdownState, dropdownDispatch] = useReducer(dropdownReducers, dropdownInitialState);
 
+    const [artistProfile, setArtistProfile] = useState(null);
+
     // stored values
     const value = {
         searchText,
@@ -205,6 +207,8 @@ const RootProvider = ({ children }) => {
         handleSelectContentProduct,
         dropdownState,
         dropdownDispatch,
+        artistProfile,
+        setArtistProfile,
     }
 
     return (

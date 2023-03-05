@@ -9,18 +9,29 @@ import { GiCheckMark } from 'react-icons/gi';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 const ArtistProfile = () => {
-    const { handleShortlist, shortlistedArtist } = useRootContext();
+    const { handleShortlist, shortlistedArtist, artistProfile, setArtistProfile } = useRootContext();
 
-    const artistInfo = useLoaderData();
-    const { artistID, name, profile_pic, skills, languages, workLinks, location_name } = artistInfo;
+    const [artistInfo, setartistInfo] = useState({});
+
+    useEffect(() => {
+        if (artistProfile) {
+            fetch(`https://dev.nsnco.in/api/v1/get_artist/${artistProfile}/`)
+                .then(res => res.json())
+                .then(data => setartistInfo(data))
+        }
+    }, [artistProfile])
+
+    const { artistID, name, profile_pic, skills, languages, workLinks, location_name } = artistInfo || {};
 
     return (
-        <div className='bg-white rounded-lg p-3 shadow-xl'>
+        <div className='bg-white rounded-l-md p-3 shadow-xl h-full'>
             <div className='flex items-start'>
                 <div className="flex gap-3 items-center">
-                    <button onClick={() => history.back()} type='button'>
+                    <button onClick={() => setArtistProfile(null)} type='button'>
                         <FiArrowLeft className='w-6 h-6 text-blue-500 cursor-pointer ml-2' />
                     </button>
                     <img className='w-14 h-14 rounded-full' src="https://thhs.in/assets/avatar-2200a5cf.png" alt="" />
@@ -50,7 +61,7 @@ const ArtistProfile = () => {
                     navigation
                 >
                     {
-                        workLinks.map(link => <SwiperSlide>
+                        workLinks?.map(link => <SwiperSlide>
                             {
                                 link[1] === "Youtube Link"
                                 && <div className='h-[400px]'>

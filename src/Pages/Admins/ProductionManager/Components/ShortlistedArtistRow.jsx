@@ -8,7 +8,7 @@ import { useRootContext } from '../../../../contexts/RootProvider';
 
 const ShortlistedArtistRow = ({ artist, projectId, refetch }) => {
     const { isAuthenticated } = useContext(AuthContext);
-    const { authToken } = useRootContext();
+    const { authToken, setArtistProfile } = useRootContext();
     const [assignLoading, setassignLoading] = useState(false);
     const [rejectLoading, setrejectLoading] = useState(false);
 
@@ -49,9 +49,9 @@ const ShortlistedArtistRow = ({ artist, projectId, refetch }) => {
 
     return (
         <div className='flex items-center gap-2 text-sm bg-gray-100 p-2 mb-1 border border-blue-300 rounded-lg'>
-            <img className='w-10 h-10 rounded-full' src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541" alt="" />
+            <img onClick={() => setArtistProfile(artist.id)} className='w-10 h-10 rounded-full' src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541" alt="" />
             <div>
-                <Link to={`/artists/${artist.id}/`}><p className='font-medium hover:underline'>{artist.name}</p></Link>
+                <p onClick={() => setArtistProfile(artist.id)} className='font-medium hover:underline'>{artist.name}</p>
                 <p className='text-xs'>Status: <span className='bg-gray-400 p-0.5 px-1 rounded text-gray-50'>available</span></p>
             </div>
             {

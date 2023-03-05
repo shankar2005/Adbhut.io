@@ -63,11 +63,6 @@ const router = createBrowserRouter([
                 element: <Feed />
             },
             {
-                path: '/artists/:id',
-                loader: ({ params }) => fetch(`https://dev.nsnco.in/api/v1/get_artist/${params.id}/`),
-                element: <ArtistProfile />
-            },
-            {
                 path: '/artists/artist-admin',
                 element: <ArtistAdmin />,
             },

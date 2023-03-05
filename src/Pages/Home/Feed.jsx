@@ -12,7 +12,7 @@ import { IoLanguageSharp, IoLocationSharp } from 'react-icons/io5';
 import { CiCircleRemove } from 'react-icons/ci';
 
 const Feed = () => {
-    const { searchText = "", setSearchText, demoType, checkedSkills, handleShortlist, checkedGenres, checkedLocations, shortlistedArtist, viewAs } = useRootContext();
+    const { searchText = "", setSearchText, demoType, checkedSkills, handleShortlist, checkedGenres, checkedLocations, shortlistedArtist, viewAs, setArtistProfile } = useRootContext();
 
     const skillQuery = checkedSkills?.map(skill => `&owner__skill=${skill}`).join('');
     const genreQuery = checkedGenres?.map(genre => `&owner__skill_genres=${genre}`).join('');
@@ -72,11 +72,11 @@ const Feed = () => {
                         artists?.map((artist, idx) => (
                             <div key={`artistFeed${idx}`} className='mb-5 p-5 bg-white rounded-lg shadow-md'>
                                 <div className='flex items-center gap-2 mb-3'>
-                                    <Link to={`/artists/${artist.owner_id}/`}>
+                                    <button onClick={() => setArtistProfile(artist.owner_id)}>
                                         <img className='w-12 h-12' src={artist.profile_pic || avatar} alt="" />
-                                    </Link>
+                                    </button>
                                     <div className='text-sm'>
-                                        <Link to={`/artists/${artist.owner_id}/`}><span className='font-medium'>{artist.owner_name}</span></Link>
+                                        <button onClick={() => setArtistProfile(artist.owner_id)}><span className='font-medium'>{artist.owner_name}</span></button>
                                         <p>
                                             {
                                                 artist.skills.join(", ").length >= 40

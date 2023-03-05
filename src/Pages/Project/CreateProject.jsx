@@ -137,7 +137,7 @@ const CreateProject = () => {
                                     shortlistedArtist?.length ? 'Shortlisted Artists' : 'Shortlist Artists'
                                 }</label>
                                 <Link to="/artists" state={{ from: location }}>
-                                    <button type='button' onClick={handleAddMoreArtist} className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add More Artist <AiOutlinePlus size={18} /></button>
+                                    <button type='button' onClick={handleAddMoreArtist} className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add Artist <AiOutlinePlus size={18} /></button>
                                 </Link>
                             </div>
                             {
@@ -183,6 +183,8 @@ export default CreateProject;
 
 
 const ArtistRow = ({ artistId }) => {
+    const { setArtistProfile } = useRootContext();
+
     // dream projects
     const { data: artist = {} } = useQuery({
         queryKey: ['artist'],
@@ -194,7 +196,7 @@ const ArtistRow = ({ artistId }) => {
         <div className='flex items-center gap-2 text-sm bg-gray-100 p-2 mb-1 border border-blue-300 rounded-lg'>
             <img className='w-10 h-10 rounded-full' src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541" alt="" />
             <div>
-                <Link to={`/artists/${artist.id}`}><p className='font-medium hover:underline'>{artist.name}</p></Link>
+                <p onClick={() => setArtistProfile(artist.artistID)} className='font-medium hover:underline'>{artist.name}</p>
                 <p className='text-xs'>Status: <span className='bg-gray-400 p-0.5 px-1 rounded text-gray-50'>available</span></p>
             </div>
         </div>

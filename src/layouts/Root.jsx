@@ -7,6 +7,8 @@ import { useRootContext } from '../contexts/RootProvider';
 import { BiMessageDots } from 'react-icons/bi';
 import { TbTools } from 'react-icons/tb';
 import { CiViewTimeline } from 'react-icons/ci';
+import ArtistProfile from '../Pages/Artist/ArtistProfile';
+import { useEffect } from 'react';
 
 const Root = () => {
     const { dropdownState, dropdownDispatch } = useRootContext();
@@ -15,10 +17,20 @@ const Root = () => {
     const pathname = location.pathname;
     const fromCreateProject = location.state?.from?.pathname?.includes("/create-project");
 
-    const { setViewAs, currentProject } = useRootContext();
+    const { setViewAs, currentProject, artistProfile, setArtistProfile } = useRootContext();
     const handleViewAs = e => {
         setViewAs(e.target.value);
     }
+
+    useEffect(() => {
+        if (artistProfile) {
+            // Add the class to the body element when the modal is open
+            document.body.classList.add("overflow-hidden");
+        } else {
+            // Remove the class when the modal is closed
+            document.body.classList.remove("overflow-hidden");
+        }
+    }, [artistProfile]);
 
     return (
         <div className='bg-gray-100 min-h-screen'>
@@ -89,6 +101,7 @@ const Root = () => {
                     <RightAside />
                 </aside>
 
+                {/* mobile toggle */}
                 <div className='lg:hidden z-50 fixed left-0 top-1/2 -translate-y-20 bg-white'>
                     <Link to="/projects/chat">
                         <div className='p-3 border border-b-0 md:hidden'><BiMessageDots /></div>
@@ -100,9 +113,19 @@ const Root = () => {
                         <div className='p-3 border'><TbTools /></div>
                     </Link>
                 </div>
+                {/* mobile toggle */}
+
+                {
+                    <div className={`${artistProfile ? 'bg-opacity-60' : 'bg-opacity-0 -z-50'} fixed right-0 top-0 bg-black h-screen z-50 w-full overflow-hidden`}>
+                        <div onClick={() => setArtistProfile(null)} className="w-1/2 absolute left-0 top-0  h-full"></div>
+                        <div className={`w-full md:w-5/6 lg:w-1/2 absolute ${artistProfile ? 'right-0' : '-right-full'} top-0 h-full duration-200`}>
+                            <ArtistProfile />
+                        </div>
+                    </div>
+                }
 
             </div>
-        </div>
+        </div >
     );
 };
 
