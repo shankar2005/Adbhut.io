@@ -53,7 +53,7 @@ const ChatHeading = ({ projectTitle, handleShowProjectHistory, currentProject })
                 <div className='flex gap-1 pr-1'>
                     {
                         !currentProject?.pk
-                            ? <h4 className='font-medium'>Project Servicing Chat</h4>
+                            ? <h4 className='font-medium'>Adbhut.io Project Chat</h4>
                             : <>
                                 {
                                     renameState

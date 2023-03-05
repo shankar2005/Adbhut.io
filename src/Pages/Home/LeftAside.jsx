@@ -5,7 +5,7 @@ import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
 import { motion } from "framer-motion"
 import { useRootContext } from '../../contexts/RootProvider';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FiDelete } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../contexts/AuthProvider';
@@ -226,6 +226,26 @@ const LeftAside = () => {
             </div>
         </div>
 
+    const pathname = useLocation().pathname;
+
+    const [isDragging, setIsDragging] = useState(false);
+
+    const handleDragStart = () => {
+        setIsDragging(true);
+    };
+
+    const handleDragEnd = () => {
+        setIsDragging(false);
+    };
+
+    const [width, setWidth] = useState(0);
+
+    useEffect(() => {
+        if (contentProducts.length) {
+            setWidth(chatboxRef.current.scrollWidth - chatboxRef.current.offsetWidth)
+        }
+    }, [contentProducts])
+
     return (
         <>
             <section className='bg-white shadow-md rounded-lg'>
@@ -397,16 +417,52 @@ const LeftAside = () => {
                     }
                     {
                         suggestions.length === 0 && contentProducts.length > 0 && !selectedContentProducts && shortlistedArtist.length === 0 && chatLog.length === 0 &&
-                        <div className='flex flex-wrap pb-2 gap-2 text-sm font-medium select-none absolute bottom-0'>
+                        <>
                             {
-                                contentProducts.map(contentProduct => <div
-                                    onClick={() => handleSelectContentProduct(contentProduct)}
-                                    key={contentProduct.pk}
-                                    className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
-                                    {contentProduct.name}
-                                </div>)
+                                // show content products with drag carousel when home page
+                                // other than normal
+                                pathname === "/"
+                                    ? <motion.div
+                                        drag="x"
+                                        dragConstraints={{ right: 0, left: -width }}
+                                        onDragStart={handleDragStart}
+                                        onDragEnd={handleDragEnd}
+                                        className='flex items-center pb-2 gap-2 text-sm font-medium select-none absolute bottom-0'
+                                    >
+
+                                        <Link to="/projects/create-project">
+                                            <button type="button" className='whitespace-nowrap py-1 px-3 border bg-blue-500 border-blue-500 text-white hover:bg-white hover:border-blue-500 hover:text-blue-500 rounded-full cursor-pointer'>New Project</button>
+                                        </Link>
+
+                                        {
+                                            contentProducts.map(contentProduct => <div
+                                                onClick={() => {
+                                                    handleSelectContentProduct(contentProduct)
+                                                    navigate("/artists");
+                                                }}
+                                                style={{ pointerEvents: isDragging ? "none" : "auto" }}
+                                                key={contentProduct.pk}
+                                                className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer w-full text-center'
+                                            >
+                                                <div className={`${currentProject?.project_template === contentProduct.pk || selectedContentProducts === contentProduct.pk ? 'w-10 h-10' : 'w-9 h-9'} p-1 border rounded-md`}>
+                                                    <img className='group-hover:scale-110 duration-150 overflow-hidden' src={contentProduct.weblink} />
+                                                </div>
+                                                <p className={`${currentProject?.project_template === contentProduct.pk || selectedContentProducts === contentProduct.pk && 'text-blue-600 font-medium'} text-[0.6rem] leading-tight`}>{contentProduct.name}</p>
+                                            </div>)
+                                        }
+                                    </motion.div>
+                                    : <div className='flex flex-wrap pb-2 gap-2 text-sm font-medium select-none absolute bottom-0'>
+                                        {
+                                            contentProducts.map(contentProduct => <div
+                                                onClick={() => handleSelectContentProduct(contentProduct)}
+                                                key={contentProduct.pk}
+                                                className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
+                                                {contentProduct.name}
+                                            </div>)
+                                        }
+                                    </div>
                             }
-                        </div>
+                        </>
                     }
                 </div>
 
