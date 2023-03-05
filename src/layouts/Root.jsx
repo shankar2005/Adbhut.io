@@ -9,6 +9,8 @@ import { TbTools } from 'react-icons/tb';
 import { CiViewTimeline } from 'react-icons/ci';
 import ArtistProfile from '../Pages/Artist/ArtistProfile';
 import { useEffect } from 'react';
+import Backdrop from '../Components/Backdrop/Backdrop';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Root = () => {
     const { dropdownState, dropdownDispatch } = useRootContext();
@@ -115,14 +117,22 @@ const Root = () => {
                 </div>
                 {/* mobile toggle */}
 
-                {
-                    <div className={`${artistProfile ? 'bg-opacity-60' : 'bg-opacity-0 -z-50'} fixed right-0 top-0 bg-black h-screen z-50 w-full overflow-hidden`}>
-                        <div onClick={() => setArtistProfile(null)} className="w-1/2 absolute left-0 top-0  h-full"></div>
-                        <div className={`w-full md:w-5/6 lg:w-1/2 absolute ${artistProfile ? 'right-0' : '-right-full'} top-0 h-full duration-200`}>
-                            <ArtistProfile />
-                        </div>
-                    </div>
-                }
+                <AnimatePresence exitBeforeEnter={true}>
+                    {
+                        artistProfile &&
+                        <Backdrop onClick={() => setArtistProfile(null)}>
+                            <motion.div
+                                onClick={(e) => e.stopPropagation()}
+                                className="w-full md:w-5/6 lg:w-1/2 absolute right-0 top-0 h-full"
+                                initial={{ translateX: 100 }}
+                                animate={{ translateX: 0 }}
+                                exit={{ translateX: 100 }}
+                            >
+                                <ArtistProfile />
+                            </motion.div>
+                        </Backdrop>
+                    }
+                </AnimatePresence>
 
             </div>
         </div >

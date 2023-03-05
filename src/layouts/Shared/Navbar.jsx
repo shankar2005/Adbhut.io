@@ -9,9 +9,9 @@ import { ImOffice } from 'react-icons/im';
 import { TfiWorld } from 'react-icons/tfi';
 import logo from '../../assets/cn.jpeg';
 import nsnlogo from '../../assets/logo.jpeg';
-import AuthSection from '../../Pages/Auth/AuthSection';
 import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import AuthModal from '../../Pages/Auth/Components/AuthModal';
 
 const Navbar = () => {
     const { setdemoType, setSearchText, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills, dropdownState, dropdownDispatch } = useRootContext();
@@ -97,9 +97,6 @@ const Navbar = () => {
         <nav className='bg-white shadow-md sticky top-0 z-50'>
             <div className='w-11/12 max-w-screen-xl mx-auto flex items-center justify-between'>
                 <div className='flex items-center gap-8 py-3'>
-                    {/* <Link to="/">
-                            <img onClick={resetFeed} className='w-24' src={logo} alt="" />
-                        </Link> */}
                     <div className='relative flex'>
                         <form onSubmit={handleSearch} className="flex">
                             <input onClick={() => dropdownDispatch({ type: "SHOW_SEARCH_AND_FILTER_MODAL" })} type="text" name="search" className='border bg-blue-50 py-2 w-72 pl-10 pr-3 rounded text-sm' placeholder='Search your artist here...' required />
@@ -255,20 +252,9 @@ const Navbar = () => {
                         !isAuthenticated &&
                         <li className='ml-auto'>
                             <button onClick={() => dropdownDispatch({ type: "SHOW_LOGIN" })} className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="button">Login</button>
-                            {/* login modal */}
-                            <AnimatePresence>
-                                {dropdownState.loginModal && (
-                                    <motion.div
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        exit={{ opacity: 0 }}
-                                        transition={{ duration: 0.1 }}
-                                    >
-                                        <div className={`${dropdownState.loginModal ? 'fixed' : 'hidden'} z-50 top-0 left-0 bg-black bg-opacity-70 backdrop-blur-sm w-full h-screen flex items-center justify-center`}>
-                                            <AuthSection />
-                                        </div>
-                                    </motion.div>
-                                )}
+                            {/* auth modal */}
+                            <AnimatePresence initial={false} exitBeforeEnter={true}>
+                                {dropdownState.loginModal && <AuthModal onClick={() => dropdownDispatch({ type: "SHOW_LOGIN" })} />}
                             </AnimatePresence>
                         </li>
                     }
