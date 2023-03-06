@@ -51,13 +51,13 @@ const router = createBrowserRouter([
             {
                 path: '/projects/chat',
                 element: <LeftToRight>
-                    <div className="md:hidden"><LeftAside /></div>,
+                    <div className="md:hidden"><LeftAside /></div>
                 </LeftToRight>
             },
             {
                 path: '/projects/toolkit',
                 element: <RightToLeft>
-                    <div className="lg:hidden"><RightAside /></div>,
+                    <div className="lg:hidden"><RightAside /></div>
                 </RightToLeft>
             },
         ]
