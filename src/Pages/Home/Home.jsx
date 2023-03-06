@@ -11,11 +11,12 @@ const Home = () => {
         <header>
             <nav className='sticky top-0 left-5 md:left-16 flex items-center justify-between p-3 shadow z-50 bg-white'>
                 <img src={adbhutGIF} className='w-32' />
-                <div className='flex items-center gap-3'>
-                    Hire artist
-                    <ButtonOutline>Full Time</ButtonOutline>
-                    <ButtonOutline variant="secondary">On Project</ButtonOutline>
-                </div>
+                
+                <label for="artistState" className="inline-flex items-center p-1 cursor-pointer bg-gray-300 text-black text-xs md:text-sm font-medium uppercase">
+                    <input id="artistState" type="checkbox" className="hidden peer" />
+                    <span className="px-4 py-2 bg-black text-white peer-checked:bg-gray-300">Full Time</span>
+                    <span className="px-4 py-2 bg-gray-300 peer-checked:bg-white">On Project</span>
+                </label>
             </nav>
 
 
