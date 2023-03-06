@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { createContext, useContext, useEffect, useReducer, useState } from 'react';
-import { toast } from 'react-hot-toast';
 import Cookies from 'universal-cookie';
 import { sendMessageAPI } from '../apis/messages/messages';
 import { getCurrentProjects, getDreamProjects } from '../apis/projects/projects';

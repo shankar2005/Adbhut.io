@@ -13,8 +13,6 @@ import nsnlogo from '../../assets/logo.jpeg';
 import ChatHeading from './Components/ChatHeading';
 import { openAIMessageAPI, sendMessageAPI } from '../../apis/messages/messages';
 import TypingIndicator from '../../Components/TypingIndicator';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper';
 
 const LeftAside = () => {
     const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch, handleSelectContentProduct, contentProducts } = useRootContext();
@@ -73,6 +71,8 @@ const LeftAside = () => {
 
         // removing suggested skills after click
         setSuggestions(current => current.filter(i => i[1] + '' !== skill[1] + ''));
+
+        navigate("/artists");
     }
 
     // handle remove shortlisted artist
@@ -399,41 +399,14 @@ const LeftAside = () => {
                     }
                     {
                         suggestions.length === 0 && contentProducts.length > 0 && !selectedContentProducts && shortlistedArtist.length === 0 && chatLog.length === 0 &&
-                        <div className=''>
+                        <div className='flex flex-wrap pb-2 gap-2 text-sm font-medium select-none absolute bottom-0'>
                             {
-                                pathname === "/"
-                                    ? <div className='contentProducts text-center select-none mt-14'>
-                                        <Swiper
-                                            spaceBetween={5}
-                                            slidesPerView={4}
-                                            modules={[Navigation]}
-                                            navigation
-                                            className='px-3'
-                                        >
-                                            {
-                                                contentProducts?.map(content => (
-                                                    <SwiperSlide key={content.pk}>
-                                                        <div onClick={() => handleSelectContentProduct(content)} className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
-                                                            <div className={`${currentProject?.project_template === content.pk || selectedContentProducts === content.pk ? 'w-20 h-20' : 'w-[75px] h-[75px]'} p-1 border rounded-md`}>
-                                                                <img className='group-hover:scale-110 duration-150 overflow-hidden' src={content.weblink} />
-                                                            </div>
-                                                            <p className={`${currentProject?.project_template === content.pk || selectedContentProducts === content.pk && 'text-blue-600 font-medium'} text-[0.6rem] leading-tight`}>{content.name}</p>
-                                                        </div>
-                                                    </SwiperSlide>
-                                                ))
-                                            }
-                                        </Swiper>
-                                    </div>
-                                    : <div className='flex flex-wrap pb-2 gap-2 text-sm font-medium select-none absolute bottom-0'>
-                                        {
-                                            contentProducts.map(contentProduct => <div
-                                                onClick={() => handleSelectContentProduct(contentProduct)}
-                                                key={contentProduct.pk}
-                                                className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
-                                                {contentProduct.name}
-                                            </div>)
-                                        }
-                                    </div>
+                                contentProducts.map(contentProduct => <div
+                                    onClick={() => handleSelectContentProduct(contentProduct)}
+                                    key={contentProduct.pk}
+                                    className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
+                                    {contentProduct.name}
+                                </div>)
                             }
                         </div>
                     }

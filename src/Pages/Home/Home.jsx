@@ -1,6 +1,6 @@
 import { useRootContext } from '../../contexts/RootProvider';
 import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
-import LeftAside from './LeftAside';
+import ChatboxHome from './ChatboxHome';
 
 const Home = () => {
     const { } = useRootContext();
@@ -20,9 +20,9 @@ const Home = () => {
             <section className='h-screen lg:flex items-center justify-center'>
 
                 <div className='w-11/12 max-w-screen-xl mx-auto pt-24 pb-10 lg:pt-10 grid grid-cols-1 lg:grid-cols-2 items-center justify-between gap-20'>
-                    <div className='order-last w-5/6 mx-auto'>
+                    <div className='order-last w-full lg:w-5/6 mx-auto'>
                         <div className='border rounded-lg shadow-lg'>
-                            <LeftAside />
+                            <ChatboxHome />
                         </div>
                         <div className='mt-5 text-gray-500 text-sm'>
                             <a target="_blank" href="https://nsnco.in/" className='text-blue-600'>Learn more</a> about NsNco
