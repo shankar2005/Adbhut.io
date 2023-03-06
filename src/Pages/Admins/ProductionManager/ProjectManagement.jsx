@@ -12,6 +12,7 @@ import AssignedArtistRow from './Components/AssignedArtistRow';
 import { sendMessageAPI } from '../../../apis/messages/messages';
 import { useQuery } from '@tanstack/react-query';
 import { GrDocumentPdf } from "react-icons/gr";
+import Button from '../../../Components/Button/Button';
 
 const ProjectManagement = () => {
     const { chatLog, setchatLog, setshortlistedArtist, currentProjectsRefetch, authToken, handleShowProjectHistory, setcurrentProject, dreamProjectsRefetch, setselectedContentProducts, dropdownDispatch } = useRootContext();
@@ -441,16 +442,17 @@ const ProjectManagement = () => {
                                 currentProject.stage !== "DreamProject" ?
                                     <div className='p-4 pt-0 space-x-2'>
                                         {
-                                            (currentProject.stage === "Lead" || currentProject.stage === "DreamProject") && <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Save Changes</button>
+                                            (currentProject.stage === "Lead" || currentProject.stage === "DreamProject") &&
+                                            <Button type="submit">Save Changes</Button>
                                         }
                                         {
                                             user.role === "Product Manager" &&
-                                            <button type="button" onClick={handleSubmitToClient} className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit to client</button>
+                                            <Button onClick={handleSubmitToClient}>Submit to client</Button>
                                         }
                                     </div>
                                     : <div className='p-4 pt-0 space-x-2'>
-                                        <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Save Changes</button>
-                                        <button type="button" onClick={handleAddToMyProject} className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Send Brief</button>
+                                        <Button type="submit">Save Changes</Button>
+                                        <Button onClick={handleAddToMyProject}>Send Brief</Button>
                                     </div>
                             }
                         </>
@@ -458,7 +460,7 @@ const ProjectManagement = () => {
                             {
                                 currentProject.stage === "DreamProject" &&
                                 <div className='p-4 pt-0 space-x-2'>
-                                    <button type="button" onClick={handleAddToMyProject} className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Send Brief</button>
+                                    <Button onClick={handleAddToMyProject}>Send Brief</Button>
                                 </div>
                             }
                         </>

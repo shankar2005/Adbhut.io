@@ -1,6 +1,8 @@
 import { useRootContext } from '../../contexts/RootProvider';
 import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
 import ChatboxHome from './ChatboxHome';
+import Button from '../../Components/Button/Button';
+import ButtonOutline from '../../Components/Button/ButtonOutline';
 
 const Home = () => {
     const { } = useRootContext();
@@ -11,8 +13,8 @@ const Home = () => {
                 <img src={adbhutGIF} className='w-32' />
                 <div className='flex items-center gap-3'>
                     Hire artist
-                    <button className='border py-0.5 px-3 rounded-full'>Full Time</button>
-                    <button className='border py-0.5 px-3 rounded-full'>On Project</button>
+                    <ButtonOutline>Full Time</ButtonOutline>
+                    <ButtonOutline variant="secondary">On Project</ButtonOutline>
                 </div>
             </nav>
 
