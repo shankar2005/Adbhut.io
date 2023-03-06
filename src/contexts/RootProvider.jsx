@@ -169,6 +169,8 @@ const RootProvider = ({ children }) => {
 
     const [artistProfile, setArtistProfile] = useState(null);
 
+    const [isFullTime, setIsFullTime] = useState(true);
+
     // stored values
     const value = {
         searchText,
@@ -208,6 +210,8 @@ const RootProvider = ({ children }) => {
         dropdownDispatch,
         artistProfile,
         setArtistProfile,
+        isFullTime,
+        setIsFullTime,
     }
 
     return (

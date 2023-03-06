@@ -3,7 +3,7 @@ import { AiOutlineGif } from 'react-icons/ai';
 import { BsImageFill } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { useRootContext } from '../../contexts/RootProvider';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
@@ -14,7 +14,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 
 const ChatboxHome = () => {
-    const { selectedContentProducts, chatLog, setchatLog, currentProject, handleShowProjectHistory, handleSelectContentProduct, contentProducts } = useRootContext();
+    const { selectedContentProducts, chatLog, setchatLog, currentProject, handleShowProjectHistory, handleSelectContentProduct, contentProducts, isFullTime } = useRootContext();
     const { isAuthenticated, user } = useContext(AuthContext);
 
     const sender = (user.role === "Client" || !isAuthenticated) ? "user" : "bot";
@@ -108,6 +108,7 @@ const ChatboxHome = () => {
                 <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden p-3 relative'>
                     <div className='flex flex-col'>
                         <motion.div
+                            key={isFullTime ? "visible" : "hidden"}
                             initial={{ translateX: '-100%' }}
                             animate={{ translateX: '0%' }}
                             transition={{ delay: 0.2 }}
@@ -117,53 +118,53 @@ const ChatboxHome = () => {
                                 <div className='mr-12'>
                                     <h4 className='font-medium'>Adbhut.io</h4>
                                     <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg w-fit mb-1'>
-                                        Please select any of the content product or send your inputs here to continue
+                                        Hello, I'm Adbhut. Lets {isFullTime ? "Create" : "Hire"}!
                                     </p>
                                 </div>
                             </div>
                         </motion.div>
-
-                        {
-                            chatLog.length > 0 &&
-                            chatLog.map((chat, idx) => (
-                                chat.bot ?
-                                    <div key={idx} className='text-sm flex gap-2 mb-5'>
-                                        <img className='w-10 h-10' src={nsnlogo} alt="" />
-                                        <div className='mr-12'>
-                                            <h4 className='font-medium'>Adbhut.io</h4>
-                                            <motion.div
-                                                initial={{ scale: 0 }}
-                                                animate={{ scale: 1 }}
-                                                transition={chat.actionResponse && { delay: 0.2 }}
-                                            >
-                                                <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg w-fit'>
-                                                    {chat.bot}
-                                                </p>
-                                            </motion.div>
-                                        </div>
-                                    </div>
-                                    :
-                                    <div key={idx} className='text-sm flex gap-2 mb-5 ml-auto'>
-                                        <div className='ml-8'>
-                                            <h4 className='font-medium text-right'>{name || "Guest Account"}</h4>
-                                            <motion.div
-                                                initial={{ scale: 0 }}
-                                                animate={{ scale: 1 }}
-                                            >
-                                                <p className='w-fit ml-auto bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg'>
-                                                    {chat.user}
-                                                </p>
-                                            </motion.div>
-                                        </div>
-                                        {
-                                            isAuthenticated
-                                                ? <img className='w-10 h-10 rounded-full border border-cyan-300' src='https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo' alt="" />
-                                                : <img className='w-10 h-10 rounded-full' src='https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541' alt="" />
-                                        }
-                                    </div>
-                            ))
-                        }
                     </div>
+
+                    {
+                        chatLog.length > 0 &&
+                        chatLog.map((chat, idx) => (
+                            chat.bot ?
+                                <div key={idx} className='text-sm flex gap-2 mb-5'>
+                                    <img className='w-10 h-10' src={nsnlogo} alt="" />
+                                    <div className='mr-12'>
+                                        <h4 className='font-medium'>Adbhut.io</h4>
+                                        <motion.div
+                                            initial={{ scale: 0 }}
+                                            animate={{ scale: 1 }}
+                                            transition={chat.actionResponse && { delay: 0.2 }}
+                                        >
+                                            <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg w-fit'>
+                                                {chat.bot}
+                                            </p>
+                                        </motion.div>
+                                    </div>
+                                </div>
+                                :
+                                <div key={idx} className='text-sm flex gap-2 mb-5 ml-auto'>
+                                    <div className='ml-8'>
+                                        <h4 className='font-medium text-right'>{name || "Guest Account"}</h4>
+                                        <motion.div
+                                            initial={{ scale: 0 }}
+                                            animate={{ scale: 1 }}
+                                        >
+                                            <p className='w-fit ml-auto bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg'>
+                                                {chat.user}
+                                            </p>
+                                        </motion.div>
+                                    </div>
+                                    {
+                                        isAuthenticated
+                                            ? <img className='w-10 h-10 rounded-full border border-cyan-300' src='https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo' alt="" />
+                                            : <img className='w-10 h-10 rounded-full' src='https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541' alt="" />
+                                    }
+                                </div>
+                        ))
+                    }
 
                     {
                         contentProducts.length > 0 &&

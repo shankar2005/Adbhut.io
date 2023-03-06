@@ -1,19 +1,17 @@
 import { useRootContext } from '../../contexts/RootProvider';
 import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
 import ChatboxHome from './ChatboxHome';
-import Button from '../../Components/Button/Button';
-import ButtonOutline from '../../Components/Button/ButtonOutline';
 
 const Home = () => {
-    const { } = useRootContext();
+    const { setIsFullTime } = useRootContext();
 
     return (
         <header>
             <nav className='sticky top-0 left-5 md:left-16 flex items-center justify-between p-3 shadow z-50 bg-white'>
                 <img src={adbhutGIF} className='w-32' />
-                
-                <label for="artistState" className="inline-flex items-center p-1 cursor-pointer bg-gray-300 text-black text-xs md:text-sm font-medium uppercase">
-                    <input id="artistState" type="checkbox" className="hidden peer" />
+
+                <label for="userState" className="inline-flex items-center p-1 cursor-pointer bg-gray-300 text-black text-xs md:text-sm font-medium uppercase select-none">
+                    <input onChange={() => setIsFullTime(prev => !prev)} id="userState" type="checkbox" className="hidden peer" />
                     <span className="px-4 py-2 bg-black text-white peer-checked:bg-gray-300">Full Time</span>
                     <span className="px-4 py-2 bg-gray-300 peer-checked:bg-white">On Project</span>
                 </label>
