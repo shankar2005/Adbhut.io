@@ -3,7 +3,7 @@ import { AiOutlineGif } from 'react-icons/ai';
 import { BsImageFill } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
-import { AnimatePresence, motion } from "framer-motion"
+import { motion } from "framer-motion"
 import { useRootContext } from '../../contexts/RootProvider';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
@@ -14,7 +14,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 
 const ChatboxHome = () => {
-    const { selectedContentProducts, chatLog, setchatLog, currentProject, handleShowProjectHistory, handleSelectContentProduct, contentProducts, isFullTime } = useRootContext();
+    const { selectedContentProducts, chatLog, setchatLog, currentProject, handleShowProjectHistory, handleSelectContentProduct, contentProducts, isFullTime, isMobile } = useRootContext();
     const { isAuthenticated, user } = useContext(AuthContext);
 
     const sender = (user.role === "Client" || !isAuthenticated) ? "user" : "bot";
@@ -81,7 +81,11 @@ const ChatboxHome = () => {
         }
 
         if (pathname === "/") {
-            navigate("/projects/chat")
+            if (isMobile) {
+                navigate("/projects/chat");
+            } else {
+                navigate("/artists");
+            }
         }
     }
 
@@ -93,8 +97,6 @@ const ChatboxHome = () => {
     }
 
     const pathname = useLocation().pathname;
-
-    const isMobile = window.innerWidth < 768;
 
     return (
         <>

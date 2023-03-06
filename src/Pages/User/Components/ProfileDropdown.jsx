@@ -5,6 +5,7 @@ import { FiLogOut } from 'react-icons/fi';
 import Cookies from 'universal-cookie';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import { useRootContext } from '../../../contexts/RootProvider';
+import Button from '../../../Components/Button/Button';
 
 const ProfileDropdown = () => {
     const { user } = useContext(AuthContext);
@@ -32,7 +33,7 @@ const ProfileDropdown = () => {
                     <p className='flex items-center justify-center gap-1 mt-1'><TfiWorld /> https://www.companyurl.com/</p>
                 </div>
             </div>
-            <button className='flex items-center gap-1 mx-auto border p-1 rounded-lg' onClick={handleLogout}>Logout <FiLogOut className='w-5 h-5' /></button>
+            <Button onClick={handleLogout}>Logout <FiLogOut className='w-5 h-5' /></Button>
         </div>
     );
 };

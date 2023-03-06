@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Button from '../../Components/Button/Button';
 import { AuthContext } from '../../contexts/AuthProvider';
 import { useRootContext } from '../../contexts/RootProvider';
 
@@ -170,8 +171,8 @@ const CreateProject = () => {
                 </div>
 
                 <div className='p-4 pt-0 space-x-2 flex'>
-                    <button type="button" onClick={handleAddToDreamProject} className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-fit sm:w-auto px-5 py-2.5 text-center">Add to dream project</button>
-                    <button type="button" onClick={handleSendBrief} className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-full text-sm w-fit sm:w-auto px-5 py-2.5 text-center">Send Brief</button>
+                    <Button onClick={handleAddToDreamProject}>Add to dream project</Button>
+                    <Button onClick={handleSendBrief}>Send Brief</Button>
                 </div>
 
             </form>

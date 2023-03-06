@@ -171,6 +171,8 @@ const RootProvider = ({ children }) => {
 
     const [isFullTime, setIsFullTime] = useState(true);
 
+    const isMobile = window.innerWidth < 768;
+
     // stored values
     const value = {
         searchText,
@@ -212,6 +214,7 @@ const RootProvider = ({ children }) => {
         setArtistProfile,
         isFullTime,
         setIsFullTime,
+        isMobile
     }
 
     return (

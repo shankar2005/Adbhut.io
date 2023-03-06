@@ -15,7 +15,7 @@ import { openAIMessageAPI, sendMessageAPI } from '../../apis/messages/messages';
 import TypingIndicator from '../../Components/TypingIndicator';
 
 const LeftAside = () => {
-    const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch, handleSelectContentProduct, contentProducts } = useRootContext();
+    const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch, handleSelectContentProduct, contentProducts, isMobile } = useRootContext();
     const { isAuthenticated, user } = useContext(AuthContext);
 
     const chatboxRef = useRef();
@@ -186,7 +186,11 @@ const LeftAside = () => {
         }
 
         if (pathname === "/") {
-            navigate("/projects/chat")
+            if (isMobile) {
+                navigate("/projects/chat");
+            } else {
+                navigate("/artists");
+            }
         }
     }
 
