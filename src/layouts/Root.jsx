@@ -91,7 +91,7 @@ const Root = () => {
 
 
                     <main>
-                        <AnimatePresence initial={false}>
+                        <AnimatePresence initial={false} exitBeforeEnter>
                             <Outlet key={pathname} />
                         </AnimatePresence>
                     </main>

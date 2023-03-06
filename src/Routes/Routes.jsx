@@ -14,6 +14,10 @@ import Docusign from "../Pages/Project/Docusign";
 import ProjectDone from "../Pages/Project/ProjectDone";
 import Projects from "../Pages/Project/Projects";
 import RequiredAuth from "./AuthRoutes/RequiredAuth";
+import LeftToRight from "./PageTransitions/LeftToRight";
+import RightToLeft from "./PageTransitions/RightToLeft";
+
+
 
 const router = createBrowserRouter([
     {
@@ -46,11 +50,15 @@ const router = createBrowserRouter([
             },
             {
                 path: '/projects/chat',
-                element: <div className="md:hidden"><LeftAside /></div>,
+                element: <LeftToRight>
+                    <div className="md:hidden"><LeftAside /></div>,
+                </LeftToRight>
             },
             {
                 path: '/projects/toolkit',
-                element: <div className="lg:hidden"><RightAside /></div>,
+                element: <RightToLeft>
+                    <div className="lg:hidden"><RightAside /></div>,
+                </RightToLeft>
             },
         ]
     },
@@ -60,7 +68,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/artists',
-                element: <Feed />
+                element: <RightToLeft><Feed /></RightToLeft>
             },
             {
                 path: '/artists/artist-admin',

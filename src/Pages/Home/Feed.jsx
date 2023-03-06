@@ -217,7 +217,6 @@ const Feed = () => {
         >
             {content}
         </InfiniteScroll>
-
     );
 };
 
