@@ -13,6 +13,8 @@ import nsnlogo from '../../assets/logo.jpeg';
 import ChatHeading from './Components/ChatHeading';
 import { openAIMessageAPI, sendMessageAPI } from '../../apis/messages/messages';
 import TypingIndicator from '../../Components/TypingIndicator';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper';
 
 const LeftAside = () => {
     const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch, handleSelectContentProduct, contentProducts } = useRootContext();
@@ -110,34 +112,7 @@ const LeftAside = () => {
                 }
             });
     }
-    // above and below both events are the same code repeated (just state changes)
-    // add to dream project
-    const handleAddToDreamProject = () => {
-        if (!isAuthenticated) {
-            return dropdownDispatch({ type: "SHOW_LOGIN" });
-        }
-        fetch('https://dev.nsnco.in/api/v1/create_project/', {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-                Authorization: `token ${authToken}`
-            },
-            body: JSON.stringify({
-                "stage": "DreamProject",
-                "brief": JSON.stringify(chatLog),
-                "product": selectedContentProducts,
-                "shortlisted_artists": shortlistedArtist
-            })
-        }).then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    toast.success(data.success);
-                    dreamProjectsRefetch();
-                } else if (data.error) {
-                    toast.error(data.error);
-                }
-            });
-    }
+
     // handle change stage
     const handleChangeStage = () => {
         if (!isAuthenticated) {
@@ -209,6 +184,10 @@ const LeftAside = () => {
                 setIsTyping(false);
             })
         }
+
+        if (pathname === "/") {
+            navigate("/projects/chat")
+        }
     }
 
     let name;
@@ -228,26 +207,29 @@ const LeftAside = () => {
 
     const pathname = useLocation().pathname;
 
-    const [isDragging, setIsDragging] = useState(false);
-
-    const handleDragStart = () => {
-        setIsDragging(true);
-    };
-
-    const handleDragEnd = () => {
-        setIsDragging(false);
-    };
-
-    const [width, setWidth] = useState(0);
-
-    useEffect(() => {
-        if (contentProducts.length) {
-            setWidth(chatboxRef.current.scrollWidth - chatboxRef.current.offsetWidth)
+    const pageTransition = {
+        initial: {
+            x: "100vw",
+            opacity: 0
+        },
+        animate: {
+            x: 0,
+            opacity: 1
+        },
+        exit: {
+            x: "-100vw",
+            opacity: 0
         }
-    }, [contentProducts])
+    };
+
 
     return (
-        <>
+        <motion.div
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={pageTransition}
+        >
             <section className='bg-white shadow-md rounded-lg'>
                 <ChatHeading
                     projectTitle={currentProject?.name}
@@ -269,7 +251,7 @@ const LeftAside = () => {
                                         <div className='mr-12'>
                                             <h4 className='font-medium'>Adbhut.io</h4>
                                             <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg w-fit mb-1'>
-                                                Please shortlist an artist, skill or content product or send your inputs here
+                                                Please select any of the content product or send your inputs here to continue
                                             </p>
                                         </div>
                                     </div>
@@ -341,7 +323,7 @@ const LeftAside = () => {
                                             <div className='ml-12'>
                                                 <h4 className='font-medium text-right'>Adbhut.io</h4>
                                                 <p className='bg-sky-100 w-fit ml-auto  p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg'>
-                                                    Please shortlist an artist, skill or content product or send your inputs here
+                                                    Please select any of the content product or send your inputs here to continue
                                                 </p>
                                             </div>
                                             <img className='w-10 h-10' src={nsnlogo} alt="" />
@@ -417,40 +399,31 @@ const LeftAside = () => {
                     }
                     {
                         suggestions.length === 0 && contentProducts.length > 0 && !selectedContentProducts && shortlistedArtist.length === 0 && chatLog.length === 0 &&
-                        <>
+                        <div className=''>
                             {
-                                // show content products with drag carousel when home page
-                                // other than normal
                                 pathname === "/"
-                                    ? <motion.div
-                                        drag="x"
-                                        dragConstraints={{ right: 0, left: -width }}
-                                        onDragStart={handleDragStart}
-                                        onDragEnd={handleDragEnd}
-                                        className='flex items-center pb-2 gap-2 text-sm font-medium select-none absolute bottom-0'
-                                    >
-
-                                        <Link to="/projects/create-project">
-                                            <button type="button" className='whitespace-nowrap py-1 px-3 border bg-blue-500 border-blue-500 text-white hover:bg-white hover:border-blue-500 hover:text-blue-500 rounded-full cursor-pointer'>New Project</button>
-                                        </Link>
-
-                                        {
-                                            contentProducts.map(contentProduct => <div
-                                                onClick={() => {
-                                                    handleSelectContentProduct(contentProduct)
-                                                    navigate("/artists");
-                                                }}
-                                                style={{ pointerEvents: isDragging ? "none" : "auto" }}
-                                                key={contentProduct.pk}
-                                                className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer w-full text-center'
-                                            >
-                                                <div className={`${currentProject?.project_template === contentProduct.pk || selectedContentProducts === contentProduct.pk ? 'w-10 h-10' : 'w-9 h-9'} p-1 border rounded-md`}>
-                                                    <img className='group-hover:scale-110 duration-150 overflow-hidden' src={contentProduct.weblink} />
-                                                </div>
-                                                <p className={`${currentProject?.project_template === contentProduct.pk || selectedContentProducts === contentProduct.pk && 'text-blue-600 font-medium'} text-[0.6rem] leading-tight`}>{contentProduct.name}</p>
-                                            </div>)
-                                        }
-                                    </motion.div>
+                                    ? <div className='contentProducts text-center select-none mt-14'>
+                                        <Swiper
+                                            spaceBetween={5}
+                                            slidesPerView={4}
+                                            modules={[Navigation]}
+                                            navigation
+                                            className='px-3'
+                                        >
+                                            {
+                                                contentProducts?.map(content => (
+                                                    <SwiperSlide key={content.pk}>
+                                                        <div onClick={() => handleSelectContentProduct(content)} className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
+                                                            <div className={`${currentProject?.project_template === content.pk || selectedContentProducts === content.pk ? 'w-20 h-20' : 'w-[75px] h-[75px]'} p-1 border rounded-md`}>
+                                                                <img className='group-hover:scale-110 duration-150 overflow-hidden' src={content.weblink} />
+                                                            </div>
+                                                            <p className={`${currentProject?.project_template === content.pk || selectedContentProducts === content.pk && 'text-blue-600 font-medium'} text-[0.6rem] leading-tight`}>{content.name}</p>
+                                                        </div>
+                                                    </SwiperSlide>
+                                                ))
+                                            }
+                                        </Swiper>
+                                    </div>
                                     : <div className='flex flex-wrap pb-2 gap-2 text-sm font-medium select-none absolute bottom-0'>
                                         {
                                             contentProducts.map(contentProduct => <div
@@ -462,7 +435,7 @@ const LeftAside = () => {
                                         }
                                     </div>
                             }
-                        </>
+                        </div>
                     }
                 </div>
 
@@ -485,10 +458,6 @@ const LeftAside = () => {
                                     ?
                                     <div className='space-x-1'>
                                         {
-                                            typeof currentProject?.pk === "number" ||
-                                            <button onClick={handleAddToDreamProject} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Add to Dream Project</button>
-                                        }
-                                        {
                                             currentProject?.pk && currentProject?.stage !== "DreamProject" ?
                                                 <button onClick={handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>
                                                     Update Brief
@@ -500,15 +469,12 @@ const LeftAside = () => {
                                         }
                                     </div>
                                     :
-                                    <div className='space-x-1'>
-                                        <button disabled className='bg-gray-300 text-gray-400 py-[3px] px-3 rounded-full text-sm'>Add to Dream Project</button>
-                                        <button disabled className='bg-gray-300 text-gray-400 py-[3px] px-3 rounded-full text-sm'>Send Brief</button>
-                                    </div>
+                                    <button disabled className='bg-gray-300 text-gray-400 py-[3px] px-3 rounded-full text-sm'>Send Brief</button>
                         }
                     </div>
                 </div>
             </section>
-        </>
+        </motion.div>
     );
 };
 

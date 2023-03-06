@@ -40,7 +40,7 @@ const RootProvider = ({ children }) => {
     useEffect(() => {
         const isExist = chatLog.find(chat => chat.actionResponse);
         if (chatLog.length === 1 && !isExist) {
-            setchatLog(chatLog => [...chatLog, { actionResponse: true, msgID: chatLog.length + 1, bot: `Great! ${user?.name || 'Guest Account'} let’s proceed with the project briefing. Share us your thoughts and inputs on your creative project.` }]);
+            setchatLog(chatLog => [...chatLog, { actionResponse: true, msgID: chatLog.length + 1, bot: "Great! Let’s shortlist artist by requirement." }]);
         }
     }, [chatLog]);
     //-------------------------------------------------------------
