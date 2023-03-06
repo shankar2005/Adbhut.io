@@ -8,11 +8,17 @@ const LeftToRight = ({ children }) => {
         },
         animate: {
             x: 0,
-            opacity: 1
+            opacity: 1,
+            transition: {
+                duration: 0.3
+            }
         },
         exit: {
             x: "100vw",
-            opacity: 0
+            opacity: 0,
+            transition: {
+                duration: 0.1
+            }
         }
     };
 
