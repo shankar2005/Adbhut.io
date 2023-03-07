@@ -6,6 +6,7 @@ import { sendMessageAPI } from '../apis/messages/messages';
 import { getCurrentProjects, getDreamProjects } from '../apis/projects/projects';
 import { dropdownInitialState, dropdownReducers } from '../state/reducers/dropdownReducer';
 import { AuthContext } from './AuthProvider';
+import avatar from "../assets/placeholders/avatar.png"
 
 const RootContext = createContext();
 
@@ -172,7 +173,6 @@ const RootProvider = ({ children }) => {
 
     const isMobile = window.innerWidth < 768;
 
-
     // stored values
     const value = {
         searchText,
@@ -214,7 +214,8 @@ const RootProvider = ({ children }) => {
         setArtistProfile,
         isFullTime,
         setIsFullTime,
-        isMobile
+        isMobile,
+        avatar
     }
 
     return (
