@@ -3,7 +3,6 @@ import { AiOutlineGif } from 'react-icons/ai';
 import { BsFillMicFill, BsImageFill } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
-import { motion } from "framer-motion"
 import { useRootContext } from '../../contexts/RootProvider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FiDelete } from 'react-icons/fi';
@@ -67,8 +66,6 @@ const LeftAside = () => {
     // -----------------------------------
     //    handle select skill & content
     // -----------------------------------
-    console.log(checkedSkills);
-
     const handleSelectSkill = (skill) => {
         setcheckedSkills([skill[1] + '']);
         // chatlog
@@ -280,11 +277,13 @@ const LeftAside = () => {
                                 chatLog.map((chat, idx) => (
                                     chat.user
                                         ? <MessageReceiver
+                                            key={idx}
                                             image={avatar}
                                             name={currentProject?.client_details?.name}
                                             text={chat.user}
                                         />
                                         : <MessageSender
+                                            key={idx}
                                             image={nsnlogo}
                                             name="Adbhut.io"
                                             text={
@@ -296,13 +295,11 @@ const LeftAside = () => {
                                 ))
                             }
 
-
                             {/*  */}
                             {
                                 TypingElement
                             }
                             {/*  */}
-
 
                         </div>
                 }
