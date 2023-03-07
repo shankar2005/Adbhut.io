@@ -139,3 +139,35 @@
         transform: translateY(-4px);
     }
 }
+
+
+/* vibrator animation */
+
+@keyframes vibrate {
+    0% {
+      transform: translate(0, 0);
+    }
+    20% {
+      transform: translate(-2px, 2px);
+    }
+    40% {
+      transform: translate(-2px, -2px);
+    }
+    60% {
+      transform: translate(2px, 2px);
+    }
+    80% {
+      transform: translate(2px, -2px);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+
+  .animate-vibrate {
+    animation-duration: 0.5s;
+    animation-name: vibrate;
+    animation-iteration-count: 1;
+  }
+  
+/* vibrator animation */

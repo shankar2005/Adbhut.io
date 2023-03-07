@@ -2,7 +2,6 @@ import LeftAside from '../Pages/Home/LeftAside';
 import Navbar from './Shared/Navbar';
 import RightAside from '../Pages/Home/RightAside';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { IoIosArrowBack } from "react-icons/io";
 import { useRootContext } from '../contexts/RootProvider';
 import { BiMessageDots } from 'react-icons/bi';
 import { TbTools } from 'react-icons/tb';
@@ -11,18 +10,16 @@ import ArtistProfile from '../Pages/Artist/ArtistProfile';
 import { useEffect } from 'react';
 import Backdrop from '../Components/Backdrop/Backdrop';
 import { motion, AnimatePresence } from 'framer-motion';
+import TopToggleBar from '../Components/Bar/TopToggleBar';
 
 const Root = () => {
     const { dropdownState, dropdownDispatch } = useRootContext();
 
     const location = useLocation();
     const pathname = location.pathname;
-    const fromCreateProject = location.state?.from?.pathname?.includes("/create-project");
 
-    const { setViewAs, currentProject, artistProfile, setArtistProfile } = useRootContext();
-    const handleViewAs = e => {
-        setViewAs(e.target.value);
-    }
+    const { artistProfile, setArtistProfile } = useRootContext();
+
 
     useEffect(() => {
         if (artistProfile) {
@@ -53,41 +50,9 @@ const Root = () => {
                 <div className='col-span-7 lg:col-span-5 relative'>
 
 
-                    {/*  */}
-                    <div className='hidden lg:flex bg-white border border-blue-100 shadow p-2 py-3 mb-2 rounded-t-lg justify-between items-center sticky top-20 w-full z-30'>
-                        <div className='text-sm flex items-center gap-2'>
-                            {
-                                currentProject?.pk && pathname.includes("/artists") &&
-                                <Link to={`/projects/${currentProject.pk}/${currentProject.stage}`}>
-                                    <button className='bg-gray-200 rounded-full p-2'><IoIosArrowBack /></button>
-                                </Link>
-                            }
-                            {
-                                fromCreateProject && pathname.includes("/artists") &&
-                                <Link to="/projects/create-project">
-                                    <button className='bg-gray-200 rounded-full p-2'><IoIosArrowBack /></button>
-                                </Link>
-                            }
-                            <Link to="/projects">
-                                <button className={`border px-3 py-1 rounded-full ${pathname === "/projects" && 'bg-blue-400 text-white'}`}>View Projects</button>
-                            </Link>
-                            <Link to="/artists">
-                                <button className={`border px-3 py-1 rounded-full ${pathname === "/artists" && 'bg-blue-400 text-white'}`}>View Artists</button>
-                            </Link>
-                        </div>
-                        {
-                            pathname.includes("project") ||
-                            <div>
-                                <select onChange={handleViewAs} className='text-sm p-1 rounded border outline-gray-100'>
-                                    <option value="large">Large</option>
-                                    <option value="details">Details</option>
-                                    <option value="small">Small</option>
-                                </select>
-                            </div>
-                        }
-                    </div>
-                    {/*  */}
-
+                    {/* togglebar */}
+                    <TopToggleBar className="hidden lg:block" />
+                    {/* togglebar */}
 
 
                     <main>
@@ -104,6 +69,7 @@ const Root = () => {
                 <aside className='hidden lg:block col-span-3 sticky top-20 rightSide max-h-[88vh] overflow-y-scroll'>
                     <RightAside />
                 </aside>
+
 
                 {/* mobile toggle */}
                 <div className='lg:hidden z-50 fixed left-0 top-1/2 -translate-y-20 bg-white'>

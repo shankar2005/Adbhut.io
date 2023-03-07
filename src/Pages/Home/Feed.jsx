@@ -10,6 +10,7 @@ import { FaRegEnvelope } from 'react-icons/fa';
 import { HiPhone } from 'react-icons/hi';
 import { IoLanguageSharp, IoLocationSharp } from 'react-icons/io5';
 import { CiCircleRemove } from 'react-icons/ci';
+import TopToggleBar from '../../Components/Bar/TopToggleBar';
 
 const Feed = () => {
     const { searchText = "", setSearchText, demoType, checkedSkills, handleShortlist, checkedGenres, checkedLocations, shortlistedArtist, viewAs, setArtistProfile } = useRootContext();
@@ -92,10 +93,6 @@ const Feed = () => {
                                     }
                                 </div>
                                 <div>
-                                    {/* <p className='text-sm mb-2'>
-                                {artist.details}
-                                <a className='text-blue-500' href="#">see more...</a>
-                                </p> */}
                                     {
                                         artist.demo_type === "Youtube Link"
                                         && <div className='h-[270px] 2xl:h-[350px]'>
@@ -209,14 +206,20 @@ const Feed = () => {
     }
 
     return (
-        <InfiniteScroll
-            dataLength={artists.length}
-            next={fetchMoreData}
-            hasMore={hasNext}
-            loader={<FeedCardSkeleton />}
-        >
-            {content}
-        </InfiniteScroll>
+        <div className='relative'>
+            {/* togglebar */}
+            <TopToggleBar className="lg:hidden" />
+            {/* togglebar */}
+
+            <InfiniteScroll
+                dataLength={artists.length}
+                next={fetchMoreData}
+                hasMore={hasNext}
+                loader={<FeedCardSkeleton />}
+            >
+                {content}
+            </InfiniteScroll>
+        </div>
     );
 };
 
