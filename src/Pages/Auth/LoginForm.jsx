@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useForm } from "react-hook-form";
 import Cookies from 'universal-cookie';
 import { AuthContext } from '../../contexts/AuthProvider';
@@ -6,7 +6,7 @@ import { AuthContext } from '../../contexts/AuthProvider';
 const LoginForm = ({ formError, setformError }) => {
     const { setIsAuthenticated } = useContext(AuthContext);
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
     const onSubmit = data => {
         setformError(null);
         fetch('https://dev.nsnco.in/api/v1/auth/login/', {
@@ -23,7 +23,7 @@ const LoginForm = ({ formError, setformError }) => {
                     cookies.set('auth_token', data.token, { path: '/' });
                     setIsAuthenticated(true);
                 } else {
-                    setformError("Username or password is incorrect");
+                    setformError("Email or password is incorrect");
                 }
             });
     };
@@ -32,8 +32,8 @@ const LoginForm = ({ formError, setformError }) => {
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="space-y-4 mb-4">
                 <div className="space-y-2">
-                    <label htmlFor="username" className="block text-sm">Username</label>
-                    <input type="text" {...register("username", { required: true })} id="username" placeholder="Enter username" className="w-full p-3 border rounded-md border-gray-700" data-temp-mail-org="2" />
+                    <label htmlFor="email" className="block text-sm">Email</label>
+                    <input type="text" {...register("email", { required: true })} id="email" placeholder="Enter email" className="w-full p-3 border rounded-md border-gray-700" data-temp-mail-org="2" />
                 </div>
                 <div className="space-y-2">
                     <div className="flex justify-between">

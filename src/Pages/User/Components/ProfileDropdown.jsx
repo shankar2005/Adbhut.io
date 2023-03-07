@@ -6,6 +6,7 @@ import Cookies from 'universal-cookie';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import { useRootContext } from '../../../contexts/RootProvider';
 import Button from '../../../Components/Button/Button';
+import logo from "../../../assets/logos/adbeta.jpeg"
 
 const ProfileDropdown = () => {
     const { user } = useContext(AuthContext);
@@ -22,7 +23,7 @@ const ProfileDropdown = () => {
             <div className='relative'>
                 <img className='rounded-t-lg border-b border-orange-400' src="https://cdn.shopify.com/s/files/1/0581/8230/3937/files/Naagin-Logo.png?height=628&pad_color=fff&v=1630922387&width=1200" alt="" />
                 <div className='rounded-full bg-white absolute bottom-0 right-1/2 translate-y-1/2 translate-x-1/2 border-4 border-white'>
-                    <img className='w-16 h-16 rounded-full' src={user?.role === "Client" ? "https://www.w3schools.com/howto/img_avatar.png" : nsnlogo} alt="" />
+                    <img className='w-16 h-16 rounded-full' src={user?.role === "Client" ? "https://www.w3schools.com/howto/img_avatar.png" : logo} alt="" />
                 </div>
             </div>
             <div className='mt-12 pt-0 p-4 text-center'>

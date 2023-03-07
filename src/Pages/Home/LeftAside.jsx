@@ -10,9 +10,12 @@ import { FiDelete } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../contexts/AuthProvider';
 import nsnlogo from '../../assets/logo.jpeg';
-import ChatHeading from './Components/ChatHeading';
+import ChatHeading from './Chat/ChatHeading';
 import { openAIMessageAPI, sendMessageAPI } from '../../apis/messages/messages';
 import TypingIndicator from '../../Components/TypingIndicator';
+import MessageReceiver from './Chat/MessageReceiver';
+import MessageSender from './Chat/MessageSender';
+import avatar from "../../assets/placeholders/avatar.png";
 
 const LeftAside = () => {
     const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch, handleSelectContentProduct, contentProducts, isMobile, setSearchText, checkedSkills } = useRootContext();
@@ -226,67 +229,35 @@ const LeftAside = () => {
                 {
                     user.role === "Client" || !isAuthenticated
                         ? <div className='flex flex-col'>
-                            <motion.div
-                                initial={{ translateX: '-100%' }}
-                                animate={{ translateX: '0%' }}
-                                transition={{ delay: 0.2 }}
-                            >
-                                <div className='text-sm flex gap-2 mb-5'>
-                                    <img className='w-10 h-10' src={nsnlogo} alt="" />
-                                    <div className='mr-12'>
-                                        <h4 className='font-medium'>Adbhut.io</h4>
-                                        <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg w-fit mb-1'>
-                                            Please select any of the content product or send your inputs here to continue
-                                        </p>
-                                    </div>
-                                </div>
-                            </motion.div>
+                            {/* Default message is shown */}
+                            <MessageReceiver
+                                image={nsnlogo}
+                                name="Adbhut.io"
+                                text="Please select any of the content product or send your inputs here to continue"
+                            />
 
                             {
                                 chatLog.length > 0 &&
                                 chatLog.map((chat, idx) => (
-                                    chat.bot ?
-                                        <div key={idx} className='text-sm flex gap-2 mb-5'>
-                                            <img className='w-10 h-10' src={nsnlogo} alt="" />
-                                            <div className='mr-12'>
-                                                <h4 className='font-medium'>Adbhut.io</h4>
-                                                <motion.div
-                                                    initial={{ scale: 0 }}
-                                                    animate={{ scale: 1 }}
-                                                    transition={chat.actionResponse && { delay: 0.2 }}
-                                                >
-                                                    <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg w-fit'>
-                                                        {chat.bot}
-                                                    </p>
-                                                </motion.div>
-                                            </div>
-                                        </div>
-                                        :
-                                        <div key={idx} className='text-sm flex gap-2 mb-5 ml-auto'>
-                                            <div className='ml-8'>
-                                                <h4 className='font-medium text-right'>{name || "Guest Account"}</h4>
-                                                <motion.div
-                                                    initial={{ scale: 0 }}
-                                                    animate={{ scale: 1 }}
-                                                >
-                                                    <p className='w-fit ml-auto bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg'>
-                                                        {
-                                                            chat.user ||
-                                                            chat.type === 'shortlistedArtist' &&
-                                                            <>Shortlisted <Link to={`/artists/${chat.artist.artistID}/`}><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
-                                                        }
-                                                    </p>
-                                                </motion.div>
-                                            </div>
-                                            {
-                                                isAuthenticated
-                                                    ? <img className='w-10 h-10 rounded-full border border-cyan-300' src='https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo' alt="" />
-                                                    : <img className='w-10 h-10 rounded-full' src='https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541' alt="" />
+                                    chat.bot
+                                        ? <MessageReceiver
+                                            key={idx}
+                                            image={nsnlogo}
+                                            name="Adbhut.io"
+                                            text={chat.bot}
+                                        />
+                                        : <MessageSender
+                                            key={idx}
+                                            image={avatar}
+                                            name={name || "Guest Account"}
+                                            text={
+                                                chat.user ||
+                                                chat.type === 'shortlistedArtist' &&
+                                                <>Shortlisted <Link to={`/artists/${chat.artist.artistID}/`}><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
                                             }
-                                        </div>
+                                        />
                                 ))
                             }
-
 
                             {/*  */}
                             {
@@ -294,65 +265,34 @@ const LeftAside = () => {
                             }
                             {/*  */}
 
-
                         </div>
                         :
                         <div className='flex flex-col'>
                             <div className='text-sm flex gap-2 mb-5 ml-auto'>
-                                <motion.div
-                                    initial={{ translateX: '100%' }}
-                                    animate={{ translateX: '0%' }}
-                                    transition={{ delay: 0.2 }}
-                                >
-                                    <div className='text-sm flex gap-2 mb-5'>
-                                        <div className='ml-12'>
-                                            <h4 className='font-medium text-right'>Adbhut.io</h4>
-                                            <p className='bg-sky-100 w-fit ml-auto  p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg'>
-                                                Please select any of the content product or send your inputs here to continue
-                                            </p>
-                                        </div>
-                                        <img className='w-10 h-10' src={nsnlogo} alt="" />
-                                    </div>
-                                </motion.div>
+                                <MessageSender
+                                    image={nsnlogo}
+                                    name="Adbhut.io"
+                                    text="Please select any of the content product or send your inputs here to continue"
+                                />
                             </div>
                             {
                                 chatLog.length > 0 &&
                                 chatLog.map((chat, idx) => (
-                                    chat.user ?
-                                        <div key={idx} className='text-sm flex gap-2 mb-5'>
-                                            <img className='w-10 h-10' src="https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo" alt="" />
-                                            <div className='mr-12'>
-                                                <h4 className='font-medium'>{currentProject?.client_details?.name}</h4>
-                                                <motion.div
-                                                    initial={{ scale: 0 }}
-                                                    animate={{ scale: 1 }}
-                                                    transition={chat.actionResponse && { delay: 0.2 }}
-                                                >
-                                                    <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg w-fit'>
-                                                        {chat.user}
-                                                    </p>
-                                                </motion.div>
-                                            </div>
-                                        </div>
-                                        :
-                                        <div key={idx} className='text-sm flex gap-2 mb-5 ml-auto'>
-                                            <div className='ml-8'>
-                                                <h4 className='font-medium text-right'>Adbhut.io</h4>
-                                                <motion.div
-                                                    initial={{ scale: 0 }}
-                                                    animate={{ scale: 1 }}
-                                                >
-                                                    <p className='w-fit ml-auto bg-sky-100 p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg'>
-                                                        {
-                                                            chat.bot ||
-                                                            chat.type === 'shortlistedArtist' &&
-                                                            <>Shortlisted <Link to={`/artists/${chat.artist.artistID}`}><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
-                                                        }
-                                                    </p>
-                                                </motion.div>
-                                            </div>
-                                            <img className='w-10 h-10 rounded-full border border-cyan-300' src={nsnlogo} alt="" />
-                                        </div>
+                                    chat.user
+                                        ? <MessageReceiver
+                                            image={avatar}
+                                            name={currentProject?.client_details?.name}
+                                            text={chat.user}
+                                        />
+                                        : <MessageSender
+                                            image={nsnlogo}
+                                            name="Adbhut.io"
+                                            text={
+                                                chat.bot ||
+                                                chat.type === 'shortlistedArtist' &&
+                                                <>Shortlisted <Link to={`/artists/${chat.artist.artistID}`}><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
+                                            }
+                                        />
                                 ))
                             }
 

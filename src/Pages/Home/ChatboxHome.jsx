@@ -8,7 +8,7 @@ import { useRootContext } from '../../contexts/RootProvider';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import nsnlogo from '../../assets/logo.jpeg';
-import ChatHeading from './Components/ChatHeading';
+import ChatHeading from './Chat/ChatHeading';
 import { openAIMessageAPI, sendMessageAPI } from '../../apis/messages/messages';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
