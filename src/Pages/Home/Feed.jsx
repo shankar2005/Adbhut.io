@@ -65,7 +65,7 @@ const Feed = () => {
                     {
                         searchText &&
                         <div className='flex items-center gap-2'>
-                            <h1 className='text-3xl my-3 font-medium text-gray-500'>Results for "{searchText}"</h1>
+                            <h1 className='text-xl md:text-2xl my-3 font-medium text-gray-500'>Results for "{searchText}"</h1>
                             <button className='bg-sky-500 text-white p-1 pr-3 rounded-md text-xs flex items-center gap-1 whitespace-nowrap' onClick={() => setSearchText("")}><CiCircleRemove size={20} /> Clear search</button>
                         </div>
                     }

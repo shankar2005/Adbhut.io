@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { AiOutlineGif } from 'react-icons/ai';
-import { BsImageFill } from 'react-icons/bs';
+import { BsFillMicFill, BsImageFill } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
 import { motion } from "framer-motion"
@@ -15,7 +15,7 @@ import { openAIMessageAPI, sendMessageAPI } from '../../apis/messages/messages';
 import TypingIndicator from '../../Components/TypingIndicator';
 
 const LeftAside = () => {
-    const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch, handleSelectContentProduct, contentProducts, isMobile } = useRootContext();
+    const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch, handleSelectContentProduct, contentProducts, isMobile, setSearchText, checkedSkills } = useRootContext();
     const { isAuthenticated, user } = useContext(AuthContext);
 
     const chatboxRef = useRef();
@@ -56,7 +56,7 @@ const LeftAside = () => {
             .then(res => res.json())
             .then(data => {
                 setSuggestions(data.skills);
-                // filter on content products
+                // filter on contentProduct's listed skills & show artists depending on those skills
                 setcheckedSkills(data.skills.map(skill => skill[1] + ''));
             });
     }, [selectedContentProducts]);
@@ -64,6 +64,8 @@ const LeftAside = () => {
     // -----------------------------------
     //    handle select skill & content
     // -----------------------------------
+    console.log(checkedSkills);
+
     const handleSelectSkill = (skill) => {
         setcheckedSkills([skill[1] + '']);
         // chatlog
@@ -72,6 +74,7 @@ const LeftAside = () => {
         // removing suggested skills after click
         setSuggestions(current => current.filter(i => i[1] + '' !== skill[1] + ''));
 
+        setSearchText(skill[0]);
         navigate("/artists");
     }
 
@@ -403,29 +406,30 @@ const LeftAside = () => {
                         <BsImageFill />
                         <AiOutlineGif />
                     </div>
-                    {
-                        userInputText ?
-                            <div className='space-x-1'>
+                    <div className='flex items-center space-x-1'>
+                        <BsFillMicFill />
+                        {
+                            userInputText ?
                                 <button onClick={handleSendUserInput} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
-                            </div>
-                            :
-                            shortlistedArtist[0] || selectedContentProducts || typeof currentProject?.pk === "number"
-                                ?
-                                <div className='space-x-1'>
-                                    {
-                                        currentProject?.pk && currentProject?.stage !== "DreamProject" ?
-                                            <button onClick={handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>
-                                                Update Brief
-                                            </button>
-                                            // below logic means if we have currentProject && if it's stage is Dream then we will let user to sendBrief(with handleChangeStage)
-                                            : <button onClick={currentProject?.stage === "DreamProject" ? handleChangeStage : handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>
-                                                Send Brief
-                                            </button>
-                                    }
-                                </div>
                                 :
-                                <button disabled className='bg-gray-300 text-gray-400 py-[3px] px-3 rounded-full text-sm'>Send Brief</button>
-                    }
+                                shortlistedArtist[0] || selectedContentProducts || typeof currentProject?.pk === "number"
+                                    ?
+                                    <>
+                                        {
+                                            currentProject?.pk && currentProject?.stage !== "DreamProject" ?
+                                                <button onClick={handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>
+                                                    Update Brief
+                                                </button>
+                                                // below logic means if we have currentProject && if it's stage is Dream then we will let user to sendBrief(with handleChangeStage)
+                                                : <button onClick={currentProject?.stage === "DreamProject" ? handleChangeStage : handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>
+                                                    Send Brief
+                                                </button>
+                                        }
+                                    </>
+                                    :
+                                    <button disabled className='bg-gray-300 text-gray-400 py-[3px] px-3 rounded-full text-sm'>Send Brief</button>
+                        }
+                    </div>
                 </div>
             </div>
         </section>
