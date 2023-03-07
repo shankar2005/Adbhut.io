@@ -120,7 +120,7 @@ const ChatboxHome = () => {
                                 <div className='mr-12'>
                                     <h4 className='font-medium'>Adbhut.io</h4>
                                     <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg w-fit mb-1'>
-                                        Hello, I'm Adbhut. Lets {isFullTime ? "Create" : "Hire"}!
+                                        Hello, I'm Adbhut. Lets {isFullTime ? "Hire" : "Create"}!
                                     </p>
                                 </div>
                             </div>

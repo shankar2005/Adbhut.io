@@ -4,21 +4,24 @@ import ChatboxHome from './ChatboxHome';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
-    const { setIsFullTime } = useRootContext();
+    const { setIsFullTime, isFullTime } = useRootContext();
 
     return (
         <header>
-            <nav className='sticky top-0 left-5 md:left-16 flex items-center justify-center gap-5 p-3 shadow z-50 bg-white'>
-                <img src={adbhutGIF} className='w-32' /> 
-                <p className='font-medium uppercase space-x-3'>
-                    <a target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show' className=''>Hiring</a>
-                    <Link className=''>Artist</Link>
-                </p>
-                <label for="userState" className="inline-flex items-center p-1 cursor-pointer bg-gray-300 text-black text-xs md:text-sm font-medium uppercase select-none">
-                    <input onChange={() => setIsFullTime(prev => !prev)} id="userState" type="checkbox" className="hidden peer" />
-                    <span className="px-4 py-2 bg-black text-white peer-checked:bg-gray-300">Full Time</span>
-                    <span className="px-4 py-2 bg-gray-300 peer-checked:bg-white">For Project</span>
-                </label>
+            <nav className='sticky top-0 left-5 md:left-16 flex items-center justify-between p-3 shadow z-50 bg-white'>
+                <img src={adbhutGIF} className='w-32' />
+
+                <div className='flex items-center gap-4'>
+                    <p className='font-medium uppercase space-x-3'>
+                        <Link className=''>Artist</Link>
+                        <a target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show' className=''>Hiring</a>
+                    </p>
+                    <label for="userState" className="inline-flex items-center p-1 cursor-pointer bg-gray-300 text-black text-xs md:text-sm font-medium uppercase select-none">
+                        <input onChange={() => setIsFullTime(prev => !prev)} id="userState" type="checkbox" className="hidden peer" />
+                        <span className={`px-4 py-2 ${isFullTime ? "bg-black text-white" : "bg-gray-300"} duration-300`}>Full Time</span>
+                        <span className={`px-4 py-2 ${isFullTime ? "bg-gray-300" : "bg-black text-white"} duration-300`}>For Project</span>
+                    </label>
+                </div>
             </nav>
 
 

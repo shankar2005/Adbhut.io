@@ -168,7 +168,7 @@ const RootProvider = ({ children }) => {
 
     const [artistProfile, setArtistProfile] = useState(null);
 
-    const [isFullTime, setIsFullTime] = useState(true);
+    const [isFullTime, setIsFullTime] = useState(false);
 
     const isMobile = window.innerWidth < 768;
 
