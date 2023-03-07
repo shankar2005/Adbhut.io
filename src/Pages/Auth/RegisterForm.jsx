@@ -49,12 +49,24 @@ const RegisterForm = ({ formError, setformError }) => {
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="space-y-3 mb-4">
                 <div className="space-y-1">
-                    <label htmlFor="username" className="block text-sm">Username</label>
-                    <input type="text" {...register("username", { required: true })} id="username" placeholder="Enter username" className="w-full p-3 border rounded-md border-gray-700" data-temp-mail-org="2" />
+                    <label htmlFor="name" className="block text-sm">Full Name</label>
+                    <input type="text" {...register("name", { required: true })} id="name" placeholder="John Doe" className="w-full p-3 border rounded-md border-gray-700" data-temp-mail-org="2" />
                 </div>
                 <div className="space-y-1">
                     <label htmlFor="email" className="block text-sm">Email</label>
-                    <input type="email" {...register("email", { required: true })} id="email" placeholder="Enter your email" className="w-full p-3 border rounded-md border-gray-700" data-temp-mail-org="2" />
+                    <input type="email" {...register("email", { required: true })} id="email" placeholder="john@example.com" className="w-full p-3 border rounded-md border-gray-700" data-temp-mail-org="2" />
+                </div>
+                <div className="space-y-1">
+                    <label htmlFor="phone" className="block text-sm">Phone</label>
+                    <input type="phone" {...register("phone", { required: true })} id="phone" placeholder="+12 1623 1523" className="w-full p-3 border rounded-md border-gray-700" data-temp-mail-org="2" />
+                </div>
+                <div className="space-y-1">
+                    <label htmlFor="company" className="block text-sm">Company</label>
+                    <input type="company" {...register("company", { required: true })} id="company" placeholder="Microsoft" className="w-full p-3 border rounded-md border-gray-700" data-temp-mail-org="2" />
+                </div>
+                <div className="space-y-1">
+                    <label htmlFor="companyURL" className="block text-sm">Company Website</label>
+                    <input type="companyURL" {...register("companyURL", { required: true })} id="companyURL" placeholder="microsoft.com" className="w-full p-3 border rounded-md border-gray-700" data-temp-mail-org="2" />
                 </div>
                 <div className="space-y-1">
                     <label htmlFor="password" className="text-sm">Password</label>
