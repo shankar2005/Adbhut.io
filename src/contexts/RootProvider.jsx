@@ -1,8 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { createContext, useContext, useEffect, useReducer, useState } from 'react';
-import { toast } from 'react-hot-toast';
-import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { sendMessageAPI } from '../apis/messages/messages';
 import { getCurrentProjects, getDreamProjects } from '../apis/projects/projects';
@@ -71,8 +69,6 @@ const RootProvider = ({ children }) => {
                 .then(res => res.json())
                 .then(data => { })
         }
-
-        toast.success(`${name} Shortlisted!`)
     }
 
     // show project history on click
