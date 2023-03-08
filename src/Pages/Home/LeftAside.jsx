@@ -15,6 +15,7 @@ import TypingIndicator from '../../Components/TypingIndicator';
 import MessageReceiver from './Chat/MessageReceiver';
 import MessageSender from './Chat/MessageSender';
 import avatar from "../../assets/placeholders/avatar.png";
+import Chathome from './Chat/Chathome';
 
 const LeftAside = () => {
     const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch, handleSelectContentProduct, contentProducts, isMobile, setSearchText, checkedSkills } = useRootContext();
@@ -222,117 +223,131 @@ const LeftAside = () => {
                 currentProject={currentProject}
             />
 
-            <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden p-3 relative'>
-                {
-                    user.role === "Client" || !isAuthenticated
-                        ? <div className='flex flex-col'>
-                            {/* Default message is shown */}
-                            <MessageReceiver
-                                image={nsnlogo}
-                                name="Adbhut.io"
-                                text="Please select any of the content product or send your inputs here to continue"
-                            />
+            {/*  */}
+            {/*  */}
+            {/*  */}
 
-                            {
-                                chatLog.length > 0 &&
-                                chatLog.map((chat, idx) => (
-                                    chat.bot
-                                        ? <MessageReceiver
-                                            key={idx}
+            {
+                pathname === "/" ?
+                    <Chathome
+                        chatboxRef={chatboxRef}
+                        nsnlogo={nsnlogo}
+                        handleSelectSkill={handleSelectSkill}
+                    />
+                    :
+                    <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden p-3 relative'>
+                        {
+                            user.role === "Client" || !isAuthenticated
+                                ? <div className='flex flex-col'>
+                                    {/* Default message is shown */}
+                                    <MessageReceiver
+                                        image={nsnlogo}
+                                        name="Adbhut.io"
+                                        text="Please select any of the content product or send your inputs here to continue"
+                                    />
+
+                                    {
+                                        chatLog.length > 0 &&
+                                        chatLog.map((chat, idx) => (
+                                            chat.bot
+                                                ? <MessageReceiver
+                                                    key={idx}
+                                                    image={nsnlogo}
+                                                    name="Adbhut.io"
+                                                    text={chat.bot}
+                                                />
+                                                : <MessageSender
+                                                    key={idx}
+                                                    image={avatar}
+                                                    name={name || "Guest Account"}
+                                                    text={
+                                                        chat.user ||
+                                                        chat.type === 'shortlistedArtist' &&
+                                                        <>Shortlisted <Link to={`/artists/${chat.artist.artistID}/`}><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
+                                                    }
+                                                />
+                                        ))
+                                    }
+
+                                    {/*  */}
+                                    {
+                                        TypingElement
+                                    }
+                                    {/*  */}
+
+                                </div>
+                                :
+                                <div className='flex flex-col'>
+                                    <div className='text-sm flex gap-2 mb-5 ml-auto'>
+                                        <MessageSender
                                             image={nsnlogo}
                                             name="Adbhut.io"
-                                            text={chat.bot}
+                                            text="Please select any of the content product or send your inputs here to continue"
                                         />
-                                        : <MessageSender
-                                            key={idx}
-                                            image={avatar}
-                                            name={name || "Guest Account"}
-                                            text={
-                                                chat.user ||
-                                                chat.type === 'shortlistedArtist' &&
-                                                <>Shortlisted <Link to={`/artists/${chat.artist.artistID}/`}><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
-                                            }
-                                        />
-                                ))
-                            }
+                                    </div>
+                                    {
+                                        chatLog.length > 0 &&
+                                        chatLog.map((chat, idx) => (
+                                            chat.user
+                                                ? <MessageReceiver
+                                                    key={idx}
+                                                    image={avatar}
+                                                    name={currentProject?.client_details?.name}
+                                                    text={chat.user}
+                                                />
+                                                : <MessageSender
+                                                    key={idx}
+                                                    image={nsnlogo}
+                                                    name="Adbhut.io"
+                                                    text={
+                                                        chat.bot ||
+                                                        chat.type === 'shortlistedArtist' &&
+                                                        <>Shortlisted <Link to={`/artists/${chat.artist.artistID}`}><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
+                                                    }
+                                                />
+                                        ))
+                                    }
 
-                            {/*  */}
-                            {
-                                TypingElement
-                            }
-                            {/*  */}
+                                    {/*  */}
+                                    {
+                                        TypingElement
+                                    }
+                                    {/*  */}
 
-                        </div>
-                        :
-                        <div className='flex flex-col'>
-                            <div className='text-sm flex gap-2 mb-5 ml-auto'>
-                                <MessageSender
-                                    image={nsnlogo}
-                                    name="Adbhut.io"
-                                    text="Please select any of the content product or send your inputs here to continue"
-                                />
+                                </div>
+                        }
+
+
+                        {
+                            suggestions.length > 0 &&
+                            <div className='flex skillScroll overflow-x-scroll pb-2 gap-2 text-sm font-medium select-none'>
+                                {
+                                    suggestions &&
+                                    suggestions.map(skill => <div
+                                        onClick={() => handleSelectSkill(skill)}
+                                        key={`suggestedSkill${skill[1]}`}
+                                        className='whitespace-nowrap py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>
+                                        {skill[0]}
+                                    </div>)
+                                }
                             </div>
-                            {
-                                chatLog.length > 0 &&
-                                chatLog.map((chat, idx) => (
-                                    chat.user
-                                        ? <MessageReceiver
-                                            key={idx}
-                                            image={avatar}
-                                            name={currentProject?.client_details?.name}
-                                            text={chat.user}
-                                        />
-                                        : <MessageSender
-                                            key={idx}
-                                            image={nsnlogo}
-                                            name="Adbhut.io"
-                                            text={
-                                                chat.bot ||
-                                                chat.type === 'shortlistedArtist' &&
-                                                <>Shortlisted <Link to={`/artists/${chat.artist.artistID}`}><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></Link> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
-                                            }
-                                        />
-                                ))
-                            }
-
-                            {/*  */}
-                            {
-                                TypingElement
-                            }
-                            {/*  */}
-
-                        </div>
-                }
-
-
-                {
-                    suggestions.length > 0 &&
-                    <div className='flex skillScroll overflow-x-scroll pb-2 gap-2 text-sm font-medium select-none'>
+                        }
                         {
-                            suggestions &&
-                            suggestions.map(skill => <div
-                                onClick={() => handleSelectSkill(skill)}
-                                key={`suggestedSkill${skill[1]}`}
-                                className='whitespace-nowrap py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>
-                                {skill[0]}
-                            </div>)
+                            suggestions.length === 0 && contentProducts.length > 0 && !selectedContentProducts && shortlistedArtist.length === 0 && chatLog.length === 0 &&
+                            <div className='flex flex-wrap pb-2 gap-2 text-sm font-medium select-none absolute bottom-0'>
+                                {
+                                    contentProducts.map(contentProduct => <div
+                                        onClick={() => handleSelectContentProduct(contentProduct)}
+                                        key={contentProduct.pk}
+                                        className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
+                                        {contentProduct.name}
+                                    </div>)
+                                }
+                            </div>
                         }
                     </div>
-                }
-                {
-                    suggestions.length === 0 && contentProducts.length > 0 && !selectedContentProducts && shortlistedArtist.length === 0 && chatLog.length === 0 &&
-                    <div className='flex flex-wrap pb-2 gap-2 text-sm font-medium select-none absolute bottom-0'>
-                        {
-                            contentProducts.map(contentProduct => <div
-                                onClick={() => handleSelectContentProduct(contentProduct)}
-                                key={contentProduct.pk}
-                                className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
-                                {contentProduct.name}
-                            </div>)
-                        }
-                    </div>
-                }
-            </div>
+            }
+
 
             <div className='p-3 border-t-[3px] border-gray-300'>
                 <textarea ref={userInputRef} onKeyUp={handleChatInput} className="p-2 rounded-lg bg-gray-100 w-full focus:outline-none text-sm" rows="4" placeholder='Start a briefing...'></textarea>
