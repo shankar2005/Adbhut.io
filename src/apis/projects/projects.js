@@ -8,8 +8,3 @@ export const getCurrentProjects = async (authToken) => {
     });
     return response.data;
 }
-
-export const getDreamProjects = async () => {
-    const response = await axios('https://dev.nsnco.in/api/v1/get_dreamproject/');
-    return response.data;
-}

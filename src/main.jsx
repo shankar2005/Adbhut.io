@@ -6,6 +6,9 @@ import AuthProvider from './contexts/AuthProvider'
 import RootProvider from './contexts/RootProvider'
 import './styles/index.css'
 
+import store from './app/store'
+import { Provider } from 'react-redux'
+
 // Create a client
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,12 +20,14 @@ const queryClient = new QueryClient({
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <RootProvider>
-          <App />
-        </RootProvider>
-      </AuthProvider>
-    </QueryClientProvider>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <RootProvider>
+            <App />
+          </RootProvider>
+        </AuthProvider>
+      </QueryClientProvider>
+    </Provider>
   </React.StrictMode>,
 )

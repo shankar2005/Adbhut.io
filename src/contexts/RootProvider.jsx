@@ -3,10 +3,11 @@ import axios from 'axios';
 import React, { createContext, useContext, useEffect, useReducer, useState } from 'react';
 import Cookies from 'universal-cookie';
 import { sendMessageAPI } from '../apis/messages/messages';
-import { getCurrentProjects, getDreamProjects } from '../apis/projects/projects';
+import { getCurrentProjects } from '../apis/projects/projects';
 import { dropdownInitialState, dropdownReducers } from '../state/reducers/dropdownReducer';
 import { AuthContext } from './AuthProvider';
 import avatar from "../assets/placeholders/avatar.png"
+import { useGetDreamProjectsQuery } from '../features/project/projectApi';
 
 const RootContext = createContext();
 
@@ -119,10 +120,7 @@ const RootProvider = ({ children }) => {
     })
 
     // dream projects
-    const { data: dreamProjects = [], refetch: dreamProjectsRefetch } = useQuery({
-        queryKey: ['dreamProjects'],
-        queryFn: () => getDreamProjects(),
-    })
+    const { data: dreamProjects = [], refetch: dreamProjectsRefetch } = useGetDreamProjectsQuery();
 
     // content products
     const [contentProducts, setcontentProducts] = useState([]);
