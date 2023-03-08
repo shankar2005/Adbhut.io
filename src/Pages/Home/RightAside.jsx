@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 const RightAside = () => {
     const { selectedContentProducts, setselectedContentProducts, setchatLog, currentProjects, dreamProjects, currentProject, contentProducts, setcurrentProject, setshortlistedArtist, handleSelectContentProduct } = useRootContext();
@@ -42,6 +43,14 @@ const RightAside = () => {
                         navigation
                         className='px-3'
                     >
+                        <SwiperSlide>
+                            <div onClick={navigateCreateProject} className='group flex flex-col gap-2 items-center cursor-pointer'>
+                                <div className='border rounded-md  flex items-center justify-center p-0.5'>
+                                    <AiOutlinePlus className='group-hover:scale-110 duration-150 overflow-hidden text-gray-600' size={30} />
+                                </div>
+                                <p className='text-[0.6rem] leading-tight'>New Project</p>
+                            </div>
+                        </SwiperSlide>
                         {
                             contentProducts?.map(content => (
                                 <SwiperSlide key={content.pk}>
@@ -94,9 +103,6 @@ const RightAside = () => {
                     <ul className='flex flex-wrap gap-3 justify-center mt-6'>
                         <li className='border-b border-gray-100 hover:border-gray-400 flex flex-wrap gap-3'>
                             <Link className='flex items-center gap-2' to="/artists/artist-entry">Add Artist <FaPlus /></Link>
-                        </li>
-                        <li className='border-b border-gray-100 hover:border-gray-400 flex flex-wrap gap-3'>
-                            <button onClick={navigateCreateProject} className='flex items-center gap-2' to="/projects/create-project">Create Project <FaPlus /></button>
                         </li>
                     </ul>
                 </div>

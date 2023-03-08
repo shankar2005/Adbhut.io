@@ -5,7 +5,7 @@ import { AuthContext } from '../../contexts/AuthProvider';
 import { useRootContext } from '../../contexts/RootProvider';
 import logo from '../../assets/cn.jpeg';
 import nsnlogo from '../../assets/logo.jpeg';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import AuthModal from '../../Pages/Auth/Components/AuthModal';
 import ProfileDropdown from '../../Pages/User/Components/ProfileDropdown';
@@ -89,7 +89,9 @@ const Navbar = () => {
         <nav className='bg-white shadow-md sticky top-0 z-50'>
             <div className='w-11/12 max-w-screen-xl mx-auto flex items-center justify-between'>
                 <div className='flex items-center gap-8 py-3'>
-                    <img src={adbhutGIF} className='md:hidden w-28 md:w-32' />
+                    <Link to="/">
+                        <img src={adbhutGIF} className='md:hidden w-28 md:w-32' />
+                    </Link>
                     <div className='hidden md:flex relative'>
                         <form onSubmit={handleSearch} className="flex">
                             <input onClick={() => dropdownDispatch({ type: "SHOW_SEARCH_AND_FILTER_MODAL" })} type="text" name="search" className='border bg-blue-50 py-2 w-72 pl-10 pr-3 rounded text-sm' placeholder='Search your artist here...' required />

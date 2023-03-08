@@ -25,9 +25,9 @@ const Home = () => {
             </nav>
 
 
-            <section className='h-screen lg:flex items-center justify-center'>
+            <section className='h-screen lg:flex justify-center items-center'>
 
-                <div className='w-11/12 max-w-screen-xl mx-auto pt-24 pb-10 lg:pt-10 grid grid-cols-1 lg:grid-cols-2 items-center justify-between gap-20'>
+                <div className='w-11/12 max-w-screen-xl mx-auto pt-24 pb-10 lg:pt-10 grid grid-cols-1 lg:grid-cols-2 justify-between gap-20'>
                     <div className='order-last w-full lg:w-5/6 mx-auto'>
                         <div className='border rounded-lg shadow-lg'>
                             <ChatboxHome />
@@ -37,10 +37,10 @@ const Home = () => {
                         </div>
                     </div>
 
-                    <div className='order-first'>
-                        <h1 className='text-2xl sm:text-3xl font-bold mb-4'>
-                            Creating the most amazing creative content.<br />
-                            Now available at convenience of a conversation.
+                    <div className='order-first lg:mt-24'>
+                        <h1 className='text-2xl lg:text-3xl font-bold mb-4'>
+                            Creating the most amazing creative content, <br />
+                           now available at convenience of a conversation.
                         </h1>
                         <p>
                             The Most Efficient Content Production Platform of Artists. <br />

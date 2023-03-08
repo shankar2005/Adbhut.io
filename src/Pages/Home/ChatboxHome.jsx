@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { AiOutlineGif } from 'react-icons/ai';
+import { AiOutlineGif, AiOutlinePlus } from 'react-icons/ai';
 import { BsImageFill } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
 import { useRootContext } from '../../contexts/RootProvider';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import nsnlogo from '../../assets/logo.jpeg';
 import ChatHeading from './Chat/ChatHeading';
@@ -148,6 +148,16 @@ const ChatboxHome = () => {
                                 navigation
                                 className='px-3'
                             >
+                                <SwiperSlide>
+                                    <Link to="/projects/create-project">
+                                        <div className='group flex flex-col gap-2 items-center'>
+                                            <div className='border rounded-md h-[76px] w-[76px] flex items-center justify-center'>
+                                                <AiOutlinePlus className='group-hover:scale-110 duration-150 overflow-hidden text-gray-600' size={40} />
+                                            </div>
+                                            <p className='text-[0.6rem] leading-tight'>New Project</p>
+                                        </div>
+                                    </Link>
+                                </SwiperSlide>
                                 {
                                     contentProducts?.map(content => (
                                         <SwiperSlide key={content.pk}>

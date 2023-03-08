@@ -58,12 +58,12 @@ const TopToggleBar = ({ className }) => {
                             </>
                     }
 
-                    <Link to="/projects">
+                    {/* <Link to="/projects">
                         <button className={`border px-3 py-1 rounded-full ${pathname === "/projects" && 'bg-blue-400 text-white'}`}>View Projects</button>
                     </Link>
                     <Link to="/artists">
                         <button className={`border px-3 py-1 rounded-full ${pathname === "/artists" && 'bg-blue-400 text-white'}`}>View Artists</button>
-                    </Link>
+                    </Link> */}
                 </div>
 
                 {
