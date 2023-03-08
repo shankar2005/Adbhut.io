@@ -11,7 +11,9 @@ import { useRootContext } from '../../contexts/RootProvider';
 
 const CreateProject = () => {
     const { shortlistedArtist, chatLog, contentProducts, dreamProjectsRefetch, currentProjectsRefetch, authToken, selectedContentProducts, createProjectFormState: state, createProjectFormDispatch, dropdownDispatch } = useRootContext();
-    const { isAuthenticated } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
+
+    console.log(user);
 
     const currentProject = [];
 
@@ -33,7 +35,7 @@ const CreateProject = () => {
 
     // send brief
     const handleSendBrief = () => {
-        if (!isAuthenticated) {
+        if (!user) {
             return dropdownDispatch({ type: "SHOW_LOGIN" });
         }
         if (!state.project_template) {

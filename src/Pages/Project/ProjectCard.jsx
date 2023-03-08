@@ -1,17 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import avatar from "../../assets/placeholders/avatar.png";
+import { useGetProjectQuery } from "../../features/project/projectApi";
 import useYoutubeEmbaded from "../../hooks/useYoutubeEmbaded";
 
-const ProjectCard = ({ projectDetails }) => {
-    const [project, setProject] = useState({})
-    useEffect(() => {
-        fetch(`https://dev.nsnco.in/api/v1/edit_project/${projectDetails?.pk}/`)
-            .then(res => res.json())
-            .then(data => setProject(data))
-    }, [projectDetails])
+const ProjectCard = ({ projectId }) => {
+    const { data: project = {} } = useGetProjectQuery(projectId);
 
     const artist = {};
+    
     return (
         <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
             <div className='flex items-center gap-2 mb-3'>
