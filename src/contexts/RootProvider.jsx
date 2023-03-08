@@ -134,7 +134,6 @@ const RootProvider = ({ children }) => {
     // views
     const [viewAs, setViewAs] = useState("large");
 
-
     // holding state of create new project
     const createProjectFormInitialState = {
         title: "",
@@ -152,12 +151,36 @@ const RootProvider = ({ children }) => {
     };
     const [createProjectFormState, createProjectFormDispatch] = useReducer(createProjectFormReducer, createProjectFormInitialState);
 
+    const [showModal, setShowModal] = useState(false);
+
     // handle select content product login from RightAside
 
     const sender = (user.role === "Client" || !isAuthenticated) ? "user" : "bot";
 
+    //clearing all state of project when selecting different content product
+    const clearProject = () => {
+        setcurrentProject({});
+        setchatLog([]);
+        setshortlistedArtist([]);
+        setSearchText("");
+        setSuggestions([]);
+        setRemovedSkill([]);
+    }
+
+    const [confirm, setConfirm] = useState(false);
+
     const handleSelectContentProduct = (product) => {
         const isExist = selectedContentProducts === product.pk;
+
+        if (!isExist && !currentProject?.pk && selectedContentProducts) {
+            setShowModal(true);
+            if (confirm) {
+                clearProject();
+            } else {
+                return;
+            }
+        }
+
         if (!isExist) {
             setselectedContentProducts(product.pk);
             // chatlog
@@ -173,6 +196,8 @@ const RootProvider = ({ children }) => {
 
     const isMobile = window.innerWidth < 768;
 
+    const [removedSkills, setRemovedSkill] = useState([]);
+
     // for showing chat suggestions (artists skills) when shortlisted an artist
     const [suggestions, setSuggestions] = useState([]);
 
@@ -183,6 +208,7 @@ const RootProvider = ({ children }) => {
 
         // removing suggested skills after click
         setSuggestions(current => current.filter(i => i[1] + '' !== skill[1] + ''));
+        setRemovedSkill(current => [...current, skill]);
 
         setSearchText(skill[0]);
     }
@@ -232,7 +258,11 @@ const RootProvider = ({ children }) => {
         avatar,
         suggestions,
         setSuggestions,
-        handleSelectSkill
+        handleSelectSkill,
+        removedSkills,
+        showModal,
+        setShowModal,
+        setConfirm
     }
 
     return (

@@ -4,6 +4,7 @@ const Button = ({ children, type, variant, onClick }) => {
     const colors = {
         primary: "bg-sky-500 hover:bg-sky-600 focus:ring-sky-300 text-white",
         secondary: "bg-gray-500 hover:bg-gray-600 focus:ring-gray-300 text-white",
+        danger: "bg-red-500 hover:bg-red-600 focus:ring-red-300 text-white",
     }
 
     const types = {

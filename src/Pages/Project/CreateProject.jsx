@@ -10,7 +10,7 @@ import { AuthContext } from '../../contexts/AuthProvider';
 import { useRootContext } from '../../contexts/RootProvider';
 
 const CreateProject = () => {
-    const { shortlistedArtist, chatLog, contentProducts, dreamProjectsRefetch, currentProjectsRefetch, authToken, selectedContentProducts, createProjectFormState: state, createProjectFormDispatch: dispatch, dropdownDispatch } = useRootContext();
+    const { shortlistedArtist, chatLog, contentProducts, dreamProjectsRefetch, currentProjectsRefetch, authToken, selectedContentProducts, createProjectFormState: state, createProjectFormDispatch, dropdownDispatch } = useRootContext();
     const { isAuthenticated } = useContext(AuthContext);
 
     const currentProject = [];
@@ -27,7 +27,7 @@ const CreateProject = () => {
 
     // select content product on changing selectedContentProducts value from right side
     useEffect(() => {
-        dispatch({ type: "FORM", payload: { name: "project_template", value: selectedContentProducts } })
+        createProjectFormDispatch({ type: "FORM", payload: { name: "project_template", value: selectedContentProducts } })
     }, [selectedContentProducts])
 
 
@@ -111,13 +111,13 @@ const CreateProject = () => {
                 <div className="p-4">
                     <div className="mb-4 items-center gap-2">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Project Title</label>
-                        <input type="text" name="title" onBlur={e => dispatch(register(e))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter a Project title" defaultValue={state.title} />
+                        <input type="text" name="title" onBlur={e => createProjectFormDispatch(register(e))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter a Project title" defaultValue={state.title} />
                     </div>
 
                     <div className='flex gap-4'>
                         <div className="mb-4 flex items-center gap-2">
                             <label className="flex-1 text-sm font-medium text-gray-900">Content Product: </label>
-                            <select name="project_template" onChange={e => dispatch(register(e))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-fit p-2.5">
+                            <select name="project_template" onChange={e => createProjectFormDispatch(register(e))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-fit p-2.5">
                                 <option selected>Select content product</option>
                                 {
                                     contentProducts.map(content => <option selected={selectedContentProducts === content.pk} value={content.pk}>{content.name}</option>)
@@ -128,7 +128,7 @@ const CreateProject = () => {
 
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Project Reference Link:</label>
-                        <textarea name="reference_links" onBlur={e => dispatch(register(e))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="https://www.youtube.com/watch?v=RhdXPesyRGk" defaultValue={state.reference_links}></textarea>
+                        <textarea name="reference_links" onBlur={e => createProjectFormDispatch(register(e))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="https://www.youtube.com/watch?v=RhdXPesyRGk" defaultValue={state.reference_links}></textarea>
                     </div>
 
                     {
@@ -166,7 +166,7 @@ const CreateProject = () => {
 
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Send assignment:</label>
-                        <textarea name="post_project_client_feedback" onBlur={e => dispatch(register(e))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your assignment" defaultValue={state.post_project_client_feedback}></textarea>
+                        <textarea name="post_project_client_feedback" onBlur={e => createProjectFormDispatch(register(e))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your assignment" defaultValue={state.post_project_client_feedback}></textarea>
                     </div>
                 </div>
 

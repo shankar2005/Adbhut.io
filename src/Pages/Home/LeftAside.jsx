@@ -16,9 +16,10 @@ import MessageReceiver from './Chat/MessageReceiver';
 import MessageSender from './Chat/MessageSender';
 import avatar from "../../assets/placeholders/avatar.png";
 import Chathome from './Chat/Chathome';
+import Cta from './Components/Cta';
 
 const LeftAside = () => {
-    const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch, handleSelectContentProduct, contentProducts, isMobile, setSearchText, suggestions, setSuggestions, handleSelectSkill } = useRootContext();
+    const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch, handleSelectContentProduct, contentProducts, isMobile, setSearchText, suggestions, setSuggestions, removedSkills } = useRootContext();
     const { isAuthenticated, user } = useContext(AuthContext);
 
     const chatboxRef = useRef();
@@ -304,24 +305,10 @@ const LeftAside = () => {
 
 
                         {
-                            suggestions.length > 0 &&
-                            <div className='sticky bottom-0 p-2 bg-white'>
-                                <div className='pb-2 skillScroll overflow-x-scroll flex gap-2 text-sm font-medium select-none'>
-                                    {
-                                        suggestions &&
-                                        suggestions.map(skill => <div
-                                            onClick={() => {
-                                                handleSelectSkill(skill)
-                                                navigate("/artists")
-                                            }}
-                                            key={`suggestedSkill${skill[1]}`}
-                                            className='whitespace-nowrap py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>
-                                            {skill[0]}
-                                        </div>)
-                                    }
-                                </div>
-                            </div>
+                            (suggestions.length > 0 || removedSkills.length > 0) &&
+                            <Cta suggestions={suggestions} removedSkills={removedSkills} className='sticky bottom-0' />
                         }
+
                         {
                             suggestions.length === 0 && contentProducts.length > 0 && !selectedContentProducts && shortlistedArtist.length === 0 && chatLog.length === 0 &&
                             <div className='sticky bottom-0 p-2 pb-0 bg-white mt-12'>

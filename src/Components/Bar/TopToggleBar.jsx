@@ -3,9 +3,10 @@ import { BiMessageDots } from 'react-icons/bi';
 import { IoIosArrowBack } from 'react-icons/io';
 import { Link, useLocation } from 'react-router-dom';
 import { useRootContext } from '../../contexts/RootProvider';
+import Cta from '../../Pages/Home/Components/Cta';
 
 const TopToggleBar = ({ className }) => {
-    const { currentProject, setViewAs, shortlistedArtist, isMobile, suggestions, handleSelectSkill } = useRootContext();
+    const { currentProject, setViewAs, shortlistedArtist, isMobile, suggestions, handleSelectSkill, removedSkills } = useRootContext();
     const location = useLocation();
     const pathname = useLocation().pathname;
     const fromCreateProject = location.state?.from?.pathname?.includes("/create-project");
@@ -80,20 +81,8 @@ const TopToggleBar = ({ className }) => {
             </div>
 
             {
-                suggestions.length > 0 &&
-                <div className='p-2 border-t'>
-                    <div className='pb-2 skillScroll overflow-x-scroll flex gap-2 text-sm font-medium select-none'>
-                        {
-                            suggestions &&
-                            suggestions.map(skill => <div
-                                onClick={() => handleSelectSkill(skill)}
-                                key={`suggestedSkill${skill[1]}`}
-                                className='whitespace-nowrap py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>
-                                {skill[0]}
-                            </div>)
-                        }
-                    </div>
-                </div>
+                (suggestions.length > 0 || removedSkills.length > 0) &&
+                <Cta suggestions={suggestions} removedSkills={removedSkills} className="border-t" />
             }
 
         </section>

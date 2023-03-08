@@ -11,14 +11,13 @@ import { useEffect } from 'react';
 import Backdrop from '../Components/Backdrop/Backdrop';
 import { motion, AnimatePresence } from 'framer-motion';
 import TopToggleBar from '../Components/Bar/TopToggleBar';
+import ConfirmationModal from '../Components/Modal/ConfirmationModal';
 
 const Root = () => {
-    const { dropdownState, dropdownDispatch } = useRootContext();
+    const { dropdownState, dropdownDispatch, artistProfile, setArtistProfile, showModal } = useRootContext();
 
     const location = useLocation();
     const pathname = location.pathname;
-
-    const { artistProfile, setArtistProfile } = useRootContext();
 
 
     useEffect(() => {
@@ -99,6 +98,13 @@ const Root = () => {
                                 <ArtistProfile />
                             </motion.div>
                         </Backdrop>
+                    }
+                </AnimatePresence>
+
+                <AnimatePresence exitBeforeEnter={true}>
+                    {
+                        showModal &&
+                        <ConfirmationModal />
                     }
                 </AnimatePresence>
 
