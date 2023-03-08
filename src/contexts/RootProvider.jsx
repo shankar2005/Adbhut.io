@@ -173,6 +173,20 @@ const RootProvider = ({ children }) => {
 
     const isMobile = window.innerWidth < 768;
 
+    // for showing chat suggestions (artists skills) when shortlisted an artist
+    const [suggestions, setSuggestions] = useState([]);
+
+    const handleSelectSkill = (skill) => {
+        setcheckedSkills([skill[1] + '']);
+        // chatlog
+        setchatLog(current => [...current, { msgID: current.length + 1, [sender]: skill[0] }]);
+
+        // removing suggested skills after click
+        setSuggestions(current => current.filter(i => i[1] + '' !== skill[1] + ''));
+
+        setSearchText(skill[0]);
+    }
+
     // stored values
     const value = {
         searchText,
@@ -215,7 +229,10 @@ const RootProvider = ({ children }) => {
         isFullTime,
         setIsFullTime,
         isMobile,
-        avatar
+        avatar,
+        suggestions,
+        setSuggestions,
+        handleSelectSkill
     }
 
     return (

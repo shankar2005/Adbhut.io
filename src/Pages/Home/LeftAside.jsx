@@ -18,7 +18,7 @@ import avatar from "../../assets/placeholders/avatar.png";
 import Chathome from './Chat/Chathome';
 
 const LeftAside = () => {
-    const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch, handleSelectContentProduct, contentProducts, isMobile, setSearchText, checkedSkills } = useRootContext();
+    const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch, handleSelectContentProduct, contentProducts, isMobile, setSearchText, suggestions, setSuggestions, handleSelectSkill } = useRootContext();
     const { isAuthenticated, user } = useContext(AuthContext);
 
     const chatboxRef = useRef();
@@ -41,7 +41,6 @@ const LeftAside = () => {
     const artistIDs = shortlistedArtist?.join(",");
 
     // for showing chat suggestions (artists skills) when shortlisted an artist
-    const [suggestions, setSuggestions] = useState([]);
     useEffect(() => {
         // if no selectedContentProducts then don't show skills suggestions
         if (!selectedContentProducts || currentProject?.pk) return;
@@ -64,20 +63,7 @@ const LeftAside = () => {
             });
     }, [selectedContentProducts]);
 
-    // -----------------------------------
-    //    handle select skill & content
-    // -----------------------------------
-    const handleSelectSkill = (skill) => {
-        setcheckedSkills([skill[1] + '']);
-        // chatlog
-        setchatLog(current => [...current, { msgID: current.length + 1, [sender]: skill[0] }]);
 
-        // removing suggested skills after click
-        setSuggestions(current => current.filter(i => i[1] + '' !== skill[1] + ''));
-
-        setSearchText(skill[0]);
-        navigate("/artists");
-    }
 
     // handle remove shortlisted artist
     const handleRemoveShortlistedArtist = (msgID, artistID) => {
@@ -232,7 +218,6 @@ const LeftAside = () => {
                     <Chathome
                         chatboxRef={chatboxRef}
                         nsnlogo={nsnlogo}
-                        handleSelectSkill={handleSelectSkill}
                     />
                     :
                     <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden relative'>
@@ -325,7 +310,10 @@ const LeftAside = () => {
                                     {
                                         suggestions &&
                                         suggestions.map(skill => <div
-                                            onClick={() => handleSelectSkill(skill)}
+                                            onClick={() => {
+                                                handleSelectSkill(skill)
+                                                navigate("/artists")
+                                            }}
                                             key={`suggestedSkill${skill[1]}`}
                                             className='whitespace-nowrap py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>
                                             {skill[0]}

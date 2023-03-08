@@ -8,8 +8,8 @@ import { useRootContext } from '../../../contexts/RootProvider';
 import MessageReceiver from './MessageReceiver';
 import MessageSender from './MessageSender';
 
-const Chathome = ({ chatboxRef, nsnlogo, handleSelectSkill }) => {
-    const { isFullTime, chatLog, contentProducts, currentProject, selectedContentProducts, avatar, handleSelectContentProduct, isMobile, skills } = useRootContext();
+const Chathome = ({ chatboxRef, nsnlogo }) => {
+    const { isFullTime, chatLog, contentProducts, currentProject, selectedContentProducts, avatar, handleSelectContentProduct, isMobile, skills, handleSelectSkill } = useRootContext();
     const navigate = useNavigate();
 
     const [suggestions, setSuggestions] = useState([]);
@@ -99,7 +99,10 @@ const Chathome = ({ chatboxRef, nsnlogo, handleSelectSkill }) => {
                         {
                             suggestions &&
                             suggestions.map(skill => <div
-                                onClick={() => handleSelectSkill(skill)}
+                                onClick={() => {
+                                    handleSelectSkill(skill)
+                                    navigate("/artists")
+                                }}
                                 key={`suggestedSkill${skill[1]}`}
                                 className='whitespace-nowrap py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>
                                 {skill[0]}
