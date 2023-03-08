@@ -235,10 +235,10 @@ const LeftAside = () => {
                         handleSelectSkill={handleSelectSkill}
                     />
                     :
-                    <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden p-3 relative'>
+                    <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden relative'>
                         {
                             user.role === "Client" || !isAuthenticated
-                                ? <div className='flex flex-col'>
+                                ? <div className='flex flex-col p-3'>
                                     {/* Default message is shown */}
                                     <MessageReceiver
                                         image={nsnlogo}
@@ -277,7 +277,7 @@ const LeftAside = () => {
 
                                 </div>
                                 :
-                                <div className='flex flex-col'>
+                                <div className='flex flex-col p-3'>
                                     <div className='text-sm flex gap-2 mb-5 ml-auto'>
                                         <MessageSender
                                             image={nsnlogo}
@@ -320,29 +320,33 @@ const LeftAside = () => {
 
                         {
                             suggestions.length > 0 &&
-                            <div className='flex skillScroll overflow-x-scroll pb-2 gap-2 text-sm font-medium select-none'>
-                                {
-                                    suggestions &&
-                                    suggestions.map(skill => <div
-                                        onClick={() => handleSelectSkill(skill)}
-                                        key={`suggestedSkill${skill[1]}`}
-                                        className='whitespace-nowrap py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>
-                                        {skill[0]}
-                                    </div>)
-                                }
+                            <div className='sticky bottom-0 p-2 bg-white'>
+                                <div className='pb-2 skillScroll overflow-x-scroll flex gap-2 text-sm font-medium select-none'>
+                                    {
+                                        suggestions &&
+                                        suggestions.map(skill => <div
+                                            onClick={() => handleSelectSkill(skill)}
+                                            key={`suggestedSkill${skill[1]}`}
+                                            className='whitespace-nowrap py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>
+                                            {skill[0]}
+                                        </div>)
+                                    }
+                                </div>
                             </div>
                         }
                         {
                             suggestions.length === 0 && contentProducts.length > 0 && !selectedContentProducts && shortlistedArtist.length === 0 && chatLog.length === 0 &&
-                            <div className='flex flex-wrap pb-2 gap-2 text-sm font-medium select-none absolute bottom-0'>
-                                {
-                                    contentProducts.map(contentProduct => <div
-                                        onClick={() => handleSelectContentProduct(contentProduct)}
-                                        key={contentProduct.pk}
-                                        className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
-                                        {contentProduct.name}
-                                    </div>)
-                                }
+                            <div className='sticky bottom-0 p-2 pb-0 bg-white mt-12'>
+                                <div className='pb-2 flex flex-wrap gap-2 text-sm font-medium select-none'>
+                                    {
+                                        contentProducts.map(contentProduct => <div
+                                            onClick={() => handleSelectContentProduct(contentProduct)}
+                                            key={contentProduct.pk}
+                                            className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
+                                            {contentProduct.name}
+                                        </div>)
+                                    }
+                                </div>
                             </div>
                         }
                     </div>

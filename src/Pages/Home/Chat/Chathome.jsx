@@ -21,8 +21,8 @@ const Chathome = ({ chatboxRef, nsnlogo, handleSelectSkill }) => {
     console.log(suggestions);
 
     return (
-        <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden p-3 relative'>
-            <div className='flex flex-col'>
+        <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden relative'>
+            <div className='flex flex-col p-3'>
                 <MessageReceiver
                     key={isFullTime ? "visible" : "hidden"}
                     image={nsnlogo}
@@ -52,7 +52,7 @@ const Chathome = ({ chatboxRef, nsnlogo, handleSelectSkill }) => {
 
             {
                 !isFullTime && contentProducts.length > 0 &&
-                <div className='contentProducts text-center select-none mt-14'>
+                <div className='sticky bottom-0 bg-white p-3 pb-2 contentProducts text-center select-none mt-12'>
                     <Swiper
                         spaceBetween={5}
                         slidesPerView={4}
@@ -94,16 +94,18 @@ const Chathome = ({ chatboxRef, nsnlogo, handleSelectSkill }) => {
             }
             {
                 isFullTime && suggestions.length > 0 &&
-                <div className='flex mt-32 skillScroll overflow-x-scroll pb-2 gap-2 text-sm font-medium select-none'>
-                    {
-                        suggestions &&
-                        suggestions.map(skill => <div
-                            onClick={() => handleSelectSkill(skill)}
-                            key={`suggestedSkill${skill[1]}`}
-                            className='whitespace-nowrap py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>
-                            {skill[0]}
-                        </div>)
-                    }
+                <div className='sticky bottom-0 p-2 bg-white'>
+                    <div className='pb-2 skillScroll overflow-x-scroll flex gap-2 text-sm font-medium select-none'>
+                        {
+                            suggestions &&
+                            suggestions.map(skill => <div
+                                onClick={() => handleSelectSkill(skill)}
+                                key={`suggestedSkill${skill[1]}`}
+                                className='whitespace-nowrap py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>
+                                {skill[0]}
+                            </div>)
+                        }
+                    </div>
                 </div>
             }
         </div>
