@@ -3,7 +3,7 @@ import useYoutubeEmbaded from '../../../../hooks/useYoutubeEmbaded';
 import { GiCheckMark } from "react-icons/gi";
 
 const ArtistWorkView = ({ artist }) => {
-    const { shortlistedArtist, handleShortlist, avatar } = useRootContext();
+    const { shortlistedArtist, handleShortlist, avatar, setArtistProfile } = useRootContext();
 
     return (
         <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>

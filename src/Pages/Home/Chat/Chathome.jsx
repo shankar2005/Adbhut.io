@@ -94,7 +94,7 @@ const Chathome = ({ chatboxRef, nsnlogo }) => {
             }
             {
                 isFullTime && suggestions.length > 0 &&
-                <div className='sticky bottom-0 p-2 bg-white'>
+                <div className='sticky bottom-0 p-2 bg-white mt-28'>
                     <div className='pb-2 skillScroll overflow-x-scroll flex gap-2 text-sm font-medium select-none'>
                         {
                             suggestions &&

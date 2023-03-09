@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import React, { createContext, useContext, useEffect, useReducer, useState } from 'react';
 import Cookies from 'universal-cookie';
 import { sendMessageAPI } from '../apis/messages/messages';
@@ -8,6 +7,7 @@ import { dropdownInitialState, dropdownReducers } from '../state/reducers/dropdo
 import { AuthContext } from './AuthProvider';
 import avatar from "../assets/placeholders/avatar.png"
 import { useGetDreamProjectsQuery } from '../features/project/projectApi';
+import { useGetContentProductsQuery, useGetLocationsQuery, useGetSkillsQuery } from '../features/utils/utilsApi';
 
 const RootContext = createContext();
 
@@ -16,7 +16,6 @@ const RootProvider = ({ children }) => {
 
     // filtering feeds with type -> search bar
     const [demoType, setdemoType] = useState("");
-    // navbar search text
     const [searchText, setSearchText] = useState("");
 
     const [checkedSkills, setcheckedSkills] = useState([]);
@@ -26,15 +25,8 @@ const RootProvider = ({ children }) => {
     const cookies = new Cookies();
     const authToken = cookies.get('auth_token');
 
-    //-------------------------------------------------------------
-    //-------------------------------------------------------------
-    // artist shortlisting
     const [shortlistedArtist, setshortlistedArtist] = useState([]);
-
-    // clicking content products
     const [selectedContentProducts, setselectedContentProducts] = useState("");
-
-    // chatlog
     const [chatLog, setchatLog] = useState([]);
 
     // setting response msg on first action
@@ -44,8 +36,6 @@ const RootProvider = ({ children }) => {
             setchatLog(chatLog => [...chatLog, { actionResponse: true, msgID: chatLog.length + 1, bot: "Great! Let’s shortlist artist by requirement." }]);
         }
     }, [chatLog]);
-    //-------------------------------------------------------------
-    //-------------------------------------------------------------
 
     const handleShortlist = (artistID, name, profile_pic) => {
         setshortlistedArtist(current => [...current, artistID]);
@@ -99,19 +89,9 @@ const RootProvider = ({ children }) => {
         }
     }
 
-    // location search
-    const { data: locations = [] } = useQuery({
-        queryKey: ['locations'],
-        queryFn: () => axios('https://dev.nsnco.in/api/v1/get_location/')
-            .then(response => response.data)
-    })
-
-    // handle skills
-    const { data: skills = [] } = useQuery({
-        queryKey: ['skills'],
-        queryFn: () => axios('https://dev.nsnco.in/api/v1/get_skill/')
-            .then(response => response.data)
-    })
+    const { data: locations = [] } = useGetLocationsQuery();
+    const { data: skills = [] } = useGetSkillsQuery();
+    const { data: contentProducts } = useGetContentProductsQuery();
 
     // get current projects
     const { data: currentProjects = [], refetch: currentProjectsRefetch } = useQuery({
@@ -122,12 +102,6 @@ const RootProvider = ({ children }) => {
     // dream projects
     const { data: dreamProjects = [], refetch: dreamProjectsRefetch } = useGetDreamProjectsQuery();
 
-    // content products
-    const [contentProducts, setcontentProducts] = useState([]);
-    useEffect(() => {
-        axios('https://dev.nsnco.in/api/v1/get_content_products/')
-            .then(response => setcontentProducts(response.data));
-    }, [])
 
     // views
     const [viewAs, setViewAs] = useState("large");

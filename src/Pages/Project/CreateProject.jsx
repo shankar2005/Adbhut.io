@@ -1,5 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import React, { useContext } from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
@@ -8,6 +6,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Button from '../../Components/Button/Button';
 import { AuthContext } from '../../contexts/AuthProvider';
 import { useRootContext } from '../../contexts/RootProvider';
+import { useGetArtistByIdQuery } from '../../features/artist/artistApi';
 
 const CreateProject = () => {
     const { shortlistedArtist, chatLog, contentProducts, dreamProjectsRefetch, currentProjectsRefetch, authToken, selectedContentProducts, createProjectFormState: state, createProjectFormDispatch, dropdownDispatch } = useRootContext();
@@ -122,7 +121,7 @@ const CreateProject = () => {
                             <select name="project_template" onChange={e => createProjectFormDispatch(register(e))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-fit p-2.5">
                                 <option selected>Select content product</option>
                                 {
-                                    contentProducts.map(content => <option selected={selectedContentProducts === content.pk} value={content.pk}>{content.name}</option>)
+                                    contentProducts?.map(content => <option selected={selectedContentProducts === content.pk} value={content.pk}>{content.name}</option>)
                                 }
                             </select>
                         </div>
@@ -187,13 +186,7 @@ export default CreateProject;
 
 const ArtistRow = ({ artistId }) => {
     const { setArtistProfile } = useRootContext();
-
-    // dream projects
-    const { data: artist = {} } = useQuery({
-        queryKey: ['artist'],
-        queryFn: () => axios(`https://dev.nsnco.in/api/v1/get_artist/${artistId}/`)
-            .then(response => response.data)
-    })
+    const { data: artist = {} } = useGetArtistByIdQuery(artistId);
 
     return (
         <div className='flex items-center gap-2 text-sm bg-gray-100 p-2 mb-1 border border-blue-300 rounded-lg'>

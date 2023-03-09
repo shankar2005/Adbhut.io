@@ -31,7 +31,6 @@ const ProjectCard = ({ projectId }) => {
             </div>
             <p className='text-sm mb-2'>
                 {project?.production_solution}
-                {/* <a className='text-blue-500 ml-1' href="#">see more</a> */}
             </p>
             <div>
                 {

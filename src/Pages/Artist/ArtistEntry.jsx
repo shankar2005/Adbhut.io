@@ -1,9 +1,10 @@
-import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
 import { useRootContext } from '../../contexts/RootProvider';
+import { useAddArtistMutation } from '../../features/artist/artistApi';
 
 const ArtistEntry = () => {
+    const [addArtist] = useAddArtistMutation();
     const { locations, skills } = useRootContext();
 
     const allSkills = [];
@@ -17,20 +18,12 @@ const ArtistEntry = () => {
     const { register, handleSubmit, formState: { errors }, control } = useForm();
     const onSubmit = data => {
         console.log(data)
-        return
-        fetch('https://dev.nsnco.in/api/v1/artist_action/', {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({
-                ...data,
-                "languages": [20, 19],
-                "has_manager": false,
-            })
+        return;
+        addArtist({
+            ...data,
+            "languages": [20, 19],
+            "has_manager": false,
         })
-            .then(res => res.json())
-            .then(data => { });
     }
 
     return (

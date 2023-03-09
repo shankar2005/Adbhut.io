@@ -1,8 +1,6 @@
 import React from 'react';
 
 const ProjectDone = () => {
-    // const {} = RootPro
-
     return (
         <div className='bg-white rounded-lg shadow-md border'>
             <div className='p-4'>
