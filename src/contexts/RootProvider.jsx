@@ -91,7 +91,7 @@ const RootProvider = ({ children }) => {
 
     const { data: locations = [] } = useGetLocationsQuery();
     const { data: skills = [] } = useGetSkillsQuery();
-    const { data: contentProducts } = useGetContentProductsQuery();
+    const { data: contentProducts = [] } = useGetContentProductsQuery();
 
     // get current projects
     const { data: currentProjects = [], refetch: currentProjectsRefetch } = useQuery({
@@ -164,8 +164,6 @@ const RootProvider = ({ children }) => {
 
     const [artistProfile, setArtistProfile] = useState(null);
 
-    const [isFullTime, setIsFullTime] = useState(false);
-
     const isMobile = window.innerWidth < 768;
 
     const [removedSkills, setRemovedSkill] = useState([]);
@@ -224,8 +222,6 @@ const RootProvider = ({ children }) => {
         dropdownDispatch,
         artistProfile,
         setArtistProfile,
-        isFullTime,
-        setIsFullTime,
         isMobile,
         avatar,
         suggestions,

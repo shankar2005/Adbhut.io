@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -9,7 +10,9 @@ import MessageReceiver from './MessageReceiver';
 import MessageSender from './MessageSender';
 
 const Chathome = ({ chatboxRef, nsnlogo }) => {
-    const { isFullTime, chatLog, contentProducts, currentProject, selectedContentProducts, avatar, handleSelectContentProduct, isMobile, skills, handleSelectSkill } = useRootContext();
+    const { isFullTime } = useSelector(state => state.viewMode);
+
+    const { chatLog, contentProducts, currentProject, selectedContentProducts, avatar, handleSelectContentProduct, isMobile, skills, handleSelectSkill } = useRootContext();
     const navigate = useNavigate();
 
     const [suggestions, setSuggestions] = useState([]);
@@ -17,8 +20,6 @@ const Chathome = ({ chatboxRef, nsnlogo }) => {
     useEffect(() => {
         setSuggestions(skills.map(skill => [skill.name, skill.pk]));
     }, [skills])
-
-    console.log(suggestions);
 
     return (
         <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden relative'>

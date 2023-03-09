@@ -2,9 +2,12 @@ import { useRootContext } from '../../contexts/RootProvider';
 import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
 import { Link } from 'react-router-dom';
 import LeftAside from './LeftAside';
+import { useDispatch, useSelector } from 'react-redux';
+import { setViewMode } from '../../features/view/viewModeSlice';
 
 const Home = () => {
-    const { setIsFullTime, isFullTime } = useRootContext();
+    const dispatch = useDispatch();
+    const { isFullTime } = useSelector(state => state.viewMode);
 
     return (
         <header>
@@ -17,7 +20,7 @@ const Home = () => {
                         <a target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show' className=''>Hiring</a>
                     </p>
                     <label for="userState" className="inline-flex items-center p-1 cursor-pointer bg-gray-300 text-black text-xs md:text-sm font-medium uppercase select-none">
-                        <input onChange={() => setIsFullTime(prev => !prev)} id="userState" type="checkbox" className="hidden peer" />
+                        <input onChange={() => dispatch(setViewMode())} id="userState" type="checkbox" className="hidden peer" />
                         <span className={`px-4 py-2 ${isFullTime ? "bg-black text-white" : "bg-gray-300"} duration-300`}>Full Time</span>
                         <span className={`px-4 py-2 ${isFullTime ? "bg-gray-300" : "bg-black text-white"} duration-300`}>For Project</span>
                     </label>
@@ -40,7 +43,7 @@ const Home = () => {
                     <div className='order-first lg:mt-24'>
                         <h1 className='text-2xl lg:text-3xl font-bold mb-4'>
                             Creating the most amazing creative content, <br />
-                           now available at convenience of a conversation.
+                            now available at convenience of a conversation.
                         </h1>
                         <p>
                             The Most Efficient Content Production Platform of Artists. <br />
