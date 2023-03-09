@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import { useContext } from 'react';
 import { FcCheckmark } from 'react-icons/fc'
 import { RxCross2 } from 'react-icons/rx'
+import { useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
-import { AuthContext } from '../../../../contexts/AuthProvider';
 import { useRootContext } from '../../../../contexts/RootProvider';
 
 const ShortlistedArtistRow = ({ artist, projectId, refetch }) => {
-    const { isAuthenticated } = useContext(AuthContext);
+    const { user } = useSelector(state => state.auth);
     const { authToken, setArtistProfile } = useRootContext();
     const [assignLoading, setassignLoading] = useState(false);
     const [rejectLoading, setrejectLoading] = useState(false);
@@ -55,7 +54,7 @@ const ShortlistedArtistRow = ({ artist, projectId, refetch }) => {
                 <p className='text-xs'>Status: <span className='bg-gray-400 p-0.5 px-1 rounded text-gray-50'>available</span></p>
             </div>
             {
-                isAuthenticated &&
+                user.email &&
                 <div className='flex ml-auto pr-2 gap-1'>
                     <button type='button' onClick={handleRejectArtist}>
                         {

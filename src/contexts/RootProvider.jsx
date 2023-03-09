@@ -4,15 +4,15 @@ import Cookies from 'universal-cookie';
 import { sendMessageAPI } from '../apis/messages/messages';
 import { getCurrentProjects } from '../apis/projects/projects';
 import { dropdownInitialState, dropdownReducers } from '../state/reducers/dropdownReducer';
-import { AuthContext } from './AuthProvider';
 import avatar from "../assets/placeholders/avatar.png"
 import { useGetDreamProjectsQuery } from '../features/project/projectApi';
 import { useGetContentProductsQuery, useGetLocationsQuery, useGetSkillsQuery } from '../features/utils/utilsApi';
+import { useSelector } from 'react-redux';
 
 const RootContext = createContext();
 
 const RootProvider = ({ children }) => {
-    const { isAuthenticated, user } = useContext(AuthContext);
+    const { user } = useSelector(state => state.auth);
 
     // filtering feeds with type -> search bar
     const [demoType, setdemoType] = useState("");
@@ -95,7 +95,7 @@ const RootProvider = ({ children }) => {
 
     // get current projects
     const { data: currentProjects = [], refetch: currentProjectsRefetch } = useQuery({
-        queryKey: ['currentProjects', isAuthenticated],
+        queryKey: ['currentProjects', user.email],
         queryFn: () => getCurrentProjects(authToken)
     })
 
@@ -127,7 +127,7 @@ const RootProvider = ({ children }) => {
 
     // handle select content product login from RightAside
 
-    const sender = (user.role === "Client" || !isAuthenticated) ? "user" : "bot";
+    const sender = (user.role === "Client" || !user.email) ? "user" : "bot";
 
     //clearing all state of project when selecting different content product
     const clearProject = () => {

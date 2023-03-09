@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
 import { useForm } from "react-hook-form";
 import Cookies from 'universal-cookie';
-import { AuthContext } from '../../contexts/AuthProvider';
 
 const RegisterForm = ({ formError, setformError }) => {
-    const { setIsAuthenticated } = useContext(AuthContext);
+    // const { setIsAuthenticated } = useContext(AuthContext);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = formData => {
@@ -36,7 +35,7 @@ const RegisterForm = ({ formError, setformError }) => {
                             if (data.token) {
                                 const cookies = new Cookies();
                                 cookies.set('auth_token', data.token, { path: '/' });
-                                setIsAuthenticated(true);
+                                // setIsAuthenticated(true);
                             } else {
                                 setformError("Something went wrong!");
                             }

@@ -9,8 +9,40 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import 'react-loading-skeleton/dist/skeleton.css'
+import Cookies from 'universal-cookie';
+import { useVerifyUserMutation } from './features/auth/authApi';
+import { useEffect } from 'react';
+import { setLoading, setUser } from './features/auth/authSlice';
+import { useDispatch } from 'react-redux';
 
 function App() {
+  const dispatch = useDispatch();
+
+  // auth/user
+  // auth/user
+  // auth/user
+
+  const [verifyUser, { data }] = useVerifyUserMutation();
+
+  useEffect(() => {
+    const cookies = new Cookies();
+    const token = cookies.get('auth_token');
+    if (token) verifyUser({ token })
+  }, [])
+
+  useEffect(() => {
+    dispatch(setLoading(true));
+    if (data?.status === "success") {
+      dispatch(setUser(data.user));
+    }
+    dispatch(setLoading(false));
+  }, [data])
+
+  // auth/user
+  // auth/user
+  // auth/user
+
+
   return (
     <>
       <RouterProvider router={router} />

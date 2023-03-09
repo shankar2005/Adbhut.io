@@ -4,8 +4,6 @@ import { useRootContext } from '../../../contexts/RootProvider';
 import { BsArrowDown, BsThreeDots, BsTrash } from 'react-icons/bs';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useContext } from 'react';
-import { AuthContext } from '../../../contexts/AuthProvider';
 import { AiFillEye, AiOutlinePlus } from 'react-icons/ai';
 import ShortlistedArtistRow from './Components/ShortlistedArtistRow';
 import AssignedArtistRow from './Components/AssignedArtistRow';
@@ -13,10 +11,11 @@ import { sendMessageAPI } from '../../../apis/messages/messages';
 import { useQuery } from '@tanstack/react-query';
 import { GrDocumentPdf } from "react-icons/gr";
 import Button from '../../../Components/Button/Button';
+import { useSelector } from 'react-redux';
 
 const ProjectManagement = () => {
     const { chatLog, setchatLog, setshortlistedArtist, currentProjectsRefetch, authToken, handleShowProjectHistory, setcurrentProject, dreamProjectsRefetch, setselectedContentProducts, dropdownDispatch } = useRootContext();
-    const { isAuthenticated, user } = useContext(AuthContext);
+    const { user } = useSelector(state => state.auth);
 
     const params = useParams();
     const { data: currentProject = {}, refetch } = useQuery({
@@ -48,7 +47,7 @@ const ProjectManagement = () => {
 
     const { register, handleSubmit, reset } = useForm();
     const onSubmit = data => {
-        if (!isAuthenticated) {
+        if (!user.email) {
             return dropdownDispatch({ type: "SHOW_LOGIN" });
         }
 
@@ -115,7 +114,7 @@ const ProjectManagement = () => {
 
     const [assignmentField, setassignmentField] = useState("");
     const handleAddToMyProject = () => {
-        if (!isAuthenticated) {
+        if (!user.email) {
             return dropdownDispatch({ type: "SHOW_LOGIN" });
         }
 
@@ -185,7 +184,7 @@ const ProjectManagement = () => {
                 </div>
                 <BsThreeDots onClick={() => setactionToggle(!actionToggle)} className='cursor-pointer' />
                 {
-                    actionToggle && isAuthenticated &&
+                    actionToggle && user.email &&
                     <div className='absolute right-0 -bottom-3/4 border bg-white shadow-lg select-none'>
                         <button onClick={handleDeleteProject} className='flex items-center gap-2 text-sm py-3 px-5'>Delete <BsTrash size={20} /></button>
                     </div>
@@ -196,12 +195,12 @@ const ProjectManagement = () => {
                 <div className="p-4">
                     <div className="mb-4 items-center gap-2">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Project Title</label>
-                        <input type="text" {...register('title')} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" disabled={!isAuthenticated} />
+                        <input type="text" {...register('title')} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" disabled={!user.email} />
                     </div>
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Creator</label>
                         {
-                            isAuthenticated
+                            user.email
                                 ? <div className='flex items-center gap-2 rounded'>
                                     <div className='relative'>
                                         <img className='w-10 border rounded-full' src="https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo" alt="" />
@@ -370,7 +369,7 @@ const ProjectManagement = () => {
                                 </table>
                             </div>
                             {
-                                isAuthenticated &&
+                                user.email &&
                                 <>
                                     <div className="mb-5 flex items-center gap-2">
                                         <label className="text-sm font-medium text-gray-900">Project fee Status:</label>
@@ -436,7 +435,7 @@ const ProjectManagement = () => {
                     </div>
                 }
                 {
-                    isAuthenticated ?
+                    user.email ?
                         <>
                             {
                                 currentProject.stage !== "DreamProject" ?

@@ -1,17 +1,16 @@
-import React, { useContext } from 'react';
 import { MdCelebration } from 'react-icons/md';
-import { AuthContext } from '../../contexts/AuthProvider';
 import { useRootContext } from '../../contexts/RootProvider';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
 
 const RightAside = () => {
     const { selectedContentProducts, setselectedContentProducts, setchatLog, currentProjects, dreamProjects, currentProject, contentProducts, setcurrentProject, setshortlistedArtist, handleSelectContentProduct } = useRootContext();
 
-    const { isAuthenticated } = useContext(AuthContext);
+    const { user } = useSelector(state => state.auth);
 
     const navigate = useNavigate();
     const navigateCreateProject = () => {
@@ -69,7 +68,7 @@ const RightAside = () => {
 
             <section className='bg-white text-gray-700 rounded-lg shadow-md text-sm'>
                 {
-                    isAuthenticated && currentProjects.length > 0 &&
+                    user.email && currentProjects.length > 0 &&
                     <div className='border-b pb-6 p-4'>
                         <p className='text-black mb-2 font-medium'>Current Projects</p>
                         {

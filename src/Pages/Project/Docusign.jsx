@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { BsBoxArrowUpRight } from 'react-icons/bs';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Button from '../../Components/Button/Button';
-import { AuthContext } from '../../contexts/AuthProvider';
 
 const Docusign = () => {
-    const { user: { name, email } } = useContext(AuthContext);
+    const { user: { name, email } } = useSelector(state => state.auth);
 
     return (
         <div className='bg-white p-4 rounded-lg shadow-md border'>

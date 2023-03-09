@@ -13,3 +13,4 @@ const authApi = apis.injectEndpoints({
 });
 
 export const { useVerifyUserMutation } = authApi;
+export default authApi;

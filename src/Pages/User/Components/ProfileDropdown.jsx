@@ -1,21 +1,17 @@
-import { useContext } from 'react';
 import { ImOffice } from 'react-icons/im';
 import { TfiWorld } from 'react-icons/tfi';
 import { FiLogOut } from 'react-icons/fi';
 import Cookies from 'universal-cookie';
-import { AuthContext } from '../../../contexts/AuthProvider';
-import { useRootContext } from '../../../contexts/RootProvider';
 import Button from '../../../Components/Button/Button';
 import logo from "../../../assets/logos/adbeta.jpeg"
+import { useSelector } from 'react-redux';
 
 const ProfileDropdown = () => {
-    const { user } = useContext(AuthContext);
-    const { setIsAuthenticated } = useRootContext();
+    const { user } = useSelector(state => state.auth);
 
     const handleLogout = () => {
         const cookies = new Cookies();
         cookies.remove("auth_token", { path: '/' });
-        setIsAuthenticated(false);
     }
 
     return (

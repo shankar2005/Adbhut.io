@@ -1,18 +1,15 @@
-import React, { useContext } from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Button from '../../Components/Button/Button';
-import { AuthContext } from '../../contexts/AuthProvider';
 import { useRootContext } from '../../contexts/RootProvider';
 import { useGetArtistByIdQuery } from '../../features/artist/artistApi';
 
 const CreateProject = () => {
     const { shortlistedArtist, chatLog, contentProducts, dreamProjectsRefetch, currentProjectsRefetch, authToken, selectedContentProducts, createProjectFormState: state, createProjectFormDispatch, dropdownDispatch } = useRootContext();
-    const { user } = useContext(AuthContext);
-
-    console.log(user);
+    const { user } = useSelector(state => state.auth);
 
     const currentProject = [];
 
@@ -67,7 +64,7 @@ const CreateProject = () => {
     // above and below both events are the same code repeated (just state changes)
     // add to dream project
     const handleAddToDreamProject = () => {
-        if (!isAuthenticated) {
+        if (!user.email) {
             return dropdownDispatch({ type: "SHOW_LOGIN" });
         }
         if (!state.project_template) {

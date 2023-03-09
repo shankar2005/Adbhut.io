@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { IoIosArrowDown } from 'react-icons/io';
-import { AuthContext } from '../../contexts/AuthProvider';
 import { useRootContext } from '../../contexts/RootProvider';
 import logo from '../../assets/cn.jpeg';
 import nsnlogo from '../../assets/logo.jpeg';
@@ -10,11 +9,12 @@ import { AnimatePresence } from 'framer-motion';
 import AuthModal from '../../Pages/Auth/Components/AuthModal';
 import ProfileDropdown from '../../Pages/User/Components/ProfileDropdown';
 import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
     const { setdemoType, setSearchText, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills, dropdownState, dropdownDispatch } = useRootContext();
 
-    const { isAuthenticated, user } = useContext(AuthContext);
+    const { user } = useSelector(state => state.auth);
 
     const resetFeed = () => {
         setSearchText("")
@@ -217,7 +217,7 @@ const Navbar = () => {
                 </div>
                 <ul className='flex items-center gap-4 text-gray-500 flex-1 py-3'>
                     {
-                        isAuthenticated &&
+                        user.email &&
                         <li className='ml-auto flex items-center gap-2 relative'>
                             <img className='hidden md:block w-24' src={logo} alt="" />
                             <img onClick={() => dropdownDispatch({ type: "SHOW_ACCOUNT" })} className='w-10 h-10 rounded-full border' src={user?.role === "Client" ? "https://www.w3schools.com/howto/img_avatar.png" : nsnlogo} alt="" />
@@ -228,7 +228,7 @@ const Navbar = () => {
                         </li>
                     }
                     {
-                        !isAuthenticated &&
+                        !user.email &&
                         <li className='ml-auto'>
                             <button onClick={() => dropdownDispatch({ type: "SHOW_LOGIN" })} className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="button">Login</button>
                             {/* auth modal */}

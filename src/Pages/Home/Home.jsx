@@ -36,7 +36,7 @@ const Home = () => {
                             <LeftAside />
                         </div>
                         <div className='mt-5 text-gray-500 text-sm'>
-                            <a target="_blank" href="https://nsnco.in/" className='text-blue-600'>Learn more</a> about NsNco
+                            &copy; about Mirashious Technologies Pvt Ltd
                         </div>
                     </div>
 

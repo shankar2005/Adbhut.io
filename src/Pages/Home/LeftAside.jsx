@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AiOutlineGif } from 'react-icons/ai';
 import { BsFillMicFill, BsImageFill } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
@@ -7,7 +7,6 @@ import { useRootContext } from '../../contexts/RootProvider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FiDelete } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
-import { AuthContext } from '../../contexts/AuthProvider';
 import nsnlogo from '../../assets/logo.jpeg';
 import ChatHeading from './Chat/ChatHeading';
 import { openAIMessageAPI, sendMessageAPI } from '../../apis/messages/messages';
@@ -17,10 +16,11 @@ import MessageSender from './Chat/MessageSender';
 import avatar from "../../assets/placeholders/avatar.png";
 import Chathome from './Chat/Chathome';
 import Cta from './Components/Cta';
+import { useSelector } from 'react-redux';
 
 const LeftAside = () => {
-    const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setcheckedSkills, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch, handleSelectContentProduct, contentProducts, isMobile, setSearchText, suggestions, setSuggestions, removedSkills } = useRootContext();
-    const { isAuthenticated, user } = useContext(AuthContext);
+    const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch, handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills } = useRootContext();
+    const { user } = useSelector(state => state.auth);
 
     const chatboxRef = useRef();
     useEffect(() => {
@@ -37,7 +37,7 @@ const LeftAside = () => {
         }
     }, [])
 
-    const sender = (user.role === "Client" || !isAuthenticated) ? "user" : "bot";
+    const sender = (user.role === "Client" || !user.email) ? "user" : "bot";
 
     // handle remove shortlisted artist
     const handleRemoveShortlistedArtist = (msgID, artistID) => {
@@ -50,7 +50,7 @@ const LeftAside = () => {
     const navigate = useNavigate();
     // send brief
     const handleSendBrief = () => {
-        if (!isAuthenticated) {
+        if (!user.email) {
             return dropdownDispatch({ type: "SHOW_LOGIN" });
         }
         fetch('https://dev.nsnco.in/api/v1/create_project/', {
@@ -79,7 +79,7 @@ const LeftAside = () => {
 
     // handle change stage
     const handleChangeStage = () => {
-        if (!isAuthenticated) {
+        if (!user.email) {
             return dropdownDispatch({ type: "SHOW_LOGIN" });
         }
         fetch(`https://dev.nsnco.in/api/v1/edit_project/${currentProject.pk}/`, {
@@ -124,7 +124,7 @@ const LeftAside = () => {
         setuserInputText("");
         userInputRef.current.value = "";
 
-        if (isAuthenticated && currentProject?.pk) {
+        if (user.email && currentProject?.pk) {
             sendMessageAPI({
                 project_id: currentProject.pk,
                 message: message
@@ -196,7 +196,7 @@ const LeftAside = () => {
                     :
                     <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden relative'>
                         {
-                            user.role === "Client" || !isAuthenticated
+                            user.role === "Client" || !user.email
                                 ? <div className='flex flex-col p-3'>
                                     {/* Default message is shown */}
                                     <MessageReceiver
@@ -278,7 +278,7 @@ const LeftAside = () => {
 
 
                         {
-                            (suggestions.length > 0 || removedSkills.length > 0) &&
+                            (suggestions?.length > 0 || removedSkills?.length > 0) &&
                             <Cta suggestions={suggestions} removedSkills={removedSkills} className='sticky bottom-0' />
                         }
 

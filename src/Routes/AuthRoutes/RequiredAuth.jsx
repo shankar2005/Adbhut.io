@@ -1,16 +1,14 @@
-import React from 'react';
-import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { AuthContext } from '../../contexts/AuthProvider';
 
 const RequiredAuth = ({ children }) => {
-    const { isAuthenticated, authLoading } = useContext(AuthContext);
+    const { user, isLoading } = useSelector(state => state.auth);
 
-    if (authLoading) {
+    if (isLoading) {
         return <div>Loading...</div>
     }
 
-    if (!isAuthenticated) {
+    if (!user.email) {
         return <Navigate to="/" />
     }
 
