@@ -183,6 +183,32 @@ const RootProvider = ({ children }) => {
         setSearchText(skill[0]);
     }
 
+
+
+    // for showing chat suggestions (artists skills) when shortlisted an artist
+    const artistIDs = shortlistedArtist?.join(",");
+    useEffect(() => {
+        // if no selectedContentProducts then don't show skills suggestions
+        if (!selectedContentProducts || currentProject?.pk) return;
+
+        fetch('https://dev.nsnco.in/api/v1/chatflow_skills/', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({
+                artists: artistIDs,
+                product: selectedContentProducts || 0
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+                setSuggestions(data.skills);
+                // filter on contentProduct's listed skills & show artists depending on those skills
+                setcheckedSkills(data.skills.map(skill => skill[1] + ''));
+            });
+    }, [selectedContentProducts]);
+
     // stored values
     const value = {
         searchText,
