@@ -169,8 +169,8 @@ const CreateProject = () => {
                 </div>
 
                 <div className='p-4 pt-0 space-x-2 flex'>
-                    <Button onClick={handleAddToDreamProject}>Add to dream project</Button>
-                    <Button onClick={handleSendBrief}>Send Brief</Button>
+                    <Button variant="primary" onClick={handleAddToDreamProject}>Add to dream project</Button>
+                    <Button variant="primary" onClick={handleSendBrief}>Send Brief</Button>
                 </div>
 
             </form>

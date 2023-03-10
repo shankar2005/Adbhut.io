@@ -442,16 +442,16 @@ const ProjectManagement = () => {
                                     <div className='p-4 pt-0 space-x-2'>
                                         {
                                             (currentProject.stage === "Lead" || currentProject.stage === "DreamProject") &&
-                                            <Button type="submit">Save Changes</Button>
+                                            <Button variant="primary" type="submit">Save Changes</Button>
                                         }
                                         {
                                             user.role === "Product Manager" &&
-                                            <Button onClick={handleSubmitToClient}>Submit to client</Button>
+                                            <Button variant="primary" onClick={handleSubmitToClient}>Submit to client</Button>
                                         }
                                     </div>
                                     : <div className='p-4 pt-0 space-x-2'>
-                                        <Button type="submit">Save Changes</Button>
-                                        <Button onClick={handleAddToMyProject}>Send Brief</Button>
+                                        <Button variant="primary" type="submit">Save Changes</Button>
+                                        <Button variant="primary" onClick={handleAddToMyProject}>Send Brief</Button>
                                     </div>
                             }
                         </>
@@ -459,7 +459,7 @@ const ProjectManagement = () => {
                             {
                                 currentProject.stage === "DreamProject" &&
                                 <div className='p-4 pt-0 space-x-2'>
-                                    <Button onClick={handleAddToMyProject}>Send Brief</Button>
+                                    <Button variant="primary" onClick={handleAddToMyProject}>Send Brief</Button>
                                 </div>
                             }
                         </>

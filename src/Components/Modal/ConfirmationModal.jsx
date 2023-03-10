@@ -58,8 +58,8 @@ const ConfirmationModal = () => {
                         <BsExclamationCircle className='text-gray-500' size={40} />
                         <p className='font-serif font-medium text-gray-600'>Your project data will be lost, Are you sure want to continue?</p>
                         <div className='space-x-3'>
-                            <Button onClick={handleYes}>Yes, I'm sure</Button>
-                            <Button onClick={handleNo} variant="danger">No, cancel</Button>
+                            <Button variant="primary" onClick={handleYes}>Yes, I'm sure</Button>
+                            <Button variant="danger" onClick={handleNo}>No, cancel</Button>
                         </div>
                     </div>
                 </div>

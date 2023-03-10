@@ -24,6 +24,9 @@ const TopToggleBar = ({ className }) => {
         }, 500); // Set the timeout to the duration of the animation (in milliseconds)
     }, [shortlistedArtist])
 
+    // shows only on artists route
+    if (!pathname.includes("/artists")) return;
+
     return (
         <section className={`sticky top-20 w-full z-30 bg-white border border-blue-100 shadow mb-2 rounded-t-lg ${className}`}>
             <div className="flex justify-between items-center p-2">
@@ -33,12 +36,11 @@ const TopToggleBar = ({ className }) => {
                         isMobile
                             ? <>
                                 {
-                                    shortlistedArtist?.length > 0 &&
                                     <Link to="/projects/chat">
                                         <button className={`bg-gray-200 rounded-full p-2 relative ${clicked ? 'animate-vibrate' : ''}`}>
                                             <BiMessageDots size={20} />
                                             <span className='absolute -top-1.5 -right-1.5 rounded-full bg-red-500 h-4 w-4 text-xs text-white'>
-                                                {shortlistedArtist.length}
+                                                {shortlistedArtist?.length}
                                             </span>
                                         </button>
                                     </Link>
@@ -46,13 +48,13 @@ const TopToggleBar = ({ className }) => {
                             </>
                             : <>
                                 {
-                                    currentProject?.pk && pathname.includes("/artists") &&
+                                    currentProject?.pk &&
                                     <Link to={`/projects/${currentProject.pk}/${currentProject.stage}`}>
                                         <button className='bg-gray-200 rounded-full p-2'><IoIosArrowBack /></button>
                                     </Link>
                                 }
                                 {
-                                    fromCreateProject && pathname.includes("/artists") &&
+                                    fromCreateProject &&
                                     <Link to="/projects/create-project">
                                         <button className='bg-gray-200 rounded-full p-2'><IoIosArrowBack /></button>
                                     </Link>

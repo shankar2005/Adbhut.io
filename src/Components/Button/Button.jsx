@@ -18,7 +18,7 @@ const Button = ({ children, type, variant, onClick, className }) => {
             type={types[type] || types.button}
             onClick={onClick}
             className={`focus:ring-4 focus:outline-none font-medium rounded-full text-sm w-fit sm:w-auto px-5 py-2.5 text-center active:scale-90 duration-200
-            ${colors[variant] || colors.primary}
+            ${colors[variant] || ''}
             ${className || ''}
             `}
         >

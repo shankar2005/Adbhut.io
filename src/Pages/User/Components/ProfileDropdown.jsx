@@ -33,7 +33,7 @@ const ProfileDropdown = () => {
                     <p className='flex items-center justify-center gap-1 mt-1'><TfiWorld /> https://www.companyurl.com/</p>
                 </div>
             </div>
-            <Button onClick={handleLogout} className="flex gap-2 mx-auto">Logout <FiLogOut className='w-5 h-5' /></Button>
+            <Button variant="primary" onClick={handleLogout} className="flex gap-2 mx-auto">Logout <FiLogOut className='w-5 h-5' /></Button>
         </div>
     );
 };

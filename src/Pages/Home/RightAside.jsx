@@ -7,6 +7,7 @@ import { FaPlus } from 'react-icons/fa';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import paypal from "../../assets/placeholders/paypal.png"
+import Button from '../../Components/Button/Button';
 
 const RightAside = () => {
     const { selectedContentProducts, setselectedContentProducts, setchatLog, currentProjects, dreamProjects, currentProject, contentProducts, setcurrentProject, setshortlistedArtist, handleSelectContentProduct } = useRootContext();
@@ -98,6 +99,42 @@ const RightAside = () => {
                 }
             </section>
 
+            <section className='bg-white text-gray-700 rounded-lg shadow-md text-sm mt-5'>
+                <div className='border-b mb-3 pb-6 p-4'>
+                    <p className='text-black mb-2 font-medium'>Total Cost</p>
+                    <table className="min-w-full text-sm">
+                        <thead className="bg-gray-200">
+                            <tr className="text-left">
+                                <th className="p-3">Estimate Fee #</th>
+                                <th className="p-3 text-right">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="border-b border-opacity-20 border-gray-700">
+                                <td className="p-3">
+                                    <p>Solution Fee</p>
+                                </td>
+                                <td className="p-3 text-right">
+                                    <p>₹ {currentProject?.solution_fee}</p>
+                                </td>
+                            </tr>
+                            <tr className="border-b border-opacity-20 border-gray-700">
+                                <td className="p-3">
+                                    <p>Production Advance</p>
+                                </td>
+                                <td className="p-3 text-right">
+                                    <p>₹ {currentProject?.production_advance}</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <Button className="bg-yellow-400 focus:ring-yellow-200 sm:w-full flex justify-center mt-5">
+                        <img className='w-20' src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c530.png" alt="" />
+                    </Button>
+                </div>
+            </section>
+
             {
                 <div className='text-xs text-gray-600'>
                     <ul className='flex flex-wrap gap-3 justify-center mt-6'>
@@ -113,7 +150,7 @@ const RightAside = () => {
                     <li className='hover:underline'>About</li>
                     <li className='hover:underline'>Advertising</li>
                     <li className='hover:underline'>Get the Adbhut.io app</li>
-                    <img className='w-40' src={paypal} alt="" />
+                    <li className='hover:underline'>More</li>
                 </ul>
                 <p className='text-center mt-4'>Adbhut.io © 2023</p>
             </footer>
