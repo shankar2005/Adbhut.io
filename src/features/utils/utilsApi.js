@@ -11,7 +11,15 @@ const utilsApi = apis.injectEndpoints({
         getContentProducts: builder.query({
             query: () => `/get_content_products/`
         }),
+
+        getSkillsOnProductSelect: builder.mutation({
+            query: (data) => ({
+                url: `/chatflow_skills/`,
+                method: 'POST',
+                body: data
+            })
+        }),
     })
 });
 
-export const { useGetSkillsQuery, useGetLocationsQuery, useGetContentProductsQuery } = utilsApi;
+export const { useGetSkillsQuery, useGetLocationsQuery, useGetContentProductsQuery, useGetSkillsOnProductSelectMutation } = utilsApi;

@@ -6,7 +6,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
-import paypal from "../../assets/placeholders/paypal.png"
 import Button from '../../Components/Button/Button';
 
 const RightAside = () => {

@@ -3,8 +3,8 @@ import Cookies from 'universal-cookie';
 import { sendMessageAPI } from '../apis/messages/messages';
 import { dropdownInitialState, dropdownReducers } from '../state/reducers/dropdownReducer';
 import avatar from "../assets/placeholders/avatar.png"
-import { useGetCurrentProjectsQuery, useGetDreamProjectsQuery } from '../features/project/projectApi';
-import { useGetContentProductsQuery, useGetLocationsQuery, useGetSkillsQuery } from '../features/utils/utilsApi';
+import { useGetCurrentProjectsQuery, useGetDreamProjectsQuery, useGetProjectQuery } from '../features/project/projectApi';
+import { useGetContentProductsQuery, useGetLocationsQuery, useGetSkillsOnProductSelectMutation, useGetSkillsQuery } from '../features/utils/utilsApi';
 import { useSelector } from 'react-redux';
 import { useShortlistArtistMutation } from '../features/artist/artistApi';
 
@@ -15,7 +15,11 @@ const RootProvider = ({ children }) => {
     const { data: locations = [] } = useGetLocationsQuery();
     const { data: skills = [] } = useGetSkillsQuery();
     const { data: contentProducts = [] } = useGetContentProductsQuery();
-    
+    const [getSkillsOnProductSelect] = useGetSkillsOnProductSelectMutation();
+
+    const [projectID, setProjectID] = useState(null);
+    const { data: projectData } = useGetProjectQuery(projectID, { skip: !projectID });
+
     const { user } = useSelector(state => state.auth);
 
     // filtering feeds with type -> search bar
@@ -65,29 +69,16 @@ const RootProvider = ({ children }) => {
 
     // show project history on click
     const [currentProject, setcurrentProject] = useState(null);
-    const handleShowProjectHistory = (projectID, stage) => {
-        if (stage === "DreamProject") {
-            fetch(`https://dev.nsnco.in/api/v1/edit_project/${projectID}/`)
-                .then(res => res.json())
-                .then(data => {
-                    setcurrentProject(data);
-                    setchatLog(JSON.parse(data.brief));
-                    setshortlistedArtist(data.shortlisted_artists);
-                });
-        } else {
-            fetch(`https://dev.nsnco.in/api/v1/edit_project/${projectID}/`, {
-                headers: { Authorization: `token ${authToken}` },
-            }).then(res => res.json())
-                .then(data => {
-                    if (data.detail === 'Authentication credentials were not provided.') {
-                        return;
-                    }
-                    setcurrentProject(data);
-                    setchatLog(JSON.parse(data.brief));
-                    setshortlistedArtist(data.shortlisted_artists);
-                });
-        }
+    const handleShowProjectHistory = (projectID) => {
+        setProjectID(projectID);
     }
+    useEffect(() => {
+        if (projectData?.pk) {
+            setcurrentProject(projectData);
+            setchatLog(JSON.parse(projectData.brief));
+            setshortlistedArtist(projectData.shortlisted_artists);
+        }
+    }, [projectData])
 
 
     // get current projects
@@ -177,29 +168,16 @@ const RootProvider = ({ children }) => {
         setSearchText(skill[0]);
     }
 
-
-
     // for showing chat suggestions (artists skills) when shortlisted an artist
-    const artistIDs = shortlistedArtist?.join(",");
     useEffect(() => {
         // if no selectedContentProducts then don't show skills suggestions
         if (!selectedContentProducts || currentProject?.pk) return;
 
-        fetch('https://dev.nsnco.in/api/v1/chatflow_skills/', {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify({
-                artists: artistIDs,
-                product: selectedContentProducts || 0
-            })
-        })
-            .then(res => res.json())
+        getSkillsOnProductSelect({ product: selectedContentProducts })
             .then(data => {
-                setSuggestions(data.skills);
+                setSuggestions(data?.data?.skills);
                 // filter on contentProduct's listed skills & show artists depending on those skills
-                setcheckedSkills(data.skills.map(skill => skill[1] + ''));
+                setcheckedSkills(data?.data?.skills.map(skill => skill[1] + ''));
             });
     }, [selectedContentProducts]);
 
