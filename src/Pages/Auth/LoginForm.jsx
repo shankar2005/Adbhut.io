@@ -1,31 +1,39 @@
-import { useContext } from 'react';
+import { useEffect } from 'react';
 import { useForm } from "react-hook-form";
+import { useDispatch } from 'react-redux';
 import Cookies from 'universal-cookie';
+import { useLoginUserMutation, useVerifyUserMutation } from '../../features/auth/authApi';
+import { setLoading, setUser } from '../../features/auth/authSlice';
 
-const LoginForm = ({ formError, setformError }) => {
-    // const { setIsAuthenticated } = useContext(AuthContext);
+const LoginForm = () => {
+    const [loginUser, { data, isError, error }] = useLoginUserMutation();
+    const [verifyUser, { data: userData }] = useVerifyUserMutation();
+    const dispatch = useDispatch();
 
     const { register, handleSubmit } = useForm();
     const onSubmit = data => {
-        setformError(null);
-        fetch('https://dev.nsnco.in/api/v1/auth/login/', {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.token) {
-                    const cookies = new Cookies();
-                    cookies.set('auth_token', data.token, { path: '/' });
-                    // setIsAuthenticated(true);
-                } else {
-                    setformError("Email or password is incorrect");
-                }
-            });
+        dispatch(setLoading(true));
+        loginUser({
+            email: data.email,
+            password: data.password
+        });
     };
+
+    useEffect(() => {
+        if (data?.token) {
+            verifyUser({ token: data.token });
+            // storing token inside cookies
+            const cookies = new Cookies();
+            cookies.set('auth_token', data.token, { path: '/' });
+        }
+    }, [data])
+
+    useEffect(() => {
+        if (userData?.status === 'success') {
+            dispatch(setUser(userData.user));
+            dispatch(setLoading(false));
+        }
+    }, [userData])
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -44,7 +52,7 @@ const LoginForm = ({ formError, setformError }) => {
             </div>
             <button type="submit" className="w-full px-8 py-3 font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white">Sign in</button>
             {
-                formError && <p className='text-red-500 text-sm mt-3'>{formError}</p>
+                isError && <p className='text-red-500 text-sm mt-3'>{error.message}</p>
             }
         </form>
     );
