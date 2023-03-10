@@ -23,23 +23,13 @@ const authSlice = createSlice({
         setError: (state, action) => {
             state.error = action.payload;
         },
+        // logout
+        logout: (state) => {
+            state.user = {};
+            state.token = null;
+        },
     },
-    // extraReducers: (builder) => {
-    //     builder.addCase(loginUser.pending, (state) => {
-    //         state.isLoading = true;
-    //         state.error = null
-    //     })
-    //     builder.addCase(loginUser.fulfilled, (state, action) => {
-    //         state.isLoading = false;
-    //         state.token = action.payload
-    //     })
-    //     builder.addCase(loginUser.rejected, (state, action) => {
-    //         state.isLoading = false;
-    //         state.token = null;
-    //         state.error = action.error;
-    //     })
-    // }
 });
 
-export const { setUser, setLoading, setError, setToken } = authSlice.actions;
+export const { setUser, setLoading, setError, setToken, logout } = authSlice.actions;
 export default authSlice.reducer;

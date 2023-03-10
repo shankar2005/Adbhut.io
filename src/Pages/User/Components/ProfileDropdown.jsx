@@ -4,12 +4,15 @@ import { FiLogOut } from 'react-icons/fi';
 import Cookies from 'universal-cookie';
 import Button from '../../../Components/Button/Button';
 import logo from "../../../assets/logos/adbeta.jpeg"
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../../features/auth/authSlice';
 
 const ProfileDropdown = () => {
     const { user } = useSelector(state => state.auth);
+    const dispatch = useDispatch();
 
     const handleLogout = () => {
+        dispatch(logout());
         const cookies = new Cookies();
         cookies.remove("auth_token", { path: '/' });
     }
@@ -30,7 +33,7 @@ const ProfileDropdown = () => {
                     <p className='flex items-center justify-center gap-1 mt-1'><TfiWorld /> https://www.companyurl.com/</p>
                 </div>
             </div>
-            <Button onClick={handleLogout}>Logout <FiLogOut className='w-5 h-5' /></Button>
+            <Button onClick={handleLogout} className="flex gap-2 mx-auto">Logout <FiLogOut className='w-5 h-5' /></Button>
         </div>
     );
 };

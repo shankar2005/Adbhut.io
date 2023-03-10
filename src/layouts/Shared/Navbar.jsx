@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { IoIosArrowDown } from 'react-icons/io';
 import { useRootContext } from '../../contexts/RootProvider';
@@ -239,9 +239,6 @@ const Navbar = () => {
                     }
                 </ul>
             </div>
-            {/* menu */}
-            {/* <Menu /> */}
-            {/* menu */}
         </nav>
     );
 };

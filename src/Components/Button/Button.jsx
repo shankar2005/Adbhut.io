@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Button = ({ children, type, variant, onClick }) => {
+const Button = ({ children, type, variant, onClick, className }) => {
     const colors = {
         primary: "bg-sky-500 hover:bg-sky-600 focus:ring-sky-300 text-white",
         secondary: "bg-gray-500 hover:bg-gray-600 focus:ring-gray-300 text-white",
@@ -19,6 +19,7 @@ const Button = ({ children, type, variant, onClick }) => {
             onClick={onClick}
             className={`focus:ring-4 focus:outline-none font-medium rounded-full text-sm w-fit sm:w-auto px-5 py-2.5 text-center active:scale-90 duration-200
             ${colors[variant] || colors.primary}
+            ${className || ''}
             `}
         >
             {children}

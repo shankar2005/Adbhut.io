@@ -2,6 +2,9 @@ import apis from "../apis/apis";
 
 const projectApi = apis.injectEndpoints({
     endpoints: (builder) => ({
+        getCurrentProjects: builder.query({
+            query: () => `/all_projects/`
+        }),
         getDreamProjects: builder.query({
             query: () => `/get_dreamproject/`
         }),
@@ -11,4 +14,8 @@ const projectApi = apis.injectEndpoints({
     }),
 });
 
-export const { useGetDreamProjectsQuery, useGetProjectQuery } = projectApi;
+export const {
+    useGetDreamProjectsQuery,
+    useGetProjectQuery,
+    useGetCurrentProjectsQuery
+} = projectApi;

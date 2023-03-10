@@ -1,11 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
 import React, { createContext, useContext, useEffect, useReducer, useState } from 'react';
 import Cookies from 'universal-cookie';
 import { sendMessageAPI } from '../apis/messages/messages';
-import { getCurrentProjects } from '../apis/projects/projects';
 import { dropdownInitialState, dropdownReducers } from '../state/reducers/dropdownReducer';
 import avatar from "../assets/placeholders/avatar.png"
-import { useGetDreamProjectsQuery } from '../features/project/projectApi';
+import { useGetCurrentProjectsQuery, useGetDreamProjectsQuery } from '../features/project/projectApi';
 import { useGetContentProductsQuery, useGetLocationsQuery, useGetSkillsQuery } from '../features/utils/utilsApi';
 import { useSelector } from 'react-redux';
 
@@ -94,10 +92,7 @@ const RootProvider = ({ children }) => {
     const { data: contentProducts = [] } = useGetContentProductsQuery();
 
     // get current projects
-    const { data: currentProjects = [], refetch: currentProjectsRefetch } = useQuery({
-        queryKey: ['currentProjects', user.email],
-        queryFn: () => getCurrentProjects(authToken)
-    })
+    const { data: currentProjects = [], refetch: currentProjectsRefetch } = useGetCurrentProjectsQuery();
 
     // dream projects
     const { data: dreamProjects = [], refetch: dreamProjectsRefetch } = useGetDreamProjectsQuery();
