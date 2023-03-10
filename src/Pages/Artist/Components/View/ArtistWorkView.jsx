@@ -2,7 +2,7 @@ import { useRootContext } from '../../../../contexts/RootProvider';
 import useYoutubeEmbaded from '../../../../hooks/useYoutubeEmbaded';
 import { GiCheckMark } from "react-icons/gi";
 
-const ArtistWorkView = ({ artist }) => {
+const ArtistWorkView = ({ artist = {} }) => {
     const { shortlistedArtist, handleShortlist, avatar, setArtistProfile } = useRootContext();
 
     return (

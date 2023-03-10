@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
+import paypal from "../../assets/placeholders/paypal.png"
 
 const RightAside = () => {
     const { selectedContentProducts, setselectedContentProducts, setchatLog, currentProjects, dreamProjects, currentProject, contentProducts, setcurrentProject, setshortlistedArtist, handleSelectContentProduct } = useRootContext();
@@ -112,7 +113,7 @@ const RightAside = () => {
                     <li className='hover:underline'>About</li>
                     <li className='hover:underline'>Advertising</li>
                     <li className='hover:underline'>Get the Adbhut.io app</li>
-                    <li className='hover:underline'>More</li>
+                    <img className='w-40' src={paypal} alt="" />
                 </ul>
                 <p className='text-center mt-4'>Adbhut.io © 2023</p>
             </footer>

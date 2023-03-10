@@ -17,6 +17,7 @@ import Chathome from './Chat/Chathome';
 import Cta from './Components/Cta';
 import { useSelector } from 'react-redux';
 import { useSendMessageMutation, useSendMessageToGPTMutation } from '../../features/chat/chatApi';
+import ActionCta from './Components/ActionCta';
 
 const LeftAside = () => {
     const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch, handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills } = useRootContext();
@@ -180,6 +181,26 @@ const LeftAside = () => {
 
     const pathname = useLocation().pathname;
 
+    const currentProjectDashboardUrl = `/projects/${currentProject?.pk}/${currentProject?.stage}/`;
+    const ctaStages = {
+        lead: [["Project Dashboard", currentProjectDashboardUrl], ["Add More Artist", "/artists"], ["View Demos"], ["Support"]],
+        inProgress: [["Project Dashboard", currentProjectDashboardUrl], ["Approve"], ["Decline"], ["Put On Hold"]],
+        approved: [["Project Dashboard", currentProjectDashboardUrl], ["Proceed to DocuSign"], ["Need help"], ["Change Dicission"]],
+        payment: [["Make Payment"]],
+    }
+
+    let suggestionElement;
+    if (currentProject?.stage === "Lead") {
+        suggestionElement = <ActionCta suggestions={ctaStages.lead} className='sticky bottom-0' />
+    }
+    else if (currentProject?.stage === "In Progress") {
+        suggestionElement = <ActionCta suggestions={ctaStages.inProgress} className='sticky bottom-0' />
+    }
+    else {
+        suggestionElement = (suggestions?.length > 0 || removedSkills?.length > 0) &&
+            <Cta suggestions={suggestions} removedSkills={removedSkills} className='sticky bottom-0' />
+    }
+
     return (
         <section className='bg-white shadow-md rounded-lg'>
             <ChatHeading
@@ -282,10 +303,7 @@ const LeftAside = () => {
                         }
 
                         {
-                            currentProject?.stage === "Lead"
-                                ? <div className='whitespace-nowrap py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100 w-fit'>Need Help</div>
-                                : (suggestions?.length > 0 || removedSkills?.length > 0) &&
-                                <Cta suggestions={suggestions} removedSkills={removedSkills} className='sticky bottom-0' />
+                            suggestionElement
                         }
 
                         {

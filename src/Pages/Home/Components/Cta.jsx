@@ -25,7 +25,7 @@ const Cta = ({ suggestions, removedSkills, className }) => {
                     </div>)
                 }
                 {
-                    removedSkills.length > 0 &&
+                    removedSkills?.length > 0 &&
                     removedSkills.map(skill => <div
                         key={`removedSkill${skill[1]}`}
                         className='whitespace-nowrap py-1 px-3 border text-white border-blue-500 bg-blue-500 rounded-full'>

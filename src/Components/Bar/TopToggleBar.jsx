@@ -33,7 +33,7 @@ const TopToggleBar = ({ className }) => {
                         isMobile
                             ? <>
                                 {
-                                    shortlistedArtist.length > 0 &&
+                                    shortlistedArtist?.length > 0 &&
                                     <Link to="/projects/chat">
                                         <button className={`bg-gray-200 rounded-full p-2 relative ${clicked ? 'animate-vibrate' : ''}`}>
                                             <BiMessageDots size={20} />
