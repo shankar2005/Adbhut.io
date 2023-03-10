@@ -12,7 +12,14 @@ const artistApi = apis.injectEndpoints({
                 body: data
             })
         }),
+
+        shortlistArtist: builder.mutation({
+            query: ({ projectId, artistId }) => ({
+                url: `/shortlist_artist/${projectId}/${artistId}/`,
+                method: "PATCH",
+            })
+        }),
     })
 });
 
-export const { useGetArtistByIdQuery, useAddArtistMutation } = artistApi;
+export const { useGetArtistByIdQuery, useAddArtistMutation, useShortlistArtistMutation } = artistApi;

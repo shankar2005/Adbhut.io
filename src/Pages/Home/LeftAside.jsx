@@ -9,7 +9,6 @@ import { FiDelete } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import nsnlogo from '../../assets/logo.jpeg';
 import ChatHeading from './Chat/ChatHeading';
-import { openAIMessageAPI, sendMessageAPI } from '../../apis/messages/messages';
 import TypingIndicator from '../../Components/TypingIndicator';
 import MessageReceiver from './Chat/MessageReceiver';
 import MessageSender from './Chat/MessageSender';
@@ -17,10 +16,14 @@ import avatar from "../../assets/placeholders/avatar.png";
 import Chathome from './Chat/Chathome';
 import Cta from './Components/Cta';
 import { useSelector } from 'react-redux';
+import { useSendMessageMutation, useSendMessageToGPTMutation } from '../../features/chat/chatApi';
 
 const LeftAside = () => {
     const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch, handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills } = useRootContext();
     const { user } = useSelector(state => state.auth);
+
+    const [sendMessageToGPT] = useSendMessageToGPTMutation();
+    const [sendMessage] = useSendMessageMutation();
 
     const chatboxRef = useRef();
     useEffect(() => {
@@ -125,10 +128,11 @@ const LeftAside = () => {
         userInputRef.current.value = "";
 
         if (user.email && currentProject?.pk) {
-            sendMessageAPI({
+            sendMessage({
                 project_id: currentProject.pk,
                 message: message
             }).then(data => {
+                console.log(data);
                 if (data?.project?.pk) {
                     setchatLog(JSON.parse(data?.project?.brief));
                     setIsTyping(false);
@@ -137,16 +141,17 @@ const LeftAside = () => {
                 setIsTyping(false);
             })
         } else {
-            openAIMessageAPI({
+            sendMessageToGPT({
                 message: userInputText
-            }).then(data => {
-                if (data.response) {
-                    setchatLog(current => [...current, { msgID: chatLog.length + 1, bot: data.response }]);
-                    setIsTyping(false);
-                }
-            }).catch((err) => {
-                setIsTyping(false);
             })
+                .then(data => {
+                    if (data.data?.response) {
+                        setchatLog(current => [...current, { msgID: chatLog.length + 1, bot: data.data?.response }]);
+                        setIsTyping(false);
+                    }
+                }).catch((err) => {
+                    setIsTyping(false);
+                })
         }
 
         if (pathname === "/") {
@@ -276,14 +281,15 @@ const LeftAside = () => {
                                 </div>
                         }
 
-
                         {
-                            (suggestions?.length > 0 || removedSkills?.length > 0) &&
-                            <Cta suggestions={suggestions} removedSkills={removedSkills} className='sticky bottom-0' />
+                            currentProject?.stage === "Lead"
+                                ? <div className='whitespace-nowrap py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100 w-fit'>Need Help</div>
+                                : (suggestions?.length > 0 || removedSkills?.length > 0) &&
+                                <Cta suggestions={suggestions} removedSkills={removedSkills} className='sticky bottom-0' />
                         }
 
                         {
-                            suggestions.length === 0 && contentProducts?.length > 0 && !selectedContentProducts && shortlistedArtist.length === 0 && chatLog.length === 0 &&
+                            suggestions?.length === 0 && contentProducts?.length > 0 && !selectedContentProducts && shortlistedArtist.length === 0 && chatLog.length === 0 &&
                             <div className='sticky bottom-0 p-2 pb-0 bg-white mt-12'>
                                 <div className='pb-2 flex flex-wrap gap-2 text-sm font-medium select-none'>
                                     {

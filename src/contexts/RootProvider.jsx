@@ -6,10 +6,16 @@ import avatar from "../assets/placeholders/avatar.png"
 import { useGetCurrentProjectsQuery, useGetDreamProjectsQuery } from '../features/project/projectApi';
 import { useGetContentProductsQuery, useGetLocationsQuery, useGetSkillsQuery } from '../features/utils/utilsApi';
 import { useSelector } from 'react-redux';
+import { useShortlistArtistMutation } from '../features/artist/artistApi';
 
 const RootContext = createContext();
 
 const RootProvider = ({ children }) => {
+    const [shortlistArtist] = useShortlistArtistMutation();
+    const { data: locations = [] } = useGetLocationsQuery();
+    const { data: skills = [] } = useGetSkillsQuery();
+    const { data: contentProducts = [] } = useGetContentProductsQuery();
+    
     const { user } = useSelector(state => state.auth);
 
     // filtering feeds with type -> search bar
@@ -35,6 +41,7 @@ const RootProvider = ({ children }) => {
         }
     }, [chatLog]);
 
+
     const handleShortlist = (artistID, name, profile_pic) => {
         setshortlistedArtist(current => [...current, artistID]);
         // chatlog
@@ -49,15 +56,10 @@ const RootProvider = ({ children }) => {
             })
 
             // shortlist artist api
-            fetch(`https://dev.nsnco.in/api/v1/shortlist_artist/${currentProject.pk}/${artistID}/`, {
-                method: "PATCH",
-                headers: {
-                    "content-type": "application/json",
-                    Authorization: `token ${authToken}`
-                }
+            shortlistArtist({
+                projectId: currentProject.pk,
+                artistId: artistID
             })
-                .then(res => res.json())
-                .then(data => { })
         }
     }
 
@@ -87,9 +89,6 @@ const RootProvider = ({ children }) => {
         }
     }
 
-    const { data: locations = [] } = useGetLocationsQuery();
-    const { data: skills = [] } = useGetSkillsQuery();
-    const { data: contentProducts = [] } = useGetContentProductsQuery();
 
     // get current projects
     const { data: currentProjects = [], refetch: currentProjectsRefetch } = useGetCurrentProjectsQuery();
