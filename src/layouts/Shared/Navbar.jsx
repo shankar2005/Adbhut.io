@@ -9,10 +9,12 @@ import { AnimatePresence } from 'framer-motion';
 import AuthModal from '../../Pages/Auth/Components/AuthModal';
 import ProfileDropdown from '../../Pages/User/Components/ProfileDropdown';
 import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearch } from '../../features/filter/filterSlice';
 
 const Navbar = () => {
-    const { setdemoType, setSearchText, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills, dropdownState, dropdownDispatch } = useRootContext();
+    const { setdemoType, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills, dropdownState, dropdownDispatch } = useRootContext();
+    const dispatch = useDispatch();
 
     const { user } = useSelector(state => state.auth);
 
@@ -21,7 +23,7 @@ const Navbar = () => {
     const handleSearch = (e) => {
         e.preventDefault();
         navigate("/artists");
-        setSearchText(e.target.search.value);
+        dispatch(setSearch(e.target.search.value));
         e.target.reset();
     }
 

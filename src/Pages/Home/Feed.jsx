@@ -7,9 +7,14 @@ import TopToggleBar from '../../Components/Bar/TopToggleBar';
 import ArtistWorkView from '../Artist/Components/View/ArtistWorkView';
 import ArtistSquareView from '../Artist/Components/View/ArtistSquareView';
 import ArtistRowView from '../Artist/Components/View/ArtistRowView';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearch } from '../../features/filter/filterSlice';
 
 const Feed = () => {
-    const { searchText = "", setSearchText, demoType, checkedSkills, checkedGenres, checkedLocations, viewAs, avatar } = useRootContext();
+    const { demoType, checkedSkills, checkedGenres, checkedLocations, viewAs, avatar } = useRootContext();
+
+    const { searchText } = useSelector(state => state.filter);
+    const dispatch = useDispatch();
 
     const skillQuery = checkedSkills?.map(skill => `&owner__skill=${skill}`).join('');
     const genreQuery = checkedGenres?.map(genre => `&owner__skill_genres=${genre}`).join('');
@@ -62,7 +67,7 @@ const Feed = () => {
                         searchText &&
                         <div className='flex items-center gap-2'>
                             <h1 className='text-xl md:text-2xl my-3 font-medium text-gray-500'>Results for "{searchText}"</h1>
-                            <button className='bg-sky-500 text-white p-1 pr-3 rounded-md text-xs flex items-center gap-1 whitespace-nowrap' onClick={() => setSearchText("")}><CiCircleRemove size={20} /> Clear search</button>
+                            <button className='bg-sky-500 text-white p-1 pr-3 rounded-md text-xs flex items-center gap-1 whitespace-nowrap' onClick={() => dispatch(setSearch(""))}><CiCircleRemove size={20} /> Clear search</button>
                         </div>
                     }
                     {

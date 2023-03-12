@@ -7,6 +7,7 @@ import { useGetCurrentProjectsQuery, useGetDreamProjectsQuery, useGetProjectQuer
 import { useGetContentProductsQuery, useGetLocationsQuery, useGetSkillsOnProductSelectMutation, useGetSkillsQuery } from '../features/utils/utilsApi';
 import { useSelector } from 'react-redux';
 import { useShortlistArtistMutation } from '../features/artist/artistApi';
+import { setSearch } from '../features/filter/filterSlice';
 
 const RootContext = createContext();
 
@@ -24,7 +25,6 @@ const RootProvider = ({ children }) => {
 
     // filtering feeds with type -> search bar
     const [demoType, setdemoType] = useState("");
-    const [searchText, setSearchText] = useState("");
 
     const [checkedSkills, setcheckedSkills] = useState([]);
     const [checkedGenres, setcheckedGenres] = useState([]);
@@ -119,7 +119,7 @@ const RootProvider = ({ children }) => {
         setcurrentProject({});
         setchatLog([]);
         setshortlistedArtist([]);
-        setSearchText("");
+        dispatch(setSearch(""));
         setSuggestions([]);
         setRemovedSkill([]);
     }
@@ -165,7 +165,7 @@ const RootProvider = ({ children }) => {
         setSuggestions(current => current.filter(i => i[1] + '' !== skill[1] + ''));
         setRemovedSkill(current => [...current, skill]);
 
-        setSearchText(skill[0]);
+        dispatch(setSearch(skill[0]));
     }
 
     // for showing chat suggestions (artists skills) when shortlisted an artist
@@ -183,8 +183,6 @@ const RootProvider = ({ children }) => {
 
     // stored values
     const value = {
-        searchText,
-        setSearchText,
         demoType,
         setdemoType,
         checkedSkills,
