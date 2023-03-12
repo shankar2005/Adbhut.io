@@ -4,16 +4,16 @@ import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 import logo from '../../assets/logos/adbeta.jpeg';
 import { RxCross1 } from 'react-icons/rx';
-import { useRootContext } from '../../contexts/RootProvider';
+import { closeLogin } from '../../features/dropdown/dropdownSlice';
+import { useDispatch } from 'react-redux';
 
 const AuthSection = () => {
     const [isLoginForm, setsIsLoginForm] = useState(true);
     const [formError, setformError] = useState(null);
 
-    const { dropdownDispatch } = useRootContext();
-
+    const dispatch = useDispatch();
     const closeModal = () => {
-        dropdownDispatch({ type: "SHOW_LOGIN" });
+        dispatch(closeLogin())
         setsIsLoginForm(true);
     }
 

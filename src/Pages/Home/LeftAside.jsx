@@ -15,14 +15,16 @@ import MessageSender from './Chat/MessageSender';
 import avatar from "../../assets/placeholders/avatar.png";
 import Chathome from './Chat/Chathome';
 import Cta from './Components/Cta';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useSendMessageMutation, useSendMessageToGPTMutation } from '../../features/chat/chatApi';
 import ActionCta from './Components/ActionCta';
 import { useCreateProjectMutation, useUpdateProjectMutation } from '../../features/project/projectApi';
+import { showLogin } from '../../features/dropdown/dropdownSlice';
 
 const LeftAside = () => {
-    const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setshortlistedArtist, currentProject, handleShowProjectHistory, dropdownDispatch, handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills } = useRootContext();
+    const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setshortlistedArtist, currentProject, handleShowProjectHistory, handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills } = useRootContext();
 
+    const dispatch = useDispatch();
     const [createProject] = useCreateProjectMutation();
     const [updateProject] = useUpdateProjectMutation();
     const { user } = useSelector(state => state.auth);
@@ -59,7 +61,7 @@ const LeftAside = () => {
     // send brief
     const handleSendBrief = () => {
         if (!user.email) {
-            return dropdownDispatch({ type: "SHOW_LOGIN" });
+            return dispatch(showLogin());
         }
         createProject({
             "stage": "Lead",
@@ -80,7 +82,7 @@ const LeftAside = () => {
     // handle change stage
     const handleChangeStage = () => {
         if (!user.email) {
-            return dropdownDispatch({ type: "SHOW_LOGIN" });
+            return dispatch(showLogin());
         }
         updateProject({
             id: currentProject.pk,

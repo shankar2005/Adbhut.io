@@ -1,16 +1,18 @@
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Button from '../../Components/Button/Button';
 import { useRootContext } from '../../contexts/RootProvider';
 import { useGetArtistByIdQuery } from '../../features/artist/artistApi';
+import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { useCreateProjectMutation } from '../../features/project/projectApi';
 
 const CreateProject = () => {
-    const { shortlistedArtist, chatLog, contentProducts, selectedContentProducts, createProjectFormState, createProjectFormDispatch, dropdownDispatch } = useRootContext();
+    const { shortlistedArtist, chatLog, contentProducts, selectedContentProducts, createProjectFormState, createProjectFormDispatch } = useRootContext();
 
+    const dispatch = useDispatch();
     const [createProject] = useCreateProjectMutation();
     const { user } = useSelector(state => state.auth);
 
@@ -35,7 +37,7 @@ const CreateProject = () => {
     // send brief
     const handleSendBrief = () => {
         if (!user) {
-            return dropdownDispatch({ type: "SHOW_LOGIN" });
+            return dispatch(showLogin());
         }
         if (!createProjectFormState.project_template) {
             return toast("Select a content product!");
@@ -60,7 +62,7 @@ const CreateProject = () => {
     // add to dream project
     const handleAddToDreamProject = () => {
         if (!user.email) {
-            return dropdownDispatch({ type: "SHOW_LOGIN" });
+            return dispatch(showLogin());
         }
         if (!createProjectFormState.project_template) {
             return toast("Select a content product!");

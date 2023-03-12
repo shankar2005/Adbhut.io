@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useReducer, useState } from 'react';
 import Cookies from 'universal-cookie';
-import { dropdownInitialState, dropdownReducers } from '../state/reducers/dropdownReducer';
 import avatar from "../assets/placeholders/avatar.png"
 import { useGetCurrentProjectsQuery, useGetDreamProjectsQuery, useGetProjectQuery } from '../features/project/projectApi';
 import { useGetContentProductsQuery, useGetLocationsQuery, useGetSkillsOnProductSelectMutation, useGetSkillsQuery } from '../features/utils/utilsApi';
@@ -144,8 +143,6 @@ const RootProvider = ({ children }) => {
         }
     }
 
-    const [dropdownState, dropdownDispatch] = useReducer(dropdownReducers, dropdownInitialState);
-
     const [artistProfile, setArtistProfile] = useState(null);
 
     const isMobile = window.innerWidth < 768;
@@ -211,8 +208,6 @@ const RootProvider = ({ children }) => {
         createProjectFormState,
         createProjectFormDispatch,
         handleSelectContentProduct,
-        dropdownState,
-        dropdownDispatch,
         artistProfile,
         setArtistProfile,
         isMobile,

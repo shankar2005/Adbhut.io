@@ -11,12 +11,20 @@ import ProfileDropdown from '../../Pages/User/Components/ProfileDropdown';
 import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearch } from '../../features/filter/filterSlice';
+import { closeLogin, showAccount, showLocation, showLogin, showSkill } from '../../features/dropdown/dropdownSlice';
 
 const Navbar = () => {
-    const { setdemoType, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills, dropdownState, dropdownDispatch } = useRootContext();
-    const dispatch = useDispatch();
+    const { setdemoType, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills } = useRootContext();
 
+    const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
+    const {
+        skillDropdown,
+        locationDropdown,
+        loginModal,
+        accountModal,
+        searchAndFilterModal,
+    } = useSelector(state => state.dropdown);
 
     const navigate = useNavigate();
     // handle search
@@ -88,16 +96,16 @@ const Navbar = () => {
                     </Link>
                     <div className='hidden md:flex relative'>
                         <form onSubmit={handleSearch} className="flex">
-                            <input onClick={() => dropdownDispatch({ type: "SHOW_SEARCH_AND_FILTER_MODAL" })} type="text" name="search" className='border bg-blue-50 py-2 w-72 pl-10 pr-3 rounded text-sm' placeholder='Search your artist here...' required />
+                            <input onClick={() => { }} type="text" name="search" className='border bg-blue-50 py-2 w-72 pl-10 pr-3 rounded text-sm' placeholder='Search your artist here...' required />
                             <AiOutlineSearch className='w-6 h-6 text-gray-500 absolute top-1/2 -translate-y-1/2 left-2' />
                             <button className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="submit">Search</button>
                         </form>
 
                         {/* skill dropdown */}
                         <div className='hidden md:block relative ml-2'>
-                            <button onClick={() => dropdownDispatch({ type: "SHOW_SKILL" })} id="dropdownSkillSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-sky-500 hover:bg-sky-600" type="button">Skill search {dropdownState.skillDropdown ? <IoIosArrowDown className='ml-2 w-4 h-4 rotate-180' /> : <IoIosArrowDown className='ml-2 w-4 h-4' />}</button>
+                            <button onClick={() => dispatch(showSkill())} id="dropdownSkillSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-sky-500 hover:bg-sky-600" type="button">Skill search {skillDropdown ? <IoIosArrowDown className='ml-2 w-4 h-4 rotate-180' /> : <IoIosArrowDown className='ml-2 w-4 h-4' />}</button>
 
-                            <div id="dropdownSkillSearch" className={`${!dropdownState.skillDropdown && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
+                            <div id="dropdownSkillSearch" className={`${!skillDropdown && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
                                 <div className="p-3">
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -152,9 +160,9 @@ const Navbar = () => {
 
                         {/* location dropdown */}
                         <div className='hidden md:block relative ml-2'>
-                            <button onClick={() => dropdownDispatch({ type: "SHOW_LOCATION" })} id="dropdownLocationSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-sky-500 hover:bg-sky-600" type="button">Location search {dropdownState.locationDropdown ? <IoIosArrowDown className='ml-2 w-4 h-4 rotate-180' /> : <IoIosArrowDown className='ml-2 w-4 h-4' />}</button>
+                            <button onClick={() => dispatch(showLocation())} id="dropdownLocationSearchButton" data-dropdown-toggle="dropdownSearch" data-dropdown-placement="bottom" className="text-white focus:ring-1 focus:outline-none focus:ring-blue-400 font-medium rounded text-sm px-4 py-2.5 text-center inline-flex items-center bg-sky-500 hover:bg-sky-600" type="button">Location search {locationDropdown ? <IoIosArrowDown className='ml-2 w-4 h-4 rotate-180' /> : <IoIosArrowDown className='ml-2 w-4 h-4' />}</button>
 
-                            <div id="dropdownLocationSearch" className={`${!dropdownState.locationDropdown && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
+                            <div id="dropdownLocationSearch" className={`${!locationDropdown && 'hidden'} z-10 absolute bg-white rounded shadow w-60`}>
                                 <div className="p-3">
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -180,7 +188,7 @@ const Navbar = () => {
                         </div>
 
                         {/* search and filter modal */}
-                        <div className={`${!dropdownState.searchAndFilterModal && 'hidden'} absolute left-0 bg-white w-full border rounded-md p-3 shadow-md`}>
+                        <div className={`${!searchAndFilterModal && 'hidden'} absolute left-0 bg-white w-full border rounded-md p-3 shadow-md`}>
                             <h3 className='font-medium border-b pb-2 mb-3'>Advance Search</h3>
                             <label htmlFor="demo-type" className="block mb-2 text-sm font-medium text">Type</label>
                             <select onChange={(e) => { setdemoType(e.target.value) }} id="demo-type" className="outline-0 bg-gray-50 border border-gray-300  text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500">
@@ -214,9 +222,9 @@ const Navbar = () => {
                         user.email &&
                         <li className='ml-auto flex items-center gap-2 relative'>
                             <img className='hidden md:block w-24' src={logo} alt="" />
-                            <img onClick={() => dropdownDispatch({ type: "SHOW_ACCOUNT" })} className='w-10 h-10 rounded-full border' src={user?.role === "Client" ? "https://www.w3schools.com/howto/img_avatar.png" : nsnlogo} alt="" />
+                            <img onClick={() => dispatch(showAccount())} className='w-10 h-10 rounded-full border' src={user?.role === "Client" ? "https://www.w3schools.com/howto/img_avatar.png" : nsnlogo} alt="" />
                             {/* modal */}
-                            <div className={`${!dropdownState.accountModal && 'hidden'} absolute top-12 right-0`}>
+                            <div className={`${!accountModal && 'hidden'} absolute top-12 right-0`}>
                                 <ProfileDropdown />
                             </div>
                         </li>
@@ -224,10 +232,10 @@ const Navbar = () => {
                     {
                         !user.email &&
                         <li className='ml-auto'>
-                            <button onClick={() => dropdownDispatch({ type: "SHOW_LOGIN" })} className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="button">Login</button>
+                            <button onClick={() => dispatch(showLogin())} className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="button">Login</button>
                             {/* auth modal */}
                             <AnimatePresence initial={false} exitBeforeEnter={true}>
-                                {dropdownState.loginModal && <AuthModal onClick={() => dropdownDispatch({ type: "SHOW_LOGIN" })} />}
+                                {loginModal && <AuthModal onClick={() => dispatch(closeLogin())} />}
                             </AnimatePresence>
                         </li>
                     }

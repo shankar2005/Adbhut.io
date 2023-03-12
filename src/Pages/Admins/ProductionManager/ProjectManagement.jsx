@@ -12,10 +12,12 @@ import Button from '../../../Components/Button/Button';
 import { useSelector } from 'react-redux';
 import { useDeleteProjectMutation, useGetProjectQuery, useUpdateProjectMutation } from '../../../features/project/projectApi';
 import { useSendMessageToGPTMutation } from '../../../features/chat/chatApi';
+import { showLogin } from '../../../features/dropdown/dropdownSlice';
 
 const ProjectManagement = () => {
-    const { chatLog, setchatLog, setshortlistedArtist, handleShowProjectHistory, setcurrentProject, setselectedContentProducts, dropdownDispatch } = useRootContext();
+    const { chatLog, setchatLog, setshortlistedArtist, handleShowProjectHistory, setcurrentProject, setselectedContentProducts } = useRootContext();
 
+    const dispatch = useDispatch();
     const [deleteProject] = useDeleteProjectMutation();
     const [updateProject] = useUpdateProjectMutation();
     const [sendMessage] = useSendMessageToGPTMutation();
@@ -46,7 +48,7 @@ const ProjectManagement = () => {
     const { register, handleSubmit, setValue } = useForm();
     const onSubmit = data => {
         if (!user.email) {
-            return dropdownDispatch({ type: "SHOW_LOGIN" });
+            return dispatch(showLogin());
         }
 
         const formData = {
@@ -104,7 +106,7 @@ const ProjectManagement = () => {
     const [assignmentField, setassignmentField] = useState("");
     const handleAddToMyProject = () => {
         if (!user.email) {
-            return dropdownDispatch({ type: "SHOW_LOGIN" });
+            return dispatch(showLogin());
         }
 
         updateProject({

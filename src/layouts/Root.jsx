@@ -12,12 +12,23 @@ import Backdrop from '../Components/Backdrop/Backdrop';
 import { motion, AnimatePresence } from 'framer-motion';
 import TopToggleBar from '../Components/Bar/TopToggleBar';
 import ConfirmationModal from '../Components/Modal/ConfirmationModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { closeAllDropdown } from '../features/dropdown/dropdownSlice';
 
 const Root = () => {
-    const { dropdownState, dropdownDispatch, artistProfile, setArtistProfile, showModal } = useRootContext();
+    const { artistProfile, setArtistProfile, showModal } = useRootContext();
 
     const location = useLocation();
     const pathname = location.pathname;
+
+    const dispatch = useDispatch();
+    const {
+        skillDropdown,
+        locationDropdown,
+        loginModal,
+        accountModal,
+        searchAndFilterModal,
+    } = useSelector(state => state.dropdown);
 
 
     useEffect(() => {
@@ -37,7 +48,7 @@ const Root = () => {
 
             <div className='w-11/12 max-w-screen-xl mx-auto md:grid grid-cols-12 gap-5 items-start mt-5 pb-5'>
                 {/* bg unfocused layer */}
-                <div onClick={() => dropdownDispatch({ type: "BODY_TAP_ALL_MODAL_CLOSE" })} className={`${!dropdownState.searchAndFilterModal && !dropdownState.locationDropdown && !dropdownState.loginModal && !dropdownState.accountModal && !dropdownState.skillDropdown && 'hidden'} fixed left-0 top-0 h-screen w-screen`}></div>
+                <div onClick={() => dispatch(closeAllDropdown())} className={`${!searchAndFilterModal && !locationDropdown && !loginModal && !accountModal && !skillDropdown && 'hidden'} fixed left-0 top-0 h-screen w-screen`}></div>
                 {/* bg unfocused layer */}
 
                 <aside className='hidden md:block col-span-5 lg:col-span-4 sticky top-20'>
