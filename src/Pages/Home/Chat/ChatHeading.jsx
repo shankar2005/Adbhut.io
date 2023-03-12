@@ -24,7 +24,7 @@ const ChatHeading = ({ projectTitle, handleShowProjectHistory, currentProject })
     }
 
     useEffect(() => {
-        if (currentProject?.pk) {
+        if (currentProject?.pk && renamedTitle) {
             updateProject({
                 id: currentProject?.pk,
                 data: { title: renamedTitle }

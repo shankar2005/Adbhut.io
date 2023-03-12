@@ -24,20 +24,25 @@ const ProjectManagement = () => {
     const { data: currentProject = {}, refetch } = useGetProjectQuery(id);
 
     useEffect(() => {
+        if (user?.email) {
+            refetch();
+        }
+    }, [user])
+
+    useEffect(() => {
         if (currentProject.error || currentProject.detail) return;
         if (currentProject.pk) {
             setcurrentProject(currentProject);
             setchatLog(JSON.parse(currentProject.brief));
             setshortlistedArtist(currentProject.shortlisted_artists_details?.map(artist => artist.id));
             setselectedContentProducts(currentProject.project_template);
+
+            // set data in form
+            setValue("title", currentProject.title);
         }
     }, [currentProject])
 
-    // useEffect(() => {
-    //     reset(currentProject);
-    // }, [])
-
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit, setValue } = useForm();
     const onSubmit = data => {
         if (!user.email) {
             return dropdownDispatch({ type: "SHOW_LOGIN" });
