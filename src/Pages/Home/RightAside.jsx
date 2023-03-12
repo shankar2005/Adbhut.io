@@ -7,6 +7,7 @@ import { FaPlus } from 'react-icons/fa';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import Button from '../../Components/Button/Button';
+import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 const RightAside = () => {
     const { selectedContentProducts, setselectedContentProducts, setchatLog, currentProjects, dreamProjects, currentProject, contentProducts, setcurrentProject, setshortlistedArtist, handleSelectContentProduct } = useRootContext();
@@ -99,7 +100,7 @@ const RightAside = () => {
             </section>
 
             <section className='bg-white text-gray-700 rounded-lg shadow-md text-sm mt-5'>
-                <div className='border-b mb-3 pb-6 p-4'>
+                <div className='p-4'>
                     <p className='text-black mb-2 font-medium'>Total Cost</p>
                     <table className="min-w-full text-sm">
                         <thead className="bg-gray-200">
@@ -128,9 +129,13 @@ const RightAside = () => {
                         </tbody>
                     </table>
 
-                    <Button className="bg-yellow-400 focus:ring-yellow-200 sm:w-full flex justify-center mt-5">
-                        <img className='w-20' src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c530.png" alt="" />
-                    </Button>
+                    <PayPalScriptProvider options={{ "client-id": "test" }}>
+                        <PayPalButtons style={{ layout: "horizontal" }} />
+                    </PayPalScriptProvider>
+
+                    {/* <Button className="bg-yellow-400 focus:ring-yellow-200 sm:w-full flex justify-center mt-5">
+                        <img className='w-20' src={paypal} alt="" />
+                    </Button> */}
                 </div>
             </section>
 

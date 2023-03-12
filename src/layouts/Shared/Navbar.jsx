@@ -16,14 +16,6 @@ const Navbar = () => {
 
     const { user } = useSelector(state => state.auth);
 
-    const resetFeed = () => {
-        setSearchText("")
-        setdemoType("")
-        setcheckedSkills([]);
-        setcheckedGenres([]);
-        setcheckedLocations([]);
-    }
-
     const navigate = useNavigate();
     // handle search
     const handleSearch = (e) => {
