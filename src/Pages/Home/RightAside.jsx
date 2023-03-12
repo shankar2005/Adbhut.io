@@ -8,10 +8,12 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import Button from '../../Components/Button/Button';
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
+import { useGetDreamProjectsQuery } from '../../features/project/projectApi';
 
 const RightAside = () => {
-    const { selectedContentProducts, setselectedContentProducts, setchatLog, currentProjects, dreamProjects, currentProject, contentProducts, setcurrentProject, setshortlistedArtist, handleSelectContentProduct } = useRootContext();
+    const { selectedContentProducts, setselectedContentProducts, setchatLog, currentProjects, currentProject, contentProducts, setcurrentProject, setshortlistedArtist, handleSelectContentProduct } = useRootContext();
 
+    const { data: dreamProjects = [] } = useGetDreamProjectsQuery();
     const { user } = useSelector(state => state.auth);
 
     const navigate = useNavigate();

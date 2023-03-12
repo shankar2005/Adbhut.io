@@ -4,9 +4,10 @@ import { RiRefreshLine } from 'react-icons/ri';
 import { Link, useLocation } from 'react-router-dom';
 import nsnlogo from '../../../assets/logo.jpeg'
 import { useRootContext } from '../../../contexts/RootProvider';
+import { useUpdateProjectMutation } from '../../../features/project/projectApi';
 
 const ChatHeading = ({ projectTitle, handleShowProjectHistory, currentProject }) => {
-    const { currentProjectsRefetch } = useRootContext();
+    const [updateProject] = useUpdateProjectMutation();
 
     const renameInputRef = useRef();
     const [renameState, setRenameState] = useState(false);
@@ -24,21 +25,12 @@ const ChatHeading = ({ projectTitle, handleShowProjectHistory, currentProject })
 
     useEffect(() => {
         if (currentProject?.pk) {
-            fetch(`https://dev.nsnco.in/api/v1/update_title/${currentProject?.pk}/`, {
-                method: "PATCH",
-                headers: {
-                    "content-type": "application/json",
-                },
-                body: JSON.stringify({ title: renamedTitle })
-            }).then(res => res.json())
-                .then(data => {
-                    currentProjectsRefetch();
-                    handleShowProjectHistory(currentProject.pk, currentProject.stage);
-                });
+            updateProject({
+                id: currentProject?.pk,
+                data: { title: renamedTitle }
+            })
         }
     }, [renamedTitle])
-
-    const pathname = useLocation().pathname;
 
     return (
         <div className='border-b shadow-sm p-2 rounded-t-lg flex items-center justify-between'>

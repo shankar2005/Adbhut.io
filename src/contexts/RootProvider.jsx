@@ -18,6 +18,9 @@ const RootProvider = ({ children }) => {
     const { data: contentProducts = [] } = useGetContentProductsQuery();
     const [getSkillsOnProductSelect] = useGetSkillsOnProductSelectMutation();
 
+    const { data: currentProjects = [] } = useGetCurrentProjectsQuery();
+    const { data: dreamProjects = [] } = useGetDreamProjectsQuery();
+
     const [projectID, setProjectID] = useState(null);
     const { data: projectData } = useGetProjectQuery(projectID, { skip: !projectID });
 
@@ -81,11 +84,6 @@ const RootProvider = ({ children }) => {
     }, [projectData])
 
 
-    // get current projects
-    const { data: currentProjects = [], refetch: currentProjectsRefetch } = useGetCurrentProjectsQuery();
-
-    // dream projects
-    const { data: dreamProjects = [], refetch: dreamProjectsRefetch } = useGetDreamProjectsQuery();
 
 
     // views
@@ -206,8 +204,6 @@ const RootProvider = ({ children }) => {
         skills,
         currentProjects,
         setcurrentProject,
-        currentProjectsRefetch,
-        dreamProjectsRefetch,
         viewAs,
         setViewAs,
         contentProducts,

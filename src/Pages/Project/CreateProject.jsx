@@ -6,9 +6,12 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Button from '../../Components/Button/Button';
 import { useRootContext } from '../../contexts/RootProvider';
 import { useGetArtistByIdQuery } from '../../features/artist/artistApi';
+import { useCreateProjectMutation } from '../../features/project/projectApi';
 
 const CreateProject = () => {
-    const { shortlistedArtist, chatLog, contentProducts, dreamProjectsRefetch, currentProjectsRefetch, authToken, selectedContentProducts, createProjectFormState: state, createProjectFormDispatch, dropdownDispatch } = useRootContext();
+    const { shortlistedArtist, chatLog, contentProducts, selectedContentProducts, createProjectFormState, createProjectFormDispatch, dropdownDispatch } = useRootContext();
+
+    const [createProject] = useCreateProjectMutation();
     const { user } = useSelector(state => state.auth);
 
     const currentProject = [];
@@ -34,32 +37,24 @@ const CreateProject = () => {
         if (!user) {
             return dropdownDispatch({ type: "SHOW_LOGIN" });
         }
-        if (!state.project_template) {
+        if (!createProjectFormState.project_template) {
             return toast("Select a content product!");
         }
 
-        fetch('https://dev.nsnco.in/api/v1/create_new_project/', {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-                Authorization: `token ${authToken}`
-            },
-            body: JSON.stringify({
-                ...state,
-                "stage": "Lead",
-                "brief": JSON.stringify(chatLog),
-                "shortlisted_artists": shortlistedArtist,
-            })
-        }).then(res => res.json())
-            .then(data => {
-                if (data.pk) {
-                    toast.success("Project created successfully!", { id: "createNewProject" });
-                    currentProjectsRefetch();
-                    navigate(`/projects/${data.pk}/${Lead}/`);
-                } else {
-                    toast.error("Something went wrong!", { id: "createNewProject" });
-                }
-            });
+        createProject({
+            ...createProjectFormState,
+            "stage": "Lead",
+            "brief": JSON.stringify(chatLog),
+            "shortlisted_artists": shortlistedArtist,
+        }).then(response => {
+            const data = response.data;
+            if (data.pk) {
+                toast.success("Project created successfully!", { id: "createNewProject" });
+                navigate(`/projects/${data.pk}/${Lead}/`);
+            } else {
+                toast.error("Something went wrong!", { id: "createNewProject" });
+            }
+        });
     }
     // above and below both events are the same code repeated (just state changes)
     // add to dream project
@@ -67,32 +62,24 @@ const CreateProject = () => {
         if (!user.email) {
             return dropdownDispatch({ type: "SHOW_LOGIN" });
         }
-        if (!state.project_template) {
+        if (!createProjectFormState.project_template) {
             return toast("Select a content product!");
         }
 
-        fetch('https://dev.nsnco.in/api/v1/create_new_project/', {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-                Authorization: `token ${authToken}`
-            },
-            body: JSON.stringify({
-                ...state,
-                "stage": "DreamProject",
-                "brief": JSON.stringify(chatLog),
-                "shortlisted_artists": shortlistedArtist,
-            })
-        }).then(res => res.json())
-            .then(data => {
-                if (data.pk) {
-                    toast.success("Added to dreamproject!", { id: "createNewProject" });
-                    dreamProjectsRefetch();
-                    navigate(`/projects/${data.pk}/DreamProject/`);
-                } else {
-                    toast.error("Something went wrong!", { id: "createNewProject" });
-                }
-            });
+        createProject({
+            ...createProjectFormState,
+            "stage": "DreamProject",
+            "brief": JSON.stringify(chatLog),
+            "shortlisted_artists": shortlistedArtist,
+        }).then(response => {
+            const data = response.data;
+            if (data.pk) {
+                toast.success("Added to dreamproject!", { id: "createNewProject" });
+                navigate(`/projects/${data.pk}/DreamProject/`);
+            } else {
+                toast.error("Something went wrong!", { id: "createNewProject" });
+            }
+        });
     }
 
     const location = useLocation();
@@ -109,7 +96,7 @@ const CreateProject = () => {
                 <div className="p-4">
                     <div className="mb-4 items-center gap-2">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Project Title</label>
-                        <input type="text" name="title" onBlur={e => createProjectFormDispatch(register(e))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter a Project title" defaultValue={state.title} />
+                        <input type="text" name="title" onBlur={e => createProjectFormDispatch(register(e))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter a Project title" defaultValue={createProjectFormState.title} />
                     </div>
 
                     <div className='flex gap-4'>
@@ -126,7 +113,7 @@ const CreateProject = () => {
 
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Project Reference Link:</label>
-                        <textarea name="reference_links" onBlur={e => createProjectFormDispatch(register(e))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="https://www.youtube.com/watch?v=RhdXPesyRGk" defaultValue={state.reference_links}></textarea>
+                        <textarea name="reference_links" onBlur={e => createProjectFormDispatch(register(e))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="https://www.youtube.com/watch?v=RhdXPesyRGk" defaultValue={createProjectFormState.reference_links}></textarea>
                     </div>
 
                     {
@@ -164,7 +151,7 @@ const CreateProject = () => {
 
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Send assignment:</label>
-                        <textarea name="post_project_client_feedback" onBlur={e => createProjectFormDispatch(register(e))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your assignment" defaultValue={state.post_project_client_feedback}></textarea>
+                        <textarea name="post_project_client_feedback" onBlur={e => createProjectFormDispatch(register(e))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your assignment" defaultValue={createProjectFormState.post_project_client_feedback}></textarea>
                     </div>
                 </div>
 

@@ -18,9 +18,13 @@ import Cta from './Components/Cta';
 import { useSelector } from 'react-redux';
 import { useSendMessageMutation, useSendMessageToGPTMutation } from '../../features/chat/chatApi';
 import ActionCta from './Components/ActionCta';
+import { useCreateProjectMutation, useUpdateProjectMutation } from '../../features/project/projectApi';
 
 const LeftAside = () => {
-    const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setshortlistedArtist, authToken, currentProject, currentProjectsRefetch, handleShowProjectHistory, dreamProjectsRefetch, dropdownDispatch, handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills } = useRootContext();
+    const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setshortlistedArtist, currentProject, handleShowProjectHistory, dropdownDispatch, handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills } = useRootContext();
+
+    const [createProject] = useCreateProjectMutation();
+    const [updateProject] = useUpdateProjectMutation();
     const { user } = useSelector(state => state.auth);
 
     const [sendMessageToGPT] = useSendMessageToGPTMutation();
@@ -57,28 +61,20 @@ const LeftAside = () => {
         if (!user.email) {
             return dropdownDispatch({ type: "SHOW_LOGIN" });
         }
-        fetch('https://dev.nsnco.in/api/v1/create_project/', {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-                Authorization: `token ${authToken}`
-            },
-            body: JSON.stringify({
-                "stage": "Lead",
-                "brief": JSON.stringify(chatLog),
-                "product": selectedContentProducts,
-                "shortlisted_artists": shortlistedArtist
-            })
-        }).then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    toast.success(data.success);
-                    currentProjectsRefetch();
-                    navigate(`/projects/${data.projectId}/Lead/`);
-                } else if (data.error) {
-                    toast.error(data.error);
-                }
-            });
+        createProject({
+            "stage": "Lead",
+            "brief": JSON.stringify(chatLog),
+            "product": selectedContentProducts,
+            "shortlisted_artists": shortlistedArtist
+        }).then(response => {
+            const data = response.data;
+            if (data.success) {
+                toast.success(data.success);
+                navigate(`/projects/${data.projectId}/Lead/`);
+            } else if (data.error) {
+                toast.error(data.error);
+            }
+        })
     }
 
     // handle change stage
@@ -86,21 +82,14 @@ const LeftAside = () => {
         if (!user.email) {
             return dropdownDispatch({ type: "SHOW_LOGIN" });
         }
-        fetch(`https://dev.nsnco.in/api/v1/edit_project/${currentProject.pk}/`, {
-            method: "PUT",
-            headers: {
-                "content-type": "application/json",
-                Authorization: `token ${authToken}`
-            },
-            body: JSON.stringify({ stage: "Lead" })
+        updateProject({
+            id: currentProject.pk,
+            data: { stage: "Lead" }
+        }).then(response => {
+            const data = response.data;
+            handleShowProjectHistory(data?.pk, data?.stage);
+            navigate(`/projects/${data?.pk}/${data?.stage}/`);
         })
-            .then(res => res.json())
-            .then(data => {
-                handleShowProjectHistory(data?.pk, data?.stage);
-                navigate(`/projects/${data?.pk}/${data?.stage}/`);
-                currentProjectsRefetch();
-                dreamProjectsRefetch();
-            })
     }
 
     const [isTyping, setIsTyping] = useState(false);

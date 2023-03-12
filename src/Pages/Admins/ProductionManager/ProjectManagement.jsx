@@ -1,35 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRootContext } from '../../../contexts/RootProvider';
-import { BsArrowDown, BsThreeDots, BsTrash } from 'react-icons/bs';
+import { BsThreeDots, BsTrash } from 'react-icons/bs';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AiFillEye, AiOutlinePlus } from 'react-icons/ai';
 import ShortlistedArtistRow from './Components/ShortlistedArtistRow';
 import AssignedArtistRow from './Components/AssignedArtistRow';
 import { sendMessageAPI } from '../../../apis/messages/messages';
-import { useQuery } from '@tanstack/react-query';
 import { GrDocumentPdf } from "react-icons/gr";
 import Button from '../../../Components/Button/Button';
 import { useSelector } from 'react-redux';
+import { useDeleteProjectMutation, useGetProjectQuery, useUpdateProjectMutation } from '../../../features/project/projectApi';
 
 const ProjectManagement = () => {
-    const { chatLog, setchatLog, setshortlistedArtist, currentProjectsRefetch, authToken, handleShowProjectHistory, setcurrentProject, dreamProjectsRefetch, setselectedContentProducts, dropdownDispatch } = useRootContext();
+    const { chatLog, setchatLog, setshortlistedArtist, handleShowProjectHistory, setcurrentProject, setselectedContentProducts, dropdownDispatch } = useRootContext();
+
+    const [deleteProject] = useDeleteProjectMutation();
+    const [updateProject] = useUpdateProjectMutation();
     const { user } = useSelector(state => state.auth);
 
-    const params = useParams();
-    const { data: currentProject = {}, refetch } = useQuery({
-        queryKey: ['currentProject', params],
-        queryFn: async () => {
-            const url = `https://dev.nsnco.in/api/v1/edit_project/${params.id}/`;
-            if (params.stage === "DreamProject") {
-                return fetch(url)
-                    .then(res => res.json())
-            }
-            return fetch(url, { headers: { Authorization: `token ${authToken}` } })
-                .then(res => res.json())
-        }
-    })
+    const { id } = useParams();
+    const { data: currentProject = {}, refetch } = useGetProjectQuery(id);
 
     useEffect(() => {
         if (currentProject.error || currentProject.detail) return;
@@ -41,9 +33,9 @@ const ProjectManagement = () => {
         }
     }, [currentProject])
 
-    useEffect(() => {
-        reset(currentProject);
-    }, [currentProject])
+    // useEffect(() => {
+    //     reset(currentProject);
+    // }, [])
 
     const { register, handleSubmit, reset } = useForm();
     const onSubmit = data => {
@@ -64,16 +56,12 @@ const ProjectManagement = () => {
             final_fee_settlement_status: data.final_fee_settlement_status,
         }
 
-        fetch(`https://dev.nsnco.in/api/v1/edit_project/${currentProject.pk}/`, {
-            method: "PUT",
-            headers: {
-                "content-type": "application/json",
-                Authorization: `token ${authToken}`
-            },
-            body: JSON.stringify(formData)
+        updateProject({
+            id: currentProject.pk,
+            data: formData
         })
-            .then(res => res.json())
-            .then(data => {
+            .then(response => {
+                const data = response.data;
                 if (formData.post_project_client_feedback) {
                     // send assignment to the chatbox
                     if (user.role === "Client") {
@@ -95,14 +83,9 @@ const ProjectManagement = () => {
     const [actionToggle, setactionToggle] = useState(false);
 
     const handleDeleteProject = () => {
-        fetch(`https://dev.nsnco.in/api/v1/delete_project/${currentProject.pk}/`, {
-            method: "DELETE"
-        })
-            .then(res => res.json())
+        deleteProject(currentProject.pk)
             .then(data => {
-                toast.success(data.message);
-                dreamProjectsRefetch();
-                currentProjectsRefetch();
+                toast.success(data.data.message);
                 setactionToggle(false);
                 setchatLog([]);
                 setshortlistedArtist([]);
@@ -118,20 +101,14 @@ const ProjectManagement = () => {
             return dropdownDispatch({ type: "SHOW_LOGIN" });
         }
 
-        fetch(`https://dev.nsnco.in/api/v1/edit_project/${currentProject.pk}/`, {
-            method: "PUT",
-            headers: {
-                "content-type": "application/json",
-                Authorization: `token ${authToken}`
-            },
-            body: JSON.stringify({ stage: "Lead", post_project_client_feedback: assignmentField })
+        updateProject({
+            id: currentProject.pk,
+            data: { stage: "Lead", post_project_client_feedback: assignmentField }
         })
-            .then(res => res.json())
-            .then(data => {
+            .then(response => {
+                const data = response.data;
                 handleShowProjectHistory(data?.pk, data?.stage);
                 navigate(`/projects/${data.pk}/${data.stage}`);
-
-                currentProjectsRefetch();
 
                 // send assignment to the chatbox
                 // chatlog
@@ -146,16 +123,12 @@ const ProjectManagement = () => {
     }
 
     const handleSubmitToClient = () => {
-        fetch(`https://dev.nsnco.in/api/v1/edit_project/${currentProject.pk}/`, {
-            method: "PUT",
-            headers: {
-                "content-type": "application/json",
-                Authorization: `token ${authToken}`
-            },
-            body: JSON.stringify({ stage: "In Progress" })
+        updateProject({
+            id: currentProject.pk,
+            data: { stage: "In Progress" }
         })
-            .then(res => res.json())
-            .then(data => {
+            .then(response => {
+                const data = response.data;
                 if (data.pk) {
                     handleShowProjectHistory(data?.pk, data?.stage);
 
