@@ -11,7 +11,8 @@ const projectApi = apis.injectEndpoints({
             providesTags: ["DreamProjects"]
         }),
         getProject: builder.query({
-            query: (id) => `/edit_project/${id}/`
+            query: (id) => `/edit_project/${id}/`,
+            providesTags: ["Project"]
         }),
         createProject: builder.mutation({
             query: (data) => ({

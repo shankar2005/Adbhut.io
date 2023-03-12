@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useReducer, useState } from 'react';
 import Cookies from 'universal-cookie';
-import { sendMessageAPI } from '../apis/messages/messages';
 import { dropdownInitialState, dropdownReducers } from '../state/reducers/dropdownReducer';
 import avatar from "../assets/placeholders/avatar.png"
 import { useGetCurrentProjectsQuery, useGetDreamProjectsQuery, useGetProjectQuery } from '../features/project/projectApi';
@@ -8,6 +7,7 @@ import { useGetContentProductsQuery, useGetLocationsQuery, useGetSkillsOnProduct
 import { useSelector } from 'react-redux';
 import { useShortlistArtistMutation } from '../features/artist/artistApi';
 import { setSearch } from '../features/filter/filterSlice';
+import { useSendMessageMutation } from '../features/chat/chatApi';
 
 const RootContext = createContext();
 
@@ -17,6 +17,7 @@ const RootProvider = ({ children }) => {
     const { data: skills = [] } = useGetSkillsQuery();
     const { data: contentProducts = [] } = useGetContentProductsQuery();
     const [getSkillsOnProductSelect] = useGetSkillsOnProductSelectMutation();
+    const [sendMessage] = useSendMessageMutation();
 
     const { data: currentProjects = [] } = useGetCurrentProjectsQuery();
     const { data: dreamProjects = [] } = useGetDreamProjectsQuery();
@@ -57,7 +58,7 @@ const RootProvider = ({ children }) => {
 
         // saving shortlisted artist in the db
         if (currentProject?.pk) {
-            sendMessageAPI({
+            sendMessage({
                 project_id: currentProject.pk,
                 message: message
             })

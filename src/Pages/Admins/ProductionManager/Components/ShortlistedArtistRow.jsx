@@ -1,49 +1,21 @@
-import { useState } from 'react';
 import { FcCheckmark } from 'react-icons/fc'
 import { RxCross2 } from 'react-icons/rx'
 import { useSelector } from 'react-redux';
-import { Link } from "react-router-dom";
 import { useRootContext } from '../../../../contexts/RootProvider';
+import { useAssignArtistMutation, useDeclineArtistMutation } from '../../../../features/artist/artistApi';
 
-const ShortlistedArtistRow = ({ artist, projectId, refetch }) => {
+const ShortlistedArtistRow = ({ artist, projectId }) => {
     const { user } = useSelector(state => state.auth);
-    const { authToken, setArtistProfile } = useRootContext();
-    const [assignLoading, setassignLoading] = useState(false);
-    const [rejectLoading, setrejectLoading] = useState(false);
+    const { setArtistProfile } = useRootContext();
+
+    const [assignArtist, { isLoading: assignLoading }] = useAssignArtistMutation();
+    const [declineArtist, { isLoading: rejectLoading }] = useDeclineArtistMutation();
 
     const handleAssignArtist = () => {
-        setassignLoading(true);
-        fetch(`https://dev.nsnco.in/api/v1/assign_artist/${projectId}/${artist.id}/`, {
-            method: "PATCH",
-            headers: {
-                "content-type": "application/json",
-                Authorization: `token ${authToken}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.project.pk) {
-                    refetch();
-                    setassignLoading(false);
-                }
-            })
+        assignArtist({ projectId, artistId: artist.id })
     }
     const handleRejectArtist = () => {
-        setrejectLoading(true);
-        fetch(`https://dev.nsnco.in/api/v1/decline_artist/${projectId}/${artist.id}/`, {
-            method: "PATCH",
-            headers: {
-                "content-type": "application/json",
-                Authorization: `token ${authToken}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.project.pk) {
-                    refetch();
-                    setrejectLoading(false);
-                }
-            })
+        declineArtist({ projectId, artistId: artist.id })
     }
 
     return (

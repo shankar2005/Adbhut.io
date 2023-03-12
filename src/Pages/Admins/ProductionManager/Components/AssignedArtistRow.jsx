@@ -1,24 +1,13 @@
 import { BsBoxArrowUpRight } from "react-icons/bs";
-import { Link } from "react-router-dom";
 import { useRootContext } from "../../../../contexts/RootProvider";
+import { useUnAssignArtistMutation } from "../../../../features/artist/artistApi";
 
-const AssignedArtistRow = ({ artist, projectId, refetch }) => {
-    const { authToken, setArtistProfile } = useRootContext();
+const AssignedArtistRow = ({ artist, projectId }) => {
+    const { setArtistProfile } = useRootContext();
+    const [unAssignArtist] = useUnAssignArtistMutation();
 
     const handleUnassignArtist = () => {
-        fetch(`https://dev.nsnco.in/api/v1/unassign_artist/${projectId}/${artist.id}/`, {
-            method: "PATCH",
-            headers: {
-                "content-type": "application/json",
-                Authorization: `token ${authToken}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.project.pk) {
-                    refetch();
-                }
-            })
+        unAssignArtist({ projectId, artistId: artist.id })
     }
 
     return (
@@ -39,7 +28,6 @@ const AssignedArtistRow = ({ artist, projectId, refetch }) => {
                     <a className="font-medium flex items-center gap-2 hover:underline text-blue-500 w-fit" href="https://drive.google.com/file/d/1-EshWLh4nuzBdQffHrLXq-lbKQPRqJ2j/view?usp=share_link" target="_blank">Submission <BsBoxArrowUpRight /></a>
                 </div>
             }
-            {/* <img className='w-36 rounded' src="https://fbutube.com/media/images/play_button/play_button_added.webp" alt="" /> */}
         </div>
     )
 }

@@ -19,7 +19,36 @@ const artistApi = apis.injectEndpoints({
                 method: "PATCH",
             })
         }),
+
+        assignArtist: builder.mutation({
+            query: ({ projectId, artistId }) => ({
+                url: `/assign_artist/${projectId}/${artistId}/`,
+                method: "PATCH",
+            }),
+            invalidatesTags: ["Project"]
+        }),
+        unAssignArtist: builder.mutation({
+            query: ({ projectId, artistId }) => ({
+                url: `/unassign_artist/${projectId}/${artistId}/`,
+                method: "PATCH",
+            }),
+            invalidatesTags: ["Project"]
+        }),
+        declineArtist: builder.mutation({
+            query: ({ projectId, artistId }) => ({
+                url: `/decline_artist/${projectId}/${artistId}/`,
+                method: "PATCH",
+            }),
+            invalidatesTags: ["Project"]
+        }),
     })
 });
 
-export const { useGetArtistByIdQuery, useAddArtistMutation, useShortlistArtistMutation } = artistApi;
+export const {
+    useGetArtistByIdQuery,
+    useAddArtistMutation,
+    useShortlistArtistMutation,
+    useAssignArtistMutation,
+    useDeclineArtistMutation,
+    useUnAssignArtistMutation
+} = artistApi;

@@ -7,17 +7,18 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AiFillEye, AiOutlinePlus } from 'react-icons/ai';
 import ShortlistedArtistRow from './Components/ShortlistedArtistRow';
 import AssignedArtistRow from './Components/AssignedArtistRow';
-import { sendMessageAPI } from '../../../apis/messages/messages';
 import { GrDocumentPdf } from "react-icons/gr";
 import Button from '../../../Components/Button/Button';
 import { useSelector } from 'react-redux';
 import { useDeleteProjectMutation, useGetProjectQuery, useUpdateProjectMutation } from '../../../features/project/projectApi';
+import { useSendMessageToGPTMutation } from '../../../features/chat/chatApi';
 
 const ProjectManagement = () => {
     const { chatLog, setchatLog, setshortlistedArtist, handleShowProjectHistory, setcurrentProject, setselectedContentProducts, dropdownDispatch } = useRootContext();
 
     const [deleteProject] = useDeleteProjectMutation();
     const [updateProject] = useUpdateProjectMutation();
+    const [sendMessage] = useSendMessageToGPTMutation();
     const { user } = useSelector(state => state.auth);
 
     const { id } = useParams();
@@ -74,7 +75,7 @@ const ProjectManagement = () => {
                         const message = { msgID: chatLog.length + 1, user: data.post_project_client_feedback };
                         setchatLog(current => [...current, message]);
                         // send message api
-                        sendMessageAPI({
+                        sendMessage({
                             project_id: currentProject.pk,
                             message: message
                         })
@@ -120,7 +121,7 @@ const ProjectManagement = () => {
                 const message = { msgID: chatLog.length + 1, user: assignmentField };
                 setchatLog(current => [...current, message]);
                 // send message api
-                sendMessageAPI({
+                sendMessage({
                     project_id: currentProject.pk,
                     message: message
                 })
@@ -141,7 +142,7 @@ const ProjectManagement = () => {
                     const message = { msgID: chatLog.length + 1, bot: "Project is in progress. Waiting for client's response!" };
                     setchatLog(current => [...current, message]);
                     // send message api
-                    sendMessageAPI({
+                    sendMessage({
                         project_id: currentProject.pk,
                         message: message
                     })
@@ -252,7 +253,6 @@ const ProjectManagement = () => {
                                         key={artist.id}
                                         artist={artist}
                                         projectId={currentProject.pk}
-                                        refetch={refetch}
                                     />)
                                     : <div className='bg-gray-200 p-3 rounded-lg text-sm'>No artist selected!</div>
                             }
@@ -268,7 +268,6 @@ const ProjectManagement = () => {
                                     key={artist.id}
                                     artist={artist}
                                     projectId={currentProject.pk}
-                                    refetch={refetch}
                                 />)
                             }
                         </div>
