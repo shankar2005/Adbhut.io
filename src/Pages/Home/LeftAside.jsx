@@ -121,8 +121,8 @@ const LeftAside = () => {
             sendMessage({
                 project_id: currentProject.pk,
                 message: message
-            }).then(data => {
-                console.log(data);
+            }).then(response => {
+                const data = response.data;
                 if (data?.project?.pk) {
                     setchatLog(JSON.parse(data?.project?.brief));
                     setIsTyping(false);
@@ -133,15 +133,15 @@ const LeftAside = () => {
         } else {
             sendMessageToGPT({
                 message: userInputText
-            })
-                .then(data => {
-                    if (data.data?.response) {
-                        setchatLog(current => [...current, { msgID: chatLog.length + 1, bot: data.data?.response }]);
-                        setIsTyping(false);
-                    }
-                }).catch((err) => {
+            }).then(response => {
+                const data = response.data;
+                if (data.data?.response) {
+                    setchatLog(current => [...current, { msgID: chatLog.length + 1, bot: data.data?.response }]);
                     setIsTyping(false);
-                })
+                }
+            }).catch((err) => {
+                setIsTyping(false);
+            })
         }
 
         if (pathname === "/") {
