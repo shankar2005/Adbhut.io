@@ -91,8 +91,8 @@ const Navbar = () => {
         <nav className='bg-white shadow-md sticky top-0 z-50'>
             <div className='w-11/12 max-w-screen-xl mx-auto flex items-center justify-between'>
                 <div className='flex items-center gap-8 py-3'>
-                    <Link to="/">
-                        <img src={adbhutGIF} className='md:hidden w-28 md:w-32' />
+                    <Link to="/" className='md:hidden'>
+                        <img src={adbhutGIF} className='w-28 md:w-32' />
                     </Link>
                     <div className='hidden md:flex relative'>
                         <form onSubmit={handleSearch} className="flex">

@@ -84,8 +84,6 @@ const RootProvider = ({ children }) => {
     }, [projectData])
 
 
-
-
     // views
     const [viewAs, setViewAs] = useState("large");
 

@@ -3,7 +3,6 @@ import Root from "../layouts/Root";
 import ArtistAdmin from "../Pages/Admins/ArtistAdmin/ArtistAdmin";
 import ProjectManagement from "../Pages/Admins/ProductionManager/ProjectManagement";
 import ArtistEntry from "../Pages/Artist/ArtistEntry";
-import ArtistProfile from "../Pages/Artist/ArtistProfile";
 import Feed from "../Pages/Home/Feed";
 import Home from "../Pages/Home/Home";
 import LeftAside from "../Pages/Home/LeftAside";
@@ -16,8 +15,6 @@ import Projects from "../Pages/Project/Projects";
 import RequiredAuth from "./AuthRoutes/RequiredAuth";
 import LeftToRight from "./PageTransitions/LeftToRight";
 import RightToLeft from "./PageTransitions/RightToLeft";
-
-
 
 const router = createBrowserRouter([
     {
