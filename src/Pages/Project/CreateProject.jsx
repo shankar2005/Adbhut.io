@@ -10,11 +10,12 @@ import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { useCreateProjectMutation } from '../../features/project/projectApi';
 
 const CreateProject = () => {
-    const { shortlistedArtist, chatLog, contentProducts, selectedContentProducts, createProjectFormState, createProjectFormDispatch } = useRootContext();
+    const { shortlistedArtist, contentProducts, selectedContentProducts, createProjectFormState, createProjectFormDispatch } = useRootContext();
 
     const dispatch = useDispatch();
     const [createProject] = useCreateProjectMutation();
     const { user } = useSelector(state => state.auth);
+    const { chatLog } = useSelector(state => state.project);
 
     const currentProject = [];
 

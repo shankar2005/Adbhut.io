@@ -9,19 +9,21 @@ import ShortlistedArtistRow from './Components/ShortlistedArtistRow';
 import AssignedArtistRow from './Components/AssignedArtistRow';
 import { GrDocumentPdf } from "react-icons/gr";
 import Button from '../../../Components/Button/Button';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useDeleteProjectMutation, useGetProjectQuery, useUpdateProjectMutation } from '../../../features/project/projectApi';
 import { useSendMessageToGPTMutation } from '../../../features/chat/chatApi';
 import { showLogin } from '../../../features/dropdown/dropdownSlice';
+import { addChatLog, setChatLog } from '../../../features/project/projectSlice';
 
 const ProjectManagement = () => {
-    const { chatLog, setchatLog, setshortlistedArtist, handleShowProjectHistory, setcurrentProject, setselectedContentProducts } = useRootContext();
+    const { setshortlistedArtist, handleShowProjectHistory, setcurrentProject, setselectedContentProducts } = useRootContext();
 
     const dispatch = useDispatch();
     const [deleteProject] = useDeleteProjectMutation();
     const [updateProject] = useUpdateProjectMutation();
     const [sendMessage] = useSendMessageToGPTMutation();
     const { user } = useSelector(state => state.auth);
+    const { chatLog } = useSelector(state => state.project);
 
     const { id } = useParams();
     const { data: currentProject = {}, refetch } = useGetProjectQuery(id);
@@ -36,7 +38,7 @@ const ProjectManagement = () => {
         if (currentProject.error || currentProject.detail) return;
         if (currentProject.pk) {
             setcurrentProject(currentProject);
-            setchatLog(JSON.parse(currentProject.brief));
+            dispatch(setChatLog(JSON.parse(currentProject.brief)));
             setshortlistedArtist(currentProject.shortlisted_artists_details?.map(artist => artist.id));
             setselectedContentProducts(currentProject.project_template);
 
@@ -75,7 +77,7 @@ const ProjectManagement = () => {
                     if (user.role === "Client") {
                         // chatlog
                         const message = { msgID: chatLog.length + 1, user: data.post_project_client_feedback };
-                        setchatLog(current => [...current, message]);
+                        dispatch(addChatLog(message));
                         // send message api
                         sendMessage({
                             project_id: currentProject.pk,
@@ -95,7 +97,7 @@ const ProjectManagement = () => {
             .then(data => {
                 toast.success(data.data.message);
                 setactionToggle(false);
-                setchatLog([]);
+                dispatch(setChatLog([]));
                 setshortlistedArtist([]);
                 navigate("/projects/create-project");
             });
@@ -121,7 +123,7 @@ const ProjectManagement = () => {
                 // send assignment to the chatbox
                 // chatlog
                 const message = { msgID: chatLog.length + 1, user: assignmentField };
-                setchatLog(current => [...current, message]);
+                dispatch(addChatLog(message));
                 // send message api
                 sendMessage({
                     project_id: currentProject.pk,
@@ -142,7 +144,7 @@ const ProjectManagement = () => {
 
                     // chatlog
                     const message = { msgID: chatLog.length + 1, bot: "Project is in progress. Waiting for client's response!" };
-                    setchatLog(current => [...current, message]);
+                    dispatch(addChatLog(message));
                     // send message api
                     sendMessage({
                         project_id: currentProject.pk,
@@ -272,27 +274,6 @@ const ProjectManagement = () => {
                                     projectId={currentProject.pk}
                                 />)
                             }
-                        </div>
-                    }
-
-                    {
-                        currentProject.pk === 77 &&
-                        <div className="mb-4">
-                            <label className="block mb-2 text-sm font-medium text-gray-900">Assignment:</label>
-                            <div className='flex justify-between bg-gray-200 rounded-lg'>
-                                <div className='flex items-center gap-2'>
-                                    <div className='bg-red-500 p-5 rounded-l-lg'>
-                                        <GrDocumentPdf size={30} />
-                                    </div>
-                                    <p className='text-xs font-medium'>Design Hiring Assignment - Naagin (1).pdf</p>
-                                </div>
-                                <div className='flex items-center gap-2 p-3'>
-                                    {/* <button type='button' className='text-xs font-medium bg-blue-300 rounded-lg p-2 px-4'><AiFillEye size={15} /></button> */}
-                                    <a href={currentProject?.post_project_client_feedback} target="_blank">
-                                        <button type='button' className='text-xs font-medium bg-blue-300 rounded-lg p-2 px-4'><AiFillEye size={15} /></button>
-                                    </a>
-                                </div>
-                            </div>
                         </div>
                     }
 

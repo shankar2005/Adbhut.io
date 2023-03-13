@@ -3,10 +3,11 @@ import Cookies from 'universal-cookie';
 import avatar from "../assets/placeholders/avatar.png"
 import { useGetCurrentProjectsQuery, useGetDreamProjectsQuery, useGetProjectQuery } from '../features/project/projectApi';
 import { useGetContentProductsQuery, useGetLocationsQuery, useGetSkillsOnProductSelectMutation, useGetSkillsQuery } from '../features/utils/utilsApi';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useShortlistArtistMutation } from '../features/artist/artistApi';
 import { setSearch } from '../features/filter/filterSlice';
 import { useSendMessageMutation } from '../features/chat/chatApi';
+import { addChatLog, setChatLog } from '../features/project/projectSlice';
 
 const RootContext = createContext();
 
@@ -25,6 +26,8 @@ const RootProvider = ({ children }) => {
     const { data: projectData } = useGetProjectQuery(projectID, { skip: !projectID });
 
     const { user } = useSelector(state => state.auth);
+    const { chatLog } = useSelector(state => state.project);
+    const dispatch = useDispatch();
 
     // filtering feeds with type -> search bar
     const [demoType, setdemoType] = useState("");
@@ -38,13 +41,12 @@ const RootProvider = ({ children }) => {
 
     const [shortlistedArtist, setshortlistedArtist] = useState([]);
     const [selectedContentProducts, setselectedContentProducts] = useState("");
-    const [chatLog, setchatLog] = useState([]);
 
     // setting response msg on first action
     useEffect(() => {
         const isExist = chatLog.find(chat => chat.actionResponse);
         if (chatLog.length === 1 && !isExist) {
-            setchatLog(chatLog => [...chatLog, { actionResponse: true, msgID: chatLog.length + 1, bot: "Great! Let’s shortlist artist by requirement." }]);
+            dispatch(addChatLog({ actionResponse: true, msgID: chatLog.length + 1, bot: "Great! Let’s shortlist artist by requirement." }));
         }
     }, [chatLog]);
 
@@ -53,7 +55,7 @@ const RootProvider = ({ children }) => {
         setshortlistedArtist(current => [...current, artistID]);
         // chatlog
         const message = { type: 'shortlistedArtist', msgID: chatLog.length + 1, artist: { artistID, name, profile_pic } };
-        setchatLog(current => [...current, message]);
+        dispatch(addChatLog(message));
 
         // saving shortlisted artist in the db
         if (currentProject?.pk) {
@@ -78,7 +80,7 @@ const RootProvider = ({ children }) => {
     useEffect(() => {
         if (projectData?.pk) {
             setcurrentProject(projectData);
-            setchatLog(JSON.parse(projectData.brief));
+            dispatch(setChatLog(JSON.parse(projectData.brief)));
             setshortlistedArtist(projectData.shortlisted_artists);
         }
     }, [projectData])
@@ -113,7 +115,7 @@ const RootProvider = ({ children }) => {
     //clearing all state of project when selecting different content product
     const clearProject = () => {
         setcurrentProject({});
-        setchatLog([]);
+        dispatch(setChatLog([]));
         setshortlistedArtist([]);
         dispatch(setSearch(""));
         setSuggestions([]);
@@ -137,7 +139,7 @@ const RootProvider = ({ children }) => {
         if (!isExist) {
             setselectedContentProducts(product.pk);
             // chatlog
-            setchatLog(current => [...current, { msgID: current.length + 1, [sender]: product.name }]);
+            dispatch(addChatLog({ msgID: chatLog.length + 1, [sender]: product.name }));
         }
     }
 
@@ -153,7 +155,7 @@ const RootProvider = ({ children }) => {
     const handleSelectSkill = (skill) => {
         setcheckedSkills([skill[1] + '']);
         // chatlog
-        setchatLog(current => [...current, { msgID: current.length + 1, [sender]: skill[0] }]);
+        dispatch(addChatLog({ msgID: chatLog.length + 1, [sender]: skill[0] }));
 
         // removing suggested skills after click
         setSuggestions(current => current.filter(i => i[1] + '' !== skill[1] + ''));
@@ -187,8 +189,6 @@ const RootProvider = ({ children }) => {
         setshortlistedArtist,
         selectedContentProducts,
         setselectedContentProducts,
-        chatLog,
-        setchatLog,
         handleShortlist,
         authToken,
         handleShowProjectHistory,

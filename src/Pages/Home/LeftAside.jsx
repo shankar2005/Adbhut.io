@@ -20,14 +20,16 @@ import { useSendMessageMutation, useSendMessageToGPTMutation } from '../../featu
 import ActionCta from './Components/ActionCta';
 import { useCreateProjectMutation, useUpdateProjectMutation } from '../../features/project/projectApi';
 import { showLogin } from '../../features/dropdown/dropdownSlice';
+import { addChatLog, popChatLog, setChatLog } from '../../features/project/projectSlice';
 
 const LeftAside = () => {
-    const { shortlistedArtist = [], selectedContentProducts, chatLog, setchatLog, setshortlistedArtist, currentProject, handleShowProjectHistory, handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills } = useRootContext();
+    const { shortlistedArtist = [], selectedContentProducts, setshortlistedArtist, currentProject, handleShowProjectHistory, handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills } = useRootContext();
 
     const dispatch = useDispatch();
     const [createProject] = useCreateProjectMutation();
     const [updateProject] = useUpdateProjectMutation();
     const { user } = useSelector(state => state.auth);
+    const { chatLog } = useSelector(state => state.project);
 
     const [sendMessageToGPT] = useSendMessageToGPTMutation();
     const [sendMessage] = useSendMessageMutation();
@@ -52,7 +54,7 @@ const LeftAside = () => {
     // handle remove shortlisted artist
     const handleRemoveShortlistedArtist = (msgID, artistID) => {
         // remove chatlog
-        setchatLog(current => [...current.filter(msg => msg.msgID !== msgID)]);
+        dispatch(popChatLog(msgID));
         // remove selected artist
         setshortlistedArtist(current => [...current.filter(id => id !== artistID)]);
     }
@@ -115,7 +117,7 @@ const LeftAside = () => {
 
         // chatlog
         const message = { msgID: chatLog.length + 1, [sender]: userInputText };
-        setchatLog(current => [...current, message]);
+        dispatch(addChatLog(message));
         setuserInputText("");
         userInputRef.current.value = "";
 
@@ -126,7 +128,7 @@ const LeftAside = () => {
             }).then(response => {
                 const data = response.data;
                 if (data?.project?.pk) {
-                    setchatLog(JSON.parse(data?.project?.brief));
+                    dispatch(setChatLog(JSON.parse(data?.project?.brief)));
                     setIsTyping(false);
                 }
             }).catch((err) => {
@@ -137,8 +139,8 @@ const LeftAside = () => {
                 message: userInputText
             }).then(response => {
                 const data = response.data;
-                if (data.data?.response) {
-                    setchatLog(current => [...current, { msgID: chatLog.length + 1, bot: data.data?.response }]);
+                if (data?.response) {
+                    dispatch(addChatLog({ msgID: chatLog.length + 1, bot: data?.response }));
                     setIsTyping(false);
                 }
             }).catch((err) => {

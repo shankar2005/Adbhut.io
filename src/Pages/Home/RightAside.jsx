@@ -5,21 +5,23 @@ import { Navigation } from 'swiper';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../Components/Button/Button';
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { useGetDreamProjectsQuery } from '../../features/project/projectApi';
+import { setChatLog } from '../../features/project/projectSlice';
 
 const RightAside = () => {
-    const { selectedContentProducts, setselectedContentProducts, setchatLog, currentProjects, currentProject, contentProducts, setcurrentProject, setshortlistedArtist, handleSelectContentProduct } = useRootContext();
+    const { selectedContentProducts, setselectedContentProducts, currentProjects, currentProject, contentProducts, setcurrentProject, setshortlistedArtist, handleSelectContentProduct } = useRootContext();
 
+    const dispatch = useDispatch();
     const { data: dreamProjects = [] } = useGetDreamProjectsQuery();
     const { user } = useSelector(state => state.auth);
 
     const navigate = useNavigate();
     const navigateCreateProject = () => {
         setcurrentProject(null);
-        setchatLog([]);
+        dispatch(setChatLog([]));
         setshortlistedArtist([]);
         setselectedContentProducts("");
         navigate("/projects/create-project");

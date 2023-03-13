@@ -11,8 +11,9 @@ import MessageSender from './MessageSender';
 
 const Chathome = ({ chatboxRef, nsnlogo }) => {
     const { isFullTime } = useSelector(state => state.viewMode);
+    const { chatLog } = useSelector(state => state.project);
 
-    const { chatLog, contentProducts, currentProject, selectedContentProducts, avatar, handleSelectContentProduct, isMobile, skills, handleSelectSkill } = useRootContext();
+    const { contentProducts, currentProject, selectedContentProducts, avatar, handleSelectContentProduct, isMobile, skills, handleSelectSkill } = useRootContext();
     const navigate = useNavigate();
 
     const [suggestions, setSuggestions] = useState([]);
