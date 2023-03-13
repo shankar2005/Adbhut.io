@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from 'react-redux';
 import Cookies from 'universal-cookie';
 import { useLoginUserMutation, useVerifyUserMutation } from '../../features/auth/authApi';
-import { setLoading, setUser } from '../../features/auth/authSlice';
+import { setLoading, setToken, setUser } from '../../features/auth/authSlice';
 
 const LoginForm = () => {
     const [loginUser, { data, isError, error }] = useLoginUserMutation();
@@ -25,6 +25,7 @@ const LoginForm = () => {
             // storing token inside cookies
             const cookies = new Cookies();
             cookies.set('auth_token', data.token, { path: '/' });
+            dispatch(setToken(data.token));
         }
     }, [data])
 

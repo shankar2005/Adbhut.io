@@ -68,16 +68,12 @@ const LeftAside = () => {
         createProject({
             "stage": "Lead",
             "brief": JSON.stringify(chatLog),
-            "product": selectedContentProducts,
+            "project_template": selectedContentProducts,
             "shortlisted_artists": shortlistedArtist
         }).then(response => {
             const data = response.data;
-            if (data.success) {
-                toast.success(data.success);
-                navigate(`/projects/${data.projectId}/Lead/`);
-            } else if (data.error) {
-                toast.error(data.error);
-            }
+            toast.success("Project created successfully!");
+            navigate(`/projects/${data.pk}/Lead/`);
         })
     }
 
