@@ -1,6 +1,6 @@
 import apis from "../apis/apis";
 
-const authApi = apis.injectEndpoints({
+export const authApi = apis.injectEndpoints({
     endpoints: (builder) => ({
         verifyUser: builder.mutation({
             query: (data) => ({
@@ -15,9 +15,16 @@ const authApi = apis.injectEndpoints({
                 method: 'POST',
                 body: data
             })
+        }),
+        registerUser: builder.mutation({
+            query: (data) => ({
+                url: `/auth/register/`,
+                method: 'POST',
+                body: data
+            })
         })
     })
 });
 
-export const { useVerifyUserMutation, useLoginUserMutation } = authApi;
+export const { useVerifyUserMutation, useLoginUserMutation, useRegisterUserMutation } = authApi;
 export default authApi;
