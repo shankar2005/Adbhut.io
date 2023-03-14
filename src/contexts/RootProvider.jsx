@@ -139,7 +139,7 @@ const RootProvider = ({ children }) => {
         if (!isExist) {
             setselectedContentProducts(product.pk);
             // chatlog
-            dispatch(addChatLog({ msgID: chatLog.length + 1, [sender]: product.name }));
+            dispatch(addChatLog({ msgID: chatLog.length + 1, [sender]: `You've selected ${product.name}` }));
         }
     }
 
@@ -155,7 +155,7 @@ const RootProvider = ({ children }) => {
     const handleSelectSkill = (skill) => {
         setcheckedSkills([skill[1] + '']);
         // chatlog
-        dispatch(addChatLog({ msgID: chatLog.length + 1, [sender]: skill[0] }));
+        dispatch(addChatLog({ msgID: chatLog.length + 1, [sender]: `You've selected ${skill[0]}` }));
 
         // removing suggested skills after click
         setSuggestions(current => current.filter(i => i[1] + '' !== skill[1] + ''));

@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux';
 
 const AuthSection = () => {
     const [isLoginForm, setsIsLoginForm] = useState(true);
-    const [formError, setformError] = useState(null);
 
     const dispatch = useDispatch();
     const closeModal = () => {
@@ -30,14 +29,8 @@ const AuthSection = () => {
 
             {
                 isLoginForm
-                    ? <LoginForm
-                        formError={formError}
-                        setformError={setformError}
-                    />
-                    : <RegisterForm
-                        formError={formError}
-                        setformError={setformError}
-                    />
+                    ? <LoginForm />
+                    : <RegisterForm />
             }
 
             {

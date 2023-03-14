@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import Cookies from 'universal-cookie';
 
-const RegisterForm = ({ formError, setformError }) => {
+const RegisterForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = formData => {
         setformError(null);
@@ -16,9 +16,6 @@ const RegisterForm = ({ formError, setformError }) => {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.error) {
-                    setformError(data.error);
-                }
                 if (data.success) {
                     fetch('https://dev.nsnco.in/api/v1/auth/login/', {
                         method: "POST",
@@ -32,8 +29,6 @@ const RegisterForm = ({ formError, setformError }) => {
                             if (data.token) {
                                 const cookies = new Cookies();
                                 cookies.set('auth_token', data.token, { path: '/' });
-                            } else {
-                                setformError("Something went wrong!");
                             }
                         });
                 }
@@ -74,7 +69,7 @@ const RegisterForm = ({ formError, setformError }) => {
             </div>
             <button type="submit" className="w-full px-8 py-3 font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white">Sign up</button>
             {
-                formError && <p className='text-red-500 text-sm mt-3'>{formError}</p>
+                true && <p className='text-red-500 text-sm mt-3'>{'formError'}</p>
             }
         </form>
     );

@@ -8,9 +8,9 @@ const Cta = ({ suggestions, removedSkills, className }) => {
 
     return (
         <div className={`p-2 bg-white ${className || ""}`}>
-            <div className='pb-2 skillScroll overflow-x-scroll flex gap-2 text-sm font-medium select-none'>
+            <div className='pl-2 pt-2 pb-2.5 skillScroll overflow-x-scroll flex gap-2 text-sm font-medium select-none'>
                 {
-                    suggestions.map(skill => <div
+                    suggestions.map((skill, idx) => <div
                         onClick={() => {
                             handleSelectSkill(skill)
                             // this logic is only for if the user is in mobile device
@@ -20,7 +20,11 @@ const Cta = ({ suggestions, removedSkills, className }) => {
                             }
                         }}
                         key={`suggestedSkill${skill[1]}`}
-                        className='whitespace-nowrap py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'>
+                        className={idx === 0
+                            ? 'blob blue whitespace-nowrap py-1 px-3 border text-blue-600 border-blue-500 bg-blue-100 rounded-full cursor-pointer'
+                            : 'whitespace-nowrap py-1 px-3 border text-blue-500 border-blue-500 rounded-full cursor-pointer hover:bg-blue-100'
+                        }
+                    >
                         {skill[0]}
                     </div>)
                 }
@@ -33,7 +37,7 @@ const Cta = ({ suggestions, removedSkills, className }) => {
                     </div>)
                 }
             </div>
-        </div>
+        </div >
     );
 };
 

@@ -313,7 +313,6 @@ const LeftAside = () => {
                     </div>
             }
 
-
             <div className='p-3 border-t-[3px] border-gray-300'>
                 <textarea ref={userInputRef} onKeyUp={handleChatInput} className="p-2 rounded-lg bg-gray-100 w-full focus:outline-none text-sm" rows="4" placeholder='Start a briefing...'></textarea>
                 <div className='flex justify-between items-center'>
@@ -326,25 +325,11 @@ const LeftAside = () => {
                     <div className='flex items-center space-x-1'>
                         <BsFillMicFill />
                         {
-                            userInputText ?
-                                <button onClick={handleSendUserInput} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
-                                :
-                                shortlistedArtist[0] || selectedContentProducts || typeof currentProject?.pk === "number"
-                                    ?
-                                    <>
-                                        {
-                                            currentProject?.pk && currentProject?.stage !== "DreamProject" ?
-                                                <button onClick={handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>
-                                                    Update Brief
-                                                </button>
-                                                // below logic means if we have currentProject && if it's stage is Dream then we will let user to sendBrief(with handleChangeStage)
-                                                : <button onClick={currentProject?.stage === "DreamProject" ? handleChangeStage : handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>
-                                                    Send Brief
-                                                </button>
-                                        }
-                                    </>
-                                    :
-                                    <button disabled className='bg-gray-300 text-gray-400 py-[3px] px-3 rounded-full text-sm'>Send Brief</button>
+                            userInputText
+                                ? <button onClick={handleSendUserInput} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
+                                : selectedContentProducts || currentProject?.pk
+                                    ? <button onClick={currentProject?.stage === "DreamProject" ? handleChangeStage : handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Save</button>
+                                    : <button className='bg-gray-300 text-gray-400 py-[3px] px-3 rounded-full text-sm'>Save</button>
                         }
                     </div>
                 </div>
