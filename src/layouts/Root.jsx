@@ -56,9 +56,6 @@ const Root = () => {
         },
         exit: {
             x: "100vw",
-            transition: {
-                duration: 0.1
-            }
         }
     };
 
