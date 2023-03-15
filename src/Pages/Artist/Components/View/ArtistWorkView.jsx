@@ -30,7 +30,7 @@ const ArtistWorkView = ({ artist = {} }) => {
             <div>
                 {
                     artist.demo_type === "Youtube Link"
-                    && <div className='h-[270px] 2xl:h-[350px]'>
+                    && <div className='aspect-video'>
                         {useYoutubeEmbaded(artist.weblink, 'rounded-lg')}
                     </div>
                 }

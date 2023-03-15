@@ -14,7 +14,7 @@ const FeedCardSkeleton = () => {
                     <Skeleton className='rounded-lg' width={100} height={48} baseColor="#e0f2fe" />
                 </div>
             </div>
-            <div className='h-[270px] 2xl:h-[350px]'>
+            <div className='aspect-video'>
                 <Skeleton height="100%" width="100%" />
             </div>
         </div>)

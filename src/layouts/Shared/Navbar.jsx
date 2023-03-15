@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { IoIosArrowDown } from 'react-icons/io';
+import { AiOutlineBars } from 'react-icons/ai';
 import { useRootContext } from '../../contexts/RootProvider';
 import logo from '../../assets/cn.jpeg';
 import nsnlogo from '../../assets/logo.jpeg';
@@ -13,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSearch } from '../../features/filter/filterSlice';
 import { closeLogin, showAccount, showLocation, showLogin, showSkill } from '../../features/dropdown/dropdownSlice';
 
-const Navbar = () => {
+const Navbar = ({ setShowToolkit }) => {
     const { setdemoType, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills } = useRootContext();
 
     const dispatch = useDispatch();
@@ -239,6 +240,7 @@ const Navbar = () => {
                             </AnimatePresence>
                         </li>
                     }
+                    <AiOutlineBars className='cursor-pointer' onClick={() => setShowToolkit(prev => !prev)} size={25} />
                 </ul>
             </div>
         </nav>

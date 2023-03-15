@@ -14,6 +14,7 @@ import TopToggleBar from '../Components/Bar/TopToggleBar';
 import ConfirmationModal from '../Components/Modal/ConfirmationModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeAllDropdown } from '../features/dropdown/dropdownSlice';
+import { useState } from 'react';
 
 const Root = () => {
     const { artistProfile, setArtistProfile, showModal } = useRootContext();
@@ -41,10 +42,12 @@ const Root = () => {
         }
     }, [artistProfile]);
 
+    const [showToolkit, setShowToolkit] = useState(false);
+
     return (
         <div className='bg-gray-100 min-h-screen'>
 
-            <Navbar />
+            <Navbar setShowToolkit={setShowToolkit} />
 
             <div className='w-11/12 max-w-screen-xl mx-auto md:grid grid-cols-12 gap-5 items-start mt-5 pb-5'>
                 {/* bg unfocused layer */}
@@ -57,7 +60,7 @@ const Root = () => {
 
 
 
-                <div className='col-span-7 lg:col-span-5 relative'>
+                <div className={`col-span-7 ${showToolkit ? "lg:col-span-5" : "lg:col-span-8"} relative`}>
 
 
                     {/* togglebar */}
@@ -75,8 +78,7 @@ const Root = () => {
                 </div>
 
 
-
-                <aside className='hidden lg:block col-span-3 sticky top-20 rightSide max-h-[88vh] overflow-y-scroll'>
+                <aside className={`${showToolkit || "hidden"} col-span-3 sticky top-20 rightSide max-h-[88vh] overflow-y-scroll pb-5`}>
                     <RightAside />
                 </aside>
 
