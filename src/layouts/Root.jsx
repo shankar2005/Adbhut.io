@@ -17,7 +17,7 @@ import { closeAllDropdown } from '../features/dropdown/dropdownSlice';
 import { useState } from 'react';
 
 const Root = () => {
-    const { artistProfile, setArtistProfile, showModal } = useRootContext();
+    const { artistProfile, setArtistProfile, showModal, isMobile } = useRootContext();
 
     const location = useLocation();
     const pathname = location.pathname;
@@ -44,6 +44,24 @@ const Root = () => {
 
     const [showToolkit, setShowToolkit] = useState(false);
 
+    const pageTransition = {
+        initial: {
+            x: "100vw",
+        },
+        animate: {
+            x: 0,
+            transition: {
+                duration: 0.1
+            }
+        },
+        exit: {
+            x: "100vw",
+            transition: {
+                duration: 0.1
+            }
+        }
+    };
+
     return (
         <div className='bg-gray-100 min-h-screen'>
 
@@ -54,13 +72,13 @@ const Root = () => {
                 <div onClick={() => dispatch(closeAllDropdown())} className={`${!searchAndFilterModal && !locationDropdown && !loginModal && !accountModal && !skillDropdown && 'hidden'} fixed left-0 top-0 h-screen w-screen`}></div>
                 {/* bg unfocused layer */}
 
-                <aside className='hidden md:block col-span-5 lg:col-span-4 sticky top-20'>
+                <aside className={`hidden md:block col-span-5 ${showToolkit ? "lg:col-span-4" : "lg:col-span-5"} sticky top-20`}>
                     <LeftAside />
                 </aside>
 
 
 
-                <div className={`col-span-7 ${showToolkit ? "lg:col-span-5" : "lg:col-span-8"} relative`}>
+                <div className={`col-span-7 ${showToolkit ? "lg:col-span-5" : "lg:col-span-7"} relative`}>
 
 
                     {/* togglebar */}
@@ -82,17 +100,33 @@ const Root = () => {
                     <RightAside />
                 </aside>
 
+                <div className='lg:hidden'>
+                    <AnimatePresence initial={false} exitBeforeEnter>
+                        {
+                            showToolkit &&
+                            <Backdrop onClick={() => setShowToolkit(false)}>
+                                <motion.aside
+                                    initial="initial"
+                                    animate="animate"
+                                    exit="exit"
+                                    variants={pageTransition}
+                                    className={`fixed top-0 right-0 w-4/6 lg:w-2/6 h-screen bg-white z-50`}
+                                >
+                                    <RightAside />
+                                </motion.aside>
+                            </Backdrop>
+                        }
+                    </AnimatePresence>
+                </div>
+
 
                 {/* mobile toggle */}
                 <div className='lg:hidden z-50 fixed left-0 top-1/2 -translate-y-20 bg-white'>
                     <Link to="/projects/chat">
-                        <div className='p-3 border border-b-0 md:hidden'><BiMessageDots /></div>
+                        <div className='p-3 border border-b-0'><BiMessageDots /></div>
                     </Link>
                     <Link to="/artists">
                         <div className='p-3 border border-b-0'><CiViewTimeline /></div>
-                    </Link>
-                    <Link to="/projects/toolkit">
-                        <div className='p-3 border'><TbTools /></div>
                     </Link>
                 </div>
                 {/* mobile toggle */}

@@ -12,7 +12,6 @@ import CreateProject from "../Pages/Project/CreateProject";
 import Docusign from "../Pages/Project/Docusign";
 import ProjectDone from "../Pages/Project/ProjectDone";
 import Projects from "../Pages/Project/Projects";
-import RequiredAuth from "./AuthRoutes/RequiredAuth";
 import LeftToRight from "./PageTransitions/LeftToRight";
 import RightToLeft from "./PageTransitions/RightToLeft";
 
@@ -50,13 +49,7 @@ const router = createBrowserRouter([
                 element: <LeftToRight>
                     <div className="md:hidden"><LeftAside /></div>
                 </LeftToRight>
-            },
-            {
-                path: '/projects/toolkit',
-                element: <RightToLeft>
-                    <div className="lg:hidden"><RightAside /></div>
-                </RightToLeft>
-            },
+            }
         ]
     },
     {
