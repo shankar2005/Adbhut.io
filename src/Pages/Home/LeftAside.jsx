@@ -20,10 +20,11 @@ import { useSendMessageMutation, useSendMessageToGPTMutation } from '../../featu
 import ActionCta from './Components/ActionCta';
 import { useCreateProjectMutation, useUpdateProjectMutation } from '../../features/project/projectApi';
 import { showLogin } from '../../features/dropdown/dropdownSlice';
-import { addChatLog, popChatLog, setChatLog } from '../../features/project/projectSlice';
+import { addChatLog, removeArtist, removeChatLog, setChatLog } from '../../features/project/projectSlice';
 
 const LeftAside = () => {
-    const { shortlistedArtist = [], selectedContentProducts, setshortlistedArtist, currentProject, handleShowProjectHistory, handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills } = useRootContext();
+    const { selectedContentProducts, currentProject, handleShowProjectHistory, handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills } = useRootContext();
+    const { shortlistedArtists } = useSelector(state => state.project);
 
     const dispatch = useDispatch();
     const [createProject] = useCreateProjectMutation();
@@ -54,9 +55,9 @@ const LeftAside = () => {
     // handle remove shortlisted artist
     const handleRemoveShortlistedArtist = (msgID, artistID) => {
         // remove chatlog
-        dispatch(popChatLog(msgID));
+        dispatch(removeChatLog(msgID));
         // remove selected artist
-        setshortlistedArtist(current => [...current.filter(id => id !== artistID)]);
+        dispatch(removeArtist(artistID));
     }
 
     const navigate = useNavigate();
@@ -69,7 +70,7 @@ const LeftAside = () => {
             "stage": "Lead",
             "brief": JSON.stringify(chatLog),
             "project_template": selectedContentProducts,
-            "shortlisted_artists": shortlistedArtist
+            "shortlisted_artists": shortlistedArtists
         }).then(response => {
             const data = response.data;
             toast.success("Project created successfully!");
@@ -296,8 +297,8 @@ const LeftAside = () => {
                         }
 
                         {
-                            suggestions?.length === 0 && contentProducts?.length > 0 && !selectedContentProducts && shortlistedArtist.length === 0 && chatLog.length === 0 &&
-                            <div className='absolute bottom-0 p-2 pb-0 bg-white mt-12'>
+                            suggestions?.length === 0 && contentProducts?.length > 0 && !selectedContentProducts &&
+                            <div className='sticky bottom-0 p-2 pb-0 bg-white mt-12'>
                                 <div className='pb-2 flex flex-wrap gap-2 text-sm font-medium select-none'>
                                     {
                                         contentProducts.map(contentProduct => <div
@@ -327,7 +328,7 @@ const LeftAside = () => {
                         {
                             userInputText
                                 ? <button onClick={handleSendUserInput} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
-                                : (selectedContentProducts || currentProject?.pk || shortlistedArtist.length > 0)
+                                : (selectedContentProducts || currentProject?.pk || shortlistedArtists?.length > 0)
                                     ? <button onClick={currentProject?.stage === "DreamProject" ? handleChangeStage : handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Save</button>
                                     : <button className='bg-gray-300 text-gray-400 py-[3px] px-3 rounded-full text-sm'>Save</button>
                         }

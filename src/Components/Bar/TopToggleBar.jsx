@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import { BiMessageDots } from 'react-icons/bi';
 import { IoIosArrowBack } from 'react-icons/io';
+import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { useRootContext } from '../../contexts/RootProvider';
 import Cta from '../../Pages/Home/Components/Cta';
 
 const TopToggleBar = ({ className }) => {
-    const { currentProject, setViewAs, shortlistedArtist, isMobile, suggestions, removedSkills } = useRootContext();
+    const { shortlistedArtists } = useSelector(state => state.project);
+
+    const { currentProject, setViewAs, isMobile, suggestions, removedSkills } = useRootContext();
     const location = useLocation();
     const pathname = useLocation().pathname;
     const fromCreateProject = location.state?.from?.pathname?.includes("/create-project");
@@ -22,7 +25,7 @@ const TopToggleBar = ({ className }) => {
         setTimeout(() => {
             setClicked(false);
         }, 500); // Set the timeout to the duration of the animation (in milliseconds)
-    }, [shortlistedArtist])
+    }, [shortlistedArtists])
 
     // shows only on artists route
     if (!pathname.includes("/artists")) return;
@@ -36,14 +39,14 @@ const TopToggleBar = ({ className }) => {
                         isMobile
                             ? <>
                                 {
-                                    // <Link to="/projects/chat">
-                                    //     <button className={`bg-gray-200 rounded-full p-2 relative ${clicked ? 'animate-vibrate' : ''}`}>
-                                    //         <BiMessageDots size={20} />
-                                    //         <span className='absolute -top-1.5 -right-1.5 rounded-full bg-red-500 h-4 w-4 text-xs text-white'>
-                                    //             {shortlistedArtist?.length}
-                                    //         </span>
-                                    //     </button>
-                                    // </Link>
+                                    <Link to="/projects/chat">
+                                        <button className={`bg-gray-200 rounded-full p-2 relative ${clicked ? 'animate-vibrate' : ''}`}>
+                                            <IoIosArrowBack size={20} />
+                                            <span className='absolute -top-1.5 -right-1.5 rounded-full bg-red-500 h-4 w-4 text-xs text-white'>
+                                                {shortlistedArtists?.length}
+                                            </span>
+                                        </button>
+                                    </Link>
                                 }
                             </>
                             : <>

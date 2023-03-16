@@ -10,12 +10,13 @@ import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { useCreateProjectMutation } from '../../features/project/projectApi';
 
 const CreateProject = () => {
-    const { shortlistedArtist, contentProducts, selectedContentProducts, createProjectFormState, createProjectFormDispatch } = useRootContext();
+    const { contentProducts, selectedContentProducts, createProjectFormState, createProjectFormDispatch } = useRootContext();
 
     const dispatch = useDispatch();
     const [createProject] = useCreateProjectMutation();
     const { user } = useSelector(state => state.auth);
     const { chatLog } = useSelector(state => state.project);
+    const { shortlistedArtists } = useSelector(state => state.project);
 
     const currentProject = [];
 
@@ -48,7 +49,7 @@ const CreateProject = () => {
             ...createProjectFormState,
             "stage": "Lead",
             "brief": JSON.stringify(chatLog),
-            "shortlisted_artists": shortlistedArtist,
+            "shortlisted_artists": shortlistedArtists,
         }).then(response => {
             const data = response.data;
             if (data.pk) {
@@ -73,7 +74,7 @@ const CreateProject = () => {
             ...createProjectFormState,
             "stage": "DreamProject",
             "brief": JSON.stringify(chatLog),
-            "shortlisted_artists": shortlistedArtist,
+            "shortlisted_artists": shortlistedArtists,
         }).then(response => {
             const data = response.data;
             if (data.pk) {
@@ -123,15 +124,15 @@ const CreateProject = () => {
                         <div className="mb-4 mt-8">
                             <div className='flex justify-between mb-1'>
                                 <label className="block mb-2 text-sm font-medium text-gray-900">{
-                                    shortlistedArtist?.length ? 'Shortlisted Artists' : 'Shortlist Artists'
+                                    shortlistedArtists?.length ? 'Shortlisted Artists' : 'Shortlist Artists'
                                 }</label>
                                 <Link to="/artists" state={{ from: location }}>
                                     <button type='button' onClick={handleAddMoreArtist} className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add Artist <AiOutlinePlus size={18} /></button>
                                 </Link>
                             </div>
                             {
-                                shortlistedArtist?.length > 0 ?
-                                    shortlistedArtist?.map(artistId => <ArtistRow artistId={artistId} />)
+                                shortlistedArtists?.length > 0 ?
+                                    shortlistedArtists?.map(artistId => <ArtistRow artistId={artistId} />)
                                     : <div className='bg-gray-200 p-3 rounded-lg text-sm'>No artist selected!</div>
                             }
                         </div>

@@ -7,11 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useShortlistArtistMutation } from '../features/artist/artistApi';
 import { setSearch } from '../features/filter/filterSlice';
 import { useSendMessageMutation } from '../features/chat/chatApi';
-import { addChatLog, setChatLog } from '../features/project/projectSlice';
+import { addArtist, addChatLog, setArtist, setChatLog } from '../features/project/projectSlice';
 
 const RootContext = createContext();
 
 const RootProvider = ({ children }) => {
+    const { user } = useSelector(state => state.auth);
+    
     const [shortlistArtist] = useShortlistArtistMutation();
     const { data: locations = [] } = useGetLocationsQuery();
     const { data: skills = [] } = useGetSkillsQuery();
@@ -19,13 +21,12 @@ const RootProvider = ({ children }) => {
     const [getSkillsOnProductSelect] = useGetSkillsOnProductSelectMutation();
     const [sendMessage] = useSendMessageMutation();
 
-    const { data: currentProjects = [] } = useGetCurrentProjectsQuery();
+    const { data: currentProjects = [] } = useGetCurrentProjectsQuery(null, { skip: !user?.email });
     const { data: dreamProjects = [] } = useGetDreamProjectsQuery();
 
     const [projectID, setProjectID] = useState(null);
     const { data: projectData } = useGetProjectQuery(projectID, { skip: !projectID });
 
-    const { user } = useSelector(state => state.auth);
     const { chatLog } = useSelector(state => state.project);
     const dispatch = useDispatch();
 
@@ -39,7 +40,6 @@ const RootProvider = ({ children }) => {
     const cookies = new Cookies();
     const authToken = cookies.get('auth_token');
 
-    const [shortlistedArtist, setshortlistedArtist] = useState([]);
     const [selectedContentProducts, setselectedContentProducts] = useState("");
 
     // setting response msg on first action
@@ -52,7 +52,7 @@ const RootProvider = ({ children }) => {
 
 
     const handleShortlist = (artistID, name, profile_pic) => {
-        setshortlistedArtist(current => [...current, artistID]);
+        dispatch(addArtist(artistID));
         // chatlog
         const message = { type: 'shortlistedArtist', msgID: chatLog.length + 1, artist: { artistID, name, profile_pic } };
         dispatch(addChatLog(message));
@@ -81,7 +81,7 @@ const RootProvider = ({ children }) => {
         if (projectData?.pk) {
             setcurrentProject(projectData);
             dispatch(setChatLog(JSON.parse(projectData.brief)));
-            setshortlistedArtist(projectData.shortlisted_artists);
+            dispatch(setArtist(projectData.shortlisted_artists));
         }
     }, [projectData])
 
@@ -116,7 +116,7 @@ const RootProvider = ({ children }) => {
     const clearProject = () => {
         setcurrentProject({});
         dispatch(setChatLog([]));
-        setshortlistedArtist([]);
+        dispatch(setArtist([]));
         dispatch(setSearch(""));
         setSuggestions([]);
         setRemovedSkill([]);
@@ -185,8 +185,6 @@ const RootProvider = ({ children }) => {
         setcheckedSkills,
         checkedGenres,
         setcheckedGenres,
-        shortlistedArtist,
-        setshortlistedArtist,
         selectedContentProducts,
         setselectedContentProducts,
         handleShortlist,

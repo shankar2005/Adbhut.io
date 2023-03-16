@@ -64,7 +64,6 @@ const Root = () => {
     const [visible, setVisible] = useState(true);
 
     useEffect(() => {
-        console.log('object');
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     });

@@ -10,15 +10,30 @@ const projectSlice = createSlice({
     name: 'project',
     initialState,
     reducers: {
+        // chatlog
         addChatLog: (state, action) => {
             state.chatLog.push(action.payload);
         },
         setChatLog: (state, action) => {
             state.chatLog = action.payload;
         },
-        popChatLog: (state, action) => {
+        removeChatLog: (state, action) => {
             state.chatLog = state.chatLog.filter(msg => msg.msgID !== action.payload);
         },
+
+
+        // artist
+        addArtist: (state, action) => {
+            state.shortlistedArtists.push(action.payload);
+        },
+        setArtist: (state, action) => {
+            state.shortlistedArtists = action.payload;
+        },
+        removeArtist: (state, action) => {
+            state.shortlistedArtists = state.shortlistedArtists.pop(action.payload);
+        },
+
+
         clearProject: (state) => {
             state.chatLog = []
             state.shortlistedArtists = []
@@ -27,5 +42,5 @@ const projectSlice = createSlice({
     },
 });
 
-export const { addChatLog, setChatLog, popChatLog, clearProject } = projectSlice.actions;
+export const { addChatLog, setChatLog, removeChatLog, clearProject, addArtist, setArtist, removeArtist } = projectSlice.actions;
 export default projectSlice.reducer;

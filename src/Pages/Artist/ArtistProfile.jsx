@@ -8,9 +8,12 @@ import { GiCheckMark } from 'react-icons/gi';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import { useGetArtistByIdQuery } from '../../features/artist/artistApi';
+import { useSelector } from 'react-redux';
 
 const ArtistProfile = () => {
-    const { handleShortlist, shortlistedArtist, artistProfile, setArtistProfile } = useRootContext();
+    const { shortlistedArtists } = useSelector(state => state.project);
+
+    const { handleShortlist, artistProfile, setArtistProfile } = useRootContext();
     const { data } = useGetArtistByIdQuery(artistProfile);
     const { artistID, name, profile_pic, skills, languages, workLinks, location_name } = data || {};
 
@@ -36,7 +39,7 @@ const ArtistProfile = () => {
                     </div>
                 </div>
                 {
-                    shortlistedArtist?.includes(artistID)
+                    shortlistedArtists?.includes(artistID)
                         ? <button className='ml-auto text-green-600 border-2 bg-sky-100 border-sky-100 py-2.5 px-4 rounded-lg font-medium'><GiCheckMark /></button>
                         : <button onClick={() => handleShortlist(artistID, name, profile_pic)} className='ml-auto text-blue-500 border-2 hover:border-blue-500 bg-sky-100 border-sky-100 py-3 px-4 rounded-lg font-medium z-10'>Shortlist</button>
                 }
@@ -51,7 +54,7 @@ const ArtistProfile = () => {
                         workLinks?.map(link => <SwiperSlide>
                             {
                                 link[1] === "Youtube Link"
-                                && <div className='h-[400px]'>
+                                && <div className='aspect-video'>
                                     {useYoutubeEmbaded(link[0], 'rounded-lg')}
                                 </div>
                             }

@@ -17,7 +17,6 @@ const ArtistEntry = () => {
 
     const { register, handleSubmit, formState: { errors }, control } = useForm();
     const onSubmit = data => {
-        console.log(data)
         return;
         addArtist({
             ...data,

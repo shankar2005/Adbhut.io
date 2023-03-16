@@ -4,19 +4,18 @@ import { useRootContext } from '../../../contexts/RootProvider';
 import { BsThreeDots, BsTrash } from 'react-icons/bs';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { AiFillEye, AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlinePlus } from 'react-icons/ai';
 import ShortlistedArtistRow from './Components/ShortlistedArtistRow';
 import AssignedArtistRow from './Components/AssignedArtistRow';
-import { GrDocumentPdf } from "react-icons/gr";
 import Button from '../../../Components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDeleteProjectMutation, useGetProjectQuery, useUpdateProjectMutation } from '../../../features/project/projectApi';
 import { useSendMessageToGPTMutation } from '../../../features/chat/chatApi';
 import { showLogin } from '../../../features/dropdown/dropdownSlice';
-import { addChatLog, setChatLog } from '../../../features/project/projectSlice';
+import { addChatLog, setArtist, setChatLog } from '../../../features/project/projectSlice';
 
 const ProjectManagement = () => {
-    const { setshortlistedArtist, handleShowProjectHistory, setcurrentProject, setselectedContentProducts, avatar } = useRootContext();
+    const { handleShowProjectHistory, setcurrentProject, setselectedContentProducts, avatar } = useRootContext();
 
     const dispatch = useDispatch();
     const [deleteProject] = useDeleteProjectMutation();
@@ -39,7 +38,7 @@ const ProjectManagement = () => {
         if (currentProject.pk) {
             setcurrentProject(currentProject);
             dispatch(setChatLog(JSON.parse(currentProject.brief)));
-            setshortlistedArtist(currentProject.shortlisted_artists_details?.map(artist => artist.id));
+            dispatch(setArtist(currentProject.shortlisted_artists_details?.map(artist => artist.id)));
             setselectedContentProducts(currentProject.project_template);
 
             // set data in form
@@ -87,7 +86,6 @@ const ProjectManagement = () => {
                     }
                 }
             })
-            .catch(err => console.log(err))
     }
 
     const [actionToggle, setactionToggle] = useState(false);
@@ -98,7 +96,7 @@ const ProjectManagement = () => {
                 toast.success(data.data.message);
                 setactionToggle(false);
                 dispatch(setChatLog([]));
-                setshortlistedArtist([]);
+                dispatch(setArtist([]))
                 navigate("/projects/create-project");
             });
     }
@@ -152,7 +150,6 @@ const ProjectManagement = () => {
                     })
                 }
             })
-            .catch(err => console.log(err))
     }
 
     const handleApproveProject = () => {
