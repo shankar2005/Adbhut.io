@@ -16,7 +16,7 @@ import { showLogin } from '../../../features/dropdown/dropdownSlice';
 import { addChatLog, setChatLog } from '../../../features/project/projectSlice';
 
 const ProjectManagement = () => {
-    const { setshortlistedArtist, handleShowProjectHistory, setcurrentProject, setselectedContentProducts } = useRootContext();
+    const { setshortlistedArtist, handleShowProjectHistory, setcurrentProject, setselectedContentProducts, avatar } = useRootContext();
 
     const dispatch = useDispatch();
     const [deleteProject] = useDeleteProjectMutation();
@@ -186,7 +186,7 @@ const ProjectManagement = () => {
                             user.email
                                 ? <div className='flex items-center gap-2 rounded'>
                                     <div className='relative'>
-                                        <img className='w-10 border rounded-full' src="https://media.licdn.com/dms/image/C4E03AQECm3P3VuGSNg/profile-displayphoto-shrink_200_200/0/1650625726703?e=1680739200&v=beta&t=Kxqdzo8dg2YRwmiHATynhHCMX7giWstWmIWQkRW89Wo" alt="" />
+                                        <img className='w-10 border rounded-full' src={avatar} alt="" />
                                     </div>
                                     <div className='text-sm'>
                                         <p className="font-medium">{currentProject?.client_details?.name}</p>
