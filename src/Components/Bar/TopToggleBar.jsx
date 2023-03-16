@@ -6,7 +6,7 @@ import { useRootContext } from '../../contexts/RootProvider';
 import Cta from '../../Pages/Home/Components/Cta';
 
 const TopToggleBar = ({ className }) => {
-    const { currentProject, setViewAs, shortlistedArtist, isMobile, suggestions, handleSelectSkill, removedSkills } = useRootContext();
+    const { currentProject, setViewAs, shortlistedArtist, isMobile, suggestions, removedSkills } = useRootContext();
     const location = useLocation();
     const pathname = useLocation().pathname;
     const fromCreateProject = location.state?.from?.pathname?.includes("/create-project");

@@ -1,9 +1,8 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRootContext } from '../../../contexts/RootProvider';
 
 const Cta = ({ suggestions, removedSkills, className }) => {
-    const { handleSelectSkill, isMobile } = useRootContext();
-    const pathname = useLocation().pathname;
+    const { handleSelectSkill } = useRootContext();
     const navigate = useNavigate();
 
     return (
@@ -12,12 +11,8 @@ const Cta = ({ suggestions, removedSkills, className }) => {
                 {
                     suggestions.map((skill, idx) => <div
                         onClick={() => {
-                            handleSelectSkill(skill)
-                            // this logic is only for if the user is in mobile device
-                            // and select skill from the chat box
-                            if (isMobile && pathname.includes("/projects/chat")) {
-                                navigate("/artists");
-                            }
+                            handleSelectSkill(skill);
+                            navigate("/artists");
                         }}
                         key={`suggestedSkill${skill[1]}`}
                         className={idx === 0
