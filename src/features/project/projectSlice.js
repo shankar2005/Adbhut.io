@@ -19,8 +19,13 @@ const projectSlice = createSlice({
         popChatLog: (state, action) => {
             state.chatLog = state.chatLog.filter(msg => msg.msgID !== action.payload);
         },
+        clearProject: (state) => {
+            state.chatLog = []
+            state.shortlistedArtists = []
+            state.selectedContentProducts = null
+        }
     },
 });
 
-export const { addChatLog, setChatLog, popChatLog } = projectSlice.actions;
+export const { addChatLog, setChatLog, popChatLog, clearProject } = projectSlice.actions;
 export default projectSlice.reducer;

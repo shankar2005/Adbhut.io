@@ -6,13 +6,19 @@ import Button from '../../../Components/Button/Button';
 import logo from "../../../assets/logos/adbeta.jpeg"
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../features/auth/authSlice';
+import { useNavigate } from 'react-router-dom';
+import { clearProject } from '../../../features/project/projectSlice';
 
 const ProfileDropdown = () => {
     const { user } = useSelector(state => state.auth);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleLogout = () => {
         dispatch(logout());
+        navigate("/");
+        dispatch(clearProject());
+        // removing authtoke from cookies
         const cookies = new Cookies();
         cookies.remove("auth_token", { path: '/' });
     }

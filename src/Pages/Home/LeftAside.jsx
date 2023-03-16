@@ -327,7 +327,7 @@ const LeftAside = () => {
                         {
                             userInputText
                                 ? <button onClick={handleSendUserInput} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
-                                : selectedContentProducts || currentProject?.pk
+                                : (selectedContentProducts || currentProject?.pk || shortlistedArtist.length > 0)
                                     ? <button onClick={currentProject?.stage === "DreamProject" ? handleChangeStage : handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Save</button>
                                     : <button className='bg-gray-300 text-gray-400 py-[3px] px-3 rounded-full text-sm'>Save</button>
                         }
