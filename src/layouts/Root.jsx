@@ -59,6 +59,25 @@ const Root = () => {
         }
     };
 
+    // top togglebar hide on scroll down show on scroll up
+    const [yOffset, setYOffset] = useState(window.pageYOffset);
+    const [visible, setVisible] = useState(true);
+
+    useEffect(() => {
+        console.log('object');
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    });
+
+    function handleScroll() {
+        const currentYOffset = window.pageYOffset;
+        const visible = yOffset > currentYOffset;
+
+        setYOffset(currentYOffset);
+        setVisible(visible);
+    }
+    // 
+
     return (
         <div className='bg-gray-100 min-h-screen'>
 
@@ -79,7 +98,7 @@ const Root = () => {
 
 
                     {/* togglebar */}
-                    <TopToggleBar className="hidden lg:block" />
+                    <TopToggleBar className={`${visible || "-top-20"} duration-500`} />
                     {/* togglebar */}
 
 
@@ -115,18 +134,6 @@ const Root = () => {
                         }
                     </AnimatePresence>
                 </div>
-
-
-                {/* mobile toggle */}
-                <div className='lg:hidden z-50 fixed left-0 top-1/2 -translate-y-20 bg-white'>
-                    <Link to="/projects/chat">
-                        <div className='p-3 border border-b-0'><BiMessageDots /></div>
-                    </Link>
-                    <Link to="/artists">
-                        <div className='p-3 border border-b-0'><CiViewTimeline /></div>
-                    </Link>
-                </div>
-                {/* mobile toggle */}
 
                 <AnimatePresence exitBeforeEnter={true}>
                     {

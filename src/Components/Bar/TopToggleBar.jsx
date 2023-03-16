@@ -36,14 +36,14 @@ const TopToggleBar = ({ className }) => {
                         isMobile
                             ? <>
                                 {
-                                    <Link to="/projects/chat">
-                                        <button className={`bg-gray-200 rounded-full p-2 relative ${clicked ? 'animate-vibrate' : ''}`}>
-                                            <BiMessageDots size={20} />
-                                            <span className='absolute -top-1.5 -right-1.5 rounded-full bg-red-500 h-4 w-4 text-xs text-white'>
-                                                {shortlistedArtist?.length}
-                                            </span>
-                                        </button>
-                                    </Link>
+                                    // <Link to="/projects/chat">
+                                    //     <button className={`bg-gray-200 rounded-full p-2 relative ${clicked ? 'animate-vibrate' : ''}`}>
+                                    //         <BiMessageDots size={20} />
+                                    //         <span className='absolute -top-1.5 -right-1.5 rounded-full bg-red-500 h-4 w-4 text-xs text-white'>
+                                    //             {shortlistedArtist?.length}
+                                    //         </span>
+                                    //     </button>
+                                    // </Link>
                                 }
                             </>
                             : <>

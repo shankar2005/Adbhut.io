@@ -13,6 +13,7 @@ import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearch } from '../../features/filter/filterSlice';
 import { closeLogin, showAccount, showLocation, showLogin, showSkill } from '../../features/dropdown/dropdownSlice';
+import { BiMessageDots } from 'react-icons/bi';
 
 const Navbar = ({ setShowToolkit }) => {
     const { setdemoType, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills } = useRootContext();
@@ -218,10 +219,15 @@ const Navbar = ({ setShowToolkit }) => {
 
                     </div>
                 </div>
-                <ul className='flex items-center gap-4 text-gray-500 flex-1 py-3'>
+                <ul className='flex items-center gap-4 text-gray-500 flex-1 py-3 justify-end'>
+                    <li className='ml-auto lg:hidden'>
+                        <Link to="/projects/chat">
+                            <BiMessageDots size={25} />
+                        </Link>
+                    </li>
                     {
                         user.email &&
-                        <li className='ml-auto flex items-center gap-2 relative'>
+                        <li className='flex items-center gap-2 relative'>
                             <img className='hidden md:block w-24' src={logo} alt="" />
                             <img onClick={() => dispatch(showAccount())} className='w-10 h-10 rounded-full border' src={user?.role === "Client" ? "https://www.w3schools.com/howto/img_avatar.png" : nsnlogo} alt="" />
                             {/* modal */}
@@ -232,8 +238,8 @@ const Navbar = ({ setShowToolkit }) => {
                     }
                     {
                         !user.email &&
-                        <li className='ml-auto'>
-                            <button onClick={() => dispatch(showLogin())} className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="button">Login</button>
+                        <li>
+                            <button onClick={() => dispatch(showLogin())} className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200" type="button">Login</button>
                             {/* auth modal */}
                             <AnimatePresence initial={false} exitBeforeEnter={true}>
                                 {loginModal && <AuthModal onClick={() => dispatch(closeLogin())} />}

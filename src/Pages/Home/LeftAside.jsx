@@ -297,7 +297,7 @@ const LeftAside = () => {
 
                         {
                             suggestions?.length === 0 && contentProducts?.length > 0 && !selectedContentProducts && shortlistedArtist.length === 0 && chatLog.length === 0 &&
-                            <div className='sticky bottom-0 p-2 pb-0 bg-white mt-12'>
+                            <div className='absolute bottom-0 p-2 pb-0 bg-white mt-12'>
                                 <div className='pb-2 flex flex-wrap gap-2 text-sm font-medium select-none'>
                                     {
                                         contentProducts.map(contentProduct => <div

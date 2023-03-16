@@ -3,16 +3,17 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { useRootContext } from '../../contexts/RootProvider';
 import FeedCardSkeleton from '../../Components/Skeleton/FeedCardSkeleton';
 import { CiCircleRemove } from 'react-icons/ci';
-import TopToggleBar from '../../Components/Bar/TopToggleBar';
 import ArtistWorkView from '../Artist/Components/View/ArtistWorkView';
 import ArtistSquareView from '../Artist/Components/View/ArtistSquareView';
 import ArtistRowView from '../Artist/Components/View/ArtistRowView';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearch } from '../../features/filter/filterSlice';
+import { showLogin } from '../../features/dropdown/dropdownSlice';
 
 const Feed = () => {
     const { demoType, checkedSkills, checkedGenres, checkedLocations, viewAs, avatar } = useRootContext();
 
+    const { user } = useSelector(state => state.auth);
     const { searchText } = useSelector(state => state.filter);
     const dispatch = useDispatch();
 
@@ -46,6 +47,13 @@ const Feed = () => {
     }, [searchText, demoType, checkedSkills, checkedGenres, checkedLocations])
 
     const fetchMoreData = () => {
+        // restric unauthenticated users from seeing more than 10 posts
+        if (artists.length === 10 && !user?.email) {
+            console.log("you must have to login");
+            dispatch(showLogin());
+            return;
+        }
+
         const url = `https://dev.nsnco.in/api/v1/get_feed/?page=${page}&${searchText && `search=${searchText}`}${demoType && `&demo_type=${demoType}`}${skillQuery && skillQuery}${genreQuery && genreQuery}${checkedLocationQuery && checkedLocationQuery}`;
         fetch(url)
             .then(res => res.json())
@@ -101,10 +109,6 @@ const Feed = () => {
 
     return (
         <div className='relative'>
-            {/* togglebar */}
-            <TopToggleBar className="lg:hidden" />
-            {/* togglebar */}
-
             <InfiniteScroll
                 dataLength={artists.length}
                 next={fetchMoreData}

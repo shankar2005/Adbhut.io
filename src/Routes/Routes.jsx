@@ -6,7 +6,6 @@ import ArtistEntry from "../Pages/Artist/ArtistEntry";
 import Feed from "../Pages/Home/Feed";
 import Home from "../Pages/Home/Home";
 import LeftAside from "../Pages/Home/LeftAside";
-import RightAside from "../Pages/Home/RightAside";
 import Invite from "../Pages/Invite/Invite";
 import CreateProject from "../Pages/Project/CreateProject";
 import Docusign from "../Pages/Project/Docusign";

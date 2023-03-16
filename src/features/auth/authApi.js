@@ -7,7 +7,8 @@ export const authApi = apis.injectEndpoints({
                 url: `/auth/verify/`,
                 method: 'POST',
                 body: data
-            })
+            }),
+            invalidatesTags: ["CurrentProjects", "DreamProjects"]
         }),
         loginUser: builder.mutation({
             query: (data) => ({
