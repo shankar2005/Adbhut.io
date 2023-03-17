@@ -7,19 +7,20 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { useGetDreamProjectsQuery } from '../../features/project/projectApi';
-import { setArtist, setChatLog, setContentProduct } from '../../features/project/projectSlice';
+import { clearProject, setArtist, setChatLog, setContentProduct } from '../../features/project/projectSlice';
 
 const RightAside = () => {
-    const { currentProjects, currentProject, contentProducts, setcurrentProject, handleSelectContentProduct } = useRootContext();
-
+    const { currentProjects, contentProducts, handleSelectContentProduct } = useRootContext();
+    
     const dispatch = useDispatch();
     const { data: dreamProjects = [] } = useGetDreamProjectsQuery();
     const { user } = useSelector(state => state.auth);
+    const currentProject = useSelector(state => state.project);
     const { selectedContentProduct } = useSelector(state => state.project);
 
     const navigate = useNavigate();
     const navigateCreateProject = () => {
-        setcurrentProject(null);
+        dispatch(clearProject());
         dispatch(setChatLog([]));
         dispatch(setArtist([]));
         dispatch(setContentProduct(""));

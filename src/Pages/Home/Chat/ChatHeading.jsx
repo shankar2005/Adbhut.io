@@ -1,13 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { BiPencil } from 'react-icons/bi';
 import { RiRefreshLine } from 'react-icons/ri';
-import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import nsnlogo from '../../../assets/logo.jpeg'
 import { useRootContext } from '../../../contexts/RootProvider';
 import { useUpdateProjectMutation } from '../../../features/project/projectApi';
 
-const ChatHeading = ({ projectTitle, handleShowProjectHistory, currentProject }) => {
+const ChatHeading = () => {
     const [updateProject] = useUpdateProjectMutation();
+    const { handleShowProjectHistory } = useRootContext();
+    const currentProject = useSelector(state => state.project);
+    const { title: projectTitle } = useSelector(state => state.project);
 
     const renameInputRef = useRef();
     const [renameState, setRenameState] = useState(false);

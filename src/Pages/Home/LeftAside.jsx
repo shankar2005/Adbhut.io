@@ -23,12 +23,14 @@ import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { addChatLog, removeArtist, removeChatLog, setChatLog } from '../../features/project/projectSlice';
 
 const LeftAside = () => {
-    const { currentProject, handleShowProjectHistory, handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills, setArtistProfile } = useRootContext();
+    const { handleShowProjectHistory, handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills, setArtistProfile } = useRootContext();
 
     const dispatch = useDispatch();
     const [createProject] = useCreateProjectMutation();
     const [updateProject] = useUpdateProjectMutation();
     const { user } = useSelector(state => state.auth);
+    const currentProject = useSelector(state => state.project);
+
     const { chatLog, shortlistedArtists, selectedContentProduct } = useSelector(state => state.project);
 
     const [sendMessageToGPT] = useSendMessageToGPTMutation();
@@ -192,11 +194,7 @@ const LeftAside = () => {
 
     return (
         <section className='bg-white shadow-md rounded-lg'>
-            <ChatHeading
-                projectTitle={currentProject?.name}
-                handleShowProjectHistory={handleShowProjectHistory}
-                currentProject={currentProject}
-            />
+            <ChatHeading />
 
             {/*  */}
             {/*  */}

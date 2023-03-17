@@ -1,19 +1,22 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useRootContext } from '../../../contexts/RootProvider';
+import { clearProject } from '../../../features/project/projectSlice';
 import MessageReceiver from './MessageReceiver';
 import MessageSender from './MessageSender';
 
 const Chathome = ({ chatboxRef, nsnlogo }) => {
+    const dispatch = useDispatch();
     const { isFullTime } = useSelector(state => state.viewMode);
     const { chatLog, selectedContentProduct } = useSelector(state => state.project);
+    const currentProject = useSelector(state => state.project);
 
-    const { contentProducts, currentProject, avatar, handleSelectContentProduct, isMobile, skills, handleSelectSkill } = useRootContext();
+    const { contentProducts, avatar, handleSelectContentProduct, isMobile, skills, handleSelectSkill } = useRootContext();
     const navigate = useNavigate();
 
     const [suggestions, setSuggestions] = useState([]);
@@ -21,6 +24,10 @@ const Chathome = ({ chatboxRef, nsnlogo }) => {
     useEffect(() => {
         setSuggestions(skills.map(skill => [skill.name, skill.pk]));
     }, [skills])
+
+    useEffect(() => {
+        dispatch(clearProject());
+    }, []);
 
     return (
         <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden relative'>

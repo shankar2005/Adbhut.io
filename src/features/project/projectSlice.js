@@ -5,11 +5,11 @@ const initialState = {
     shortlistedArtists: [],
     selectedContentProduct: null,
     chatLog: [],
-    
+
     // optional
     title: "",
-    referenceLinks: "",
-    clientFeedback: "",
+    reference_links: "",
+    post_project_client_feedback: "",
 }
 
 const projectSlice = createSlice({
@@ -49,20 +49,29 @@ const projectSlice = createSlice({
             state.title = action.payload;
         },
         setReferenceLinks: (state, action) => {
-            state.referenceLinks = action.payload;
+            state.reference_links = action.payload;
         },
         setClientFeedback: (state, action) => {
-            state.clientFeedback = action.payload;
+            state.post_project_client_feedback = action.payload;
         },
 
+        setProjectData: (state, action) => {
+            const { shortlistedArtists, selectedContentProduct, chatLog, ...otherFields } = action.payload;
 
-        clearProject: (state) => {
-            state.chatLog = []
-            state.shortlistedArtists = []
-            state.selectedContentProduct = null
-        }
+            state.chatLog = chatLog
+            state.shortlistedArtists = shortlistedArtists
+            state.selectedContentProduct = selectedContentProduct
+
+            // Merge any other fields that are not part of the initial state
+            Object.keys(otherFields).forEach(key => {
+                if (key === "brief" || key === "shortlisted_artists_details" || key === "project_template") return;
+                state[key] = otherFields[key];
+            });
+        },
+
+        clearProject: () => initialState
     },
 });
 
-export const { addChatLog, setChatLog, removeChatLog, clearProject, addArtist, setArtist, removeArtist, setContentProduct, setTitle, setReferenceLinks, setClientFeedback } = projectSlice.actions;
+export const { addChatLog, setChatLog, removeChatLog, clearProject, addArtist, setArtist, removeArtist, setContentProduct, setTitle, setReferenceLinks, setClientFeedback, setProjectData } = projectSlice.actions;
 export default projectSlice.reducer;

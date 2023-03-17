@@ -12,10 +12,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useDeleteProjectMutation, useGetProjectQuery, useUpdateProjectMutation } from '../../../features/project/projectApi';
 import { useSendMessageToGPTMutation } from '../../../features/chat/chatApi';
 import { showLogin } from '../../../features/dropdown/dropdownSlice';
-import { addChatLog, setArtist, setChatLog, setContentProduct } from '../../../features/project/projectSlice';
+import { addChatLog, setArtist, setChatLog, setProjectData } from '../../../features/project/projectSlice';
 
 const ProjectManagement = () => {
-    const { handleShowProjectHistory, setcurrentProject, avatar } = useRootContext();
+    const { handleShowProjectHistory, avatar } = useRootContext();
 
     const dispatch = useDispatch();
     const [deleteProject] = useDeleteProjectMutation();
@@ -36,10 +36,12 @@ const ProjectManagement = () => {
     useEffect(() => {
         if (currentProject.error || currentProject.detail) return;
         if (currentProject.pk) {
-            setcurrentProject(currentProject);
-            dispatch(setChatLog(JSON.parse(currentProject.brief)));
-            dispatch(setArtist(currentProject.shortlisted_artists_details?.map(artist => artist.id)));
-            dispatch(setContentProduct(currentProject.project_template));
+            dispatch(setProjectData({
+                chatLog: JSON.parse(currentProject.brief),
+                shortlistedArtists: currentProject.shortlisted_artists_details?.map(artist => artist.id),
+                selectedContentProduct: currentProject.project_template,
+                ...currentProject
+            }))
 
             // set data in form
             setValue("title", currentProject.title);

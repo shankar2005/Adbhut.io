@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useShortlistArtistMutation } from '../features/artist/artistApi';
 import { setSearch } from '../features/filter/filterSlice';
 import { useSendMessageMutation } from '../features/chat/chatApi';
-import { addArtist, addChatLog, setArtist, setChatLog, setContentProduct } from '../features/project/projectSlice';
+import { addArtist, addChatLog, clearProject, setArtist, setChatLog, setContentProduct, setProjectData } from '../features/project/projectSlice';
 
 const RootContext = createContext();
 
@@ -27,6 +27,8 @@ const RootProvider = ({ children }) => {
     const { data: projectData } = useGetProjectQuery(projectID, { skip: !projectID });
 
     const { chatLog, selectedContentProduct } = useSelector(state => state.project);
+    const currentProject = useSelector(state => state.project);
+    
     const dispatch = useDispatch();
 
     // filtering feeds with type -> search bar
@@ -67,15 +69,18 @@ const RootProvider = ({ children }) => {
     }
 
     // show project history on click
-    const [currentProject, setcurrentProject] = useState(null);
     const handleShowProjectHistory = (projectID) => {
         setProjectID(projectID);
     }
     useEffect(() => {
+        console.log(projectData);
         if (projectData?.pk) {
-            setcurrentProject(projectData);
-            dispatch(setChatLog(JSON.parse(projectData.brief)));
-            dispatch(setArtist(projectData.shortlisted_artists));
+            dispatch(setProjectData({
+                chatLog: JSON.parse(projectData.brief),
+                shortlistedArtists: projectData.shortlisted_artists_details?.map(artist => artist.id),
+                selectedContentProduct: projectData.project_template,
+                ...projectData
+            }))
         }
     }, [projectData])
 
@@ -90,10 +95,8 @@ const RootProvider = ({ children }) => {
     const sender = (user.role === "Client" || !user.email) ? "user" : "bot";
 
     //clearing all state of project when selecting different content product
-    const clearProject = () => {
-        setcurrentProject({});
-        dispatch(setChatLog([]));
-        dispatch(setArtist([]));
+    const clearCurrentProject = () => {
+        dispatch(clearProject());
         dispatch(setSearch(""));
         setSuggestions([]);
         setRemovedSkill([]);
@@ -122,7 +125,7 @@ const RootProvider = ({ children }) => {
 
     useEffect(() => {
         if (confirm) {
-            clearProject();
+            clearCurrentProject();
             dispatch(setContentProduct(changeContentProduct.pk));
             // chatlog
             dispatch(addChatLog({ msgID: chatLog.length + 1, [sender]: `You've selected ${changeContentProduct.name}` }));
@@ -176,12 +179,10 @@ const RootProvider = ({ children }) => {
         handleShowProjectHistory,
         checkedLocations,
         setcheckedLocations,
-        currentProject,
         dreamProjects,
         locations,
         skills,
         currentProjects,
-        setcurrentProject,
         viewAs,
         setViewAs,
         contentProducts,

@@ -11,14 +11,16 @@ import { useCreateProjectMutation } from '../../features/project/projectApi';
 import { setClientFeedback, setContentProduct, setReferenceLinks, setTitle } from '../../features/project/projectSlice';
 
 const CreateProject = () => {
-    const { contentProducts, currentProject } = useRootContext();
+    const { contentProducts } = useRootContext();
+
+    const currentProject = useSelector(state => state.project);
 
     const dispatch = useDispatch();
     const [createProject] = useCreateProjectMutation();
     const { user } = useSelector(state => state.auth);
     const {
         chatLog, shortlistedArtists, selectedContentProduct,
-        title, referenceLinks, clientFeedback,
+        title, reference_links, post_project_client_feedback,
     } = useSelector(state => state.project);
 
     const navigate = useNavigate();
@@ -39,9 +41,9 @@ const CreateProject = () => {
             shortlisted_artists: shortlistedArtists,
             // optionals
             project_template: selectedContentProduct,
-            title: title,
-            reference_links: referenceLinks,
-            post_project_client_feedback: clientFeedback,
+            title,
+            reference_links,
+            post_project_client_feedback,
         })
             .then(response => {
                 const data = response.data;
@@ -71,8 +73,8 @@ const CreateProject = () => {
             // optionals
             project_template: selectedContentProduct,
             title: title,
-            reference_links: referenceLinks,
-            post_project_client_feedback: clientFeedback,
+            reference_links,
+            post_project_client_feedback,
         })
             .then(response => {
                 const data = response.data;

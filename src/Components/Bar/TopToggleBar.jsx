@@ -7,8 +7,9 @@ import Cta from '../../Pages/Home/Components/Cta';
 
 const TopToggleBar = ({ className }) => {
     const { shortlistedArtists } = useSelector(state => state.project);
+    const currentProject = useSelector(state => state.project);
 
-    const { currentProject, setViewAs, isMobile, suggestions, removedSkills } = useRootContext();
+    const { setViewAs, isMobile, suggestions, removedSkills } = useRootContext();
     const location = useLocation();
     const pathname = useLocation().pathname;
     const fromCreateProject = location.state?.from?.pathname?.includes("/create-project");
