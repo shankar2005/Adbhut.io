@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     shortlistedArtists: [],
-    selectedContentProducts: null,
+    selectedContentProduct: null,
     chatLog: [],
 }
 
@@ -33,14 +33,19 @@ const projectSlice = createSlice({
             state.shortlistedArtists = state.shortlistedArtists.pop(action.payload);
         },
 
+        // content product
+        setContentProduct: (state, action) => {
+            state.selectedContentProduct = action.payload;
+        },
+
 
         clearProject: (state) => {
             state.chatLog = []
             state.shortlistedArtists = []
-            state.selectedContentProducts = null
+            state.selectedContentProduct = null
         }
     },
 });
 
-export const { addChatLog, setChatLog, removeChatLog, clearProject, addArtist, setArtist, removeArtist } = projectSlice.actions;
+export const { addChatLog, setChatLog, removeChatLog, clearProject, addArtist, setArtist, removeArtist, setContentProduct } = projectSlice.actions;
 export default projectSlice.reducer;

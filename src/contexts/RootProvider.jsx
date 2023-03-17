@@ -7,13 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useShortlistArtistMutation } from '../features/artist/artistApi';
 import { setSearch } from '../features/filter/filterSlice';
 import { useSendMessageMutation } from '../features/chat/chatApi';
-import { addArtist, addChatLog, setArtist, setChatLog } from '../features/project/projectSlice';
+import { addArtist, addChatLog, setArtist, setChatLog, setContentProduct } from '../features/project/projectSlice';
 
 const RootContext = createContext();
 
 const RootProvider = ({ children }) => {
     const { user } = useSelector(state => state.auth);
-    
+
     const [shortlistArtist] = useShortlistArtistMutation();
     const { data: locations = [] } = useGetLocationsQuery();
     const { data: skills = [] } = useGetSkillsQuery();
@@ -27,7 +27,7 @@ const RootProvider = ({ children }) => {
     const [projectID, setProjectID] = useState(null);
     const { data: projectData } = useGetProjectQuery(projectID, { skip: !projectID });
 
-    const { chatLog } = useSelector(state => state.project);
+    const { chatLog, selectedContentProduct } = useSelector(state => state.project);
     const dispatch = useDispatch();
 
     // filtering feeds with type -> search bar
@@ -39,8 +39,6 @@ const RootProvider = ({ children }) => {
 
     const cookies = new Cookies();
     const authToken = cookies.get('auth_token');
-
-    const [selectedContentProducts, setselectedContentProducts] = useState("");
 
     // setting response msg on first action
     useEffect(() => {
@@ -125,9 +123,9 @@ const RootProvider = ({ children }) => {
     const [confirm, setConfirm] = useState(false);
 
     const handleSelectContentProduct = (product) => {
-        const isExist = selectedContentProducts === product.pk;
+        const isExist = selectedContentProduct === product.pk;
 
-        if (!isExist && !currentProject?.pk && selectedContentProducts) {
+        if (!isExist && !currentProject?.pk && selectedContentProduct) {
             setShowModal(true);
             if (confirm) {
                 clearProject();
@@ -137,7 +135,7 @@ const RootProvider = ({ children }) => {
         }
 
         if (!isExist) {
-            setselectedContentProducts(product.pk);
+            dispatch(setContentProduct(product.pk));
             // chatlog
             dispatch(addChatLog({ msgID: chatLog.length + 1, [sender]: `You've selected ${product.name}` }));
         }
@@ -166,16 +164,16 @@ const RootProvider = ({ children }) => {
 
     // for showing chat suggestions (artists skills) when shortlisted an artist
     useEffect(() => {
-        // if no selectedContentProducts then don't show skills suggestions
-        if (!selectedContentProducts || currentProject?.pk) return;
+        // if no selectedContentProduct then don't show skills suggestions
+        if (!selectedContentProduct || currentProject?.pk) return;
 
-        getSkillsOnProductSelect({ product: selectedContentProducts })
+        getSkillsOnProductSelect({ product: selectedContentProduct })
             .then(data => {
                 setSuggestions(data?.data?.skills);
                 // filter on contentProduct's listed skills & show artists depending on those skills
                 setcheckedSkills(data?.data?.skills.map(skill => skill[1] + ''));
             });
-    }, [selectedContentProducts]);
+    }, [selectedContentProduct]);
 
     // stored values
     const value = {
@@ -185,8 +183,6 @@ const RootProvider = ({ children }) => {
         setcheckedSkills,
         checkedGenres,
         setcheckedGenres,
-        selectedContentProducts,
-        setselectedContentProducts,
         handleShortlist,
         authToken,
         handleShowProjectHistory,

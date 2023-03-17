@@ -12,10 +12,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useDeleteProjectMutation, useGetProjectQuery, useUpdateProjectMutation } from '../../../features/project/projectApi';
 import { useSendMessageToGPTMutation } from '../../../features/chat/chatApi';
 import { showLogin } from '../../../features/dropdown/dropdownSlice';
-import { addChatLog, setArtist, setChatLog } from '../../../features/project/projectSlice';
+import { addChatLog, setArtist, setChatLog, setContentProduct } from '../../../features/project/projectSlice';
 
 const ProjectManagement = () => {
-    const { handleShowProjectHistory, setcurrentProject, setselectedContentProducts, avatar } = useRootContext();
+    const { handleShowProjectHistory, setcurrentProject, avatar } = useRootContext();
 
     const dispatch = useDispatch();
     const [deleteProject] = useDeleteProjectMutation();
@@ -39,7 +39,7 @@ const ProjectManagement = () => {
             setcurrentProject(currentProject);
             dispatch(setChatLog(JSON.parse(currentProject.brief)));
             dispatch(setArtist(currentProject.shortlisted_artists_details?.map(artist => artist.id)));
-            setselectedContentProducts(currentProject.project_template);
+            dispatch(setContentProduct(currentProject.project_template));
 
             // set data in form
             setValue("title", currentProject.title);

@@ -11,9 +11,9 @@ import MessageSender from './MessageSender';
 
 const Chathome = ({ chatboxRef, nsnlogo }) => {
     const { isFullTime } = useSelector(state => state.viewMode);
-    const { chatLog } = useSelector(state => state.project);
+    const { chatLog, selectedContentProduct } = useSelector(state => state.project);
 
-    const { contentProducts, currentProject, selectedContentProducts, avatar, handleSelectContentProduct, isMobile, skills, handleSelectSkill } = useRootContext();
+    const { contentProducts, currentProject, avatar, handleSelectContentProduct, isMobile, skills, handleSelectSkill } = useRootContext();
     const navigate = useNavigate();
 
     const [suggestions, setSuggestions] = useState([]);
@@ -83,10 +83,10 @@ const Chathome = ({ chatboxRef, nsnlogo }) => {
                                             navigate("/artists");
                                         }
                                     }} className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
-                                        <div className={`${currentProject?.project_template === content.pk || selectedContentProducts === content.pk ? 'w-20 h-20' : 'w-[75px] h-[75px]'} p-1 border rounded-md`}>
+                                        <div className={`${currentProject?.project_template === content.pk || selectedContentProduct === content.pk ? 'w-20 h-20' : 'w-[75px] h-[75px]'} p-1 border rounded-md`}>
                                             <img className='group-hover:scale-110 duration-150 overflow-hidden' src={content.weblink} />
                                         </div>
-                                        <p className={`${currentProject?.project_template === content.pk || selectedContentProducts === content.pk && 'text-blue-600 font-medium'} text-[0.6rem] leading-tight`}>{content.name}</p>
+                                        <p className={`${currentProject?.project_template === content.pk || selectedContentProduct === content.pk && 'text-blue-600 font-medium'} text-[0.6rem] leading-tight`}>{content.name}</p>
                                     </div>
                                 </SwiperSlide>
                             ))

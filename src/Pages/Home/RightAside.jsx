@@ -7,21 +7,22 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { useGetDreamProjectsQuery } from '../../features/project/projectApi';
-import { setArtist, setChatLog } from '../../features/project/projectSlice';
+import { setArtist, setChatLog, setContentProduct } from '../../features/project/projectSlice';
 
 const RightAside = () => {
-    const { selectedContentProducts, setselectedContentProducts, currentProjects, currentProject, contentProducts, setcurrentProject, handleSelectContentProduct } = useRootContext();
+    const { currentProjects, currentProject, contentProducts, setcurrentProject, handleSelectContentProduct } = useRootContext();
 
     const dispatch = useDispatch();
     const { data: dreamProjects = [] } = useGetDreamProjectsQuery();
     const { user } = useSelector(state => state.auth);
+    const { selectedContentProduct } = useSelector(state => state.project);
 
     const navigate = useNavigate();
     const navigateCreateProject = () => {
         setcurrentProject(null);
         dispatch(setChatLog([]));
         dispatch(setArtist([]));
-        setselectedContentProducts("");
+        dispatch(setContentProduct(""));
         navigate("/projects/create-project");
     }
 
@@ -59,10 +60,10 @@ const RightAside = () => {
                                 contentProducts?.map(content => (
                                     <SwiperSlide key={content.pk}>
                                         <div onClick={() => handleSelectContentProduct(content)} className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
-                                            <div className={`${currentProject?.project_template === content.pk || selectedContentProducts === content.pk ? 'w-10 h-10' : 'w-9 h-9'} p-1 border rounded-md`}>
+                                            <div className={`${currentProject?.project_template === content.pk || selectedContentProduct === content.pk ? 'w-10 h-10' : 'w-9 h-9'} p-1 border rounded-md`}>
                                                 <img className='group-hover:scale-110 duration-150 overflow-hidden' src={content.weblink} />
                                             </div>
-                                            <p className={`${currentProject?.project_template === content.pk || selectedContentProducts === content.pk && 'text-blue-600 font-medium'} text-[0.6rem] leading-tight`}>{content.name}</p>
+                                            <p className={`${currentProject?.project_template === content.pk || selectedContentProduct === content.pk && 'text-blue-600 font-medium'} text-[0.6rem] leading-tight`}>{content.name}</p>
                                         </div>
                                     </SwiperSlide>
                                 ))

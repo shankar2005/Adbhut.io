@@ -23,14 +23,13 @@ import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { addChatLog, removeArtist, removeChatLog, setChatLog } from '../../features/project/projectSlice';
 
 const LeftAside = () => {
-    const { selectedContentProducts, currentProject, handleShowProjectHistory, handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills } = useRootContext();
-    const { shortlistedArtists } = useSelector(state => state.project);
+    const { currentProject, handleShowProjectHistory, handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills } = useRootContext();
 
     const dispatch = useDispatch();
     const [createProject] = useCreateProjectMutation();
     const [updateProject] = useUpdateProjectMutation();
     const { user } = useSelector(state => state.auth);
-    const { chatLog } = useSelector(state => state.project);
+    const { chatLog, shortlistedArtists, selectedContentProduct } = useSelector(state => state.project);
 
     const [sendMessageToGPT] = useSendMessageToGPTMutation();
     const [sendMessage] = useSendMessageMutation();
@@ -69,7 +68,7 @@ const LeftAside = () => {
         createProject({
             "stage": "Lead",
             "brief": JSON.stringify(chatLog),
-            "project_template": selectedContentProducts,
+            "project_template": selectedContentProduct,
             "shortlisted_artists": shortlistedArtists
         }).then(response => {
             const data = response.data;
@@ -297,7 +296,7 @@ const LeftAside = () => {
                         }
 
                         {
-                            suggestions?.length === 0 && contentProducts?.length > 0 && !selectedContentProducts &&
+                            suggestions?.length === 0 && contentProducts?.length > 0 && !selectedContentProduct &&
                             <div className='sticky bottom-0 p-2 pb-0 bg-white mt-12'>
                                 <div className='pb-2 flex flex-wrap gap-2 text-sm font-medium select-none'>
                                     {
@@ -328,7 +327,7 @@ const LeftAside = () => {
                         {
                             userInputText
                                 ? <button onClick={handleSendUserInput} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
-                                : (selectedContentProducts || currentProject?.pk || shortlistedArtists?.length > 0)
+                                : (selectedContentProduct || currentProject?.pk || shortlistedArtists?.length > 0)
                                     ? <button onClick={currentProject?.stage === "DreamProject" ? handleChangeStage : handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Save</button>
                                     : <button className='bg-gray-300 text-gray-400 py-[3px] px-3 rounded-full text-sm'>Save</button>
                         }

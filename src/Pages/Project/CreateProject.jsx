@@ -10,13 +10,12 @@ import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { useCreateProjectMutation } from '../../features/project/projectApi';
 
 const CreateProject = () => {
-    const { contentProducts, selectedContentProducts, createProjectFormState, createProjectFormDispatch } = useRootContext();
+    const { contentProducts, createProjectFormState, createProjectFormDispatch } = useRootContext();
 
     const dispatch = useDispatch();
     const [createProject] = useCreateProjectMutation();
     const { user } = useSelector(state => state.auth);
-    const { chatLog } = useSelector(state => state.project);
-    const { shortlistedArtists } = useSelector(state => state.project);
+    const { chatLog, shortlistedArtists, selectedContentProduct } = useSelector(state => state.project);
 
     const currentProject = [];
 
@@ -30,10 +29,10 @@ const CreateProject = () => {
         payload: { name: e.target.name, value: e.target.value }
     })
 
-    // select content product on changing selectedContentProducts value from right side
+    // select content product on changing selectedContentProduct value from right side
     useEffect(() => {
-        createProjectFormDispatch({ type: "FORM", payload: { name: "project_template", value: selectedContentProducts } })
-    }, [selectedContentProducts])
+        createProjectFormDispatch({ type: "FORM", payload: { name: "project_template", value: selectedContentProduct } })
+    }, [selectedContentProduct])
 
 
     // send brief
@@ -109,7 +108,7 @@ const CreateProject = () => {
                             <select name="project_template" onChange={e => createProjectFormDispatch(register(e))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-fit p-2.5">
                                 <option selected>Select content product</option>
                                 {
-                                    contentProducts?.map(content => <option selected={selectedContentProducts === content.pk} value={content.pk}>{content.name}</option>)
+                                    contentProducts?.map(content => <option selected={selectedContentProduct === content.pk} value={content.pk}>{content.name}</option>)
                                 }
                             </select>
                         </div>
