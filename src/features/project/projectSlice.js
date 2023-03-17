@@ -1,9 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+    // required
     shortlistedArtists: [],
     selectedContentProduct: null,
     chatLog: [],
+    
+    // optional
+    title: "",
+    referenceLinks: "",
+    clientFeedback: "",
 }
 
 const projectSlice = createSlice({
@@ -38,6 +44,17 @@ const projectSlice = createSlice({
             state.selectedContentProduct = action.payload;
         },
 
+        // optional project fields
+        setTitle: (state, action) => {
+            state.title = action.payload;
+        },
+        setReferenceLinks: (state, action) => {
+            state.referenceLinks = action.payload;
+        },
+        setClientFeedback: (state, action) => {
+            state.clientFeedback = action.payload;
+        },
+
 
         clearProject: (state) => {
             state.chatLog = []
@@ -47,5 +64,5 @@ const projectSlice = createSlice({
     },
 });
 
-export const { addChatLog, setChatLog, removeChatLog, clearProject, addArtist, setArtist, removeArtist, setContentProduct } = projectSlice.actions;
+export const { addChatLog, setChatLog, removeChatLog, clearProject, addArtist, setArtist, removeArtist, setContentProduct, setTitle, setReferenceLinks, setClientFeedback } = projectSlice.actions;
 export default projectSlice.reducer;

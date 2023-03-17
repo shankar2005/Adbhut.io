@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect, useReducer, useState } from 'react';
-import Cookies from 'universal-cookie';
 import avatar from "../assets/placeholders/avatar.png"
 import { useGetCurrentProjectsQuery, useGetDreamProjectsQuery, useGetProjectQuery } from '../features/project/projectApi';
 import { useGetContentProductsQuery, useGetLocationsQuery, useGetSkillsOnProductSelectMutation, useGetSkillsQuery } from '../features/utils/utilsApi';
@@ -36,9 +35,6 @@ const RootProvider = ({ children }) => {
     const [checkedSkills, setcheckedSkills] = useState([]);
     const [checkedGenres, setcheckedGenres] = useState([]);
     const [checkedLocations, setcheckedLocations] = useState([]);
-
-    const cookies = new Cookies();
-    const authToken = cookies.get('auth_token');
 
     // setting response msg on first action
     useEffect(() => {
@@ -86,23 +82,6 @@ const RootProvider = ({ children }) => {
 
     // views
     const [viewAs, setViewAs] = useState("large");
-
-    // holding state of create new project
-    const createProjectFormInitialState = {
-        title: "",
-        project_template: "",
-        reference_links: "",
-        post_project_client_feedback: "",
-    }
-    const createProjectFormReducer = (state, action) => {
-        switch (action.type) {
-            case "FORM":
-                return { ...state, [action.payload.name]: action.payload.value }
-            default:
-                return state;
-        }
-    };
-    const [createProjectFormState, createProjectFormDispatch] = useReducer(createProjectFormReducer, createProjectFormInitialState);
 
     const [showModal, setShowModal] = useState(false);
 
@@ -184,7 +163,6 @@ const RootProvider = ({ children }) => {
         checkedGenres,
         setcheckedGenres,
         handleShortlist,
-        authToken,
         handleShowProjectHistory,
         checkedLocations,
         setcheckedLocations,
@@ -197,8 +175,6 @@ const RootProvider = ({ children }) => {
         viewAs,
         setViewAs,
         contentProducts,
-        createProjectFormState,
-        createProjectFormDispatch,
         handleSelectContentProduct,
         artistProfile,
         setArtistProfile,

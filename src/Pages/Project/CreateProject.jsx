@@ -8,56 +8,50 @@ import { useRootContext } from '../../contexts/RootProvider';
 import { useGetArtistByIdQuery } from '../../features/artist/artistApi';
 import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { useCreateProjectMutation } from '../../features/project/projectApi';
+import { setClientFeedback, setContentProduct, setReferenceLinks, setTitle } from '../../features/project/projectSlice';
 
 const CreateProject = () => {
-    const { contentProducts, createProjectFormState, createProjectFormDispatch } = useRootContext();
+    const { contentProducts, currentProject } = useRootContext();
 
     const dispatch = useDispatch();
     const [createProject] = useCreateProjectMutation();
     const { user } = useSelector(state => state.auth);
-    const { chatLog, shortlistedArtists, selectedContentProduct } = useSelector(state => state.project);
-
-    const currentProject = [];
+    const {
+        chatLog, shortlistedArtists, selectedContentProduct,
+        title, referenceLinks, clientFeedback,
+    } = useSelector(state => state.project);
 
     const navigate = useNavigate();
-    const handleAddMoreArtist = () => {
-        navigate("/");
-    }
-
-    const register = (e) => ({
-        type: "FORM",
-        payload: { name: e.target.name, value: e.target.value }
-    })
-
-    // select content product on changing selectedContentProduct value from right side
-    useEffect(() => {
-        createProjectFormDispatch({ type: "FORM", payload: { name: "project_template", value: selectedContentProduct } })
-    }, [selectedContentProduct])
-
 
     // send brief
     const handleSendBrief = () => {
         if (!user) {
             return dispatch(showLogin());
         }
-        if (!createProjectFormState.project_template) {
+        if (!selectedContentProduct) {
             return toast("Select a content product!");
         }
 
         createProject({
-            ...createProjectFormState,
-            "stage": "Lead",
-            "brief": JSON.stringify(chatLog),
-            "shortlisted_artists": shortlistedArtists,
-        }).then(response => {
-            const data = response.data;
-            if (data.pk) {
-                toast.success("Project created successfully!", { id: "createNewProject" });
-                navigate(`/projects/${data.pk}/${Lead}/`);
-            } else {
-                toast.error("Something went wrong!", { id: "createNewProject" });
-            }
-        });
+            // required
+            stage: "Lead",
+            brief: JSON.stringify(chatLog),
+            shortlisted_artists: shortlistedArtists,
+            // optionals
+            project_template: selectedContentProduct,
+            title: title,
+            reference_links: referenceLinks,
+            post_project_client_feedback: clientFeedback,
+        })
+            .then(response => {
+                const data = response.data;
+                if (data.pk) {
+                    toast.success("Project created successfully!", { id: "createNewProject" });
+                    navigate(`/projects/${data.pk}/Lead/`);
+                } else {
+                    toast.error("Something went wrong!", { id: "createNewProject" });
+                }
+            });
     }
     // above and below both events are the same code repeated (just state changes)
     // add to dream project
@@ -65,24 +59,30 @@ const CreateProject = () => {
         if (!user.email) {
             return dispatch(showLogin());
         }
-        if (!createProjectFormState.project_template) {
+        if (!selectedContentProduct) {
             return toast("Select a content product!");
         }
 
         createProject({
-            ...createProjectFormState,
-            "stage": "DreamProject",
-            "brief": JSON.stringify(chatLog),
-            "shortlisted_artists": shortlistedArtists,
-        }).then(response => {
-            const data = response.data;
-            if (data.pk) {
-                toast.success("Added to dreamproject!", { id: "createNewProject" });
-                navigate(`/projects/${data.pk}/DreamProject/`);
-            } else {
-                toast.error("Something went wrong!", { id: "createNewProject" });
-            }
-        });
+            // required
+            stage: "DreamProject",
+            brief: JSON.stringify(chatLog),
+            shortlisted_artists: shortlistedArtists,
+            // optionals
+            project_template: selectedContentProduct,
+            title: title,
+            reference_links: referenceLinks,
+            post_project_client_feedback: clientFeedback,
+        })
+            .then(response => {
+                const data = response.data;
+                if (data.pk) {
+                    toast.success("Added to dreamproject!", { id: "createNewProject" });
+                    navigate(`/projects/${data.pk}/DreamProject/`);
+                } else {
+                    toast.error("Something went wrong!", { id: "createNewProject" });
+                }
+            });
     }
 
     const location = useLocation();
@@ -99,13 +99,13 @@ const CreateProject = () => {
                 <div className="p-4">
                     <div className="mb-4 items-center gap-2">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Project Title</label>
-                        <input type="text" name="title" onBlur={e => createProjectFormDispatch(register(e))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter a Project title" defaultValue={createProjectFormState.title} />
+                        <input type="text" name="title" onBlur={e => dispatch(setTitle(e.target.value))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter a Project title" defaultValue={currentProject?.title} />
                     </div>
 
                     <div className='flex gap-4'>
                         <div className="mb-4 flex items-center gap-2">
                             <label className="flex-1 text-sm font-medium text-gray-900">Content Product: </label>
-                            <select name="project_template" onChange={e => createProjectFormDispatch(register(e))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-fit p-2.5">
+                            <select name="project_template" onChange={e => dispatch(setContentProduct(e.target.value))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-fit p-2.5">
                                 <option selected>Select content product</option>
                                 {
                                     contentProducts?.map(content => <option selected={selectedContentProduct === content.pk} value={content.pk}>{content.name}</option>)
@@ -116,7 +116,7 @@ const CreateProject = () => {
 
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Project Reference Link:</label>
-                        <textarea name="reference_links" onBlur={e => createProjectFormDispatch(register(e))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="https://www.youtube.com/watch?v=RhdXPesyRGk" defaultValue={createProjectFormState.reference_links}></textarea>
+                        <textarea name="reference_links" onBlur={e => dispatch(setReferenceLinks(e.target.value))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="https://www.youtube.com/watch?v=RhdXPesyRGk" defaultValue={currentProject?.reference_links}></textarea>
                     </div>
 
                     {
@@ -126,7 +126,7 @@ const CreateProject = () => {
                                     shortlistedArtists?.length ? 'Shortlisted Artists' : 'Shortlist Artists'
                                 }</label>
                                 <Link to="/artists" state={{ from: location }}>
-                                    <button type='button' onClick={handleAddMoreArtist} className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add Artist <AiOutlinePlus size={18} /></button>
+                                    <button type='button' onClick={() => navigate("/")} className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add Artist <AiOutlinePlus size={18} /></button>
                                 </Link>
                             </div>
                             {
@@ -154,7 +154,7 @@ const CreateProject = () => {
 
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Send assignment:</label>
-                        <textarea name="post_project_client_feedback" onBlur={e => createProjectFormDispatch(register(e))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your assignment" defaultValue={createProjectFormState.post_project_client_feedback}></textarea>
+                        <textarea name="post_project_client_feedback" onBlur={e => dispatch(setClientFeedback(e.target.value))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your assignment" defaultValue={currentProject?.post_project_client_feedback}></textarea>
                     </div>
                 </div>
 

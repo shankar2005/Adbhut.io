@@ -209,7 +209,7 @@ const LeftAside = () => {
                         nsnlogo={nsnlogo}
                     />
                     :
-                    <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden relative'>
+                    <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden relative flex flex-col justify-between'>
                         {
                             user.role === "Client" || !user.email
                                 ? <div className='flex flex-col p-3'>

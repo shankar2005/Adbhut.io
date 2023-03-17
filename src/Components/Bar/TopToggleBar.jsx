@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { BiMessageDots } from 'react-icons/bi';
 import { IoIosArrowBack } from 'react-icons/io';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
