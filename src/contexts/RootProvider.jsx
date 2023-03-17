@@ -1,12 +1,12 @@
-import React, { createContext, useContext, useEffect, useReducer, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import avatar from "../assets/placeholders/avatar.png"
-import { useGetCurrentProjectsQuery, useGetDreamProjectsQuery, useGetProjectQuery } from '../features/project/projectApi';
+import { useGetCurrentProjectsQuery, useGetDreamProjectsQuery } from '../features/project/projectApi';
 import { useGetContentProductsQuery, useGetLocationsQuery, useGetSkillsOnProductSelectMutation, useGetSkillsQuery } from '../features/utils/utilsApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useShortlistArtistMutation } from '../features/artist/artistApi';
 import { setSearch } from '../features/filter/filterSlice';
 import { useSendMessageMutation } from '../features/chat/chatApi';
-import { addArtist, addChatLog, clearProject, setArtist, setChatLog, setContentProduct, setProjectData } from '../features/project/projectSlice';
+import { addArtist, addChatLog, clearProject, setContentProduct } from '../features/project/projectSlice';
 
 const RootContext = createContext();
 
@@ -23,12 +23,9 @@ const RootProvider = ({ children }) => {
     const { data: currentProjects = [] } = useGetCurrentProjectsQuery(null, { skip: !user?.email });
     const { data: dreamProjects = [] } = useGetDreamProjectsQuery();
 
-    const [projectID, setProjectID] = useState(null);
-    const { data: projectData } = useGetProjectQuery(projectID, { skip: !projectID });
-
     const { chatLog, selectedContentProduct } = useSelector(state => state.project);
     const currentProject = useSelector(state => state.project);
-    
+
     const dispatch = useDispatch();
 
     // filtering feeds with type -> search bar
@@ -67,23 +64,6 @@ const RootProvider = ({ children }) => {
             })
         }
     }
-
-    // show project history on click
-    const handleShowProjectHistory = (projectID) => {
-        setProjectID(projectID);
-    }
-    useEffect(() => {
-        console.log(projectData);
-        if (projectData?.pk) {
-            dispatch(setProjectData({
-                chatLog: JSON.parse(projectData.brief),
-                shortlistedArtists: projectData.shortlisted_artists_details?.map(artist => artist.id),
-                selectedContentProduct: projectData.project_template,
-                ...projectData
-            }))
-        }
-    }, [projectData])
-
 
     // views
     const [viewAs, setViewAs] = useState("large");
@@ -176,7 +156,6 @@ const RootProvider = ({ children }) => {
         checkedGenres,
         setcheckedGenres,
         handleShortlist,
-        handleShowProjectHistory,
         checkedLocations,
         setcheckedLocations,
         dreamProjects,

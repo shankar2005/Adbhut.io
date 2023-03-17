@@ -9,7 +9,6 @@ import { useUpdateProjectMutation } from '../../../features/project/projectApi';
 
 const ChatHeading = () => {
     const [updateProject] = useUpdateProjectMutation();
-    const { handleShowProjectHistory } = useRootContext();
     const currentProject = useSelector(state => state.project);
     const { title: projectTitle } = useSelector(state => state.project);
 
@@ -40,13 +39,12 @@ const ChatHeading = () => {
         <div className='border-b shadow-sm p-2 rounded-t-lg flex items-center justify-between'>
             <div className='flex gap-1 justify-between items-center w-full'>
                 <div className='flex gap-2'>
-                    {/* <img onClick={() => currentProject?.pk && handleShowProjectHistory(currentProject.pk, currentProject.stage)} className='w-10 cursor-pointer' src={nsnlogo} alt="" /> */}
                     <Link to="/">
                         <img className='w-10 cursor-pointer' src={nsnlogo} alt="" />
                     </Link>
                     {
                         currentProject?.pk &&
-                        <button className='active:rotate-180 duration-300' onClick={() => handleShowProjectHistory(currentProject.pk, currentProject.stage)} type="button"><RiRefreshLine size={20} /></button>
+                        <button className='active:rotate-180 duration-300' type="button"><RiRefreshLine size={20} /></button>
                     }
                 </div>
                 <div className='flex gap-1 pr-1'>

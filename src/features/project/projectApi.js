@@ -35,7 +35,7 @@ const projectApi = apis.injectEndpoints({
                 method: 'PUT',
                 body: data
             }),
-            invalidatesTags: ["DreamProjects", "CurrentProjects"]
+            invalidatesTags: ["DreamProjects", "CurrentProjects", "Project"]
         }),
     }),
 });

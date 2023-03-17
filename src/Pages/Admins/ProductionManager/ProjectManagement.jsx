@@ -15,7 +15,7 @@ import { showLogin } from '../../../features/dropdown/dropdownSlice';
 import { addChatLog, setArtist, setChatLog, setProjectData } from '../../../features/project/projectSlice';
 
 const ProjectManagement = () => {
-    const { handleShowProjectHistory, avatar } = useRootContext();
+    const { avatar } = useRootContext();
 
     const dispatch = useDispatch();
     const [deleteProject] = useDeleteProjectMutation();
@@ -84,7 +84,6 @@ const ProjectManagement = () => {
                             project_id: currentProject.pk,
                             message: message
                         })
-                        handleShowProjectHistory(data?.pk, data?.stage);
                     }
                 }
             })
@@ -117,7 +116,6 @@ const ProjectManagement = () => {
         })
             .then(response => {
                 const data = response.data;
-                handleShowProjectHistory(data?.pk, data?.stage);
                 navigate(`/projects/${data.pk}/${data.stage}`);
 
                 // send assignment to the chatbox
@@ -140,8 +138,6 @@ const ProjectManagement = () => {
             .then(response => {
                 const data = response.data;
                 if (data.pk) {
-                    handleShowProjectHistory(data?.pk, data?.stage);
-
                     // chatlog
                     const message = { msgID: chatLog.length + 1, bot: "Project is in progress. Waiting for client's response!" };
                     dispatch(addChatLog(message));

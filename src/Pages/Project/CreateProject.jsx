@@ -9,6 +9,7 @@ import { useGetArtistByIdQuery } from '../../features/artist/artistApi';
 import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { useCreateProjectMutation } from '../../features/project/projectApi';
 import { setClientFeedback, setContentProduct, setReferenceLinks, setTitle } from '../../features/project/projectSlice';
+import AssignedArtistRow from '../Admins/ProductionManager/Components/AssignedArtistRow';
 
 const CreateProject = () => {
     const { contentProducts } = useRootContext();

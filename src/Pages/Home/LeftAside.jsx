@@ -23,7 +23,7 @@ import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { addChatLog, removeArtist, removeChatLog, setChatLog } from '../../features/project/projectSlice';
 
 const LeftAside = () => {
-    const { handleShowProjectHistory, handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills, setArtistProfile } = useRootContext();
+    const { handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills, setArtistProfile } = useRootContext();
 
     const dispatch = useDispatch();
     const [createProject] = useCreateProjectMutation();
@@ -89,7 +89,6 @@ const LeftAside = () => {
             data: { stage: "Lead" }
         }).then(response => {
             const data = response.data;
-            handleShowProjectHistory(data?.pk, data?.stage);
             navigate(`/projects/${data?.pk}/${data?.stage}/`);
         })
     }
