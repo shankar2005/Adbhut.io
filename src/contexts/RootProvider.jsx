@@ -100,15 +100,15 @@ const RootProvider = ({ children }) => {
     }
 
     const [confirm, setConfirm] = useState(false);
+    const [changeContentProduct, setChangeContentProduct] = useState(null);
 
     const handleSelectContentProduct = (product) => {
         const isExist = selectedContentProduct === product.pk;
 
         if (!isExist && !currentProject?.pk && selectedContentProduct) {
             setShowModal(true);
-            if (confirm) {
-                clearProject();
-            } else {
+            setChangeContentProduct(product);
+            if (!confirm) {
                 return;
             }
         }
@@ -119,6 +119,16 @@ const RootProvider = ({ children }) => {
             dispatch(addChatLog({ msgID: chatLog.length + 1, [sender]: `You've selected ${product.name}` }));
         }
     }
+
+    useEffect(() => {
+        if (confirm) {
+            clearProject();
+            dispatch(setContentProduct(changeContentProduct.pk));
+            // chatlog
+            dispatch(addChatLog({ msgID: chatLog.length + 1, [sender]: `You've selected ${changeContentProduct.name}` }));
+            setConfirm(false);
+        }
+    }, [confirm])
 
     const [artistProfile, setArtistProfile] = useState(null);
 
