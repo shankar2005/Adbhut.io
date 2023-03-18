@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useRootContext } from '../../../contexts/RootProvider';
 
-const Cta = ({ suggestions, removedSkills, className }) => {
-    const { handleSelectSkill } = useRootContext();
+const Cta = ({ className }) => {
+    const { handleSelectSkill, handleClearFilter, removedSkills, suggestions } = useRootContext();
     const navigate = useNavigate();
 
     return (
@@ -22,6 +22,12 @@ const Cta = ({ suggestions, removedSkills, className }) => {
                     >
                         {skill[0]}
                     </div>)
+                }
+                {
+                    !suggestions.length &&
+                    <div onClick={handleClearFilter} className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-gray-100'>
+                        Clear Filter
+                    </div>
                 }
                 {
                     removedSkills?.length > 0 &&

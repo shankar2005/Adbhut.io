@@ -17,7 +17,7 @@ import { closeAllDropdown } from '../features/dropdown/dropdownSlice';
 import { useState } from 'react';
 
 const Root = () => {
-    const { artistProfile, setArtistProfile, showModal, isMobile } = useRootContext();
+    const { artistProfile, setArtistProfile, showModal, visible, setVisible } = useRootContext();
 
     const location = useLocation();
     const pathname = location.pathname;
@@ -61,7 +61,6 @@ const Root = () => {
 
     // top togglebar hide on scroll down show on scroll up
     const [yOffset, setYOffset] = useState(window.pageYOffset);
-    const [visible, setVisible] = useState(true);
 
     useEffect(() => {
         window.addEventListener("scroll", handleScroll);

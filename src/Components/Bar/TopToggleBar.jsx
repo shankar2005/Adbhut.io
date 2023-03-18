@@ -89,7 +89,7 @@ const TopToggleBar = ({ className }) => {
 
             {
                 (suggestions?.length > 0 || removedSkills?.length > 0) &&
-                <Cta suggestions={suggestions} removedSkills={removedSkills} className="border-t" />
+                <Cta className="border-t" />
             }
 
         </section>

@@ -63,6 +63,8 @@ const RootProvider = ({ children }) => {
                 artistId: artistID
             })
         }
+
+        setVisible(true);
     }
 
     // views
@@ -147,6 +149,13 @@ const RootProvider = ({ children }) => {
             });
     }, [selectedContentProduct]);
 
+    const handleClearFilter = () => {
+        setSuggestions(removedSkills);
+        setRemovedSkill([]);
+    }
+
+    const [visible, setVisible] = useState(true);
+
     // stored values
     const value = {
         demoType,
@@ -176,7 +185,11 @@ const RootProvider = ({ children }) => {
         removedSkills,
         showModal,
         setShowModal,
-        setConfirm
+        setConfirm,
+        handleClearFilter,
+        visible,
+        setVisible,
+        setRemovedSkill
     }
 
     return (

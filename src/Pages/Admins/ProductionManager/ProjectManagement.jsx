@@ -12,10 +12,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useDeleteProjectMutation, useGetProjectQuery, useUpdateProjectMutation } from '../../../features/project/projectApi';
 import { useSendMessageToGPTMutation } from '../../../features/chat/chatApi';
 import { showLogin } from '../../../features/dropdown/dropdownSlice';
-import { addChatLog, setArtist, setChatLog, setProjectData } from '../../../features/project/projectSlice';
+import { addChatLog, clearProject, setProjectData } from '../../../features/project/projectSlice';
 
 const ProjectManagement = () => {
-    const { avatar } = useRootContext();
+    const { avatar, setSuggestions, setRemovedSkill } = useRootContext();
 
     const dispatch = useDispatch();
     const [deleteProject] = useDeleteProjectMutation();
@@ -96,8 +96,9 @@ const ProjectManagement = () => {
             .then(data => {
                 toast.success(data.data.message);
                 setactionToggle(false);
-                dispatch(setChatLog([]));
-                dispatch(setArtist([]))
+                dispatch(clearProject());
+                setSuggestions([]);
+                setRemovedSkill([]);
                 navigate("/projects/create-project");
             });
     }

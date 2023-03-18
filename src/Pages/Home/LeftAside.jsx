@@ -4,7 +4,7 @@ import { BsFillMicFill, BsImageFill } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
 import { useRootContext } from '../../contexts/RootProvider';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FiDelete } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import nsnlogo from '../../assets/logo.jpeg';
@@ -21,6 +21,7 @@ import ActionCta from './Components/ActionCta';
 import { useCreateProjectMutation, useUpdateProjectMutation } from '../../features/project/projectApi';
 import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { addChatLog, removeArtist, removeChatLog, setChatLog } from '../../features/project/projectSlice';
+import GetProjectReference from './Chat/GetProjectReference';
 
 const LeftAside = () => {
     const { handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills, setArtistProfile } = useRootContext();
@@ -31,7 +32,7 @@ const LeftAside = () => {
     const { user } = useSelector(state => state.auth);
     const currentProject = useSelector(state => state.project);
 
-    const { chatLog, shortlistedArtists, selectedContentProduct } = useSelector(state => state.project);
+    const { chatLog, shortlistedArtists, selectedContentProduct, reference_links } = useSelector(state => state.project);
 
     const [sendMessageToGPT] = useSendMessageToGPTMutation();
     const [sendMessage] = useSendMessageMutation();
@@ -67,6 +68,12 @@ const LeftAside = () => {
         if (!user.email) {
             return dispatch(showLogin());
         }
+
+        if (!reference_links) {
+            setShowProjectReferenceLinkInput(true);
+            return
+        }
+
         createProject({
             "stage": "Lead",
             "brief": JSON.stringify(chatLog),
@@ -188,8 +195,10 @@ const LeftAside = () => {
     }
     else {
         suggestionElement = (suggestions?.length > 0 || removedSkills?.length > 0) &&
-            <Cta suggestions={suggestions} removedSkills={removedSkills} className='sticky bottom-0' />
+            <Cta className='sticky bottom-0' />
     }
+
+    const [showProjectReferenceLinkInput, setShowProjectReferenceLinkInput] = useState(false);
 
     return (
         <section className='bg-white shadow-md rounded-lg'>
@@ -239,6 +248,17 @@ const LeftAside = () => {
                                                 />
                                         ))
                                     }
+
+                                    {/* project reference links */}
+                                    {
+                                        showProjectReferenceLinkInput &&
+                                        <MessageReceiver
+                                            image={nsnlogo}
+                                            name="Adbhut.io"
+                                            text={<GetProjectReference setShowProjectReferenceLinkInput={setShowProjectReferenceLinkInput} />}
+                                        />
+                                    }
+                                    {/* project reference links */}
 
                                     {/*  */}
                                     {
@@ -322,7 +342,7 @@ const LeftAside = () => {
                     <div className='flex items-center space-x-1'>
                         <BsFillMicFill />
                         {
-                            userInputText
+                            userInputText || currentProject?.pk
                                 ? <button onClick={handleSendUserInput} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
                                 : (selectedContentProduct || currentProject?.pk || shortlistedArtists?.length > 0)
                                     ? <button onClick={currentProject?.stage === "DreamProject" ? handleChangeStage : handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Save</button>

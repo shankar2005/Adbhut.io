@@ -27,7 +27,6 @@ const projectSlice = createSlice({
             state.chatLog = state.chatLog.filter(msg => msg.msgID !== action.payload);
         },
 
-
         // artist
         addArtist: (state, action) => {
             state.shortlistedArtists.push(action.payload);
