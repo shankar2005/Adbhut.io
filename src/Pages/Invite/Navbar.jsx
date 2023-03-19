@@ -43,11 +43,11 @@ const Navbar = () => {
                     <button onClick={() => setInviteFriendsModal(true)} className='hover:scale-125 duration-150'><FcShare size={35} /></button>
                 </div>
                 <div className='md:hidden fixed right-0 top-1/4 z-40'>
-                    <a className='block p-0.5 border border-b-0 rounded-l' target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show'><img className='w-8' src={linkedin} alt="" /></a>
-                    <a className='block p-0.5 border border-b-0 rounded-l' target="_blank" href='https://www.facebook.com/happy.hippie.969/'><img className='w-8' src={fb} alt="" /></a>
-                    <a className='block p-0.5 border border-b-0 rounded-l' target="_blank" href='mailto:happyhippie@thhs.in'><img className='w-8' src={gmail} alt="" /></a>
-                    <a className='block p-0.5 border border-b-0 rounded-l' target="_blank" href='https://www.instagram.com/thehappyhippiesshow/?hl=en'><img className='w-8' src={instagram} alt="" /></a>
-                    <button onClick={() => setInviteFriendsModal(true)} className='block border rounded-l'><FcShare size={35} /></button>
+                    <a className='block p-0.5 border border-purple-400 backdr border-b-0 border-r-0 rounded-l' target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show'><img className='w-8' src={linkedin} alt="" /></a>
+                    <a className='block p-0.5 border border-purple-400 backdr border-b-0 border-r-0 rounded-l' target="_blank" href='https://www.facebook.com/happy.hippie.969/'><img className='w-8' src={fb} alt="" /></a>
+                    <a className='block p-0.5 border border-purple-400 backdr border-b-0 border-r-0 rounded-l' target="_blank" href='mailto:happyhippie@thhs.in'><img className='w-8' src={gmail} alt="" /></a>
+                    <a className='block p-0.5 border border-purple-400 backdr border-b-0 border-r-0 rounded-l' target="_blank" href='https://www.instagram.com/thehappyhippiesshow/?hl=en'><img className='w-8' src={instagram} alt="" /></a>
+                    <button onClick={() => setInviteFriendsModal(true)} className='block border border-purple-400 backdr rounded-l border-r-0'><FcShare size={35} /></button>
                 </div>
             </div>
 

@@ -69,7 +69,7 @@ const Hero = () => {
                     <button onClick={() => setPlayInviteModal(true)} className='shake bg-white shadow-lg duration-100 font-bold shadow-purple-300/100 px-3 py-2 rounded hover:bg-inherit border-4 border-white hover:text-white'>Play Invite</button>
                     <a target="_blank" href="https://adbhut.io/">
                         <button className='h-full'>
-                            <img className='w-24 h-full rounded hover:shadow-lg hover:shadow-purple-500/100' src={adbhutGIF} alt="" />
+                            <img className='w-24 h-full rounded-sm hover:shadow-lg hover:shadow-purple-500/100' src={adbhutGIF} alt="" />
                         </button>
                     </a>
                     <button onClick={() => setShowRegisterModal(true)} className='bg-white duration-100 font-bold hover:shadow-lg hover:shadow-purple-500/100 px-3 py-2 rounded hover:bg-inherit border-4 border-white hover:text-white'>Get Invite</button>
