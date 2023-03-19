@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 import Cookies from 'universal-cookie';
 import { useRegisterUserMutation } from "../../features/auth/authApi";
 
@@ -23,7 +24,11 @@ const RegisterForm = () => {
 
     useEffect(() => {
         if (isSuccess) {
-            
+            Swal.fire(
+                'Good job!',
+                'User had been created successfully!',
+                'success'
+            )
         }
     }, [isSuccess])
 
