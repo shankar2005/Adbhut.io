@@ -8,9 +8,12 @@ import skill from '../../assets/icon/skill.png';
 import tree from '../../assets/icon/tree.png';
 import PlayInviteModal from './Components/PlayInviteModal';
 import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
+import { AnimatePresence } from 'framer-motion';
+import GetInvitedModal from './Components/GetInvitedModal';
 
 const Hero = () => {
     const [playInviteModal, setPlayInviteModal] = useState(false);
+    const [showRegisterModal, setShowRegisterModal] = useState(false);
 
     return (
         <section className='w-11/12 max-w-screen-xl mx-auto px-10 xl:px-0 min-h-[800px] sm:min-h-[700px] md:min-h-[600px] flex items-center pt-10 relative'>
@@ -65,11 +68,11 @@ const Hero = () => {
                 <div className='flex gap-3 mt-5 text-purple-900 text-sm flex-wrap'>
                     <button onClick={() => setPlayInviteModal(true)} className='shake bg-white shadow-lg duration-100 font-bold shadow-purple-300/100 px-3 py-2 rounded hover:bg-inherit border-4 border-white hover:text-white'>Play Invite</button>
                     <a target="_blank" href="https://adbhut.io/">
-                        <button className='h-full rounded'>
-                            <img className='w-24 h-full rounded' src={adbhutGIF} alt="" />
+                        <button className='h-full'>
+                            <img className='w-24 h-full rounded hover:shadow-lg hover:shadow-purple-500/100' src={adbhutGIF} alt="" />
                         </button>
                     </a>
-                    <button className='bg-white duration-100 font-bold hover:shadow-lg hover:shadow-purple-500/100 px-3 py-2 rounded hover:bg-inherit border-4 border-white hover:text-white'>Get Invite</button>
+                    <button onClick={() => setShowRegisterModal(true)} className='bg-white duration-100 font-bold hover:shadow-lg hover:shadow-purple-500/100 px-3 py-2 rounded hover:bg-inherit border-4 border-white hover:text-white'>Get Invite</button>
                     <a target="_blank" href="https://www.linkedin.com/company/the-happy-hippies-show/jobs/">
                         <button className='h-full bg-white duration-100 font-bold hover:shadow-lg hover:shadow-purple-500/100 px-3 py-2 rounded hover:bg-inherit border-4 border-white hover:text-white'>We Are Hiring</button>
                     </a>
@@ -95,7 +98,11 @@ const Hero = () => {
                 />
             }
 
-        </section>
+            <AnimatePresence initial={false} exitBeforeEnter={true}>
+                {showRegisterModal && <GetInvitedModal setShowRegisterModal={setShowRegisterModal} />}
+            </AnimatePresence>
+
+        </section >
     );
 };
 
