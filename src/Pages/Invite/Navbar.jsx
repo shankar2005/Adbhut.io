@@ -10,11 +10,9 @@ import { FcShare } from 'react-icons/fc';
 import InviteModal from './Components/InviteModal';
 
 const Navbar = () => {
-    const [navSize, setnavSize] = useState("10rem");
     const [navColor, setnavColor] = useState("transparent");
     const listenScrollEvent = () => {
         window.scrollY > 10 ? setnavColor("#252734") : setnavColor("transparent");
-        window.scrollY > 10 ? setnavSize("5rem") : setnavSize("5rem");
     };
     useEffect(() => {
         window.addEventListener("scroll", listenScrollEvent);
@@ -30,7 +28,6 @@ const Navbar = () => {
     return (
         <nav style={{
             backgroundColor: navColor,
-            height: navSize,
             transition: "all 0.5s"
         }} className="fixed z-40 w-full top-0 left-0 py-4 px-6 shadow-lg">
             <div className='w-11/12 max-w-screen-xl mx-auto flex gap-8 justify-between items-center'>

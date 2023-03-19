@@ -2,14 +2,12 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
-import Cookies from 'universal-cookie';
 import { useRegisterUserMutation } from "../../features/auth/authApi";
 
 const RegisterForm = () => {
     const [registerUser, { isSuccess, isError, error }] = useRegisterUserMutation();
-    const dispatch = useDispatch();
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset } = useForm();
     const onSubmit = data => {
         registerUser({
             email: data.email,
@@ -25,10 +23,11 @@ const RegisterForm = () => {
     useEffect(() => {
         if (isSuccess) {
             Swal.fire(
-                'Good job!',
-                'User had been created successfully!',
+                'Congratulations!',
+                'User has been created successfully!',
                 'success'
             )
+            reset();
         }
     }, [isSuccess])
 
@@ -64,7 +63,12 @@ const RegisterForm = () => {
                     <input type="password" {...register("password2", { required: true })} id="password2" placeholder="*****" className="w-full p-3 border rounded-md border-gray-700" />
                 </div>
             </div>
-            <button type="submit" className="w-full px-8 py-3 font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white">Sign up</button>
+            {
+                true
+                    ? <button type="submit" className="w-full px-8 py-3 font-medium rounded-md bg-blue-500 hover:bg-blue-600 active:scale-95 duration-150 text-white">Sign up</button>
+                    : <button type="submit" disabled className="w-full px-8 py-3 font-medium rounded-md bg-gray-300 text-gray-400 cursor-not-allowed">Sign up</button>
+            }
+
             {
                 isError && <p className='text-red-500 text-sm mt-3'>{error?.data?.error}</p>
             }
