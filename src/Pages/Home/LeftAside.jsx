@@ -78,12 +78,14 @@ const LeftAside = () => {
             "stage": "Lead",
             "brief": JSON.stringify(chatLog),
             "project_template": selectedContentProduct,
-            "shortlisted_artists": shortlistedArtists
-        }).then(response => {
-            const data = response.data;
-            toast.success("Project created successfully!");
-            navigate(`/projects/${data.pk}/Lead/`);
+            "shortlisted_artists": shortlistedArtists,
+            "reference_links": JSON.stringify(reference_links)
         })
+            .then(response => {
+                const data = response.data;
+                toast.success("Project created successfully!");
+                navigate(`/projects/${data.pk}/Lead/`);
+            })
     }
 
     // handle change stage

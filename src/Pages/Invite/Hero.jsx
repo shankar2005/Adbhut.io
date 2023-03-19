@@ -8,6 +8,7 @@ import skill from '../../assets/icon/skill.png';
 import tree from '../../assets/icon/tree.png';
 import InviteModal from './Components/InviteModal';
 import PlayInviteModal from './Components/PlayInviteModal';
+import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
 
 const Hero = () => {
     const inviteURL = `https://nsnco.in/invite`;
@@ -67,12 +68,15 @@ const Hero = () => {
                 </div>
                 <div className='flex gap-3 mt-5 text-purple-900 text-sm flex-wrap'>
                     <button onClick={() => setPlayInviteModal(true)} className='shake bg-white shadow-lg duration-100 font-bold shadow-purple-300/100 px-3 py-2 rounded hover:bg-inherit border-4 border-white hover:text-white'>Play Invite</button>
-                    <a target="_blank" href="https://nsnco.in/">
-                        <button className='bg-white duration-100 font-bold hover:shadow-lg hover:shadow-purple-500/100 px-3 py-2 rounded hover:bg-inherit border-4 border-white hover:text-white'>Visit NsN Co</button>
+                    <a target="_blank" href="https://adbhut.io/">
+                        <button className='bg-white duration-100 hover:shadow-lg hover:shadow-purple-500/100 p-0.5 flex font-extrabold text-lg rounded-sm'>
+                            <span className='block bg-black text-white p-2 rounded-sm'>AD</span>
+                            <span className='block p-2 text-black'>BHUT</span>
+                        </button>
                     </a>
                     <button onClick={() => setInviteFriendsModal(true)} className='bg-white duration-100 font-bold hover:shadow-lg hover:shadow-purple-500/100 px-3 py-2 rounded hover:bg-inherit border-4 border-white hover:text-white'>Invite Friends</button>
                     <a target="_blank" href="https://www.linkedin.com/company/the-happy-hippies-show/jobs/">
-                        <button className='bg-white duration-100 font-bold hover:shadow-lg hover:shadow-purple-500/100 px-3 py-2 rounded hover:bg-inherit border-4 border-white hover:text-white'>We Are Hiring</button>
+                        <button className='h-full bg-white duration-100 font-bold hover:shadow-lg hover:shadow-purple-500/100 px-3 py-2 rounded hover:bg-inherit border-4 border-white hover:text-white'>We Are Hiring</button>
                     </a>
                 </div>
                 <div className='lg:hidden my-10 text-sm bg-white bg-opacity-60 text-black p-4'>

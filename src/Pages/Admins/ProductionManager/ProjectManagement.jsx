@@ -273,6 +273,13 @@ const ProjectManagement = () => {
                         </div>
                     }
 
+                    <div className="mb-4">
+                        <label className="text-sm font-medium text-gray-900">Project Reference Links: </label>
+                        <ul className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-yellow-100 font-sans mt-2'>
+                            {JSON.parse(currentProject?.reference_links)}
+                        </ul>
+                    </div>
+
                     {
                         user.role === "Product Manager" || user.role === "Artist Manager" ?
                             currentProject?.post_project_client_feedback

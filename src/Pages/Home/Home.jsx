@@ -1,4 +1,3 @@
-import { useRootContext } from '../../contexts/RootProvider';
 import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
 import { Link } from 'react-router-dom';
 import LeftAside from './LeftAside';

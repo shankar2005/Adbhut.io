@@ -23,7 +23,7 @@ const Watch = () => {
                             ?.filter(item => item?.snippet?.title !== "Private video")
                             .sort((a, b) => b.snippet?.position - a.snippet?.position)
                             .map(item => (
-                                <div className="w-full h-64 sm:h-[350px]">
+                                <div className="aspect-video">
                                     <iframe className='w-full h-full rounded-lg' src={`https://www.youtube.com/embed/${item.contentDetails.videoId}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                                 </div>
                             ))
@@ -37,7 +37,7 @@ const Watch = () => {
                         btsPlaylist
                             ?.sort((a, b) => b.snippet?.position - a.snippet?.position)
                             .map(item => (
-                                <div className="w-full h-64 sm:h-[350px]">
+                                <div className="aspect-video">
                                     <iframe className='w-full h-full rounded-lg' src={`https://www.youtube.com/embed/${item.contentDetails.videoId}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                                 </div>
                             ))

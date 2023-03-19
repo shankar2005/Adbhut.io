@@ -4,15 +4,12 @@ import gmail from '../../assets/ui/gmail.png';
 import instagram from '../../assets/ui/instagram.png';
 import linkedin from '../../assets/ui/linkedin.png';
 import logo from '../../assets/thhs.png';
-import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     return (
         <navbar className='fixed z-40 w-full top-0 left-0 backdrop-blur py-4 px-6 shadow-lg'>
             <div className='w-11/12 max-w-screen-xl mx-auto flex gap-8 justify-between items-center'>
-                <div>
-                    <Link to="/"><img className='w-72' src={logo} alt="" /></Link>
-                </div>
+                <img className='w-72' src={logo} alt="" />
                 <ul className='hidden md:flex gap-6'>
                     <a target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show'><li className='duration-100 bg-white p-2 rounded-full grayscale hover:grayscale-0'><img className='w-5' src={linkedin} alt="" /></li></a>
                     <a target="_blank" href='https://www.facebook.com/happy.hippie.969/'><li className='duration-100 bg-white p-2 rounded-full grayscale hover:grayscale-0'><img className='w-5' src={fb} alt="" /></li></a>
