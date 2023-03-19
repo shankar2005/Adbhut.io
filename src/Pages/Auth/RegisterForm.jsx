@@ -1,39 +1,31 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import Cookies from 'universal-cookie';
+import { useRegisterUserMutation } from "../../features/auth/authApi";
 
 const RegisterForm = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = formData => {
-        setformError(null);
-        const { username, password } = formData;
+    const [registerUser, { isSuccess, isError, error }] = useRegisterUserMutation();
+    const dispatch = useDispatch();
 
-        fetch('https://dev.nsnco.in/api/v1/auth/register/', {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(formData)
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const onSubmit = data => {
+        registerUser({
+            email: data.email,
+            password: data.password,
+            password2: data.password2,
+            company: data.company,
+            url: data.url,
+            phone: data.phone,
+            name: data.name
         })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    fetch('https://dev.nsnco.in/api/v1/auth/login/', {
-                        method: "POST",
-                        headers: {
-                            "content-type": "application/json"
-                        },
-                        body: JSON.stringify({ username, password })
-                    })
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.token) {
-                                const cookies = new Cookies();
-                                cookies.set('auth_token', data.token, { path: '/' });
-                            }
-                        });
-                }
-            });
     };
+
+    useEffect(() => {
+        if (isSuccess) {
+            
+        }
+    }, [isSuccess])
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -55,8 +47,8 @@ const RegisterForm = () => {
                     <input type="company" {...register("company", { required: true })} id="company" placeholder="Microsoft" className="w-full p-3 border rounded-md border-gray-700" data-temp-mail-org="2" />
                 </div>
                 <div className="space-y-1">
-                    <label htmlFor="companyURL" className="block text-sm">Company Website</label>
-                    <input type="companyURL" {...register("companyURL", { required: true })} id="companyURL" placeholder="microsoft.com" className="w-full p-3 border rounded-md border-gray-700" data-temp-mail-org="2" />
+                    <label htmlFor="url" className="block text-sm">Company Website</label>
+                    <input type="url" {...register("url", { required: true })} id="url" placeholder="microsoft.com" className="w-full p-3 border rounded-md border-gray-700" data-temp-mail-org="2" />
                 </div>
                 <div className="space-y-1">
                     <label htmlFor="password" className="text-sm">Password</label>
@@ -69,7 +61,7 @@ const RegisterForm = () => {
             </div>
             <button type="submit" className="w-full px-8 py-3 font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white">Sign up</button>
             {
-                true && <p className='text-red-500 text-sm mt-3'>{'formError'}</p>
+                isError && <p className='text-red-500 text-sm mt-3'>{error?.data?.error}</p>
             }
         </form>
     );
