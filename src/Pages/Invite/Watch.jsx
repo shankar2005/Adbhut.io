@@ -15,7 +15,7 @@ const Watch = () => {
 
     return (
         <>
-            <section className='max-w-screen-xl mx-auto px-10 xl:px-0 py-10 my-5'>
+            <section className='w-11/12 max-w-screen-xl mx-auto md:px-10 xl:px-0 py-10 my-5'>
                 <h1 className='text-center text-4xl font-bold mb-10 text-purple-700 text-opacity-80'>Watch Episodes</h1>
                 <div className={` ${showPlaylist?.length <= 1 ? 'md:w-[630px] mx-auto' : 'grid lg:grid-cols-2'} gap-5`}>
                     {
@@ -30,7 +30,7 @@ const Watch = () => {
                     }
                 </div>
             </section>
-            <section className='max-w-screen-xl mx-auto px-10 xl:px-0 py-10'>
+            <section className='w-11/12 max-w-screen-xl mx-auto md:px-10 xl:px-0 py-10'>
                 <h1 className='text-center text-4xl font-bold mb-10 text-purple-700 text-opacity-80'>Behind The Scenes</h1>
                 <div className={` ${btsPlaylist?.length <= 1 ? 'md:w-[630px] mx-auto' : 'grid lg:grid-cols-2'} gap-5`}>
                     {

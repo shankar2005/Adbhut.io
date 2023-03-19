@@ -42,12 +42,12 @@ const Navbar = () => {
                     <a className='hover:scale-125 duration-150' target="_blank" href='https://www.instagram.com/thehappyhippiesshow/?hl=en'><img className='w-8' src={instagram} alt="" /></a>
                     <button onClick={() => setInviteFriendsModal(true)} className='hover:scale-125 duration-150'><FcShare size={35} /></button>
                 </div>
-                <div className='md:hidden fixed right-0 top-1/2 -translate-y-1/2 z-40'>
-                    <a className='block hover:scale-125 duration-300 hover:right-1 hover:relative p-1' target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show'><img className='w-8' src={linkedin} alt="" /></a>
-                    <a className='block hover:scale-125 duration-300 hover:right-1 hover:relative p-1' target="_blank" href='https://www.facebook.com/happy.hippie.969/'><img className='w-8' src={fb} alt="" /></a>
-                    <a className='block hover:scale-125 duration-300 hover:right-1 hover:relative p-1' target="_blank" href='mailto:happyhippie@thhs.in'><img className='w-8' src={gmail} alt="" /></a>
-                    <a className='block hover:scale-125 duration-300 hover:right-1 hover:relative p-1' target="_blank" href='https://www.instagram.com/thehappyhippiesshow/?hl=en'><img className='w-8' src={instagram} alt="" /></a>
-                    <button onClick={() => setInviteFriendsModal(true)} className='block hover:scale-125 duration-300 hover:right-1 hover:relative p-1'><FcShare size={35} /></button>
+                <div className='md:hidden fixed right-0 top-1/4 z-40'>
+                    <a className='block hover:scale-125 duration-300 p-0.5 bg-purple-300 rounded-l' target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show'><img className='w-8' src={linkedin} alt="" /></a>
+                    <a className='block hover:scale-125 duration-300 p-0.5 bg-purple-300 rounded-l' target="_blank" href='https://www.facebook.com/happy.hippie.969/'><img className='w-8' src={fb} alt="" /></a>
+                    <a className='block hover:scale-125 duration-300 p-0.5 bg-purple-300 rounded-l' target="_blank" href='mailto:happyhippie@thhs.in'><img className='w-8' src={gmail} alt="" /></a>
+                    <a className='block hover:scale-125 duration-300 p-0.5 bg-purple-300 rounded-l' target="_blank" href='https://www.instagram.com/thehappyhippiesshow/?hl=en'><img className='w-8' src={instagram} alt="" /></a>
+                    <button onClick={() => setInviteFriendsModal(true)} className='block hover:scale-125 duration-300 bg-purple-300 rounded-l'><FcShare size={35} /></button>
                 </div>
             </div>
 
