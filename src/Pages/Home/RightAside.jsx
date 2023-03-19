@@ -10,10 +10,9 @@ import { useGetDreamProjectsQuery } from '../../features/project/projectApi';
 import { clearProject, setArtist, setChatLog, setContentProduct } from '../../features/project/projectSlice';
 
 const RightAside = () => {
-    const { currentProjects, contentProducts, handleSelectContentProduct } = useRootContext();
-    
+    const { contentProducts, handleSelectContentProduct } = useRootContext();
+
     const dispatch = useDispatch();
-    const { data: dreamProjects = [] } = useGetDreamProjectsQuery();
     const { user } = useSelector(state => state.auth);
     const currentProject = useSelector(state => state.project);
     const { selectedContentProduct } = useSelector(state => state.project);
@@ -73,35 +72,27 @@ const RightAside = () => {
                     </div>
                 </section>
 
-                <section className='text-gray-700 text-sm'>
-                    {
-                        user.email && currentProjects.length > 0 &&
-                        <div className='border-b pb-6 p-4'>
-                            <p className='text-black mb-2 font-medium'>Current Projects</p>
-                            {
-                                currentProjects.map(project => <Link to={`/projects/${project.pk}/${project.stage}/`} key={`recent-project${project.pk}`}>
-                                    <p className={`flex items-center gap-1 underline hover:text-blue-700 ${project.pk === currentProject?.pk && 'text-blue-700'} cursor-pointer`}>
-                                        <MdCelebration className='w-5 h-5 text-yellow-400' />
-                                        {project.name?.length > 30 ? project.name.slice(0, 30) + '...' : project.name}
-                                    </p>
-                                </Link>)
-                            }
-                        </div>
-                    }
-                    {
-                        dreamProjects.length > 0 &&
-                        <div className='border-b mb-3 pb-6 p-4'>
-                            <p className='text-black mb-2 font-medium'>Dream Projects</p>
-                            {
-                                dreamProjects.map(project => <Link to={`/projects/${project.pk}/${project.stage}`} key={`recent-project${project.pk}`}>
-                                    <p className={`flex items-center gap-1 underline hover:text-blue-700 ${project.pk === currentProject?.pk && 'text-blue-700'} cursor-pointer`}>
-                                        <MdCelebration className='w-5 h-5 text-yellow-400' />
-                                        {project.name?.length > 30 ? project.name?.slice(0, 30) + '...' : project.name}
-                                    </p>
-                                </Link>)
-                            }
-                        </div>
-                    }
+                <section className='text-gray-700 text-sm p-4 border-b'>
+                    <ul className="space-y-2">
+                        <li>
+                            <Link to="/projects/myprojects" className='hover:underline'>
+                                <p className='font-medium'>My Projects</p>
+                                <p className='text-xs'>Your current on-going projects</p>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link className='hover:underline'>
+                                <p className='font-medium'>Dream Projects</p>
+                                <p className='text-xs'>Insights projects</p>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/projects" className='hover:underline'>
+                                <p className='font-medium'>Recommended Projects</p>
+                                <p className='text-xs'>Projects you might like</p>
+                            </Link>
+                        </li>
+                    </ul>
                 </section>
 
                 <section className='text-gray-700 text-sm border-b'>

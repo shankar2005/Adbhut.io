@@ -48,7 +48,9 @@ const ProjectCard = ({ projectId }) => {
             <p className='text-sm mb-2'>
                 {project?.production_solution}
             </p>
-            {thumbnail && thumbnailEle}
+            {
+                thumbnail ? thumbnailEle : <img className="w-full" src="https://www.unfe.org/wp-content/uploads/2019/04/SM-placeholder.png" alt="" />
+            }
         </div>
     )
 }

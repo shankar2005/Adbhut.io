@@ -9,6 +9,7 @@ import LeftAside from "../Pages/Home/LeftAside";
 import Invite from "../Pages/Invite/Invite";
 import CreateProject from "../Pages/Project/CreateProject";
 import Docusign from "../Pages/Project/Docusign";
+import MyProjects from "../Pages/Project/MyProjects";
 import ProjectDone from "../Pages/Project/ProjectDone";
 import Projects from "../Pages/Project/Projects";
 import LeftToRight from "./PageTransitions/LeftToRight";
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
             {
                 path: '/projects',
                 element: <Projects />,
+            },
+            {
+                path: '/projects/myprojects',
+                element: <MyProjects />,
             },
             {
                 path: '/projects/:id/:stage',
