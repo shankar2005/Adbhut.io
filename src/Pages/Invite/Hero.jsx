@@ -6,15 +6,11 @@ import energy from '../../assets/icon/energy.png';
 import gender from '../../assets/icon/gender.png';
 import skill from '../../assets/icon/skill.png';
 import tree from '../../assets/icon/tree.png';
-import InviteModal from './Components/InviteModal';
 import PlayInviteModal from './Components/PlayInviteModal';
 import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
 
 const Hero = () => {
-    const inviteURL = `https://nsnco.in/invite`;
-    const [inviteFriendsModal, setInviteFriendsModal] = useState(false);
     const [playInviteModal, setPlayInviteModal] = useState(false);
-    const [state, setState] = useState({ value: inviteURL, copied: false, });
 
     return (
         <section className='w-11/12 max-w-screen-xl mx-auto px-10 xl:px-0 min-h-[800px] sm:min-h-[700px] md:min-h-[600px] flex items-center pt-10 relative'>
@@ -57,7 +53,7 @@ const Hero = () => {
                         <div>
                             <img className='w-8 mx-auto' src={skill} alt="" />
                         </div>
-                        <p className='opacity-75 text-sm'>Child Education</p>
+                        <p className='opacity-75 text-sm'>Skill Training</p>
                     </div>
                     <div className='text-center flex flex-col items-center justify-center h-[100px] bg-purple-700 bg-opacity-40 px-2 gap-1'>
                         <div>
@@ -69,12 +65,11 @@ const Hero = () => {
                 <div className='flex gap-3 mt-5 text-purple-900 text-sm flex-wrap'>
                     <button onClick={() => setPlayInviteModal(true)} className='shake bg-white shadow-lg duration-100 font-bold shadow-purple-300/100 px-3 py-2 rounded hover:bg-inherit border-4 border-white hover:text-white'>Play Invite</button>
                     <a target="_blank" href="https://adbhut.io/">
-                        <button className='bg-white duration-100 hover:shadow-lg hover:shadow-purple-500/100 p-0.5 flex font-extrabold text-lg rounded-sm'>
-                            <span className='block bg-black text-white p-2 rounded-sm'>AD</span>
-                            <span className='block p-2 text-black'>BHUT</span>
+                        <button className='h-full rounded'>
+                            <img className='w-24 h-full rounded' src={adbhutGIF} alt="" />
                         </button>
                     </a>
-                    <button onClick={() => setInviteFriendsModal(true)} className='bg-white duration-100 font-bold hover:shadow-lg hover:shadow-purple-500/100 px-3 py-2 rounded hover:bg-inherit border-4 border-white hover:text-white'>Invite Friends</button>
+                    <button className='bg-white duration-100 font-bold hover:shadow-lg hover:shadow-purple-500/100 px-3 py-2 rounded hover:bg-inherit border-4 border-white hover:text-white'>Get Invite</button>
                     <a target="_blank" href="https://www.linkedin.com/company/the-happy-hippies-show/jobs/">
                         <button className='h-full bg-white duration-100 font-bold hover:shadow-lg hover:shadow-purple-500/100 px-3 py-2 rounded hover:bg-inherit border-4 border-white hover:text-white'>We Are Hiring</button>
                     </a>
@@ -91,15 +86,6 @@ const Hero = () => {
                 In current times, the happy hippies are on their journey to be on the moon by 2024. They are doing this to make earth a better place, cleaner environment, less pollution, no descrimination and happiness for all. Now the happy hippies of future, year 2024, from the moon, are showing us their journey from earth to moon through this show.
                 This show inspires a series of events and conversations with leaders, changemakers and you. We the happy hippies are the GenZs, the generation of hope, for future. And this is our #MoonProject.
             </div>
-
-
-            <InviteModal
-                modal={inviteFriendsModal}
-                setModal={setInviteFriendsModal}
-                setState={setState}
-                inviteURL={inviteURL}
-                state={state}
-            />
 
             {
                 playInviteModal &&

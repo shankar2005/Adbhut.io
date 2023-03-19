@@ -4,26 +4,61 @@ import gmail from '../../assets/ui/gmail.png';
 import instagram from '../../assets/ui/instagram.png';
 import linkedin from '../../assets/ui/linkedin.png';
 import logo from '../../assets/thhs.png';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { FcShare } from 'react-icons/fc';
+import InviteModal from './Components/InviteModal';
 
 const Navbar = () => {
+    const [navSize, setnavSize] = useState("10rem");
+    const [navColor, setnavColor] = useState("transparent");
+    const listenScrollEvent = () => {
+        window.scrollY > 10 ? setnavColor("#252734") : setnavColor("transparent");
+        window.scrollY > 10 ? setnavSize("5rem") : setnavSize("5rem");
+    };
+    useEffect(() => {
+        window.addEventListener("scroll", listenScrollEvent);
+        return () => {
+            window.removeEventListener("scroll", listenScrollEvent);
+        };
+    }, []);
+
+    const inviteURL = `https://adbhut.io/invite`;
+    const [state, setState] = useState({ value: inviteURL, copied: false, });
+    const [inviteFriendsModal, setInviteFriendsModal] = useState(false);
+
     return (
-        <navbar className='fixed z-40 w-full top-0 left-0 backdrop-blur py-4 px-6 shadow-lg'>
+        <nav style={{
+            backgroundColor: navColor,
+            height: navSize,
+            transition: "all 0.5s"
+        }} className="fixed z-40 w-full top-0 left-0 py-4 px-6 shadow-lg">
             <div className='w-11/12 max-w-screen-xl mx-auto flex gap-8 justify-between items-center'>
                 <img className='w-72' src={logo} alt="" />
-                <ul className='hidden md:flex gap-6'>
-                    <a target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show'><li className='duration-100 bg-white p-2 rounded-full grayscale hover:grayscale-0'><img className='w-5' src={linkedin} alt="" /></li></a>
-                    <a target="_blank" href='https://www.facebook.com/happy.hippie.969/'><li className='duration-100 bg-white p-2 rounded-full grayscale hover:grayscale-0'><img className='w-5' src={fb} alt="" /></li></a>
-                    <a target="_blank" href='mailto:happyhippie@thhs.in'><li className='duration-100 bg-white p-2 rounded-full grayscale hover:grayscale-0'><img className='w-5' src={gmail} alt="" /></li></a>
-                    <a target="_blank" href='https://www.instagram.com/thehappyhippiesshow/?hl=en'><li className='duration-100 bg-white p-2 rounded-full grayscale hover:grayscale-0'><img className='w-5' src={instagram} alt="" /></li></a>
-                </ul>
-                <ul className='md:hidden fixed right-0 bottom-0 grid gap-2 bg-purple-400 p-1 rounded-t-full z-40'>
-                    <a target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show'><li className='duration-100 p-2 bg-white rounded-full'><img className='w-5' src={linkedin} alt="" /></li></a>
-                    <a target="_blank" href='https://www.facebook.com/happy.hippie.969/'><li className='duration-100 p-2 bg-white rounded-full'><img className='w-5' src={fb} alt="" /></li></a>
-                    <a target="_blank" href='mailto:happyhippie@thhs.in'><li className='duration-100 p-2 rounded-full bg-white'><img className='w-5' src={gmail} alt="" /></li></a>
-                    <a target="_blank" href='https://www.instagram.com/thehappyhippiesshow/?hl=en'><li className='duration-100 p-2 bg-white rounded-full'><img className='w-5' src={instagram} alt="" /></li></a>
-                </ul>
+                <div className='hidden md:flex gap-6'>
+                    <a className='hover:scale-125 duration-150' target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show'><img className='w-8' src={linkedin} alt="" /></a>
+                    <a className='hover:scale-125 duration-150' target="_blank" href='https://www.facebook.com/happy.hippie.969/'><img className='w-8' src={fb} alt="" /></a>
+                    <a className='hover:scale-125 duration-150' target="_blank" href='mailto:happyhippie@thhs.in'><img className='w-8' src={gmail} alt="" /></a>
+                    <a className='hover:scale-125 duration-150' target="_blank" href='https://www.instagram.com/thehappyhippiesshow/?hl=en'><img className='w-8' src={instagram} alt="" /></a>
+                    <button onClick={() => setInviteFriendsModal(true)} className='hover:scale-125 duration-150'><FcShare size={35} /></button>
+                </div>
+                <div className='md:hidden fixed right-0 top-1/2 -translate-y-1/2 z-40'>
+                    <a className='block hover:scale-125 duration-300 hover:right-1 hover:relative p-1' target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show'><img className='w-8' src={linkedin} alt="" /></a>
+                    <a className='block hover:scale-125 duration-300 hover:right-1 hover:relative p-1' target="_blank" href='https://www.facebook.com/happy.hippie.969/'><img className='w-8' src={fb} alt="" /></a>
+                    <a className='block hover:scale-125 duration-300 hover:right-1 hover:relative p-1' target="_blank" href='mailto:happyhippie@thhs.in'><img className='w-8' src={gmail} alt="" /></a>
+                    <a className='block hover:scale-125 duration-300 hover:right-1 hover:relative p-1' target="_blank" href='https://www.instagram.com/thehappyhippiesshow/?hl=en'><img className='w-8' src={instagram} alt="" /></a>
+                    <button onClick={() => setInviteFriendsModal(true)} className='block hover:scale-125 duration-300 hover:right-1 hover:relative p-1'><FcShare size={35} /></button>
+                </div>
             </div>
-        </navbar>
+
+            <InviteModal
+                modal={inviteFriendsModal}
+                setModal={setInviteFriendsModal}
+                setState={setState}
+                inviteURL={inviteURL}
+                state={state}
+            />
+        </nav>
     );
 };
 
