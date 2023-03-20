@@ -16,7 +16,7 @@ import { closeLogin, showAccount, showLocation, showLogin, showSkill } from '../
 import { BiMessageDots } from 'react-icons/bi';
 
 const Navbar = ({ setShowToolkit }) => {
-    const { setdemoType, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills } = useRootContext();
+    const { setdemoType, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills, avatar } = useRootContext();
 
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
@@ -229,7 +229,7 @@ const Navbar = ({ setShowToolkit }) => {
                         user.email &&
                         <li className='flex items-center gap-2 relative'>
                             <img className='hidden md:block w-24' src={logo} alt="" />
-                            <img onClick={() => dispatch(showAccount())} className='w-10 h-10 rounded-full border' src={user?.role === "Client" ? "https://www.w3schools.com/howto/img_avatar.png" : nsnlogo} alt="" />
+                            <img onClick={() => dispatch(showAccount())} className='w-10 h-10 rounded-full border' src={user?.role === "Client" ? avatar : nsnlogo} alt="" />
                             {/* modal */}
                             <div className={`${!accountModal && 'hidden'} absolute top-12 right-0`}>
                                 <ProfileDropdown />

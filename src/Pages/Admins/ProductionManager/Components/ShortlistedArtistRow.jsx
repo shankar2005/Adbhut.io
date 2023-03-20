@@ -6,7 +6,7 @@ import { useAssignArtistMutation, useDeclineArtistMutation } from '../../../../f
 
 const ShortlistedArtistRow = ({ artist, projectId }) => {
     const { user } = useSelector(state => state.auth);
-    const { setArtistProfile } = useRootContext();
+    const { setArtistProfile, avatar } = useRootContext();
 
     const [assignArtist, { isLoading: assignLoading }] = useAssignArtistMutation();
     const [declineArtist, { isLoading: rejectLoading }] = useDeclineArtistMutation();
@@ -20,7 +20,7 @@ const ShortlistedArtistRow = ({ artist, projectId }) => {
 
     return (
         <div className='flex items-center gap-2 text-sm bg-gray-100 p-2 mb-1 border border-blue-300 rounded-lg'>
-            <img onClick={() => setArtistProfile(artist.id)} className='w-10 h-10 rounded-full' src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541" alt="" />
+            <img onClick={() => setArtistProfile(artist.id)} className='w-10 h-10 rounded-full' src={avatar} alt="" />
             <div>
                 <p onClick={() => setArtistProfile(artist.id)} className='font-medium hover:underline'>{artist.name}</p>
                 <p className='text-xs'>Status: <span className='bg-gray-400 p-0.5 px-1 rounded text-gray-50'>available</span></p>

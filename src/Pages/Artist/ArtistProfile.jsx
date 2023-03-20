@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 const ArtistProfile = () => {
     const { shortlistedArtists } = useSelector(state => state.project);
 
-    const { handleShortlist, artistProfile, setArtistProfile } = useRootContext();
+    const { handleShortlist, artistProfile, setArtistProfile, avatar } = useRootContext();
     const { data } = useGetArtistByIdQuery(artistProfile);
     const { artistID, name, profile_pic, skills, languages, workLinks, location_name } = data || {};
 
@@ -24,7 +24,7 @@ const ArtistProfile = () => {
                     <button onClick={() => setArtistProfile(null)} type='button'>
                         <FiArrowLeft className='w-6 h-6 text-blue-500 cursor-pointer ml-2' />
                     </button>
-                    <img className='w-14 h-14 rounded-full' src="https://thhs.in/assets/avatar-2200a5cf.png" alt="" />
+                    <img className='w-14 h-14 rounded-full' src={avatar} alt="" />
                     <div>
                         <h4 className='font-medium text-lg'>{name}</h4>
                         <div className='text-sm text-gray-600'>

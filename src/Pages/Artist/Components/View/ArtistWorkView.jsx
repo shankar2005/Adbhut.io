@@ -11,7 +11,7 @@ const ArtistWorkView = ({ artist = {} }) => {
         <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
             <div className='flex items-center gap-2 mb-3'>
                 <button onClick={() => setArtistProfile(artist.owner_id)}>
-                    <img className='w-12 h-12' src={artist.profile_pic || avatar} alt="" />
+                    <img className='w-12 h-12 rounded-full' src={artist.profile_pic || avatar} alt="" />
                 </button>
                 <div className='text-sm'>
                     <button onClick={() => setArtistProfile(artist.owner_id)}><span className='font-medium'>{artist.owner_name}</span></button>

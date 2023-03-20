@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import avatar from "../assets/placeholders/avatar.png"
 import { useGetCurrentProjectsQuery, useGetDreamProjectsQuery } from '../features/project/projectApi';
 import { useGetContentProductsQuery, useGetLocationsQuery, useGetSkillsOnProductSelectMutation, useGetSkillsQuery } from '../features/utils/utilsApi';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +6,7 @@ import { useShortlistArtistMutation } from '../features/artist/artistApi';
 import { setSearch } from '../features/filter/filterSlice';
 import { useSendMessageMutation } from '../features/chat/chatApi';
 import { addArtist, addChatLog, clearProject, setContentProduct } from '../features/project/projectSlice';
+const avatar = "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541";
 
 const RootContext = createContext();
 

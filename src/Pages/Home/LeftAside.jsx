@@ -4,7 +4,7 @@ import { BsFillMicFill, BsImageFill } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
 import { useRootContext } from '../../contexts/RootProvider';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FiDelete } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
 import nsnlogo from '../../assets/logo.jpeg';
@@ -12,7 +12,6 @@ import ChatHeading from './Chat/ChatHeading';
 import TypingIndicator from '../../Components/TypingIndicator';
 import MessageReceiver from './Chat/MessageReceiver';
 import MessageSender from './Chat/MessageSender';
-import avatar from "../../assets/placeholders/avatar.png";
 import Chathome from './Chat/Chathome';
 import Cta from './Components/Cta';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,9 +21,10 @@ import { useCreateProjectMutation, useUpdateProjectMutation } from '../../featur
 import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { addChatLog, removeArtist, removeChatLog, setChatLog } from '../../features/project/projectSlice';
 import GetProjectReference from './Chat/GetProjectReference';
+import MessageCta from './Chat/MessageCta';
 
 const LeftAside = () => {
-    const { handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills, setArtistProfile } = useRootContext();
+    const { handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills, setArtistProfile, avatar } = useRootContext();
 
     const dispatch = useDispatch();
     const [createProject] = useCreateProjectMutation();
@@ -182,7 +182,7 @@ const LeftAside = () => {
 
     const currentProjectDashboardUrl = `/projects/${currentProject?.pk}/${currentProject?.stage}/`;
     const ctaStages = {
-        lead: [["Project Dashboard", currentProjectDashboardUrl], ["Add More Artist", "/artists"], ["View Demos"], ["Support"]],
+        lead: [["Project Dashboard", currentProjectDashboardUrl], ["Add More Artist", "/artists"], ["View Demos", "/projects"], ["Support"]],
         inProgress: [["Project Dashboard", currentProjectDashboardUrl], ["Approve"], ["Decline"], ["Put On Hold"]],
         approved: [["Project Dashboard", currentProjectDashboardUrl], ["Proceed to DocuSign"], ["Need help"], ["Change Dicission"]],
         payment: [["Make Payment"]],
@@ -251,6 +251,16 @@ const LeftAside = () => {
                                         ))
                                     }
 
+                                    {
+                                        currentProject?.pk &&
+                                        <MessageCta MessageCta
+                                            image={avatar}
+                                        >
+                                            <Link to={`/projects/demos/${currentProject?.pk}`}><MsgCtaBtn>View Demos</MsgCtaBtn></Link>
+                                            <MsgCtaBtn>DocuSign Pending</MsgCtaBtn>
+                                            <MsgCtaBtn>Payment Pending</MsgCtaBtn>
+                                        </MessageCta>
+                                    }
                                     {/* project reference links */}
                                     {
                                         showProjectReferenceLinkInput &&
@@ -353,8 +363,16 @@ const LeftAside = () => {
                     </div>
                 </div>
             </div>
-        </section>
+        </section >
     );
 };
 
 export default LeftAside;
+
+const MsgCtaBtn = ({ children }) => {
+    return (
+        <p className='border border-blue-500 w-fit ml-auto text-blue-700 hover:bg-blue-500 hover:text-white hover:font-medium shadow-lg p-2 text-sm rounded-bl-lg rounded-br-lg rounded-tl-lg cursor-pointer mb-2 active:scale-90 duration-150'>
+            {children}
+        </p>
+    )
+}

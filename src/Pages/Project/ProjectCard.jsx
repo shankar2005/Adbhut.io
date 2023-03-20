@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { Spotify } from "react-spotify-embed";
-import avatar from "../../assets/placeholders/avatar.png";
+import { useRootContext } from "../../contexts/RootProvider";
 import { useGetProjectQuery } from "../../features/project/projectApi";
 import useYoutubeEmbaded from "../../hooks/useYoutubeEmbaded";
 
 const ProjectCard = ({ projectId }) => {
+    const { avatar } = useRootContext();
     const { data: project = {} } = useGetProjectQuery(projectId);
     const artist = {};
 
@@ -28,7 +29,7 @@ const ProjectCard = ({ projectId }) => {
             <div className='flex items-center justify-between gap-2 mb-3'>
                 <div className="flex items-center gap-3">
                     <Link to={`/projects/${project.pk}/${project.stage}`}>
-                        <img className='w-12 h-12' src={artist.profile_pic || avatar} alt="" />
+                        <img className='w-12 h-12 rounded-full' src={artist.profile_pic || avatar} alt="" />
                     </Link>
                     <div className='text-sm'>
                         <Link to={`/projects/${project.pk}/${project.stage}`}>

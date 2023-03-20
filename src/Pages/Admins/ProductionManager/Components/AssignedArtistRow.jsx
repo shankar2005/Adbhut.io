@@ -3,7 +3,7 @@ import { useRootContext } from "../../../../contexts/RootProvider";
 import { useUnAssignArtistMutation } from "../../../../features/artist/artistApi";
 
 const AssignedArtistRow = ({ artist, projectId }) => {
-    const { setArtistProfile } = useRootContext();
+    const { setArtistProfile, avatar } = useRootContext();
     const [unAssignArtist] = useUnAssignArtistMutation();
 
     const handleUnassignArtist = () => {
@@ -13,7 +13,7 @@ const AssignedArtistRow = ({ artist, projectId }) => {
     return (
         <div className=' text-sm bg-green-100 p-2 mb-1 border border-blue-300 rounded-lg'>
             <div className='flex items-center gap-2'>
-                <img className='w-10 h-10 rounded-full' src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541" alt="" />
+                <img className='w-10 h-10 rounded-full' src={avatar} alt="" />
                 <div>
                     <button onClick={() => setArtistProfile(artist.id)}><p className='font-medium hover:underline'>{artist.name}</p></button>
                     <p className='text-xs'>Status: <span className='bg-gray-400 p-0.5 px-1 rounded text-gray-50'>available</span></p>
