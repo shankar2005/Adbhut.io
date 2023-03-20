@@ -1,11 +1,8 @@
 import LeftAside from '../Pages/Home/LeftAside';
 import Navbar from './Shared/Navbar';
 import RightAside from '../Pages/Home/RightAside';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { useRootContext } from '../contexts/RootProvider';
-import { BiMessageDots } from 'react-icons/bi';
-import { TbTools } from 'react-icons/tb';
-import { CiViewTimeline } from 'react-icons/ci';
 import ArtistProfile from '../Pages/Artist/ArtistProfile';
 import { useEffect } from 'react';
 import Backdrop from '../Components/Backdrop/Backdrop';
@@ -17,7 +14,7 @@ import { closeAllDropdown } from '../features/dropdown/dropdownSlice';
 import { useState } from 'react';
 
 const Root = () => {
-    const { artistProfile, setArtistProfile, showModal, visible, setVisible } = useRootContext();
+    const { artistProfile, setArtistProfile, showModal } = useRootContext();
 
     const location = useLocation();
     const pathname = location.pathname;
@@ -59,23 +56,6 @@ const Root = () => {
         }
     };
 
-    // top togglebar hide on scroll down show on scroll up
-    const [yOffset, setYOffset] = useState(window.pageYOffset);
-
-    useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    });
-
-    function handleScroll() {
-        const currentYOffset = window.pageYOffset;
-        const visible = yOffset > currentYOffset;
-
-        setYOffset(currentYOffset);
-        setVisible(visible);
-    }
-    // 
-
     return (
         <div className='bg-gray-100 min-h-screen'>
 
@@ -96,7 +76,7 @@ const Root = () => {
 
 
                     {/* togglebar */}
-                    <TopToggleBar className={`${visible || "-top-20"} duration-500`} />
+                    <TopToggleBar />
                     {/* togglebar */}
 
 

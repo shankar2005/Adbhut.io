@@ -63,8 +63,6 @@ const RootProvider = ({ children }) => {
                 artistId: artistID
             })
         }
-
-        setVisible(true);
     }
 
     // views
@@ -154,8 +152,6 @@ const RootProvider = ({ children }) => {
         setRemovedSkill([]);
     }
 
-    const [visible, setVisible] = useState(true);
-
     // stored values
     const value = {
         demoType,
@@ -187,8 +183,6 @@ const RootProvider = ({ children }) => {
         setShowModal,
         setConfirm,
         handleClearFilter,
-        visible,
-        setVisible,
         setRemovedSkill
     }
 

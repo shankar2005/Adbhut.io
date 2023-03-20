@@ -163,12 +163,7 @@ const LeftAside = () => {
         }
     }
 
-    let name;
-    if (user.name?.length <= 1) {
-        name = user.username;
-    } else {
-        name = user.name;
-    }
+    let name = user.name?.length > 2 ? user.name : user.email;
 
     const TypingElement = isTyping &&
         <div className='text-sm flex mb-5'>
