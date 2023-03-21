@@ -6,11 +6,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
-import { useGetDreamProjectsQuery } from '../../features/project/projectApi';
 import { clearProject, setArtist, setChatLog, setContentProduct } from '../../features/project/projectSlice';
 
 const RightAside = () => {
-    const { contentProducts, handleSelectContentProduct } = useRootContext();
+    const { contentProducts, handleSelectContentProduct, currentProjects } = useRootContext();
 
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
@@ -74,12 +73,17 @@ const RightAside = () => {
 
                 <section className='text-gray-700 text-sm p-4 border-b'>
                     <ul className="space-y-2">
-                        <li>
-                            <Link to="/projects/myprojects" className='hover:underline'>
-                                <p className='font-medium'>My Projects</p>
-                                <p className='text-xs'>Your current on-going projects</p>
-                            </Link>
-                        </li>
+                        <Link to="/projects/myprojects" className='hover:underline'>
+                            <li className='flex justify-between'>
+                                <div>
+                                    <p className='font-medium'>My Projects</p>
+                                    <p className='text-xs'>Your current on-going projects</p>
+                                </div>
+                                <div className='bg-red-500 h-fit py-0.5 px-1 text-white font-bold'>
+                                    {currentProjects?.length}
+                                </div>
+                            </li>
+                        </Link>
                         <li>
                             <Link className='hover:underline'>
                                 <p className='font-medium'>Dream Projects</p>

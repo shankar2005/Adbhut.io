@@ -21,7 +21,6 @@ import { useCreateProjectMutation, useUpdateProjectMutation } from '../../featur
 import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { addChatLog, removeArtist, removeChatLog, setChatLog } from '../../features/project/projectSlice';
 import GetProjectReference from './Chat/GetProjectReference';
-import MessageCta from './Chat/MessageCta';
 
 const LeftAside = () => {
     const { handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills, setArtistProfile, avatar } = useRootContext();
@@ -36,6 +35,9 @@ const LeftAside = () => {
 
     const [sendMessageToGPT] = useSendMessageToGPTMutation();
     const [sendMessage] = useSendMessageMutation();
+
+    const navigate = useNavigate();
+    const pathname = useLocation().pathname;
 
     const chatboxRef = useRef();
     useEffect(() => {
@@ -62,7 +64,6 @@ const LeftAside = () => {
         dispatch(removeArtist(artistID));
     }
 
-    const navigate = useNavigate();
     // send brief
     const handleSendBrief = () => {
         if (!user.email) {
@@ -173,14 +174,38 @@ const LeftAside = () => {
             </div>
         </div>
 
-    const pathname = useLocation().pathname;
+    // 
+    const viewDemos = () => navigate(`/projects/demos/${currentProject?.pk}`);
+    const handleGetSupport = () => {
+        setIsTyping(true);
+        const message = { msgID: chatLog.length + 1, [sender]: "Get Support" };
+        dispatch(addChatLog(message));
 
-    const currentProjectDashboardUrl = `/projects/${currentProject?.pk}/${currentProject?.stage}/`;
+        sendMessageToGPT({
+            message: "Get Support"
+        }).then(response => {
+            const data = response.data;
+            if (data?.response) {
+                dispatch(addChatLog({ msgID: chatLog.length + 1, bot: data?.response }));
+                setIsTyping(false);
+            }
+        }).catch((err) => {
+            setIsTyping(false);
+        })
+    }
+
     const ctaStages = {
-        lead: [["Project Dashboard", currentProjectDashboardUrl], ["Add More Artist", "/artists"], ["View Demos", "/projects"], ["Support"]],
-        inProgress: [["Project Dashboard", currentProjectDashboardUrl], ["Approve"], ["Decline"], ["Put On Hold"]],
-        approved: [["Project Dashboard", currentProjectDashboardUrl], ["Proceed to DocuSign"], ["Need help"], ["Change Dicission"]],
-        payment: [["Make Payment"]],
+        lead: [
+            ["View Demos", viewDemos],
+            ["Docusign Pending", null, "warning"],
+            ["Payment Pending", null, "warning"],
+            ["Get Support", handleGetSupport]
+        ],
+        inProgress: [
+            ["Approve"],
+            ["Decline"],
+            ["Put On Hold"]
+        ],
     }
 
     let suggestionElement;
@@ -194,6 +219,7 @@ const LeftAside = () => {
         suggestionElement = (suggestions?.length > 0 || removedSkills?.length > 0) &&
             <Cta className='sticky bottom-0' />
     }
+    // 
 
     const [showProjectReferenceLinkInput, setShowProjectReferenceLinkInput] = useState(false);
 
@@ -246,16 +272,6 @@ const LeftAside = () => {
                                         ))
                                     }
 
-                                    {
-                                        currentProject?.pk &&
-                                        <MessageCta MessageCta
-                                            image={avatar}
-                                        >
-                                            <Link to={`/projects/demos/${currentProject?.pk}`}><MsgCtaBtn>View Demos</MsgCtaBtn></Link>
-                                            <MsgCtaBtn>DocuSign Pending</MsgCtaBtn>
-                                            <MsgCtaBtn>Payment Pending</MsgCtaBtn>
-                                        </MessageCta>
-                                    }
                                     {/* project reference links */}
                                     {
                                         showProjectReferenceLinkInput &&
@@ -353,7 +369,7 @@ const LeftAside = () => {
                                 ? <button onClick={handleSendUserInput} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
                                 : (selectedContentProduct || currentProject?.pk || shortlistedArtists?.length > 0)
                                     ? <button onClick={currentProject?.stage === "DreamProject" ? handleChangeStage : handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Save</button>
-                                    : <button className='bg-gray-300 text-gray-400 py-[3px] px-3 rounded-full text-sm'>Save</button>
+                                    : <button className='bg-gray-300 text-gray-400 py-[3px] px-3 rounded-full text-sm' disabled>Save</button>
                         }
                     </div>
                 </div>
@@ -363,11 +379,3 @@ const LeftAside = () => {
 };
 
 export default LeftAside;
-
-const MsgCtaBtn = ({ children }) => {
-    return (
-        <p className='border border-blue-500 w-fit ml-auto text-blue-700 hover:bg-blue-500 hover:text-white hover:font-medium shadow-lg p-2 text-sm rounded-bl-lg rounded-br-lg rounded-tl-lg cursor-pointer mb-2 active:scale-90 duration-150'>
-            {children}
-        </p>
-    )
-}

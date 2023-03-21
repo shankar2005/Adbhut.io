@@ -10,7 +10,7 @@ const MessageSender = ({ name, image, text }) => {
         >
             <div className='text-sm flex gap-2 mb-5'>
                 <div className='ml-12'>
-                    <h4 className='font-medium text-right'>{name}</h4>
+                    {/* <h4 className='font-medium text-right'>{name}</h4> */}
                     <p className='bg-sky-100 w-fit ml-auto  p-3 rounded-bl-lg rounded-br-lg rounded-tl-lg'>
                         {text}
                     </p>
