@@ -30,7 +30,7 @@ const GetProjectReference = ({ setShowProjectReferenceLinkInput }) => {
     const handleSubmit = () => {
         dispatch(setReferenceLinks(fields));
         setShowProjectReferenceLinkInput(false);
-        dispatch(addChatLog({ msgID: chatLog.length + 1, user: `Project Reference Links: ${fields?.join(", ")}` }));
+        dispatch(addChatLog({ msgID: chatLog.length + 1, bot: `Project Reference Links: ${fields?.join(", ")}` }));
     }
 
     return (
