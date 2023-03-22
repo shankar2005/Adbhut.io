@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRootContext } from '../../../contexts/RootProvider';
 import { BsThreeDots, BsTrash } from 'react-icons/bs';
+import { IoArrowBackCircleOutline } from 'react-icons/io5';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -157,9 +158,10 @@ const ProjectManagement = () => {
 
     return (
         <div className='bg-white rounded-lg shadow-lg'>
-            <div className='border-b shadow-sm font-medium p-3 py-[15px] flex justify-between items-center relative'>
-                <div className='flex gap-2 items-center'>
+            <div className='border-b shadow-sm font-medium p-3 flex justify-between items-center relative'>
+                <div className='flex gap-1.5 items-center'>
                     <h3>Project Dashboard</h3>
+                    <Link to="/artists"><IoArrowBackCircleOutline className='text-gray-500' size={30} /></Link>
                 </div>
                 <BsThreeDots onClick={() => setactionToggle(!actionToggle)} className='cursor-pointer' />
                 {

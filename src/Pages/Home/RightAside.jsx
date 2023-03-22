@@ -29,7 +29,7 @@ const RightAside = () => {
         <>
             <div className='bg-white rounded-lg'>
                 <section className='border-b'>
-                    <div className='border-b shadow-sm font-medium p-3 py-[15px]'>
+                    <div className='border-b shadow-sm font-medium p-4'>
                         <h3>Toolkit</h3>
                     </div>
 
