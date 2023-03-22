@@ -31,7 +31,7 @@ const LeftAside = () => {
     const { user } = useSelector(state => state.auth);
     const currentProject = useSelector(state => state.project);
 
-    const { chatLog, shortlistedArtists, selectedContentProduct, reference_links } = useSelector(state => state.project);
+    const { chatLog, shortlistedArtists, selectedContentProduct, reference_links, referenceLinksHasTaken } = useSelector(state => state.project);
 
     const [sendMessageToGPT] = useSendMessageToGPTMutation();
     const [sendMessage] = useSendMessageMutation();
@@ -70,7 +70,7 @@ const LeftAside = () => {
             return dispatch(showLogin());
         }
 
-        if (!reference_links) {
+        if (!referenceLinksHasTaken) {
             setShowProjectReferenceLinkInput(true);
             return
         }

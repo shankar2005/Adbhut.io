@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FiPlus, FiTrash } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { addChatLog, setReferenceLinks } from "../../../features/project/projectSlice";
+import { addChatLog, setReferenceLinks, setReferenceLinksHasTaken } from "../../../features/project/projectSlice";
 
 const GetProjectReference = ({ setShowProjectReferenceLinkInput }) => {
     const [fields, setFields] = useState(['']);
@@ -38,7 +38,10 @@ const GetProjectReference = ({ setShowProjectReferenceLinkInput }) => {
             Do you have any project reference links?
             <div className='space-x-1.5 mt-1 text-black'>
                 <button onClick={() => setShowInputs(true)} className='bg-white py-1.5 px-3 rounded-md'>Yes</button>
-                <button onClick={() => setShowProjectReferenceLinkInput(false)} className='bg-white py-1.5 px-3 rounded-md'>No</button>
+                <button onClick={() => {
+                    setShowProjectReferenceLinkInput(false);
+                    dispatch(setReferenceLinksHasTaken());
+                }} className='bg-white py-1.5 px-3 rounded-md'>No</button>
             </div>
             {
                 showInputs &&
