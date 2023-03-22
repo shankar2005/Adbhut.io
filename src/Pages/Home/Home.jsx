@@ -18,7 +18,7 @@ const Home = () => {
                         <Link className=''>Artist</Link>
                         <a target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show' className=''>Hiring</a>
                     </p>
-                    <label for="userState" className="inline-flex items-center p-1 cursor-pointer bg-gray-300 text-black text-xs md:text-sm font-medium uppercase select-none">
+                    <label htmlFor="userState" className="inline-flex items-center p-1 cursor-pointer bg-gray-300 text-black text-xs md:text-sm font-medium uppercase select-none">
                         <input onChange={() => dispatch(setViewMode())} id="userState" type="checkbox" className="hidden peer" />
                         <span className={`px-4 py-2 ${isFullTime ? "bg-black text-white" : "bg-gray-300"} duration-300`}>Full Time</span>
                         <span className={`px-4 py-2 ${isFullTime ? "bg-gray-300" : "bg-black text-white"} duration-300`}>For Project</span>

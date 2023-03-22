@@ -91,7 +91,9 @@ const Root = () => {
 
 
                 <aside className={`${showToolkit || "hidden"} col-span-3 sticky top-20 rightSide max-h-[88vh] overflow-y-scroll pb-5`}>
-                    <RightAside />
+                    <div className='hidden md:block'>
+                        <RightAside />
+                    </div>
                 </aside>
 
                 <div className='lg:hidden'>

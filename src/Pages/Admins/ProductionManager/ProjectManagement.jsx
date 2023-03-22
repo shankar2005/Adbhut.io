@@ -384,11 +384,11 @@ const ProjectManagement = () => {
                             </div>
                             <div className="col-span-2 flex items-center">
                                 <input {...register("final_fee_settlement_status")} id="default-checkbox" type="checkbox" className="w-4 h-4 text-blue-600 rounded ring-offset-gray-800 bg-gray-700 border-gray-600" />
-                                <label for="default-checkbox" className="ml-2 text-sm font-medium text-gray-900">Final fee settlement</label>
+                                <label htmlFor="default-checkbox" className="ml-2 text-sm font-medium text-gray-900">Final fee settlement</label>
                             </div>
                             <div className="col-span-2 flex items-center mb-4">
                                 <input {...register("final_fee_settlement_status")} id="default-checkbox" type="checkbox" className="w-4 h-4 text-blue-600 rounded ring-offset-gray-800 bg-gray-700 border-gray-600" />
-                                <label for="default-checkbox" className="ml-2 text-sm font-medium text-gray-900">Contract status</label>
+                                <label htmlFor="default-checkbox" className="ml-2 text-sm font-medium text-gray-900">Contract status</label>
                             </div>
                         </div>
                 }

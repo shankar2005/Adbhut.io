@@ -18,7 +18,7 @@ const ArtistProfile = () => {
     const { artistID, name, profile_pic, skills, languages, workLinks, location_name } = data || {};
 
     return (
-        <div className='bg-white rounded-l-md p-3 shadow-xl h-full'>
+        <div className='bg-white rounded-l-md p-5 shadow-xl h-full'>
             <div className='flex items-start'>
                 <div className="flex gap-3 items-center">
                     <button onClick={() => setArtistProfile(null)} type='button'>
@@ -44,7 +44,7 @@ const ArtistProfile = () => {
                         : <button onClick={() => handleShortlist(artistID, name, profile_pic)} className='ml-auto text-blue-500 border-2 hover:border-blue-500 bg-sky-100 border-sky-100 py-3 px-4 rounded-lg font-medium z-10'>Shortlist</button>
                 }
             </div>
-            <div className='artistProfile px-10 mt-5 pb-3'>
+            <div className='artistProfile mt-5'>
                 <Swiper
                     slidesPerView={1}
                     modules={[Navigation]}

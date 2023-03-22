@@ -13,7 +13,6 @@ import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearch } from '../../features/filter/filterSlice';
 import { closeLogin, showAccount, showLocation, showLogin, showSkill } from '../../features/dropdown/dropdownSlice';
-import { BiMessageDots } from 'react-icons/bi';
 
 const Navbar = ({ setShowToolkit }) => {
     const { setdemoType, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills, avatar } = useRootContext();
@@ -220,11 +219,6 @@ const Navbar = ({ setShowToolkit }) => {
                     </div>
                 </div>
                 <ul className='flex items-center gap-4 text-gray-500 flex-1 py-3 justify-end'>
-                    <li className='ml-auto lg:hidden'>
-                        <Link to="/projects/chat">
-                            <BiMessageDots size={25} />
-                        </Link>
-                    </li>
                     {
                         user.email &&
                         <li className='flex items-center gap-2 relative'>
