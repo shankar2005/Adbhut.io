@@ -225,9 +225,12 @@ const Navbar = ({ setShowToolkit }) => {
                             <img className='hidden md:block w-24' src={logo} alt="" />
                             <img onClick={() => dispatch(showAccount())} className='w-10 h-10 rounded-full border' src={user?.role === "Client" ? avatar : nsnlogo} alt="" />
                             {/* modal */}
-                            <div className={`${!accountModal && 'hidden'} absolute top-12 right-0`}>
-                                <ProfileDropdown />
-                            </div>
+                            {
+                                accountModal &&
+                                <div className="absolute top-12 right-0">
+                                    <ProfileDropdown />
+                                </div>
+                            }
                         </li>
                     }
                     {

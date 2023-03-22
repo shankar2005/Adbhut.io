@@ -9,6 +9,7 @@ import ArtistRowView from '../Artist/Components/View/ArtistRowView';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearch } from '../../features/filter/filterSlice';
 import { showLogin } from '../../features/dropdown/dropdownSlice';
+import NothingFound from '../../Components/NotFound/NothingFound';
 
 const Feed = () => {
     const { demoType, checkedSkills, checkedGenres, checkedLocations, viewAs, avatar } = useRootContext();
@@ -105,6 +106,10 @@ const Feed = () => {
                     }
                 </div>
         )
+    }
+
+    if(!artists.length){
+        return <NothingFound />
     }
 
     return (
