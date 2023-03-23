@@ -24,7 +24,7 @@ const AuthSection = () => {
             {
                 isLoginForm
                     ? <h2 className="mb-3 text-2xl font-semibold text-center">Login to your account</h2>
-                    : <h2 className="mb-3 text-2xl font-semibold text-center">Sign up a account</h2>
+                    : <h2 className="mb-3 text-2xl font-semibold text-center">Sign up an account</h2>
             }
 
             {

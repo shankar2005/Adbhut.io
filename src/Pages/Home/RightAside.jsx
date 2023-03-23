@@ -75,10 +75,17 @@ const RightAside = () => {
                     <ul className="space-y-2">
                         <Link to="/projects/myprojects" className='hover:underline'>
                             <li className='flex justify-between'>
-                                <div>
-                                    <p className='font-medium'>My Projects</p>
-                                    <p className='text-xs'>Your current on-going projects</p>
-                                </div>
+                                {
+                                    user?.role === "PM"
+                                        ? <div>
+                                            <p className='font-medium'>All Projects</p>
+                                            <p className='text-xs'>All on-going projects</p>
+                                        </div>
+                                        : <div>
+                                            <p className='font-medium'>My Projects</p>
+                                            <p className='text-xs'>Your current on-going projects</p>
+                                        </div>
+                                }
                                 <div className='bg-red-500 h-fit py-0.5 px-1 text-white font-bold'>
                                     {currentProjects?.length}
                                 </div>

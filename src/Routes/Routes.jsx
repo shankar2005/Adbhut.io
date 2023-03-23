@@ -3,6 +3,7 @@ import Root from "../layouts/Root";
 import ArtistAdmin from "../Pages/Admins/ArtistAdmin/ArtistAdmin";
 import ProjectManagement from "../Pages/Admins/ProductionManager/ProjectManagement";
 import ArtistEntry from "../Pages/Artist/ArtistEntry";
+import ShortlistedArtists from "../Pages/Artist/ShortlistedArtists";
 import Feed from "../Pages/Home/Feed";
 import Home from "../Pages/Home/Home";
 import LeftAside from "../Pages/Home/LeftAside";
@@ -58,7 +59,11 @@ const router = createBrowserRouter([
                 element: <LeftToRight>
                     <div className="md:hidden"><LeftAside /></div>
                 </LeftToRight>
-            }
+            },
+            {
+                path: '/projects/shortlisted-artists',
+                element: <ShortlistedArtists />,
+            },
         ]
     },
     {

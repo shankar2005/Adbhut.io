@@ -1,7 +1,5 @@
-import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { IoArrowBackCircleOutline } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Button from '../../Components/Button/Button';
@@ -96,7 +94,6 @@ const CreateProject = () => {
             <div className='border-b shadow-sm font-medium p-3 py-[15px] flex justify-between items-center relative'>
                 <div className='flex gap-2 items-center'>
                     <h3>Project Dashboard</h3>
-                    <Link to="/artists"><IoArrowBackCircleOutline className='text-gray-500' size={30} /></Link>
                 </div>
             </div>
 

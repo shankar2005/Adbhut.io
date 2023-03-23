@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRootContext } from '../../../contexts/RootProvider';
 import { BsThreeDots, BsTrash } from 'react-icons/bs';
-import { IoArrowBackCircleOutline } from 'react-icons/io5';
 import { toast } from 'react-hot-toast';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -161,7 +160,6 @@ const ProjectManagement = () => {
             <div className='border-b shadow-sm font-medium p-3 flex justify-between items-center relative'>
                 <div className='flex gap-1.5 items-center'>
                     <h3>Project Dashboard</h3>
-                    <Link to="/artists"><IoArrowBackCircleOutline className='text-gray-500' size={30} /></Link>
                 </div>
                 <BsThreeDots onClick={() => setactionToggle(!actionToggle)} className='cursor-pointer' />
                 {
@@ -222,7 +220,7 @@ const ProjectManagement = () => {
                             </div>
                             : <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Production solution</label>
-                                <textarea {...register("production_solution")} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Production solution"></textarea>
+                                <textarea {...register("production_solution")} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Production solution" defaultValue={currentProject?.production_solution}></textarea>
                             </div>
                     }
 
@@ -235,7 +233,7 @@ const ProjectManagement = () => {
                             </div>
                             : <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Artist discussion updates</label>
-                                <textarea {...register("artist_discussion_updates")} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Artist discussion updates"></textarea>
+                                <textarea {...register("artist_discussion_updates")} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Artist discussion updates" defaultValue={currentProject?.artist_discussion_updates}></textarea>
                             </div>
                     }
 
@@ -286,7 +284,7 @@ const ProjectManagement = () => {
                     }
 
                     {
-                        user.role === "Product Manager" || user.role === "Artist Manager" ?
+                        user.role === "PM" || user.role === "AM" ?
                             currentProject?.post_project_client_feedback
                             && <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Artist assignment</label>
@@ -354,27 +352,27 @@ const ProjectManagement = () => {
                         <div className='px-4 grid grid-cols-2 gap-2'>
                             <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Assigned artist payouts</label>
-                                <input {...register("assigned_artist_payouts")} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                                <input {...register("assigned_artist_payouts")} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" defaultValue={currentProject?.assigned_artist_payouts} />
                             </div>
                             <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Solution Fee</label>
-                                <input {...register("solution_fee")} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" disabled />
+                                <input {...register("solution_fee")} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed" min={0} placeholder="Enter amount" disabled defaultValue={currentProject?.solution_fee} />
                             </div>
                             <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Production Advance</label>
-                                <input {...register("production_advance")} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" disabled />
+                                <input {...register("production_advance")} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed" min={0} placeholder="Enter amount" disabled defaultValue={currentProject?.production_advance} />
                             </div>
                             <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Negotiated Advance</label>
-                                <input {...register("negotiated_advance")} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                                <input {...register("negotiated_advance")} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" defaultValue={currentProject?.negotiated_advance} />
                             </div>
                             <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Final Advance</label>
-                                <input {...register("final_advance")} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                                <input {...register("final_advance")} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" defaultValue={currentProject?.final_advance} />
                             </div>
                             <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Post-Project Client’s Total Payout</label>
-                                <input {...register("post_project_client_total_payout")} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                                <input {...register("post_project_client_total_payout")} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" defaultValue={currentProject?.post_project_client_total_payout} />
                             </div>
                             <div className="mb-4 flex items-center gap-2">
                                 <label className="block text-sm font-medium text-gray-900">Advance Status:</label>
@@ -385,11 +383,11 @@ const ProjectManagement = () => {
                                 <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-gray-200 rounded-full'>{currentProject?.artist_payout_status || 'N/A'}</p>
                             </div>
                             <div className="col-span-2 flex items-center">
-                                <input {...register("final_fee_settlement_status")} id="default-checkbox" type="checkbox" className="w-4 h-4 text-blue-600 rounded ring-offset-gray-800 bg-gray-700 border-gray-600" />
+                                <input {...register("final_fee_settlement_status")} id="default-checkbox" type="checkbox" className="w-4 h-4 text-blue-600 rounded ring-offset-gray-800 bg-gray-700 border-gray-600" defaultChecked={currentProject?.final_fee_settlement_status} />
                                 <label htmlFor="default-checkbox" className="ml-2 text-sm font-medium text-gray-900">Final fee settlement</label>
                             </div>
                             <div className="col-span-2 flex items-center mb-4">
-                                <input {...register("final_fee_settlement_status")} id="default-checkbox" type="checkbox" className="w-4 h-4 text-blue-600 rounded ring-offset-gray-800 bg-gray-700 border-gray-600" />
+                                <input {...register("contract_statue")} id="default-checkbox" type="checkbox" className="w-4 h-4 text-blue-600 rounded ring-offset-gray-800 bg-gray-700 border-gray-600" />
                                 <label htmlFor="default-checkbox" className="ml-2 text-sm font-medium text-gray-900">Contract status</label>
                             </div>
                         </div>
@@ -413,7 +411,7 @@ const ProjectManagement = () => {
                                             <Button variant="primary" type="submit">Save Changes</Button>
                                         }
                                         {
-                                            user.role === "Product Manager" &&
+                                            user.role === "PM" &&
                                             <Button variant="primary" onClick={handleSubmitToClient}>Submit to client</Button>
                                         }
                                     </div>

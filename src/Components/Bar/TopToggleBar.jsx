@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { IoIosArrowBack } from 'react-icons/io';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { useRootContext } from '../../contexts/RootProvider';
@@ -12,9 +11,7 @@ const TopToggleBar = ({ className }) => {
     const currentProject = useSelector(state => state.project);
 
     const { setViewAs, isMobile, suggestions, removedSkills } = useRootContext();
-    const location = useLocation();
     const pathname = useLocation().pathname;
-    const fromCreateProject = location.state?.from?.pathname?.includes("/create-project");
 
     const handleViewAs = e => {
         setViewAs(e.target.value);
@@ -59,7 +56,7 @@ const TopToggleBar = ({ className }) => {
                         <li>
                             <div className="flex items-center">
                                 <RiArrowRightSLine />
-                                <Link to="/artists" className="ml-1 text-sm hover:text-blue-600 md:ml-2">Feed</Link>
+                                <Link to="/projects/shortlisted-artists" className="ml-1 text-sm hover:text-blue-600 md:ml-2">Shortlisted Artist</Link>
                             </div>
                         </li>
                     </ol>
