@@ -1,9 +1,9 @@
 import { ImOffice } from 'react-icons/im';
-import { TfiWorld } from 'react-icons/tfi';
 import { FiLogOut } from 'react-icons/fi';
 import Cookies from 'universal-cookie';
 import Button from '../../../Components/Button/Button';
 import logo from "../../../assets/logos/adbeta.jpeg"
+import profileCover from "../../../assets/placeholders/profile_cover.png"
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
@@ -29,7 +29,7 @@ const ProfileDropdown = () => {
     return (
         <div className="bg-white w-60 border rounded-md shadow-2xl">
             <div className='relative'>
-                <img className='rounded-t-lg border-b border-orange-400' src="https://images.template.net/wp-content/uploads/2014/11/Natural-Facebook-Cover-Photo.jpg" alt="" />
+                <img className='rounded-t-lg border-b h-32 w-full' src={profileCover} alt="" />
                 <div className='rounded-full bg-white absolute bottom-0 right-1/2 translate-y-1/2 translate-x-1/2 border-4 border-white'>
                     <img className='w-16 h-16 rounded-full' src={user?.role === "Client" ? (user?.image || avatar) : logo} alt="" />
                 </div>
