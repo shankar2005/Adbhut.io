@@ -43,7 +43,7 @@ const MsgItem = (id) => {
             }))
             sessionStorage.setItem("CURRENT_PROJECT", id?.id?.pk);
 
-        }} className='p-4 py-5 flex items-center gap-3 hover:bg-gray-200'>
+        }} className='cursor-pointer p-4 py-5 flex items-center gap-3 hover:bg-gray-200'>
             <img className='w-16 h-16 object-cover rounded-full border' src={avatar} alt="" />
             <p className='text-sm'><strong>{currentProject?.client_details?.name}</strong> </p>
             <p className='text-sm'><strong>{currentProject?.pk}</strong> </p>
