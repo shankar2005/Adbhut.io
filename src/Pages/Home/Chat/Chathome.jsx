@@ -13,6 +13,7 @@ import MessageSender from './MessageSender';
 const Chathome = ({ chatboxRef, nsnlogo }) => {
     const dispatch = useDispatch();
     const { isFullTime } = useSelector(state => state.viewMode);
+    const { user } = useSelector(state => state.auth);
     const { chatLog, selectedContentProduct } = useSelector(state => state.project);
     const currentProject = useSelector(state => state.project);
 

@@ -5,6 +5,7 @@ import { useRootContext } from '../../contexts/RootProvider';
 import Cta from '../../Pages/Home/Components/Cta';
 import { RiArrowRightSLine } from 'react-icons/ri';
 import { BsFillChatFill } from 'react-icons/bs';
+import { ImUsers } from 'react-icons/im';
 
 const TopToggleBar = ({ className }) => {
     const { shortlistedArtists } = useSelector(state => state.project);
@@ -33,9 +34,9 @@ const TopToggleBar = ({ className }) => {
         <section className={`sticky top-20 w-full z-30 bg-white border border-blue-100 shadow mb-2 rounded-t-lg ${className}`}>
             <div className="flex justify-between items-center p-2">
                 <nav className="flex px-2 py-1" aria-label="Breadcrumb">
-                    <ol className="inline-flex items-center space-x-1 md:space-x-3">
-                        <li className={`mr-3 ${clicked ? 'animate-vibrate' : ''}`}>
-                            <Link to={isMobile && "/projects/chat"} className="relative text-sm hover:text-blue-600">
+                    <ol className="inline-flex items-center gap-2">
+                        <li className={`md:hidden flex items-center gap-4 ${clicked && 'animate-vibrate'}`}>
+                            <Link to="/projects/chat" className="relative text-sm hover:text-blue-600">
                                 <span className='flex items-center gap-1.5'>
                                     <BsFillChatFill />
                                     Chat
@@ -44,17 +45,29 @@ const TopToggleBar = ({ className }) => {
                                     {shortlistedArtists?.length}
                                 </span>
                             </Link>
+                            <RiArrowRightSLine />
+                        </li>
+                        <li className={`hidden md:flex items-center gap-4 ${clicked && 'animate-vibrate'}`}>
+                            <Link to="/projects/shortlisted-artists" className="relative text-sm hover:text-blue-600">
+                                <span className='flex items-center gap-1.5'>
+                                    <ImUsers />
+                                    Shortlisted Artists
+                                </span>
+                                <span className='absolute -top-1.5 -right-4 rounded-full bg-red-500 h-4 w-4 text-xs text-white flex justify-center items-center'>
+                                    {shortlistedArtists?.length}
+                                </span>
+                            </Link>
+                            <RiArrowRightSLine />
                         </li>
                         <li>
                             <div className="flex items-center">
-                                <RiArrowRightSLine />
                                 <Link to={
                                     currentProject?.pk ? `/projects/${currentProject?.pk}/${currentProject?.stage}` : "/projects/create-project"
-                                } className="ml-1 text-sm hover:text-blue-600 md:ml-2">Dashboard</Link>
+                                } className="text-sm hover:text-blue-600">Dashboard</Link>
                             </div>
                         </li>
                         <li>
-                            <div className="flex items-center">
+                            <div className="md:hidden flex items-center">
                                 <RiArrowRightSLine />
                                 <Link to="/projects/shortlisted-artists" className="ml-1 text-sm hover:text-blue-600 md:ml-2">Shortlisted Artist</Link>
                             </div>

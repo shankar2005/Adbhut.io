@@ -120,7 +120,7 @@ const LeftAside = () => {
             userInputRef.current.focus();
             return;
         };
-        setIsTyping(true);
+        user?.role === "Client" && setIsTyping(true);
 
         // chatlog
         const message = { msgID: chatLog.length + 1, [sender]: userInputText };
@@ -252,22 +252,22 @@ const LeftAside = () => {
                                     {
                                         chatLog.length > 0 &&
                                         chatLog.map((chat, idx) => (
-                                            chat.bot
+                                            chat.bot || chat.artist
                                                 ? <MessageReceiver
                                                     key={idx}
                                                     image={nsnlogo}
                                                     name="Adbhut.io"
-                                                    text={chat.bot}
+                                                    text={
+                                                        chat.bot ||
+                                                        chat.artist &&
+                                                        <>Shortlisted <span className='cursor-pointer' onClick={() => setArtistProfile(chat.artist.artistID)}><img className='w-8 h-8 rounded-full inline bg-white object-cover' src={chat.artist.profile_pic || avatar} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></span> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
+                                                    }
                                                 />
                                                 : <MessageSender
                                                     key={idx}
                                                     image={user?.image || avatar}
                                                     name={name || "Guest Account"}
-                                                    text={
-                                                        chat.user ||
-                                                        chat.type === 'shortlistedArtist' &&
-                                                        <>Shortlisted <span className='cursor-pointer' onClick={() => setArtistProfile(chat.artist.artistID)}><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></span> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
-                                                    }
+                                                    text={chat.user}
                                                 />
                                         ))
                                     }

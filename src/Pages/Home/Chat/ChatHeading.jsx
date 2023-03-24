@@ -4,7 +4,6 @@ import { RiRefreshLine } from 'react-icons/ri';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import nsnlogo from '../../../assets/logo.jpeg'
-import { useRootContext } from '../../../contexts/RootProvider';
 import { useUpdateProjectMutation } from '../../../features/project/projectApi';
 
 const ChatHeading = () => {

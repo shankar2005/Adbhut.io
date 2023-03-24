@@ -41,6 +41,10 @@ const artistApi = apis.injectEndpoints({
             }),
             invalidatesTags: ["Project"]
         }),
+
+        getShortlistedArtists: builder.query({
+            query: (ids) => `/artist_action/?id=${ids}`
+        }),
     })
 });
 
@@ -50,5 +54,6 @@ export const {
     useShortlistArtistMutation,
     useAssignArtistMutation,
     useDeclineArtistMutation,
-    useUnAssignArtistMutation
+    useUnAssignArtistMutation,
+    useGetShortlistedArtistsQuery
 } = artistApi;

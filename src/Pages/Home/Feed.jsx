@@ -10,9 +10,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSearch } from '../../features/filter/filterSlice';
 import { showLogin } from '../../features/dropdown/dropdownSlice';
 import NothingFound from '../../Components/NotFound/NothingFound';
+import FullPageLoader from '../../Components/Loader/PageLoader';
 
 const Feed = () => {
-    const { demoType, checkedSkills, checkedGenres, checkedLocations, viewAs, avatar } = useRootContext();
+    const { demoType, checkedSkills, checkedGenres, checkedLocations, viewAs } = useRootContext();
 
     const { user } = useSelector(state => state.auth);
     const { searchText } = useSelector(state => state.filter);
@@ -106,6 +107,10 @@ const Feed = () => {
                     }
                 </div>
         )
+    }
+
+    if(loading){
+        return <h2 className=''>Loading...</h2>
     }
 
     if(!artists.length){

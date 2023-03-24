@@ -9,6 +9,7 @@ import { logout } from '../../../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { clearProject } from '../../../features/project/projectSlice';
 import { useRootContext } from '../../../contexts/RootProvider';
+import { FaEnvelope } from 'react-icons/fa';
 
 const ProfileDropdown = () => {
     const { avatar } = useRootContext();
@@ -34,11 +35,11 @@ const ProfileDropdown = () => {
                 </div>
             </div>
             <div className='mt-10 pt-0 p-4 text-center'>
-                <h4 className='font-medium text-lg'>{user.name || user.username}</h4>
+                <h4 className='font-medium text-lg'>{user.name || "N/A"}</h4>
                 <div className='text-sm text-gray-600'>
-                    @Founder  <br />
-                    <p className='flex items-center justify-center gap-1 mt-1'><ImOffice /> Company Name</p>
-                    <p className='flex items-center justify-center gap-1 mt-1'><TfiWorld /> https://www.companyurl.com/</p>
+                    @{user.role}  <br />
+                    <p className='flex items-center justify-center gap-1'><FaEnvelope /> {user.email}</p>
+                    <p className='flex items-center justify-center gap-1 mt-1'><ImOffice /> {user.company?.length > 1 ? user.company : "N/A"}</p>
                 </div>
                 <Button variant="primary" onClick={handleLogout} className="flex gap-2 mx-auto mt-4">Logout <FiLogOut className='w-5 h-5' /></Button>
             </div>
