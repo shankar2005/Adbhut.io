@@ -1,11 +1,11 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { useGetCurrentProjectsQuery, useGetDreamProjectsQuery } from '../features/project/projectApi';
+import { useGetCurrentProjectsQuery, useGetDreamProjectsQuery, useGetProjectQuery } from '../features/project/projectApi';
 import { useGetContentProductsQuery, useGetLocationsQuery, useGetSkillsOnProductSelectMutation, useGetSkillsQuery } from '../features/utils/utilsApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useShortlistArtistMutation } from '../features/artist/artistApi';
 import { setSearch } from '../features/filter/filterSlice';
 import { useSendMessageMutation } from '../features/chat/chatApi';
-import { addArtist, addChatLog, clearProject, setContentProduct } from '../features/project/projectSlice';
+import { addArtist, addChatLog, clearProject, setContentProduct, setProjectData } from '../features/project/projectSlice';
 
 const RootContext = createContext();
 
@@ -152,6 +152,29 @@ const RootProvider = ({ children }) => {
         setRemovedSkill([]);
     }
 
+    // 
+    // 
+    // 
+    const [currentProjectId, setCurrentProjectId] = useState(null);
+    const { data: currentProjectData = {}, refetch: currentProjectRefetch } = useGetProjectQuery(currentProjectId);
+    useEffect(() => {
+        setCurrentProjectId(sessionStorage.getItem("CURRENT_PROJECT"));
+    }, [])
+
+    useEffect(() => {
+        if (currentProjectData.pk) {
+            dispatch(setProjectData({
+                chatLog: JSON.parse(currentProjectData.brief),
+                shortlistedArtists: currentProjectData.shortlisted_artists_details?.map(artist => artist.id),
+                selectedContentProduct: currentProjectData.project_template,
+                ...currentProjectData
+            }))
+        }
+    }, [currentProjectData])
+    // 
+    // 
+    // 
+
     // stored values
     const value = {
         demoType,
@@ -183,7 +206,8 @@ const RootProvider = ({ children }) => {
         setShowModal,
         setConfirm,
         handleClearFilter,
-        setRemovedSkill
+        setRemovedSkill,
+        currentProjectRefetch
     }
 
     return (

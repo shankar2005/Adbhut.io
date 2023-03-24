@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,6 +25,10 @@ const CreateProject = () => {
     } = useSelector(state => state.project);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        sessionStorage.removeItem("CURRENT_PROJECT");
+    }, [])
 
     // send brief
     const handleSendBrief = () => {

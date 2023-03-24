@@ -4,9 +4,11 @@ import { RiRefreshLine } from 'react-icons/ri';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import nsnlogo from '../../../assets/logo.jpeg'
+import { useRootContext } from '../../../contexts/RootProvider';
 import { useUpdateProjectMutation } from '../../../features/project/projectApi';
 
 const ChatHeading = () => {
+    const { currentProjectRefetch } = useRootContext();
     const [updateProject] = useUpdateProjectMutation();
     const currentProject = useSelector(state => state.project);
     const { title: projectTitle } = useSelector(state => state.project);
@@ -43,7 +45,7 @@ const ChatHeading = () => {
                     </Link>
                     {
                         currentProject?.pk &&
-                        <button className='active:rotate-180 duration-300' type="button"><RiRefreshLine size={20} /></button>
+                        <button onClick={() => currentProjectRefetch()} className='active:rotate-180 duration-300' type="button"><RiRefreshLine size={20} /></button>
                     }
                 </div>
                 <div className='flex gap-1 pr-1'>

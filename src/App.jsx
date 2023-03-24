@@ -14,6 +14,7 @@ import { useVerifyUserMutation } from './features/auth/authApi';
 import { useEffect } from 'react';
 import { setLoading, setToken, setUser } from './features/auth/authSlice';
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 
 function App() {
   const dispatch = useDispatch();
@@ -42,7 +43,6 @@ function App() {
   // auth/user
   // auth/user
   // auth/user
-
 
   return (
     <>

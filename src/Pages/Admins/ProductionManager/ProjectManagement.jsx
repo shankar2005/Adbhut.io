@@ -34,7 +34,6 @@ const ProjectManagement = () => {
     }, [user])
 
     useEffect(() => {
-        if (currentProject.error || currentProject.detail) return;
         if (currentProject.pk) {
             dispatch(setProjectData({
                 chatLog: JSON.parse(currentProject.brief),
@@ -42,6 +41,8 @@ const ProjectManagement = () => {
                 selectedContentProduct: currentProject.project_template,
                 ...currentProject
             }))
+
+            sessionStorage.setItem("CURRENT_PROJECT", currentProject.pk);
 
             // set data in form
             setValue("title", currentProject.title);
