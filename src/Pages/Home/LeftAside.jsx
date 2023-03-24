@@ -131,7 +131,10 @@ const LeftAside = () => {
         if (user.email && currentProject?.pk) {
             sendMessage({
                 project_id: currentProject.pk,
-                message: message
+                message: message,
+                // chatbot_status: {
+                //     status: "ON"
+                // }
             }).then(response => {
                 const data = response.data;
                 if (data?.project?.pk) {

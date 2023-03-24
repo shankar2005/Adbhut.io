@@ -27,8 +27,13 @@ const Chathome = ({ chatboxRef, nsnlogo }) => {
     }, [skills])
 
     useEffect(() => {
+        sessionStorage.removeItem("CURRENT_PROJECT");
+    }, [])
+
+    useEffect(() => {
         dispatch(clearProject());
     }, []);
+
 
     return (
         <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden relative'>

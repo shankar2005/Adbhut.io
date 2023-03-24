@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "../layouts/Root";
-import ArtistAdmin from "../Pages/Admins/ArtistAdmin/ArtistAdmin";
+import Inbox from "../Pages/Admins/Inbox/Inbox";
 import ProjectManagement from "../Pages/Admins/ProductionManager/ProjectManagement";
 import ArtistEntry from "../Pages/Artist/ArtistEntry";
 import ShortlistedArtists from "../Pages/Artist/ShortlistedArtists";
@@ -64,6 +64,10 @@ const router = createBrowserRouter([
                 path: '/projects/shortlisted-artists',
                 element: <ShortlistedArtists />,
             },
+            {
+                path: '/projects/inbox',
+                element: <Inbox />,
+            },
         ]
     },
     {
@@ -73,10 +77,6 @@ const router = createBrowserRouter([
             {
                 path: '/artists',
                 element: <RightToLeft><Feed /></RightToLeft>
-            },
-            {
-                path: '/artists/artist-admin',
-                element: <ArtistAdmin />,
             },
             {
                 path: '/artists/artist-entry',

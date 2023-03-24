@@ -53,7 +53,7 @@ const ConfirmationModal = () => {
                 animate="visible"
                 exit="exit"
             >
-                <div id='authScroll' className="pt-6 text-black bg-white rounded-md p-5 shadow-2xl overflow-y-auto relative">
+                <div id='authScroll' className="pt-6 text-black bg-white rounded-md p-5 shadow-2xl overflow-y-auto relative mx-5 md:mx-0">
                     <div className='flex flex-col items-center gap-5'>
                         <BsExclamationCircle className='text-gray-500' size={40} />
                         <p className='font-serif font-medium text-gray-600'>Your project data will be lost, Are you sure want to continue?</p>

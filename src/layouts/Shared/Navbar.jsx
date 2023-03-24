@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { IoIosArrowDown } from 'react-icons/io';
 import { AiOutlineBars } from 'react-icons/ai';
+import { SlEnvolope } from 'react-icons/sl';
 import { useRootContext } from '../../contexts/RootProvider';
 import logo from '../../assets/cn.jpeg';
 import nsnlogo from '../../assets/logo.jpeg';
@@ -219,6 +220,7 @@ const Navbar = ({ setShowToolkit }) => {
                     </div>
                 </div>
                 <ul className='flex items-center gap-4 text-gray-500 flex-1 py-3 justify-end'>
+                    {(user?.role === "PM" || user?.role === "AM") && <Link to="/projects/inbox"> <SlEnvolope size={20} /></Link>}
                     {
                         user.email &&
                         <li className='flex items-center gap-2 relative'>

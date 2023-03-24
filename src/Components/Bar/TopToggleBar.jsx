@@ -28,7 +28,7 @@ const TopToggleBar = ({ className }) => {
     }, [shortlistedArtists])
 
     // shows only on artists route
-    if ((!pathname.includes("/artists") && !pathname.includes("/projects")) || pathname.includes("/projects/chat")) return;
+    if ((!pathname.includes("/artists") && !pathname.includes("/projects")) || pathname.includes("/projects/chat") || pathname.includes("/projects/inbox")) return;
 
     return (
         <section className={`sticky top-20 w-full z-30 bg-white border border-blue-100 shadow mb-2 rounded-t-lg ${className}`}>

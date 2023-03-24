@@ -58,7 +58,10 @@ const RightAside = () => {
                             {
                                 contentProducts?.map(content => (
                                     <SwiperSlide key={content.pk}>
-                                        <div onClick={() => handleSelectContentProduct(content)} className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
+                                        <div onClick={() => {
+                                            handleSelectContentProduct(content);
+                                            navigate("/artists");
+                                        }} className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
                                             <div className={`${currentProject?.project_template === content.pk || selectedContentProduct === content.pk ? 'w-10 h-10' : 'w-9 h-9'} p-1 border rounded-md`}>
                                                 <img className='group-hover:scale-110 duration-150 overflow-hidden' src={content.weblink} />
                                             </div>
