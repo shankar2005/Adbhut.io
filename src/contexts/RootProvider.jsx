@@ -6,12 +6,12 @@ import { useShortlistArtistMutation } from '../features/artist/artistApi';
 import { setSearch } from '../features/filter/filterSlice';
 import { useSendMessageMutation } from '../features/chat/chatApi';
 import { addArtist, addChatLog, clearProject, setContentProduct } from '../features/project/projectSlice';
-const avatar = "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541";
 
 const RootContext = createContext();
 
 const RootProvider = ({ children }) => {
     const { user } = useSelector(state => state.auth);
+    const avatar = "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541";
 
     const [shortlistArtist] = useShortlistArtistMutation();
     const { data: locations = [] } = useGetLocationsQuery();

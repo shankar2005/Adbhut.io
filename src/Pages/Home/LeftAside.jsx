@@ -261,7 +261,7 @@ const LeftAside = () => {
                                                 />
                                                 : <MessageSender
                                                     key={idx}
-                                                    image={avatar}
+                                                    image={user?.image || avatar}
                                                     name={name || "Guest Account"}
                                                     text={
                                                         chat.user ||
@@ -305,7 +305,7 @@ const LeftAside = () => {
                                             chat.user
                                                 ? <MessageReceiver
                                                     key={idx}
-                                                    image={avatar}
+                                                    image={user?.image || avatar}
                                                     name={currentProject?.client_details?.name}
                                                     text={chat.user}
                                                 />

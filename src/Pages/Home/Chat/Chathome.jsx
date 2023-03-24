@@ -51,7 +51,7 @@ const Chathome = ({ chatboxRef, nsnlogo }) => {
                             />
                             : <MessageSender
                                 key={idx}
-                                image={avatar}
+                                image={user?.image || avatar}
                                 name={name || "Guest Account"}
                                 text={chat.user}
                             />

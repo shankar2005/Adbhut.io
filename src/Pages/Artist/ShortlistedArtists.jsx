@@ -6,7 +6,7 @@ const ShortlistedArtists = () => {
     const { shortlistedArtists } = useSelector(state => state.project);
 
     return (
-        <div className='grid grid-cols-2 gap-5'>
+        <div className='grid grid-cols-2 gap-2'>
             {
                 shortlistedArtists?.map((artist, idx) => <ArtistSquareView key={idx} artist={artist} />)
             }

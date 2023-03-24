@@ -30,7 +30,7 @@ const ProfileDropdown = () => {
             <div className='relative'>
                 <img className='rounded-t-lg border-b border-orange-400' src="https://images.template.net/wp-content/uploads/2014/11/Natural-Facebook-Cover-Photo.jpg" alt="" />
                 <div className='rounded-full bg-white absolute bottom-0 right-1/2 translate-y-1/2 translate-x-1/2 border-4 border-white'>
-                    <img className='w-16 h-16 rounded-full' src={user?.role === "Client" ? avatar : logo} alt="" />
+                    <img className='w-16 h-16 rounded-full' src={user?.role === "Client" ? (user?.image || avatar) : logo} alt="" />
                 </div>
             </div>
             <div className='mt-10 pt-0 p-4 text-center'>

@@ -223,7 +223,7 @@ const Navbar = ({ setShowToolkit }) => {
                         user.email &&
                         <li className='flex items-center gap-2 relative'>
                             <img className='hidden md:block w-24' src={logo} alt="" />
-                            <img onClick={() => dispatch(showAccount())} className='w-10 h-10 rounded-full border' src={user?.role === "Client" ? avatar : nsnlogo} alt="" />
+                            <img onClick={() => dispatch(showAccount())} className='w-10 h-10 rounded-full border' src={user?.role === "Client" ? (user?.image || avatar) : nsnlogo} alt="" />
                             {/* modal */}
                             {
                                 accountModal &&
