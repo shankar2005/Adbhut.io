@@ -156,10 +156,14 @@ const RootProvider = ({ children }) => {
     // 
     // 
     const [currentProjectId, setCurrentProjectId] = useState(null);
-    const { data: currentProjectData = {}, refetch: currentProjectRefetch } = useGetProjectQuery(currentProjectId);
+    const { data: currentProjectData = {}, refetch: currentProjectRefetch } = useGetProjectQuery(currentProjectId, { skip: !currentProjectId });
     useEffect(() => {
-        setCurrentProjectId(sessionStorage.getItem("CURRENT_PROJECT"));
-    }, [])
+        const value = sessionStorage.getItem("CURRENT_PROJECT")
+        if (value) {
+            setCurrentProjectId(value)
+        }
+        console.log('testing rerender');
+    }, [currentProjectData])
 
     useEffect(() => {
         if (currentProjectData.pk) {

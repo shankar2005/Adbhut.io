@@ -31,6 +31,7 @@ const MsgItem = (id) => {
     const { data: currentProject } = useGetProjectQuery(id?.id?.pk, { skip: !id?.id?.pk });
 
     // console.log(JSON.parse(currentProject?.brief)[JSON.parse(currentProject?.brief).length - 1]);
+    // console.log(currentProject?.client_details?.image);
 
     return (
         <li onClick={() => {
@@ -45,10 +46,14 @@ const MsgItem = (id) => {
 
         }} className='cursor-pointer p-4 py-5 flex items-center gap-3 hover:bg-gray-200'>
             <img className='w-16 h-16 object-cover rounded-full border' src={avatar} alt="" />
-            <p className='text-sm'><strong>{currentProject?.client_details?.name}</strong> </p>
-            <p className='text-sm'><strong>{currentProject?.pk}</strong> </p>
-            <p className='text-sm'><strong>{currentProject?.name}</strong> </p>
-            <p className='text-sm'><strong>{currentProject?.stage}</strong> </p>
+            <div>
+                <p className='text-sm'><strong>{currentProject?.client_details?.name}</strong> </p>
+                <div>
+                    <span className='text-sm'>{currentProject?.pk}</span>
+                    <span className='text-sm'>{currentProject?.name}</span>
+                    <span className='text-sm'>{currentProject?.stage}</span>
+                </div>
+            </div>
         </li>
     )
 }

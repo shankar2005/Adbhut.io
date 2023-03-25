@@ -2,16 +2,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import { BiPencil } from 'react-icons/bi';
 import { RiRefreshLine } from 'react-icons/ri';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import nsnlogo from '../../../assets/logo.jpeg'
 import { useRootContext } from '../../../contexts/RootProvider';
+import { useToggleChatGPTMutation } from '../../../features/chat/chatApi';
 import { useUpdateProjectMutation } from '../../../features/project/projectApi';
 
-const ChatHeading = () => {
+const ChatHeading = ({ isON, setIsON }) => {
     const { currentProjectRefetch } = useRootContext();
     const [updateProject] = useUpdateProjectMutation();
     const currentProject = useSelector(state => state.project);
     const { title: projectTitle } = useSelector(state => state.project);
+    const [toggleChatGPT] = useToggleChatGPTMutation();
 
     const renameInputRef = useRef();
     const [renameState, setRenameState] = useState(false);
@@ -36,6 +38,25 @@ const ChatHeading = () => {
         }
     }, [renamedTitle])
 
+    // handle chatgpt toggle
+    const handleChatgptToggle = (e) => {
+        setIsON(!isON);
+        if (isON) {
+            toggleChatGPT({
+                "id": currentProject?.pk,
+                "status": "OFF"
+            })
+        } else {
+            toggleChatGPT({
+                "id": currentProject?.pk,
+                "status": "ON"
+            })
+        }
+    }
+    const pathname = useLocation().pathname;
+
+    console.log(isON);
+
     return (
         <div className='border-b shadow-sm p-2 rounded-t-lg flex items-center justify-between'>
             <div className='flex gap-1 justify-between items-center w-full'>
@@ -48,6 +69,25 @@ const ChatHeading = () => {
                         <button onClick={() => currentProjectRefetch()} className='active:rotate-180 duration-300' type="button"><RiRefreshLine size={20} /></button>
                     }
                 </div>
+
+                {/* chatgpt toggle */}
+                {
+                    pathname !== "/" &&
+                    <div className='flex flex-col items-center justify-center'>
+                        <span className='text-xs font-medium'>ChatGPT Toggle</span>
+                        <label class="inline-flex space-x-2 items-center cursor-pointer">
+                            <span class="text-sm text-gray-900">OFF</span>
+                            <span className='relative'>
+                                <input onChange={handleChatgptToggle} checked={isON} type="checkbox" value="" class="sr-only peer" />
+                                <div class="w-9 h-5 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all border-gray-600 peer-checked:bg-blue-500"></div>
+                            </span>
+                            <span class="text-sm text-gray-900">ON</span>
+                        </label>
+                    </div>
+
+                }
+                {/* chatgpt toggle */}
+
                 <div className='flex gap-1 pr-1'>
                     {
                         !currentProject?.pk

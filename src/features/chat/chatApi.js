@@ -16,7 +16,14 @@ const chatApi = apis.injectEndpoints({
                 body: data
             })
         }),
+        toggleChatGPT: builder.mutation({
+            query: (data) => ({
+                url: `/chat_toggle/`,
+                method: 'PATCH',
+                body: data
+            })
+        }),
     }),
 });
 
-export const { useSendMessageMutation, useSendMessageToGPTMutation } = chatApi;
+export const { useSendMessageMutation, useSendMessageToGPTMutation, useToggleChatGPTMutation } = chatApi;

@@ -120,7 +120,7 @@ const LeftAside = () => {
             userInputRef.current.focus();
             return;
         };
-        user?.role === "Client" && setIsTyping(true);
+        user?.role === "Client" && isON && setIsTyping(true);
 
         // chatlog
         const message = { msgID: chatLog.length + 1, [sender]: userInputText };
@@ -131,10 +131,7 @@ const LeftAside = () => {
         if (user.email && currentProject?.pk) {
             sendMessage({
                 project_id: currentProject.pk,
-                message: message,
-                // chatbot_status: {
-                //     status: "ON"
-                // }
+                message: message
             }).then(response => {
                 const data = response.data;
                 if (data?.project?.pk) {
@@ -226,9 +223,11 @@ const LeftAside = () => {
 
     const [showProjectReferenceLinkInput, setShowProjectReferenceLinkInput] = useState(false);
 
+    const [isON, setIsON] = useState(currentProject?.chatbot_status?.status === "ON");
+
     return (
         <section className='bg-white shadow-md rounded-lg'>
-            <ChatHeading />
+            <ChatHeading isON={isON} setIsON={setIsON} />
 
             {/*  */}
             {/*  */}
