@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { useGetShortlistedArtistsQuery } from '../../features/artist/artistApi';
 import ArtistSquareView from './Components/View/ArtistSquareView';
@@ -12,7 +11,15 @@ const ShortlistedArtists = () => {
     return (
         <div className='grid grid-cols-2 gap-2'>
             {
-                shortlistedArtists?.map((artist, idx) => <ArtistSquareView key={idx} artist={artist} />)
+                data?.artists?.map(({ name, id, skills, email, phone, languages, locaiton }) => <ArtistSquareView key={id} artist={{
+                    owner_name: name,
+                    owner_id: id,
+                    skills,
+                    email,
+                    phone: phone || "N/A",
+                    languages,
+                    location: location?.name,
+                }} />)
             }
         </div>
     );

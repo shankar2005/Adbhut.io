@@ -1,11 +1,10 @@
 import { FaRegEnvelope } from 'react-icons/fa';
 import { HiPhone } from 'react-icons/hi';
 import { IoLanguageSharp, IoLocationSharp } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
 import { useRootContext } from '../../../../contexts/RootProvider';
 
 const ArtistSquareView = ({ artist }) => {
-    const { avatar } = useRootContext();
+    const { avatar, setArtistProfile } = useRootContext();
 
     return (
         <div className="bg-white border flex flex-col items-center p-3 text-center rounded-lg">
@@ -25,9 +24,7 @@ const ArtistSquareView = ({ artist }) => {
                     artist?.skills?.map((skill, idx) => <div key={idx} className='bg-sky-400 p-1 rounded text-white'>{skill}</div>)
                 }
             </div>
-            <Link className='mt-auto w-full' to={`/artists/${artist.owner_id}/`}>
-                <button className='w-full border-2 border-sky-100 hover:border-blue-500 font-medium bg-sky-100 text-blue-500 py-2 rounded-lg'>View Profile</button>
-            </Link>
+            <button onClick={() => setArtistProfile(artist.owner_id)} className='mt-auto w-full border-2 border-sky-100 hover:border-blue-500 font-medium bg-sky-100 text-blue-500 py-2 rounded-lg'>View Profile</button>
         </div>
     );
 };
