@@ -224,6 +224,9 @@ const LeftAside = () => {
     const [showProjectReferenceLinkInput, setShowProjectReferenceLinkInput] = useState(false);
 
     const [isON, setIsON] = useState(currentProject?.chatbot_status?.status === "ON");
+    useEffect(() => {
+        setIsON(currentProject?.chatbot_status?.status === "ON");
+    }, [currentProject])
 
     return (
         <section className='bg-white shadow-md rounded-lg'>
@@ -343,7 +346,10 @@ const LeftAside = () => {
                                 <div className='pb-2 flex flex-wrap gap-2 text-sm font-medium select-none'>
                                     {
                                         contentProducts.map(contentProduct => <div
-                                            onClick={() => handleSelectContentProduct(contentProduct)}
+                                            onClick={() => {
+                                                handleSelectContentProduct(contentProduct);
+                                                navigate("/artists")
+                                            }}
                                             key={contentProduct.pk}
                                             className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
                                             {contentProduct.name}

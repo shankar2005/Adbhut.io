@@ -12,6 +12,7 @@ const ChatHeading = ({ isON, setIsON }) => {
     const { currentProjectRefetch } = useRootContext();
     const [updateProject] = useUpdateProjectMutation();
     const currentProject = useSelector(state => state.project);
+    const { user } = useSelector(state => state.auth);
     const { title: projectTitle } = useSelector(state => state.project);
     const [toggleChatGPT] = useToggleChatGPTMutation();
 
@@ -72,7 +73,7 @@ const ChatHeading = ({ isON, setIsON }) => {
 
                 {/* chatgpt toggle */}
                 {
-                    pathname !== "/" &&
+                    user?.role === "PM" && pathname !== "/" &&
                     <div className='flex flex-col items-center justify-center'>
                         <span className='text-xs font-medium'>ChatGPT Toggle</span>
                         <label class="inline-flex space-x-2 items-center cursor-pointer">
