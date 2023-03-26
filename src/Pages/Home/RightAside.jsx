@@ -76,8 +76,8 @@ const RightAside = () => {
 
                 <section className='text-gray-700 text-sm p-4 border-b'>
                     <ul className="space-y-2">
-                        <Link to="/projects/myprojects" className='hover:underline'>
-                            <li className='flex justify-between'>
+                        <li>
+                            <Link to="/projects/myprojects" className='hover:underline flex justify-between'>
                                 {
                                     user?.role === "PM"
                                         ? <div>
@@ -92,18 +92,23 @@ const RightAside = () => {
                                 <div className='bg-red-500 h-fit py-0.5 px-1 text-white font-bold'>
                                     {currentProjects?.length}
                                 </div>
-                            </li>
-                        </Link>
+                            </Link>
+                        </li>
                         <li>
-                            <Link className='hover:underline'>
+                            <Link to="/projects" className='hover:underline'>
                                 <p className='font-medium'>Dream Projects</p>
                                 <p className='text-xs'>Insights projects</p>
                             </Link>
                         </li>
                         <li>
-                            <Link to="/projects" className='hover:underline'>
-                                <p className='font-medium'>Recommended Projects</p>
-                                <p className='text-xs'>Projects you might like</p>
+                            <Link to="/projects" className='hover:underline flex justify-between items-center'>
+                                <div>
+                                    <p className='font-medium'>Recommended Projects</p>
+                                    <p className='text-xs'>Projects you might like</p>
+                                </div>
+                                <div className='bg-blue-500 h-fit py-0.5 px-2 text-white text-xs font-medium rounded'>
+                                    New
+                                </div>
                             </Link>
                         </li>
                     </ul>
