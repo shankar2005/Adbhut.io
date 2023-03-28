@@ -31,7 +31,7 @@ const Navbar = () => {
             transition: "all 0.5s"
         }} className="fixed z-40 w-full top-0 left-0 py-4 px-6 shadow-lg">
             <div className='w-11/12 max-w-screen-xl mx-auto flex gap-8 justify-between items-center'>
-                <img className='w-72' src={logo} alt="" />
+                {/* <img className='w-72' src={logo} alt="" /> */}
                 <div className='hidden md:flex gap-6'>
                     <a className='hover:scale-125 duration-150' target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show'><img className='w-8' src={linkedin} alt="" /></a>
                     <a className='hover:scale-125 duration-150' target="_blank" href='https://www.facebook.com/happy.hippie.969/'><img className='w-8' src={fb} alt="" /></a>
