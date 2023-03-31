@@ -229,7 +229,7 @@ const LeftAside = () => {
     }, [currentProject])
 
     return (
-        <section className='bg-white shadow-md rounded-lg'>
+        <section className='bg-white shadow-md rounded-lg h-[calc(100vh-6.5rem)] flex flex-col justify-between'>
             <ChatHeading isON={isON} setIsON={setIsON} />
 
             {/*  */}
@@ -243,7 +243,7 @@ const LeftAside = () => {
                         nsnlogo={nsnlogo}
                     />
                     :
-                    <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden relative flex flex-col justify-between'>
+                    <div ref={chatboxRef} className='h-full overflow-y-scroll overflow-x-hidden relative flex flex-col justify-between'>
                         {
                             user.role === "Client" || !user.email
                                 ? <div className='flex flex-col p-3'>
