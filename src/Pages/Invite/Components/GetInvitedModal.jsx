@@ -41,7 +41,7 @@ const GetInvitedModal = ({ setShowRegisterModal }) => {
             >
                 <button onClick={() => setShowRegisterModal(false)} className='absolute right-3 top-3'><RxCross1 size={25} /></button>
                 <img className='w-16 mx-auto mb-5' src={logo} alt="" />
-                <h2 className="mb-3 text-2xl font-semibold text-center">Sign up an account</h2>
+                <h2 className="mb-3 text-2xl font-semibold text-center">Get Invite</h2>
                 <RegisterForm />
             </motion.div>
         </Backdrop>
