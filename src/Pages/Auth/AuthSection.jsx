@@ -36,7 +36,7 @@ const AuthSection = () => {
             {
                 isLoginForm
                     ? <p className="text-sm text-center text-gray-400 mt-4">Dont have account?
-                        <button onClick={() => setsIsLoginForm(false)} className="focus:underline hover:underline ml-1">Sign up here</button>
+                        <a target="_blank" href="https://thhs.in/invite"><button className="focus:underline hover:underline ml-1">Get Invite</button></a>
                     </p>
                     : <p className="text-sm text-center text-gray-400 mt-4">Already have account?
                         <button onClick={() => setsIsLoginForm(true)} className="focus:underline hover:underline ml-1">Login here</button>
