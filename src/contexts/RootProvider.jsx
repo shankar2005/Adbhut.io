@@ -162,7 +162,6 @@ const RootProvider = ({ children }) => {
         if (value) {
             setCurrentProjectId(value)
         }
-        console.log('testing rerender');
     }, [currentProjectData])
 
     useEffect(() => {

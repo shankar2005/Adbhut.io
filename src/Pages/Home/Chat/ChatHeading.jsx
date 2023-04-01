@@ -56,8 +56,6 @@ const ChatHeading = ({ isON, setIsON }) => {
     }
     const pathname = useLocation().pathname;
 
-    console.log(isON);
-
     return (
         <div className='border-b shadow-sm p-2 rounded-t-lg flex items-center justify-between'>
             <div className='flex gap-1 justify-between items-center w-full'>
