@@ -8,11 +8,11 @@ import { useRootContext } from '../../contexts/RootProvider';
 import { useGetArtistByIdQuery } from '../../features/artist/artistApi';
 import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { useCreateProjectMutation } from '../../features/project/projectApi';
-import { setClientFeedback, setContentProduct, setReferenceLinks, setTitle } from '../../features/project/projectSlice';
+import { setClientFeedback, setReferenceLinks, setTitle } from '../../features/project/projectSlice';
 import AssignedArtistRow from '../Admins/ProductionManager/Components/AssignedArtistRow';
 
 const CreateProject = () => {
-    const { contentProducts } = useRootContext();
+    const { contentProducts, handleSelectContentProduct } = useRootContext();
 
     const currentProject = useSelector(state => state.project);
 
@@ -32,7 +32,7 @@ const CreateProject = () => {
 
     // send brief
     const handleSendBrief = () => {
-        if (!user) {
+        if (!user.email) {
             return dispatch(showLogin());
         }
         if (!selectedContentProduct) {
@@ -47,12 +47,12 @@ const CreateProject = () => {
             // optionals
             project_template: selectedContentProduct,
             title,
-            reference_links,
+            reference_links: JSON.stringify(reference_links),
             post_project_client_feedback,
         })
             .then(response => {
                 const data = response.data;
-                if (data.pk) {
+                if (data?.pk) {
                     toast.success("Project created successfully!", { id: "createNewProject" });
                     navigate(`/projects/${data.pk}/Lead/`);
                 } else {
@@ -78,7 +78,7 @@ const CreateProject = () => {
             // optionals
             project_template: selectedContentProduct,
             title: title,
-            reference_links,
+            reference_links: JSON.stringify(reference_links),
             post_project_client_feedback,
         })
             .then(response => {
@@ -113,12 +113,13 @@ const CreateProject = () => {
                         <div className="mb-4 flex items-center gap-2">
                             <label className="flex-1 text-sm font-medium text-gray-900">Content Product: </label>
                             <select name="project_template" onChange={e => {
-                                dispatch(setContentProduct(e.target.value));
+                                const content = JSON.parse(e.target.value);
+                                handleSelectContentProduct(content);
                                 navigate("/artists");
                             }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-fit p-2.5">
                                 <option selected>Select content product</option>
                                 {
-                                    contentProducts?.map(content => <option selected={selectedContentProduct === content.pk} value={content.pk}>{content.name}</option>)
+                                    contentProducts?.map(content => <option selected={selectedContentProduct === content.pk} value={JSON.stringify(content)}>{content.name}</option>)
                                 }
                             </select>
                         </div>
@@ -126,7 +127,7 @@ const CreateProject = () => {
 
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Project Reference Link:</label>
-                        <textarea name="reference_links" onBlur={e => dispatch(setReferenceLinks(e.target.value))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="https://www.youtube.com/watch?v=RhdXPesyRGk" defaultValue={currentProject?.reference_links}></textarea>
+                        <textarea name="reference_links" onBlur={e => dispatch(setReferenceLinks([e.target.value]))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="https://www.youtube.com/watch?v=RhdXPesyRGk" defaultValue={currentProject?.reference_links}></textarea>
                     </div>
 
                     {

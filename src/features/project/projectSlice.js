@@ -8,7 +8,7 @@ const initialState = {
 
     // optional
     title: "",
-    reference_links: "",
+    reference_links: [],
     post_project_client_feedback: "",
 
     // not part of the project just confirming
