@@ -25,7 +25,7 @@ const Docusign = () => {
                 }
             </div>
             <Link to="/projects/completed">
-                <Button variant="primary">Proceed to Signing <BsBoxArrowUpRight size="20" /></Button>
+                <Button variant="primary" className="flex gap-1.5">Proceed to Signing <BsBoxArrowUpRight size="20" /></Button>
             </Link>
         </div>
     );

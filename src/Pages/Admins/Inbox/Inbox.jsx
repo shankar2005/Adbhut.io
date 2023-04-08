@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useRootContext } from '../../../contexts/RootProvider';
 import { useGetProjectQuery } from '../../../features/project/projectApi';
 import { setProjectData } from '../../../features/project/projectSlice';
@@ -26,6 +27,7 @@ const Inbox = () => {
 };
 
 const MsgItem = (id) => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { avatar } = useRootContext();
     const { data: currentProject } = useGetProjectQuery(id?.id?.pk, { skip: !id?.id?.pk });
@@ -43,6 +45,7 @@ const MsgItem = (id) => {
                 ...currentProject
             }))
             sessionStorage.setItem("CURRENT_PROJECT", id?.id?.pk);
+            navigate(`/projects/${currentProject.pk}/${currentProject.stage}`);
 
         }} className='cursor-pointer p-4 py-5 flex items-center gap-3 hover:bg-gray-200'>
             <img className='w-16 h-16 object-cover rounded-full border' src={avatar} alt="" />

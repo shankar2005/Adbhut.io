@@ -35,15 +35,6 @@ const RootProvider = ({ children }) => {
     const [checkedGenres, setcheckedGenres] = useState([]);
     const [checkedLocations, setcheckedLocations] = useState([]);
 
-    // setting response msg on first action
-    useEffect(() => {
-        const isExist = chatLog.find(chat => chat.actionResponse);
-        if (chatLog.length === 1 && !isExist) {
-            dispatch(addChatLog({ actionResponse: true, msgID: chatLog.length + 1, bot: "Great! Let’s shortlist artist by requirement." }));
-        }
-    }, [chatLog]);
-
-
     const handleShortlist = (artistID, name, profile_pic) => {
         dispatch(addArtist(artistID));
         // chatlog
@@ -99,7 +90,7 @@ const RootProvider = ({ children }) => {
         if (!isExist) {
             dispatch(setContentProduct(product.pk));
             // chatlog
-            dispatch(addChatLog({ msgID: chatLog.length + 1, [sender]: `You've selected ${product.name}` }));
+            dispatch(addChatLog({ msgID: chatLog.length + 1, bot: `Thank your for selecting ${product.name}! To help us better understand, please select one of the following skills.` }));
         }
     }
 
@@ -124,8 +115,6 @@ const RootProvider = ({ children }) => {
 
     const handleSelectSkill = (skill) => {
         setcheckedSkills([skill[1] + '']);
-        // chatlog
-        dispatch(addChatLog({ msgID: chatLog.length + 1, [sender]: `You've selected ${skill[0]}` }));
 
         // removing suggested skills after click
         setSuggestions(current => current.filter(i => i[1] + '' !== skill[1] + ''));

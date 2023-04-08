@@ -9,7 +9,7 @@ import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { clearProject, setArtist, setChatLog, setContentProduct } from '../../features/project/projectSlice';
 
 const RightAside = () => {
-    const { contentProducts, handleSelectContentProduct, currentProjects } = useRootContext();
+    const { contentProducts, handleSelectContentProduct, currentProjects, setSuggestions } = useRootContext();
 
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
@@ -22,6 +22,7 @@ const RightAside = () => {
         dispatch(setChatLog([]));
         dispatch(setArtist([]));
         dispatch(setContentProduct(""));
+        setSuggestions([]);
         navigate("/projects/create-project");
     }
 
