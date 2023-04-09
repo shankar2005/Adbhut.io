@@ -16,7 +16,7 @@ import { setSearch } from '../../features/filter/filterSlice';
 import { closeLogin, showAccount, showLocation, showLogin, showSkill } from '../../features/dropdown/dropdownSlice';
 
 const Navbar = ({ setShowToolkit }) => {
-    const { setdemoType, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills, avatar } = useRootContext();
+    const { setdemoType, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills, avatar, currentProjects } = useRootContext();
 
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
@@ -220,7 +220,12 @@ const Navbar = ({ setShowToolkit }) => {
                     </div>
                 </div>
                 <ul className='flex items-center gap-4 text-gray-500 flex-1 py-3 justify-end'>
-                    {(user?.role === "PM" || user?.role === "AM") && <Link to="/projects/inbox"> <SlEnvolope size={20} /></Link>}
+                    {(user?.role === "PM" || user?.role === "AM") && <Link to="/projects/inbox" className="relative text-sm hover:text-blue-600">
+                        <SlEnvolope size={20} />
+                        <span className='absolute -top-1.5 -right-2 rounded-full bg-red-500 h-4 w-4 text-xs text-white flex justify-center items-center'>
+                            {currentProjects?.length}
+                        </span>
+                    </Link>}
                     {
                         user.email &&
                         <li className='flex items-center gap-2 relative'>
