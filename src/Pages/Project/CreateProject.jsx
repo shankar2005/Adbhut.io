@@ -96,12 +96,6 @@ const CreateProject = () => {
 
     return (
         <div className='bg-white rounded-lg shadow-lg'>
-            <div className='border-b shadow-sm font-medium p-3 py-[15px] flex justify-between items-center relative'>
-                <div className='flex gap-2 items-center'>
-                    <h3>Project Dashboard</h3>
-                </div>
-            </div>
-
             <form>
                 <div className="p-4">
                     <div className="mb-4 items-center gap-2">

@@ -1,24 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRootContext } from '../../../contexts/RootProvider';
-import { BsThreeDots, BsTrash } from 'react-icons/bs';
-import { toast } from 'react-hot-toast';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AiOutlinePlus } from 'react-icons/ai';
 import ShortlistedArtistRow from './Components/ShortlistedArtistRow';
 import AssignedArtistRow from './Components/AssignedArtistRow';
 import Button from '../../../Components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { useDeleteProjectMutation, useGetProjectQuery, useUpdateProjectMutation } from '../../../features/project/projectApi';
+import { useGetProjectQuery, useUpdateProjectMutation } from '../../../features/project/projectApi';
 import { useSendMessageToGPTMutation } from '../../../features/chat/chatApi';
 import { showLogin } from '../../../features/dropdown/dropdownSlice';
-import { addChatLog, clearProject, setProjectData } from '../../../features/project/projectSlice';
+import { addChatLog, setProjectData } from '../../../features/project/projectSlice';
 
 const ProjectManagement = () => {
-    const { avatar, setSuggestions, setRemovedSkill } = useRootContext();
+    const { avatar } = useRootContext();
 
     const dispatch = useDispatch();
-    const [deleteProject] = useDeleteProjectMutation();
     const [updateProject] = useUpdateProjectMutation();
     const [sendMessage] = useSendMessageToGPTMutation();
     const { user } = useSelector(state => state.auth);
@@ -90,19 +87,7 @@ const ProjectManagement = () => {
             })
     }
 
-    const [actionToggle, setactionToggle] = useState(false);
 
-    const handleDeleteProject = () => {
-        deleteProject(currentProject.pk)
-            .then(data => {
-                toast.success(data.data.message);
-                setactionToggle(false);
-                dispatch(clearProject());
-                setSuggestions([]);
-                setRemovedSkill([]);
-                navigate("/projects/create-project");
-            });
-    }
 
     const navigate = useNavigate();
 
@@ -159,19 +144,6 @@ const ProjectManagement = () => {
 
     return (
         <div className='bg-white rounded-lg shadow-lg'>
-            <div className='border-b shadow-sm font-medium p-3 flex justify-between items-center relative'>
-                <div className='flex gap-1.5 items-center'>
-                    <h3>Project Dashboard</h3>
-                </div>
-                <BsThreeDots onClick={() => setactionToggle(!actionToggle)} className='cursor-pointer' />
-                {
-                    actionToggle && user.email &&
-                    <div className='absolute right-0 -bottom-3/4 border bg-white shadow-lg select-none'>
-                        <button onClick={handleDeleteProject} className='flex items-center gap-2 text-sm py-3 px-5'>Delete <BsTrash size={20} /></button>
-                    </div>
-                }
-            </div>
-
             <form id='projectForm' onSubmit={handleSubmit(onSubmit)}>
                 <div className="p-4">
                     <div className="mb-4 items-center gap-2">
