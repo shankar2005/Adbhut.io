@@ -6,6 +6,7 @@ import Cta from '../../Pages/Home/Components/Cta';
 import { RiArrowRightSLine } from 'react-icons/ri';
 import { BsFillChatFill } from 'react-icons/bs';
 import { ImUsers } from 'react-icons/im';
+import { FcDocument } from 'react-icons/fc';
 
 const TopToggleBar = ({ className }) => {
     const { shortlistedArtists } = useSelector(state => state.project);
@@ -28,51 +29,59 @@ const TopToggleBar = ({ className }) => {
     }, [shortlistedArtists])
 
     // shows only on artists route
-    if ((!pathname.includes("/artists") && !pathname.includes("/projects")) || pathname.includes("/projects/chat") || pathname.includes("/projects/inbox")) return;
+    if ((!pathname.includes("/artists") && !pathname.includes("/projects")) || pathname.includes("/projects/inbox")) return;
 
     return (
         <section className={`sticky top-20 w-full z-30 bg-white border border-blue-100 shadow mb-2 rounded-t-lg ${className}`}>
             <div className="flex justify-between items-center p-2">
-                <nav className="flex px-2 py-1" aria-label="Breadcrumb">
-                    <ol className="inline-flex items-center gap-2">
-                        <li className={`md:hidden flex items-center gap-4 ${clicked && 'animate-vibrate'}`}>
-                            <Link to="/projects/chat" className="relative text-sm hover:text-blue-600">
-                                <span className='flex items-center gap-1.5'>
-                                    <BsFillChatFill />
-                                    Chat
-                                </span>
-                                <span className='absolute -top-1.5 -right-4 rounded-full bg-red-500 h-4 w-4 text-xs text-white flex justify-center items-center'>
-                                    {shortlistedArtists?.length}
-                                </span>
-                            </Link>
-                            <RiArrowRightSLine />
-                        </li>
-                        <li className={`hidden md:flex items-center gap-4 ${clicked && 'animate-vibrate'}`}>
-                            <Link to="/projects/shortlisted-artists" className="relative text-sm hover:text-blue-600">
-                                <span className='flex items-center gap-1.5'>
-                                    <ImUsers />
-                                    Shortlisted Artists
-                                </span>
-                                <span className='absolute -top-1.5 -right-4 rounded-full bg-red-500 h-4 w-4 text-xs text-white flex justify-center items-center'>
-                                    {shortlistedArtists?.length}
-                                </span>
-                            </Link>
-                            <RiArrowRightSLine />
-                        </li>
-                        <li>
-                            <div className="flex items-center">
-                                <Link to={
-                                    currentProject?.pk ? `/projects/${currentProject?.pk}/${currentProject?.stage}` : "/projects/create-project"
-                                } className="text-sm hover:text-blue-600">Dashboard</Link>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="md:hidden flex items-center">
+                <nav className="flex items-center gap-2" aria-label="Breadcrumb">
+                    <FcDocument size={40} />
+                    <div className='space-y-1'>
+                        <h4 className='font-sans font-medium'>{
+                            currentProject?.pk
+                                ? currentProject.title?.length > 30 ? currentProject.title?.slice(0, 30) + '...' : currentProject.title
+                                : "New Project"
+                        }</h4>
+                        <ol className="inline-flex items-center gap-2">
+                            <li className={`md:hidden flex items-center gap-4 ${clicked && 'animate-vibrate'}`}>
+                                <Link to="/projects/chat" className="relative text-sm hover:text-blue-600">
+                                    <span className='flex items-center gap-1.5'>
+                                        <BsFillChatFill />
+                                        Chat
+                                    </span>
+                                    <span className='absolute -top-1.5 -right-4 rounded-full bg-red-500 h-4 w-4 text-xs text-white flex justify-center items-center'>
+                                        {shortlistedArtists?.length}
+                                    </span>
+                                </Link>
                                 <RiArrowRightSLine />
-                                <Link to="/projects/shortlisted-artists" className="ml-1 text-sm hover:text-blue-600 md:ml-2">Shortlisted Artist</Link>
-                            </div>
-                        </li>
-                    </ol>
+                            </li>
+                            <li className={`hidden md:flex items-center gap-4 ${clicked && 'animate-vibrate'}`}>
+                                <Link to="/projects/shortlisted-artists" className="relative text-sm hover:text-blue-600">
+                                    <span className='flex items-center gap-1.5'>
+                                        <ImUsers />
+                                        Shortlisted Artists
+                                    </span>
+                                    <span className='absolute -top-1.5 -right-4 rounded-full bg-red-500 h-4 w-4 text-xs text-white flex justify-center items-center'>
+                                        {shortlistedArtists?.length}
+                                    </span>
+                                </Link>
+                                <RiArrowRightSLine />
+                            </li>
+                            <li>
+                                <div className="flex items-center">
+                                    <Link to={
+                                        currentProject?.pk ? `/projects/${currentProject?.pk}/${currentProject?.stage}` : "/projects/create-project"
+                                    } className="text-sm hover:text-blue-600">Dashboard</Link>
+                                </div>
+                            </li>
+                            <li>
+                                <div className="md:hidden flex items-center">
+                                    <RiArrowRightSLine />
+                                    <Link to="/projects/shortlisted-artists" className="ml-1 text-sm hover:text-blue-600 md:ml-2">Shortlisted Artist</Link>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
                 </nav>
 
 

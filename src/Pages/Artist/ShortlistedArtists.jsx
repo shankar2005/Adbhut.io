@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import NothingFound from '../../Components/NotFound/NothingFound';
 import { useGetShortlistedArtistsQuery } from '../../features/artist/artistApi';
 import ArtistSquareView from './Components/View/ArtistSquareView';
 
@@ -6,7 +7,9 @@ const ShortlistedArtists = () => {
     const { shortlistedArtists } = useSelector(state => state.project);
     const { data } = useGetShortlistedArtistsQuery(shortlistedArtists.join(","));
 
-    console.log(data?.artists);
+    if(!shortlistedArtists.length){
+        return <NothingFound />
+    }
 
     return (
         <div className='grid grid-cols-2 gap-2'>

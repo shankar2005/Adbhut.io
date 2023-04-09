@@ -22,7 +22,7 @@ import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { addChatLog, removeArtist, removeChatLog, setChatLog } from '../../features/project/projectSlice';
 import GetProjectReference from './Chat/GetProjectReference';
 
-const LeftAside = () => {
+const LeftAside = ({ setShowToolkit }) => {
     const { handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills, setArtistProfile, avatar } = useRootContext();
 
     const dispatch = useDispatch();
@@ -176,30 +176,14 @@ const LeftAside = () => {
 
     // 
     const viewDemos = () => navigate(`/projects/demos/${currentProject?.pk}`);
-    const handleGetSupport = () => {
-        setIsTyping(true);
-        const message = { msgID: chatLog.length + 1, [sender]: "Get Support" };
-        dispatch(addChatLog(message));
-
-        sendMessageToGPT({
-            message: "Get Support"
-        }).then(response => {
-            const data = response.data;
-            if (data?.response) {
-                dispatch(addChatLog({ msgID: chatLog.length + 1, bot: data?.response }));
-                setIsTyping(false);
-            }
-        }).catch((err) => {
-            setIsTyping(false);
-        })
-    }
+    const handlePaymentCTA = () => setShowToolkit(true);
 
     const ctaStages = {
         lead: [
             ["View Demos", viewDemos],
             ["Docusign Pending", null, "warning"],
-            ["Payment Pending", null, "warning"],
-            ["Get Support", handleGetSupport]
+            ["Payment Pending", handlePaymentCTA, "warning"],
+            ["Rate Us"]
         ],
         inProgress: [
             ["Approve"],

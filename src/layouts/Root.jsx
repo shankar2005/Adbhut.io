@@ -67,7 +67,7 @@ const Root = () => {
                 {/* bg unfocused layer */}
 
                 <aside className={`hidden md:block col-span-5 ${showToolkit ? "lg:col-span-4" : "lg:col-span-5"} sticky top-20`}>
-                    <LeftAside />
+                    <LeftAside setShowToolkit={setShowToolkit} />
                 </aside>
 
 

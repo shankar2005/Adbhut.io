@@ -1,4 +1,3 @@
-import { MdCelebration } from 'react-icons/md';
 import { useRootContext } from '../../contexts/RootProvider';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
@@ -30,7 +29,7 @@ const RightAside = () => {
         <>
             <div className='bg-white rounded-lg'>
                 <section className='border-b'>
-                    <div className='border-b shadow-sm font-medium p-4'>
+                    <div className='border-b shadow-sm font-medium p-3.5'>
                         <h3>Toolkit</h3>
                     </div>
 
