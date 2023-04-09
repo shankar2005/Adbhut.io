@@ -124,9 +124,11 @@ const TopToggleBar = ({ className }) => {
                 }
                 {
                     actionToggle && user.email &&
-                    <div className='absolute right-0 -bottom-5 border bg-white shadow-lg select-none'>
-                        <button onClick={handleDeleteProject} className='flex items-center gap-2 text-sm py-3 px-5'>Delete <BsTrash size={20} /></button>
-                    </div>
+                    <ul className='absolute right-5 -bottom-5 w-60 min-w-fit bg-white shadow select-none p-0.5'>
+                        <li>
+                            <button onClick={handleDeleteProject} className='flex items-center gap-2 text-sm py-3 pl-3 hover:bg-gray-100 w-full'><BsTrash size={20} /> Delete</button>
+                        </li>
+                    </ul>
                 }
             </div>
 
