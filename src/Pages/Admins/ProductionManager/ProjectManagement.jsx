@@ -373,44 +373,39 @@ const ProjectManagement = () => {
                             </div>
                         </div>
                 }
-                {
-                    user.role === "Client" && currentProject.stage === "In Progress"
-                    && <div className='p-4 pb-0 pt-0 space-x-2 flex'>
-                        <button onClick={handleApproveProject} type="button" className="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Approve</button>
-                        <button onClick={handleApproveProject} type="button" className="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Decline</button>
-                        <button onClick={handleApproveProject} type="button" className="text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Put On Hold</button>
-                    </div>
-                }
-                {
-                    user.email ?
-                        <>
-                            {
-                                currentProject.stage !== "DreamProject" ?
-                                    <div className='p-4 pt-0 space-x-2'>
-                                        {
-                                            (currentProject.stage === "Lead" || currentProject.stage === "DreamProject") &&
-                                            <Button variant="primary" type="submit">Save Changes</Button>
-                                        }
-                                        {
-                                            user.role === "PM" &&
-                                            <Button variant="primary" onClick={handleSubmitToClient}>Submit to client</Button>
-                                        }
-                                    </div>
-                                    : <div className='p-4 pt-0 space-x-2'>
-                                        <Button variant="primary" type="submit">Save Changes</Button>
-                                        <Button variant="primary" onClick={handleAddToMyProject}>Send Brief</Button>
-                                    </div>
-                            }
-                        </>
-                        : <>
-                            {
-                                currentProject.stage === "DreamProject" &&
-                                <div className='p-4 pt-0 space-x-2'>
+
+                <div className='p-4 space-x-2 flex'>
+                    {
+                        user.email ?
+                            <>
+                                <Button variant="primary" type="submit">Save Changes</Button>
+                                {
+                                    currentProject.stage !== "DreamProject" ?
+                                        <>
+                                            {
+                                                user.role === "PM" && currentProject.stage === "Lead" &&
+                                                <Button variant="primary" onClick={handleSubmitToClient}>Submit to client</Button>
+                                            }
+                                        </>
+                                        : <Button variant="primary" onClick={handleAddToMyProject}>Send Brief</Button>
+                                }
+                            </>
+                            : <>
+                                {
+                                    currentProject.stage === "DreamProject" &&
                                     <Button variant="primary" onClick={handleAddToMyProject}>Send Brief</Button>
-                                </div>
-                            }
+                                }
+                            </>
+                    }
+                    {
+                        user.role === "Client" && currentProject.stage === "In Progress"
+                        && <>
+                            <button onClick={handleApproveProject} type="button" className="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Approve</button>
+                            <button onClick={handleApproveProject} type="button" className="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Decline</button>
+                            <button onClick={handleApproveProject} type="button" className="text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Put On Hold</button>
                         </>
-                }
+                    }
+                </div>
             </form>
 
             {
