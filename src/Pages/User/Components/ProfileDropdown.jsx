@@ -39,7 +39,7 @@ const ProfileDropdown = () => {
                 <div className='text-sm text-gray-600'>
                     @{user.role}  <br />
                     <p className='flex items-center justify-center gap-1'><FaEnvelope /> {user.email}</p>
-                    <p className='flex items-center justify-center gap-1 mt-1'><ImOffice /> {user.company?.length > 1 ? user.company : "N/A"}</p>
+                    <p className='flex items-center justify-center gap-1 mt-1'><ImOffice /> {user.company && user.company[0] || "N/A"}</p>
                 </div>
                 <Button variant="primary" onClick={handleLogout} className="flex gap-2 mx-auto mt-4">Logout <FiLogOut className='w-5 h-5' /></Button>
             </div>

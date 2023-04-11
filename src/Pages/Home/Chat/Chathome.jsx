@@ -36,7 +36,7 @@ const Chathome = ({ chatboxRef, nsnlogo }) => {
 
 
     return (
-        <div ref={chatboxRef} className='h-72 overflow-y-scroll overflow-x-hidden relative'>
+        <div ref={chatboxRef} className='h-full overflow-y-scroll overflow-x-hidden relative'>
             <div className='flex flex-col p-3'>
                 <MessageReceiver
                     key={isFullTime ? "visible" : "hidden"}

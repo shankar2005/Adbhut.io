@@ -36,7 +36,7 @@ const ProjectCard = ({ projectId }) => {
                             <span className='font-medium'>{project?.title}</span>
                         </Link>
                         <p>
-                            Voice Over Artist
+                            Musical
                         </p>
                     </div>
                 </div>
@@ -47,7 +47,7 @@ const ProjectCard = ({ projectId }) => {
                 </Link>
             </div>
             <p className='text-sm mb-2'>
-                {project?.production_solution}
+                {project?.production_solution?.length > 200 ? project?.production_solution?.slice(0, 200) + "..." : project?.production_solution}
             </p>
             {
                 thumbnail ? thumbnailEle : <img className="w-full" src="https://www.unfe.org/wp-content/uploads/2019/04/SM-placeholder.png" alt="" />
