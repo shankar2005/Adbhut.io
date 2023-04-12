@@ -45,7 +45,7 @@ const MsgItem = (id) => {
                 ...currentProject
             }))
             sessionStorage.setItem("CURRENT_PROJECT", id?.id?.pk);
-            navigate(`/projects/${currentProject.pk}/${currentProject.stage}`);
+            navigate(`/projects/${currentProject.pk}`);
 
         }} className='cursor-pointer p-4 py-5 flex items-center gap-3 hover:bg-gray-200'>
             <img className='w-16 h-16 object-cover rounded-full border' src={avatar} alt="" />

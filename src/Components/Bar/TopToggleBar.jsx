@@ -92,7 +92,7 @@ const TopToggleBar = ({ className }) => {
                             <li>
                                 <div className="flex items-center">
                                     <Link to={
-                                        currentProject?.pk ? `/projects/${currentProject?.pk}/${currentProject?.stage}` : "/projects/create-project"
+                                        currentProject?.pk ? `/projects/${currentProject?.pk}` : "/projects/create-project"
                                     } className="text-sm hover:text-blue-600">Dashboard</Link>
                                 </div>
                             </li>

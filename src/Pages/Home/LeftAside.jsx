@@ -85,7 +85,7 @@ const LeftAside = ({ setShowToolkit }) => {
             .then(response => {
                 const data = response.data;
                 toast.success("Project created successfully!");
-                navigate(`/projects/${data.pk}/Lead/`);
+                navigate(`/projects/${data.pk}/`);
             })
     }
 
@@ -99,7 +99,7 @@ const LeftAside = ({ setShowToolkit }) => {
             data: { stage: "Lead" }
         }).then(response => {
             const data = response.data;
-            navigate(`/projects/${data?.pk}/${data?.stage}/`);
+            navigate(`/projects/${data?.pk}`);
         })
     }
 

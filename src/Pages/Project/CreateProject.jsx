@@ -54,7 +54,7 @@ const CreateProject = () => {
                 const data = response.data;
                 if (data?.pk) {
                     toast.success("Project created successfully!", { id: "createNewProject" });
-                    navigate(`/projects/${data.pk}/Lead/`);
+                    navigate(`/projects/${data.pk}`);
                 } else {
                     toast.error("Something went wrong!", { id: "createNewProject" });
                 }
@@ -85,7 +85,7 @@ const CreateProject = () => {
                 const data = response.data;
                 if (data.pk) {
                     toast.success("Added to dreamproject!", { id: "createNewProject" });
-                    navigate(`/projects/${data.pk}/DreamProject/`);
+                    navigate(`/projects/${data.pk}`);
                 } else {
                     toast.error("Something went wrong!", { id: "createNewProject" });
                 }

@@ -28,11 +28,11 @@ const ProjectCard = ({ projectId }) => {
         <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
             <div className='flex items-center justify-between gap-2 mb-3'>
                 <div className="flex items-center gap-3">
-                    <Link to={`/projects/${project.pk}/${project.stage}`}>
+                    <Link to={`/projects/${project.pk}`}>
                         <img className='w-12 h-12 rounded-full' src={artist.profile_pic || avatar} alt="" />
                     </Link>
                     <div className='text-sm'>
-                        <Link to={`/projects/${project.pk}/${project.stage}`}>
+                        <Link to={`/projects/${project.pk}`}>
                             <span className='font-medium'>{project?.title}</span>
                         </Link>
                         <p>
@@ -40,7 +40,7 @@ const ProjectCard = ({ projectId }) => {
                         </p>
                     </div>
                 </div>
-                <Link to={`/projects/${project.pk}/${project.stage}`}>
+                <Link to={`/projects/${project.pk}`}>
                     <button className='text-blue-600 bg-sky-100 py-2.5 px-4 rounded-lg font-medium text-sm md:text-base'>
                         Get Inspired
                     </button>

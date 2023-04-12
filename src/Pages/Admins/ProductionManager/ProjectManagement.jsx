@@ -115,7 +115,7 @@ const ProjectManagement = () => {
         })
             .then(response => {
                 const data = response.data;
-                navigate(`/projects/${data.pk}/${data.stage}`);
+                navigate(`/projects/${data.pk}`);
 
                 // send assignment to the chatbox
                 // chatlog
