@@ -15,6 +15,7 @@ import PageLoader from '../../../Components/Loader/PageLoader';
 import { BsFilePdf } from 'react-icons/bs';
 // import ReactAudioPlayer from 'react-audio-player';
 // import test from "../../../assets/test.mp3"
+import logo from "../../../assets/logos/adbeta.jpeg"
 
 const ProjectManagement = () => {
     const { avatar } = useRootContext();
@@ -175,7 +176,7 @@ const ProjectManagement = () => {
                                 </div>
                                 : <div className='flex items-center gap-2 rounded'>
                                     <div className='relative'>
-                                        <img className='w-10 border rounded-full' src="https://adbhut.io/assets/logo-63665b8e.jpeg" alt="" />
+                                        <img className='w-10' src={logo} alt="" />
                                     </div>
                                     <div className='text-sm'>
                                         <p className="font-medium">ADBHUT.IO</p>
