@@ -12,6 +12,7 @@ import { useSendMessageToGPTMutation } from '../../../features/chat/chatApi';
 import { showLogin } from '../../../features/dropdown/dropdownSlice';
 import { addChatLog, setProjectData } from '../../../features/project/projectSlice';
 import PageLoader from '../../../Components/Loader/PageLoader';
+import { BsFilePdf } from 'react-icons/bs';
 // import ReactAudioPlayer from 'react-audio-player';
 // import test from "../../../assets/test.mp3"
 
@@ -257,7 +258,8 @@ const ProjectManagement = () => {
                     }
 
                     {
-                        currentProject?.reference_links &&
+                        currentProject?.reference_links?.startsWith("[") && currentProject?.reference_links?.endsWith("]") &&
+                        JSON.parse(currentProject?.reference_links)?.length > 0 &&
                         <div className="mb-4">
                             <label className="text-sm font-medium text-gray-900">Project Reference Links: </label>
                             <ul className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-yellow-100 font-sans mt-2'>
@@ -269,13 +271,18 @@ const ProjectManagement = () => {
                     {
                         currentProject?.pk === 108 &&
                         <div className="mb-4">
-                            <label className="text-sm font-medium text-gray-900">Demos: </label>
+                            <label className="text-sm font-medium text-gray-900">View Demos: </label>
                             {/* <ReactAudioPlayer
                                 src={test}
                                 autoPlay={false}
                                 controls
                                 className='w-full'
                             /> */}
+
+                            <a target="_blank" href="https://drive.google.com/file/d/1LDHS-MDnUF2GZVQWeyUmExAxKQRxP-Z8/view?usp=sharing" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
+                                <BsFilePdf size={25} className="mr-2" />
+                                View
+                            </a>
                         </div>
                     }
 
@@ -389,7 +396,7 @@ const ProjectManagement = () => {
                         </div>
                 }
 
-                <div className='p-4 space-x-2 flex'>
+                <div className='p-4 pt-0 space-x-2 flex'>
                     {
                         user.email ?
                             <>
