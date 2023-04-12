@@ -12,8 +12,8 @@ import { useSendMessageToGPTMutation } from '../../../features/chat/chatApi';
 import { showLogin } from '../../../features/dropdown/dropdownSlice';
 import { addChatLog, setProjectData } from '../../../features/project/projectSlice';
 import PageLoader from '../../../Components/Loader/PageLoader';
-import ReactAudioPlayer from 'react-audio-player';
-import test from "../../../assets/test.mp3"
+// import ReactAudioPlayer from 'react-audio-player';
+// import test from "../../../assets/test.mp3"
 
 const ProjectManagement = () => {
     const { avatar } = useRootContext();
@@ -270,12 +270,12 @@ const ProjectManagement = () => {
                         currentProject?.pk === 108 &&
                         <div className="mb-4">
                             <label className="text-sm font-medium text-gray-900">Demos: </label>
-                            <ReactAudioPlayer
+                            {/* <ReactAudioPlayer
                                 src={test}
                                 autoPlay={false}
                                 controls
                                 className='w-full'
-                            />
+                            /> */}
                         </div>
                     }
 
