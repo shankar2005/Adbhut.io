@@ -56,6 +56,7 @@ const ProjectManagement = () => {
             setValue("post_project_client_total_payout", currentProject.post_project_client_total_payout);
             setValue("production_solution", currentProject.production_solution);
             setValue("artist_discussion_updates", currentProject.artist_discussion_updates);
+            setValue("post_project_client_total_feedback", currentProject.post_project_client_total_feedback);
         }
     }, [currentProject])
 
@@ -272,7 +273,7 @@ const ProjectManagement = () => {
                     {
                         currentProject?.pk === 108 &&
                         <div className="mb-4">
-                            <label className="text-sm font-medium text-gray-900">View Demos: </label>
+                            <label className="text-sm font-medium text-gray-900">Demos: </label>
                             {/* <ReactAudioPlayer
                                 src={test}
                                 autoPlay={false}
@@ -288,16 +289,15 @@ const ProjectManagement = () => {
                     }
 
                     {
-                        user.role === "PM" || user.role === "AM" ?
-                            currentProject?.post_project_client_feedback
-                            && <div className="mb-4">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">Artist assignment</label>
-                                <p className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-yellow-100 font-sans'>{currentProject?.post_project_client_feedback}</p>
-                            </div>
-                            : <div className="mb-4">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">Send assignment:</label>
-                                <textarea {...register("post_project_client_feedback")} onBlur={(e) => setassignmentField(e.target.value)} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your assignment"></textarea>
-                            </div>
+                        currentProject?.post_project_client_feedback
+                        && <div className="mb-4">
+                            <label className="block mb-2 text-sm font-medium text-gray-900">Briefing: </label>
+                            <p className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-yellow-100 font-sans'>{currentProject?.post_project_client_feedback}</p>
+                        </div>
+                        // <div className="mb-4">
+                        //     <label className="block mb-2 text-sm font-medium text-gray-900">Send assignment:</label>
+                        //     <textarea {...register("post_project_client_feedback")} onBlur={(e) => setassignmentField(e.target.value)} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your assignment"></textarea>
+                        // </div>
                     }
 
                 </div>
