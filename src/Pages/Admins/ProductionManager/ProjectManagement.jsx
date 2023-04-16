@@ -12,7 +12,7 @@ import { useSendMessageToGPTMutation } from '../../../features/chat/chatApi';
 import { showLogin } from '../../../features/dropdown/dropdownSlice';
 import { addChatLog, setProjectData } from '../../../features/project/projectSlice';
 import PageLoader from '../../../Components/Loader/PageLoader';
-import { BsFilePdf } from 'react-icons/bs';
+import { BsFilePdf, BsMusicNoteBeamed } from 'react-icons/bs';
 // import ReactAudioPlayer from 'react-audio-player';
 // import test from "../../../assets/test.mp3"
 import logo from "../../../assets/logos/adbeta.jpeg"
@@ -272,20 +272,39 @@ const ProjectManagement = () => {
 
                     {
                         currentProject?.pk === 108 &&
-                        <div className="mb-4">
-                            <label className="text-sm font-medium text-gray-900">Demos: </label>
-                            {/* <ReactAudioPlayer
+                        <>
+                            <div className="mb-4">
+                                <label className="text-sm font-medium text-gray-900">Demos: </label>
+                                {/* <ReactAudioPlayer
                                 src={test}
                                 autoPlay={false}
                                 controls
                                 className='w-full'
                             /> */}
 
-                            <a target="_blank" href="https://drive.google.com/file/d/1LDHS-MDnUF2GZVQWeyUmExAxKQRxP-Z8/view?usp=sharing" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
-                                <BsFilePdf size={25} className="mr-2" />
-                                View
-                            </a>
-                        </div>
+                                <div className='flex gap-2'>
+                                    <a target="_blank" href="https://drive.google.com/file/d/1LDHS-MDnUF2GZVQWeyUmExAxKQRxP-Z8/view?usp=sharing" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
+                                        <BsFilePdf size={25} className="mr-2" />
+                                        View Lyrics
+                                    </a>
+                                    <a target="_blank" href="https://drive.google.com/file/d/1RmdRsbPPaH2h5Sp5cQwyJIXmsRVutwAc/view?usp=sharing" className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
+                                        <BsMusicNoteBeamed size={25} className="mr-2" />
+                                        View Audio
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div className="mb-4">
+                                <label className="block mb-2 text-sm font-medium text-gray-900">Production comments</label>
+                                <p className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-sky-100 font-sans'>
+                                    Production Points to be covered in the final mix <br />
+                                    1. Lyrics update <br />
+                                    2. Crowd shouts <br />
+                                    3. Final vocal recording & vocal mixing <br />
+                                    4. Overall track mix-master <br />
+                                </p>
+                            </div>
+                        </>
                     }
 
                     {
