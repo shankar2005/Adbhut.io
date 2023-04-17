@@ -283,7 +283,7 @@ const ProjectManagement = () => {
                             /> */}
 
                                 <div className='flex gap-2'>
-                                    <a target="_blank" href="https://drive.google.com/file/d/1LDHS-MDnUF2GZVQWeyUmExAxKQRxP-Z8/view?usp=sharing" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
+                                    <a target="_blank" href="https://docsend.com/view/t7twmera8j4ccgp4" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
                                         <BsFilePdf size={25} className="mr-2" />
                                         View Lyrics
                                     </a>
