@@ -282,15 +282,15 @@ const ProjectManagement = () => {
                                 className='w-full'
                             /> */}
 
-                                <div className='flex gap-2'>
+                                <div className='flex items-center gap-2'>
                                     <a target="_blank" href="https://docsend.com/view/t7twmera8j4ccgp4" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
                                         <BsFilePdf size={25} className="mr-2" />
                                         View Lyrics
                                     </a>
-                                    {/* <a target="_blank" href="https://drive.google.com/file/d/1RmdRsbPPaH2h5Sp5cQwyJIXmsRVutwAc/view?usp=sharing" className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
-                                        <BsMusicNoteBeamed size={25} className="mr-2" />
-                                        View Audio
-                                    </a> */}
+                                    <a target="_blank" href="https://drive.google.com/file/d/1RmdRsbPPaH2h5Sp5cQwyJIXmsRVutwAc/view?usp=share_link"  className='flex flex-col items-center gap-2'>
+                                        <img src="https://p.sfx.ms//icons/v2/Large/Audio.png" alt="" />
+                                        <p className='text-sm text-blue-700'>{"Demo_1.2.1 temp vox REFERENCE_NsNCo_ProdByKeerteesh".slice(0, 10)}...</p>
+                                    </a>
                                 </div>
                             </div>
 
