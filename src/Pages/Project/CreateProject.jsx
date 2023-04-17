@@ -95,7 +95,7 @@ const CreateProject = () => {
     const location = useLocation();
 
     return (
-        <div className='bg-white rounded-lg shadow-lg'>
+        <div className='bg-white rounded-b-lg shadow-lg'>
             <form>
                 <div className="p-4">
                     <div className="mb-4 items-center gap-2">

@@ -54,7 +54,7 @@ const TopToggleBar = ({ className }) => {
     if ((!pathname.includes("/artists") && !pathname.includes("/projects")) || pathname.includes("/projects/inbox")) return;
 
     return (
-        <section className={`sticky top-20 w-full z-30 bg-white  shadow mb-2 rounded-t-lg ${className}`}>
+        <section className={`sticky top-20 w-full z-30 bg-white shadow rounded-t-lg ${className || ""}`}>
             <div className="flex justify-between items-center p-2">
                 <nav className="flex items-center gap-2" aria-label="Breadcrumb">
                     <FcDocument size={40} />

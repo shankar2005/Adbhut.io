@@ -213,7 +213,7 @@ const LeftAside = ({ setShowToolkit }) => {
     }, [currentProject])
 
     return (
-        <section className='bg-white shadow-md rounded-lg h-[calc(100vh-6.5rem)] flex flex-col justify-between'>
+        <section className='bg-white shadow-md rounded-b-lg md:rounded-lg h-[calc(100vh-10.7rem)] md:h-[calc(100vh-6.5rem)] flex flex-col justify-between'>
             <ChatHeading isON={isON} setIsON={setIsON} />
 
             {/*  */}
