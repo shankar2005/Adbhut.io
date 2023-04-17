@@ -287,10 +287,13 @@ const ProjectManagement = () => {
                                         <BsFilePdf size={25} className="mr-2" />
                                         View Lyrics
                                     </a>
-                                    <a target="_blank" href="https://drive.google.com/file/d/1RmdRsbPPaH2h5Sp5cQwyJIXmsRVutwAc/view?usp=share_link"  className='flex flex-col items-center gap-2'>
+                                    {/* <a target="_blank" href="https://soundcloud.com/adbhut-188302011/demo-121-temp-vox-reference-nsnco-prodbykeerteesh?si=c23da51c605d48ebb364f0b7b93fcdde&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"  className='flex flex-col items-center gap-2'>
                                         <img src="https://p.sfx.ms//icons/v2/Large/Audio.png" alt="" />
                                         <p className='text-sm text-blue-700'>{"Demo_1.2.1 temp vox REFERENCE_NsNCo_ProdByKeerteesh".slice(0, 10)}...</p>
-                                    </a>
+                                    </a> */}
+                                    <div>
+                                        <iframe width="100%" height={166} scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1494377476&color=%230ea5e9&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" /><div style={{ fontSize: '10px', color: '#cccccc', lineBreak: 'anywhere', wordBreak: 'normal', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontFamily: 'Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif', fontWeight: 100 }}><a href="https://soundcloud.com/adbhut-188302011" title="Adbhut" target="_blank" style={{ color: '#cccccc', textDecoration: 'none' }}>Adbhut</a> · <a href="https://soundcloud.com/adbhut-188302011/demo-121-temp-vox-reference-nsnco-prodbykeerteesh" title="Demo 1.2.1 Temp Vox REFERENCE NsNCo ProdByKeerteesh" target="_blank" style={{ color: '#cccccc', textDecoration: 'none' }}>Demo 1.2.1 Temp Vox REFERENCE NsNCo ProdByKeerteesh</a></div>
+                                    </div>
                                 </div>
                             </div>
 
