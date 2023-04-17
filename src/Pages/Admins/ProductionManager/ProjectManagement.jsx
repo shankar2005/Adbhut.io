@@ -287,10 +287,10 @@ const ProjectManagement = () => {
                                         <BsFilePdf size={25} className="mr-2" />
                                         View Lyrics
                                     </a>
-                                    <a target="_blank" href="https://drive.google.com/file/d/1RmdRsbPPaH2h5Sp5cQwyJIXmsRVutwAc/view?usp=sharing" className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
+                                    {/* <a target="_blank" href="https://drive.google.com/file/d/1RmdRsbPPaH2h5Sp5cQwyJIXmsRVutwAc/view?usp=sharing" className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
                                         <BsMusicNoteBeamed size={25} className="mr-2" />
                                         View Audio
-                                    </a>
+                                    </a> */}
                                 </div>
                             </div>
 
