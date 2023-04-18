@@ -107,29 +107,31 @@ const TopToggleBar = ({ className }) => {
                 </nav>
 
 
-                {
-                    pathname.includes("project") ||
-                    <div>
-                        <select onChange={handleViewAs} className='text-sm p-1 rounded border outline-gray-100'>
-                            <option value="large">Large</option>
-                            <option value="details">Details</option>
-                            <option value="small">Small</option>
-                        </select>
-                    </div>
-                }
+                <div className='flex items-center gap-3'>
+                    {
+                        pathname.includes("project") ||
+                        <div>
+                            <select onChange={handleViewAs} className='text-sm p-1 rounded border outline-gray-100'>
+                                <option value="large">Large</option>
+                                <option value="details">Details</option>
+                                <option value="small">Small</option>
+                            </select>
+                        </div>
+                    }
 
-                {
-                    currentProject?.pk &&
-                    <BsThreeDots onClick={() => setactionToggle(!actionToggle)} className='pr-2 cursor-pointer' size={25} />
-                }
-                {
-                    actionToggle && user.email &&
-                    <ul className='absolute right-5 -bottom-5 w-60 min-w-fit bg-white shadow select-none p-0.5'>
-                        <li>
-                            <button onClick={handleDeleteProject} className='flex items-center gap-2 text-sm py-3 pl-3 hover:bg-gray-100 w-full'><BsTrash size={20} /> Delete</button>
-                        </li>
-                    </ul>
-                }
+                    {
+                        currentProject?.pk &&
+                        <BsThreeDots onClick={() => setactionToggle(!actionToggle)} className='pr-2 cursor-pointer' size={25} />
+                    }
+                    {
+                        actionToggle && user.email &&
+                        <ul className='absolute right-5 -bottom-5 w-60 min-w-fit bg-white shadow select-none p-0.5'>
+                            <li>
+                                <button onClick={handleDeleteProject} className='flex items-center gap-2 text-sm py-3 pl-3 hover:bg-gray-100 w-full'><BsTrash size={20} /> Delete</button>
+                            </li>
+                        </ul>
+                    }
+                </div>
             </div>
 
             {
