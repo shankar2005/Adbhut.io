@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import { useGetArtistByIdQuery } from '../../features/artist/artistApi';
 import { useSelector } from 'react-redux';
+import { BsBoxArrowUpRight } from 'react-icons/bs';
 
 const ArtistProfile = () => {
     const { shortlistedArtists } = useSelector(state => state.project);
@@ -85,8 +86,12 @@ const ArtistProfile = () => {
                                 </div>
                             }
                             {
-                                link[1] === "Other Document"
-                                && <embed src={link[0]} className="w-full" height="500" />
+                                link[1] === "Other Document" && link[0]?.includes("drive.google")
+                                    ? <a href={link[0]} className='hover:underline block bg-gray-100 py-10 rounded-lg' target="_blank">
+                                        <img className="mx-auto w-56" src="https://icon-library.com/images/google-folder-icon/google-folder-icon-20.jpg" alt="" />
+                                        <p className='font-medium text-blue-700 flex justify-center gap-2'>Open in drive <BsBoxArrowUpRight /></p>
+                                    </a>
+                                    : <embed src={link[0]} className="w-full" height="500" />
                             }
                         </SwiperSlide>)
                     }

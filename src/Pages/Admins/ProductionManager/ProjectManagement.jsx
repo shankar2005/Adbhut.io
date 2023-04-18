@@ -316,19 +316,19 @@ const ProjectManagement = () => {
                     }
 
                     {
-                        // currentProject?.pk === 108 &&
-                        // <>
-                        //     <div className="mb-4">
-                        //         <label className="text-sm font-medium text-gray-900">Demos: </label>
-                        //         <div className='w-1/2'>
-                        //             <Video autoPlay={false} loop
-                        //                 controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}
-                        //                 onCanPlayThrough={() => { }}>
-                        //                 <source src="https://res.cloudinary.com/djqnk6djr/video/upload/v1681747028/AdbhutIO/uuldcgknlsnt2jgs8zgt.mp4" type="video/webm" />
-                        //             </Video>
-                        //         </div>
-                        //     </div>
-                        // </>
+                        currentProject?.pk === 110 &&
+                        <>
+                            <div className="mb-4">
+                                <label className="text-sm font-medium text-gray-900">Demos: </label>
+                                <div className='md:w-4/6 xl:w-1/2'>
+                                    <Video autoPlay={false} loop={false}
+                                        controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}
+                                        onCanPlayThrough={() => { }}>
+                                        <source src="https://res.cloudinary.com/djqnk6djr/video/upload/v1681747028/AdbhutIO/uuldcgknlsnt2jgs8zgt.mp4" type="video/webm" />
+                                    </Video>
+                                </div>
+                            </div>
+                        </>
                     }
 
                     {
