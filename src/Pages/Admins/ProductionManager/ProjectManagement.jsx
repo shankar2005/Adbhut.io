@@ -324,7 +324,7 @@ const ProjectManagement = () => {
                                     <Video autoPlay={false} loop={false}
                                         controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}
                                         onCanPlayThrough={() => { }}>
-                                        <source src="https://res.cloudinary.com/djqnk6djr/video/upload/v1681747028/AdbhutIO/uuldcgknlsnt2jgs8zgt.mp4" type="video/webm" />
+                                        <source src="https://res.cloudinary.com/djqnk6djr/video/upload/v1681813785/aastey_Tribe_gbr8as.mp4" type="video/webm" />
                                     </Video>
                                 </div>
                             </div>
