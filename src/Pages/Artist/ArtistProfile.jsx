@@ -3,6 +3,7 @@ import { IoLanguageSharp, IoLocationSharp } from 'react-icons/io5';
 import { useRootContext } from '../../contexts/RootProvider';
 import useYoutubeEmbaded from '../../hooks/useYoutubeEmbaded';
 import { GiCheckMark } from 'react-icons/gi';
+import gdrive from "../../assets/placeholders/gdrive-folder.jpg";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -88,7 +89,7 @@ const ArtistProfile = () => {
                             {
                                 link[1] === "Other Document" && link[0]?.includes("drive.google")
                                     ? <a href={link[0]} className='hover:underline block bg-gray-100 py-10 rounded-lg' target="_blank">
-                                        <img className="mx-auto w-56" src="https://icon-library.com/images/google-folder-icon/google-folder-icon-20.jpg" alt="" />
+                                        <img className="mx-auto w-56" src={gdrive} alt="" />
                                         <p className='font-medium text-blue-700 flex justify-center gap-2'>Open in drive <BsBoxArrowUpRight /></p>
                                     </a>
                                     : <embed src={link[0]} className="w-full" height="500" />

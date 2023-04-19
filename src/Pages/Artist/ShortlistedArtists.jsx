@@ -12,7 +12,7 @@ const ShortlistedArtists = () => {
     }
 
     return (
-        <div className='grid grid-cols-2 gap-2'>
+        <div className='grid grid-cols-2 gap-2 mt-2'>
             {
                 data?.artists?.map(({ name, id, skills, email, phone, languages, locaiton }) => <ArtistSquareView key={id} artist={{
                     owner_name: name,

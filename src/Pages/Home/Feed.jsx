@@ -118,7 +118,7 @@ const Feed = () => {
     }
 
     return (
-        <div className='relative'>
+        <div className='relative mt-2'>
             <InfiniteScroll
                 dataLength={artists.length}
                 next={fetchMoreData}
