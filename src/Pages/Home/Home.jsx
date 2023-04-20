@@ -11,7 +11,7 @@ const Home = () => {
     return (
         <header>
             <nav className='p-3 border-b'>
-                <div className='w-10/12 max-w-screen-xl mx-auto flex items-center justify-between'>
+                <div className='w-11/12 max-w-screen-xl mx-auto flex items-center justify-between'>
                     <img src={adbhutGIF} className='w-28 md:w-32' />
                     <div className='flex items-center gap-4'>
                         <p className='font-medium uppercase space-x-2 text-xs md:text-base'>
@@ -28,9 +28,9 @@ const Home = () => {
             </nav>
 
 
-            <section className='h-screen lg:flex justify-center items-center'>
+            <section className='pt-10 lg:flex justify-center items-center'>
 
-                <div className='w-10/12 max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 justify-between gap-20'>
+                <div className='w-11/12 md:w-10/12 max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 justify-between gap-20'>
                     <div className='order-last w-full lg:w-5/6 ml-auto'>
                         <div className='border rounded-lg shadow-lg'>
                             <LeftAside />
@@ -52,6 +52,11 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+
+            <div className="flex flex-col justify-center items-center bg-gray-100 mt-10 pt-12 relative">
+                <h1 className='text-4xl font-bold absolute top-16 px-5 md:px-0'>Revolutionize your content with cutting-edge AI technology</h1>
+                <iframe className='px-5 md:px-0 w-full md:w-3/6' src="https://player.vimeo.com/video/819139346?h=d6fa5efcc3" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            </div>
         </header>
     );
 };
