@@ -6,7 +6,6 @@ import { DefaultPlayer as Video } from 'react-html5video';
 import 'react-photo-view/dist/react-photo-view.css';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { ImAttachment } from 'react-icons/im';
-import { LinkPreview } from '@dhaiwat10/react-link-preview';
 import { BsLink45Deg, BsMusicNoteBeamed, BsPlayCircle } from 'react-icons/bs';
 import { IoMdVideocam } from 'react-icons/io';
 

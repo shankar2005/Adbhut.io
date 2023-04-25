@@ -25,6 +25,32 @@ const RightAside = () => {
         navigate("/projects/create-project");
     }
 
+    if (user?.role === "AM") {
+        return (
+            <>
+                <div className='bg-white rounded-lg'>
+                    <section className='border-b'>
+                        <div className='border-b shadow-sm font-medium p-3.5'>
+                            <h3>Toolkit</h3>
+                        </div>
+
+                        
+                    </section>
+
+                    <section className='text-gray-700 text-sm p-4 border-b'>
+                        <ul className="space-y-2">
+                            <li>
+                                <Link to="/artists/artist-entry" className='hover:underline flex justify-between'>
+                                    Add Artist
+                                </Link>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+            </>
+        );
+    }
+
     return (
         <>
             <div className='bg-white rounded-lg'>

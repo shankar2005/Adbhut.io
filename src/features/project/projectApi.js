@@ -37,6 +37,14 @@ const projectApi = apis.injectEndpoints({
             }),
             invalidatesTags: ["DreamProjects", "CurrentProjects", "Project"]
         }),
+
+        uploadDemo: builder.mutation({
+            query: (data) => ({
+                url: `/project_demo/`,
+                method: 'POST',
+                body: data
+            })
+        }),
     }),
 });
 
@@ -47,4 +55,5 @@ export const {
     useCreateProjectMutation,
     useDeleteProjectMutation,
     useUpdateProjectMutation,
+    useUploadDemoMutation
 } = projectApi;
