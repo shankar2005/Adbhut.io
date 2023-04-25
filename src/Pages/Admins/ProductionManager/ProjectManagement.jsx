@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useRootContext } from '../../../contexts/RootProvider';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { IoIosArrowForward } from 'react-icons/io';
 import ShortlistedArtistRow from './Components/ShortlistedArtistRow';
 import AssignedArtistRow from './Components/AssignedArtistRow';
 import Button from '../../../Components/Button/Button';
@@ -19,6 +20,7 @@ import logo from "../../../assets/logos/adbeta.jpeg"
 
 import { DefaultPlayer as Video } from 'react-html5video';
 import 'react-html5video/dist/styles.css';
+import FileUpload from './Components/FileUpload';
 
 const ProjectManagement = () => {
     const { avatar } = useRootContext();
@@ -300,8 +302,6 @@ const ProjectManagement = () => {
                                     <div>
                                         <iframe width="100%" height={166} scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1496330755&color=%230ea5e9&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" /><div style={{ fontSize: '10px', color: '#cccccc', lineBreak: 'anywhere', wordBreak: 'normal', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontFamily: 'Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif', fontWeight: 100 }}><a href="https://soundcloud.com/adbhut-188302011" title="Adbhut" target="_blank" style={{ color: '#cccccc', textDecoration: 'none' }}>Adbhut</a> · <a href="https://soundcloud.com/adbhut-188302011/echmkt-final-master-v2-nsnco-prodbykeerteesh" title="ECHMKT FINAL MASTER V2 NsNCo ProdByKeerteesh" target="_blank" style={{ color: '#cccccc', textDecoration: 'none' }}>ECHMKT FINAL MASTER V2 NsNCo ProdByKeerteesh</a></div>
                                     </div>
-
-                                    {/* <video src="https://res.cloudinary.com/djqnk6djr/video/upload/v1681747028/AdbhutIO/uuldcgknlsnt2jgs8zgt.mp4"></video> */}
                                 </div>
                             </div>
 
@@ -333,6 +333,23 @@ const ProjectManagement = () => {
                             </div>
                         </>
                     }
+
+                    <div className="mb-4">
+                        <div className="flex justify-between mb-2">
+                            <p>Media, links and docs demos</p>
+                            <Link to={`/projects/demos/${currentProject?.pk}`}>
+                                <p className="flex items-center gap-2">112 <IoIosArrowForward size={20} /></p>
+                            </Link>
+                        </div>
+                        <div className="flex gap-3 overflow-hidden">
+                            <img className="w-32 h-32 p-2 bg-gray-300 rounded-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI-SaYWlXmVicHWYEEpRgrmFir507tWQk3pA&usqp=CAU" alt="" />
+                            <img className="w-32 h-32 p-2 bg-gray-300 rounded-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI-SaYWlXmVicHWYEEpRgrmFir507tWQk3pA&usqp=CAU" alt="" />
+                            <img className="w-32 h-32 p-2 bg-gray-300 rounded-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI-SaYWlXmVicHWYEEpRgrmFir507tWQk3pA&usqp=CAU" alt="" />
+                            <img className="w-32 h-32 p-2 bg-gray-300 rounded-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI-SaYWlXmVicHWYEEpRgrmFir507tWQk3pA&usqp=CAU" alt="" />
+                        </div>
+                    </div>
+
+                    <FileUpload />
 
                     {
                         currentProject?.post_project_client_feedback
