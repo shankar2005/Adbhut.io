@@ -13,7 +13,7 @@ import { useSendMessageToGPTMutation } from '../../../features/chat/chatApi';
 import { showLogin } from '../../../features/dropdown/dropdownSlice';
 import { addChatLog, setProjectData } from '../../../features/project/projectSlice';
 import PageLoader from '../../../Components/Loader/PageLoader';
-import { BsFilePdf, BsMusicNoteBeamed } from 'react-icons/bs';
+import { BsFilePdf, BsFilePdfFill, BsMusicNoteBeamed } from 'react-icons/bs';
 // import ReactAudioPlayer from 'react-audio-player';
 // import test from "../../../assets/test.mp3"
 import logo from "../../../assets/logos/adbeta.jpeg"
@@ -21,6 +21,7 @@ import logo from "../../../assets/logos/adbeta.jpeg"
 import { DefaultPlayer as Video } from 'react-html5video';
 import 'react-html5video/dist/styles.css';
 import FileUpload from './Components/FileUpload';
+import Demo from '../../Project/Components/Demo';
 
 const ProjectManagement = () => {
     const { avatar } = useRootContext();
@@ -334,22 +335,21 @@ const ProjectManagement = () => {
                         <div className="flex justify-between mb-2">
                             <p>Media, links and docs demos</p>
                             <Link to={`/projects/demos/${currentProject?.pk}`}>
-                                <p className="flex items-center gap-2">112 <IoIosArrowForward size={20} /></p>
+                                <p className="flex items-center gap-2">{currentProject?.project_demos?.length} <IoIosArrowForward size={20} /></p>
                             </Link>
                         </div>
                         <div className="flex gap-3 overflow-hidden">
-                            <img className="w-32 h-32 p-2 bg-gray-300 rounded-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI-SaYWlXmVicHWYEEpRgrmFir507tWQk3pA&usqp=CAU" alt="" />
-                            <img className="w-32 h-32 p-2 bg-gray-300 rounded-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI-SaYWlXmVicHWYEEpRgrmFir507tWQk3pA&usqp=CAU" alt="" />
-                            <img className="w-32 h-32 p-2 bg-gray-300 rounded-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI-SaYWlXmVicHWYEEpRgrmFir507tWQk3pA&usqp=CAU" alt="" />
-                            <img className="w-32 h-32 p-2 bg-gray-300 rounded-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI-SaYWlXmVicHWYEEpRgrmFir507tWQk3pA&usqp=CAU" alt="" />
+                            {
+                                currentProject?.project_demos?.slice(0, 4)?.map(demo => <Demo demo={demo} />)
+                            }
                         </div>
                     </div>
 
                     <FileUpload />
 
-                    <div className="mb-4 items-center gap-2 w-4/6 mx-auto">
-                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"placeholder='Demo links...' />
-                    </div>
+                    {/* <div className="mb-4 items-center gap-2 w-4/6 mx-auto">
+                        <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder='Demo links...' />
+                    </div> */}
 
                     {
                         currentProject?.post_project_client_feedback

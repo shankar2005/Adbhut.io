@@ -43,7 +43,8 @@ const projectApi = apis.injectEndpoints({
                 url: `/project_demo/`,
                 method: 'POST',
                 body: data
-            })
+            }),
+            invalidatesTags: ["Project"]
         }),
     }),
 });

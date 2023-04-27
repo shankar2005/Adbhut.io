@@ -17,7 +17,6 @@ const ArtistEntry = () => {
 
     const { register, handleSubmit, formState: { errors }, control } = useForm();
     const onSubmit = data => {
-        return;
         addArtist({
             ...data,
             "languages": [20, 19],
@@ -25,32 +24,55 @@ const ArtistEntry = () => {
         })
     }
 
+    const fields = [
+        {
+            name: "name",
+            type: "text",
+            label: "Name",
+            placeholder: "Your Name",
+            required: true
+        },
+        {
+            name: "age",
+            type: "number",
+            label: "Age",
+            placeholder: "Your age",
+            required: false
+        },
+        {
+            name: "email",
+            type: "email",
+            label: "Email",
+            placeholder: "Your Email",
+            required: true
+        },
+        {
+            name: "phone",
+            type: "tel",
+            label: "Phone",
+            placeholder: "Your phone number",
+            required: true
+        },
+        {
+            name: "profile_image",
+            type: "url",
+            label: "Profile image",
+            placeholder: "Profile image",
+            required: false
+        },
+    ]
+
     return (
         <div className='bg-white rounded-lg shadow-lg'>
             <h3 className='font-medium p-3 border-b shadow-sm'>Artist Entry</h3>
 
             <form onSubmit={handleSubmit(onSubmit)} className='p-4'>
-                <div className="mb-4">
-                    <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Name</label>
-                    <input {...register("name", { required: true })} type="text" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your name" />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="profile_image" className="block mb-2 text-sm font-medium text-gray-900">Profile image</label>
-                    <input {...register("profile_image", { required: true })} type="text" id="profile_image" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Profile image" />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="age" className="block mb-2 text-sm font-medium text-gray-900">Age</label>
-                    <input {...register("age", { required: true })} type="number" id="age" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your age" />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                    <input {...register("email", { required: true })} type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your email" />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900">Phone</label>
-                    <input {...register("phone", { required: true })} type="tel" id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your phone number" />
-                </div>
-
+                {
+                    fields?.map(field => <div className="mb-4">
+                        <label htmlFor={field.name} className="block mb-2 text-sm font-medium text-gray-900">{field.label}</label>
+                        <input {...register(field.name, { required: field.required })} type="tel" id={field.name} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder={field.placeholder} />
+                    </div>)
+                }
                 <div className="mb-4">
                     <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900">Select country</label>
                     <select {...register("location", { required: true })} id="location" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">

@@ -14,15 +14,14 @@ const FileUpload = () => {
 
   const handleSubmit = (e) => {
     const formData = new FormData();
-    const jsonData = JSON.stringify({
-      project: currentProject?.pk,
-      status: "Selected"
-    });
     formData.append("document", file);
-    formData.append("payload", jsonData);
+    formData.append("project", currentProject?.pk);
+    formData.append("status", "Selected");
 
     uploadDemo(formData)
-      .then(data => console.log(data))
+      .then(data => {
+        setFile(null);
+      })
   }
 
   return (
