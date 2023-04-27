@@ -1,6 +1,7 @@
 import React from 'react';
 import { BsFilePdfFill, BsMusicNoteBeamed } from 'react-icons/bs';
 import { IoMdVideocam } from 'react-icons/io';
+import { DefaultPlayer as Video } from 'react-html5video';
 
 const Demo = ({ demo }) => {
     return (
@@ -34,21 +35,22 @@ const Demo = ({ demo }) => {
                 // videos
                 demo?.document?.includes(".mp4") &&
                 <div className='relative'>
-                    <img className="w-32 h-32 p-2 bg-gray-300 rounded-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSO45C5bfZ4pz2OXyyIpO-tGWvL0_Beead3g9gdEIuEAg&s" alt="" />
+                    {/* <img className="w-32 h-32 p-2 bg-gray-300 rounded-lg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSO45C5bfZ4pz2OXyyIpO-tGWvL0_Beead3g9gdEIuEAg&s" alt="" />
                     <div className='text-white/90 absolute bottom-3 left-3 flex items-center gap-1'>
                         <IoMdVideocam />
                         <p className="text-xs">0:10</p>
+                    </div> */}
+                    <div className="w-60 rounded-lg p-2 bg-gray-300">
+                        <Video autoPlay={false} loop={false}
+                            controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}
+                            onCanPlayThrough={() => { }}>
+                            <source src="https://res.cloudinary.com/djqnk6djr/video/upload/v1681813785/aastey_Tribe_gbr8as.mp4" type="video/webm" />
+                        </Video>
                     </div>
                 </div>
             }
 
-            {/* <div className="w-60 rounded-lg p-2 bg-gray-300">
-                    <Video autoPlay={false} loop={false}
-                        controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}
-                        onCanPlayThrough={() => { }}>
-                        <source src="https://res.cloudinary.com/djqnk6djr/video/upload/v1681813785/aastey_Tribe_gbr8as.mp4" type="video/webm" />
-                    </Video>
-                </div> */}
+
         </div>
     );
 };
