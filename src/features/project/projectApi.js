@@ -46,6 +46,13 @@ const projectApi = apis.injectEndpoints({
             }),
             invalidatesTags: ["Project"]
         }),
+        deleteDemo: builder.mutation({
+            query: (id) => ({
+                url: `/project_demo/${id}/`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ["Project"]
+        }),
     }),
 });
 
@@ -56,5 +63,6 @@ export const {
     useCreateProjectMutation,
     useDeleteProjectMutation,
     useUpdateProjectMutation,
-    useUploadDemoMutation
+    useUploadDemoMutation,
+    useDeleteDemoMutation
 } = projectApi;

@@ -2,10 +2,19 @@ import React from 'react';
 import { BsFilePdfFill, BsMusicNoteBeamed } from 'react-icons/bs';
 import { IoMdVideocam } from 'react-icons/io';
 import { DefaultPlayer as Video } from 'react-html5video';
+import { FaTrash } from 'react-icons/fa';
+import { useDeleteDemoMutation } from '../../../features/project/projectApi';
+import { useSelector } from 'react-redux';
 
 const Demo = ({ demo }) => {
+    const { user } = useSelector(state => state.auth);
+    const [deleteDemo] = useDeleteDemoMutation();
+    const handleDeleteDemo = () => {
+        deleteDemo(demo?.id)
+    }
+console.log(user);
     return (
-        <div>
+        <div className='relative'>
             {
                 // images
                 (demo?.document?.includes(".png") || demo?.document?.includes(".jpg") || demo?.document?.includes(".jpeg") || demo?.document?.includes(".webp")) &&
@@ -50,7 +59,10 @@ const Demo = ({ demo }) => {
                 </div>
             }
 
-
+            {
+                user?.role === "PM" &&
+                <FaTrash onClick={handleDeleteDemo} className='absolute top-4 right-4 text-white cursor-pointer' size={18} />
+            }
         </div>
     );
 };
