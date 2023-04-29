@@ -89,7 +89,7 @@ const Feed = () => {
     }
     else if (viewAs === "details") {
         content = (
-            !loading
+            loading
                 ? <ArtistRowViewSkeleton />
                 : <>
                     {
