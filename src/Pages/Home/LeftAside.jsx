@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { AiOutlineGif } from 'react-icons/ai';
+import { RxCross1 } from 'react-icons/rx';
 import { BsFillMicFill, BsImageFill } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
@@ -17,7 +18,7 @@ import Cta from './Components/Cta';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSendMessageMutation, useSendMessageToGPTMutation } from '../../features/chat/chatApi';
 import ActionCta from './Components/ActionCta';
-import { useCreateProjectMutation, useUpdateProjectMutation } from '../../features/project/projectApi';
+import { useCreateProjectMutation, useUpdateProjectMutation, useUploadDemoMutation } from '../../features/project/projectApi';
 import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { addChatLog, removeArtist, removeChatLog, setChatLog } from '../../features/project/projectSlice';
 import GetProjectReference from './Chat/GetProjectReference';
@@ -212,6 +213,27 @@ const LeftAside = ({ setShowToolkit }) => {
         setIsON(currentProject?.chatbot_status?.status === "ON");
     }, [currentProject])
 
+
+    // file uploading functionality
+    const [file, setFile] = useState(null);
+    const [uploadDemo] = useUploadDemoMutation();
+
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    }
+
+    const handleSubmit = (e) => {
+        const formData = new FormData();
+        formData.append("document", file);
+        formData.append("project", currentProject?.pk);
+        formData.append("status", "Selected");
+
+        uploadDemo(formData)
+            .then(data => {
+                setFile(null);
+            })
+    }
+
     return (
         <section className={`bg-white shadow-md rounded-b-lg md:rounded-lg ${pathname === "/" ? "h-[500px]" : "h-[calc(100vh-10.7rem)] md:h-[calc(100vh-6.5rem)]"} flex flex-col justify-between`}>
             <ChatHeading isON={isON} setIsON={setIsON} />
@@ -345,28 +367,44 @@ const LeftAside = ({ setShowToolkit }) => {
                     </div>
             }
 
+
             <div className='p-3 border-t-[3px] border-gray-300'>
-                <textarea ref={userInputRef} onKeyUp={handleChatInput} className="p-2 rounded-lg bg-gray-100 w-full focus:outline-none text-sm" rows="4" placeholder='Start a briefing...'></textarea>
+                {
+                    file?.name
+                        ? <div className="p-3 py-8 border rounded-lg mb-2 bg-gray-100 text-center relative">
+                            {file.name}
+                            <RxCross1 className="absolute top-2 right-2 cursor-pointer" size={20} onClick={() => {
+                                setFile(null);
+                                document.getElementById("file-upload").value = null;
+                            }} />
+                        </div>
+                        : <textarea ref={userInputRef} onKeyUp={handleChatInput} className="p-2 rounded-lg bg-gray-100 w-full focus:outline-none text-sm" rows="4" placeholder='Start a briefing...'></textarea>
+                }
                 <div className='flex justify-between items-center'>
                     <div className='flex gap-2'>
-                        <BsEmojiSmile />
-                        <ImAttachment />
-                        <BsImageFill />
-                        <AiOutlineGif />
+                        <BsEmojiSmile className="opacity-30" />
+                        <div>
+                            <label for="file-upload"><ImAttachment className="cursor-pointer" /></label>
+                            <input onChange={handleFileChange} id="file-upload" className="hidden" type="file" />
+                        </div>
+                        <BsImageFill className="opacity-30" />
+                        <AiOutlineGif className="opacity-30" />
                     </div>
                     <div className='flex items-center space-x-1'>
                         <BsFillMicFill />
                         {
-                            userInputText || currentProject?.pk
-                                ? <button onClick={handleSendUserInput} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
-                                : (selectedContentProduct || currentProject?.pk || shortlistedArtists?.length > 0)
-                                    ? <button onClick={currentProject?.stage === "DreamProject" ? handleChangeStage : handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Save</button>
-                                    : <button className='bg-gray-300 text-gray-400 py-[3px] px-3 rounded-full text-sm' disabled>Save</button>
+                            file ?
+                                <button type='button' onClick={handleSubmit} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
+                                : userInputText || currentProject?.pk
+                                    ? <button onClick={handleSendUserInput} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
+                                    : (selectedContentProduct || currentProject?.pk || shortlistedArtists?.length > 0)
+                                        ? <button onClick={currentProject?.stage === "DreamProject" ? handleChangeStage : handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Save</button>
+                                        : <button className='bg-gray-300 text-gray-400 py-[3px] px-3 rounded-full text-sm' disabled>Save</button>
                         }
                     </div>
                 </div>
             </div>
-        </section >
+        </section>
     );
 };
 

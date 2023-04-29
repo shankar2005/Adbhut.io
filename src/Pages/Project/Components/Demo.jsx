@@ -12,7 +12,7 @@ const Demo = ({ demo }) => {
     const handleDeleteDemo = () => {
         deleteDemo(demo?.id)
     }
-console.log(user);
+
     return (
         <div className='relative'>
             {

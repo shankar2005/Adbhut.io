@@ -146,45 +146,49 @@ const RightAside = () => {
                     </ul>
                 </section>
 
-                <section className='text-gray-700 text-sm border-b'>
-                    <div className='p-4'>
-                        <p className='text-black mb-2 font-medium'>Total Cost</p>
-                        <table className="min-w-full text-sm">
-                            <thead className="bg-gray-200">
-                                <tr className="text-left">
-                                    <th className="p-2.5">Estimate Fee #</th>
-                                    <th className="p-2.5 text-right">Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr className="border-b border-opacity-20 border-gray-700">
-                                    <td className="p-2">
-                                        <p>Solution Fee</p>
-                                    </td>
-                                    <td className="p-2 text-right">
-                                        <p>₹ {currentProject?.solution_fee || 0}</p>
-                                    </td>
-                                </tr>
-                                <tr className="border-b border-opacity-20 border-gray-700">
-                                    <td className="p-2">
-                                        <p>Production Advance</p>
-                                    </td>
-                                    <td className="p-2 text-right">
-                                        <p>₹ {currentProject?.production_advance || 0}</p>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                {
+                    false &&
+                    <section className='text-gray-700 text-sm border-b'>
+                        <div className='p-4'>
+                            <p className='text-black mb-2 font-medium'>Total Cost</p>
+                            <table className="min-w-full text-sm">
+                                <thead className="bg-gray-200">
+                                    <tr className="text-left">
+                                        <th className="p-2.5">Estimate Fee #</th>
+                                        <th className="p-2.5 text-right">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr className="border-b border-opacity-20 border-gray-700">
+                                        <td className="p-2">
+                                            <p>Solution Fee</p>
+                                        </td>
+                                        <td className="p-2 text-right">
+                                            <p>₹ {currentProject?.solution_fee || 0}</p>
+                                        </td>
+                                    </tr>
+                                    <tr className="border-b border-opacity-20 border-gray-700">
+                                        <td className="p-2">
+                                            <p>Production Advance</p>
+                                        </td>
+                                        <td className="p-2 text-right">
+                                            <p>₹ {currentProject?.production_advance || 0}</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-                        <PayPalScriptProvider options={{ "client-id": "test" }}>
-                            <PayPalButtons style={{ layout: "horizontal" }} />
-                        </PayPalScriptProvider>
 
-                        {/* <Button className="bg-yellow-400 focus:ring-yellow-200 sm:w-full flex justify-center mt-5">
+                            <PayPalScriptProvider options={{ "client-id": "test" }}>
+                                <PayPalButtons style={{ layout: "horizontal" }} />
+                            </PayPalScriptProvider>
+
+                            {/* <Button className="bg-yellow-400 focus:ring-yellow-200 sm:w-full flex justify-center mt-5">
                             <img className='w-20' src={paypal} alt="" />
                         </Button> */}
-                    </div>
-                </section>
+                        </div>
+                    </section>
+                }
             </div>
 
             {/* <footer className='text-xs text-gray-600'>
