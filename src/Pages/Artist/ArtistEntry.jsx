@@ -67,20 +67,22 @@ const ArtistEntry = () => {
             <h3 className='font-medium p-3 border-b shadow-sm'>Artist Entry</h3>
 
             <form onSubmit={handleSubmit(onSubmit)} className='p-4'>
-                {
-                    fields?.map(field => <div className="mb-4">
-                        <label htmlFor={field.name} className="block mb-2 text-sm font-medium text-gray-900">{field.label}</label>
-                        <input {...register(field.name, { required: field.required })} type="tel" id={field.name} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder={field.placeholder} />
-                    </div>)
-                }
-                <div className="mb-4">
-                    <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900">Select country</label>
-                    <select {...register("location", { required: true })} id="location" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                        <option selected>Choose a country</option>
-                        {
-                            locations?.map(location => <option value={location.pk}>{location.name}</option>)
-                        }
-                    </select>
+                <div className='grid grid-cols-2 gap-3 mb-4'>
+                    {
+                        fields?.map(field => <div>
+                            <label htmlFor={field.name} className="block mb-2 text-sm font-medium text-gray-900">{field.label}</label>
+                            <input {...register(field.name, { required: field.required })} type="tel" id={field.name} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder={field.placeholder} />
+                        </div>)
+                    }
+                    <div>
+                        <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900">Select country</label>
+                        <select {...register("location", { required: true })} id="location" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <option selected>Choose a country</option>
+                            {
+                                locations?.map(location => <option value={location.pk}>{location.name}</option>)
+                            }
+                        </select>
+                    </div>
                 </div>
 
                 <div className="mb-4">
@@ -148,22 +150,30 @@ const ArtistEntry = () => {
                     <textarea {...register("intro", { required: true })} id="intro" rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Intro"></textarea>
                 </div>
 
-                <div className="mb-4">
-                    <label htmlFor="best_work_link" className="block mb-2 text-sm font-medium text-gray-900">Best Work Link</label>
-                    <input {...register("best_work_link", { required: true })} type="text" id="best_work_link" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Best work link" />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="work_link_2" className="block mb-2 text-sm font-medium text-gray-900">Work Link 2</label>
-                    <input {...register("work_link_2", { required: true })} type="text" id="work_link_2" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Work link 2" />
-                </div>
-                <div className="mb-4">
-                    <label htmlFor="work_link_3" className="block mb-2 text-sm font-medium text-gray-900">Work Link 3</label>
-                    <input {...register("work_link_3", { required: true })} type="text" id="work_link_3" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Work link 3" />
-                </div>
+                <div className='grid grid-cols-2 gap-3'>
+                    <div>
+                        <label htmlFor="works_links" className="block mb-2 text-sm font-medium text-gray-900">Best Work Link</label>
+                        <input {...register("works_links", { required: true })} type="text" id="works_links" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Best work link" />
+                    </div>
 
-                <div className="mb-4">
-                    <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Social Link</label>
-                    <input {...register("social_links")} type="text" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Social link" />
+
+                    {/* <div>
+                        <label htmlFor="best_work_link" className="block mb-2 text-sm font-medium text-gray-900">Best Work Link</label>
+                        <input {...register("best_work_link", { required: true })} type="text" id="best_work_link" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Best work link" />
+                    </div>
+                    <div>
+                        <label htmlFor="work_link_2" className="block mb-2 text-sm font-medium text-gray-900">Work Link 2</label>
+                        <input {...register("work_link_2", { required: true })} type="text" id="work_link_2" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Work link 2" />
+                    </div>
+                    <div>
+                        <label htmlFor="work_link_3" className="block mb-2 text-sm font-medium text-gray-900">Work Link 3</label>
+                        <input {...register("work_link_3", { required: true })} type="text" id="work_link_3" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Work link 3" />
+                    </div> */}
+
+                    <div className="mb-4">
+                        <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Social Link</label>
+                        <input {...register("social_links")} type="text" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Social link" />
+                    </div>
                 </div>
 
                 <div className='grid grid-cols-2 gap-2'>

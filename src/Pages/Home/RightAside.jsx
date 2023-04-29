@@ -6,9 +6,10 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { clearProject, setArtist, setChatLog, setContentProduct } from '../../features/project/projectSlice';
+import { FaPlus } from 'react-icons/fa';
 
 const RightAside = () => {
-    const { contentProducts, handleSelectContentProduct, currentProjects, setSuggestions } = useRootContext();
+    const { contentProducts, handleSelectContentProduct, currentProjects, setSuggestions, setViewAs } = useRootContext();
 
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
@@ -34,14 +35,19 @@ const RightAside = () => {
                             <h3>Toolkit</h3>
                         </div>
 
-                        
+
                     </section>
 
                     <section className='text-gray-700 text-sm p-4 border-b'>
                         <ul className="space-y-2">
                             <li>
-                                <Link to="/artists/artist-entry" className='hover:underline flex justify-between'>
-                                    Add Artist
+                                <Link to="/artists/artist-entry" className='flex items-center gap-2 bg-primary text-white p-3 rounded-lg boxShadow active:scale-95 duration-150'>
+                                    <FaPlus /> Add Artist
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/artists" onClick={() => setViewAs("details")} className='flex justify-between bg-primary text-white p-3 rounded-lg boxShadow active:scale-95 duration-150'>
+                                    View Artists
                                 </Link>
                             </li>
                         </ul>

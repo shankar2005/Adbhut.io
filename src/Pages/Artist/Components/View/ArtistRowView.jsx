@@ -9,7 +9,7 @@ const ArtistRowView = ({ artist }) => {
 
     return (
         <div className='bg-white border flex gap-3 p-3 rounded-lg'>
-            <div className='w-1/6'>
+            <div>
                 <img className='w-16 border p-0.5 bg-white rounded-full' src={artist.profile_pic || avatar} alt="" />
             </div>
             <div>

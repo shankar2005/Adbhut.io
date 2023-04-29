@@ -1,6 +1,6 @@
 import Skeleton from 'react-loading-skeleton';
 
-const FeedCardSkeleton = () => {
+const ArtistRowViewSkeleton = () => {
     return (
         [...Array(3).keys()].map(i => <div key={i} className='mb-5 p-5 bg-white rounded-lg shadow-md' >
             <div className='flex items-center gap-2 mb-3'>
@@ -20,4 +20,4 @@ const FeedCardSkeleton = () => {
     );
 };
 
-export default FeedCardSkeleton;
+export default ArtistRowViewSkeleton;

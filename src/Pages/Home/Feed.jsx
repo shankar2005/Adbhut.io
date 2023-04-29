@@ -11,6 +11,7 @@ import { setSearch } from '../../features/filter/filterSlice';
 import { showLogin } from '../../features/dropdown/dropdownSlice';
 import NothingFound from '../../Components/NotFound/NothingFound';
 import FullPageLoader from '../../Components/Loader/PageLoader';
+import ArtistRowViewSkeleton from '../../Components/Skeleton/ArtistRowViewSkeleton';
 
 const Feed = () => {
     const { demoType, checkedSkills, checkedGenres, checkedLocations, viewAs } = useRootContext();
@@ -88,8 +89,8 @@ const Feed = () => {
     }
     else if (viewAs === "details") {
         content = (
-            loading
-                ? <FeedCardSkeleton />
+            !loading
+                ? <ArtistRowViewSkeleton />
                 : <>
                     {
                         artists?.map((artist, idx) => <ArtistRowView key={idx} artist={artist} />)
