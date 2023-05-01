@@ -5,14 +5,14 @@ const ProjectRequirementDetails = () => {
     return (
         <section>
             <div className="p-4">
-                <ul className="flex gap-2">
+                <ul className="flex gap-2 text-sm">
                     <li>
                         <Link to="/projects/project-requirement" className="flex items-center gap-2">
                             <p>All</p>
                             <SlArrowRight />
                         </Link>
                     </li>
-                    <li className="flex items-center gap-2">
+                    <li className="flex items-center gap-2 font-medium">
                         <p>Marketing Keynote Presentation</p>
                     </li>
                 </ul>

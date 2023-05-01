@@ -42,7 +42,7 @@ const RightAside = () => {
                         <ul className="space-y-3 font-medium text-sm">
                             <li>
                                 <Link to="/projects/project-requirement" className="inline-flex gap-2 hover:text-blue-600">
-                                    Project Requirement
+                                    Project Requirements
                                     <div className='bg-red-500 h-fit py-0.5 px-2 text-white text-xs font-medium rounded'>
                                         2
                                     </div>

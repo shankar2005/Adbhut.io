@@ -22,6 +22,8 @@ import { DefaultPlayer as Video } from 'react-html5video';
 import 'react-html5video/dist/styles.css';
 import FileUpload from './Components/FileUpload';
 import Demo from '../../Project/Components/Demo';
+import ArtistRequest from './ArtistRequest';
+import Modal from '../../../Components/Modal/Modal';
 
 const ProjectManagement = () => {
     const { avatar } = useRootContext();
@@ -160,6 +162,8 @@ const ProjectManagement = () => {
         navigate("/projects/sign-project");
     }
 
+    const [artistRequestModal, setArtistRequestModal] = useState(false);
+
     return (
         <div className='bg-white rounded-b-lg shadow-lg'>
             <form id='projectForm' onSubmit={handleSubmit(onSubmit)}>
@@ -235,9 +239,12 @@ const ProjectManagement = () => {
                                 <label className="block mb-2 text-sm font-medium text-gray-900">{
                                     currentProject.shortlisted_artists_details?.length ? 'Shortlisted Artists' : 'Shortlist Artists'
                                 }</label>
-                                <Link to="/artists">
-                                    <button type='button' className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add Artist <AiOutlinePlus size={18} /></button>
-                                </Link>
+                                <div className="flex gap-1">
+                                    <Link to="/artists">
+                                        <button type='button' className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add Artist <AiOutlinePlus size={18} /></button>
+                                    </Link>
+                                    <button onClick={() => setArtistRequestModal(true)} type='button' className='bg-gray-400 hover:bg-gray-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Request for Artist</button>
+                                </div>
                             </div>
                             {
                                 currentProject.shortlisted_artists_details?.length > 0 ?
@@ -495,6 +502,13 @@ const ProjectManagement = () => {
             {
                 (updateProjectLoading || getProjectLoading) &&
                 <PageLoader />
+            }
+
+            {
+                artistRequestModal &&
+                <Modal onClick={() => setArtistRequestModal(false)}>
+                    <ArtistRequest />
+                </Modal>
             }
 
         </div>

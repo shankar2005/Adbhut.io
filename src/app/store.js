@@ -13,7 +13,7 @@ const store = configureStore({
         auth: authSlice,
         project: projectSlice,
         filter: filterSlice,
-        dropdown: dropdownSlice
+        dropdown: dropdownSlice,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apis.middleware),
 })
