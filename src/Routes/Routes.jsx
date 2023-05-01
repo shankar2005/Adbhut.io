@@ -13,9 +13,11 @@ import Docusign from "../Pages/Project/Docusign";
 import MyProjects from "../Pages/Project/MyProjects";
 import ProjectDemos from "../Pages/Project/ProjectDemos";
 import ProjectDone from "../Pages/Project/ProjectDone";
+import ProjectRequirement from "../Pages/Admins/ArtistManager/ProjectRequirement";
 import Projects from "../Pages/Project/Projects";
 import LeftToRight from "./PageTransitions/LeftToRight";
 import RightToLeft from "./PageTransitions/RightToLeft";
+import ProjectRequirementDetails from "../Pages/Admins/ArtistManager/ProjectRequirementDetails";
 
 const router = createBrowserRouter([
     {
@@ -67,6 +69,14 @@ const router = createBrowserRouter([
             {
                 path: '/projects/inbox',
                 element: <Inbox />,
+            },
+            {
+                path: '/projects/project-requirement',
+                element: <ProjectRequirement />,
+            },
+            {
+                path: '/projects/project-requirement/:id',
+                element: <ProjectRequirementDetails />,
             },
         ]
     },

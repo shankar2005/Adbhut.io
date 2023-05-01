@@ -38,15 +38,23 @@ const RightAside = () => {
 
                     </section>
 
-                    <section className='text-gray-700 text-sm p-4 border-b'>
-                        <ul className="space-y-2">
+                    <section className='text-gray-700 p-4 border-b'>
+                        <ul className="space-y-3 font-medium text-sm">
                             <li>
-                                <Link to="/artists/artist-entry" className='flex items-center gap-2 bg-primary text-white p-3 rounded-lg boxShadow active:scale-95 duration-150'>
-                                    <FaPlus /> Add Artist
+                                <Link to="/projects/project-requirement" className="inline-flex gap-2 hover:text-blue-600">
+                                    Project Requirement
+                                    <div className='bg-red-500 h-fit py-0.5 px-2 text-white text-xs font-medium rounded'>
+                                        2
+                                    </div>
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/artists" onClick={() => setViewAs("details")} className='flex justify-between bg-primary text-white p-3 rounded-lg boxShadow active:scale-95 duration-150'>
+                                <Link to="/artists/artist-entry" className="hover:text-blue-600">
+                                    Add Artist
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/artists" onClick={() => setViewAs("details")} className="hover:text-blue-600">
                                     View Artists
                                 </Link>
                             </li>
