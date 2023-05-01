@@ -170,7 +170,7 @@ const ProjectManagement = () => {
                 <div className="p-4">
                     <div className="mb-4 items-center gap-2">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Project Title</label>
-                        <input type="text" {...register('title')} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" disabled={!user.email} />
+                        <input type="text" {...register('title')} className="input" disabled={!user.email} />
                     </div>
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Creator</label>
@@ -216,7 +216,7 @@ const ProjectManagement = () => {
                             </div>
                             : <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Production solution</label>
-                                <textarea {...register("production_solution")} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Production solution"></textarea>
+                                <textarea {...register("production_solution")} rows="5" className="input" placeholder="Production solution"></textarea>
                             </div>
                     }
 
@@ -229,7 +229,7 @@ const ProjectManagement = () => {
                             </div>
                             : <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Artist discussion updates</label>
-                                <textarea {...register("artist_discussion_updates")} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Artist discussion updates"></textarea>
+                                <textarea {...register("artist_discussion_updates")} rows="5" className="input" placeholder="Artist discussion updates"></textarea>
                             </div>
                     }
 
@@ -364,7 +364,7 @@ const ProjectManagement = () => {
                         </div>
                         // <div className="mb-4">
                         //     <label className="block mb-2 text-sm font-medium text-gray-900">Send assignment:</label>
-                        //     <textarea {...register("post_project_client_feedback")} onBlur={(e) => setassignmentField(e.target.value)} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your assignment"></textarea>
+                        //     <textarea {...register("post_project_client_feedback")} onBlur={(e) => setassignmentField(e.target.value)} rows="5" className="input" placeholder="Your assignment"></textarea>
                         // </div>
                     }
 
@@ -424,27 +424,27 @@ const ProjectManagement = () => {
                         <div className='px-4 grid grid-cols-2 gap-2'>
                             <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Assigned artist payouts</label>
-                                <input {...register("assigned_artist_payouts")} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                                <input {...register("assigned_artist_payouts")} type="number" className="input" min={0} placeholder="Enter amount" />
                             </div>
                             <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Solution Fee</label>
-                                <input {...register("solution_fee")} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed" min={0} placeholder="Enter amount" disabled />
+                                <input {...register("solution_fee")} type="number" className="input cursor-not-allowed" min={0} placeholder="Enter amount" disabled />
                             </div>
                             <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Production Advance</label>
-                                <input {...register("production_advance")} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed" min={0} placeholder="Enter amount" disabled />
+                                <input {...register("production_advance")} type="number" className="input cursor-not-allowed" min={0} placeholder="Enter amount" disabled />
                             </div>
                             <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Negotiated Advance</label>
-                                <input {...register("negotiated_advance")} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                                <input {...register("negotiated_advance")} type="number" className="input" min={0} placeholder="Enter amount" />
                             </div>
                             <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Final Advance</label>
-                                <input {...register("final_advance")} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                                <input {...register("final_advance")} type="number" className="input" min={0} placeholder="Enter amount" />
                             </div>
                             <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Post-Project Client’s Total Payout</label>
-                                <input {...register("post_project_client_total_payout")} type="number" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min={0} placeholder="Enter amount" />
+                                <input {...register("post_project_client_total_payout")} type="number" className="input" min={0} placeholder="Enter amount" />
                             </div>
                             <div className="mb-4 flex items-center gap-2">
                                 <label className="block text-sm font-medium text-gray-900">Advance Status:</label>

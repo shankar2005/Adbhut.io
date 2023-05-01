@@ -71,12 +71,12 @@ const ArtistEntry = () => {
                     {
                         fields?.map(field => <div>
                             <label htmlFor={field.name} className="block mb-2 text-sm font-medium text-gray-900">{field.label}</label>
-                            <input {...register(field.name, { required: field.required })} type="tel" id={field.name} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder={field.placeholder} />
+                            <input {...register(field.name, { required: field.required })} type={field.type} id={field.name} className="input" placeholder={field.placeholder} />
                         </div>)
                     }
                     <div>
                         <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900">Select country</label>
-                        <select {...register("location", { required: true })} id="location" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                        <select {...register("location", { required: true })} id="location" className="input">
                             <option selected>Choose a country</option>
                             {
                                 locations?.map(location => <option value={location.pk}>{location.name}</option>)
@@ -147,48 +147,48 @@ const ArtistEntry = () => {
 
                 <div className="mb-4">
                     <label htmlFor="intro" className="block mb-2 text-sm font-medium text-gray-900">Intro</label>
-                    <textarea {...register("intro", { required: true })} id="intro" rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Intro"></textarea>
+                    <textarea {...register("intro", { required: true })} id="intro" rows="5" className="input" placeholder="Intro"></textarea>
                 </div>
 
                 <div className='grid grid-cols-2 gap-3'>
                     <div>
                         <label htmlFor="works_links" className="block mb-2 text-sm font-medium text-gray-900">Best Work Link</label>
-                        <input {...register("works_links", { required: true })} type="text" id="works_links" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Best work link" />
+                        <input {...register("works_links", { required: true })} type="text" id="works_links" className="input" placeholder="Best work link" />
                     </div>
 
 
                     {/* <div>
                         <label htmlFor="best_work_link" className="block mb-2 text-sm font-medium text-gray-900">Best Work Link</label>
-                        <input {...register("best_work_link", { required: true })} type="text" id="best_work_link" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Best work link" />
+                        <input {...register("best_work_link", { required: true })} type="text" id="best_work_link" className="input" placeholder="Best work link" />
                     </div>
                     <div>
                         <label htmlFor="work_link_2" className="block mb-2 text-sm font-medium text-gray-900">Work Link 2</label>
-                        <input {...register("work_link_2", { required: true })} type="text" id="work_link_2" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Work link 2" />
+                        <input {...register("work_link_2", { required: true })} type="text" id="work_link_2" className="input" placeholder="Work link 2" />
                     </div>
                     <div>
                         <label htmlFor="work_link_3" className="block mb-2 text-sm font-medium text-gray-900">Work Link 3</label>
-                        <input {...register("work_link_3", { required: true })} type="text" id="work_link_3" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Work link 3" />
+                        <input {...register("work_link_3", { required: true })} type="text" id="work_link_3" className="input" placeholder="Work link 3" />
                     </div> */}
 
                     <div className="mb-4">
                         <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Social Link</label>
-                        <input {...register("social_links")} type="text" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Social link" />
+                        <input {...register("social_links")} type="text" id="name" className="input" placeholder="Social link" />
                     </div>
                 </div>
 
                 <div className='grid grid-cols-2 gap-2'>
                     <div className="mb-4">
                         <label htmlFor="professional_rating" className="block mb-2 text-sm font-medium text-gray-900">Professional Rating</label>
-                        <input {...register("professional_rating", { required: true })} type="number" id="professional_rating" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Professional Rating" />
+                        <input {...register("professional_rating", { required: true })} type="number" id="professional_rating" className="input" placeholder="Professional Rating" />
                     </div>
                     <div className="mb-4">
                         <label htmlFor="attitude_rating" className="block mb-2 text-sm font-medium text-gray-900">Attitude Rating</label>
-                        <input {...register("attitude_rating", { required: true })} type="number" id="attitude_rating" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Attitude Rating" />
+                        <input {...register("attitude_rating", { required: true })} type="number" id="attitude_rating" className="input" placeholder="Attitude Rating" />
                     </div>
                 </div>
                 <div className="mb-4">
                     <label htmlFor="budget_range" className="block mb-2 text-sm font-medium text-gray-900">Budget range</label>
-                    <select {...register("budget_range", { required: true })} id="budget_range" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <select {...register("budget_range", { required: true })} id="budget_range" className="input">
                         <option selected>Less than 10,000</option>
                         <option>10K - 20K</option>
                         <option>20K - 40K</option>
@@ -198,15 +198,15 @@ const ArtistEntry = () => {
                 </div>
                 <div className="mb-4">
                     <label htmlFor="budget_idea" className="block mb-2 text-sm font-medium text-gray-900">Budget idea</label>
-                    <textarea {...register("budget_idea", { required: true })} id="budget_idea" rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Budget idea"></textarea>
+                    <textarea {...register("budget_idea", { required: true })} id="budget_idea" rows="5" className="input" placeholder="Budget idea"></textarea>
                 </div>
                 <div className="mb-4">
                     <label htmlFor="am_notes" className="block mb-2 text-sm font-medium text-gray-900">Artist manager notes</label>
-                    <textarea {...register("am_notes", { required: true })} id="am_notes" rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Artist manager notes"></textarea>
+                    <textarea {...register("am_notes", { required: true })} id="am_notes" rows="5" className="input" placeholder="Artist manager notes"></textarea>
                 </div>
                 <div className="mb-4">
                     <label htmlFor="pm_notes" className="block mb-2 text-sm font-medium text-gray-900">Production manager notes</label>
-                    <textarea {...register("pm_notes", { required: true })} id="pm_notes" rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Production manager notes"></textarea>
+                    <textarea {...register("pm_notes", { required: true })} id="pm_notes" rows="5" className="input" placeholder="Production manager notes"></textarea>
                 </div>
 
                 <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Add Artist</button>
