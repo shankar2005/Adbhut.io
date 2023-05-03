@@ -17,7 +17,7 @@ const AuthSection = () => {
     }
 
     return (
-        <div id='authScroll' className="pt-6 text-black bg-white w-96 max-h-[90vh] border rounded-md p-5 shadow-2xl overflow-y-auto relative">
+        <div className="pt-6 text-black bg-white w-96 max-h-[90vh] border rounded-md p-5 shadow-2xl overflow-y-auto scroll-none relative">
             <button onClick={closeModal} className='absolute right-3 top-3'><RxCross1 size={25} /></button>
 
             <img className='w-16 mx-auto mb-5' src={logo} alt="" />

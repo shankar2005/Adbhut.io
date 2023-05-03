@@ -167,6 +167,8 @@ const RootProvider = ({ children }) => {
     // 
     // 
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     // stored values
     const value = {
         demoType,
@@ -199,7 +201,9 @@ const RootProvider = ({ children }) => {
         setConfirm,
         handleClearFilter,
         setRemovedSkill,
-        currentProjectRefetch
+        currentProjectRefetch,
+        isModalOpen,
+        setIsModalOpen
     }
 
     return (

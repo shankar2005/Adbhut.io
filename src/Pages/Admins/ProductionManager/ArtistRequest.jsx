@@ -97,7 +97,7 @@ const ArtistRequest = () => {
     const onSubmit = data => { }
 
     return (
-        <div className='bg-white max-h-[90vh] overflow-y-scroll'>
+        <div className='bg-white max-h-[90vh] overflow-y-scroll scroll-none'>
             <h3 className='font-medium p-3 border-b shadow-sm py-5'>Artist Requirements</h3>
 
             <form className='p-4'>

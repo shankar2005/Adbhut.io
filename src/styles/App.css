@@ -67,7 +67,7 @@
 
 /* Typing indicator css */
 
-#authScroll::-webkit-scrollbar {
+.scroll-none::-webkit-scrollbar {
     width: 0px;
 }
 

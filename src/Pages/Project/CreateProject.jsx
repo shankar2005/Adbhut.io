@@ -122,7 +122,7 @@ const CreateProject = () => {
 
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Project Reference Link:</label>
-                        <textarea name="reference_links" onBlur={e => dispatch(setReferenceLinks([e.target.value]))} rows="5" className="input" placeholder="https://www.youtube.com/watch?v=RhdXPesyRGk" defaultValue={currentProject?.reference_links}></textarea>
+                        <input type="text" name="reference_links" onBlur={e => dispatch(setReferenceLinks([e.target.value]))} className="input" placeholder="Enter project reference link" defaultValue={currentProject?.reference_links} />
                     </div>
 
                     {

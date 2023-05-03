@@ -14,7 +14,7 @@ import { closeAllDropdown } from '../features/dropdown/dropdownSlice';
 import { useState } from 'react';
 
 const Root = () => {
-    const { artistProfile, setArtistProfile, showModal } = useRootContext();
+    const { artistProfile, setArtistProfile, showModal, isModalOpen } = useRootContext();
 
     const location = useLocation();
     const pathname = location.pathname;
@@ -30,14 +30,14 @@ const Root = () => {
 
 
     useEffect(() => {
-        if (artistProfile) {
+        if (artistProfile || isModalOpen) {
             // Add the class to the body element when the modal is open
             document.body.classList.add("overflow-hidden");
         } else {
             // Remove the class when the modal is closed
             document.body.classList.remove("overflow-hidden");
         }
-    }, [artistProfile]);
+    }, [artistProfile, isModalOpen]);
 
     const [showToolkit, setShowToolkit] = useState(false);
 

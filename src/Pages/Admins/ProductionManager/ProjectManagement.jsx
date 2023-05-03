@@ -27,7 +27,7 @@ import Modal from '../../../Components/Modal/Modal';
 import Alert from '../../../Components/Badge/Alert';
 
 const ProjectManagement = () => {
-    const { avatar } = useRootContext();
+    const { avatar, setIsModalOpen } = useRootContext();
 
     const dispatch = useDispatch();
     const [updateProject, { isLoading: updateProjectLoading }] = useUpdateProjectMutation();
@@ -164,6 +164,9 @@ const ProjectManagement = () => {
     }
 
     const [artistRequestModal, setArtistRequestModal] = useState(false);
+    useEffect(() => {
+        setIsModalOpen(artistRequestModal);
+    }, [artistRequestModal]);
 
     return (
         <div className='bg-white rounded-b-lg shadow-lg'>
