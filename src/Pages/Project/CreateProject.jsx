@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import { AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlineExclamationCircle, AiOutlinePlus } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Alert from '../../Components/Badge/Alert';
 import Button from '../../Components/Button/Button';
 import { useRootContext } from '../../contexts/RootProvider';
 import { useGetArtistByIdQuery } from '../../features/artist/artistApi';
@@ -100,17 +101,17 @@ const CreateProject = () => {
                 <div className="p-4">
                     <div className="mb-4 items-center gap-2">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Project Title</label>
-                        <input type="text" name="title" onBlur={e => dispatch(setTitle(e.target.value))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Enter a Project title" defaultValue={currentProject?.title} />
+                        <input type="text" name="title" onBlur={e => dispatch(setTitle(e.target.value))} className="input" placeholder="Enter a Project title" defaultValue={currentProject?.title} />
                     </div>
 
                     <div className='flex gap-4'>
-                        <div className="mb-4 flex items-center gap-2">
+                        <div className="mb-4 w-full">
                             <label className="flex-1 text-sm font-medium text-gray-900">Content Product: </label>
                             <select name="project_template" onChange={e => {
                                 const content = JSON.parse(e.target.value);
                                 handleSelectContentProduct(content);
                                 navigate("/artists");
-                            }} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-fit p-2.5">
+                            }} className="input bg-gray-50">
                                 <option selected>Select content product</option>
                                 {
                                     contentProducts?.map(content => <option selected={selectedContentProduct === content.pk} value={JSON.stringify(content)}>{content.name}</option>)
@@ -121,7 +122,7 @@ const CreateProject = () => {
 
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Project Reference Link:</label>
-                        <textarea name="reference_links" onBlur={e => dispatch(setReferenceLinks([e.target.value]))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="https://www.youtube.com/watch?v=RhdXPesyRGk" defaultValue={currentProject?.reference_links}></textarea>
+                        <textarea name="reference_links" onBlur={e => dispatch(setReferenceLinks([e.target.value]))} rows="5" className="input" placeholder="https://www.youtube.com/watch?v=RhdXPesyRGk" defaultValue={currentProject?.reference_links}></textarea>
                     </div>
 
                     {
@@ -137,7 +138,7 @@ const CreateProject = () => {
                             {
                                 shortlistedArtists?.length > 0 ?
                                     shortlistedArtists?.map(artistId => <ArtistRow artistId={artistId} />)
-                                    : <div className='bg-gray-200 p-3 rounded-lg text-sm'>No artist selected!</div>
+                                    : <Alert>No artist selected!</Alert>
                             }
                         </div>
                     }
@@ -159,7 +160,7 @@ const CreateProject = () => {
 
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Send assignment:</label>
-                        <textarea name="post_project_client_feedback" onBlur={e => dispatch(setClientFeedback(e.target.value))} rows="5" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your assignment" defaultValue={currentProject?.post_project_client_feedback}></textarea>
+                        <textarea name="post_project_client_feedback" onBlur={e => dispatch(setClientFeedback(e.target.value))} rows="5" className="input" placeholder="Your assignment" defaultValue={currentProject?.post_project_client_feedback}></textarea>
                     </div>
                 </div>
 

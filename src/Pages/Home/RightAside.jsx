@@ -50,7 +50,7 @@ const RightAside = () => {
                             </li>
                             <li>
                                 <Link to="/artists/artist-entry" className="hover:text-blue-600">
-                                    Add Artist
+                                    Add New Artist
                                 </Link>
                             </li>
                             <li>

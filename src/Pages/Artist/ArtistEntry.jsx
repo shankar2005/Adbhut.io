@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
 import { useRootContext } from '../../contexts/RootProvider';
@@ -17,10 +19,31 @@ const ArtistEntry = () => {
 
     const { register, handleSubmit, formState: { errors }, control } = useForm();
     const onSubmit = data => {
+        const workLinks = [];
+        if (workLink1) {
+            workLinks.push({
+                weblink: workLink1,
+                demo_type: workLink1Type,
+            });
+        }
+        if (workLink2) {
+            workLinks.push({
+                weblink: workLink2,
+                demo_type: workLink2Type,
+            });
+        }
+        if (workLink3) {
+            workLinks.push({
+                weblink: workLink3,
+                demo_type: workLink3Type,
+            });
+        }
+
         addArtist({
             ...data,
-            "languages": [20, 19],
+            "languages": [2],
             "has_manager": false,
+            "works_links": workLinks
         })
     }
 
@@ -61,6 +84,15 @@ const ArtistEntry = () => {
             required: false
         },
     ]
+
+    const [workLink1, setWorkLink1] = useState(null);
+    const [workLink1Type, setWorkLink1Type] = useState("Other");
+
+    const [workLink2, setWorkLink2] = useState(null);
+    const [workLink2Type, setWorkLink2Type] = useState("Other");
+
+    const [workLink3, setWorkLink3] = useState(null);
+    const [workLink3Type, setWorkLink3Type] = useState("Other");
 
     return (
         <div className='bg-white rounded-lg shadow-lg'>
@@ -125,7 +157,7 @@ const ArtistEntry = () => {
                     />
                 </div>
 
-                <div className="mb-4">
+                {/* <div className="mb-4">
                     <label htmlFor="genre" className="block mb-2 text-sm font-medium text-gray-900">Select genre</label>
                     <Controller
                         control={control}
@@ -143,37 +175,62 @@ const ArtistEntry = () => {
                             />
                         )}
                     />
-                </div>
+                </div> */}
 
                 <div className="mb-4">
                     <label htmlFor="intro" className="block mb-2 text-sm font-medium text-gray-900">Intro</label>
                     <textarea {...register("intro", { required: true })} id="intro" rows="5" className="input" placeholder="Intro"></textarea>
                 </div>
 
-                <div className='grid grid-cols-2 gap-3'>
-                    <div>
-                        <label htmlFor="works_links" className="block mb-2 text-sm font-medium text-gray-900">Best Work Link</label>
-                        <input {...register("works_links", { required: true })} type="text" id="works_links" className="input" placeholder="Best work link" />
-                    </div>
+                {/* work links */}
 
-
-                    {/* <div>
+                <div className="mb-4 flex gap-4">
+                    <div className='w-full'>
                         <label htmlFor="best_work_link" className="block mb-2 text-sm font-medium text-gray-900">Best Work Link</label>
-                        <input {...register("best_work_link", { required: true })} type="text" id="best_work_link" className="input" placeholder="Best work link" />
+                        <input onBlur={e => setWorkLink1(e.target.value)} type="text" id="best_work_link" className="input" placeholder="Best work link" />
                     </div>
-                    <div>
-                        <label htmlFor="work_link_2" className="block mb-2 text-sm font-medium text-gray-900">Work Link 2</label>
-                        <input {...register("work_link_2", { required: true })} type="text" id="work_link_2" className="input" placeholder="Work link 2" />
+                    <div className="w-2/6">
+                        <label htmlFor="demo-type1" className="block mb-2 text-sm font-medium text-gray-900">Demo Type</label>
+                        <select onChange={e => setWorkLink1Type(e.target.value)} id="demo-type1" className="input">
+                            <option selected>Others</option>
+                            <option value="Youtube">Youtube</option>
+                        </select>
                     </div>
-                    <div>
-                        <label htmlFor="work_link_3" className="block mb-2 text-sm font-medium text-gray-900">Work Link 3</label>
-                        <input {...register("work_link_3", { required: true })} type="text" id="work_link_3" className="input" placeholder="Work link 3" />
-                    </div> */}
+                </div>
 
-                    <div className="mb-4">
-                        <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Social Link</label>
-                        <input {...register("social_links")} type="text" id="name" className="input" placeholder="Social link" />
+                <div className="mb-4 flex gap-4">
+                    <div className="w-full">
+                        <label htmlFor="work_link_2" className="block mb-2 text-sm font-medium text-gray-900">Work Link 2</label>
+                        <input onBlur={e => setWorkLink2(e.target.value)} type="text" id="work_link_2" className="input" placeholder="Work link 2" />
                     </div>
+                    <div className="w-2/6">
+                        <label htmlFor="demo-type1" className="block mb-2 text-sm font-medium text-gray-900">Demo Type</label>
+                        <select onChange={e => setWorkLink2Type(e.target.value)} id="demo-type1" className="input">
+                            <option selected>Others</option>
+                            <option value="Youtube">Youtube</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div className="mb-4 flex gap-4">
+                    <div className="w-full">
+                        <label htmlFor="work_link_3" className="block mb-2 text-sm font-medium text-gray-900">Work Link 3</label>
+                        <input onBlur={e => setWorkLink3(e.target.value)} type="text" id="work_link_3" className="input" placeholder="Work link 3" />
+                    </div>
+                    <div className="w-2/6">
+                        <label htmlFor="demo-type1" className="block mb-2 text-sm font-medium text-gray-900">Demo Type</label>
+                        <select onChange={e => setWorkLink3Type(e.target.value)} id="demo-type1" className="input">
+                            <option selected>Others</option>
+                            <option value="Youtube">Youtube</option>
+                        </select>
+                    </div>
+                </div>
+
+                {/* work links */}
+
+                <div className="mb-4">
+                    <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Social Link</label>
+                    <input {...register("social_links")} type="text" id="name" className="input" placeholder="Social link" />
                 </div>
 
                 <div className='grid grid-cols-2 gap-2'>

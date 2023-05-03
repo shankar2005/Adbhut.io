@@ -24,6 +24,7 @@ import FileUpload from './Components/FileUpload';
 import Demo from '../../Project/Components/Demo';
 import ArtistRequest from './ArtistRequest';
 import Modal from '../../../Components/Modal/Modal';
+import Alert from '../../../Components/Badge/Alert';
 
 const ProjectManagement = () => {
     const { avatar } = useRootContext();
@@ -253,7 +254,7 @@ const ProjectManagement = () => {
                                         artist={artist}
                                         projectId={currentProject.pk}
                                     />)
-                                    : <div className='bg-gray-200 p-3 rounded-lg text-sm'>No artist selected!</div>
+                                    : <Alert>No artist selected!</Alert>
                             }
                         </div>
                     }

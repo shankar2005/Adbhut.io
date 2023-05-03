@@ -14,14 +14,14 @@ const Docusign = () => {
             </div>
             <div className="mb-4 items-center gap-2">
                 <label className="block mb-2 text-sm font-medium text-gray-900">Name</label>
-                <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed" disabled defaultValue={name} />
+                <input className="input cursor-not-allowed" disabled defaultValue={name} />
             </div>
             <div className="mb-4 items-center gap-2">
                 <label className="block mb-2 text-sm font-medium text-gray-900">Email</label>
                 {
                     email
-                        ? <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed" disabled defaultValue={email || "N/A"} />
-                        : <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="example@gmail.com" />
+                        ? <input className="input cursor-not-allowed" disabled defaultValue={email || "N/A"} />
+                        : <input className="input" placeholder="example@gmail.com" />
                 }
             </div>
             <Link to="/projects/completed">
