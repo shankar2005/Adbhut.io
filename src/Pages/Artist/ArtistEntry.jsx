@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
+import Swal from 'sweetalert2';
 import { useRootContext } from '../../contexts/RootProvider';
 import { useAddArtistMutation } from '../../features/artist/artistApi';
 
@@ -17,13 +18,14 @@ const ArtistEntry = () => {
         { value: 62, label: "Hindi" }
     ]
 
-    const { register, handleSubmit, formState: { errors }, control } = useForm();
+    const { register, handleSubmit, formState: { errors }, control, reset } = useForm();
     const onSubmit = data => {
         const workLinks = [];
         if (workLink1) {
             workLinks.push({
                 weblink: workLink1,
                 demo_type: workLink1Type,
+                show_in_top_feed: true
             });
         }
         if (workLink2) {
@@ -45,6 +47,14 @@ const ArtistEntry = () => {
             "has_manager": false,
             "works_links": workLinks
         })
+            .then(data => {
+                Swal.fire(
+                    'Success!',
+                    'Artist has been added!',
+                    'success'
+                )
+                reset();
+            })
     }
 
     const fields = [
@@ -95,7 +105,7 @@ const ArtistEntry = () => {
     const [workLink3Type, setWorkLink3Type] = useState("Other");
 
     return (
-        <div className='bg-white rounded-lg shadow-lg'>
+        <div className='bg-white rounded-b-lg shadow-lg'>
             <h3 className='font-medium p-3 border-b shadow-sm'>Artist Entry</h3>
 
             <form onSubmit={handleSubmit(onSubmit)}>

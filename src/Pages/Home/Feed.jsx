@@ -12,6 +12,7 @@ import { showLogin } from '../../features/dropdown/dropdownSlice';
 import NothingFound from '../../Components/NotFound/NothingFound';
 import FullPageLoader from '../../Components/Loader/PageLoader';
 import ArtistRowViewSkeleton from '../../Components/Skeleton/ArtistRowViewSkeleton';
+import Artists from '../Artist/Artists';
 
 const Feed = () => {
     const { demoType, checkedSkills, checkedGenres, checkedLocations, viewAs } = useRootContext();
@@ -91,11 +92,7 @@ const Feed = () => {
         content = (
             loading
                 ? <ArtistRowViewSkeleton />
-                : <>
-                    {
-                        artists?.map((artist, idx) => <ArtistRowView key={idx} artist={artist} />)
-                    }
-                </>
+                : <Artists />
         )
     }
     else if (viewAs === "small") {
@@ -110,11 +107,11 @@ const Feed = () => {
         )
     }
 
-    if(loading){
+    if (loading) {
         return <h2 className=''>Loading...</h2>
     }
 
-    if(!artists.length){
+    if (!artists.length) {
         return <NothingFound />
     }
 

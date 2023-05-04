@@ -18,6 +18,7 @@ import Projects from "../Pages/Project/Projects";
 import LeftToRight from "./PageTransitions/LeftToRight";
 import RightToLeft from "./PageTransitions/RightToLeft";
 import ProjectRequirementDetails from "../Pages/Admins/ArtistManager/ProjectRequirementDetails";
+import Artists from "../Pages/Artist/Artists";
 
 const router = createBrowserRouter([
     {
@@ -87,6 +88,10 @@ const router = createBrowserRouter([
             {
                 path: '/artists',
                 element: <RightToLeft><Feed /></RightToLeft>
+            },
+            {
+                path: '/artists/artist-list',
+                element: <RightToLeft><Artists /></RightToLeft>
             },
             {
                 path: '/artists/artist-entry',

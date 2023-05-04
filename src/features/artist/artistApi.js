@@ -2,6 +2,9 @@ import apis from "../apis/apis";
 
 const artistApi = apis.injectEndpoints({
     endpoints: (builder) => ({
+        getArtists: builder.query({
+            query: (page) => `/artist_list/?page=${page}`
+        }),
         getArtistById: builder.query({
             query: (id) => `/get_artist/${id}/`
         }),
@@ -55,5 +58,6 @@ export const {
     useAssignArtistMutation,
     useDeclineArtistMutation,
     useUnAssignArtistMutation,
-    useGetShortlistedArtistsQuery
+    useGetShortlistedArtistsQuery,
+    useGetArtistsQuery
 } = artistApi;
