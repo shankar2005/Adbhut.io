@@ -98,7 +98,7 @@ const Navbar = ({ setShowToolkit }) => {
                     </Link>
                     <div className='hidden md:flex relative'>
                         <form onSubmit={handleSearch} className="flex">
-                            <input onClick={() => { }} type="text" name="search" className='border bg-blue-50 py-2 w-72 pl-10 pr-3 rounded text-sm' placeholder='Search your artist here...' required />
+                            <input onClick={() => { }} type="text" name="search" className='border border-gray-300 py-2 w-72 pl-10 pr-3 outline-0 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm' placeholder='Search your artist here...' required />
                             <AiOutlineSearch className='w-6 h-6 text-gray-500 absolute top-1/2 -translate-y-1/2 left-2' />
                             <button className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="submit">Search</button>
                         </form>
