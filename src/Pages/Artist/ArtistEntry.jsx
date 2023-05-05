@@ -3,17 +3,14 @@ import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
+import SelectSkills from '../../Components/Input/SelectSkills';
 import { useRootContext } from '../../contexts/RootProvider';
 import { useAddArtistMutation } from '../../features/artist/artistApi';
 
 const ArtistEntry = () => {
     const [addArtist] = useAddArtistMutation();
-    const { locations, skills } = useRootContext();
+    const { locations } = useRootContext();
 
-    const allSkills = [];
-    skills.forEach(skill => {
-        allSkills.push({ value: skill.pk, label: skill.name })
-    })
     const languages = [
         { value: 62, label: "Hindi" }
     ]
@@ -148,25 +145,7 @@ const ArtistEntry = () => {
                         />
                     </div>
 
-                    <div className="mb-4">
-                        <label htmlFor="skill" className="block mb-2 text-sm font-medium text-gray-900">Select skill</label>
-                        <Controller
-                            control={control}
-                            name='skill'
-                            id='skill'
-                            render={({ field: { onChange, ref } }) => (
-                                <Select
-                                    isMulti
-                                    name="colors"
-                                    options={allSkills}
-                                    inputRef={ref}
-                                    onChange={(val) => onChange(val.map((c) => c.value))}
-                                    className="basic-multi-select"
-                                    classNamePrefix="select"
-                                />
-                            )}
-                        />
-                    </div>
+                    <SelectSkills control={control} />
 
                     {/* <div className="mb-4">
                     <label htmlFor="genre" className="block mb-2 text-sm font-medium text-gray-900">Select genre</label>

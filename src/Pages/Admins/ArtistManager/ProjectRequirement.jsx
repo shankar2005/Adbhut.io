@@ -1,27 +1,25 @@
 import { useState } from "react";
-import { AiOutlineBars, AiOutlineTag } from "react-icons/ai";
-import { BiCommentDots } from "react-icons/bi";
-import { FaArrowCircleUp } from "react-icons/fa";
-import { RiLink } from "react-icons/ri";
-import { RxDotsHorizontal } from "react-icons/rx";
+import { FaTrash } from "react-icons/fa";
 import { SlArrowDown } from "react-icons/sl";
-import { Link } from "react-router-dom";
-import { useGetArtistRequestsQuery } from "../../../features/project/projectApi";
+import { useDeleteArtistRequestMutation, useGetArtistRequestsQuery } from "../../../features/artist/artistApi";
 
 const ProjectRequirement = () => {
     const { data } = useGetArtistRequestsQuery();
+    const [deleteArtistRequest] = useDeleteArtistRequestMutation();
 
     return (
         <div>
-            {data?.map(requirement => <Row requirement={requirement} />)}
+            {data?.map(requirement => <Row requirement={requirement} deleteArtistRequest={deleteArtistRequest} />)}
         </div>
     );
 };
 
 export default ProjectRequirement;
 
-const Row = ({ requirement }) => {
-    const { project_details,
+const Row = ({ requirement, deleteArtistRequest }) => {
+    const {
+        id,
+        project_details,
         skills_details,
         hiring_status,
         budget_range,
@@ -40,13 +38,14 @@ const Row = ({ requirement }) => {
     }
 
     return (
-        <div onClick={toggleExpand} className='bg-white hover:bg-yellow-50 cursor-pointer border-b text-sm relative'>
-            <SlArrowDown className={`absolute right-0 top-0 m-4 ${expanded ? "rotate-180" : ""} duration-200`} size={20} />
-
-            <div className='font-medium flex items-center gap-1 p-3'>
-                <p>{project_details.project}</p>
-                <span>&#9679;</span>
-                <span className='w-fit my-1 px-0.5 text-sm font-normal font-sans italic text-gray-700 bg-yellow-100'>{hiring_status}</span>
+        <div className='bg-white hover:bg-yellow-50 border-b text-sm'>
+            <div onClick={toggleExpand} className="flex items-center justify-between pr-4 cursor-pointer">
+                <div className='font-medium flex items-center gap-1 p-3'>
+                    <p>{project_details.project}</p>
+                    <span>&#9679;</span>
+                    <span className='w-fit my-1 px-0.5 text-sm font-normal font-sans italic text-gray-700 bg-yellow-100'>{hiring_status}</span>
+                </div>
+                <SlArrowDown className={` ${expanded ? "rotate-180" : ""} duration-200`} size={20} />
             </div>
 
             {
@@ -82,23 +81,33 @@ const Row = ({ requirement }) => {
                         <span className="font-medium">Language: </span>
                         {languages_details?.join(",")}
                     </p>
-                    <div className='flex flex-wrap gap-1 my-1 items-center'>
-                        <span className="font-medium">Genre: </span>
-                        {
-                            genre_details?.map(genre => <div key={genre?.id} className='text-xs bg-gray-400 p-1 px-2 rounded-full text-white'>{genre.name}</div>)
-                        }
-                    </div>
-
-                    <div className="space-y-4 border-t mt-4 pt-4">
-                        <div className="text-gray-500 font-medium">Shortlisted artist</div>
-                        <div>
+                    {
+                        genre_details?.length > 1 &&
+                        <div className='flex flex-wrap gap-1 my-1 items-center'>
+                            <span className="font-medium">Genre: </span>
                             {
-                                shortlisted_artists_details?.map(artist => <div className="flex items-center gap-2 py-1.5">
-                                    <img className="w-10 rounded-full" src="" alt="" />
-                                    <p>{artist?.name}</p>
-                                </div>)
+                                genre_details?.map(genre => <div key={genre?.id} className='text-xs bg-gray-400 p-1 px-2 rounded-full text-white'>{genre.name}</div>)
                             }
                         </div>
+                    }
+
+                    {
+                        shortlisted_artists_details?.length > 0 &&
+                        <div className="space-y-4 border-t mt-4 pt-4">
+                            <div className="text-gray-500 font-medium">Shortlisted artist</div>
+                            <div>
+                                {
+                                    shortlisted_artists_details?.map(artist => <div className="flex items-center gap-2 py-1.5">
+                                        <img className="w-10 rounded-full" src="" alt="" />
+                                        <p>{artist?.name}</p>
+                                    </div>)
+                                }
+                            </div>
+                        </div>
+                    }
+
+                    <div className="border-t mt-3 pt-3">
+                        <FaTrash onClick={() => deleteArtistRequest(id)} className="text-red-500 cursor-pointer" size={15} />
                     </div>
                 </div>
             }

@@ -8,6 +8,9 @@ const utilsApi = apis.injectEndpoints({
         getLocations: builder.query({
             query: () => `/get_location/`
         }),
+        getLanguages: builder.query({
+            query: () => `/get_languages/`
+        }),
         getContentProducts: builder.query({
             query: () => `/get_content_products/`
         }),
@@ -22,4 +25,4 @@ const utilsApi = apis.injectEndpoints({
     })
 });
 
-export const { useGetSkillsQuery, useGetLocationsQuery, useGetContentProductsQuery, useGetSkillsOnProductSelectMutation } = utilsApi;
+export const { useGetSkillsQuery, useGetLocationsQuery, useGetLanguagesQuery, useGetContentProductsQuery, useGetSkillsOnProductSelectMutation } = utilsApi;
