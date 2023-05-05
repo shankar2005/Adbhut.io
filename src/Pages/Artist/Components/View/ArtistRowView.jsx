@@ -16,8 +16,6 @@ const ArtistRowView = ({ artist }) => {
         setImageSrc(brokenImage);
     };
 
-    console.log(artist.id);
-
     return (
         <div className='bg-white border-b flex gap-3 p-3'>
             <div className='relative h-fit'>

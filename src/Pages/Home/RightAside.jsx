@@ -54,7 +54,7 @@ const RightAside = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/artists" onClick={() => setViewAs("details")} className="hover:text-blue-600">
+                                <Link to="/artists/artist-list" onClick={() => setViewAs("details")} className="hover:text-blue-600">
                                     View Artists
                                 </Link>
                             </li>

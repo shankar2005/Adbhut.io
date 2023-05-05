@@ -53,6 +53,10 @@ const projectApi = apis.injectEndpoints({
             }),
             invalidatesTags: ["Project"]
         }),
+
+        getArtistRequests: builder.query({
+            query: () => `/artist_request_action/`,
+        }),
     }),
 });
 
@@ -64,5 +68,6 @@ export const {
     useDeleteProjectMutation,
     useUpdateProjectMutation,
     useUploadDemoMutation,
-    useDeleteDemoMutation
+    useDeleteDemoMutation,
+    useGetArtistRequestsQuery
 } = projectApi;
