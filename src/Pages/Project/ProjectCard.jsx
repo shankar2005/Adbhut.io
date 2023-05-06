@@ -21,7 +21,7 @@ const ProjectCard = ({ projectId }) => {
             <Spotify link="https://open.spotify.com/track/1i6LMHYCn5hQE6G8HCjcf2" />
         </div>
     } else {
-        thumbnailEle = <embed src={thumbnail} className="w-full" height="500" />
+        thumbnailEle = <img className="w-full" src="https://www.unfe.org/wp-content/uploads/2019/04/SM-placeholder.png" alt="" />
     }
 
     return (
@@ -42,7 +42,7 @@ const ProjectCard = ({ projectId }) => {
                 </div>
                 <Link to={`/projects/${project.pk}`}>
                     <button className='text-blue-600 bg-sky-100 py-2.5 px-4 rounded-lg font-medium text-sm md:text-base'>
-                        Get Inspired
+                        {project.stage === "DreamProject" ? "Get Inspired" : "View Details"}
                     </button>
                 </Link>
             </div>

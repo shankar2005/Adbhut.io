@@ -396,7 +396,7 @@ const ProjectManagement = () => {
                                                 <p>Solution Fee</p>
                                             </td>
                                             <td className="p-3 text-right">
-                                                <p>{currentProject?.solution_fee}</p>
+                                                <p>{currentProject?.solution_fee || "WIP"}</p>
                                             </td>
                                         </tr>
                                         <tr className="border-b border-opacity-20 border-gray-700">
@@ -404,7 +404,7 @@ const ProjectManagement = () => {
                                                 <p>Production Advance</p>
                                             </td>
                                             <td className="p-3 text-right">
-                                                <p>{currentProject?.production_advance}</p>
+                                                <p>{currentProject?.production_advance || "WIP"}</p>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -511,7 +511,7 @@ const ProjectManagement = () => {
             {
                 artistRequestModal &&
                 <Modal onClick={() => setArtistRequestModal(false)}>
-                    <ArtistRequest />
+                    <ArtistRequest setArtistRequestModal={setArtistRequestModal} />
                 </Modal>
             }
 

@@ -5,11 +5,14 @@ import { useAddArtistRequestMutation } from '../../../features/artist/artistApi'
 import { useRootContext } from '../../../contexts/RootProvider';
 import { useGetLanguagesQuery } from '../../../features/utils/utilsApi';
 import Select from 'react-select';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
-const ArtistRequest = () => {
-    const { locations, dreamProjects } = useRootContext();
-    const [addArtistRequest, { }] = useAddArtistRequestMutation();
+const ArtistRequest = ({ setArtistRequestModal }) => {
+    const { locations } = useRootContext();
+    const [addArtistRequest, { isSuccess }] = useAddArtistRequestMutation();
     const { data: languages } = useGetLanguagesQuery();
+    const currentProject = useSelector(state => state.project)
 
     const allLanguages = [];
     languages?.forEach(language => {
@@ -17,34 +20,6 @@ const ArtistRequest = () => {
     });
 
     const fields = [
-        // {
-        //     name: "category",
-        //     type: "text",
-        //     label: "Category",
-        //     placeholder: "Which category of artist",
-        //     required: true
-        // },
-        // {
-        //     name: "skill",
-        //     type: "text",
-        //     label: "Skills",
-        //     placeholder: "Artist Skills",
-        //     required: true
-        // },
-        // {
-        //     name: "genre",
-        //     type: "text",
-        //     label: "Genres",
-        //     placeholder: "Artist Genres",
-        //     required: true
-        // },
-        // {
-        //     name: "language",
-        //     type: "text",
-        //     label: "Language",
-        //     placeholder: "Artist Language",
-        //     required: true
-        // },
         {
             name: "art_details",
             type: "text",
@@ -77,13 +52,6 @@ const ArtistRequest = () => {
             ],
             required: true
         },
-        // {
-        //     name: "latest_artists_numbers",
-        //     type: "number",
-        //     label: "Latest artists numbers for assigned skill category",
-        //     placeholder: "Latest artists numbers",
-        //     required: true
-        // },
         {
             name: "target_artists_numbers",
             type: "number",
@@ -115,7 +83,7 @@ const ArtistRequest = () => {
             "other_performin_arts": art_details,
             "budget_range": budget_range,
             "budget_idea": budget_idea,
-            "project": project,
+            "project": currentProject?.pk,
             "production_hiring": production_hiring,
             "service_hiring": service_hiring,
             "target": target_artists_numbers,
@@ -123,9 +91,14 @@ const ArtistRequest = () => {
         }
 
         // submit formData
-        addArtistRequest(formData)
-            .then(data => console.log(data))
+        addArtistRequest(formData);
     }
+
+    useEffect(() => {
+        if (isSuccess) {
+            setArtistRequestModal(false);
+        }
+    }, [isSuccess])
 
     return (
         <div className='bg-white max-h-[90vh] overflow-y-scroll scroll-none'>
@@ -174,15 +147,6 @@ const ArtistRequest = () => {
                             <option>10K - 20K</option>
                             <option>20K - 40K</option>
                             <option>Above 40K</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label htmlFor="project" className="block mb-2 text-sm font-medium text-gray-900">Project</label>
-                        <select {...register("project", { required: true })} id="project" className="input">
-                            {
-                                dreamProjects?.map(project => <option value={project.pk}>{project.title}</option>)
-                            }
                         </select>
                     </div>
 
