@@ -195,7 +195,8 @@ const LeftAside = ({ setShowToolkit }) => {
 
     let suggestionElement;
     if (currentProject?.stage === "Lead") {
-        suggestionElement = <ActionCta suggestions={ctaStages.lead} className='sticky bottom-0' />
+        // suggestionElement = <ActionCta suggestions={ctaStages.lead} className='sticky bottom-0' />
+        suggestionElement = <ActionCta className='sticky bottom-0' />
     }
     else if (currentProject?.stage === "In Progress") {
         suggestionElement = <ActionCta suggestions={ctaStages.inProgress} className='sticky bottom-0' />
