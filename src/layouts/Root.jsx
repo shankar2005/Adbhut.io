@@ -39,7 +39,11 @@ const Root = () => {
         }
     }, [artistProfile, isModalOpen]);
 
-    const [showToolkit, setShowToolkit] = useState(false);
+    const isShowToolkit = JSON.parse(localStorage.getItem("SHOW_TOOLKIT"));
+    const [showToolkit, setShowToolkit] = useState(isShowToolkit);
+    useEffect(() => {
+        localStorage.setItem("SHOW_TOOLKIT", showToolkit);
+    }, [showToolkit])
 
     const pageTransition = {
         initial: {

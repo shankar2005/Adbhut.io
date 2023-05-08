@@ -13,7 +13,8 @@ const artistApi = apis.injectEndpoints({
                 url: `/artist_action/`,
                 method: "POST",
                 body: data
-            })
+            }),
+            invalidatesTags: ["Project"]
         }),
 
         shortlistArtist: builder.mutation({
@@ -54,6 +55,10 @@ const artistApi = apis.injectEndpoints({
             query: () => `/artist_request_action/`,
             providesTags: ["ArtistRequests"]
         }),
+        getArtistRequest: builder.query({
+            query: (id) => `/artist_request_action/${id}/`,
+            providesTags: ["ArtistRequests"]
+        }),
         addArtistRequest: builder.mutation({
             query: (data) => ({
                 url: `/artist_request_action/`,
@@ -81,6 +86,7 @@ export const {
     useGetShortlistedArtistsQuery,
     useGetArtistsQuery,
     useGetArtistRequestsQuery,
+    useGetArtistRequestQuery,
     useAddArtistRequestMutation,
     useDeleteArtistRequestMutation
 } = artistApi;

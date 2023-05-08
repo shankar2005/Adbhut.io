@@ -1,15 +1,21 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
 import SelectSkills from '../../Components/Input/SelectSkills';
 import { useRootContext } from '../../contexts/RootProvider';
-import { useAddArtistMutation } from '../../features/artist/artistApi';
+import { useAddArtistMutation, useShortlistArtistMutation } from '../../features/artist/artistApi';
 
 const ArtistEntry = () => {
-    const [addArtist] = useAddArtistMutation();
+    const { projectId } = useParams();
+    const location = useLocation();
+    const redirectPath = location.state?.from?.pathname;
+
+    const [addArtist, { data, isSuccess }] = useAddArtistMutation();
     const { locations } = useRootContext();
+    const [shortlistArtist] = useShortlistArtistMutation();
 
     const languages = [
         { value: 62, label: "Hindi" }
@@ -51,8 +57,25 @@ const ArtistEntry = () => {
                     'success'
                 )
                 reset();
+
+                if (!redirectPath) {
+                    navigate("/artists/artist-list");
+                }
             })
     }
+
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (projectId && isSuccess) {
+            shortlistArtist({
+                projectId,
+                artistId: data.artist.id
+            })
+                .then(data => {
+                    navigate(redirectPath);
+                })
+        }
+    }, [projectId, isSuccess]);
 
     const fields = [
         {

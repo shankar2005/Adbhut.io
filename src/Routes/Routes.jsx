@@ -97,6 +97,10 @@ const router = createBrowserRouter([
                 path: '/artists/artist-entry',
                 element: <ArtistEntry />
             },
+            {
+                path: '/artists/artist-entry/:projectId',
+                element: <ArtistEntry />
+            },
         ]
     },
     {

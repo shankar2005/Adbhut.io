@@ -6,7 +6,6 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { clearProject, setArtist, setChatLog, setContentProduct } from '../../features/project/projectSlice';
-import { FaPlus } from 'react-icons/fa';
 
 const RightAside = () => {
     const { contentProducts, handleSelectContentProduct, currentProjects, setSuggestions, setViewAs } = useRootContext();
