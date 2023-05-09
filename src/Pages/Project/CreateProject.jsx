@@ -55,9 +55,12 @@ const CreateProject = () => {
             .then(response => {
                 const data = response.data;
                 if (data?.pk) {
+                    console.log(data);
                     const template = {
-                        title,
-                        client:"Maruf"
+                        project_title: data?.title,
+                        client_name: data?.client_details?.name,
+                        client_email: data?.client_details?.email,
+                        project_id: data?.pk
                     };
                     useSendMail(template);
                     toast.success("Project created successfully!", { id: "createNewProject" });
