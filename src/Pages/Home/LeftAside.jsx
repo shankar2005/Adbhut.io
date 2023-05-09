@@ -22,9 +22,10 @@ import { useCreateProjectMutation, useUpdateProjectMutation, useUploadDemoMutati
 import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { addChatLog, removeArtist, removeChatLog, setChatLog } from '../../features/project/projectSlice';
 import GetProjectReference from './Chat/GetProjectReference';
+import { RiRefreshLine } from 'react-icons/ri';
 
 const LeftAside = ({ setShowToolkit }) => {
-    const { handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills, setArtistProfile, avatar } = useRootContext();
+    const { handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills, setArtistProfile, avatar, currentProjectRefetch } = useRootContext();
 
     const dispatch = useDispatch();
     const [createProject] = useCreateProjectMutation();
@@ -343,6 +344,7 @@ const LeftAside = ({ setShowToolkit }) => {
                                 </div>
                         }
 
+
                         {
                             suggestionElement
                         }
@@ -368,6 +370,12 @@ const LeftAside = ({ setShowToolkit }) => {
                     </div>
             }
 
+            <div className='absolute right-8 bottom-56'>
+                {
+                    currentProject?.pk &&
+                    <button onClick={() => currentProjectRefetch()} className='active:rotate-180 duration-300 opacity-30' type="button"><RiRefreshLine size={30} /></button>
+                }
+            </div>
 
             <div className='p-3 border-t-[3px] border-gray-300'>
                 {

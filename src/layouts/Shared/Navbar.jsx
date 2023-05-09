@@ -16,7 +16,7 @@ import { setSearch } from '../../features/filter/filterSlice';
 import { closeLogin, showAccount, showLocation, showLogin, showSkill } from '../../features/dropdown/dropdownSlice';
 
 const Navbar = ({ setShowToolkit }) => {
-    const { setdemoType, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills, avatar, dreamProjects } = useRootContext();
+    const { setdemoType, checkedSkills, setcheckedSkills, checkedGenres, setcheckedGenres, setcheckedLocations, locations, skills, avatar, currentProjects } = useRootContext();
 
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
@@ -232,7 +232,7 @@ const Navbar = ({ setShowToolkit }) => {
                         user?.role === "PM" && <Link to="/projects/inbox" className="relative text-sm hover:text-blue-600">
                             <SlEnvolope size={20} />
                             <span className='absolute -top-1.5 -right-2 rounded-full bg-red-500 h-4 w-4 text-xs text-white flex justify-center items-center'>
-                                {dreamProjects?.length}
+                                {currentProjects?.length}
                             </span>
                         </Link>
                     }

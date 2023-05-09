@@ -1,11 +1,9 @@
-import { RiRefreshLine } from 'react-icons/ri';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useRootContext } from '../../../contexts/RootProvider';
 import { useToggleChatGPTMutation } from '../../../features/chat/chatApi';
 
 const ChatHeading = ({ isON, setIsON }) => {
-    const { currentProjectRefetch } = useRootContext();
     const currentProject = useSelector(state => state.project);
     const { user } = useSelector(state => state.auth);
     const [toggleChatGPT] = useToggleChatGPTMutation();
@@ -30,11 +28,7 @@ const ChatHeading = ({ isON, setIsON }) => {
     return (
         <div className='hidden md:flex border-b shadow-sm p-2 rounded-t-lg items-center justify-between'>
             <div className='flex gap-1 justify-between items-center w-full p-1.5'>
-                {
-                    currentProject?.pk &&
-                    <button onClick={() => currentProjectRefetch()} className='active:rotate-180 duration-300' type="button"><RiRefreshLine size={20} /></button>
-                }
-
+                <h1 className="font-medium">Servicing Chat</h1>
                 {
                     currentProject?.pk && user?.role === "PM" && pathname !== "/" &&
                     <div className='flex flex-col items-center justify-center'>
@@ -49,8 +43,6 @@ const ChatHeading = ({ isON, setIsON }) => {
                         </label>
                     </div>
                 }
-
-                <h1 className="font-medium">Servicing Chat</h1>
             </div>
         </div>
     );
