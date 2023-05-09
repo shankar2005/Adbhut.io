@@ -6,7 +6,7 @@ import { useGetProjectQuery } from '../../../features/project/projectApi';
 import { setProjectData } from '../../../features/project/projectSlice';
 
 const Inbox = () => {
-    const { dreamProjects } = useRootContext();
+    const { currentProjects: dreamProjects } = useRootContext();
 
     return (
         <div className='bg-white rounded-lg shadow-lg'>
