@@ -14,8 +14,6 @@ import { showLogin } from '../../../features/dropdown/dropdownSlice';
 import { addChatLog, setProjectData } from '../../../features/project/projectSlice';
 import PageLoader from '../../../Components/Loader/PageLoader';
 import { BsFilePdf, BsFilePdfFill, BsMusicNoteBeamed } from 'react-icons/bs';
-// import ReactAudioPlayer from 'react-audio-player';
-// import test from "../../../assets/test.mp3"
 import logo from "../../../assets/logos/adbeta.jpeg"
 
 import { DefaultPlayer as Video } from 'react-html5video';
@@ -216,7 +214,7 @@ const ProjectManagement = () => {
                             currentProject?.production_solution
                             && <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Production solution</label>
-                                <p className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-sky-100 font-sans'>{currentProject?.production_solution}</p>
+                                <p className='rounded p-3 text-sm bg-sky-100 font-sans'>{currentProject?.production_solution}</p>
                             </div>
                             : <div className="mb-4">
                                 <label className="block mb-2 text-sm font-medium text-gray-900">Production solution</label>
@@ -292,13 +290,6 @@ const ProjectManagement = () => {
                         <>
                             <div className="mb-4">
                                 <label className="text-sm font-medium text-gray-900">Demos: </label>
-                                {/* <ReactAudioPlayer
-                                src={test}
-                                autoPlay={false}
-                                controls
-                                className='w-full'
-                            /> */}
-
                                 <div className='space-y-3'>
                                     <a target="_blank" href="https://docsend.com/view/t7twmera8j4ccgp4" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
                                         <BsFilePdf size={25} className="mr-2" />
@@ -312,33 +303,6 @@ const ProjectManagement = () => {
                                     </div>
                                 </div>
                             </div>
-
-                            {/* <div className="mb-4">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">Production comments</label>
-                                <p className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-sky-100 font-sans'>
-                                    Production Points to be covered in the final mix <br />
-                                    1. Lyrics update <br />
-                                    2. Crowd shouts <br />
-                                    3. Final vocal recording & vocal mixing <br />
-                                    4. Overall track mix-master <br />
-                                </p>
-                            </div> */}
-                        </>
-                    }
-
-                    {
-                        currentProject?.pk === 110 &&
-                        <>
-                            {/* <div className="mb-4">
-                                <label className="text-sm font-medium text-gray-900">Demos: </label>
-                                <div className='md:w-4/6 xl:w-1/2'>
-                                    <Video autoPlay={false} loop={false}
-                                        controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}
-                                        onCanPlayThrough={() => { }}>
-                                        <source src="https://res.cloudinary.com/djqnk6djr/video/upload/v1681813785/aastey_Tribe_gbr8as.mp4" type="video/webm" />
-                                    </Video>
-                                </div>
-                            </div> */}
                         </>
                     }
 

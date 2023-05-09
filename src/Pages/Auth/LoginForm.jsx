@@ -33,18 +33,16 @@ const LoginForm = () => {
             dispatch(setToken(data.token));
         }
     }, [data])
-
-    // test
     
     useEffect(() => {
-        if (userData?.status === 'success' && currentProjects?.length) {
+        if (userData?.status === 'success') {
             dispatch(setUser(userData.user));
             dispatch(setLoading(false));
             // 
             if (currentProjects.length) {
-                navigate(`/projects/${currentProjects[currentProjects.length - 1]?.pk}`)
+                navigate(`/projects/${currentProjects[currentProjects.length - 1]?.pk}`);
             } else {
-                navigate(`/projects/create-project`)
+                navigate(`/projects/create-project`);
             }
             dispatch(closeLogin());
         }
