@@ -10,6 +10,7 @@ import { useGetArtistByIdQuery } from '../../features/artist/artistApi';
 import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { useCreateProjectMutation } from '../../features/project/projectApi';
 import { setClientFeedback, setReferenceLinks, setTitle } from '../../features/project/projectSlice';
+import useSendMail from '../../hooks/useSendMail';
 import AssignedArtistRow from '../Admins/ProductionManager/Components/AssignedArtistRow';
 
 const CreateProject = () => {
@@ -54,6 +55,11 @@ const CreateProject = () => {
             .then(response => {
                 const data = response.data;
                 if (data?.pk) {
+                    const template = {
+                        title,
+                        client:"Maruf"
+                    };
+                    useSendMail(template);
                     toast.success("Project created successfully!", { id: "createNewProject" });
                     navigate(`/projects/${data.pk}`);
                 } else {

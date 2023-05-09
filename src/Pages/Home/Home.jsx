@@ -3,10 +3,15 @@ import { Link } from 'react-router-dom';
 import LeftAside from './LeftAside';
 import { useDispatch, useSelector } from 'react-redux';
 import { setViewMode } from '../../features/view/viewModeSlice';
+import Button from '../../Components/Button/Button';
+import { closeLogin, showLogin } from '../../features/dropdown/dropdownSlice';
+import { AnimatePresence } from 'framer-motion';
+import AuthModal from '../Auth/Components/AuthModal';
 
 const Home = () => {
     const dispatch = useDispatch();
     const { isFullTime } = useSelector(state => state.viewMode);
+    const { loginModal } = useSelector(state => state.dropdown);
 
     return (
         <header>
@@ -17,6 +22,7 @@ const Home = () => {
                         <p className='font-medium uppercase space-x-2 text-xs md:text-base'>
                             <Link className=''>Artist</Link>
                             <a target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show' className=''>Hiring</a>
+                            <Button variant="primary" onClick={() => dispatch(showLogin())} className='uppercase'>Login</Button>
                         </p>
                         <label htmlFor="userState" className="inline-flex items-center p-1 cursor-pointer bg-gray-300 text-black text-xs md:text-sm font-medium uppercase select-none">
                             <input onChange={() => dispatch(setViewMode())} id="userState" type="checkbox" className="hidden peer" />
@@ -57,6 +63,12 @@ const Home = () => {
                 <h1 className='text-4xl font-bold absolute 2xl:static top-16 px-5 md:px-0'>Revolutionize your content with cutting-edge AI technology</h1>
                 <iframe className='px-5 md:px-0 w-full md:w-3/6' src="https://player.vimeo.com/video/819139346?h=d6fa5efcc3" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
             </div>
+
+            {/* auth modal */}
+            <AnimatePresence initial={false} exitBeforeEnter={true}>
+                {loginModal && <AuthModal onClick={() => dispatch(closeLogin())} />}
+            </AnimatePresence>
+
         </header>
     );
 };

@@ -1,14 +1,19 @@
 import { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from 'react-redux';
 import Cookies from 'universal-cookie';
+import { useRootContext } from '../../contexts/RootProvider';
 import { useLoginUserMutation, useVerifyUserMutation } from '../../features/auth/authApi';
 import { setLoading, setToken, setUser } from '../../features/auth/authSlice';
+import { closeLogin } from '../../features/dropdown/dropdownSlice';
 
 const LoginForm = () => {
+    const { currentProjects } = useRootContext();
     const [loginUser, { data, isError, error }] = useLoginUserMutation();
     const [verifyUser, { data: userData }] = useVerifyUserMutation();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const { register, handleSubmit } = useForm();
     const onSubmit = data => {
@@ -28,13 +33,20 @@ const LoginForm = () => {
             dispatch(setToken(data.token));
         }
     }, [data])
-
+    
     useEffect(() => {
         if (userData?.status === 'success') {
             dispatch(setUser(userData.user));
             dispatch(setLoading(false));
+            // 
+            if (currentProjects.length) {
+                navigate(`/projects/${currentProjects[currentProjects.length - 1]?.pk}`)
+            } else {
+                navigate(`/projects/create-project`)
+            }
+            dispatch(closeLogin());
         }
-    }, [userData])
+    }, [userData, currentProjects])
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

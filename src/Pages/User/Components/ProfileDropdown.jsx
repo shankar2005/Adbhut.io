@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { clearProject } from '../../../features/project/projectSlice';
 import { useRootContext } from '../../../contexts/RootProvider';
 import { FaEnvelope } from 'react-icons/fa';
+import { showAccount } from '../../../features/dropdown/dropdownSlice';
 
 const ProfileDropdown = () => {
     const { avatar } = useRootContext();
@@ -24,6 +25,7 @@ const ProfileDropdown = () => {
         // removing authtoke from cookies
         const cookies = new Cookies();
         cookies.remove("auth_token", { path: '/' });
+        dispatch(showAccount());
     }
 
     return (
