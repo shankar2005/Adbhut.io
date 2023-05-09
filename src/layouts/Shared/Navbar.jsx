@@ -89,6 +89,14 @@ const Navbar = ({ setShowToolkit }) => {
         e.target.checked || setcheckedLocations(current => [...current.filter(location => location !== e.target.value)]);
     }
 
+    const [profileImageSrc, setProfileImageSrc] = useState(user.image);
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+    const handleImageError = () => {
+        setIsImageLoaded(true);
+        setProfileImageSrc(avatar);
+    };
+
     return (
         <nav className='bg-white shadow-md sticky top-0 z-50'>
             <div className='w-11/12 max-w-screen-xl mx-auto flex items-center justify-between'>
@@ -232,7 +240,15 @@ const Navbar = ({ setShowToolkit }) => {
                         user.email &&
                         <li className='flex items-center gap-2 relative'>
                             <img className='hidden md:block w-24' src={logo} alt="" />
-                            <img onClick={() => dispatch(showAccount())} className='w-10 h-10 rounded-full border' src={user?.role === "Client" ? (user?.image || avatar) : nsnlogo} alt="" />
+                            <img
+                                onClick={() => dispatch(showAccount())}
+                                className='w-10 h-10 rounded-full border object-cover'
+                                src={user?.role === "Client" ? (profileImageSrc || avatar) : nsnlogo}
+                                alt="Profile Picture"
+                                onError={handleImageError}
+                                onLoad={() => setIsImageLoaded(true)}
+                                style={{ display: isImageLoaded ? 'block' : 'none' }}
+                            />
                             {/* modal */}
                             {
                                 accountModal &&

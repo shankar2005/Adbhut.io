@@ -35,7 +35,7 @@ const LoginForm = () => {
     }, [data])
     
     useEffect(() => {
-        if (userData?.status === 'success') {
+        if (userData?.status === 'success' && currentProjects?.length) {
             dispatch(setUser(userData.user));
             dispatch(setLoading(false));
             // 

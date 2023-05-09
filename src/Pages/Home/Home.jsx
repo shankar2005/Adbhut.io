@@ -20,7 +20,7 @@ const Home = () => {
                     <img src={adbhutGIF} className='w-28 md:w-32' />
                     <div className='flex items-center gap-4'>
                         <p className='font-medium uppercase space-x-2 text-xs md:text-base'>
-                            <Link className=''>Artist</Link>
+                            <Link to="/artists">Artist</Link>
                             <a target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show' className=''>Hiring</a>
                             <Button variant="primary" onClick={() => dispatch(showLogin())} className='uppercase'>Login</Button>
                         </p>

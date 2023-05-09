@@ -44,7 +44,7 @@ const RegisterForm = () => {
                 </div>
                 <div className="space-y-1">
                     <label htmlFor="phone" className="block text-sm">Phone</label>
-                    <input type="phone" {...register("phone", { required: true })} id="phone" placeholder="+12 1623 1523" className="w-full p-3 border rounded-md border-gray-700" data-temp-mail-org="2" />
+                    <input type="phone" {...register("phone", { required: true })} id="phone" placeholder="+91*********" className="w-full p-3 border rounded-md border-gray-700" data-temp-mail-org="2" />
                 </div>
                 <div className="space-y-1">
                     <label htmlFor="company" className="block text-sm">Company</label>
