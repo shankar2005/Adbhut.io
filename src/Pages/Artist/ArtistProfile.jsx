@@ -15,9 +15,11 @@ import { BsBoxArrowUpRight } from 'react-icons/bs';
 const ArtistProfile = () => {
     const { shortlistedArtists } = useSelector(state => state.project);
 
+
     const { handleShortlist, artistProfile, setArtistProfile, avatar } = useRootContext();
     const { data } = useGetArtistByIdQuery(artistProfile);
-    const { artistID, name, profile_pic, skills, languages, workLinks, location_name } = data || {};
+    const { artistID, name, profile_pic, skills, languages, best_link, workLinks, location_name } = data || {};
+    console.log(data);
 
     return (
         <div className='bg-white rounded-l-md p-5 shadow-xl h-full'>
@@ -54,6 +56,7 @@ const ArtistProfile = () => {
                 >
                     {
                         workLinks?.map(link => <SwiperSlide>
+                            {console.log(link)}
                             {
                                 link[1] === "Youtube Link"
                                 && <div className='aspect-video'>

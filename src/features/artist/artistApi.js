@@ -3,7 +3,8 @@ import apis from "../apis/apis";
 const artistApi = apis.injectEndpoints({
     endpoints: (builder) => ({
         getArtists: builder.query({
-            query: (page) => `/artist_list/?page=${page}`
+            query: (page) => `/artist_list/?page=${page}`,
+            providesTags: ["Artists"]
         }),
         getArtistById: builder.query({
             query: (id) => `/get_artist/${id}/`
@@ -15,6 +16,13 @@ const artistApi = apis.injectEndpoints({
                 body: data
             }),
             invalidatesTags: ["Project"]
+        }),
+        deleteArtist: builder.mutation({
+            query: (id) => ({
+                url: `/artist_action/${id}/`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["Project", "Artists"]
         }),
 
         shortlistArtist: builder.mutation({
@@ -88,5 +96,6 @@ export const {
     useGetArtistRequestsQuery,
     useGetArtistRequestQuery,
     useAddArtistRequestMutation,
-    useDeleteArtistRequestMutation
+    useDeleteArtistRequestMutation,
+    useDeleteArtistMutation
 } = artistApi;

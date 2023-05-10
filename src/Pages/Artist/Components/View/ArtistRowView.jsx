@@ -4,9 +4,12 @@ import { HiPhone } from 'react-icons/hi';
 import { IoLanguageSharp, IoLocationSharp } from 'react-icons/io5';
 import { useRootContext } from '../../../../contexts/RootProvider';
 import brokenImage from "../../../../assets/placeholders/broken.jpg";
+import { AiOutlineEdit, AiOutlineUserDelete } from 'react-icons/ai';
+import { useDeleteArtistMutation } from '../../../../features/artist/artistApi';
 
 const ArtistRowView = ({ artist }) => {
     const { setArtistProfile } = useRootContext();
+    const [deleteArtist] = useDeleteArtistMutation();
 
     const [imageSrc, setImageSrc] = useState(artist.profile_image);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
@@ -17,7 +20,7 @@ const ArtistRowView = ({ artist }) => {
     };
 
     return (
-        <div className='bg-white border-b flex gap-3 p-3'>
+        <div className='bg-white border-b flex gap-3 p-3 relative'>
             <div className='relative h-fit'>
                 <img
                     onClick={() => setArtistProfile(artist.id)}
@@ -48,6 +51,11 @@ const ArtistRowView = ({ artist }) => {
                     }
                     <p className='flex items-center gap-2'><IoLocationSharp /> {artist.location}</p>
                 </div>
+            </div>
+
+            <div className='absolute top-0 right-0 flex m-3 gap-2'>
+                <AiOutlineEdit className="cursor-pointer hover:text-blue-500" size={20} />
+                <AiOutlineUserDelete onClick={() => deleteArtist(artist.id)} className="cursor-pointer hover:text-red-400" size={20} />
             </div>
         </div>
     );
