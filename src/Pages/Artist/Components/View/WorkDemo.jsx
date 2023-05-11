@@ -4,7 +4,8 @@ import { Spotify } from 'react-spotify-embed';
 import useYoutubeEmbaded from '../../../../hooks/useYoutubeEmbaded';
 
 const WorkDemo = ({ demo_type, demo_link }) => {
-    
+    console.log(demo_type, demo_link);
+
     return (
         <>
             {

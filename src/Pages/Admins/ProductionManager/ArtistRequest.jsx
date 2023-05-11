@@ -1,10 +1,10 @@
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import Button from "../../../Components/Button/Button";
 import SelectSkills from '../../../Components/Input/SelectSkills';
+import SelectLangs from '../../../Components/Input/SelectSkills';
 import { useAddArtistRequestMutation } from '../../../features/artist/artistApi';
 import { useRootContext } from '../../../contexts/RootProvider';
 import { useGetLanguagesQuery } from '../../../features/utils/utilsApi';
-import Select from 'react-select';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
@@ -120,25 +120,7 @@ const ArtistRequest = ({ setArtistRequestModal }) => {
                         </select>
                     </div>
 
-                    <div>
-                        <label htmlFor="languages" className="block mb-2 text-sm font-medium text-gray-900">Select languages</label>
-                        <Controller
-                            control={control}
-                            name='languages'
-                            id='languages'
-                            render={({ field: { onChange, ref } }) => (
-                                <Select
-                                    isMulti
-                                    name="colors"
-                                    options={allLanguages}
-                                    inputRef={ref}
-                                    onChange={(val) => onChange(val.map((c) => c.value))}
-                                    className="basic-multi-select"
-                                    classNamePrefix="select"
-                                />
-                            )}
-                        />
-                    </div>
+                    <SelectLangs control={control} />
 
                     <div>
                         <label htmlFor="budget_range" className="block mb-2 text-sm font-medium text-gray-900">Budget range</label>

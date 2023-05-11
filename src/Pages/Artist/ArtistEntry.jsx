@@ -4,6 +4,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
+import SelectLangs from '../../Components/Input/SelectLangs';
 import SelectSkills from '../../Components/Input/SelectSkills';
 import { useRootContext } from '../../contexts/RootProvider';
 import { useAddArtistMutation, useShortlistArtistMutation } from '../../features/artist/artistApi';
@@ -148,26 +149,7 @@ const ArtistEntry = () => {
                         </div>
                     </div>
 
-                    <div className="mb-4">
-                        <label htmlFor="language" className="block mb-2 text-sm font-medium text-gray-900">Select language</label>
-                        <Controller
-                            control={control}
-                            name='languages'
-                            id='language'
-                            render={({ field: { onChange, ref } }) => (
-                                <Select
-                                    isMulti
-                                    name="colors"
-                                    options={languages}
-                                    inputRef={ref}
-                                    onChange={(val) => onChange(val.map((c) => c.value))}
-                                    className="basic-multi-select"
-                                    classNamePrefix="select"
-                                />
-                            )}
-                        />
-                    </div>
-
+                    <SelectLangs control={control} />
                     <SelectSkills control={control} />
 
                     {/* <div className="mb-4">

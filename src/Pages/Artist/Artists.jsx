@@ -1,7 +1,5 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import FeedCardSkeleton from "../../Components/Skeleton/FeedCardSkeleton";
 import { useGetArtistsQuery } from "../../features/artist/artistApi";
 import ArtistRowView from "./Components/View/ArtistRowView";
 
@@ -13,7 +11,6 @@ const Artists = () => {
 
     const fetchMoreData = () => {
         setPage(page + 1);
-        // console.log('page');
     };
 
     useEffect(() => {

@@ -1,26 +1,27 @@
 import { Controller } from 'react-hook-form';
 import Select from 'react-select';
-import { useRootContext } from '../../contexts/RootProvider';
+import { useGetLanguagesQuery } from '../../features/utils/utilsApi';
 
-const SelectSkills = ({ control }) => {
-    const { skills } = useRootContext();
-    const allSkills = [];
-    skills.forEach(skill => {
-        allSkills.push({ value: skill.pk, label: skill.name })
+const SelectLangs = ({ control }) => {
+    const { data: languages } = useGetLanguagesQuery();
+
+    const allLanguages = [];
+    languages?.forEach(language => {
+        allLanguages.push({ value: language.pk, label: language.name })
     });
 
     return (
-        <div>
-            <label htmlFor="skill" className="block mb-2 text-sm font-medium text-gray-900">Select skill</label>
+        <div className="mb-4">
+            <label htmlFor="language" className="block mb-2 text-sm font-medium text-gray-900">Select language</label>
             <Controller
                 control={control}
-                name='skill'
-                id='skill'
+                name='languages'
+                id='language'
                 render={({ field: { onChange, ref } }) => (
                     <Select
                         isMulti
                         name="colors"
-                        options={allSkills}
+                        options={allLanguages}
                         inputRef={ref}
                         onChange={(val) => onChange(val.map((c) => c.value))}
                         className="basic-multi-select"
@@ -32,4 +33,4 @@ const SelectSkills = ({ control }) => {
     );
 };
 
-export default SelectSkills;
+export default SelectLangs;
