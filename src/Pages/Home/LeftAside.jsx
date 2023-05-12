@@ -8,7 +8,7 @@ import { useRootContext } from '../../contexts/RootProvider';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FiDelete } from 'react-icons/fi';
 import { toast } from 'react-hot-toast';
-import nsnlogo from '../../assets/logo.jpeg';
+import nsnlogo from '../../assets/logos/adbeta.jpeg';
 import ChatHeading from './Chat/ChatHeading';
 import TypingIndicator from '../../Components/TypingIndicator';
 import MessageReceiver from './Chat/MessageReceiver';

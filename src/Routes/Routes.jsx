@@ -7,7 +7,6 @@ import ShortlistedArtists from "../Pages/Artist/ShortlistedArtists";
 import Feed from "../Pages/Home/Feed";
 import Home from "../Pages/Home/Home";
 import LeftAside from "../Pages/Home/LeftAside";
-import Invite from "../Pages/Invite/Invite";
 import CreateProject from "../Pages/Project/CreateProject";
 import Docusign from "../Pages/Project/Docusign";
 import MyProjects from "../Pages/Project/MyProjects";
@@ -102,10 +101,6 @@ const router = createBrowserRouter([
                 element: <ArtistEntry />
             },
         ]
-    },
-    {
-        path: '/invite',
-        element: <Invite />
     }
 ]);
 
