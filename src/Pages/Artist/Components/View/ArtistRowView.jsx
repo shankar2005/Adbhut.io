@@ -7,6 +7,7 @@ import brokenImage from "../../../../assets/placeholders/broken.jpg";
 import { AiOutlineEdit, AiOutlineUserDelete } from 'react-icons/ai';
 import { useDeleteArtistMutation } from '../../../../features/artist/artistApi';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 const ArtistRowView = ({ artist }) => {
     const { setArtistProfile } = useRootContext();
@@ -20,6 +21,13 @@ const ArtistRowView = ({ artist }) => {
         setIsImageLoaded(true);
         setImageSrc(brokenImage);
     };
+
+    const handleDelete = () => {
+        const isConfirm = confirm("Are you sure want to delete this?");
+        if (isConfirm) {
+            deleteArtist(artist.id);
+        }
+    }
 
     return (
         <div className='bg-white border-b flex gap-3 p-3 relative'>
@@ -59,7 +67,7 @@ const ArtistRowView = ({ artist }) => {
                 user?.role === "AM" &&
                 <div className='absolute top-0 right-0 flex m-3 gap-2'>
                     <AiOutlineEdit className="cursor-pointer hover:text-blue-500" size={20} />
-                    <AiOutlineUserDelete onClick={() => deleteArtist(artist.id)} className="cursor-pointer hover:text-red-400" size={20} />
+                    <AiOutlineUserDelete onClick={handleDelete} className="cursor-pointer hover:text-red-400" size={20} />
                 </div>
             }
         </div>

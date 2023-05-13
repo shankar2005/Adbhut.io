@@ -14,13 +14,9 @@ const ArtistEntry = () => {
     const location = useLocation();
     const redirectPath = location.state?.from?.pathname;
 
-    const [addArtist, { data, isSuccess }] = useAddArtistMutation();
+    const [addArtist, { data, isSuccess, error }] = useAddArtistMutation();
     const { locations } = useRootContext();
     const [shortlistArtist] = useShortlistArtistMutation();
-
-    const languages = [
-        { value: 62, label: "Hindi" }
-    ]
 
     const { register, handleSubmit, formState: { errors }, control, reset } = useForm();
     const onSubmit = data => {
@@ -52,16 +48,21 @@ const ArtistEntry = () => {
             "works_links": workLinks
         })
             .then(data => {
-                Swal.fire(
-                    'Success!',
-                    'Artist has been added!',
-                    'success'
-                )
-                reset();
+                if (data.artist?.id) {
+                    Swal.fire(
+                        'Success!',
+                        'Artist has been added!',
+                        'success'
+                    )
+                    reset();
 
-                if (!redirectPath) {
-                    navigate("/artists/artist-list");
+                    if (!redirectPath) {
+                        navigate("/artists/artist-list");
+                    }
                 }
+            })
+            .catch(err => {
+                console.log(err);
             })
     }
 
