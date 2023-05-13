@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import Select from 'react-select';
 import Swal from 'sweetalert2';
+import Button from '../../Components/Button/Button';
 import SelectLangs from '../../Components/Input/SelectLangs';
 import SelectSkills from '../../Components/Input/SelectSkills';
-import TextInput from '../../Components/Input/TextInput';
+import Textarea from '../../Components/Input/Textarea';
+import Input from '../../Components/Input/Input';
 import { useRootContext } from '../../contexts/RootProvider';
 import { useAddArtistMutation, useGetArtistByIdQuery, useShortlistArtistMutation } from '../../features/artist/artistApi';
 
@@ -132,6 +133,8 @@ const ArtistEntry = () => {
     const [workLink3, setWorkLink3] = useState(null);
     const [workLink3Type, setWorkLink3Type] = useState("Other");
 
+    const fileTypes = ["Youtube", "Google Drive", "Behance", "Imdb", "Instagram", "Vimeo", "Wixsite", "Other"]
+
     return (
         <div className='bg-white rounded-b-lg shadow-lg'>
             <h3 className='font-medium p-3 border-b shadow-sm'>Artist Entry</h3>
@@ -140,13 +143,13 @@ const ArtistEntry = () => {
                 <div className='p-4'>
                     <div className='grid grid-cols-2 gap-3 mb-4'>
                         {
-                            fields?.map(field => <TextInput
+                            fields?.map(field => <Input
                                 key={field.name}
                                 type={field.type}
                                 name={field.name}
                                 label={field.label}
                                 placeholder={field.placeholder}
-                                value={field.value}
+                                defaultValue={field.value}
                                 register={register}
                                 required={field.required}
                             />)
@@ -162,32 +165,45 @@ const ArtistEntry = () => {
                         </div>
                     </div>
 
-                    <SelectLangs control={control} defaultValue={artistData?.languages} />
-                    <SelectSkills control={control} />
+                    <div className='mb-4'>
+                        <SelectLangs
+                            control={control}
+                            defaultValue={artistData?.languages}
+                        />
+                    </div>
+                    <div className='mb-4'>
+                        <SelectSkills control={control} />
+                    </div>
 
                     {/* <div className="mb-4">
-                    <label htmlFor="genre" className="block mb-2 text-sm font-medium text-gray-900">Select genre</label>
-                    <Controller
-                        control={control}
-                        name='genre'
-                        id='genre'
-                        render={({ field: { onChange, ref } }) => (
-                            <Select
-                                isMulti
-                                name="colors"
-                                options={allSkills}
-                                inputRef={ref}
-                                onChange={(val) => onChange(val.map((c) => c.value))}
-                                className="basic-multi-select"
-                                classNamePrefix="select"
-                            />
-                        )}
-                    />
-                </div> */}
+                        <label htmlFor="genre" className="block mb-2 text-sm font-medium text-gray-900">Select genre</label>
+                        <Controller
+                            control={control}
+                            name='genre'
+                            id='genre'
+                            render={({ field: { onChange, ref } }) => (
+                                <Select
+                                    isMulti
+                                    name="colors"
+                                    options={allSkills}
+                                    inputRef={ref}
+                                    onChange={(val) => onChange(val.map((c) => c.value))}
+                                    className="basic-multi-select"
+                                    classNamePrefix="select"
+                                />
+                            )}
+                        />
+                    </div> */}
 
                     <div className="mb-4">
-                        <label htmlFor="intro" className="block mb-2 text-sm font-medium text-gray-900">Intro</label>
-                        <textarea {...register("intro", { required: true })} id="intro" rows="5" className="input" placeholder="Intro"></textarea>
+                        <Textarea
+                            name="intro"
+                            label="Intro"
+                            placeholder="Intro"
+                            defaultValue={artistData?.intro}
+                            register={register}
+                            required={true}
+                        />
                     </div>
                 </div>
 
@@ -202,8 +218,8 @@ const ArtistEntry = () => {
                         <div className="w-2/6">
                             <label htmlFor="demo-type1" className="block mb-2 text-sm font-medium text-gray-900">Demo Type</label>
                             <select onChange={e => setWorkLink1Type(e.target.value)} id="demo-type1" className="input">
-                                <option selected>Others</option>
-                                <option value="Youtube">Youtube</option>
+                                <option selected disabled>Choose</option>
+                                {fileTypes.map(type => <option value={type}>{type}</option>)}
                             </select>
                         </div>
                     </div>
@@ -216,8 +232,8 @@ const ArtistEntry = () => {
                         <div className="w-2/6">
                             <label htmlFor="demo-type1" className="block mb-2 text-sm font-medium text-gray-900">Demo Type</label>
                             <select onChange={e => setWorkLink2Type(e.target.value)} id="demo-type1" className="input">
-                                <option selected>Others</option>
-                                <option value="Youtube">Youtube</option>
+                                <option selected disabled>Choose</option>
+                                {fileTypes.map(type => <option value={type}>{type}</option>)}
                             </select>
                         </div>
                     </div>
@@ -230,8 +246,8 @@ const ArtistEntry = () => {
                         <div className="w-2/6">
                             <label htmlFor="demo-type1" className="block mb-2 text-sm font-medium text-gray-900">Demo Type</label>
                             <select onChange={e => setWorkLink3Type(e.target.value)} id="demo-type1" className="input">
-                                <option selected>Others</option>
-                                <option value="Youtube">Youtube</option>
+                                <option selected disabled>Choose</option>
+                                {fileTypes.map(type => <option value={type}>{type}</option>)}
                             </select>
                         </div>
                     </div>
@@ -241,18 +257,39 @@ const ArtistEntry = () => {
 
                 <div className='p-4'>
                     <div className="mb-4">
-                        <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Social Link</label>
-                        <input {...register("social_links")} type="text" id="name" className="input" placeholder="Social link" />
+                        <Input
+                            type="text"
+                            name="social_links"
+                            label="Social Link"
+                            placeholder="Social link"
+                            defaultValue={artistData?.social_links}
+                            register={register}
+                            required={true}
+                        />
                     </div>
 
                     <div className='grid grid-cols-2 gap-2'>
                         <div className="mb-4">
-                            <label htmlFor="professional_rating" className="block mb-2 text-sm font-medium text-gray-900">Professional Rating</label>
-                            <input {...register("professional_rating", { required: true })} type="number" id="professional_rating" className="input" placeholder="Professional Rating" />
+                            <Input
+                                type="number"
+                                name="professional_rating"
+                                label="Professional Rating"
+                                placeholder="Professional Rating"
+                                defaultValue={artistData?.professional_rating}
+                                register={register}
+                                required={true}
+                            />
                         </div>
                         <div className="mb-4">
-                            <label htmlFor="attitude_rating" className="block mb-2 text-sm font-medium text-gray-900">Attitude Rating</label>
-                            <input {...register("attitude_rating", { required: true })} type="number" id="attitude_rating" className="input" placeholder="Attitude Rating" />
+                            <Input
+                                type="number"
+                                name="attitude_rating"
+                                label="Attitude Rating"
+                                placeholder="Attitude Rating"
+                                defaultValue={artistData?.attitude_rating}
+                                register={register}
+                                required={true}
+                            />
                         </div>
                     </div>
                     <div className="mb-4">
@@ -262,23 +299,39 @@ const ArtistEntry = () => {
                             <option>10K - 20K</option>
                             <option>20K - 40K</option>
                             <option>Above 40K</option>
-
                         </select>
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="budget_idea" className="block mb-2 text-sm font-medium text-gray-900">Budget idea</label>
-                        <textarea {...register("budget_idea", { required: true })} id="budget_idea" rows="5" className="input" placeholder="Budget idea"></textarea>
+                        <Textarea
+                            name="budget_idea"
+                            label="Budget idea"
+                            placeholder="Budget idea"
+                            defaultValue={artistData?.budget_idea}
+                            register={register}
+                            required={true}
+                        />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="am_notes" className="block mb-2 text-sm font-medium text-gray-900">Artist manager notes</label>
-                        <textarea {...register("am_notes", { required: true })} id="am_notes" rows="5" className="input" placeholder="Artist manager notes"></textarea>
+                        <Textarea
+                            name="am_notes"
+                            label="Artist manager notes"
+                            placeholder="Artist manager notes"
+                            defaultValue={artistData?.am_notes}
+                            register={register}
+                            required={true}
+                        />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="pm_notes" className="block mb-2 text-sm font-medium text-gray-900">Production manager notes</label>
-                        <textarea {...register("pm_notes", { required: true })} id="pm_notes" rows="5" className="input" placeholder="Production manager notes"></textarea>
+                        <Textarea
+                            name="pm_notes"
+                            label="Production manager notes"
+                            placeholder="Production manager notes"
+                            defaultValue={artistData?.pm_notes}
+                            register={register}
+                            required={true}
+                        />
                     </div>
-
-                    <button type="submit" className="text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Add Artist</button>
+                    <Button type="submit">Add Artist</Button>
                 </div>
             </form>
 
