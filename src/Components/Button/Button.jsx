@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Button = ({ children, type, variant, onClick, className }) => {
     const colors = {
         primary: "bg-sky-500 hover:bg-sky-600 focus:ring-sky-300 text-white",

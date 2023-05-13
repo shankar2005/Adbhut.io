@@ -50,7 +50,7 @@ const ArtistEntry = () => {
             "works_links": workLinks
         })
             .then(data => {
-                if (data.artist?.id) {
+                if (data.data?.artist?.id) {
                     Swal.fire(
                         'Success!',
                         'Artist has been added!',
@@ -138,7 +138,6 @@ const ArtistEntry = () => {
     return (
         <div className='bg-white rounded-b-lg shadow-lg'>
             <h3 className='font-medium p-3 border-b shadow-sm'>Artist Entry</h3>
-
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className='p-4'>
                     <div className='grid grid-cols-2 gap-3 mb-4'>
@@ -200,7 +199,7 @@ const ArtistEntry = () => {
                             name="intro"
                             label="Intro"
                             placeholder="Intro"
-                            defaultValue={artistData?.intro}
+                            defaultValue={artistData?.artist_intro}
                             register={register}
                             required={true}
                         />
@@ -296,9 +295,9 @@ const ArtistEntry = () => {
                         <label htmlFor="budget_range" className="block mb-2 text-sm font-medium text-gray-900">Budget range</label>
                         <select {...register("budget_range", { required: true })} id="budget_range" className="input">
                             <option selected>Less than 10,000</option>
-                            <option>10K - 20K</option>
-                            <option>20K - 40K</option>
-                            <option>Above 40K</option>
+                            <option selected={artistData?.budget_range}>10K - 20K</option>
+                            <option selected={artistData?.budget_range}>20K - 40K</option>
+                            <option selected={artistData?.budget_range}>Above 40K</option>
                         </select>
                     </div>
                     <div className="mb-4">

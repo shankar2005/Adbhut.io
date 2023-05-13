@@ -188,7 +188,6 @@ const RightAside = () => {
                                 </tbody>
                             </table>
 
-
                             <PayPalScriptProvider options={{ "client-id": "test" }}>
                                 <PayPalButtons style={{ layout: "horizontal" }} />
                             </PayPalScriptProvider>
@@ -200,16 +199,6 @@ const RightAside = () => {
                     </section>
                 }
             </div>
-
-            {/* <footer className='text-xs text-gray-600'>
-                <ul className='flex flex-wrap gap-3 justify-center mt-6'>
-                    <li className='hover:underline'>About</li>
-                    <li className='hover:underline'>Advertising</li>
-                    <li className='hover:underline'>Get the Adbhut.io app</li>
-                    <li className='hover:underline'>More</li>
-                </ul>
-                <p className='text-center mt-4'>Adbhut.io © 2023</p>
-            </footer> */}
         </>
     );
 };

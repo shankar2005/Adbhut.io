@@ -145,7 +145,6 @@ const ProjectRequirementDetails = () => {
                                     <Link to={`/artists/artist-entry/${project}`} state={{ from: location }}>
                                         <button type='button' className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add Artist <AiOutlinePlus size={18} /></button>
                                     </Link>
-                                    {/* <button onClick={() => setArtistRequestModal(true)} type='button' className='bg-gray-400 hover:bg-gray-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Request for Artist</button> */}
                                 </div>
                             </div>
                             <div>

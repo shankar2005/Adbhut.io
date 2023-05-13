@@ -10,7 +10,7 @@ import { closeLogin } from '../../features/dropdown/dropdownSlice';
 
 const LoginForm = () => {
     const { currentProjects } = useRootContext();
-    const [loginUser, { data, isError, error }] = useLoginUserMutation();
+    const [loginUser, { data, isError, error, isLoading }] = useLoginUserMutation();
     const [verifyUser, { data: userData }] = useVerifyUserMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -33,7 +33,7 @@ const LoginForm = () => {
             dispatch(setToken(data.token));
         }
     }, [data])
-    
+
     useEffect(() => {
         if (userData?.status === 'success') {
             dispatch(setUser(userData.user));
@@ -63,7 +63,11 @@ const LoginForm = () => {
                     <input type="password" {...register("password", { required: true })} id="password" placeholder="*****" className="w-full p-3 border rounded-md border-gray-700" />
                 </div>
             </div>
-            <button type="submit" className="w-full px-8 py-3 font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white">Sign in</button>
+            {
+                isLoading
+                    ? <button type="submit" className="w-full px-8 py-3 font-medium rounded-md bg-gray-300 text-gray-400 animate-pulse" disabled>Loading...</button>
+                    : <button type="submit" className="w-full px-8 py-3 font-medium rounded-md bg-blue-500 hover:bg-blue-600 text-white">Sign in</button>
+            }
             {
                 isError && <p className='text-red-500 text-sm mt-3'>{error.message}</p>
             }

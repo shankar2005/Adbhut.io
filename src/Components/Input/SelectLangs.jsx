@@ -13,7 +13,6 @@ const SelectLangs = ({ control, defaultValue }) => {
     const formattedDefaultLanguages = defaultLanguages?.map(lang => {
         return { value: lang.pk, label: lang.name }
     })
-    console.log(formattedDefaultLanguages);
 
     return (
         <div>
