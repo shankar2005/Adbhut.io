@@ -8,6 +8,7 @@ import { AiOutlineEdit, AiOutlineUserDelete } from 'react-icons/ai';
 import { useDeleteArtistMutation } from '../../../../features/artist/artistApi';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const ArtistRowView = ({ artist }) => {
     const { setArtistProfile } = useRootContext();
@@ -66,7 +67,9 @@ const ArtistRowView = ({ artist }) => {
             {
                 user?.role === "AM" &&
                 <div className='absolute top-0 right-0 flex m-3 gap-2'>
-                    <AiOutlineEdit className="cursor-pointer hover:text-blue-500" size={20} />
+                    <Link to={`/artists/edit-artist/${artist.id}`}>
+                        <AiOutlineEdit className="cursor-pointer hover:text-blue-500" size={20} />
+                    </Link>
                     <AiOutlineUserDelete onClick={handleDelete} className="cursor-pointer hover:text-red-400" size={20} />
                 </div>
             }

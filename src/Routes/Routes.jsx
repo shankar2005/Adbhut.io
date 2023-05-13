@@ -100,6 +100,10 @@ const router = createBrowserRouter([
                 path: '/artists/artist-entry/:projectId',
                 element: <ArtistEntry />
             },
+            {
+                path: '/artists/edit-artist/:artistId',
+                element: <ArtistEntry />
+            },
         ]
     }
 ]);

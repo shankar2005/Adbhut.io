@@ -26,6 +26,8 @@ const ProfileDropdown = () => {
         const cookies = new Cookies();
         cookies.remove("auth_token", { path: '/' });
         dispatch(showAccount());
+        // removing projectId
+        sessionStorage.removeItem("CURRENT_PROJECT");
     }
 
     return (

@@ -6,15 +6,17 @@ import Select from 'react-select';
 import Swal from 'sweetalert2';
 import SelectLangs from '../../Components/Input/SelectLangs';
 import SelectSkills from '../../Components/Input/SelectSkills';
+import TextInput from '../../Components/Input/TextInput';
 import { useRootContext } from '../../contexts/RootProvider';
-import { useAddArtistMutation, useShortlistArtistMutation } from '../../features/artist/artistApi';
+import { useAddArtistMutation, useGetArtistByIdQuery, useShortlistArtistMutation } from '../../features/artist/artistApi';
 
 const ArtistEntry = () => {
-    const { projectId } = useParams();
+    const { projectId, artistId } = useParams();
     const location = useLocation();
     const redirectPath = location.state?.from?.pathname;
 
-    const [addArtist, { data, isSuccess, error }] = useAddArtistMutation();
+    const { data: artistData } = useGetArtistByIdQuery(artistId, { skip: !artistId });
+    const [addArtist, { data, isSuccess }] = useAddArtistMutation();
     const { locations } = useRootContext();
     const [shortlistArtist] = useShortlistArtistMutation();
 
@@ -43,7 +45,6 @@ const ArtistEntry = () => {
 
         addArtist({
             ...data,
-            "languages": [2],
             "has_manager": false,
             "works_links": workLinks
         })
@@ -85,35 +86,40 @@ const ArtistEntry = () => {
             type: "text",
             label: "Name",
             placeholder: "Your Name",
-            required: true
+            required: true,
+            value: artistData?.name
         },
         {
             name: "age",
             type: "number",
             label: "Age",
             placeholder: "Your age",
-            required: false
+            required: false,
+            value: artistData?.age
         },
         {
             name: "email",
             type: "email",
             label: "Email",
             placeholder: "Your Email",
-            required: true
+            required: true,
+            value: artistData?.email
         },
         {
             name: "phone",
             type: "tel",
             label: "Phone",
             placeholder: "Your phone number",
-            required: true
+            required: true,
+            value: artistData?.phone
         },
         {
             name: "profile_image",
             type: "url",
             label: "Profile image",
             placeholder: "Profile image",
-            required: false
+            required: false,
+            value: artistData?.profile_pic
         },
     ]
 
@@ -134,23 +140,29 @@ const ArtistEntry = () => {
                 <div className='p-4'>
                     <div className='grid grid-cols-2 gap-3 mb-4'>
                         {
-                            fields?.map(field => <div>
-                                <label htmlFor={field.name} className="block mb-2 text-sm font-medium text-gray-900">{field.label}</label>
-                                <input {...register(field.name, { required: field.required })} type={field.type} id={field.name} className="input" placeholder={field.placeholder} />
-                            </div>)
+                            fields?.map(field => <TextInput
+                                key={field.name}
+                                type={field.type}
+                                name={field.name}
+                                label={field.label}
+                                placeholder={field.placeholder}
+                                value={field.value}
+                                register={register}
+                                required={field.required}
+                            />)
                         }
                         <div>
                             <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900">Select country</label>
                             <select {...register("location", { required: true })} id="location" className="input">
                                 <option selected>Choose a country</option>
                                 {
-                                    locations?.map(location => <option value={location.pk}>{location.name}</option>)
+                                    locations?.map(location => <option value={location.pk} selected={artistData?.location}>{location.name}</option>)
                                 }
                             </select>
                         </div>
                     </div>
 
-                    <SelectLangs control={control} />
+                    <SelectLangs control={control} defaultValue={artistData?.languages} />
                     <SelectSkills control={control} />
 
                     {/* <div className="mb-4">

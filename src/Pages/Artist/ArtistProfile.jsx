@@ -16,6 +16,7 @@ import Spinner from '../../Components/Loader/Spinner';
 
 const ArtistProfile = () => {
     const { shortlistedArtists } = useSelector(state => state.project);
+    const { user } = useSelector(state => state.auth);
 
     const { handleShortlist, artistProfile, setArtistProfile, avatar } = useRootContext();
     const { data, isLoading } = useGetArtistByIdQuery(artistProfile);
@@ -122,7 +123,7 @@ const ArtistProfile = () => {
                         <BsStarFill className='text-yellow-400' />
                     </div>
                 }
-                <div>
+                <div className="mb-4">
                     {budget_range && <p><strong>Budget Range: </strong>{budget_range}</p>}
                     {budget_idea && <p><strong>Budget Idea: </strong>{budget_idea}</p>}
                     {am_notes && <p><strong>Artist Manager Notes: </strong>{am_notes}</p>}
@@ -130,13 +131,16 @@ const ArtistProfile = () => {
                     {ctc_per_annum && <p><strong>Production Manager Notes: </strong>{ctc_per_annum}</p>}
                 </div>
 
-                <div className='mt-4 border-t pt-4'>
-                    <h3 className='text-xl text-gray-600 mb-4'>Contact Info</h3>
-                    <div>
-                        {email && <p className='flex items-center gap-2'><FaRegEnvelope />{email}</p>}
-                        {phone && <p className='flex items-center gap-2'><HiPhone />{phone}</p>}
+                {
+                    user?.role === "PM" && user?.role === "AM" &&
+                    <div className='mt-4 pt-4'>
+                        <h3 className='text-xl text-gray-600 mb-4'>Contact Info</h3>
+                        <div>
+                            {email && <p className='flex items-center gap-2'><FaRegEnvelope />{email}</p>}
+                            {phone && <p className='flex items-center gap-2'><HiPhone />{phone}</p>}
+                        </div>
                     </div>
-                </div>
+                }
             </div>
 
             <div className='artistProfile mt-5'>

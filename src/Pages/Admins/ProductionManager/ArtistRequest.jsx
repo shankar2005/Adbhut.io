@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import Button from "../../../Components/Button/Button";
 import SelectSkills from '../../../Components/Input/SelectSkills';
-import SelectLangs from '../../../Components/Input/SelectSkills';
+import SelectLangs from '../../../Components/Input/SelectLangs';
 import { useAddArtistRequestMutation } from '../../../features/artist/artistApi';
 import { useRootContext } from '../../../contexts/RootProvider';
 import { useGetLanguagesQuery } from '../../../features/utils/utilsApi';
@@ -111,9 +111,9 @@ const ArtistRequest = ({ setArtistRequestModal }) => {
                     {/*  */}
 
                     <div>
-                        <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900">Select country</label>
+                        <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900">Select location</label>
                         <select {...register("location", { required: true })} id="location" className="input">
-                            <option selected>Choose a country</option>
+                            <option selected>Choose a location</option>
                             {
                                 locations?.map(location => <option value={location.pk}>{location.name}</option>)
                             }
