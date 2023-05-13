@@ -125,7 +125,7 @@ const Root = () => {
                         <Backdrop onClick={() => setArtistProfile(null)}>
                             <motion.div
                                 onClick={(e) => e.stopPropagation()}
-                                className="w-full md:w-5/6 lg:w-1/2 absolute right-0 top-0 h-full"
+                                className="w-full md:w-5/6 lg:w-1/2 absolute right-0 top-0"
                                 initial={{ translateX: 100 }}
                                 animate={{ translateX: 0 }}
                                 exit={{ translateX: 100 }}

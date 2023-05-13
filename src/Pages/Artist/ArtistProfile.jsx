@@ -1,9 +1,7 @@
 import { FiArrowLeft } from 'react-icons/fi';
 import { IoLanguageSharp, IoLocationSharp } from 'react-icons/io5';
 import { useRootContext } from '../../contexts/RootProvider';
-import useYoutubeEmbaded from '../../hooks/useYoutubeEmbaded';
 import { GiCheckMark } from 'react-icons/gi';
-import gdrive from "../../assets/placeholders/gdrive-folder.jpg";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -13,12 +11,14 @@ import { useSelector } from 'react-redux';
 import { BsBoxArrowUpRight, BsStar, BsStarFill } from 'react-icons/bs';
 import { HiPhone } from 'react-icons/hi';
 import { FaRegEnvelope } from 'react-icons/fa';
+import WorkDemo from './Components/View/WorkDemo';
+import Spinner from '../../Components/Loader/Spinner';
 
 const ArtistProfile = () => {
     const { shortlistedArtists } = useSelector(state => state.project);
 
     const { handleShortlist, artistProfile, setArtistProfile, avatar } = useRootContext();
-    const { data } = useGetArtistByIdQuery(artistProfile);
+    const { data, isLoading } = useGetArtistByIdQuery(artistProfile);
     const {
         works_links,
         skill: skills,
@@ -56,8 +56,16 @@ const ArtistProfile = () => {
         agreement,
     } = data || {};
 
+    if (isLoading) {
+        return (
+            <div className='h-screen bg-white flex items-center justify-center'>
+                <Spinner />
+            </div>
+        )
+    }
+
     return (
-        <div className='bg-white rounded-l-md p-5 shadow-xl h-full'>
+        <div className='bg-white rounded-l-md p-5 shadow-xl h-screen overflow-y-scroll'>
             <div className='flex items-start'>
                 <div className="flex gap-3 items-center">
                     <button onClick={() => setArtistProfile(null)} type='button'>
@@ -139,46 +147,7 @@ const ArtistProfile = () => {
                 >
                     {
                         works_links?.map(link => <SwiperSlide>
-                            {
-                                link[1] === "Youtube Link"
-                                && <div className='aspect-video'>
-                                    {useYoutubeEmbaded(link[0], 'rounded-lg')}
-                                </div>
-                            }
-                            {
-                                link[1] === "Instagram Link"
-                                && <div className='border rounded-lg bg-gray-200 overflow-hidden'>
-                                    <iframe src={link[0]} className="mx-auto border-l border-r -mt-14" height="430" frameBorder="0" scrolling="no" allowtransparency="true"></iframe>
-                                </div>
-                            }
-                            {
-                                link[1] === "Soundcloud Link"
-                                && <div className='border rounded-lg'>
-                                    <iframe width="100%" height="166" scrolling="no" frameBorder="no" src={`https://w.soundcloud.com/player/?url=${link[0]};auto_play=false&amp;show_artwork=true`}></iframe>
-                                </div>
-                            }
-                            {
-                                link[1] === "Image"
-                                && <div className='bg-black'>
-                                    <img className='w-1/2 mx-auto bg-white' src={link[0]} alt="" />
-                                </div>
-                            }
-                            {
-                                link[1] === "Video"
-                                && <div className='border rounded-lg'>
-                                    <video controls autoPlay width="300" className='mx-auto'>
-                                        <source src={link[0]} type="video/mp4" />
-                                    </video>
-                                </div>
-                            }
-                            {
-                                link[1] === "Other Document" && link[0]?.includes("drive.google")
-                                    ? <a href={link[0]} className='hover:underline block bg-gray-100 py-10 rounded-lg' target="_blank">
-                                        <img className="mx-auto w-56" src={gdrive} alt="" />
-                                        <p className='font-medium text-blue-700 flex justify-center gap-2'>Open in drive <BsBoxArrowUpRight /></p>
-                                    </a>
-                                    : <embed src={link[0]} className="w-full" height="500" />
-                            }
+                            <WorkDemo demo_type={link.demo_type} demo_link={link.weblink} />
                         </SwiperSlide>)
                     }
                 </Swiper>

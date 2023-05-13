@@ -36,6 +36,13 @@ const ProjectRequirementDetails = () => {
 
     const location = useLocation();
 
+    const handleDelete = () => {
+        const isConfirm = confirm("Are you sure want to delete this?");
+        if (isConfirm) {
+            deleteArtistRequest(id);
+        }
+    }
+
     return (
         <section>
             <div className="p-4">
@@ -60,31 +67,66 @@ const ProjectRequirementDetails = () => {
                             skills_details?.map((skill, idx) => <div key={idx} className='bg-sky-400 p-1 px-2 rounded-full text-white'>{skill}</div>)
                         }
                     </div>
-                    <p>
-                        <span className="font-medium">Budget Range: </span>
-                        {budget_range}
-                    </p>
-                    <p>
-                        <span className="font-medium">Production Hiring: </span>
-                        {production_hiring}
-                    </p>
-                    <p>
-                        <span className="font-medium">Service Hiring: </span>
-                        {service_hiring}
-                    </p>
-                    <p>
-                        <span className="font-medium">Target: </span>
-                        {target}
-                    </p>
 
-                    <p className="border-t pt-2 mt-2">
-                        <span className="font-medium">Location: </span>
-                        {location_details?.name}
-                    </p>
-                    <p>
-                        <span className="font-medium">Language: </span>
-                        {languages_details?.join(",")}
-                    </p>
+                    <table className="min-w-full text-sm mt-4">
+                        <thead className="bg-gray-200">
+                            <tr className="text-left">
+                                <th className="p-2.5">Estimate Fee #</th>
+                                <th className="p-2.5 text-right">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="border-b border-opacity-20 border-gray-700">
+                                <td className="p-2">
+                                    <p>Budget Range:</p>
+                                </td>
+                                <td className="p-2 text-right">
+                                    <p>{budget_range}</p>
+                                </td>
+                            </tr>
+                            <tr className="border-b border-opacity-20 border-gray-700">
+                                <td className="p-2">
+                                    <p>Production Hiring:</p>
+                                </td>
+                                <td className="p-2 text-right">
+                                    <p>{production_hiring}</p>
+                                </td>
+                            </tr>
+                            <tr className="border-b border-opacity-20 border-gray-700">
+                                <td className="p-2">
+                                    <p>Service Hiring:</p>
+                                </td>
+                                <td className="p-2 text-right">
+                                    <p>{service_hiring}</p>
+                                </td>
+                            </tr>
+                            <tr className="border-b border-opacity-20 border-gray-700">
+                                <td className="p-2">
+                                    <p>Target:</p>
+                                </td>
+                                <td className="p-2 text-right">
+                                    <p>{target}</p>
+                                </td>
+                            </tr>
+                            <tr className="border-b border-opacity-20 border-gray-700">
+                                <td className="p-2">
+                                    <p>Location:</p>
+                                </td>
+                                <td className="p-2 text-right">
+                                    <p>{location_details?.name}</p>
+                                </td>
+                            </tr>
+                            <tr className="border-b border-opacity-20 border-gray-700">
+                                <td className="p-2">
+                                    <p>Language:</p>
+                                </td>
+                                <td className="p-2 text-right">
+                                    <p>{languages_details?.join(",")}</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
                     {
                         genre_details?.length > 1 &&
                         <div className='flex flex-wrap gap-1 my-1 items-center'>
@@ -96,7 +138,7 @@ const ProjectRequirementDetails = () => {
                     }
 
                     {
-                        <div className="space-y-4 border-t mt-4 pt-4">
+                        <div className="space-y-4 pt-4">
                             <div className="flex justify-between items-center">
                                 <p className="text-gray-500 font-medium">Shortlisted artist</p>
                                 <div className="flex gap-1">
@@ -113,7 +155,7 @@ const ProjectRequirementDetails = () => {
                     }
 
                     <div className="border-t mt-3 pt-3">
-                        <button onClick={() => deleteArtistRequest(id)} className="text-red-500 cursor-pointer">Delete</button>
+                        <button onClick={handleDelete} className="text-red-500 cursor-pointer">Delete</button>
                     </div>
                 </div>
             </div>

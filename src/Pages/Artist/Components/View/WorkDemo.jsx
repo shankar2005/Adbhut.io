@@ -29,20 +29,20 @@ const WorkDemo = ({ demo_type, demo_link }) => {
             {
                 demo_type === "Image"
                 && <div className='bg-black'>
-                    <img className='w-1/2 mx-auto bg-white' src={artist.file} alt="" />
+                    <img className='w-1/2 mx-auto bg-white' src={demo_link} alt="" />
                 </div>
             }
             {
                 demo_type === "Video"
                 && <div className='border rounded-lg'>
                     <video controls autoPlay width="300" className='mx-auto'>
-                        <source src={artist.file} type="video/mp4" />
+                        <source src={demo_link} type="video/mp4" />
                     </video>
                 </div>
             }
             {
                 demo_type === "Other Document"
-                && <embed src={artist.file} className="w-full" height="500" />
+                && <embed src={demo_link} className="w-full" height="500" />
             }
             {
                 demo_type === "Google Drive"
