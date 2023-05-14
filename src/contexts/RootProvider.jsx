@@ -38,15 +38,15 @@ const RootProvider = ({ children }) => {
     const handleShortlist = (artistID, name, profile_pic) => {
         dispatch(addArtist(artistID));
         // chatlog
-        const message = { type: 'shortlistedArtist', msgID: chatLog.length + 1, artist: { artistID, name, profile_pic } };
-        dispatch(addChatLog(message));
+        // const message = { type: 'shortlistedArtist', msgID: chatLog.length + 1, artist: { artistID, name, profile_pic } };
+        // dispatch(addChatLog(message));
 
         // saving shortlisted artist in the db
         if (currentProject?.pk) {
-            sendMessage({
-                project_id: currentProject.pk,
-                message: message
-            })
+            // sendMessage({
+            //     project_id: currentProject.pk,
+            //     message: message
+            // })
 
             // shortlist artist api
             shortlistArtist({

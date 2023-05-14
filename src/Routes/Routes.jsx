@@ -93,11 +93,11 @@ const router = createBrowserRouter([
                 element: <RightToLeft><Artists /></RightToLeft>
             },
             {
-                path: '/artists/artist-entry',
-                element: <ArtistEntry />
+                path: '/artists/artist-list/:projectId',
+                element: <Artists />
             },
             {
-                path: '/artists/artist-entry/:projectId',
+                path: '/artists/artist-entry',
                 element: <ArtistEntry />
             },
             {

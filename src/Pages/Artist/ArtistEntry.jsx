@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Button from '../../Components/Button/Button';
 import SelectLangs from '../../Components/Input/SelectLangs';
@@ -9,17 +9,14 @@ import SelectSkills from '../../Components/Input/SelectSkills';
 import Textarea from '../../Components/Input/Textarea';
 import Input from '../../Components/Input/Input';
 import { useRootContext } from '../../contexts/RootProvider';
-import { useAddArtistMutation, useGetArtistByIdQuery, useShortlistArtistMutation } from '../../features/artist/artistApi';
+import { useAddArtistMutation, useGetArtistByIdQuery } from '../../features/artist/artistApi';
 
 const ArtistEntry = () => {
-    const { projectId, artistId } = useParams();
-    const location = useLocation();
-    const redirectPath = location.state?.from?.pathname;
+    const { artistId } = useParams();
 
     const { data: artistData } = useGetArtistByIdQuery(artistId, { skip: !artistId });
-    const [addArtist, { data, isSuccess }] = useAddArtistMutation();
+    const [addArtist] = useAddArtistMutation();
     const { locations } = useRootContext();
-    const [shortlistArtist] = useShortlistArtistMutation();
 
     const { register, handleSubmit, formState: { errors }, control, reset } = useForm();
     const onSubmit = data => {
@@ -67,19 +64,6 @@ const ArtistEntry = () => {
                 console.log(err);
             })
     }
-
-    const navigate = useNavigate();
-    useEffect(() => {
-        if (projectId && isSuccess) {
-            shortlistArtist({
-                projectId,
-                artistId: data.artist.id
-            })
-                .then(data => {
-                    navigate(redirectPath);
-                })
-        }
-    }, [projectId, isSuccess]);
 
     const fields = [
         {

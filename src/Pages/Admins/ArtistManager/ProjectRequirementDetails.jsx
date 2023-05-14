@@ -5,6 +5,11 @@ import { useDeleteArtistRequestMutation, useGetArtistRequestQuery } from "../../
 import brokenAvatar from "../../../assets/placeholders/broken.jpg";
 import { useGetProjectQuery } from "../../../features/project/projectApi";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setProjectData } from "../../../features/project/projectSlice";
+import ShortlistedArtistRow from "../ProductionManager/Components/ShortlistedArtistRow";
+import Alert from "../../../Components/Badge/Alert";
+import AssignedArtistRow from "../ProductionManager/Components/AssignedArtistRow";
 
 const ProjectRequirementDetails = () => {
     const { id } = useParams();
@@ -142,13 +147,13 @@ const ProjectRequirementDetails = () => {
                             <div className="flex justify-between items-center">
                                 <p className="text-gray-500 font-medium">Shortlisted artist</p>
                                 <div className="flex gap-1">
-                                    <Link to={`/artists/artist-entry/${project}`} state={{ from: location }}>
+                                    <Link to={`/artists/artist-list/${project}`} state={{ from: location }}>
                                         <button type='button' className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add Artist <AiOutlinePlus size={18} /></button>
                                     </Link>
                                 </div>
                             </div>
                             <div>
-                                <ShortlistedArtists project={project} />
+                                <ProjectDetails project={project} />
                             </div>
                         </div>
                     }
@@ -162,17 +167,46 @@ const ProjectRequirementDetails = () => {
     );
 };
 
-const ShortlistedArtists = ({ project }) => {
-    const { data } = useGetProjectQuery(project);
+const ProjectDetails = ({ project }) => {
+    const { data: currentProject } = useGetProjectQuery(project);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (currentProject?.pk) {
+            dispatch(setProjectData({
+                // chatLog: JSON.parse(currentProject.brief),
+                chatLog: [],
+                shortlistedArtists: currentProject.shortlisted_artists_details?.map(artist => artist.id),
+                selectedContentProduct: currentProject.project_template,
+                ...currentProject
+            }))
+            sessionStorage.setItem("CURRENT_PROJECT", currentProject.pk);
+        }
+    }, [currentProject])
+
     return (
         <>
             {
-                data?.shortlisted_artists_details?.map(artist => (
-                    <div className="flex items-center gap-2 py-1.5">
-                        <img className="w-10 h-10 object-cover rounded-full border" src={brokenAvatar} alt="" />
-                        <p>{artist?.name}</p>
-                    </div>
-                ))
+                currentProject?.shortlisted_artists_details?.length > 0 ?
+                    currentProject.shortlisted_artists_details?.map(artist => <ShortlistedArtistRow
+                        key={artist.id}
+                        artist={artist}
+                        projectId={currentProject.pk}
+                    />)
+                    : <Alert>No artist selected!</Alert>
+            }
+            {
+                currentProject?.assigned_artists_details?.length > 0 &&
+                <div className="mb-4 mt-8">
+                    <label className="block mb-2 text-sm font-medium text-gray-900">Assigned Artists</label>
+                    {
+                        currentProject.assigned_artists_details?.map(artist => <AssignedArtistRow
+                            key={artist.id}
+                            artist={artist}
+                            projectId={currentProject.pk}
+                        />)
+                    }
+                </div>
             }
         </>
     )

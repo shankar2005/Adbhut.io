@@ -5,12 +5,15 @@ import { IoLanguageSharp, IoLocationSharp } from 'react-icons/io5';
 import { useRootContext } from '../../../../contexts/RootProvider';
 import brokenImage from "../../../../assets/placeholders/broken.jpg";
 import { AiOutlineEdit, AiOutlineUserDelete } from 'react-icons/ai';
-import { useDeleteArtistMutation } from '../../../../features/artist/artistApi';
+import { useDeleteArtistMutation, useShortlistArtistMutation } from '../../../../features/artist/artistApi';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
-const ArtistRowView = ({ artist }) => {
+const ArtistRowView = ({ artist, setArtists }) => {
+    const { projectId } = useParams();
+    const [shortlistArtist] = useShortlistArtistMutation();
+
     const { setArtistProfile } = useRootContext();
     const [deleteArtist] = useDeleteArtistMutation();
     const { user } = useSelector(state => state.auth);
@@ -30,6 +33,17 @@ const ArtistRowView = ({ artist }) => {
         }
     }
 
+    const handleAssign = () => {
+        shortlistArtist({
+            projectId,
+            artistId: artist.id
+        })
+    }
+
+    console.log(projectId);
+
+    const { shortlistedArtists } = useSelector(state => state.project);
+
     return (
         <div className='bg-white border-b flex gap-3 p-3 relative'>
             <div className='relative'>
@@ -44,9 +58,20 @@ const ArtistRowView = ({ artist }) => {
                 />
             </div>
             <div className='flex-1'>
-                <p onClick={() => setArtistProfile(artist.id)} className='font-medium cursor-pointer'>
-                    {artist.name}
-                </p>
+                <div className='flex items-center gap-2 mb-1.5'>
+                    <p onClick={() => setArtistProfile(artist.id)} className='font-medium cursor-pointer w-fit '>
+                        {artist.name}
+                    </p>
+                    {
+                        user?.role === "AM" && projectId && (
+                            shortlistedArtists?.includes(artist.id)
+                                ? <button className="bg-green-400 text-white border rounded-full px-1 text-xs" disabled>Assigned</button>
+                                : <button onClick={handleAssign} className="bg-gray-100 border rounded-full px-1 text-sm">Assign</button>
+                        )
+                    }
+
+                </div>
+
                 <div className='flex flex-wrap gap-1 text-xs font-medium mb-1'>
                     {
                         artist?.skill?.map((skill, idx) => <div key={idx} className='px-1 border text-gray-500 border-gray-500 rounded-full'>{skill}</div>)

@@ -28,7 +28,7 @@ const Artists = () => {
         // loader={<FeedCardSkeleton />}
         >
             {
-                artists?.map(artist => <ArtistRowView key={artist?.id} artist={artist} />)
+                artists?.map(artist => <ArtistRowView key={artist?.id} artist={artist} setArtists={setArtists} />)
             }
         </InfiniteScroll>
     );
