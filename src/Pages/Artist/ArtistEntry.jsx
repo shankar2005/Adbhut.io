@@ -121,7 +121,6 @@ const ArtistEntry = () => {
 
     return (
         <div className='bg-white rounded-b-lg shadow-lg'>
-            <h3 className='font-medium p-3 border-b shadow-sm'>Artist Entry</h3>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className='p-4'>
                     <div className='grid grid-cols-2 gap-3 mb-4'>
@@ -147,15 +146,14 @@ const ArtistEntry = () => {
                             </select>
                         </div>
                     </div>
-
                     <div className='mb-4'>
                         <SelectLangs
                             control={control}
-                            defaultValue={artistData?.languages}
+                            defaultValue={artistData?.language}
                         />
                     </div>
                     <div className='mb-4'>
-                        <SelectSkills control={control} />
+                        <SelectSkills control={control} defaultValue={artistData?.skills} />
                     </div>
 
                     {/* <div className="mb-4">

@@ -24,7 +24,7 @@ import ArtistRequest from './ArtistRequest';
 import Modal from '../../../Components/Modal/Modal';
 import Alert from '../../../Components/Badge/Alert';
 
-const ProjectManagement = () => {
+const ProjectDashboard = () => {
     const { avatar, setIsModalOpen } = useRootContext();
 
     const dispatch = useDispatch();
@@ -328,13 +328,9 @@ const ProjectManagement = () => {
                     {
                         currentProject?.post_project_client_feedback
                         && <div className="mb-4">
-                            <label className="block mb-2 text-sm font-medium text-gray-900">Briefing: </label>
+                            <label className="block mb-2 text-sm font-medium text-gray-900">Client Briefing: </label>
                             <p className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-yellow-100 font-sans'>{currentProject?.post_project_client_feedback}</p>
                         </div>
-                        // <div className="mb-4">
-                        //     <label className="block mb-2 text-sm font-medium text-gray-900">Send assignment:</label>
-                        //     <textarea {...register("post_project_client_feedback")} onBlur={(e) => setassignmentField(e.target.value)} rows="5" className="input" placeholder="Your assignment"></textarea>
-                        // </div>
                     }
 
                 </div>
@@ -484,4 +480,4 @@ const ProjectManagement = () => {
     );
 };
 
-export default ProjectManagement;
+export default ProjectDashboard;

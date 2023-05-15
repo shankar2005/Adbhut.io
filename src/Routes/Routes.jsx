@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "../layouts/Root";
 import Inbox from "../Pages/Admins/Inbox/Inbox";
-import ProjectManagement from "../Pages/Admins/ProductionManager/ProjectManagement";
+import ProjectDashboard from "../Pages/Admins/ProductionManager/ProjectDashboard";
 import ArtistEntry from "../Pages/Artist/ArtistEntry";
 import ShortlistedArtists from "../Pages/Artist/ShortlistedArtists";
 import Feed from "../Pages/Home/Feed";
@@ -12,11 +12,11 @@ import Docusign from "../Pages/Project/Docusign";
 import MyProjects from "../Pages/Project/MyProjects";
 import ProjectDemos from "../Pages/Project/ProjectDemos";
 import ProjectDone from "../Pages/Project/ProjectDone";
-import ProjectRequirement from "../Pages/Admins/ArtistManager/ProjectRequirement";
+import ArtistRequirement from "../Pages/Admins/ArtistManager/ArtistRequirement";
 import Projects from "../Pages/Project/Projects";
 import LeftToRight from "./PageTransitions/LeftToRight";
 import RightToLeft from "./PageTransitions/RightToLeft";
-import ProjectRequirementDetails from "../Pages/Admins/ArtistManager/ProjectRequirementDetails";
+import ArtistRequirementDetails from "../Pages/Admins/ArtistManager/ArtistRequirementDetails";
 import Artists from "../Pages/Artist/Artists";
 
 const router = createBrowserRouter([
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/projects/:id',
-                element: <ProjectManagement />,
+                element: <ProjectDashboard />,
             },
             {
                 path: '/projects/create-project',
@@ -71,12 +71,12 @@ const router = createBrowserRouter([
                 element: <Inbox />,
             },
             {
-                path: '/projects/project-requirement',
-                element: <ProjectRequirement />,
+                path: '/projects/artist-requirement',
+                element: <ArtistRequirement />,
             },
             {
-                path: '/projects/project-requirement/:id',
-                element: <ProjectRequirementDetails />,
+                path: '/projects/artist-requirement/:id',
+                element: <ArtistRequirementDetails />,
             },
         ]
     },

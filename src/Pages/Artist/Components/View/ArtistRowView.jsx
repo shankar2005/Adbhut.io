@@ -40,8 +40,6 @@ const ArtistRowView = ({ artist, setArtists }) => {
         })
     }
 
-    console.log(projectId);
-
     const { shortlistedArtists } = useSelector(state => state.project);
 
     return (

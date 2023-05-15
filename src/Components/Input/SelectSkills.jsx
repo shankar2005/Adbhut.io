@@ -2,12 +2,16 @@ import { Controller } from 'react-hook-form';
 import Select from 'react-select';
 import { useRootContext } from '../../contexts/RootProvider';
 
-const SelectSkills = ({ control }) => {
+const SelectSkills = ({ control, defaultValue }) => {
     const { skills } = useRootContext();
     const allSkills = [];
     skills.forEach(skill => {
         allSkills.push({ value: skill.pk, label: skill.name })
     });
+
+    if (!defaultValue) {
+        return;
+    }
 
     return (
         <div>
@@ -25,6 +29,7 @@ const SelectSkills = ({ control }) => {
                         onChange={(val) => onChange(val.map((c) => c.value))}
                         className="basic-multi-select"
                         classNamePrefix="select"
+                        defaultValue={defaultValue}
                     />
                 )}
             />

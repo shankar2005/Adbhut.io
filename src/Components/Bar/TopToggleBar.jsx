@@ -53,6 +53,16 @@ const TopToggleBar = ({ className }) => {
     // shows only on artists route
     if ((!pathname.includes("/artists") && !pathname.includes("/projects")) || pathname.includes("/projects/inbox")) return;
 
+    if (user?.role === "AM") {
+        return (
+            <section className={`sticky top-20 w-full z-30 bg-white shadow rounded-t-lg ${className || ""}`}>
+                <div className="flex justify-between items-center p-4">
+                    <h4 className='font-sans font-medium text-lg'>Artist Panel</h4>
+                </div>
+            </section>
+        )
+    }
+
     return (
         <section className={`sticky top-20 w-full z-30 bg-white shadow rounded-t-lg ${className || ""}`}>
             <div className="flex justify-between items-center p-2">
@@ -109,7 +119,7 @@ const TopToggleBar = ({ className }) => {
 
                 <div className='flex items-center gap-3'>
                     {
-                        pathname.includes("project") ||
+                        pathname === "/artists/" &&
                         <div>
                             <select onChange={handleViewAs} className='text-sm p-1 rounded border outline-gray-100'>
                                 <option value="large">Large</option>

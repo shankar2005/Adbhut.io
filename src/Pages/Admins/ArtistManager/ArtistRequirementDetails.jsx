@@ -11,7 +11,7 @@ import ShortlistedArtistRow from "../ProductionManager/Components/ShortlistedArt
 import Alert from "../../../Components/Badge/Alert";
 import AssignedArtistRow from "../ProductionManager/Components/AssignedArtistRow";
 
-const ProjectRequirementDetails = () => {
+const ArtistRequirementDetails = () => {
     const { id } = useParams();
     const [deleteArtistRequest, { isSuccess: isDeleteSuccess }] = useDeleteArtistRequestMutation();
     const { data } = useGetArtistRequestQuery(id);
@@ -20,7 +20,7 @@ const ProjectRequirementDetails = () => {
 
     useEffect(() => {
         if (isDeleteSuccess) {
-            navigate("/projects/project-requirement")
+            navigate("/projects/artist-requirement")
         }
     }, [isDeleteSuccess])
 
@@ -53,13 +53,13 @@ const ProjectRequirementDetails = () => {
             <div className="p-4">
                 <ul className="flex items-center gap-2 text-sm">
                     <li>
-                        <Link to="/projects/project-requirement" className="flex items-center gap-2">
+                        <Link to="/projects/artist-requirement" className="flex items-center gap-2">
                             <p className="hover:text-blue-600">All</p>
                             <SlArrowRight />
                         </Link>
                     </li>
                     <li className="flex-1 flex items-center justify-between gap-2 font-medium">
-                        <p>{project_details?.project}</p>
+                        <p>{project_details?.name}</p>
                         <span className='w-fit px-0.5 text-sm font-normal font-sans italic text-gray-700 bg-yellow-100'>{hiring_status || "In Progress"}</span>
                     </li>
                 </ul>
@@ -147,13 +147,13 @@ const ProjectRequirementDetails = () => {
                             <div className="flex justify-between items-center">
                                 <p className="text-gray-500 font-medium">Shortlisted artist</p>
                                 <div className="flex gap-1">
-                                    <Link to={`/artists/artist-list/${project}`} state={{ from: location }}>
+                                    <Link to={`/artists/artist-list/${project_details?.id}`} state={{ from: location }}>
                                         <button type='button' className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add Artist <AiOutlinePlus size={18} /></button>
                                     </Link>
                                 </div>
                             </div>
                             <div>
-                                <ProjectDetails project={project} />
+                                <ProjectDetails projectId={project_details?.id} />
                             </div>
                         </div>
                     }
@@ -167,8 +167,8 @@ const ProjectRequirementDetails = () => {
     );
 };
 
-const ProjectDetails = ({ project }) => {
-    const { data: currentProject } = useGetProjectQuery(project);
+const ProjectDetails = ({ projectId }) => {
+    const { data: currentProject } = useGetProjectQuery(projectId);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -208,8 +208,22 @@ const ProjectDetails = ({ project }) => {
                     }
                 </div>
             }
+            {
+                currentProject?.post_project_client_feedback
+                && <div className="my-4">
+                    <label className="block mb-2 text-sm font-medium text-gray-900">Client Briefing: </label>
+                    <p className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-yellow-100 font-sans'>{currentProject?.post_project_client_feedback}</p>
+                </div>
+            }
+            {
+                currentProject?.production_solution
+                && <div className="mb-4">
+                    <label className="block mb-2 text-sm font-medium text-gray-900">Production solution</label>
+                    <p className='rounded p-3 text-sm bg-sky-100 font-sans'>{currentProject?.production_solution}</p>
+                </div>
+            }
         </>
     )
 }
 
-export default ProjectRequirementDetails;
+export default ArtistRequirementDetails;

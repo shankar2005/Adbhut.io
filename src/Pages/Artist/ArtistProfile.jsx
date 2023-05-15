@@ -27,7 +27,7 @@ const ArtistProfile = () => {
         manager,
         artistID,
         genre,
-        languages,
+        language: languages,
         location,
         social_profile,
         name,
@@ -80,12 +80,12 @@ const ArtistProfile = () => {
                             <BsStarFill className='text-yellow-400' />
                         </div>
                         <div className='text-sm text-gray-600'>
-                            {location && <p className='flex items-center gap-1'><IoLocationSharp /> {location}</p>}
-                            {languages && <p className='flex items-center gap-2'><IoLanguageSharp /> {languages.join(", ")}</p>}
+                            {location?.label && <p className='flex items-center gap-1'><IoLocationSharp /> {location.label}</p>}
+                            {languages && <p className='flex items-center gap-2'><IoLanguageSharp /> {languages?.map(lang => lang.label)}</p>}
                         </div>
                         <div className='flex flex-wrap gap-1 text-xs font-medium mt-1'>
                             {
-                                skills?.map((item, idx) => <div key={`skills${idx}`} className='px-1 border text-gray-500 border-gray-500 rounded-full'>{item}</div>)
+                                skills?.map(skill => <div key={skill.value} className='px-1 border text-gray-500 border-gray-500 rounded-full'>{skill.label}</div>)
                             }
                         </div>
                     </div>

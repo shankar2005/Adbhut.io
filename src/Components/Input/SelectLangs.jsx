@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useState } from 'react';
 import { Controller } from 'react-hook-form';
 import Select from 'react-select';
 import { useGetLanguagesQuery } from '../../features/utils/utilsApi';
@@ -9,10 +11,9 @@ const SelectLangs = ({ control, defaultValue }) => {
         return { value: language.pk, label: language.name }
     });
 
-    const defaultLanguages = languages?.filter(lang => defaultValue?.find(lang2 => lang2 === lang.name));
-    const formattedDefaultLanguages = defaultLanguages?.map(lang => {
-        return { value: lang.pk, label: lang.name }
-    })
+    if (!defaultValue) {
+        return;
+    }
 
     return (
         <div>
@@ -30,7 +31,7 @@ const SelectLangs = ({ control, defaultValue }) => {
                         onChange={(val) => onChange(val.map((c) => c.value))}
                         className="basic-multi-select"
                         classNamePrefix="select"
-                        defaultValue={formattedDefaultLanguages}
+                        defaultValue={defaultValue}
                     />
                 )}
             />
