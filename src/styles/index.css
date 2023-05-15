@@ -4,7 +4,10 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    /* font-family: 'Source Sans Pro', sans-serif; */
+}
+
+.font-hero {
+    font-family: 'Source Sans Pro', sans-serif;    
 }
 
 .artistProfile .swiper-button-next:after, .artistProfile .swiper-button-prev:after {

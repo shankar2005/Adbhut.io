@@ -15,24 +15,23 @@ const Home = () => {
 
     return (
         <header>
-            <nav className='p-3 border-b'>
-                <div className='w-11/12 max-w-screen-xl mx-auto flex items-center justify-between'>
+            <nav className='p-3 md:px-5 shadow-sm'>
+                <div className='flex items-center justify-between'>
                     <img src={adbhutGIF} className='w-28 md:w-32' />
-                    <div className='flex items-center gap-4'>
-                        <p className='font-medium uppercase space-x-2 text-xs md:text-base'>
+                    <div className='flex items-center gap-2'>
+                        <p className='font-medium uppercase flex items-center gap-1.5 text-sm'>
                             <Link to="/artists">Artist</Link>
-                            <a target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show' className=''>Hiring</a>
-                            <Button variant="primary" onClick={() => dispatch(showLogin())} className='uppercase'>Login</Button>
+                            <a target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show' className='block mr-1'>Hiring</a>
                         </p>
-                        <label htmlFor="userState" className="inline-flex items-center p-1 cursor-pointer bg-gray-300 text-black text-xs md:text-sm font-medium uppercase select-none">
+                        <label htmlFor="userState" className="inline-flex items-center p-1 cursor-pointer bg-gray-300 text-black text-xs font-bold uppercase select-none rounded-full">
                             <input onChange={() => dispatch(setViewMode())} id="userState" type="checkbox" className="hidden peer" />
-                            <span className={`px-4 py-2 ${isFullTime ? "bg-black text-white" : "bg-gray-300"} duration-300`}>Full Time</span>
-                            <span className={`px-4 py-2 ${isFullTime ? "bg-gray-300" : "bg-black text-white"} duration-300`}>For Project</span>
+                            <span className={`px-3 py-2 ${isFullTime ? "bg-black text-white" : "bg-gray-300"} duration-300 rounded-full`}>Full Time</span>
+                            <span className={`px-3 py-2 ${isFullTime ? "bg-gray-300" : "bg-black text-white"} duration-300 rounded-full`}>For Project</span>
                         </label>
+                        <Button variant="primary" onClick={() => dispatch(showLogin())} className='uppercase'>Login</Button>
                     </div>
                 </div>
             </nav>
-
 
             <section className='pt-10 lg:flex justify-center items-center'>
 
@@ -41,14 +40,14 @@ const Home = () => {
                         <div className='border rounded-lg shadow-lg'>
                             <LeftAside />
                         </div>
-                        <div className='mt-5 text-gray-500 text-sm'>
+                        <div className='mt-5 text-gray-500 text-sm font-hero'>
                             &copy; about Mirashious Technologies Pvt Ltd
                         </div>
                     </div>
 
-                    <div className='order-first lg:mt-24'>
-                        <h1 className='text-4xl font-medium mb-4'>
-                            Creating the most amazing creative content, <br />
+                    <div className='order-first lg:mt-24 font-hero'>
+                        <h1 className='text-4xl font-bold mb-4'>
+                            Creating the most <br /> amazing creative content, <br />
                             now available at convenience of a conversation.
                         </h1>
                         <p>
@@ -59,8 +58,8 @@ const Home = () => {
                 </div>
             </section>
 
-            <div className="flex flex-col justify-center items-center bg-gray-100 mt-10 pt-12 relative">
-                <h1 className='text-4xl font-bold absolute 2xl:static top-16 px-5 md:px-0'>Revolutionize your content with cutting-edge AI technology</h1>
+            <div className="flex flex-col justify-center items-center bg-gray-200 mt-10 pt-12 relative">
+                <h1 className='text-4xl font-bold absolute 2xl:static top-16 px-5 md:px-0 '>Revolutionize your content with cutting-edge AI technology</h1>
                 <iframe className='px-5 md:px-0 w-full md:w-3/6' src="https://player.vimeo.com/video/819139346?h=d6fa5efcc3" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
             </div>
 
