@@ -9,63 +9,52 @@ import SelectSkills from '../../Components/Input/SelectSkills';
 import Textarea from '../../Components/Input/Textarea';
 import Input from '../../Components/Input/Input';
 import { useRootContext } from '../../contexts/RootProvider';
-import { useAddArtistMutation, useGetArtistByIdQuery } from '../../features/artist/artistApi';
+import { useAddArtistMutation, useGetArtistByIdQuery, useUpdateArtistMutation } from '../../features/artist/artistApi';
+import WorkLinks from './Components/WorkLinks';
 
 const ArtistEntry = () => {
     const { artistId } = useParams();
+    const [workLinks, setWorkLinks] = useState([{ weblink: '', demo_type: '' }]);
 
     const { data: artistData } = useGetArtistByIdQuery(artistId, { skip: !artistId });
-    const [addArtist] = useAddArtistMutation();
+    const [addArtist, { isSuccess: addSuccess }] = useAddArtistMutation();
+    const [updateArtist, { isSuccess: updateSuccess }] = useUpdateArtistMutation();
     const { locations } = useRootContext();
 
     const { register, handleSubmit, formState: { errors }, control, reset } = useForm();
     const onSubmit = data => {
-        const workLinks = [];
-        if (workLink1) {
-            workLinks.push({
-                weblink: workLink1,
-                demo_type: workLink1Type,
-                show_in_top_feed: true
-            });
-        }
-        if (workLink2) {
-            workLinks.push({
-                weblink: workLink2,
-                demo_type: workLink2Type,
-            });
-        }
-        if (workLink3) {
-            workLinks.push({
-                weblink: workLink3,
-                demo_type: workLink3Type,
-            });
-        }
-
-        addArtist({
+        const formData = {
             ...data,
-            "has_manager": false,
-            "works_links": workLinks
-        })
-            .then(data => {
-                if (data.data?.artist?.id) {
-                    Swal.fire(
-                        'Success!',
-                        'Artist has been added!',
-                        'success'
-                    )
-                    reset();
+            age: +data.age,
+            professional_rating: data.professional_rating || 0,
+            attitude_rating: data.attitude_rating || 0,
+            has_manager: false,
+            works_links: workLinks
+        };
 
-                    if (!redirectPath) {
-                        navigate("/artists/artist-list");
-                    }
-                }
+        if (artistId) {
+            updateArtist({
+                id: artistId,
+                data: formData
             })
-            .catch(err => {
-                console.log(err);
-            })
+            return;
+        }
+        addArtist(formData);
     }
 
-    const fields = [
+    useEffect(() => {
+        if (addSuccess || updateSuccess) {
+            Swal.fire(
+                'Success!',
+                `Artist has been ${addSuccess ? "added" : "updated"}!`,
+                'success'
+            )
+            reset();
+            navigate("/artists/artist-list");
+        }
+    }, [addSuccess, updateSuccess])
+
+    const inputFields = [
         {
             name: "name",
             type: "text",
@@ -108,24 +97,13 @@ const ArtistEntry = () => {
         },
     ]
 
-    const [workLink1, setWorkLink1] = useState(null);
-    const [workLink1Type, setWorkLink1Type] = useState("Other");
-
-    const [workLink2, setWorkLink2] = useState(null);
-    const [workLink2Type, setWorkLink2Type] = useState("Other");
-
-    const [workLink3, setWorkLink3] = useState(null);
-    const [workLink3Type, setWorkLink3Type] = useState("Other");
-
-    const fileTypes = ["Youtube", "Google Drive", "Behance", "Imdb", "Instagram", "Vimeo", "Wixsite", "Other"]
-
     return (
         <div className='bg-white rounded-b-lg shadow-lg'>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className='p-4'>
                     <div className='grid grid-cols-2 gap-3 mb-4'>
                         {
-                            fields?.map(field => <Input
+                            inputFields?.map(field => <Input
                                 key={field.name}
                                 type={field.type}
                                 name={field.name}
@@ -137,11 +115,11 @@ const ArtistEntry = () => {
                             />)
                         }
                         <div>
-                            <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900">Select country</label>
-                            <select {...register("location", { required: true })} id="location" className="input">
-                                <option selected>Choose a country</option>
+                            <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900">Select location</label>
+                            <select {...register("location", { required: !artistData?.location.name })} id="location" className="input">
+                                <option value={null} selected>Choose a location</option>
                                 {
-                                    locations?.map(location => <option value={location.pk} selected={artistData?.location}>{location.name}</option>)
+                                    locations?.map(location => <option value={location.pk} selected={artistData?.location.name}>{location.name}</option>)
                                 }
                             </select>
                         </div>
@@ -183,58 +161,15 @@ const ArtistEntry = () => {
                             placeholder="Intro"
                             defaultValue={artistData?.artist_intro}
                             register={register}
-                            required={true}
                         />
                     </div>
                 </div>
 
-                {/* work links */}
-
-                <div className='bg-gray-50 border-y p-4'>
-                    <div className="mb-4 flex gap-4">
-                        <div className='w-full'>
-                            <label htmlFor="best_work_link" className="block mb-2 text-sm font-medium text-gray-900">Best Work Link</label>
-                            <input onBlur={e => setWorkLink1(e.target.value)} type="text" id="best_work_link" className="input" placeholder="Best work link" />
-                        </div>
-                        <div className="w-2/6">
-                            <label htmlFor="demo-type1" className="block mb-2 text-sm font-medium text-gray-900">Demo Type</label>
-                            <select onChange={e => setWorkLink1Type(e.target.value)} id="demo-type1" className="input">
-                                <option selected disabled>Choose</option>
-                                {fileTypes.map(type => <option value={type}>{type}</option>)}
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="mb-4 flex gap-4">
-                        <div className="w-full">
-                            <label htmlFor="work_link_2" className="block mb-2 text-sm font-medium text-gray-900">Work Link 2</label>
-                            <input onBlur={e => setWorkLink2(e.target.value)} type="text" id="work_link_2" className="input" placeholder="Work link 2" />
-                        </div>
-                        <div className="w-2/6">
-                            <label htmlFor="demo-type1" className="block mb-2 text-sm font-medium text-gray-900">Demo Type</label>
-                            <select onChange={e => setWorkLink2Type(e.target.value)} id="demo-type1" className="input">
-                                <option selected disabled>Choose</option>
-                                {fileTypes.map(type => <option value={type}>{type}</option>)}
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="mb-4 flex gap-4">
-                        <div className="w-full">
-                            <label htmlFor="work_link_3" className="block mb-2 text-sm font-medium text-gray-900">Work Link 3</label>
-                            <input onBlur={e => setWorkLink3(e.target.value)} type="text" id="work_link_3" className="input" placeholder="Work link 3" />
-                        </div>
-                        <div className="w-2/6">
-                            <label htmlFor="demo-type1" className="block mb-2 text-sm font-medium text-gray-900">Demo Type</label>
-                            <select onChange={e => setWorkLink3Type(e.target.value)} id="demo-type1" className="input">
-                                <option selected disabled>Choose</option>
-                                {fileTypes.map(type => <option value={type}>{type}</option>)}
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                {/* work links */}
+                <WorkLinks
+                    workLinks={workLinks}
+                    setWorkLinks={setWorkLinks}
+                    defaultWorkLinks={artistData?.works_links}
+                />
 
                 <div className='p-4'>
                     <div className="mb-4">
@@ -275,7 +210,7 @@ const ArtistEntry = () => {
                     </div>
                     <div className="mb-4">
                         <label htmlFor="budget_range" className="block mb-2 text-sm font-medium text-gray-900">Budget range</label>
-                        <select {...register("budget_range", { required: true })} id="budget_range" className="input">
+                        <select {...register("budget_range")} id="budget_range" className="input">
                             <option selected>Less than 10,000</option>
                             <option selected={artistData?.budget_range}>10K - 20K</option>
                             <option selected={artistData?.budget_range}>20K - 40K</option>
@@ -289,7 +224,6 @@ const ArtistEntry = () => {
                             placeholder="Budget idea"
                             defaultValue={artistData?.budget_idea}
                             register={register}
-                            required={true}
                         />
                     </div>
                     <div className="mb-4">
@@ -299,7 +233,6 @@ const ArtistEntry = () => {
                             placeholder="Artist manager notes"
                             defaultValue={artistData?.am_notes}
                             register={register}
-                            required={true}
                         />
                     </div>
                     <div className="mb-4">
@@ -309,7 +242,6 @@ const ArtistEntry = () => {
                             placeholder="Production manager notes"
                             defaultValue={artistData?.pm_notes}
                             register={register}
-                            required={true}
                         />
                     </div>
                     <Button type="submit">Add Artist</Button>

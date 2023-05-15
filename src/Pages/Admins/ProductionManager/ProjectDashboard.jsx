@@ -287,27 +287,27 @@ const ProjectDashboard = () => {
                     }
 
                     {
-                        currentProject?.pk === 108 &&
+                        currentProject?.pk === 148 &&
                         <>
                             <div className="mb-4">
                                 <label className="text-sm font-medium text-gray-900">Demos: </label>
                                 <div className='space-y-3'>
-                                    <a target="_blank" href="https://docsend.com/view/t7twmera8j4ccgp4" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
+                                    <a target="_blank" href="https://drive.google.com/file/d/1cwG-4RgV25jHHNaR0eUlSloqs5pM_AU1/view" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
                                         <BsFilePdf size={25} className="mr-2" />
                                         View Lyrics
                                     </a>
-                                    <div>
+                                    {/* <div>
                                         <iframe width="100%" height={166} scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1496260810&color=%230ea5e9&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" /><div style={{ fontSize: '10px', color: '#cccccc', lineBreak: 'anywhere', wordBreak: 'normal', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontFamily: 'Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif', fontWeight: 100 }}><a href="https://soundcloud.com/adbhut-188302011" title="Adbhut" target="_blank" style={{ color: '#cccccc', textDecoration: 'none' }}>Adbhut</a> · <a href="https://soundcloud.com/adbhut-188302011/demo-121-temp-vox-reference-nsnco-prodbykeerteesh" title="Demo 1.2.1 Temp Vox REFERENCE NsNCo ProdByKeerteesh" target="_blank" style={{ color: '#cccccc', textDecoration: 'none' }}>Demo 1.2.1 Temp Vox REFERENCE NsNCo ProdByKeerteesh</a></div>
                                     </div>
                                     <div>
                                         <iframe width="100%" height={166} scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1496330755&color=%230ea5e9&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" /><div style={{ fontSize: '10px', color: '#cccccc', lineBreak: 'anywhere', wordBreak: 'normal', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontFamily: 'Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif', fontWeight: 100 }}><a href="https://soundcloud.com/adbhut-188302011" title="Adbhut" target="_blank" style={{ color: '#cccccc', textDecoration: 'none' }}>Adbhut</a> · <a href="https://soundcloud.com/adbhut-188302011/echmkt-final-master-v2-nsnco-prodbykeerteesh" title="ECHMKT FINAL MASTER V2 NsNCo ProdByKeerteesh" target="_blank" style={{ color: '#cccccc', textDecoration: 'none' }}>ECHMKT FINAL MASTER V2 NsNCo ProdByKeerteesh</a></div>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </>
                     }
 
-                    <div className="mb-4">
+                    {/* <div className="mb-4">
                         <div className="flex justify-between mb-2">
                             <p>Media, links and docs demos</p>
                             <Link to={`/projects/demos/${currentProject?.pk}`}>
@@ -319,7 +319,7 @@ const ProjectDashboard = () => {
                                 currentProject?.project_demos?.slice(0, 4)?.map(demo => <Demo demo={demo} />)
                             }
                         </div>
-                    </div>
+                    </div> */}
                     {
                         user?.role === "PM" &&
                         <FileUpload />

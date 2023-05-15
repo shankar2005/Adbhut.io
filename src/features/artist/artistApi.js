@@ -17,6 +17,14 @@ const artistApi = apis.injectEndpoints({
             }),
             invalidatesTags: ["Project"]
         }),
+        updateArtist: builder.mutation({
+            query: ({id, data}) => ({
+                url: `/artist_action/${id}/`,
+                method: "PUT",
+                body: data
+            }),
+            invalidatesTags: ["Project"]
+        }),
         deleteArtist: builder.mutation({
             query: (id) => ({
                 url: `/artist_action/${id}/`,
@@ -97,5 +105,6 @@ export const {
     useGetArtistRequestQuery,
     useAddArtistRequestMutation,
     useDeleteArtistRequestMutation,
-    useDeleteArtistMutation
+    useDeleteArtistMutation,
+    useUpdateArtistMutation
 } = artistApi;
