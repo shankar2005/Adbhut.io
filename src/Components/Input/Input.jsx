@@ -1,6 +1,4 @@
 const Input = ({ name, label, type, placeholder, defaultValue, required, register, ...props }) => {
-    if (!defaultValue) return
-
     return (
         <div>
             <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-900">{label}</label>

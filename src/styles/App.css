@@ -1,46 +1,46 @@
 .skillScroll::-webkit-scrollbar {
-    height: 8px;
+  height: 8px;
 }
 
 .skillScroll::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(98, 140, 174, 0.3);
-    border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(98, 140, 174, 0.3);
+  border-radius: 10px;
 }
 
 .skillScroll::-webkit-scrollbar-thumb {
-    background-color: #3b82f6;
-    outline: 1px solid #3b82f6;
-    border-radius: 10px;
+  background-color: #3b82f6;
+  outline: 1px solid #3b82f6;
+  border-radius: 10px;
 }
 
 .rightSide::-webkit-scrollbar {
-    width: 0;
+  width: 0;
 }
 
 /*  */
 
 .homeContent .swiper-pagination {
-    position: relative;
-    top: 5px;
+  position: relative;
+  top: 5px;
 }
 
 .homeContent .swiper-button-next:after,
 .homeContent .swiper-button-prev:after {
-    font-size: 22px;
+  font-size: 22px;
 }
 
 .homeContent .swiper-button-prev {
-    left: 45px;
+  left: 45px;
 }
 
 .homeContent .swiper-button-next {
-    right: 45px;
+  right: 45px;
 }
 
 /* homeSkillScrollSearch */
 
 #homeSkillScrollSearch::-webkit-scrollbar {
-    width: 0px;
+  width: 0px;
 }
 
 /* #homeSkillScrollSearch::-webkit-scrollbar-track {
@@ -59,108 +59,113 @@
 /* Typing indicator css */
 
 .scroll-none::-webkit-scrollbar {
-    width: 0px;
+  width: 0px;
 }
 
 .container {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .header {
-    font-weight: 600;
-    color: rosybrown;
+  font-weight: 600;
+  color: rosybrown;
 }
 
 .typingIndicatorContainer {
-    display: flex;
-    flex: none;
-    align-items: flex-end;
-    margin: 4 0;
+  display: flex;
+  flex: none;
+  align-items: flex-end;
+  margin: 4 0;
 }
 
 .typingIndicatorBubble {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 52px;
-    height: 40px;
-    margin: 0px 8px;
-    background-color: #f0f1f1;
-    border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 40px;
+  margin: 0px 8px;
+  background-color: #f0f1f1;
+  border-radius: 12px;
 }
 
 .typingIndicatorBubbleDot {
-    width: 4px;
-    height: 4px;
-    margin-right: 4px;
-    background-color: #57585a;
-    border-radius: 50%;
-    animation-name: bounce;
-    animation-duration: 1.3s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
+  width: 4px;
+  height: 4px;
+  margin-right: 4px;
+  background-color: #57585a;
+  border-radius: 50%;
+  animation-name: bounce;
+  animation-duration: 1.3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
 .typingIndicatorBubbleDot:first-of-type {
-    margin: 0px 4px;
+  margin: 0px 4px;
 }
 
 .typingIndicatorBubbleDot:nth-of-type(2) {
-    animation-delay: 0.15s;
+  animation-delay: 0.15s;
 }
 
 .typingIndicatorBubbleDot:nth-of-type(3) {
-    animation-delay: 0.3s;
+  animation-delay: 0.3s;
 }
 
 @keyframes bounce {
 
-    0%,
-    60%,
-    100% {
-        transform: translateY(0);
-    }
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
 
-    30% {
-        transform: translateY(-4px);
-    }
+  30% {
+    transform: translateY(-4px);
+  }
 }
 
 
 /* vibrator animation */
 
 @keyframes vibrate {
-    0% {
-      transform: translate(0, 0);
-    }
-    20% {
-      transform: translate(-2px, 2px);
-    }
-    40% {
-      transform: translate(-2px, -2px);
-    }
-    60% {
-      transform: translate(2px, 2px);
-    }
-    80% {
-      transform: translate(2px, -2px);
-    }
-    100% {
-      transform: translate(0, 0);
-    }
+  0% {
+    transform: translate(0, 0);
   }
 
-  .animate-vibrate {
-    animation-duration: 0.5s;
-    animation-name: vibrate;
-    animation-iteration-count: 1;
+  20% {
+    transform: translate(-2px, 2px);
   }
-  
+
+  40% {
+    transform: translate(-2px, -2px);
+  }
+
+  60% {
+    transform: translate(2px, 2px);
+  }
+
+  80% {
+    transform: translate(2px, -2px);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.animate-vibrate {
+  animation-duration: 0.5s;
+  animation-name: vibrate;
+  animation-iteration-count: 1;
+}
+
 /* vibrator animation */
 
 
@@ -177,12 +182,12 @@
     transform: scale(0.97);
     box-shadow: 0 0 0 0 rgba(52, 172, 224, 0.7);
   }
-  
+
   70% {
     transform: scale(1);
     box-shadow: 0 0 0 10px rgba(52, 172, 224, 0);
   }
-  
+
   100% {
     transform: scale(0.97);
     box-shadow: 0 0 0 0 rgba(52, 172, 224, 0);
@@ -192,6 +197,6 @@
 /* pulse animation ----end---- */
 /* pulse animation ----end---- */
 
-.boxShadow{
+.boxShadow {
   box-shadow: 3px 3px 0px rgb(74, 74, 74);
 }

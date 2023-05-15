@@ -7,6 +7,9 @@ import Button from '../../Components/Button/Button';
 import { closeLogin, showLogin } from '../../features/dropdown/dropdownSlice';
 import { AnimatePresence } from 'framer-motion';
 import AuthModal from '../Auth/Components/AuthModal';
+import { SlArrowDown } from "react-icons/sl";
+import { useState } from 'react';
+import MentorSection from './Sections/MentorSection';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -14,11 +17,25 @@ const Home = () => {
     const { loginModal } = useSelector(state => state.dropdown);
     const { user } = useSelector(state => state.auth);
 
+    const [isMentorHovered, setIsMentorHovered] = useState(false);
+
     return (
         <header>
-            <nav className='p-3 md:px-5 shadow-sm'>
+            <nav className='p-3 md:px-5 shadow-sm relative'>
                 <div className='flex items-center justify-between'>
-                    <img src={adbhutGIF} className='w-28 md:w-32' />
+                    <div className="flex items-center gap-2">
+                        <img src={adbhutGIF} className='w-28 md:w-32 mr-8' />
+                        <p onMouseEnter={() => setIsMentorHovered(true)} className='flex items-center gap-2 font-medium font-hero cursor-pointer'>
+                            Mentors 
+                            <SlArrowDown className={`${isMentorHovered && "rotate-180"} duration-200`} size={10} />
+                        </p>
+
+                        {
+                            isMentorHovered &&
+                            <MentorSection setIsMentorHovered={setIsMentorHovered} />
+                        }
+                    </div>
+
                     <div className='flex items-center gap-2'>
                         <p className='font-medium uppercase flex items-center gap-1.5 text-sm'>
                             <Link to="/artists">Artist</Link>
@@ -41,10 +58,9 @@ const Home = () => {
             </nav>
 
             <section className='pt-10 lg:flex justify-center items-center'>
-
                 <div className='w-11/12 md:w-10/12 max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 justify-between gap-20'>
                     <div className='order-last w-full lg:w-5/6 ml-auto'>
-                        <div className='border border-gray-50 rounded-lg'>
+                        <div className='border border-gray-50 rounded-lg shadow'>
                             <LeftAside />
                         </div>
                         <div className='mt-5 text-gray-500 text-sm font-hero'>
