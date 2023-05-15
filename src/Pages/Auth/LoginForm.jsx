@@ -3,13 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from 'react-redux';
 import Cookies from 'universal-cookie';
-import { useRootContext } from '../../contexts/RootProvider';
 import { useLoginUserMutation, useVerifyUserMutation } from '../../features/auth/authApi';
 import { setLoading, setToken, setUser } from '../../features/auth/authSlice';
 import { closeLogin } from '../../features/dropdown/dropdownSlice';
 
 const LoginForm = () => {
-    const { currentProjects } = useRootContext();
     const [loginUser, { data, isError, error, isLoading }] = useLoginUserMutation();
     const [verifyUser, { data: userData }] = useVerifyUserMutation();
     const dispatch = useDispatch();
@@ -38,15 +36,10 @@ const LoginForm = () => {
         if (userData?.status === 'success') {
             dispatch(setUser(userData.user));
             dispatch(setLoading(false));
-            // 
-            if (currentProjects.length) {
-                navigate(`/projects/${currentProjects[currentProjects.length - 1]?.pk}`);
-            } else {
-                navigate(`/projects/create-project`);
-            }
+            navigate("/projects/myprojects");
             dispatch(closeLogin());
         }
-    }, [userData, currentProjects])
+    }, [userData])
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

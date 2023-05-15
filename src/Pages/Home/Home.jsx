@@ -12,6 +12,7 @@ const Home = () => {
     const dispatch = useDispatch();
     const { isFullTime } = useSelector(state => state.viewMode);
     const { loginModal } = useSelector(state => state.dropdown);
+    const { user } = useSelector(state => state.auth);
 
     return (
         <header>
@@ -23,12 +24,18 @@ const Home = () => {
                             <Link to="/artists">Artist</Link>
                             <a target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show' className='block mr-1'>Hiring</a>
                         </p>
+
                         <label htmlFor="userState" className="inline-flex items-center p-1 cursor-pointer bg-gray-300 text-black text-xs font-bold uppercase select-none rounded-full">
                             <input onChange={() => dispatch(setViewMode())} id="userState" type="checkbox" className="hidden peer" />
                             <span className={`px-3 py-2 ${isFullTime ? "bg-black text-white" : "bg-gray-300"} duration-300 rounded-full`}>Full Time</span>
                             <span className={`px-3 py-2 ${isFullTime ? "bg-gray-300" : "bg-black text-white"} duration-300 rounded-full`}>For Project</span>
                         </label>
-                        <Button variant="primary" onClick={() => dispatch(showLogin())} className='uppercase'>Login</Button>
+
+                        {
+                            user?.email
+                                ? <Link to="/projects/myprojects"><Button variant="primary" className='uppercase'>Get Started</Button></Link>
+                                : <Button variant="primary" onClick={() => dispatch(showLogin())} className='uppercase'>Login</Button>
+                        }
                     </div>
                 </div>
             </nav>
@@ -37,7 +44,7 @@ const Home = () => {
 
                 <div className='w-11/12 md:w-10/12 max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 justify-between gap-20'>
                     <div className='order-last w-full lg:w-5/6 ml-auto'>
-                        <div className='border rounded-lg shadow-lg'>
+                        <div className='border border-gray-50 rounded-lg'>
                             <LeftAside />
                         </div>
                         <div className='mt-5 text-gray-500 text-sm font-hero'>

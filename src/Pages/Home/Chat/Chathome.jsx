@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -36,16 +37,34 @@ const Chathome = ({ chatboxRef, nsnlogo }) => {
 
 
     return (
-        <div ref={chatboxRef} className='h-full overflow-y-scroll overflow-x-hidden relative'>
+        <div ref={chatboxRef} className='h-full overflow-hidden relative'>
             <div className='flex flex-col p-3'>
-                <MessageReceiver
+                {/* <MessageReceiver
                     key={isFullTime ? "visible" : "hidden"}
                     image={nsnlogo}
                     name="Adbhut.io"
-                    text={`Hello, I'm Adbhut. Lets ${isFullTime ? "Hire" : "Create"}!`}
-                />
+                    text={<>Hello, I'm Adbhut. Lets {isFullTime ? "Hire" : "Create"}! <br />
+                        Select any of the content products to get started</>}
+                /> */}
 
-                {
+                <motion.div
+                    initial={{ translateX: '-100%' }}
+                    animate={{ translateX: '0%' }}
+                    transition={{ delay: 0.2 }}
+                >
+                    <div className='text-sm flex gap-2 mb-5'>
+                        <img className='w-10 h-10' src={nsnlogo} alt="" />
+                        <div className='mr-5'>
+                            <h4 className='font-medium'>Adbhut.io</h4>
+                            <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg w-fit mb-1'>
+                                Hello, I'm Adbhut. Lets {isFullTime ? "Hire" : "Create"}! <br />
+                                    Select any of the content products to get started
+                            </p>
+                        </div>
+                    </div>
+                </motion.div>
+
+                {/* {
                     chatLog.length > 0 &&
                     chatLog.map((chat, idx) => (
                         chat.bot
@@ -62,12 +81,12 @@ const Chathome = ({ chatboxRef, nsnlogo }) => {
                                 text={chat.user}
                             />
                     ))
-                }
+                } */}
             </div>
 
             {
                 !isFullTime && contentProducts.length > 0 &&
-                <div className='sticky bottom-0 bg-white p-3 pb-2 contentProducts text-center select-none mt-12'>
+                <div className='sticky bottom-0 bg-white p-3 pb-2 contentProducts text-center select-none mt-8'>
                     <Swiper
                         spaceBetween={5}
                         slidesPerView={4}
