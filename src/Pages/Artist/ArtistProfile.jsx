@@ -104,7 +104,7 @@ const ArtistProfile = () => {
                     genre?.length > 0 &&
                     <div className='flex flex-wrap items-center gap-1 mt-1'>
                         <strong>Genre:</strong>
-                        {genre?.map((item, idx) => <div key={`genre${idx}`} className='text-xs font-medium px-1 border text-gray-500 border-gray-500 rounded-full'>{item}</div>)}
+                        {genre?.map(genre => <div key={genre.value} className='text-xs font-medium px-1 border text-gray-500 border-gray-500 rounded-full'>{genre.label}</div>)}
                     </div>
                 }
                 {
