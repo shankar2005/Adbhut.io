@@ -12,9 +12,11 @@ import ConfirmationModal from '../Components/Modal/ConfirmationModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeAllDropdown } from '../features/dropdown/dropdownSlice';
 import { useState } from 'react';
+import FilterArtist from '../Pages/Artist/FilterArtist';
 
 const Root = () => {
     const { artistProfile, setArtistProfile, showModal, isModalOpen } = useRootContext();
+    const { user } = useSelector(state => state.auth);
 
     const location = useLocation();
     const pathname = location.pathname;
@@ -71,7 +73,11 @@ const Root = () => {
                 {/* bg unfocused layer */}
 
                 <aside className={`hidden md:block col-span-5 ${showToolkit ? "lg:col-span-4" : "lg:col-span-5"} sticky top-20`}>
-                    <LeftAside setShowToolkit={setShowToolkit} />
+                    {
+                        user?.role === "AM"
+                            ? <FilterArtist />
+                            : <LeftAside setShowToolkit={setShowToolkit} />
+                    }
                 </aside>
 
 
