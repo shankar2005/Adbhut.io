@@ -19,7 +19,7 @@ const CreateProject = () => {
     const currentProject = useSelector(state => state.project);
 
     const dispatch = useDispatch();
-    const [createProject] = useCreateProjectMutation();
+    const [createProject, { isSuccess, projectData, error }] = useCreateProjectMutation();
     const { user } = useSelector(state => state.auth);
     const {
         chatLog, shortlistedArtists, selectedContentProduct,
@@ -33,6 +33,17 @@ const CreateProject = () => {
     }, [])
 
     // send brief
+    const formData = {
+        // required
+        brief: JSON.stringify(chatLog),
+        shortlisted_artists: shortlistedArtists,
+        // optionals
+        project_template: selectedContentProduct,
+        title,
+        reference_links: JSON.stringify(reference_links),
+        post_project_client_feedback,
+    }
+
     const handleSendBrief = () => {
         if (!user.email) {
             return dispatch(showLogin());
@@ -41,36 +52,17 @@ const CreateProject = () => {
             return toast("Select a content product!");
         }
 
-        createProject({
-            // required
+        console.log({
             stage: "Lead",
-            brief: JSON.stringify(chatLog),
-            shortlisted_artists: shortlistedArtists,
-            // optionals
-            project_template: selectedContentProduct,
-            title,
-            reference_links: JSON.stringify(reference_links),
-            post_project_client_feedback,
+            ...formData
+        });
+
+        createProject({
+            stage: "Lead",
+            ...formData
         })
-            .then(response => {
-                const data = response.data;
-                if (data?.pk) {
-                    console.log(data);
-                    const template = {
-                        project_title: data?.title,
-                        client_name: data?.client_details?.name,
-                        client_email: data?.client_details?.email,
-                        project_id: data?.pk
-                    };
-                    useSendMail(template);
-                    toast.success("Project created successfully!", { id: "createNewProject" });
-                    navigate(`/projects/${data.pk}`);
-                } else {
-                    toast.error("Something went wrong!", { id: "createNewProject" });
-                }
-            });
     }
-    // above and below both events are the same code repeated (just state changes)
+
     // add to dream project
     const handleAddToDreamProject = () => {
         if (!user.email) {
@@ -81,26 +73,34 @@ const CreateProject = () => {
         }
 
         createProject({
-            // required
             stage: "DreamProject",
-            brief: JSON.stringify(chatLog),
-            shortlisted_artists: shortlistedArtists,
-            // optionals
-            project_template: selectedContentProduct,
-            title: title,
-            reference_links: JSON.stringify(reference_links),
-            post_project_client_feedback,
+            ...formData
         })
-            .then(response => {
-                const data = response.data;
-                if (data.pk) {
-                    toast.success("Added to dreamproject!", { id: "createNewProject" });
-                    navigate(`/projects/${data.pk}`);
-                } else {
-                    toast.error("Something went wrong!", { id: "createNewProject" });
-                }
-            });
     }
+
+    useEffect(() => {
+        if (isSuccess) {
+            const data = projectData.data;
+            console.log(data);
+            if (data.pk) {
+                if (data.stage === "Lead") {
+                    toast.success("Project created successfully!", { id: "createNewProject" });
+                    const template = {
+                        project_title: data?.title,
+                        client_name: data?.client_details?.name,
+                        client_email: data?.client_details?.email,
+                        project_id: data?.pk
+                    };
+                    useSendMail(template);
+                } else {
+                    toast.success("Added to DreamProject!", { id: "createNewProject" });
+                }
+                navigate(`/projects/${data.pk}`);
+            } else {
+                toast.error("Something went wrong!", { id: "createNewProject" });
+            }
+        }
+    }, [isSuccess])
 
     const location = useLocation();
 

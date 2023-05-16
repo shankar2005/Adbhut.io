@@ -8,7 +8,7 @@ const ShortlistedArtists = () => {
     const { data } = useGetShortlistedArtistsQuery(shortlistedArtists.join(","));
 
     if(!shortlistedArtists.length){
-        return <NothingFound />
+        return <NothingFound  className="mt-10" />
     }
 
     return (

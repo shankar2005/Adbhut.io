@@ -3,7 +3,7 @@ import apis from "../apis/apis";
 const artistApi = apis.injectEndpoints({
     endpoints: (builder) => ({
         getArtists: builder.query({
-            query: (page) => `/artist_list/?page=${page}`,
+            query: ({ page, name }) => `/artist_list/?page=${page}&name=${name}`,
             providesTags: ["Artists"]
         }),
         getArtistById: builder.query({
@@ -18,7 +18,7 @@ const artistApi = apis.injectEndpoints({
             invalidatesTags: ["Project"]
         }),
         updateArtist: builder.mutation({
-            query: ({id, data}) => ({
+            query: ({ id, data }) => ({
                 url: `/artist_action/${id}/`,
                 method: "PUT",
                 body: data

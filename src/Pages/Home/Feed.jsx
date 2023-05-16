@@ -76,13 +76,6 @@ const Feed = () => {
                 ? <FeedCardSkeleton />
                 : <>
                     {
-                        searchText &&
-                        <div className='flex items-center gap-2'>
-                            <h1 className='text-xl md:text-2xl my-3 font-medium text-gray-500'>Results for "{searchText}"</h1>
-                            <button className='bg-sky-500 text-white p-1 pr-3 rounded-md text-xs flex items-center gap-1 whitespace-nowrap' onClick={() => dispatch(setSearch(""))}><CiCircleRemove size={20} /> Clear search</button>
-                        </div>
-                    }
-                    {
                         artists?.map((artist, idx) => <ArtistWorkView key={idx} artist={artist} />)
                     }
                 </>
@@ -111,12 +104,17 @@ const Feed = () => {
         return <h2 className=''>Loading...</h2>
     }
 
-    if (!artists.length) {
-        return <NothingFound />
-    }
-
     return (
         <div className='relative mt-2'>
+            {
+                searchText &&
+                <div className='flex items-center gap-2'>
+                    <h1 className='text-xl md:text-2xl my-3 font-medium text-gray-500'>Results for "{searchText}"</h1>
+                    <button className='bg-sky-500 text-white p-1 pr-3 rounded-md text-xs flex items-center gap-1 whitespace-nowrap' onClick={() => dispatch(setSearch(""))}><CiCircleRemove size={20} /> Clear search</button>
+                </div>
+            }
+            {!artists.length && <NothingFound />}
+
             <InfiniteScroll
                 dataLength={artists.length}
                 next={fetchMoreData}

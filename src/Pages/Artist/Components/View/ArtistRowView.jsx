@@ -56,7 +56,7 @@ const ArtistRowView = ({ artist, setArtists }) => {
                 />
             </div>
             <div className='flex-1'>
-                <div className='flex items-center gap-2 mb-1.5'>
+                <div className='flex items-center gap-2 mb-0.5'>
                     <p onClick={() => setArtistProfile(artist.id)} className='font-medium cursor-pointer w-fit '>
                         {artist.name}
                     </p>
@@ -70,17 +70,20 @@ const ArtistRowView = ({ artist, setArtists }) => {
 
                 </div>
 
-                <div className='flex flex-wrap gap-1 text-xs font-medium mb-1'>
-                    {
-                        artist?.skill?.map((skill, idx) => <div key={idx} className='px-1 border text-gray-500 border-gray-500 rounded-full'>{skill}</div>)
-                    }
-                </div>
+                {
+                    artist.skill?.length > 0 &&
+                    <div className='flex flex-wrap gap-1 text-xs font-medium mb-1'>
+                        {
+                            artist?.skill?.map((skill, idx) => <div key={idx} className='px-1 border text-gray-500 border-gray-500 rounded-full'>{skill}</div>)
+                        }
+                    </div>
+                }
                 {artist.artist_intro && <div className='w-fit my-1 px-0.5 text-sm font-normal font-sans italic text-gray-700 bg-yellow-100'>&#9679; {artist.artist_intro}</div>}
                 <div className='text-xs'>
                     {artist.email && <p className='flex items-center gap-2'><FaRegEnvelope />{artist.email}</p>}
                     {artist.phone && <p className='flex items-center gap-2'><HiPhone />{artist.phone}</p>}
                     {
-                        artist.languages &&
+                        artist.languages?.length > 0 &&
                         <p className='flex items-center gap-2'><IoLanguageSharp /> {artist.languages.join(", ")}</p>
                     }
                     <p className='flex items-center gap-2'><IoLocationSharp /> {artist.location}</p>

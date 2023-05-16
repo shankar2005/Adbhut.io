@@ -36,8 +36,6 @@ const RightAside = () => {
                         <div className='border-b shadow-sm font-medium p-3.5'>
                             <h3>Toolkit</h3>
                         </div>
-
-
                     </section>
 
                     <section className='text-gray-700 p-4 border-b'>
@@ -56,7 +54,7 @@ const RightAside = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/artists/artist-list" onClick={() => setViewAs("details")} className="hover:text-blue-600">
+                                <Link to="/artists/artist-list" className="hover:text-blue-600">
                                     View Artists
                                 </Link>
                             </li>
@@ -151,6 +149,11 @@ const RightAside = () => {
                                 <div className='bg-blue-500 h-fit py-0.5 px-2 text-white text-xs font-medium rounded'>
                                     New
                                 </div>
+                            </Link>
+                        </li>
+                        <li className='pt-3.5 border-t'>
+                            <Link to="/artists/artist-list" className="hover:text-blue-600 font-medium">
+                                View Artists
                             </Link>
                         </li>
                     </ul>

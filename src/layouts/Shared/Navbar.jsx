@@ -32,7 +32,7 @@ const Navbar = ({ setShowToolkit }) => {
     // handle search
     const handleSearch = (e) => {
         e.preventDefault();
-        navigate("/artists");
+        navigate("/artists/artist-list");
         dispatch(setSearch(e.target.search.value));
         e.target.reset();
     }

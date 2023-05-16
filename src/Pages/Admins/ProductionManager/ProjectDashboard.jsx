@@ -23,6 +23,8 @@ import Demo from '../../Project/Components/Demo';
 import ArtistRequest from './ArtistRequest';
 import Modal from '../../../Components/Modal/Modal';
 import Alert from '../../../Components/Badge/Alert';
+import Input from '../../../Components/Input/Input';
+import Textarea from '../../../Components/Input/Textarea';
 
 const ProjectDashboard = () => {
     const { avatar, setIsModalOpen } = useRootContext();
@@ -170,33 +172,26 @@ const ProjectDashboard = () => {
         <div className='bg-white rounded-b-lg shadow-lg'>
             <form id='projectForm' onSubmit={handleSubmit(onSubmit)}>
                 <div className="p-4">
-                    <div className="mb-4 items-center gap-2">
-                        <label className="block mb-2 text-sm font-medium text-gray-900">Project Title</label>
-                        <input type="text" {...register('title')} className="input" disabled={!user.email} />
+                    <div className="mb-4">
+                        <Input
+                            type="text"
+                            name="title"
+                            label="Project Title"
+                            register={register}
+                            disabled={!user.email}
+                        />
                     </div>
                     <div className="mb-4">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Creator</label>
-                        {
-                            user.email
-                                ? <div className='flex items-center gap-2 rounded'>
-                                    <div className='relative'>
-                                        <img className='w-10 border rounded-full' src={avatar} alt="" />
-                                    </div>
-                                    <div className='text-sm'>
-                                        <p className="font-medium">{currentProject?.client_details?.name}</p>
-                                        <p className='bg-gray-200 px-2 text-xs rounded-full'>{currentProject?.client_details?.email}</p>
-                                    </div>
-                                </div>
-                                : <div className='flex items-center gap-2 rounded'>
-                                    <div className='relative'>
-                                        <img className='w-10' src={logo} alt="" />
-                                    </div>
-                                    <div className='text-sm'>
-                                        <p className="font-medium">ADBHUT.IO</p>
-                                        <p className='bg-gray-200 px-2 text-xs rounded-full w-fit'>servicing@adbhut.io</p>
-                                    </div>
-                                </div>
-                        }
+                        <div className='flex items-center gap-2 rounded'>
+                            <div className='relative'>
+                                <img className='w-10 border rounded-full' src={user.email ? avatar : logo} alt="" />
+                            </div>
+                            <div className='text-sm'>
+                                <p className="font-medium">{user.email ? currentProject?.client_details?.name : "ADBHUT.IO"}</p>
+                                <p className='bg-gray-200 px-2 text-xs rounded-full'>{user.email ? currentProject?.client_details?.email : "servicing@adbhut.io"}</p>
+                            </div>
+                        </div>
                     </div>
                     <div className='flex gap-4'>
                         <div className="mb-4 flex items-center gap-2">
@@ -217,8 +212,12 @@ const ProjectDashboard = () => {
                                 <p className='rounded p-3 text-sm bg-sky-100 font-sans'>{currentProject?.production_solution}</p>
                             </div>
                             : <div className="mb-4">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">Production solution</label>
-                                <textarea {...register("production_solution")} rows="5" className="input" placeholder="Production solution"></textarea>
+                                <Textarea
+                                    name="production_solution"
+                                    label="Production solution"
+                                    placeholder="Production solution"
+                                    register={register}
+                                />
                             </div>
                     }
 
@@ -230,10 +229,16 @@ const ProjectDashboard = () => {
                                 <p className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-sky-100 font-sans'>{currentProject?.artist_discussion_updates}</p>
                             </div>
                             : <div className="mb-4">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">Artist discussion updates</label>
-                                <textarea {...register("artist_discussion_updates")} rows="5" className="input" placeholder="Artist discussion updates"></textarea>
+                                <Textarea
+                                    name="artist_discussion_updates"
+                                    label="Artist discussion updates"
+                                    placeholder="Artist discussion updates"
+                                    register={register}
+                                />
                             </div>
                     }
+
+
 
                     {
                         <div className="mb-4 mt-8">
@@ -388,28 +393,68 @@ const ProjectDashboard = () => {
                         :
                         <div className='px-4 grid grid-cols-2 gap-2'>
                             <div className="mb-4">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">Assigned artist payouts</label>
-                                <input {...register("assigned_artist_payouts")} type="number" className="input" min={0} placeholder="Enter amount" />
+                                <Input
+                                    type="number"
+                                    name="assigned_artist_payouts"
+                                    label="Assigned artist payouts"
+                                    placeholder="Enter amount"
+                                    register={register}
+                                    min={0}
+                                />
                             </div>
                             <div className="mb-4">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">Solution Fee</label>
-                                <input {...register("solution_fee")} type="number" className="input cursor-not-allowed" min={0} placeholder="Enter amount" disabled />
+                                <Input
+                                    type="number"
+                                    name="solution_fee"
+                                    label="Solution Fee"
+                                    placeholder="Enter amount"
+                                    register={register}
+                                    min={0}
+                                    disabled={true}
+                                    className="cursor-not-allowed"
+                                />
                             </div>
                             <div className="mb-4">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">Production Advance</label>
-                                <input {...register("production_advance")} type="number" className="input cursor-not-allowed" min={0} placeholder="Enter amount" disabled />
+                                <Input
+                                    type="number"
+                                    name="production_advance"
+                                    label="Production Advance"
+                                    placeholder="Enter amount"
+                                    register={register}
+                                    min={0}
+                                    disabled={true}
+                                    className="cursor-not-allowed"
+                                />
                             </div>
                             <div className="mb-4">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">Negotiated Advance</label>
-                                <input {...register("negotiated_advance")} type="number" className="input" min={0} placeholder="Enter amount" />
+                                <Input
+                                    type="number"
+                                    name="negotiated_advance"
+                                    label="Negotiated Advance"
+                                    placeholder="Enter amount"
+                                    register={register}
+                                    min={0}
+                                />
                             </div>
                             <div className="mb-4">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">Final Advance</label>
-                                <input {...register("final_advance")} type="number" className="input" min={0} placeholder="Enter amount" />
+                                <Input
+                                    type="number"
+                                    name="final_advance"
+                                    label="Final Advance"
+                                    placeholder="Enter amount"
+                                    register={register}
+                                    min={0}
+                                />
                             </div>
                             <div className="mb-4">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">Post-Project Client’s Total Payout</label>
-                                <input {...register("post_project_client_total_payout")} type="number" className="input" min={0} placeholder="Enter amount" />
+                                <Input
+                                    type="number"
+                                    name="post_project_client_total_payout"
+                                    label="Post-Project Client’s Total Payout"
+                                    placeholder="Enter amount"
+                                    register={register}
+                                    min={0}
+                                />
                             </div>
                             <div className="mb-4 flex items-center gap-2">
                                 <label className="block text-sm font-medium text-gray-900">Advance Status:</label>
