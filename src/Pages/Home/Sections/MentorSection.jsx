@@ -1,3 +1,4 @@
+import { InlineWidget, PopupButton } from 'react-calendly';
 import { AiOutlineRight } from 'react-icons/ai';
 
 const MentorSection = ({ setIsMentorHovered }) => {
@@ -26,12 +27,17 @@ const MentorSection = ({ setIsMentorHovered }) => {
                 {
                     mentors?.map(({ name, profile, title, desc }) => (
                         <div className='flex gap-4'>
-                            <img className="w-20 h-28 shadow-md object-contain object-top rounded-full" src={profile} alt="" />
+                            <img className="w-20 h-28 shadow-md object-cover object-top rounded-full" src={profile} alt="" />
                             <div className='flex-1'>
                                 <h4 className='font-medium'>{name}</h4>
                                 <p className='text-sm leading-tight mb-1.5 mt-1'>{title}</p>
                                 <p className='text-xs'>{desc}</p>
-                                <button type='button' className='mt-3 text-sm flex items-center gap-2 uppercase hover:text-blue-700 font-medium'>Book Session <AiOutlineRight /></button>
+                                <PopupButton
+                                    url="https://calendly.com/happyhippies/adbhut-io-projects-mentorship-session"
+                                    rootElement={document.getElementById("root")}
+                                    text="Book Now"
+                                    className='text-sm py-2 px-4 rounded mt-3 bg-slate-800 text-white shadow shadow-slate-400 font-medium font-hero uppercase'
+                                />
                             </div>
                         </div>
                     ))
