@@ -4,14 +4,14 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Button from '../../Components/Button/Button';
-import SelectLangs from '../../Components/Input/SelectLangs';
-import SelectSkills from '../../Components/Input/SelectSkills';
 import Textarea from '../../Components/Input/Textarea';
 import Input from '../../Components/Input/Input';
 import { useRootContext } from '../../contexts/RootProvider';
 import { useAddArtistMutation, useGetArtistByIdQuery, useUpdateArtistMutation } from '../../features/artist/artistApi';
 import WorkLinks from './Components/WorkLinks';
 import Select from '../../Components/Input/Select';
+import MultiSelect from '../../Components/Input/MultiSelect';
+import { useGetLanguagesQuery } from '../../features/utils/utilsApi';
 
 const ArtistEntry = () => {
     const { artistId } = useParams();
@@ -20,7 +20,7 @@ const ArtistEntry = () => {
     const { data: artistData } = useGetArtistByIdQuery(artistId, { skip: !artistId });
     const [addArtist, { isSuccess: addSuccess }] = useAddArtistMutation();
     const [updateArtist, { isSuccess: updateSuccess }] = useUpdateArtistMutation();
-    const { locations } = useRootContext();
+    const { locations, skills: skillsData } = useRootContext();
 
     const { register, handleSubmit, formState: { errors }, control, reset } = useForm();
     const onSubmit = data => {
@@ -99,6 +99,15 @@ const ArtistEntry = () => {
         },
     ]
 
+    // structured the data in expected form of `react-select`
+    const { data: languagesData } = useGetLanguagesQuery();
+    const languages = languagesData?.map(language => {
+        return { value: language.pk, label: language.name }
+    });
+    const skills = skillsData?.map(skill => {
+        return { value: skill.pk, label: skill.name }
+    });
+
     return (
         <div className='bg-white rounded-b-lg shadow-lg'>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -126,13 +135,19 @@ const ArtistEntry = () => {
                         />
                     </div>
 
-                    <SelectLangs
+                    <MultiSelect
+                        name="language"
+                        label="Select language"
                         control={control}
+                        options={languages}
                         defaultValue={artistData?.language}
                     />
 
-                    <SelectSkills
+                    <MultiSelect
+                        name="skill"
+                        label="Select skill"
                         control={control}
+                        options={skills}
                         defaultValue={artistData?.skills}
                     />
 

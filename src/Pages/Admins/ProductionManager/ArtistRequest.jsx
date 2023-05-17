@@ -1,23 +1,17 @@
 import { useForm } from 'react-hook-form';
 import Button from "../../../Components/Button/Button";
-import SelectSkills from '../../../Components/Input/SelectSkills';
-import SelectLangs from '../../../Components/Input/SelectLangs';
 import { useAddArtistRequestMutation } from '../../../features/artist/artistApi';
 import { useRootContext } from '../../../contexts/RootProvider';
 import { useGetLanguagesQuery } from '../../../features/utils/utilsApi';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import MultiSelect from '../../../Components/Input/MultiSelect';
+import Select from '../../../Components/Input/Select';
 
 const ArtistRequest = ({ setArtistRequestModal }) => {
-    const { locations } = useRootContext();
+    const { locations, skills: skillsData } = useRootContext();
     const [addArtistRequest, { isSuccess }] = useAddArtistRequestMutation();
-    const { data: languages } = useGetLanguagesQuery();
     const currentProject = useSelector(state => state.project)
-
-    const allLanguages = [];
-    languages?.forEach(language => {
-        allLanguages.push({ value: language.pk, label: language.name })
-    });
 
     const fields = [
         {
@@ -74,12 +68,12 @@ const ArtistRequest = ({ setArtistRequestModal }) => {
     ]
 
     const { register, handleSubmit, formState: { errors }, control } = useForm();
-    const onSubmit = ({ art_details, budget_idea, skill, location, languages, budget_range, project, production_hiring, service_hiring, target_artists_numbers, comments }) => {
+    const onSubmit = ({ art_details, budget_idea, skill, location, language, budget_range, project, production_hiring, service_hiring, target_artists_numbers, comments }) => {
         const formData = {
             "skill": skill,
             "location": location,
             // "genre": [194, 193],
-            "languages": languages,
+            "languages": language,
             "other_performin_arts": art_details,
             "budget_range": budget_range,
             "budget_idea": budget_idea,
@@ -100,37 +94,57 @@ const ArtistRequest = ({ setArtistRequestModal }) => {
         }
     }, [isSuccess])
 
+    // structured the data in expected form of `react-select`
+    const { data: languagesData } = useGetLanguagesQuery();
+    const languages = languagesData?.map(language => {
+        return { value: language.pk, label: language.name }
+    });
+    const skills = skillsData?.map(skill => {
+        return { value: skill.pk, label: skill.name }
+    });
+
     return (
         <div className='bg-white max-h-[90vh] overflow-y-scroll scroll-none'>
             <h3 className='font-medium p-3 border-b shadow-sm py-5'>Artist Requirements</h3>
 
             <form onSubmit={handleSubmit(onSubmit)} className='p-4'>
                 <div className='grid grid-cols-2 items-end gap-3 mb-4'>
-                    {/* select skills */}
-                    <SelectSkills control={control} />
-                    {/*  */}
+                    <MultiSelect
+                        name="skill"
+                        label="Select skill"
+                        control={control}
+                        options={skills}
+                    />
 
-                    <div>
-                        <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-900">Select location</label>
-                        <select {...register("location", { required: true })} id="location" className="input">
-                            <option selected>Choose a location</option>
-                            {
-                                locations?.map(location => <option value={location.pk}>{location.name}</option>)
-                            }
-                        </select>
-                    </div>
+                    <Select
+                        name="location"
+                        label="Select location"
+                        register={register}
+                        defaultOption="Choose a location"
+                        required={true}
+                        options={locations}
+                    />
 
-                    <SelectLangs control={control} />
+                    <MultiSelect
+                        name="language"
+                        label="Select language"
+                        control={control}
+                        options={languages}
+                    />
 
-                    <div>
-                        <label htmlFor="budget_range" className="block mb-2 text-sm font-medium text-gray-900">Budget range</label>
-                        <select {...register("budget_range", { required: true })} id="budget_range" className="input">
-                            <option selected>Less than 10,000</option>
-                            <option>10K - 20K</option>
-                            <option>20K - 40K</option>
-                            <option>Above 40K</option>
-                        </select>
-                    </div>
+                    <Select
+                        name="budget_range"
+                        label="Budget range"
+                        register={register}
+                        required={true}
+                        defaultOption="Select budge range"
+                        options={[
+                            { name: "Less than 10,000", value: "Less than 10,000" },
+                            { name: "10K - 20K", value: "10K - 20K" },
+                            { name: "20K - 40K", value: "20K - 40K" },
+                            { name: "Above 40K", value: "Above 40K" },
+                        ]}
+                    />
 
                     {
                         fields?.map(field => {
