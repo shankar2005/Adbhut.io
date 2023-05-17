@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { CiCircleRemove } from "react-icons/ci";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch, useSelector } from "react-redux";
+import Spinner from "../../Components/Loader/Spinner";
 import NothingFound from "../../Components/NotFound/NothingFound";
 import { useGetArtistsQuery } from "../../features/artist/artistApi";
 import { setSearch } from "../../features/filter/filterSlice";
@@ -13,7 +14,7 @@ const Artists = () => {
 
     const [page, setPage] = useState(1);
     const [hasNext, setHasNext] = useState(true);
-    const { data, refetch } = useGetArtistsQuery({ page, name: searchText });
+    const { data, refetch, isLoading } = useGetArtistsQuery({ page, name: searchText });
     const [artists, setArtists] = useState([]);
 
     const fetchMoreData = () => {
@@ -40,6 +41,12 @@ const Artists = () => {
             refetch();
         }
     }, [searchText])
+
+    if(isLoading){
+        return <div className="flex items-center justify-center py-10">
+            <Spinner />
+        </div>
+    }
 
     return (
         <InfiniteScroll
