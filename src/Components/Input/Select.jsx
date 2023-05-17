@@ -1,9 +1,15 @@
-import React from 'react';
-
-const Select = () => {
+const Select = ({ name, label, register = () => { }, defaultValue, defaultOption, options }) => {
     return (
         <div>
-            
+            <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-900">{label}</label>
+            <select {...register(name, { required: !defaultValue })} id={name} className="input">
+                <option value="" selected disabled>{defaultOption}</option>
+                {options?.map(option => (
+                    <option value={option.pk} selected={defaultValue}>
+                        {option.name}
+                    </option>
+                ))}
+            </select>
         </div>
     );
 };
