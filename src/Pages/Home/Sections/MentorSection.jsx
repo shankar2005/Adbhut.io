@@ -1,17 +1,19 @@
 import { InlineWidget, PopupButton } from 'react-calendly';
 import { AiOutlineRight } from 'react-icons/ai';
+import vivek from "../../../assets/mentors/vivek.png";
+import kanika from "../../../assets/mentors/kanika.jpg";
 
 const MentorSection = ({ setIsMentorHovered }) => {
     const mentors = [
         {
             name: "Vivek Srivastava",
-            profile: "https://gumlet.assettype.com/afaqs%2Fimport%2Fall%2Fnews%2Fimages%2Fnews_story_grfx%2F2016%2F11%2F49367%2FVivek-Srivastava.jpg?auto=format%2Ccompress&w=360&dpr=2.6",
+            profile: vivek,
             title: "Ex-MD Global Advertising Business, Hyundai Group.",
             desc: "Brand Transformation & Strategy, Three term president of Delhi Ad Club, elected member of the Executive Committee/Board of Advertising Agencies Association of India. Innocean India, Triton, Mudra Communications."
         },
         {
             name: "Kanika Mathur",
-            profile: "https://asset-cdn.campaignbrief.com/wp-content/uploads/sites/2/2017/11/05083416/Kanika20Mathur.jpg",
+            profile: kanika,
             title: "Ex-MD Global Advertising Business, K-Trends.",
             desc: "Digital & Brand Consultant, CMO Harappa Education, COO Mullen Lowe Singapore ( Unilever Brands), SVP Digital Dubai Tourism, Managing Director of Razorfish India, President of Digitas India, Co-founder of Solutions, McCann Erickson."
         },
