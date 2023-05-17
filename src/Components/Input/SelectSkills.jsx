@@ -9,10 +9,6 @@ const SelectSkills = ({ control, defaultValue }) => {
         allSkills.push({ value: skill.pk, label: skill.name })
     });
 
-    if (!defaultValue) {
-        return;
-    }
-
     return (
         <div>
             <label htmlFor="skill" className="block mb-2 text-sm font-medium text-gray-900">Select skill</label>

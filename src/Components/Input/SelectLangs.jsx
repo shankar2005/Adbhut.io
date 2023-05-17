@@ -11,10 +11,6 @@ const SelectLangs = ({ control, defaultValue }) => {
         return { value: language.pk, label: language.name }
     });
 
-    if (!defaultValue) {
-        return;
-    }
-
     return (
         <div>
             <label htmlFor="language" className="block mb-2 text-sm font-medium text-gray-900">Select language</label>
