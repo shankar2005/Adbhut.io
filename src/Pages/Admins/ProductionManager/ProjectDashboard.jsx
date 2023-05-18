@@ -296,8 +296,12 @@ const ProjectDashboard = () => {
                         <>
                             <div className="mb-4">
                                 <label className="text-sm font-medium text-gray-900">Demos: </label>
-                                <div className='space-y-3'>
+                                <div className='flex gap-2 items-center'>
                                     <a target="_blank" href="https://drive.google.com/file/d/1cwG-4RgV25jHHNaR0eUlSloqs5pM_AU1/view" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
+                                        <BsFilePdf size={25} className="mr-2" />
+                                        View Demo
+                                    </a>
+                                    <a target="_blank" href="https://drive.google.com/file/d/1rF1eqirsozTPtXz2y70Q-cio-0T8ehD3/view?usp=sharing" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
                                         <BsFilePdf size={25} className="mr-2" />
                                         View Demo
                                     </a>
