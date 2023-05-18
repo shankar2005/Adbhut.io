@@ -1,7 +1,8 @@
 import { Controller } from 'react-hook-form';
 import Select from 'react-select';
 
-const MultiSelect = ({ name, label, control, options }) => {
+const MultiSelectUpdate = ({ name, label, control, options, defaultValue }) => {
+    if (!defaultValue) return;
     return (
         <div>
             <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-900">{label}</label>
@@ -18,6 +19,7 @@ const MultiSelect = ({ name, label, control, options }) => {
                         onChange={(val) => onChange(val.map((c) => c.value))}
                         className="basic-multi-select"
                         classNamePrefix="select"
+                        defaultValue={defaultValue}
                     />
                 )}
             />
@@ -25,4 +27,4 @@ const MultiSelect = ({ name, label, control, options }) => {
     );
 };
 
-export default MultiSelect;
+export default MultiSelectUpdate;

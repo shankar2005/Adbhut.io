@@ -12,6 +12,7 @@ import WorkLinks from './Components/WorkLinks';
 import Select from '../../Components/Input/Select';
 import MultiSelect from '../../Components/Input/MultiSelect';
 import { useGetLanguagesQuery } from '../../features/utils/utilsApi';
+import MultiSelectUpdate from '../../Components/Input/MultiSelectUpdate';
 
 const ArtistEntry = () => {
     const { artistId } = useParams();
@@ -135,41 +136,40 @@ const ArtistEntry = () => {
                         />
                     </div>
 
-                    <MultiSelect
-                        name="language"
-                        label="Select language"
-                        control={control}
-                        options={languages}
-                        defaultValue={artistData?.language}
-                    />
-
-                    <MultiSelect
-                        name="skill"
-                        label="Select skill"
-                        control={control}
-                        options={skills}
-                        defaultValue={artistData?.skills}
-                    />
-
-                    {/* <div className="mb-4">
-                        <label htmlFor="genre" className="block mb-2 text-sm font-medium text-gray-900">Select genre</label>
-                        <Controller
-                            control={control}
-                            name='genre'
-                            id='genre'
-                            render={({ field: { onChange, ref } }) => (
-                                <Select
-                                    isMulti
-                                    name="colors"
-                                    options={allSkills}
-                                    inputRef={ref}
-                                    onChange={(val) => onChange(val.map((c) => c.value))}
-                                    className="basic-multi-select"
-                                    classNamePrefix="select"
+                    {
+                        artistId
+                            ? <>
+                                <MultiSelectUpdate
+                                    name="language"
+                                    label="Select language"
+                                    control={control}
+                                    options={languages}
+                                    defaultValue={artistData?.language}
                                 />
-                            )}
-                        />
-                    </div> */}
+                                <MultiSelectUpdate
+                                    name="skill"
+                                    label="Select skill"
+                                    control={control}
+                                    options={skills}
+                                    defaultValue={artistData?.skills}
+                                />
+                            </>
+                            : <>
+                                <MultiSelect
+                                    name="language"
+                                    label="Select language"
+                                    control={control}
+                                    options={languages}
+                                />
+                                <MultiSelect
+                                    name="skill"
+                                    label="Select skill"
+                                    control={control}
+                                    options={skills}
+                                />
+                            </>
+                    }
+
 
                     <Textarea
                         name="intro"
