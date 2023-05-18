@@ -18,7 +18,7 @@ const MultiSelect = ({ name, label, control, options, defaultValue }) => {
                         onChange={(val) => onChange(val.map((c) => c.value))}
                         className="basic-multi-select"
                         classNamePrefix="select"
-                        defaultValue={defaultValue}
+                        value={defaultValue}
                     />
                 )}
             />
