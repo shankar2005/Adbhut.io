@@ -37,12 +37,12 @@ const Home = () => {
                     </div>
 
                     <div className='flex items-center gap-2'>
-                        <p className='font-medium uppercase flex items-center gap-1.5 text-sm'>
+                        <p className='hidden font-medium uppercase md:flex items-center gap-1.5 text-sm'>
                             <Link to="/artists">Artist</Link>
                             <a target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show' className='block mr-1'>Hiring</a>
                         </p>
 
-                        <label htmlFor="userState" className="inline-flex items-center p-1 cursor-pointer bg-gray-300 text-black text-xs font-bold uppercase select-none rounded-full">
+                        <label htmlFor="userState" className="hidden md:inline-flex items-center p-1 cursor-pointer bg-gray-300 text-black text-xs font-bold uppercase select-none rounded-full">
                             <input onChange={() => dispatch(setViewMode())} id="userState" type="checkbox" className="hidden peer" />
                             <span className={`px-3 py-2 ${isFullTime ? "bg-black text-white" : "bg-gray-300"} duration-300 rounded-full`}>Full Time</span>
                             <span className={`px-3 py-2 ${isFullTime ? "bg-gray-300" : "bg-black text-white"} duration-300 rounded-full`}>For Project</span>
