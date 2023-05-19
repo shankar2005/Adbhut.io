@@ -17,15 +17,21 @@ const MentorSection = ({ setIsMentorHovered }) => {
             title: "Ex-MD Global Advertising Business, K-Trends.",
             desc: "Digital & Brand Consultant, CMO Harappa Education, COO Mullen Lowe Singapore ( Unilever Brands), SVP Digital Dubai Tourism, Managing Director of Razorfish India, President of Digitas India, Co-founder of Solutions, McCann Erickson."
         },
+        {
+            name: "Aashish Chopra",
+            profile: "https://miro.medium.com/v2/resize:fit:3150/1*_Qrx2lONZSja118b-FxFVA.jpeg",
+            title: "Viral Content Expert, Ixigo.",
+            desc: "Best-selling author: “Fast, Cheap & Viral”, Viral videos coach: 490M views, 79 Virals & counting. Ft. on Forbes, VP Content Writing"
+        },
     ];
 
     return (
-        <section onMouseLeave={() => setIsMentorHovered(false)} className='absolute top-16 left-0 w-full bg-white shadow border p-10 py-16 flex flex-col gap-16 z-50 rounded-b-lg'>
-            <div className='font-hero'>
+        <section onMouseLeave={() => setIsMentorHovered(false)} className='absolute top-16 left-0 w-full bg-white shadow border p-10 py-16 flex gap-10 z-50 rounded-b-lg'>
+            <div className='w-3/12 font-hero'>
                 <h1 className='text-xl font-bold mb-1.5'>Meet Our Mentors</h1>
-                <p className='text-sm text-gray-600'>Let's start with booking a consultancy session for your project <br /> from one of these Industry Veterans, and boost its effects!</p>
+                <p className='text-sm text-gray-600'>Let's start with booking a consultancy session for your project from one of these Industry Veterans, and boost its effects!</p>
             </div>
-            <div className='w-10/12 mx-auto grid grid-cols-2 gap-16'>
+            <div className='w-10/12 mx-auto grid grid-cols-2 gap-12'>
                 {
                     mentors?.map(({ name, profile, title, desc }) => (
                         <div className='flex gap-4'>
