@@ -18,6 +18,9 @@ const Home = () => {
     const { user } = useSelector(state => state.auth);
 
     const [isMentorHovered, setIsMentorHovered] = useState(false);
+    const toggleMentor = () => {
+        setIsMentorHovered(prev => !prev);
+    }
 
     return (
         <header>
@@ -25,8 +28,8 @@ const Home = () => {
                 <div className='flex items-center justify-between'>
                     <div className="flex items-center gap-2">
                         <img src={adbhutGIF} className='w-28 md:w-32 mr-8' />
-                        <p onMouseEnter={() => setIsMentorHovered(true)} className='flex items-center gap-2 font-medium font-hero cursor-pointer'>
-                            Mentors 
+                        <p onMouseEnter={() => setIsMentorHovered(true)} onClick={toggleMentor} className='flex items-center gap-2 font-medium font-hero cursor-pointer'>
+                            Mentors
                             <SlArrowDown className={`${isMentorHovered && "rotate-180"} duration-200`} size={10} />
                         </p>
 
@@ -57,7 +60,7 @@ const Home = () => {
                 </div>
             </nav>
 
-            <section className='pt-10 lg:flex justify-center items-center'>
+            <section onClick={() => setIsMentorHovered(false)} className='pt-10 lg:flex justify-center items-center'>
                 <div className='w-11/12 md:w-10/12 max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 justify-between gap-20'>
                     <div className='order-last w-full lg:w-5/6 ml-auto'>
                         <div className='border border-gray-50 rounded-lg shadow'>
@@ -81,7 +84,7 @@ const Home = () => {
                 </div>
             </section>
 
-            <div className="flex flex-col justify-center items-center bg-gray-200 mt-10 pt-12 relative">
+            <div onClick={() => setIsMentorHovered(false)} className="flex flex-col justify-center items-center bg-gray-200 mt-10 pt-12 relative">
                 <h1 className='text-4xl font-bold absolute 2xl:static top-16 px-5 md:px-0 '>Revolutionize your content with cutting-edge AI technology</h1>
                 <iframe className='px-5 md:px-0 w-full md:w-3/6' src="https://player.vimeo.com/video/819139346?h=d6fa5efcc3" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
             </div>
