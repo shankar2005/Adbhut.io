@@ -126,7 +126,7 @@ const ArtistRequest = ({ setArtistRequestModal }) => {
                     />
 
                     <MultiSelect
-                        name="language"
+                        name="languages"
                         label="Select language"
                         control={control}
                         options={languages}

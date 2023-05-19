@@ -109,6 +109,10 @@ const ArtistEntry = () => {
         return { value: skill.pk, label: skill.name }
     });
 
+    useEffect(() => {
+        reset();
+    }, [reset, artistData])
+
     return (
         <div className='bg-white rounded-b-lg shadow-lg'>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -140,7 +144,7 @@ const ArtistEntry = () => {
                         artistId
                             ? <>
                                 <MultiSelectUpdate
-                                    name="language"
+                                    name="languages"
                                     label="Select language"
                                     control={control}
                                     options={languages}
@@ -156,7 +160,7 @@ const ArtistEntry = () => {
                             </>
                             : <>
                                 <MultiSelect
-                                    name="language"
+                                    name="languages"
                                     label="Select language"
                                     control={control}
                                     options={languages}
