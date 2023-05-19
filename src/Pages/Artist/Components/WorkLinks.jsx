@@ -34,7 +34,10 @@ const WorkLinks = ({ workLinks, setWorkLinks, defaultWorkLinks }) => {
     };
 
     useEffect(() => {
-        setWorkLinks(defaultWorkLinks || [{ weblink: '', demo_type: '' }]);
+        const formattedWorkLinks = defaultWorkLinks?.map(i => {
+            return { weblink: i.weblink }
+        });
+        setWorkLinks(formattedWorkLinks || [{ weblink: '', demo_type: '' }]);
     }, [defaultWorkLinks])
 
     return (
@@ -54,7 +57,7 @@ const WorkLinks = ({ workLinks, setWorkLinks, defaultWorkLinks }) => {
                     <div className="w-3/6">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Demo Type</label>
                         <select onChange={(event) => handleTypeChange(index, event)} className="input">
-                            <option selected disabled>Choose</option>
+                            <option selected={!field.demo_type} disabled>Choose</option>
                             {fileTypes.map(type => <option value={type} selected={field.demo_type}>{type}</option>)}
                         </select>
                     </div>
