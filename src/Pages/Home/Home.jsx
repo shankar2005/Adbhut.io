@@ -18,9 +18,6 @@ const Home = () => {
     const { user } = useSelector(state => state.auth);
 
     const [isMentorHovered, setIsMentorHovered] = useState(false);
-    const toggleMentor = () => {
-        setIsMentorHovered(prev => !prev);
-    }
 
     return (
         <header>
@@ -28,7 +25,7 @@ const Home = () => {
                 <div className='flex items-center justify-between'>
                     <div className="flex items-center gap-2">
                         <img src={adbhutGIF} className='w-28 md:w-32 mr-8' />
-                        <p onMouseEnter={() => setIsMentorHovered(true)} onClick={toggleMentor} className='flex items-center gap-2 font-medium font-hero cursor-pointer'>
+                        <p onMouseEnter={() => setIsMentorHovered(true)} className='flex items-center gap-2 font-medium font-hero cursor-pointer'>
                             Mentors
                             <SlArrowDown className={`${isMentorHovered && "rotate-180"} duration-200`} size={10} />
                         </p>
