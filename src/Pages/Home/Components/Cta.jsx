@@ -33,7 +33,7 @@ const Cta = ({ className }) => {
                     removedSkills?.length > 0 &&
                     removedSkills.map(skill => <div
                         key={`removedSkill${skill[1]}`}
-                        className='whitespace-nowrap py-1 px-3 border text-white border-blue-500 bg-blue-500 rounded-full'>
+                        className='whitespace-nowrap py-1 px-3 border text-gray-400 border-gray-200 bg-gray-200 rounded-full font-normal'>
                         {skill[0]}
                     </div>)
                 }

@@ -35,7 +35,7 @@ const ProfileDropdown = () => {
             <div className='relative'>
                 <img className='rounded-t-lg border-b h-32 w-full' src={profileCover} alt="" />
                 <div className='rounded-full bg-white absolute bottom-0 right-1/2 translate-y-1/2 translate-x-1/2 border-4 border-white'>
-                    <img className='w-16 h-16 rounded-full' src={user?.role === "Client" ? (user?.image || avatar) : logo} alt="" />
+                    <img className='w-16 h-16 rounded-full object-contain' src={user?.role === "Client" ? (user?.image || avatar) : logo} alt="" />
                 </div>
             </div>
             <div className='mt-10 pt-0 p-4 text-center'>

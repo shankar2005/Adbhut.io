@@ -19,7 +19,7 @@ const CreateProject = () => {
     const currentProject = useSelector(state => state.project);
 
     const dispatch = useDispatch();
-    const [createProject, { isSuccess, projectData, error }] = useCreateProjectMutation();
+    const [createProject, { isSuccess, data: projectData }] = useCreateProjectMutation();
     const { user } = useSelector(state => state.auth);
     const {
         chatLog, shortlistedArtists, selectedContentProduct,
@@ -52,11 +52,6 @@ const CreateProject = () => {
             return toast("Select a content product!");
         }
 
-        console.log({
-            stage: "Lead",
-            ...formData
-        });
-
         createProject({
             stage: "Lead",
             ...formData
@@ -80,9 +75,8 @@ const CreateProject = () => {
 
     useEffect(() => {
         if (isSuccess) {
-            const data = projectData.data;
-            console.log(data);
-            if (data.pk) {
+            const data = projectData;
+            if (data?.pk) {
                 if (data.stage === "Lead") {
                     toast.success("Project created successfully!", { id: "createNewProject" });
                     const template = {

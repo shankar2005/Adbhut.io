@@ -109,8 +109,8 @@ const Feed = () => {
             {
                 searchText &&
                 <div className='flex items-center gap-2'>
-                    <h1 className='text-xl md:text-2xl my-3 font-medium text-gray-500'>Results for "{searchText}"</h1>
-                    <button className='bg-sky-500 text-white p-1 pr-3 rounded-md text-xs flex items-center gap-1 whitespace-nowrap' onClick={() => dispatch(setSearch(""))}><CiCircleRemove size={20} /> Clear search</button>
+                    <h1 className='my-3 font-hero'>Results for <span className='bg-yellow-300'>"{searchText}"</span></h1>
+                    <CiCircleRemove size={25} onClick={() => dispatch(setSearch(""))} className="cursor-pointer" />
                 </div>
             }
             {!artists.length && <NothingFound />}
