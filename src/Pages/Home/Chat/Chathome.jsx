@@ -8,14 +8,11 @@ import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useRootContext } from '../../../contexts/RootProvider';
 import { clearProject } from '../../../features/project/projectSlice';
-import MessageReceiver from './MessageReceiver';
-import MessageSender from './MessageSender';
 
 const Chathome = ({ chatboxRef, nsnlogo }) => {
     const dispatch = useDispatch();
     const { isFullTime } = useSelector(state => state.viewMode);
-    const { user } = useSelector(state => state.auth);
-    const { chatLog, selectedContentProduct } = useSelector(state => state.project);
+    const { selectedContentProduct } = useSelector(state => state.project);
     const currentProject = useSelector(state => state.project);
 
     const { contentProducts, avatar, handleSelectContentProduct, isMobile, skills, handleSelectSkill } = useRootContext();
@@ -39,14 +36,6 @@ const Chathome = ({ chatboxRef, nsnlogo }) => {
     return (
         <div ref={chatboxRef} className='h-full overflow-hidden relative'>
             <div className='flex flex-col p-3'>
-                {/* <MessageReceiver
-                    key={isFullTime ? "visible" : "hidden"}
-                    image={nsnlogo}
-                    name="Adbhut.io"
-                    text={<>Hello, I'm Adbhut. Lets {isFullTime ? "Hire" : "Create"}! <br />
-                        Select any of the content products to get started</>}
-                /> */}
-
                 <motion.div
                     initial={{ translateX: '-100%' }}
                     animate={{ translateX: '0%' }}
@@ -58,30 +47,11 @@ const Chathome = ({ chatboxRef, nsnlogo }) => {
                             <h4 className='font-medium'>Adbhut.io</h4>
                             <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg w-fit mb-1'>
                                 Hello, I'm Adbhut. Lets {isFullTime ? "Hire" : "Create"}! <br />
-                                    Select any of the content products to get started
+                                Select any of the content products to get started
                             </p>
                         </div>
                     </div>
                 </motion.div>
-
-                {/* {
-                    chatLog.length > 0 &&
-                    chatLog.map((chat, idx) => (
-                        chat.bot
-                            ? <MessageReceiver
-                                key={idx}
-                                image={nsnlogo}
-                                name="Adbhut.io"
-                                text={chat.bot}
-                            />
-                            : <MessageSender
-                                key={idx}
-                                image={user?.image || avatar}
-                                name={name || "Guest Account"}
-                                text={chat.user}
-                            />
-                    ))
-                } */}
             </div>
 
             {

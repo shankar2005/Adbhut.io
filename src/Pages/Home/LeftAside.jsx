@@ -10,8 +10,6 @@ import { toast } from 'react-hot-toast';
 import nsnlogo from '../../assets/logos/adbeta.jpeg';
 import ChatHeading from './Chat/ChatHeading';
 import TypingIndicator from '../../Components/TypingIndicator';
-import MessageReceiver from './Chat/MessageReceiver';
-import MessageSender from './Chat/MessageSender';
 import Chathome from './Chat/Chathome';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSendMessageMutation, useSendMessageToGPTMutation } from '../../features/chat/chatApi';
@@ -22,6 +20,7 @@ import GetProjectReference from './Chat/GetProjectReference';
 import { RiRefreshLine } from 'react-icons/ri';
 import ChatCallToAction from './Components/ChatCallToAction';
 import Message from './Chat/Message';
+import { v4 as uuidv4 } from 'uuid';
 
 const LeftAside = () => {
     const { handleSelectContentProduct, contentProducts, isMobile, suggestions, avatar, currentProjectRefetch } = useRootContext();
@@ -214,60 +213,33 @@ const LeftAside = () => {
                                 isOwn={user.role === "PM" || user.role === "AM"}
                             />
                             {
-                                user.role === "Client" || !user.email
-                                    ? <>
-                                        {
-                                            chatLog?.map((chat, idx) => (
-                                                chat.bot
-                                                    ? <MessageReceiver
-                                                        key={idx}
-                                                        image={nsnlogo}
-                                                        name="Adbhut.io"
-                                                        text={chat.bot}
-                                                    />
-                                                    : <MessageSender
-                                                        key={idx}
-                                                        image={user?.image || avatar}
-                                                        name={name || "Guest Account"}
-                                                        text={chat.user}
-                                                    />
-                                            ))
-                                        }
-                                    </>
-                                    :
-                                    <>
-                                        {
-                                            chatLog?.map((chat, idx) => (
-                                                chat.user
-                                                    ? <MessageReceiver
-                                                        key={idx}
-                                                        image={user?.image || avatar}
-                                                        name={currentProject?.client_details?.name}
-                                                        text={chat.user}
-                                                    />
-                                                    : <MessageSender
-                                                        key={idx}
-                                                        image={nsnlogo}
-                                                        name="Adbhut.io"
-                                                        text={chat.bot}
-                                                    />
-                                            ))
-                                        }
-
-
-                                    </>
+                                chatLog?.map(chat => (
+                                    chat.bot
+                                        ? <Message
+                                            key={uuidv4()}
+                                            image={nsnlogo}
+                                            name="Adbhut.io"
+                                            text={chat.bot}
+                                            isOwn={user.role === "AM" || user.role === "PM"}
+                                        />
+                                        : <Message
+                                            key={uuidv4()}
+                                            image={user?.image || avatar}
+                                            name={currentProject?.pk ? currentProject?.client_details?.name : (name || "Guest Account")}
+                                            text={chat.user}
+                                            isOwn={user.role === "Client"}
+                                        />
+                                ))
                             }
 
                             {/* project reference links */}
-                            {
-                                showProjectReferenceLinkInput &&
+                            {showProjectReferenceLinkInput &&
                                 <Message
                                     image={nsnlogo}
                                     name="Adbhut.io"
                                     text={<GetProjectReference setShowProjectReferenceLinkInput={setShowProjectReferenceLinkInput} />}
                                     isOwn={false}
-                                />
-                            }
+                                />}
                             {/* project reference links */}
 
                             {TypingElement}
@@ -320,7 +292,7 @@ const LeftAside = () => {
                     <div className='flex gap-2'>
                         <BsEmojiSmile className="opacity-30" />
                         <div>
-                            <label for="file-upload"><ImAttachment className="cursor-pointer" /></label>
+                            <label htmlFor="file-upload"><ImAttachment className="cursor-pointer" /></label>
                             <input onChange={handleFileChange} id="file-upload" className="hidden" type="file" />
                         </div>
                         <BsImageFill className="opacity-30" />
