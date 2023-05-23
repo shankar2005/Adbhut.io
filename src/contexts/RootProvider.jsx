@@ -4,7 +4,6 @@ import { useGetContentProductsQuery, useGetLocationsQuery, useGetSkillsOnProduct
 import { useDispatch, useSelector } from 'react-redux';
 import { useShortlistArtistMutation } from '../features/artist/artistApi';
 import { setSearch } from '../features/filter/filterSlice';
-import { useSendMessageMutation } from '../features/chat/chatApi';
 import { addArtist, addChatLog, clearProject, setContentProduct, setProjectData } from '../features/project/projectSlice';
 
 const RootContext = createContext();
@@ -18,7 +17,6 @@ const RootProvider = ({ children }) => {
     const { data: skills = [] } = useGetSkillsQuery();
     const { data: contentProducts = [] } = useGetContentProductsQuery();
     const [getSkillsOnProductSelect] = useGetSkillsOnProductSelectMutation();
-    const [sendMessage] = useSendMessageMutation();
 
     const { data: currentProjects = [] } = useGetCurrentProjectsQuery(null, { skip: !user?.email });
     const { data: dreamProjects = [] } = useGetDreamProjectsQuery();
@@ -35,20 +33,9 @@ const RootProvider = ({ children }) => {
     const [checkedGenres, setcheckedGenres] = useState([]);
     const [checkedLocations, setcheckedLocations] = useState([]);
 
-    const handleShortlist = (artistID, name, profile_pic) => {
+    const handleShortlist = (artistID) => {
         dispatch(addArtist(artistID));
-        // chatlog
-        // const message = { type: 'shortlistedArtist', msgID: chatLog.length + 1, artist: { artistID, name, profile_pic } };
-        // dispatch(addChatLog(message));
-
-        // saving shortlisted artist in the db
         if (currentProject?.pk) {
-            // sendMessage({
-            //     project_id: currentProject.pk,
-            //     message: message
-            // })
-
-            // shortlist artist api
             shortlistArtist({
                 projectId: currentProject.pk,
                 artistId: artistID

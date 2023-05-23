@@ -76,7 +76,7 @@ const Root = () => {
                     {
                         user?.role === "AM"
                             ? <FilterArtist />
-                            : <LeftAside setShowToolkit={setShowToolkit} />
+                            : <LeftAside />
                     }
                 </aside>
 

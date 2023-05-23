@@ -23,8 +23,9 @@ import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { addChatLog, removeArtist, removeChatLog, setChatLog } from '../../features/project/projectSlice';
 import GetProjectReference from './Chat/GetProjectReference';
 import { RiRefreshLine } from 'react-icons/ri';
+import ChatCallToAction from './Components/ChatCallToAction';
 
-const LeftAside = ({ setShowToolkit }) => {
+const LeftAside = () => {
     const { handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills, setArtistProfile, avatar, currentProjectRefetch } = useRootContext();
 
     const dispatch = useDispatch();
@@ -57,14 +58,6 @@ const LeftAside = ({ setShowToolkit }) => {
     }, [])
 
     const sender = (user.role === "Client" || !user.email) ? "user" : "bot";
-
-    // handle remove shortlisted artist
-    const handleRemoveShortlistedArtist = (msgID, artistID) => {
-        // remove chatlog
-        dispatch(removeChatLog(msgID));
-        // remove selected artist
-        dispatch(removeArtist(artistID));
-    }
 
     // send brief
     const handleSendBrief = () => {
@@ -176,38 +169,6 @@ const LeftAside = ({ setShowToolkit }) => {
             </div>
         </div>
 
-    // 
-    const viewDemos = () => navigate(`/projects/demos/${currentProject?.pk}`);
-    const handlePaymentCTA = () => setShowToolkit(true);
-
-    const ctaStages = {
-        lead: [
-            ["View Demos", viewDemos],
-            ["Docusign Pending", null, "warning"],
-            ["Payment Pending", handlePaymentCTA, "warning"],
-            ["Rate Us"]
-        ],
-        inProgress: [
-            ["Approve"],
-            ["Decline"],
-            ["Put On Hold"]
-        ],
-    }
-
-    let suggestionElement;
-    if (currentProject?.stage === "Lead") {
-        // suggestionElement = <ActionCta suggestions={ctaStages.lead} className='sticky bottom-0' />
-        suggestionElement = <ActionCta className='sticky bottom-0' />
-    }
-    else if (currentProject?.stage === "In Progress") {
-        suggestionElement = <ActionCta suggestions={ctaStages.inProgress} className='sticky bottom-0' />
-    }
-    else {
-        suggestionElement = (suggestions?.length > 0 || removedSkills?.length > 0) &&
-            <Cta className='sticky bottom-0' />
-    }
-    // 
-
     const [showProjectReferenceLinkInput, setShowProjectReferenceLinkInput] = useState(false);
 
     const [isON, setIsON] = useState(currentProject?.chatbot_status?.status === "ON");
@@ -239,11 +200,6 @@ const LeftAside = ({ setShowToolkit }) => {
     return (
         <section className={`bg-white shadow-md rounded-b-lg md:rounded-lg ${pathname === "/" ? "h-[500px]" : "h-[calc(100vh-10.7rem)] md:h-[calc(100vh-6.5rem)]"} flex flex-col justify-between`}>
             <ChatHeading isON={isON} setIsON={setIsON} />
-
-            {/*  */}
-            {/*  */}
-            {/*  */}
-
             {
                 pathname === "/" ?
                     <Chathome
@@ -345,9 +301,7 @@ const LeftAside = ({ setShowToolkit }) => {
                         }
 
 
-                        {
-                            suggestionElement
-                        }
+                        <ChatCallToAction />
 
                         {
                             suggestions?.length === 0 && contentProducts?.length > 0 && !selectedContentProduct &&
