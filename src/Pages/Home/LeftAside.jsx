@@ -205,7 +205,7 @@ const LeftAside = () => {
                     />
                     :
                     <div ref={chatboxRef} className='h-full overflow-y-scroll overflow-x-hidden relative flex flex-col justify-between'>
-                        <div className='flex flex-col p-3'>
+                        <div className='flex flex-col p-3 gap-5 mb-3'>
                             <Message
                                 image={nsnlogo}
                                 name="Adbhut.io"
@@ -213,22 +213,22 @@ const LeftAside = () => {
                                 isOwn={user.role === "PM" || user.role === "AM"}
                             />
                             {
-                                chatLog?.map(chat => (
-                                    chat.bot
-                                        ? <Message
-                                            key={uuidv4()}
-                                            image={nsnlogo}
-                                            name="Adbhut.io"
-                                            text={chat.bot}
-                                            isOwn={user.role === "AM" || user.role === "PM"}
-                                        />
-                                        : <Message
-                                            key={uuidv4()}
-                                            image={user?.image || avatar}
-                                            name={currentProject?.pk ? currentProject?.client_details?.name : (name || "Guest Account")}
-                                            text={chat.user}
-                                            isOwn={user.role === "Client"}
-                                        />
+                                chatLog?.map((chat, idx) => (
+                                    <div key={idx}>
+                                        {chat.bot
+                                            ? <Message
+                                                image={nsnlogo}
+                                                name="Adbhut.io"
+                                                text={chat.bot}
+                                                isOwn={user.role === "AM" || user.role === "PM"}
+                                            />
+                                            : <Message
+                                                image={user?.image || avatar}
+                                                name={currentProject?.pk ? currentProject?.client_details?.name : (name || "Guest Account")}
+                                                text={chat.user}
+                                                isOwn={user.role === "Client"}
+                                            />}
+                                    </div>
                                 ))
                             }
 
