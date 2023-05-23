@@ -1,15 +1,20 @@
 import { motion } from 'framer-motion';
+import { useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlineGif, AiOutlinePlus } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useRootContext } from '../../../contexts/RootProvider';
 import { clearProject } from '../../../features/project/projectSlice';
+import nsnlogo from '../../../assets/logos/adbeta.jpeg';
+import ChatHeading from './ChatHeading';
+import { BsEmojiSmile, BsFillMicFill, BsImageFill } from 'react-icons/bs';
+import { ImAttachment } from 'react-icons/im';
 
-const Chathome = ({ chatboxRef, nsnlogo }) => {
+const Chathome = () => {
     const dispatch = useDispatch();
     const { isFullTime } = useSelector(state => state.viewMode);
     const { selectedContentProduct } = useSelector(state => state.project);
@@ -32,9 +37,24 @@ const Chathome = ({ chatboxRef, nsnlogo }) => {
         dispatch(clearProject());
     }, []);
 
+    const chatboxRef = useRef();
+    useEffect(() => {
+        const chatboxElement = chatboxRef.current;
+        chatboxElement.scrollTo(0, chatboxElement.scrollHeight);
+    }, [])
+
+    useEffect(() => {
+        if (chatboxRef) {
+            chatboxRef.current.addEventListener('DOMNodeInserted', event => {
+                const { currentTarget: target } = event;
+                target.scroll({ top: target.scrollHeight, behavior: 'smooth' });
+            });
+        }
+    }, [])
 
     return (
-        <div ref={chatboxRef} className='h-full overflow-hidden relative'>
+        <div ref={chatboxRef} className='overflow-hidden relative'>
+            <ChatHeading />
             <div className='flex flex-col p-3'>
                 <motion.div
                     initial={{ translateX: '-100%' }}
@@ -115,6 +135,22 @@ const Chathome = ({ chatboxRef, nsnlogo }) => {
                     </div>
                 </div>
             }
+
+            <div className='p-3 border-t-[3px] mt-2 border-gray-300'>
+                <textarea className="p-2 rounded-lg bg-gray-100 w-full focus:outline-none text-sm cursor-not-allowed" rows="4" placeholder='Start a briefing...' disabled></textarea>
+                <div className='flex justify-between items-center'>
+                    <div className='flex gap-2'>
+                        <BsEmojiSmile className="opacity-30" />
+                        <ImAttachment className="opacity-30" />
+                        <BsImageFill className="opacity-30" />
+                        <AiOutlineGif className="opacity-30" />
+                    </div>
+                    <div className='flex items-center space-x-1'>
+                        <BsFillMicFill className="opacity-30" />
+                        <button type='button' className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };

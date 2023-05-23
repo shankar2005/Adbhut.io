@@ -10,7 +10,6 @@ import { toast } from 'react-hot-toast';
 import nsnlogo from '../../assets/logos/adbeta.jpeg';
 import ChatHeading from './Chat/ChatHeading';
 import TypingIndicator from '../../Components/TypingIndicator';
-import Chathome from './Chat/Chathome';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSendMessageMutation, useSendMessageToGPTMutation } from '../../features/chat/chatApi';
 import { useCreateProjectMutation, useUpdateProjectMutation, useUploadDemoMutation } from '../../features/project/projectApi';
@@ -20,7 +19,6 @@ import GetProjectReference from './Chat/GetProjectReference';
 import { RiRefreshLine } from 'react-icons/ri';
 import ChatCallToAction from './Components/ChatCallToAction';
 import Message from './Chat/Message';
-import { v4 as uuidv4 } from 'uuid';
 
 const LeftAside = () => {
     const { handleSelectContentProduct, contentProducts, isMobile, suggestions, avatar, currentProjectRefetch } = useRootContext();
@@ -197,77 +195,68 @@ const LeftAside = () => {
     return (
         <section className={`bg-white shadow-md rounded-b-lg md:rounded-lg ${pathname === "/" ? "h-[500px]" : "h-[calc(100vh-10.7rem)] md:h-[calc(100vh-6.5rem)]"} flex flex-col justify-between`}>
             <ChatHeading isON={isON} setIsON={setIsON} />
-            {
-                pathname === "/" ?
-                    <Chathome
-                        chatboxRef={chatboxRef}
-                        nsnlogo={nsnlogo}
+            <div ref={chatboxRef} className='h-full overflow-y-scroll overflow-x-hidden relative flex flex-col justify-between'>
+                <div className='flex flex-col p-3 gap-5 mb-3'>
+                    <Message
+                        image={nsnlogo}
+                        name="Adbhut.io"
+                        text="Please select any of the content product or send your inputs here to continue"
+                        isOwn={user.role === "PM" || user.role === "AM"}
                     />
-                    :
-                    <div ref={chatboxRef} className='h-full overflow-y-scroll overflow-x-hidden relative flex flex-col justify-between'>
-                        <div className='flex flex-col p-3 gap-5 mb-3'>
-                            <Message
-                                image={nsnlogo}
-                                name="Adbhut.io"
-                                text="Please select any of the content product or send your inputs here to continue"
-                                isOwn={user.role === "PM" || user.role === "AM"}
-                            />
-                            {
-                                chatLog?.map((chat, idx) => (
-                                    <div key={idx}>
-                                        {chat.bot
-                                            ? <Message
-                                                image={nsnlogo}
-                                                name="Adbhut.io"
-                                                text={chat.bot}
-                                                isOwn={user.role === "AM" || user.role === "PM"}
-                                            />
-                                            : <Message
-                                                image={user?.image || avatar}
-                                                name={currentProject?.pk ? currentProject?.client_details?.name : (name || "Guest Account")}
-                                                text={chat.user}
-                                                isOwn={user.role === "Client"}
-                                            />}
-                                    </div>
-                                ))
-                            }
-
-                            {/* project reference links */}
-                            {showProjectReferenceLinkInput &&
-                                <Message
-                                    image={nsnlogo}
-                                    name="Adbhut.io"
-                                    text={<GetProjectReference setShowProjectReferenceLinkInput={setShowProjectReferenceLinkInput} />}
-                                    isOwn={false}
-                                />}
-                            {/* project reference links */}
-
-                            {TypingElement}
-                        </div>
-
-
-                        <ChatCallToAction />
-
-                        {
-                            suggestions?.length === 0 && contentProducts?.length > 0 && !selectedContentProduct &&
-                            <div className='sticky bottom-0 p-2 pb-0 bg-white mt-12'>
-                                <div className='pb-2 flex flex-wrap gap-2 text-sm font-medium select-none'>
-                                    {
-                                        contentProducts.map(contentProduct => <div
-                                            onClick={() => {
-                                                handleSelectContentProduct(contentProduct);
-                                                navigate("/artists")
-                                            }}
-                                            key={contentProduct.pk}
-                                            className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
-                                            {contentProduct.name}
-                                        </div>)
-                                    }
-                                </div>
+                    {
+                        chatLog?.map((chat, idx) => (
+                            <div key={idx}>
+                                {chat.bot
+                                    ? <Message
+                                        image={nsnlogo}
+                                        name="Adbhut.io"
+                                        text={chat.bot}
+                                        isOwn={user.role === "AM" || user.role === "PM"}
+                                    />
+                                    : <Message
+                                        image={user?.image || avatar}
+                                        name={currentProject?.pk ? currentProject?.client_details?.name : (name || "Guest Account")}
+                                        text={chat.user}
+                                        isOwn={user.role === "Client"}
+                                    />}
                             </div>
-                        }
+                        ))
+                    }
+
+                    {/* project reference links */}
+                    {showProjectReferenceLinkInput &&
+                        <Message
+                            image={nsnlogo}
+                            name="Adbhut.io"
+                            text={<GetProjectReference setShowProjectReferenceLinkInput={setShowProjectReferenceLinkInput} />}
+                            isOwn={false}
+                        />}
+                    {/* project reference links */}
+
+                    {TypingElement}
+                </div>
+
+                <ChatCallToAction />
+
+                {
+                    suggestions?.length === 0 && contentProducts?.length > 0 && !selectedContentProduct &&
+                    <div className='sticky bottom-0 p-2 pb-0 bg-white mt-12'>
+                        <div className='pb-2 flex flex-wrap gap-2 text-sm font-medium select-none'>
+                            {
+                                contentProducts.map(contentProduct => <div
+                                    onClick={() => {
+                                        handleSelectContentProduct(contentProduct);
+                                        navigate("/artists")
+                                    }}
+                                    key={contentProduct.pk}
+                                    className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
+                                    {contentProduct.name}
+                                </div>)
+                            }
+                        </div>
                     </div>
-            }
+                }
+            </div>
 
             <div className='absolute right-8 bottom-56'>
                 {

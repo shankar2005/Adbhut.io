@@ -7,10 +7,9 @@ import brokenImage from "../../../../assets/placeholders/broken.jpg";
 import { AiOutlineEdit, AiOutlineUserDelete } from 'react-icons/ai';
 import { useDeleteArtistMutation, useShortlistArtistMutation } from '../../../../features/artist/artistApi';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-const ArtistRowView = ({ artist, setArtists }) => {
+const ArtistRowView = ({ artist }) => {
     const { projectId } = useParams();
     const [shortlistArtist] = useShortlistArtistMutation();
 
@@ -80,8 +79,8 @@ const ArtistRowView = ({ artist, setArtists }) => {
                 }
                 {artist.artist_intro && <div className='w-fit my-1 px-0.5 text-sm font-normal font-sans italic text-gray-700 bg-yellow-100'>&#9679; {artist.artist_intro}</div>}
                 <div className='text-xs'>
-                    {artist.email && <p className='flex items-center gap-2'><FaRegEnvelope />{artist.email}</p>}
-                    {artist.phone && <p className='flex items-center gap-2'><HiPhone />{artist.phone}</p>}
+                    {user?.role === "AM" && user?.role === "PM" && artist.email && <p className='flex items-center gap-2'><FaRegEnvelope />{artist.email}</p>}
+                    {user?.role === "AM" && user?.role === "PM" && artist.phone && <p className='flex items-center gap-2'><HiPhone />{artist.phone}</p>}
                     {
                         artist.languages?.length > 0 &&
                         <p className='flex items-center gap-2'><IoLanguageSharp /> {artist.languages.join(", ")}</p>

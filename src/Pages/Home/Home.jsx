@@ -1,6 +1,5 @@
 import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
 import { Link } from 'react-router-dom';
-import LeftAside from './LeftAside';
 import { useDispatch, useSelector } from 'react-redux';
 import { setViewMode } from '../../features/view/viewModeSlice';
 import Button from '../../Components/Button/Button';
@@ -10,6 +9,8 @@ import AuthModal from '../Auth/Components/AuthModal';
 import { SlArrowDown } from "react-icons/sl";
 import { useState } from 'react';
 import MentorSection from './Sections/MentorSection';
+import Chathome from "../Home/Chat/Chathome";
+import LeftAside from './LeftAside';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -61,7 +62,7 @@ const Home = () => {
                 <div className='w-11/12 md:w-10/12 max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 justify-between gap-20'>
                     <div className='order-last w-full lg:w-5/6 ml-auto'>
                         <div className='border border-gray-50 rounded-lg shadow'>
-                            <LeftAside />
+                            <Chathome />
                         </div>
                         <div className='mt-5 text-gray-500 text-sm font-hero'>
                             &copy; about Mirashious Technologies Pvt Ltd
