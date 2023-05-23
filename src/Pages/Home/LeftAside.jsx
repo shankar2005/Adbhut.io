@@ -5,8 +5,7 @@ import { BsFillMicFill, BsImageFill } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
 import { useRootContext } from '../../contexts/RootProvider';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FiDelete } from 'react-icons/fi';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import nsnlogo from '../../assets/logos/adbeta.jpeg';
 import ChatHeading from './Chat/ChatHeading';
@@ -14,19 +13,18 @@ import TypingIndicator from '../../Components/TypingIndicator';
 import MessageReceiver from './Chat/MessageReceiver';
 import MessageSender from './Chat/MessageSender';
 import Chathome from './Chat/Chathome';
-import Cta from './Components/Cta';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSendMessageMutation, useSendMessageToGPTMutation } from '../../features/chat/chatApi';
-import ActionCta from './Components/ActionCta';
 import { useCreateProjectMutation, useUpdateProjectMutation, useUploadDemoMutation } from '../../features/project/projectApi';
 import { showLogin } from '../../features/dropdown/dropdownSlice';
-import { addChatLog, removeArtist, removeChatLog, setChatLog } from '../../features/project/projectSlice';
+import { addChatLog, setChatLog } from '../../features/project/projectSlice';
 import GetProjectReference from './Chat/GetProjectReference';
 import { RiRefreshLine } from 'react-icons/ri';
 import ChatCallToAction from './Components/ChatCallToAction';
+import Message from './Chat/Message';
 
 const LeftAside = () => {
-    const { handleSelectContentProduct, contentProducts, isMobile, suggestions, removedSkills, setArtistProfile, avatar, currentProjectRefetch } = useRootContext();
+    const { handleSelectContentProduct, contentProducts, isMobile, suggestions, avatar, currentProjectRefetch } = useRootContext();
 
     const dispatch = useDispatch();
     const [createProject] = useCreateProjectMutation();
@@ -208,97 +206,72 @@ const LeftAside = () => {
                     />
                     :
                     <div ref={chatboxRef} className='h-full overflow-y-scroll overflow-x-hidden relative flex flex-col justify-between'>
-                        {
-                            user.role === "Client" || !user.email
-                                ? <div className='flex flex-col p-3'>
-                                    {/* Default message is shown */}
-                                    <MessageReceiver
-                                        image={nsnlogo}
-                                        name="Adbhut.io"
-                                        text="Please select any of the content product or send your inputs here to continue"
-                                    />
+                        <div className='flex flex-col p-3'>
+                            <Message
+                                image={nsnlogo}
+                                name="Adbhut.io"
+                                text="Please select any of the content product or send your inputs here to continue"
+                                isOwn={user.role === "PM" || user.role === "AM"}
+                            />
+                            {
+                                user.role === "Client" || !user.email
+                                    ? <>
+                                        {
+                                            chatLog?.map((chat, idx) => (
+                                                chat.bot
+                                                    ? <MessageReceiver
+                                                        key={idx}
+                                                        image={nsnlogo}
+                                                        name="Adbhut.io"
+                                                        text={chat.bot}
+                                                    />
+                                                    : <MessageSender
+                                                        key={idx}
+                                                        image={user?.image || avatar}
+                                                        name={name || "Guest Account"}
+                                                        text={chat.user}
+                                                    />
+                                            ))
+                                        }
+                                    </>
+                                    :
+                                    <>
+                                        {
+                                            chatLog?.map((chat, idx) => (
+                                                chat.user
+                                                    ? <MessageReceiver
+                                                        key={idx}
+                                                        image={user?.image || avatar}
+                                                        name={currentProject?.client_details?.name}
+                                                        text={chat.user}
+                                                    />
+                                                    : <MessageSender
+                                                        key={idx}
+                                                        image={nsnlogo}
+                                                        name="Adbhut.io"
+                                                        text={chat.bot}
+                                                    />
+                                            ))
+                                        }
 
-                                    {
-                                        chatLog.length > 0 &&
-                                        chatLog.map((chat, idx) => (
-                                            chat.bot || chat.artist
-                                                ? <MessageReceiver
-                                                    key={idx}
-                                                    image={nsnlogo}
-                                                    name="Adbhut.io"
-                                                    text={
-                                                        chat.bot ||
-                                                        chat.artist &&
-                                                        <>Shortlisted <span className='cursor-pointer' onClick={() => setArtistProfile(chat.artist.artistID)}><img className='w-8 h-8 rounded-full inline bg-white object-cover' src={chat.artist.profile_pic || avatar} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></span> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
-                                                    }
-                                                />
-                                                : <MessageSender
-                                                    key={idx}
-                                                    image={user?.image || avatar}
-                                                    name={name || "Guest Account"}
-                                                    text={chat.user}
-                                                />
-                                        ))
-                                    }
 
-                                    {/* project reference links */}
-                                    {
-                                        showProjectReferenceLinkInput &&
-                                        <MessageReceiver
-                                            image={nsnlogo}
-                                            name="Adbhut.io"
-                                            text={<GetProjectReference setShowProjectReferenceLinkInput={setShowProjectReferenceLinkInput} />}
-                                        />
-                                    }
-                                    {/* project reference links */}
+                                    </>
+                            }
 
-                                    {/*  */}
-                                    {
-                                        TypingElement
-                                    }
-                                    {/*  */}
+                            {/* project reference links */}
+                            {
+                                showProjectReferenceLinkInput &&
+                                <Message
+                                    image={nsnlogo}
+                                    name="Adbhut.io"
+                                    text={<GetProjectReference setShowProjectReferenceLinkInput={setShowProjectReferenceLinkInput} />}
+                                    isOwn={false}
+                                />
+                            }
+                            {/* project reference links */}
 
-                                </div>
-                                :
-                                <div className='flex flex-col p-3'>
-                                    <div className='text-sm flex gap-2 mb-5 ml-auto'>
-                                        <MessageSender
-                                            image={nsnlogo}
-                                            name="Adbhut.io"
-                                            text="Please select any of the content product or send your inputs here to continue"
-                                        />
-                                    </div>
-                                    {
-                                        chatLog.length > 0 &&
-                                        chatLog.map((chat, idx) => (
-                                            chat.user
-                                                ? <MessageReceiver
-                                                    key={idx}
-                                                    image={user?.image || avatar}
-                                                    name={currentProject?.client_details?.name}
-                                                    text={chat.user}
-                                                />
-                                                : <MessageSender
-                                                    key={idx}
-                                                    image={nsnlogo}
-                                                    name="Adbhut.io"
-                                                    text={
-                                                        chat.bot ||
-                                                        chat.type === 'shortlistedArtist' &&
-                                                        <>Shortlisted <span className='cursor-pointer' onClick={() => setArtistProfile(chat.artist.artistID)}><img className='w-8 h-8 inline bg-white object-cover' src={chat.artist.profile_pic} alt="" /> <span className='hover:underline'>{chat.artist.name.split(" ")[0]}</span></span> <FiDelete onClick={() => handleRemoveShortlistedArtist(chat.msgID, chat.artist.artistID)} className='inline w-5 h-5 cursor-pointer' /></>
-                                                    }
-                                                />
-                                        ))
-                                    }
-
-                                    {/*  */}
-                                    {
-                                        TypingElement
-                                    }
-                                    {/*  */}
-
-                                </div>
-                        }
+                            {TypingElement}
+                        </div>
 
 
                         <ChatCallToAction />
