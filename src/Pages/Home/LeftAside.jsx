@@ -19,6 +19,7 @@ import GetProjectReference from './Chat/GetProjectReference';
 import { RiRefreshLine } from 'react-icons/ri';
 import ChatCallToAction from './Components/ChatCallToAction';
 import Message from './Chat/Message';
+import { io } from 'socket.io-client';
 
 const LeftAside = () => {
     const { handleSelectContentProduct, contentProducts, isMobile, suggestions, avatar, currentProjectRefetch } = useRootContext();
@@ -33,6 +34,7 @@ const LeftAside = () => {
 
     const [sendMessageToGPT] = useSendMessageToGPTMutation();
     const [sendMessage] = useSendMessageMutation();
+    const [socket, setSocket] = useState(null);
 
     const navigate = useNavigate();
     const pathname = useLocation().pathname;
@@ -114,7 +116,7 @@ const LeftAside = () => {
 
         // chatlog
         const message = { msgID: chatLog.length + 1, [sender]: userInputText };
-        dispatch(addChatLog(message));
+        // dispatch(addChatLog(message));
         setuserInputText("");
         userInputRef.current.value = "";
 
@@ -144,6 +146,8 @@ const LeftAside = () => {
                 setIsTyping(false);
             })
         }
+
+        socket.emit("sendMessage", message);
 
         //this logic might be assist with chathome
         if (pathname === "/") {
@@ -193,6 +197,22 @@ const LeftAside = () => {
             })
     }
 
+    // socket
+    useEffect(() => {
+        const socket = io('http://localhost:3000');
+        setSocket(socket);
+
+        socket.on('getMessage', (message) => {
+            console.log(message);
+            dispatch(addChatLog(message));
+        });
+
+        // Clean up the Socket.io connection
+        return () => {
+            socket.disconnect();
+        };
+    }, []);
+
     return (
         <section className={`bg-white shadow-md rounded-b-lg md:rounded-lg ${pathname === "/" ? "h-[500px]" : "h-[calc(100vh-10.7rem)] md:h-[calc(100vh-6.5rem)]"} flex flex-col justify-between`}>
             <ChatHeading isON={isON} setIsON={setIsON} />
@@ -241,7 +261,7 @@ const LeftAside = () => {
 
                 {
                     suggestions?.length === 0 && contentProducts?.length > 0 && !selectedContentProduct &&
-                    <div className='sticky bottom-0 p-2 pb-0 bg-white mt-12'>
+                    <div className='sticky bottom-0 p-2 pb-0 bg-white'>
                         <div className='pb-2 flex flex-wrap gap-2 text-sm font-medium select-none'>
                             {
                                 contentProducts.map(contentProduct => <div

@@ -84,7 +84,7 @@ const Home = () => {
 
             <div onClick={() => setIsMentorHovered(false)} className="flex flex-col justify-center items-center bg-gray-200 mt-10 pt-12 relative">
                 <h1 className='text-4xl font-bold absolute 2xl:static top-16 px-5 md:px-0 '>Revolutionize your content with cutting-edge AI technology</h1>
-                <iframe className='px-5 md:px-0 w-full md:w-3/6' src="https://player.vimeo.com/video/819139346?h=d6fa5efcc3" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                <iframe className='px-5 md:px-0 w-full md:w-3/6' src="https://player.vimeo.com/video/819139346?h=d6fa5efcc3" height="564" frameBorder="0" allow="autoplay; fullscreen" allowFullScreen></iframe>
             </div>
 
             {/* auth modal */}

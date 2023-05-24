@@ -14,7 +14,6 @@ import { useVerifyUserMutation } from './features/auth/authApi';
 import { useEffect } from 'react';
 import { setLoading, setToken, setUser } from './features/auth/authSlice';
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
 
 function App() {
   const dispatch = useDispatch();
@@ -24,13 +23,13 @@ function App() {
   // auth/user
 
   const [verifyUser, { data }] = useVerifyUserMutation();
-  const cookies = new Cookies();
-  const token = cookies.get('auth_token');
 
   useEffect(() => {
+    const cookies = new Cookies();
+    const token = cookies.get('auth_token');
     dispatch(setToken(token));
     if (token) verifyUser({ token })
-  }, [token])
+  }, []);
 
   useEffect(() => {
     dispatch(setLoading(true));
@@ -38,7 +37,7 @@ function App() {
       dispatch(setUser(data.user));
     }
     dispatch(setLoading(false));
-  }, [data])
+  }, [data]);
 
   // auth/user
   // auth/user
