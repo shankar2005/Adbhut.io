@@ -2,14 +2,15 @@ import { useForm } from 'react-hook-form';
 import Button from "../../../Components/Button/Button";
 import { useAddArtistRequestMutation } from '../../../features/artist/artistApi';
 import { useRootContext } from '../../../contexts/RootProvider';
-import { useGetLanguagesQuery } from '../../../features/utils/utilsApi';
+import { useGetLanguagesQuery, useGetLocationsQuery } from '../../../features/utils/utilsApi';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import MultiSelect from '../../../Components/Input/MultiSelect';
 import Select from '../../../Components/Input/Select';
 
 const ArtistRequest = ({ setArtistRequestModal }) => {
-    const { locations, skills: skillsData } = useRootContext();
+    const { skills: skillsData } = useRootContext();
+    const {data: locations } = useGetLocationsQuery();
     const [addArtistRequest, { isSuccess }] = useAddArtistRequestMutation();
     const currentProject = useSelector(state => state.project)
 

@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { useGetCurrentProjectsQuery, useGetDreamProjectsQuery, useGetProjectQuery } from '../features/project/projectApi';
+import { useGetCurrentProjectsQuery, useGetProjectQuery } from '../features/project/projectApi';
 import { useGetContentProductsQuery, useGetLocationsQuery, useGetSkillsOnProductSelectMutation, useGetSkillsQuery } from '../features/utils/utilsApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { useShortlistArtistMutation } from '../features/artist/artistApi';
@@ -13,13 +13,11 @@ const RootProvider = ({ children }) => {
     const avatar = "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541";
 
     const [shortlistArtist] = useShortlistArtistMutation();
-    const { data: locations = [] } = useGetLocationsQuery();
     const { data: skills = [] } = useGetSkillsQuery();
     const { data: contentProducts = [] } = useGetContentProductsQuery();
     const [getSkillsOnProductSelect] = useGetSkillsOnProductSelectMutation();
 
     const { data: currentProjects = [] } = useGetCurrentProjectsQuery(null, { skip: !user?.email });
-    const { data: dreamProjects = [] } = useGetDreamProjectsQuery();
 
     const { chatLog, selectedContentProduct } = useSelector(state => state.project);
     const currentProject = useSelector(state => state.project);
@@ -167,8 +165,6 @@ const RootProvider = ({ children }) => {
         handleShortlist,
         checkedLocations,
         setcheckedLocations,
-        dreamProjects,
-        locations,
         skills,
         currentProjects,
         viewAs,

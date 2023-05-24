@@ -6,14 +6,14 @@ import { useGetProjectQuery } from '../../../features/project/projectApi';
 import { setProjectData } from '../../../features/project/projectSlice';
 
 const Inbox = () => {
-    const { currentProjects: dreamProjects } = useRootContext();
+    const { currentProjects } = useRootContext();
 
     return (
         <div className='bg-white rounded-lg shadow-lg'>
             <h3 className='font-medium p-3'>Client Messages</h3>
             <ul>
                 {
-                    dreamProjects?.map(project => <MsgItem id={project} />)
+                    currentProjects?.map(project => <MsgItem id={project} />)
                 }
 
                 {/* <li className='p-4 py-5 flex items-center gap-3 hover:bg-gray-200 bg-blue-100'>

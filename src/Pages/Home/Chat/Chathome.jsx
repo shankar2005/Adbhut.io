@@ -20,7 +20,7 @@ const Chathome = () => {
     const { selectedContentProduct } = useSelector(state => state.project);
     const currentProject = useSelector(state => state.project);
 
-    const { contentProducts, avatar, handleSelectContentProduct, isMobile, skills, handleSelectSkill } = useRootContext();
+    const { contentProducts, handleSelectContentProduct, isMobile, skills, handleSelectSkill } = useRootContext();
     const navigate = useNavigate();
 
     const [suggestions, setSuggestions] = useState([]);

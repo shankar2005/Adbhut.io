@@ -4,9 +4,11 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRootContext } from '../../../contexts/RootProvider';
 import { showLocation } from '../../../features/dropdown/dropdownSlice';
+import { useGetLocationsQuery } from '../../../features/utils/utilsApi';
 
 const LocationFilter = () => {
-    const { setcheckedLocations, locations } = useRootContext();
+    const { setcheckedLocations } = useRootContext();
+    const {data: locations } = useGetLocationsQuery();
     const dispatch = useDispatch();
     const { locationDropdown } = useSelector(state => state.dropdown);
 

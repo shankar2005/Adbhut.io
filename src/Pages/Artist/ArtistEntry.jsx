@@ -11,7 +11,7 @@ import { useAddArtistMutation, useGetArtistByIdQuery, useUpdateArtistMutation } 
 import WorkLinks from './Components/WorkLinks';
 import Select from '../../Components/Input/Select';
 import MultiSelect from '../../Components/Input/MultiSelect';
-import { useGetLanguagesQuery } from '../../features/utils/utilsApi';
+import { useGetLanguagesQuery, useGetLocationsQuery } from '../../features/utils/utilsApi';
 import MultiSelectUpdate from '../../Components/Input/MultiSelectUpdate';
 
 const ArtistEntry = () => {
@@ -21,7 +21,8 @@ const ArtistEntry = () => {
     const { data: artistData } = useGetArtistByIdQuery(artistId, { skip: !artistId });
     const [addArtist, { isSuccess: addSuccess }] = useAddArtistMutation();
     const [updateArtist, { isSuccess: updateSuccess }] = useUpdateArtistMutation();
-    const { locations, skills: skillsData } = useRootContext();
+    const { skills: skillsData } = useRootContext();
+    const {data: locations } = useGetLocationsQuery();
 
     const { register, handleSubmit, formState: { errors }, control, reset } = useForm();
     const onSubmit = data => {

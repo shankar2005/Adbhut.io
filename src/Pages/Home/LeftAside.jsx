@@ -145,6 +145,7 @@ const LeftAside = () => {
             })
         }
 
+        //this logic might be assist with chathome
         if (pathname === "/") {
             if (isMobile) {
                 navigate("/projects/chat");
