@@ -2,17 +2,15 @@ import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useRootContext } from '../../contexts/RootProvider';
 import FeedCardSkeleton from '../../Components/Skeleton/FeedCardSkeleton';
-import { CiCircleRemove } from 'react-icons/ci';
 import ArtistWorkView from '../Artist/Components/View/ArtistWorkView';
 import ArtistSquareView from '../Artist/Components/View/ArtistSquareView';
-import ArtistRowView from '../Artist/Components/View/ArtistRowView';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearch } from '../../features/filter/filterSlice';
 import { showLogin } from '../../features/dropdown/dropdownSlice';
 import NothingFound from '../../Components/NotFound/NothingFound';
-import FullPageLoader from '../../Components/Loader/PageLoader';
 import ArtistRowViewSkeleton from '../../Components/Skeleton/ArtistRowViewSkeleton';
 import Artists from '../Artist/Artists';
+import SearchInfo from '../Artist/Components/SearchInfo';
 
 const Feed = () => {
     const { demoType, checkedSkills, checkedGenres, checkedLocations, viewAs } = useRootContext();
@@ -105,14 +103,12 @@ const Feed = () => {
     }
 
     return (
-        <div className='relative mt-2'>
-            {
-                searchText &&
-                <div className='flex items-center gap-2'>
-                    <h1 className='my-3 font-hero'>Results for <span className='bg-yellow-300'>"{searchText}"</span></h1>
-                    <CiCircleRemove size={25} onClick={() => dispatch(setSearch(""))} className="cursor-pointer" />
-                </div>
-            }
+        <div className='relative'>
+            <SearchInfo
+                searchText={searchText}
+                clearSearch={() => dispatch(setSearch(""))}
+            />
+
             {!artists.length && <NothingFound />}
 
             <InfiniteScroll

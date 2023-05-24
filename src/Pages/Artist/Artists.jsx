@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { CiCircleRemove } from "react-icons/ci";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../../Components/Loader/Spinner";
 import NothingFound from "../../Components/NotFound/NothingFound";
 import { useGetArtistsQuery } from "../../features/artist/artistApi";
 import { setSearch } from "../../features/filter/filterSlice";
+import SearchInfo from "./Components/SearchInfo";
 import ArtistRowView from "./Components/View/ArtistRowView";
 
 const Artists = () => {
@@ -42,7 +42,7 @@ const Artists = () => {
         }
     }, [searchText])
 
-    if(isLoading){
+    if (isLoading) {
         return <div className="flex items-center justify-center py-10">
             <Spinner />
         </div>
@@ -56,13 +56,11 @@ const Artists = () => {
             // loader={<FeedCardSkeleton />}
             className="min-h-[50vh]"
         >
-            {
-                searchText &&
-                <div className='flex items-center gap-2 mt-1'>
-                    <h1 className='text-xl md:text-2xl my-3 font-medium text-gray-500'>Results for "{searchText}"</h1>
-                    <button className='bg-sky-500 text-white p-1 pr-3 rounded-md text-xs flex items-center gap-1 whitespace-nowrap' onClick={() => dispatch(setSearch(""))}><CiCircleRemove size={20} /> Clear search</button>
-                </div>
-            }
+            <SearchInfo
+                searchText={searchText}
+                clearSearch={() => dispatch(setSearch(""))}
+            />
+
             {!artists.length && <NothingFound />}
 
             {
