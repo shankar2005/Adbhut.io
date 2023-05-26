@@ -18,6 +18,7 @@ import LeftToRight from "./PageTransitions/LeftToRight";
 import RightToLeft from "./PageTransitions/RightToLeft";
 import ArtistRequirementDetails from "../Pages/Admins/ArtistManager/ArtistRequirementDetails";
 import Artists from "../Pages/Artist/Artists";
+import EditProject from "../Pages/Admins/ProductionManager/EditProject";
 
 const router = createBrowserRouter([
     {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
             {
                 path: '/projects/:id',
                 element: <ProjectDashboard />,
+            },
+            {
+                path: '/projects/edit-project/:id',
+                element: <EditProject />,
             },
             {
                 path: '/projects/create-project',

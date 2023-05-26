@@ -1,18 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useRootContext } from '../../../contexts/RootProvider';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { IoIosArrowForward } from 'react-icons/io';
 import ShortlistedArtistRow from './Components/ShortlistedArtistRow';
 import AssignedArtistRow from './Components/AssignedArtistRow';
-import Button from '../../../Components/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { useGetProjectQuery, useUpdateProjectMutation } from '../../../features/project/projectApi';
-import { useSendMessageToGPTMutation } from '../../../features/chat/chatApi';
+import { useGetProjectQuery } from '../../../features/project/projectApi';
 import { showLogin } from '../../../features/dropdown/dropdownSlice';
 import { addChatLog, setProjectData } from '../../../features/project/projectSlice';
-import PageLoader from '../../../Components/Loader/PageLoader';
 import { BsFilePdf, BsFilePdfFill, BsMusicNoteBeamed } from 'react-icons/bs';
 import logo from "../../../assets/logos/adbeta.jpeg"
 
@@ -23,17 +18,12 @@ import Demo from '../../Project/Components/Demo';
 import ArtistRequest from './ArtistRequest';
 import Modal from '../../../Components/Modal/Modal';
 import Alert from '../../../Components/Badge/Alert';
-import Input from '../../../Components/Input/Input';
-import Textarea from '../../../Components/Input/Textarea';
 
 const ProjectDashboard = () => {
-    const { avatar, setIsModalOpen } = useRootContext();
+    const { setIsModalOpen } = useRootContext();
 
     const dispatch = useDispatch();
-    const [updateProject, { isLoading: updateProjectLoading }] = useUpdateProjectMutation();
-    const [sendMessage] = useSendMessageToGPTMutation();
     const { user } = useSelector(state => state.auth);
-    const { chatLog } = useSelector(state => state.project);
 
     const { id } = useParams();
     const { data: currentProject = {}, refetch, isLoading: getProjectLoading } = useGetProjectQuery(id);
@@ -54,114 +44,8 @@ const ProjectDashboard = () => {
             }))
 
             sessionStorage.setItem("CURRENT_PROJECT", currentProject.pk);
-
-            // set data in form
-            setValue("title", currentProject.title);
-            setValue("assigned_artist_payouts", currentProject.assigned_artist_payouts);
-            setValue("solution_fee", currentProject.solution_fee);
-            setValue("production_advance", currentProject.production_advance);
-            setValue("negotiated_advance", currentProject.negotiated_advance);
-            setValue("final_advance", currentProject.final_advance);
-            setValue("post_project_client_total_payout", currentProject.post_project_client_total_payout);
-            setValue("production_solution", currentProject.production_solution);
-            setValue("artist_discussion_updates", currentProject.artist_discussion_updates);
-            setValue("post_project_client_total_feedback", currentProject.post_project_client_total_feedback);
         }
     }, [currentProject])
-
-    const { register, handleSubmit, setValue } = useForm();
-    const onSubmit = data => {
-        if (!user.email) {
-            return dispatch(showLogin());
-        }
-
-        const formData = {
-            title: data.title,
-            post_project_client_feedback: data.post_project_client_feedback,
-            production_solution: data.production_solution,
-            artist_discussion_updates: data.artist_discussion_updates,
-            // fees
-            assigned_artist_payouts: +data.assigned_artist_payouts,
-            negotiated_advance: +data.negotiated_advance,
-            final_advance: +data.final_advance,
-            post_project_client_total_payout: +data.post_project_client_total_payout,
-            final_fee_settlement_status: data.final_fee_settlement_status,
-            contract_status: data.contract_status,
-        }
-
-        updateProject({
-            id: currentProject.pk,
-            data: formData
-        })
-            .then(response => {
-                const data = response.data;
-                if (formData.post_project_client_feedback) {
-                    // send assignment to the chatbox
-                    if (user.role === "Client") {
-                        // chatlog
-                        const message = { msgID: chatLog.length + 1, user: data.post_project_client_feedback };
-                        dispatch(addChatLog(message));
-                        // send message api
-                        sendMessage({
-                            project_id: currentProject.pk,
-                            message: message
-                        })
-                    }
-                }
-            })
-    }
-
-    const navigate = useNavigate();
-
-    const [assignmentField, setassignmentField] = useState("");
-    const handleAddToMyProject = () => {
-        if (!user.email) {
-            return dispatch(showLogin());
-        }
-
-        updateProject({
-            id: currentProject.pk,
-            data: { stage: "Lead", post_project_client_feedback: assignmentField }
-        })
-            .then(response => {
-                const data = response.data;
-                navigate(`/projects/${data.pk}`);
-
-                // send assignment to the chatbox
-                // chatlog
-                const message = { msgID: chatLog.length + 1, user: assignmentField };
-                dispatch(addChatLog(message));
-                // send message api
-                sendMessage({
-                    project_id: currentProject.pk,
-                    message: message
-                })
-            })
-    }
-
-    const handleSubmitToClient = () => {
-        updateProject({
-            id: currentProject.pk,
-            data: { stage: "In Progress" }
-        })
-            .then(response => {
-                const data = response.data;
-                if (data.pk) {
-                    // chatlog
-                    const message = { msgID: chatLog.length + 1, bot: "Project is in progress. Waiting for client's response!" };
-                    dispatch(addChatLog(message));
-                    // send message api
-                    sendMessage({
-                        project_id: currentProject.pk,
-                        message: message
-                    })
-                }
-            })
-    }
-
-    const handleApproveProject = () => {
-        navigate("/projects/sign-project");
-    }
 
     const [artistRequestModal, setArtistRequestModal] = useState(false);
     useEffect(() => {
@@ -170,139 +54,123 @@ const ProjectDashboard = () => {
 
     return (
         <div className='bg-white rounded-b-lg shadow-lg'>
-            <form id='projectForm' onSubmit={handleSubmit(onSubmit)}>
-                <div className="p-4">
-                    <h1 className='text-center text-3xl font-bold font-hero mb-5 text-gray-600'>{currentProject?.title}</h1>
-                    <section class="font-hero">
-                        <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
-                            <div class="w-full overflow-x-auto">
-                                <table class="w-full">
-                                    <tbody class="bg-white">
-                                        <TableRow
-                                            label="Client"
-                                            content={<>
-                                                {user.email ? currentProject?.client_details?.name : "ADBHUT.IO"} <br />
-                                                <span className='bg-gray-200 px-2 text-sm rounded-full'>{user.email ? currentProject?.client_details?.email : "servicing@adbhut.io"}</span>
-                                            </>}
-                                        />
-                                        <TableRow label="Stage" content={<Status type="success">{currentProject?.stage}</Status>} />
-                                        <TableRow label="Content Product" content={currentProject.template?.length > 0 && <span className="font-semibold">{currentProject?.template[1]}</span>} />
-                                        <TableRow label="Production solution" content={currentProject?.production_solution} />
-                                        <TableRow label="Artist discussion updates" content={currentProject?.artist_discussion_updates} />
-                                        {/* <TableRow label="Project Reference Links" content={JSON.parse(currentProject?.reference_links)} /> */}
-                                        <TableRow label="Client Briefing" content={currentProject?.post_project_client_feedback} />
-                                    </tbody>
-                                </table>
-                                <table class="w-full">
-                                    <thead>
-                                        <tr class="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b border-gray-600">
-                                            <th class="px-4 py-3">Estimate Fee #</th>
-                                            <th class="px-4 py-3">Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="bg-white">
-                                        <TableRow label="Solution Fee" content={currentProject?.solution_fee || "WIP"} />
-                                        <TableRow label="Production Advance" content={currentProject?.production_advance || "WIP"} />
-                                        <TableRow label="Project fee Status" content={<Status>{currentProject?.project_fee_Status || "N/A"}</Status>} />
-                                        <TableRow label="Advance Status" content={<Status>{"Pending"}</Status>} />
-                                        <TableRow label="Artist payout status" content={<Status>{currentProject?.artist_payout_status || 'N/A'}</Status>} />
-                                    </tbody>
-                                </table>
-                            </div>
+            <div className="p-4">
+                <div className='mb-5 flex items-center justify-center gap-1.5'>
+                    <h1 className='text-3xl font-bold font-hero text-gray-600'>{currentProject?.title}</h1>
+                    <Link to={`/projects/edit-project/${currentProject?.pk}`}>
+                        <Status>Edit</Status>
+                    </Link>
+                </div>
+                <section class="font-hero">
+                    <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
+                        <div class="w-full overflow-x-auto">
+                            <table class="w-full">
+                                <tbody class="bg-white">
+                                    <TableRow label="Client" content={<>{user.email ? currentProject?.client_details?.name : "ADBHUT.IO"} <br /> <span className='bg-gray-200 px-2 text-sm rounded-full'>{user.email ? currentProject?.client_details?.email : "servicing@adbhut.io"}</span></>} />
+                                    <TableRow label="Stage" content={<Status type="success">{currentProject?.stage}</Status>} />
+                                    <TableRow label="Content Product" content={currentProject.template?.length > 0 && <span className="font-semibold">{currentProject?.template[1]}</span>} />
+                                    <TableRow label="Production solution" content={currentProject?.production_solution} />
+                                    <TableRow label="Artist discussion updates" content={currentProject?.artist_discussion_updates} />
+                                    {/* {urrentProject?.reference_links?.startsWith("[") && currentProject?.reference_links?.endsWith("]") &&
+                                        JSON.parse(currentProject?.reference_links)?.length > 0 &&} */}
+                                    {/* <TableRow label="Project Reference Links" content={JSON.parse(currentProject?.reference_links)} /> */}
+                                    <TableRow label="Client Briefing" content={currentProject?.post_project_client_feedback} />
+                                </tbody>
+                            </table>
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b border-gray-600">
+                                        <th class="px-4 py-3">Estimate Fee #</th>
+                                        <th class="px-4 py-3">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white">
+                                    <TableRow label="Assigned artist payouts" content={currentProject?.assigned_artist_payouts} />
+                                    <TableRow label="Negotiated Advance" content={currentProject?.negotiated_advance} />
+                                    <TableRow label="Final Advance" content={currentProject?.final_advance} />
+                                    <TableRow label="Post-Project Client’s Total Payout" content={currentProject?.post_project_client_total_payout} />
+
+                                    <TableRow label="Solution Fee" content={currentProject?.solution_fee || "WIP"} />
+                                    <TableRow label="Production Advance" content={currentProject?.production_advance || "WIP"} />
+
+                                    <TableRow label="Project fee Status" content={<Status>{currentProject?.project_fee_Status || "N/A"}</Status>} />
+                                    <TableRow label="Advance Status" content={<Status>{"Pending"}</Status>} />
+                                    <TableRow label="Artist payout status" content={<Status>{currentProject?.artist_payout_status || 'N/A'}</Status>} />
+
+                                    <TableRow label="Final fee settlement" content={<Status type="success">Done</Status>} />
+                                    <TableRow label="Contract status" content={<Status type="success">Done</Status>} />
+                                </tbody>
+                            </table>
                         </div>
-                    </section>
-
-
-
-
-
-                    {/* <div className="mb-4">
-                        <Textarea
-                            name="production_solution"
-                            label="Production solution"
-                            placeholder="Production solution"
-                            register={register}
-                        />
                     </div>
-                    <div className="mb-4">
-                        <Textarea
-                            name="artist_discussion_updates"
-                            label="Artist discussion updates"
-                            placeholder="Artist discussion updates"
-                            register={register}
-                        />
-                    </div> */}
+                </section>
 
-
-                    {
-                        <div className="mb-4 mt-8">
-                            <div className='flex justify-between mb-1'>
-                                <label className="block mb-2 text-sm font-medium text-gray-900">{
-                                    currentProject.shortlisted_artists_details?.length ? 'Shortlisted Artists' : 'Shortlist Artists'
-                                }</label>
-                                <div className="flex gap-1">
-                                    <Link to="/artists">
-                                        <button type='button' className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add Artist <AiOutlinePlus size={18} /></button>
-                                    </Link>
-                                    {user?.role === "PM" &&
-                                        <button onClick={() => setArtistRequestModal(true)} type='button' className='bg-gray-400 hover:bg-gray-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Request for Artist</button>}
-                                </div>
+                {
+                    <div className="mb-4 mt-8">
+                        <div className='flex justify-between mb-1'>
+                            <label className="block mb-2 text-sm font-medium text-gray-900">{
+                                currentProject.shortlisted_artists_details?.length ? 'Shortlisted Artists' : 'Shortlist Artists'
+                            }</label>
+                            <div className="flex gap-1">
+                                <Link to="/artists">
+                                    <button type='button' className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add Artist <AiOutlinePlus size={18} /></button>
+                                </Link>
+                                {user?.role === "PM" &&
+                                    <button onClick={() => setArtistRequestModal(true)} type='button' className='bg-gray-400 hover:bg-gray-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Request for Artist</button>}
                             </div>
-                            {
-                                currentProject.shortlisted_artists_details?.length > 0 ?
-                                    currentProject.shortlisted_artists_details?.map(artist => <ShortlistedArtistRow
-                                        key={artist.id}
-                                        artist={artist}
-                                        projectId={currentProject.pk}
-                                    />)
-                                    : <Alert>No artist selected!</Alert>
-                            }
                         </div>
-                    }
-
-                    {
-                        currentProject?.assigned_artists_details?.length > 0 &&
-                        <div className="mb-4 mt-8">
-                            <label className="block mb-2 text-sm font-medium text-gray-900">Assigned Artists</label>
-                            {
-                                currentProject.assigned_artists_details?.map(artist => <AssignedArtistRow
+                        {
+                            currentProject.shortlisted_artists_details?.length > 0 ?
+                                currentProject.shortlisted_artists_details?.map(artist => <ShortlistedArtistRow
                                     key={artist.id}
                                     artist={artist}
                                     projectId={currentProject.pk}
                                 />)
-                            }
-                        </div>
-                    }
+                                : <Alert>No artist selected!</Alert>
+                        }
+                    </div>
+                }
 
-                    {/* {urrentProject?.reference_links?.startsWith("[") && currentProject?.reference_links?.endsWith("]") &&
-                        JSON.parse(currentProject?.reference_links)?.length > 0 &&} */}
+                {
+                    currentProject?.assigned_artists_details?.length > 0 &&
+                    <div className="mb-4 mt-8">
+                        <label className="block mb-2 text-sm font-medium text-gray-900">Assigned Artists</label>
+                        {
+                            currentProject.assigned_artists_details?.map(artist => <AssignedArtistRow
+                                key={artist.id}
+                                artist={artist}
+                                projectId={currentProject.pk}
+                            />)
+                        }
+                    </div>
+                }
 
-                    {
-                        currentProject?.pk === 148 &&
-                        <>
-                            <div className="mb-4">
-                                <label className="text-sm font-medium text-gray-900">Demos: </label>
-                                <div className='flex gap-2 items-center'>
-                                    <a target="_blank" href="https://drive.google.com/file/d/1cwG-4RgV25jHHNaR0eUlSloqs5pM_AU1/view" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
-                                        <BsFilePdf size={25} className="mr-2" />
-                                        View Demo
-                                    </a>
-                                    <a target="_blank" href="https://drive.google.com/file/d/1rF1eqirsozTPtXz2y70Q-cio-0T8ehD3/view?usp=sharing" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
-                                        <BsFilePdf size={25} className="mr-2" />
-                                        View Demo
-                                    </a>
-                                    {/* <div>
+                {
+                    currentProject?.pk === 148 &&
+                    <>
+                        <div className="mb-4">
+                            <label className="text-sm font-medium text-gray-900">Demos: </label>
+                            <div className='flex gap-2 items-center'>
+                                <a target="_blank" href="https://drive.google.com/file/d/1cwG-4RgV25jHHNaR0eUlSloqs5pM_AU1/view" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
+                                    <BsFilePdf size={25} className="mr-2" />
+                                    View Demo
+                                </a>
+                                <a target="_blank" href="https://drive.google.com/file/d/1rF1eqirsozTPtXz2y70Q-cio-0T8ehD3/view?usp=sharing" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
+                                    <BsFilePdf size={25} className="mr-2" />
+                                    View Demo
+                                </a>
+                                {/* <div>
                                         <iframe width="100%" height={166} scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1496260810&color=%230ea5e9&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" /><div style={{ fontSize: '10px', color: '#cccccc', lineBreak: 'anywhere', wordBreak: 'normal', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontFamily: 'Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif', fontWeight: 100 }}><a href="https://soundcloud.com/adbhut-188302011" title="Adbhut" target="_blank" style={{ color: '#cccccc', textDecoration: 'none' }}>Adbhut</a> · <a href="https://soundcloud.com/adbhut-188302011/demo-121-temp-vox-reference-nsnco-prodbykeerteesh" title="Demo 1.2.1 Temp Vox REFERENCE NsNCo ProdByKeerteesh" target="_blank" style={{ color: '#cccccc', textDecoration: 'none' }}>Demo 1.2.1 Temp Vox REFERENCE NsNCo ProdByKeerteesh</a></div>
                                     </div>
                                     <div>
                                         <iframe width="100%" height={166} scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1496330755&color=%230ea5e9&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" /><div style={{ fontSize: '10px', color: '#cccccc', lineBreak: 'anywhere', wordBreak: 'normal', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontFamily: 'Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif', fontWeight: 100 }}><a href="https://soundcloud.com/adbhut-188302011" title="Adbhut" target="_blank" style={{ color: '#cccccc', textDecoration: 'none' }}>Adbhut</a> · <a href="https://soundcloud.com/adbhut-188302011/echmkt-final-master-v2-nsnco-prodbykeerteesh" title="ECHMKT FINAL MASTER V2 NsNCo ProdByKeerteesh" target="_blank" style={{ color: '#cccccc', textDecoration: 'none' }}>ECHMKT FINAL MASTER V2 NsNCo ProdByKeerteesh</a></div>
                                     </div> */}
-                                </div>
                             </div>
-                        </>
-                    }
+                        </div>
+                    </>
+                }
 
-                    {/* <div className="mb-4">
+                {/* <div className="mb-4">
                         <div className="flex justify-between mb-2">
                             <p>Media, links and docs demos</p>
                             <Link to={`/projects/demos/${currentProject?.pk}`}>
@@ -315,130 +183,12 @@ const ProjectDashboard = () => {
                             }
                         </div>
                     </div> */}
-                    {
-                        user?.role === "PM" &&
-                        <FileUpload />
-                    }
-
-                </div>
-
-                {/* project cost */}
                 {
-                    user.role === "PM" &&
-                    <div className='px-4 grid grid-cols-2 gap-2'>
-                        <div className="mb-4">
-                            <Input
-                                type="number"
-                                name="assigned_artist_payouts"
-                                label="Assigned artist payouts"
-                                placeholder="Enter amount"
-                                register={register}
-                                min={0}
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <Input
-                                type="number"
-                                name="solution_fee"
-                                label="Solution Fee"
-                                placeholder="Enter amount"
-                                register={register}
-                                min={0}
-                                disabled={true}
-                                className="cursor-not-allowed"
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <Input
-                                type="number"
-                                name="production_advance"
-                                label="Production Advance"
-                                placeholder="Enter amount"
-                                register={register}
-                                min={0}
-                                disabled={true}
-                                className="cursor-not-allowed"
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <Input
-                                type="number"
-                                name="negotiated_advance"
-                                label="Negotiated Advance"
-                                placeholder="Enter amount"
-                                register={register}
-                                min={0}
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <Input
-                                type="number"
-                                name="final_advance"
-                                label="Final Advance"
-                                placeholder="Enter amount"
-                                register={register}
-                                min={0}
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <Input
-                                type="number"
-                                name="post_project_client_total_payout"
-                                label="Post-Project Client’s Total Payout"
-                                placeholder="Enter amount"
-                                register={register}
-                                min={0}
-                            />
-                        </div>
-                        <div className="col-span-2 flex items-center">
-                            <input {...register("final_fee_settlement_status")} id="final_fee_settlement_status" type="checkbox" className="w-4 h-4 text-blue-600 rounded ring-offset-gray-800 bg-gray-700 border-gray-600" defaultChecked={currentProject?.final_fee_settlement_status} />
-                            <label htmlFor="final_fee_settlement_status" className="ml-2 text-sm font-medium text-gray-900">Final fee settlement</label>
-                        </div>
-                        <div className="col-span-2 flex items-center mb-4">
-                            <input {...register("contract_status")} id="contract_status" type="checkbox" className="w-4 h-4 text-blue-600 rounded ring-offset-gray-800 bg-gray-700 border-gray-600" defaultChecked={currentProject?.contract_status} />
-                            <label htmlFor="contract_status" className="ml-2 text-sm font-medium text-gray-900">Contract status</label>
-                        </div>
-                    </div>
+                    user?.role === "PM" &&
+                    <FileUpload />
                 }
 
-                <div className='p-4 pt-0 space-x-2 flex'>
-                    {
-                        user.email ?
-                            <>
-                                <Button variant="primary" type="submit">Save Changes</Button>
-                                {
-                                    currentProject.stage !== "DreamProject" ?
-                                        <>
-                                            {
-                                                user.role === "PM" && currentProject.stage === "Lead" &&
-                                                <Button variant="primary" onClick={handleSubmitToClient}>Submit to client</Button>
-                                            }
-                                        </>
-                                        : <Button variant="primary" onClick={handleAddToMyProject}>Send Brief</Button>
-                                }
-                            </>
-                            : <>
-                                {
-                                    currentProject.stage === "DreamProject" &&
-                                    <Button variant="primary" onClick={handleAddToMyProject}>Send Brief</Button>
-                                }
-                            </>
-                    }
-                    {
-                        user.role === "Client" && currentProject.stage === "In Progress"
-                        && <>
-                            <button onClick={handleApproveProject} type="button" className="text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Approve</button>
-                            <button onClick={handleApproveProject} type="button" className="text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Decline</button>
-                            <button onClick={handleApproveProject} type="button" className="text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-full text-sm w-full sm:w-auto px-5 py-2.5 text-center">Put On Hold</button>
-                        </>
-                    }
-                </div>
-            </form>
-
-            {
-                (updateProjectLoading || getProjectLoading) &&
-                <PageLoader />
-            }
+            </div>
 
             {
                 artistRequestModal &&
