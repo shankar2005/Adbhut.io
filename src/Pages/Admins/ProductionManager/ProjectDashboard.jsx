@@ -58,11 +58,11 @@ const ProjectDashboard = () => {
                 <div className='mb-5 flex items-center justify-center gap-1.5'>
                     <h1 className='text-3xl font-bold font-hero text-gray-600'>{currentProject?.title}</h1>
                     {user?.email && <Link to={`/projects/edit-project/${currentProject?.pk}`}>
-                        <Badge>Edit</Badge>
+                        <Badge type="error">Edit</Badge>
                     </Link>}
                 </div>
                 <section class="font-hero">
-                    <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
+                    <div class="w-full overflow-hidden rounded-lg shadow-lg">
                         <div class="w-full overflow-x-auto">
                             <table class="w-full">
                                 <tbody class="bg-white">
@@ -77,6 +77,52 @@ const ProjectDashboard = () => {
                                     <TableRow label="Client Briefing" content={currentProject?.post_project_client_feedback} />
                                 </tbody>
                             </table>
+
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="text-md font-semibold text-left text-gray-900 bg-gray-100 border-x">
+                                        <th class="px-4 py-3 flex items-center gap-2">
+                                            Shortlisted Artist
+                                            <div className="flex items-center gap-1">
+                                                <Link to="/artists">
+                                                    <Badge className="border border-gray-200 bg-blue-100 text-blue-700">Add Artist</Badge>
+                                                </Link>
+                                                {user?.role === "PM" &&
+                                                    <Badge onClick={() => setArtistRequestModal(true)} className="border border-gray-200 bg-blue-100 text-blue-700 cursor-pointer">Request for Artist</Badge>}
+                                            </div>
+                                        </th>
+                                        <th class="px-4 py-3">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white">{
+                                    currentProject.shortlisted_artists_details?.map(artist => (
+                                        <ShortlistedArtistRow
+                                            key={artist.id}
+                                            artist={artist}
+                                            projectId={currentProject.pk}
+                                        />))
+                                }</tbody>
+                            </table>
+
+                            {currentProject.assigned_artists_details?.length > 0 &&
+                                <table class="w-full">
+                                    <thead>
+                                        <tr class="text-md font-semibold text-left text-gray-900 bg-gray-100 border-x">
+                                            <th class="px-4 py-3">Assigned Artist</th>
+                                            <th class="px-4 py-3">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white">{
+                                        currentProject.assigned_artists_details?.map(artist => (
+                                            <AssignedArtistRow
+                                                key={artist.id}
+                                                artist={artist}
+                                                projectId={currentProject.pk}
+                                            />))
+                                    }</tbody>
+                                </table>
+                            }
+
                             <table class="w-full">
                                 <thead>
                                     <tr class="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b border-gray-600">
@@ -93,7 +139,7 @@ const ProjectDashboard = () => {
                                     <TableRow label="Solution Fee" content={currentProject?.solution_fee || "WIP"} />
                                     <TableRow label="Production Advance" content={currentProject?.production_advance || "WIP"} />
 
-                                    <TableRow label="Project fee Status" content={<Badge>{currentProject?.project_fee_Status || "N/A"}</Badge>} />
+                                    <TableRow label="Project fee Status" content={<Badge type="warning">{currentProject?.project_fee_Status || "N/A"}</Badge>} />
                                     <TableRow label="Advance Status" content={<Badge type="warning">{"Pending"}</Badge>} />
                                     <TableRow label="Artist payout status" content={<Badge type="warning">{currentProject?.artist_payout_status || 'N/A'}</Badge>} />
 
@@ -104,46 +150,6 @@ const ProjectDashboard = () => {
                         </div>
                     </div>
                 </section>
-
-                {
-                    <div className="mb-4 mt-8">
-                        <div className='flex justify-between mb-1'>
-                            <label className="block mb-2 text-sm font-medium text-gray-900">{
-                                currentProject.shortlisted_artists_details?.length ? 'Shortlisted Artists' : 'Shortlist Artists'
-                            }</label>
-                            <div className="flex gap-1">
-                                <Link to="/artists">
-                                    <button type='button' className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add Artist <AiOutlinePlus size={18} /></button>
-                                </Link>
-                                {user?.role === "PM" &&
-                                    <button onClick={() => setArtistRequestModal(true)} type='button' className='bg-gray-400 hover:bg-gray-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Request for Artist</button>}
-                            </div>
-                        </div>
-                        {
-                            currentProject.shortlisted_artists_details?.length > 0 ?
-                                currentProject.shortlisted_artists_details?.map(artist => <ShortlistedArtistRow
-                                    key={artist.id}
-                                    artist={artist}
-                                    projectId={currentProject.pk}
-                                />)
-                                : <Alert>No artist selected!</Alert>
-                        }
-                    </div>
-                }
-
-                {
-                    currentProject?.assigned_artists_details?.length > 0 &&
-                    <div className="mb-4 mt-8">
-                        <label className="block mb-2 text-sm font-medium text-gray-900">Assigned Artists</label>
-                        {
-                            currentProject.assigned_artists_details?.map(artist => <AssignedArtistRow
-                                key={artist.id}
-                                artist={artist}
-                                projectId={currentProject.pk}
-                            />)
-                        }
-                    </div>
-                }
 
                 {
                     currentProject?.pk === 148 &&
@@ -159,12 +165,6 @@ const ProjectDashboard = () => {
                                     <BsFilePdf size={25} className="mr-2" />
                                     View Demo
                                 </a>
-                                {/* <div>
-                                        <iframe width="100%" height={166} scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1496260810&color=%230ea5e9&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" /><div style={{ fontSize: '10px', color: '#cccccc', lineBreak: 'anywhere', wordBreak: 'normal', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontFamily: 'Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif', fontWeight: 100 }}><a href="https://soundcloud.com/adbhut-188302011" title="Adbhut" target="_blank" style={{ color: '#cccccc', textDecoration: 'none' }}>Adbhut</a> · <a href="https://soundcloud.com/adbhut-188302011/demo-121-temp-vox-reference-nsnco-prodbykeerteesh" title="Demo 1.2.1 Temp Vox REFERENCE NsNCo ProdByKeerteesh" target="_blank" style={{ color: '#cccccc', textDecoration: 'none' }}>Demo 1.2.1 Temp Vox REFERENCE NsNCo ProdByKeerteesh</a></div>
-                                    </div>
-                                    <div>
-                                        <iframe width="100%" height={166} scrolling="no" frameBorder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1496330755&color=%230ea5e9&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" /><div style={{ fontSize: '10px', color: '#cccccc', lineBreak: 'anywhere', wordBreak: 'normal', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', fontFamily: 'Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif', fontWeight: 100 }}><a href="https://soundcloud.com/adbhut-188302011" title="Adbhut" target="_blank" style={{ color: '#cccccc', textDecoration: 'none' }}>Adbhut</a> · <a href="https://soundcloud.com/adbhut-188302011/echmkt-final-master-v2-nsnco-prodbykeerteesh" title="ECHMKT FINAL MASTER V2 NsNCo ProdByKeerteesh" target="_blank" style={{ color: '#cccccc', textDecoration: 'none' }}>ECHMKT FINAL MASTER V2 NsNCo ProdByKeerteesh</a></div>
-                                    </div> */}
                             </div>
                         </div>
                     </>
@@ -188,7 +188,7 @@ const ProjectDashboard = () => {
                     <FileUpload />
                 }
 
-            </div>
+            </div >
 
             {
                 artistRequestModal &&
@@ -197,7 +197,7 @@ const ProjectDashboard = () => {
                 </Modal>
             }
 
-        </div>
+        </div >
     );
 };
 

@@ -1,12 +1,11 @@
-import { FcCheckmark } from 'react-icons/fc'
-import { RxCross2 } from 'react-icons/rx'
 import { useSelector } from 'react-redux';
+import Badge from '../../../../Components/Badge/Badge';
 import { useRootContext } from '../../../../contexts/RootProvider';
 import { useAssignArtistMutation, useDeclineArtistMutation } from '../../../../features/artist/artistApi';
 
 const ShortlistedArtistRow = ({ artist, projectId }) => {
     const { user } = useSelector(state => state.auth);
-    const { setArtistProfile, avatar } = useRootContext();
+    const { setArtistProfile } = useRootContext();
 
     const [assignArtist, { isLoading: assignLoading }] = useAssignArtistMutation();
     const [declineArtist, { isLoading: rejectLoading }] = useDeclineArtistMutation();
@@ -19,31 +18,26 @@ const ShortlistedArtistRow = ({ artist, projectId }) => {
     }
 
     return (
-        <div className='flex items-center gap-2 text-sm bg-gray-100 p-2 mb-1 border border-blue-300 rounded-lg'>
-            <img onClick={() => setArtistProfile(artist.id)} className='w-10 h-10 rounded-full' src={avatar} alt="" />
-            <div>
-                <p onClick={() => setArtistProfile(artist.id)} className='font-medium hover:underline'>{artist.name}</p>
-                <p className='text-xs'>Status: <span className='bg-gray-400 p-0.5 px-1 rounded text-gray-50'>available</span></p>
-            </div>
-            {
-                user.email &&
-                <div className='flex ml-auto pr-2 gap-1'>
+        <tr class="text-gray-700">
+            <td class="px-4 py-3 border w-3/5">
+                <div class="flex items-center">
+                    <p onClick={() => setArtistProfile(artist?.id)} class="text-blue-700">{artist?.name}</p>
+                </div>
+            </td>
+            {user.email &&
+                <td class="px-4 py-3 text-sm border space-x-2">
                     <button type='button' onClick={handleRejectArtist}>
-                        {
-                            rejectLoading ?
-                                <Spinner />
-                                : <RxCross2 size={20} color='red' />}
+                        {rejectLoading ?
+                            <Spinner />
+                            : <Badge type="error">Reject</Badge>}
                     </button>
                     <button type='button' onClick={handleAssignArtist}>
-                        {
-                            assignLoading ?
-                                <Spinner />
-                                : <FcCheckmark size={20} />
-                        }
+                        {assignLoading ?
+                            <Spinner />
+                            : <Badge type="success">Shortlist</Badge>}
                     </button>
-                </div>
-            }
-        </div>
+                </td>}
+        </tr>
     )
 }
 
