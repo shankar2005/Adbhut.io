@@ -6,10 +6,8 @@ import ShortlistedArtistRow from './Components/ShortlistedArtistRow';
 import AssignedArtistRow from './Components/AssignedArtistRow';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetProjectQuery } from '../../../features/project/projectApi';
-import { showLogin } from '../../../features/dropdown/dropdownSlice';
-import { addChatLog, setProjectData } from '../../../features/project/projectSlice';
-import { BsFilePdf, BsFilePdfFill, BsMusicNoteBeamed } from 'react-icons/bs';
-import logo from "../../../assets/logos/adbeta.jpeg"
+import { setProjectData } from '../../../features/project/projectSlice';
+import { BsFilePdf } from 'react-icons/bs';
 
 import { DefaultPlayer as Video } from 'react-html5video';
 import 'react-html5video/dist/styles.css';
@@ -18,6 +16,8 @@ import Demo from '../../Project/Components/Demo';
 import ArtistRequest from './ArtistRequest';
 import Modal from '../../../Components/Modal/Modal';
 import Alert from '../../../Components/Badge/Alert';
+import Badge from '../../../Components/Badge/Badge';
+import TableRow from '../../../Components/Table/TableRow';
 
 const ProjectDashboard = () => {
     const { setIsModalOpen } = useRootContext();
@@ -57,9 +57,9 @@ const ProjectDashboard = () => {
             <div className="p-4">
                 <div className='mb-5 flex items-center justify-center gap-1.5'>
                     <h1 className='text-3xl font-bold font-hero text-gray-600'>{currentProject?.title}</h1>
-                    <Link to={`/projects/edit-project/${currentProject?.pk}`}>
-                        <Status>Edit</Status>
-                    </Link>
+                    {user?.email && <Link to={`/projects/edit-project/${currentProject?.pk}`}>
+                        <Badge>Edit</Badge>
+                    </Link>}
                 </div>
                 <section class="font-hero">
                     <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
@@ -67,7 +67,7 @@ const ProjectDashboard = () => {
                             <table class="w-full">
                                 <tbody class="bg-white">
                                     <TableRow label="Client" content={<>{user.email ? currentProject?.client_details?.name : "ADBHUT.IO"} <br /> <span className='bg-gray-200 px-2 text-sm rounded-full'>{user.email ? currentProject?.client_details?.email : "servicing@adbhut.io"}</span></>} />
-                                    <TableRow label="Stage" content={<Status type="success">{currentProject?.stage}</Status>} />
+                                    <TableRow label="Stage" content={<Badge type="success">{currentProject?.stage}</Badge>} />
                                     <TableRow label="Content Product" content={currentProject.template?.length > 0 && <span className="font-semibold">{currentProject?.template[1]}</span>} />
                                     <TableRow label="Production solution" content={currentProject?.production_solution} />
                                     <TableRow label="Artist discussion updates" content={currentProject?.artist_discussion_updates} />
@@ -85,20 +85,20 @@ const ProjectDashboard = () => {
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white">
-                                    <TableRow label="Assigned artist payouts" content={currentProject?.assigned_artist_payouts} />
-                                    <TableRow label="Negotiated Advance" content={currentProject?.negotiated_advance} />
-                                    <TableRow label="Final Advance" content={currentProject?.final_advance} />
-                                    <TableRow label="Post-Project Client’s Total Payout" content={currentProject?.post_project_client_total_payout} />
+                                    {user?.role === "PM" && <TableRow label="Assigned artist payouts" content={currentProject?.assigned_artist_payouts} />}
+                                    {user?.role === "PM" && <TableRow label="Negotiated Advance" content={currentProject?.negotiated_advance} />}
+                                    {user?.role === "PM" && <TableRow label="Final Advance" content={currentProject?.final_advance} />}
+                                    {user?.role === "PM" && <TableRow label="Post-Project Client’s Total Payout" content={currentProject?.post_project_client_total_payout} />}
 
                                     <TableRow label="Solution Fee" content={currentProject?.solution_fee || "WIP"} />
                                     <TableRow label="Production Advance" content={currentProject?.production_advance || "WIP"} />
 
-                                    <TableRow label="Project fee Status" content={<Status>{currentProject?.project_fee_Status || "N/A"}</Status>} />
-                                    <TableRow label="Advance Status" content={<Status>{"Pending"}</Status>} />
-                                    <TableRow label="Artist payout status" content={<Status>{currentProject?.artist_payout_status || 'N/A'}</Status>} />
+                                    <TableRow label="Project fee Status" content={<Badge>{currentProject?.project_fee_Status || "N/A"}</Badge>} />
+                                    <TableRow label="Advance Status" content={<Badge type="warning">{"Pending"}</Badge>} />
+                                    <TableRow label="Artist payout status" content={<Badge type="warning">{currentProject?.artist_payout_status || 'N/A'}</Badge>} />
 
-                                    <TableRow label="Final fee settlement" content={<Status type="success">Done</Status>} />
-                                    <TableRow label="Contract status" content={<Status type="success">Done</Status>} />
+                                    <TableRow label="Final fee settlement" content={<Badge type="error">Incomplete</Badge>} />
+                                    <TableRow label="Contract status" content={<Badge type="error">Incomplete</Badge>} />
                                 </tbody>
                             </table>
                         </div>
@@ -202,30 +202,3 @@ const ProjectDashboard = () => {
 };
 
 export default ProjectDashboard;
-
-const TableRow = ({ label, content }) => {
-    return (
-        <tr class="text-gray-700">
-            <td class="px-4 py-3 border w-3/12">
-                <div class="flex items-center text-sm">
-                    <p class="font-semibold text-black">{label}</p>
-                </div>
-            </td>
-            <td class="px-4 py-3 text-sm border">
-                <span>{content}</span>
-            </td>
-        </tr>
-    );
-};
-
-const Status = ({ type, children }) => {
-    const statusTypes = {
-        error: "text-red-700 bg-red-100",
-        success: "text-green-700 bg-green-100"
-    }
-    return (
-        <span class={`px-2 py-1 font-semibold leading-tight rounded-sm
-            ${statusTypes[type] || statusTypes.error}
-        `}>{children}</span>
-    )
-}
