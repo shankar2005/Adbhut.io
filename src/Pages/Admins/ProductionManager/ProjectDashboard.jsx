@@ -18,6 +18,7 @@ import Modal from '../../../Components/Modal/Modal';
 import Alert from '../../../Components/Badge/Alert';
 import Badge from '../../../Components/Badge/Badge';
 import TableRow from '../../../Components/Table/TableRow';
+import { IoIosArrowForward } from 'react-icons/io';
 
 const ProjectDashboard = () => {
     const { setIsModalOpen } = useRootContext();
@@ -80,15 +81,15 @@ const ProjectDashboard = () => {
 
                             <table class="w-full">
                                 <thead>
-                                    <tr class="text-md font-semibold text-left text-gray-900 bg-gray-100 border-x">
+                                    <tr class="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b">
                                         <th class="px-4 py-3 flex items-center gap-2">
                                             Shortlisted Artist
                                             <div className="flex items-center gap-1">
                                                 <Link to="/artists">
-                                                    <Badge className="border border-gray-200 bg-blue-100 text-blue-700">Add Artist</Badge>
+                                                    <Badge className="block border border-gray-200 bg-blue-100 text-blue-700">Add Artist</Badge>
                                                 </Link>
                                                 {user?.role === "PM" &&
-                                                    <Badge onClick={() => setArtistRequestModal(true)} className="border border-gray-200 bg-blue-100 text-blue-700 cursor-pointer">Request for Artist</Badge>}
+                                                    <Badge onClick={() => setArtistRequestModal(true)} className="block border border-gray-200 bg-blue-100 text-blue-700 cursor-pointer">Request for Artist</Badge>}
                                             </div>
                                         </th>
                                         <th class="px-4 py-3">Actions</th>
@@ -107,7 +108,7 @@ const ProjectDashboard = () => {
                             {currentProject.assigned_artists_details?.length > 0 &&
                                 <table class="w-full">
                                     <thead>
-                                        <tr class="text-md font-semibold text-left text-gray-900 bg-gray-100 border-x">
+                                        <tr class="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b border-gray-600">
                                             <th class="px-4 py-3">Assigned Artist</th>
                                             <th class="px-4 py-3">Actions</th>
                                         </tr>
@@ -122,6 +123,30 @@ const ProjectDashboard = () => {
                                     }</tbody>
                                 </table>
                             }
+
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b">
+                                        <th class="px-4 py-3">Demos</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white">
+                                    {currentProject?.pk === 148 &&
+                                        <tr>
+                                            <td class="px-4 py-3 text-sm border whitespace-pre-wrap">
+                                                <div className='flex flex-wrap gap-x-4 items-center text-base'>
+                                                    <a target="_blank" href="https://drive.google.com/file/d/1cwG-4RgV25jHHNaR0eUlSloqs5pM_AU1/view" className="text-blue-800 hover:text-red-900">
+                                                        ALMOND SOLUTIONS COMMERCIAL[1]
+                                                    </a>
+                                                    <a target="_blank" href="https://drive.google.com/file/d/1rF1eqirsozTPtXz2y70Q-cio-0T8ehD3/view?usp=sharing" className="text-blue-800 hover:text-red-900">
+                                                        Vishal- Almond Solutions
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
 
                             <table class="w-full">
                                 <thead>
@@ -143,8 +168,8 @@ const ProjectDashboard = () => {
                                     <TableRow label="Advance Status" content={<Badge type="warning">{"Pending"}</Badge>} />
                                     <TableRow label="Artist payout status" content={<Badge type="warning">{currentProject?.artist_payout_status || 'N/A'}</Badge>} />
 
-                                    <TableRow label="Final fee settlement" content={<Badge type="error">Incomplete</Badge>} />
-                                    <TableRow label="Contract status" content={<Badge type="error">Incomplete</Badge>} />
+                                    {user?.role === "PM" && <TableRow label="Final fee settlement" content={<Badge type="error">Incomplete</Badge>} />}
+                                    {user?.role === "PM" && <TableRow label="Contract status" content={<Badge type="error">Incomplete</Badge>} />}
                                 </tbody>
                             </table>
                         </div>
@@ -152,39 +177,7 @@ const ProjectDashboard = () => {
                 </section>
 
                 {
-                    currentProject?.pk === 148 &&
-                    <>
-                        <div className="mb-4">
-                            <label className="text-sm font-medium text-gray-900">Demos: </label>
-                            <div className='flex gap-2 items-center'>
-                                <a target="_blank" href="https://drive.google.com/file/d/1cwG-4RgV25jHHNaR0eUlSloqs5pM_AU1/view" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
-                                    <BsFilePdf size={25} className="mr-2" />
-                                    View Demo
-                                </a>
-                                <a target="_blank" href="https://drive.google.com/file/d/1rF1eqirsozTPtXz2y70Q-cio-0T8ehD3/view?usp=sharing" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full flex items-center w-fit">
-                                    <BsFilePdf size={25} className="mr-2" />
-                                    View Demo
-                                </a>
-                            </div>
-                        </div>
-                    </>
-                }
-
-                {/* <div className="mb-4">
-                        <div className="flex justify-between mb-2">
-                            <p>Media, links and docs demos</p>
-                            <Link to={`/projects/demos/${currentProject?.pk}`}>
-                                <p className="flex items-center gap-2">{currentProject?.project_demos?.length} <IoIosArrowForward size={20} /></p>
-                            </Link>
-                        </div>
-                        <div className="flex gap-3 overflow-hidden">
-                            {
-                                currentProject?.project_demos?.slice(0, 4)?.map(demo => <Demo demo={demo} />)
-                            }
-                        </div>
-                    </div> */}
-                {
-                    user?.role === "PM" &&
+                    null && user?.role === "PM" &&
                     <FileUpload />
                 }
 
