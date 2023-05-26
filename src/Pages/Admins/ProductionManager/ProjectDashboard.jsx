@@ -172,72 +172,66 @@ const ProjectDashboard = () => {
         <div className='bg-white rounded-b-lg shadow-lg'>
             <form id='projectForm' onSubmit={handleSubmit(onSubmit)}>
                 <div className="p-4">
-                    <div className="mb-4">
-                        <Input
-                            type="text"
-                            name="title"
-                            label="Project Title"
+                    <h1 className='text-center text-3xl font-bold font-hero mb-5 text-gray-600'>{currentProject?.title}</h1>
+                    <section class="font-hero">
+                        <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
+                            <div class="w-full overflow-x-auto">
+                                <table class="w-full">
+                                    <tbody class="bg-white">
+                                        <TableRow
+                                            label="Client"
+                                            content={<>
+                                                {user.email ? currentProject?.client_details?.name : "ADBHUT.IO"} <br />
+                                                <span className='bg-gray-200 px-2 text-sm rounded-full'>{user.email ? currentProject?.client_details?.email : "servicing@adbhut.io"}</span>
+                                            </>}
+                                        />
+                                        <TableRow label="Stage" content={<Status type="success">{currentProject?.stage}</Status>} />
+                                        <TableRow label="Content Product" content={currentProject.template?.length > 0 && <span className="font-semibold">{currentProject?.template[1]}</span>} />
+                                        <TableRow label="Production solution" content={currentProject?.production_solution} />
+                                        <TableRow label="Artist discussion updates" content={currentProject?.artist_discussion_updates} />
+                                        {/* <TableRow label="Project Reference Links" content={JSON.parse(currentProject?.reference_links)} /> */}
+                                        <TableRow label="Client Briefing" content={currentProject?.post_project_client_feedback} />
+                                    </tbody>
+                                </table>
+                                <table class="w-full">
+                                    <thead>
+                                        <tr class="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b border-gray-600">
+                                            <th class="px-4 py-3">Estimate Fee #</th>
+                                            <th class="px-4 py-3">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white">
+                                        <TableRow label="Solution Fee" content={currentProject?.solution_fee || "WIP"} />
+                                        <TableRow label="Production Advance" content={currentProject?.production_advance || "WIP"} />
+                                        <TableRow label="Project fee Status" content={<Status>{currentProject?.project_fee_Status || "N/A"}</Status>} />
+                                        <TableRow label="Advance Status" content={<Status>{"Pending"}</Status>} />
+                                        <TableRow label="Artist payout status" content={<Status>{currentProject?.artist_payout_status || 'N/A'}</Status>} />
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+
+
+
+
+                    {/* <div className="mb-4">
+                        <Textarea
+                            name="production_solution"
+                            label="Production solution"
+                            placeholder="Production solution"
                             register={register}
-                            disabled={!user.email}
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="block mb-2 text-sm font-medium text-gray-900">Creator</label>
-                        <div className='flex items-center gap-2 rounded'>
-                            <div className='relative'>
-                                <img className='w-10 border rounded-full' src={user.email ? avatar : logo} alt="" />
-                            </div>
-                            <div className='text-sm'>
-                                <p className="font-medium">{user.email ? currentProject?.client_details?.name : "ADBHUT.IO"}</p>
-                                <p className='bg-gray-200 px-2 text-xs rounded-full'>{user.email ? currentProject?.client_details?.email : "servicing@adbhut.io"}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='flex gap-4'>
-                        <div className="mb-4 flex items-center gap-2">
-                            <label className="text-sm font-medium text-gray-900">Stage: </label>
-                            <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-blue-200 rounded-full'>{currentProject?.stage}</p>
-                        </div>
-                        <div className="mb-4 flex items-center gap-2">
-                            <label className="text-sm font-medium text-gray-900">Content Product: </label>
-                            <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-blue-200 rounded-full'>{currentProject.template?.length > 0 && currentProject?.template[1]}</p>
-                        </div>
-                    </div>
-
-                    {
-                        user.role === "Client" || !user.email ?
-                            currentProject?.production_solution
-                            && <div className="mb-4">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">Production solution</label>
-                                <p className='rounded p-3 text-sm bg-sky-100 font-sans'>{currentProject?.production_solution}</p>
-                            </div>
-                            : <div className="mb-4">
-                                <Textarea
-                                    name="production_solution"
-                                    label="Production solution"
-                                    placeholder="Production solution"
-                                    register={register}
-                                />
-                            </div>
-                    }
-
-                    {
-                        user.role === "Client" || !user.email ?
-                            currentProject?.artist_discussion_updates
-                            && <div className="mb-4">
-                                <label className="block mb-2 text-sm font-medium text-gray-900">Artist discussion updates</label>
-                                <p className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-sky-100 font-sans'>{currentProject?.artist_discussion_updates}</p>
-                            </div>
-                            : <div className="mb-4">
-                                <Textarea
-                                    name="artist_discussion_updates"
-                                    label="Artist discussion updates"
-                                    placeholder="Artist discussion updates"
-                                    register={register}
-                                />
-                            </div>
-                    }
-
+                        <Textarea
+                            name="artist_discussion_updates"
+                            label="Artist discussion updates"
+                            placeholder="Artist discussion updates"
+                            register={register}
+                        />
+                    </div> */}
 
 
                     {
@@ -280,16 +274,8 @@ const ProjectDashboard = () => {
                         </div>
                     }
 
-                    {
-                        currentProject?.reference_links?.startsWith("[") && currentProject?.reference_links?.endsWith("]") &&
-                        JSON.parse(currentProject?.reference_links)?.length > 0 &&
-                        <div className="mb-4">
-                            <label className="text-sm font-medium text-gray-900">Project Reference Links: </label>
-                            <ul className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-yellow-100 font-sans mt-2'>
-                                {JSON.parse(currentProject?.reference_links)}
-                            </ul>
-                        </div>
-                    }
+                    {/* {urrentProject?.reference_links?.startsWith("[") && currentProject?.reference_links?.endsWith("]") &&
+                        JSON.parse(currentProject?.reference_links)?.length > 0 &&} */}
 
                     {
                         currentProject?.pk === 148 &&
@@ -334,149 +320,85 @@ const ProjectDashboard = () => {
                         <FileUpload />
                     }
 
-                    {
-                        currentProject?.post_project_client_feedback
-                        && <div className="mb-4">
-                            <label className="block mb-2 text-sm font-medium text-gray-900">Client Briefing: </label>
-                            <p className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-yellow-100 font-sans'>{currentProject?.post_project_client_feedback}</p>
-                        </div>
-                    }
-
-                </div>
-
-                <div className='border-y py-3 px-4 mb-4 text-gray-400 text-sm font-medium bg-gray-100'>
-                    Project Fee
                 </div>
 
                 {/* project cost */}
                 {
-                    user.role === "Client" || !user.email ?
-                        <div className='px-4 grid grid-cols-2 gap-2'>
-                            <div className='col-span-2 mb-4'>
-                                <table className="min-w-full text-sm">
-                                    <thead className="bg-gray-200">
-                                        <tr className="text-left">
-                                            <th className="p-3">Estimate Fee #</th>
-                                            <th className="p-3 text-right">Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr className="border-b border-opacity-20 border-gray-700">
-                                            <td className="p-3">
-                                                <p>Solution Fee</p>
-                                            </td>
-                                            <td className="p-3 text-right">
-                                                <p>{currentProject?.solution_fee || "WIP"}</p>
-                                            </td>
-                                        </tr>
-                                        <tr className="border-b border-opacity-20 border-gray-700">
-                                            <td className="p-3">
-                                                <p>Production Advance</p>
-                                            </td>
-                                            <td className="p-3 text-right">
-                                                <p>{currentProject?.production_advance || "WIP"}</p>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            {
-                                user.email &&
-                                <>
-                                    <div className="mb-5 flex items-center gap-2">
-                                        <label className="text-sm font-medium text-gray-900">Project fee Status:</label>
-                                        <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-blue-200 rounded-full'>{currentProject?.project_fee_Status || "N/A"}</p>
-                                    </div>
-                                    <div className="mb-5 flex items-center gap-2">
-                                        <label className="block text-sm font-medium text-gray-900">Advance Status:</label>
-                                        <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-gray-200 rounded-full'>Pending</p>
-                                    </div>
-                                </>
-                            }
+                    user.role === "PM" &&
+                    <div className='px-4 grid grid-cols-2 gap-2'>
+                        <div className="mb-4">
+                            <Input
+                                type="number"
+                                name="assigned_artist_payouts"
+                                label="Assigned artist payouts"
+                                placeholder="Enter amount"
+                                register={register}
+                                min={0}
+                            />
                         </div>
-                        :
-                        <div className='px-4 grid grid-cols-2 gap-2'>
-                            <div className="mb-4">
-                                <Input
-                                    type="number"
-                                    name="assigned_artist_payouts"
-                                    label="Assigned artist payouts"
-                                    placeholder="Enter amount"
-                                    register={register}
-                                    min={0}
-                                />
-                            </div>
-                            <div className="mb-4">
-                                <Input
-                                    type="number"
-                                    name="solution_fee"
-                                    label="Solution Fee"
-                                    placeholder="Enter amount"
-                                    register={register}
-                                    min={0}
-                                    disabled={true}
-                                    className="cursor-not-allowed"
-                                />
-                            </div>
-                            <div className="mb-4">
-                                <Input
-                                    type="number"
-                                    name="production_advance"
-                                    label="Production Advance"
-                                    placeholder="Enter amount"
-                                    register={register}
-                                    min={0}
-                                    disabled={true}
-                                    className="cursor-not-allowed"
-                                />
-                            </div>
-                            <div className="mb-4">
-                                <Input
-                                    type="number"
-                                    name="negotiated_advance"
-                                    label="Negotiated Advance"
-                                    placeholder="Enter amount"
-                                    register={register}
-                                    min={0}
-                                />
-                            </div>
-                            <div className="mb-4">
-                                <Input
-                                    type="number"
-                                    name="final_advance"
-                                    label="Final Advance"
-                                    placeholder="Enter amount"
-                                    register={register}
-                                    min={0}
-                                />
-                            </div>
-                            <div className="mb-4">
-                                <Input
-                                    type="number"
-                                    name="post_project_client_total_payout"
-                                    label="Post-Project Client’s Total Payout"
-                                    placeholder="Enter amount"
-                                    register={register}
-                                    min={0}
-                                />
-                            </div>
-                            <div className="mb-4 flex items-center gap-2">
-                                <label className="block text-sm font-medium text-gray-900">Advance Status:</label>
-                                <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-gray-200 rounded-full'>{currentProject?.advance_status || 'N/A'}</p>
-                            </div>
-                            <div className="mb-4 flex items-center gap-2">
-                                <label className="block text-sm font-medium text-gray-900">Artist payout status: </label>
-                                <p className='whitespace-nowrap w-fit py-1 px-3 border text-sm text-gray-500 border-gray-300 bg-gray-200 rounded-full'>{currentProject?.artist_payout_status || 'N/A'}</p>
-                            </div>
-                            <div className="col-span-2 flex items-center">
-                                <input {...register("final_fee_settlement_status")} id="final_fee_settlement_status" type="checkbox" className="w-4 h-4 text-blue-600 rounded ring-offset-gray-800 bg-gray-700 border-gray-600" defaultChecked={currentProject?.final_fee_settlement_status} />
-                                <label htmlFor="final_fee_settlement_status" className="ml-2 text-sm font-medium text-gray-900">Final fee settlement</label>
-                            </div>
-                            <div className="col-span-2 flex items-center mb-4">
-                                <input {...register("contract_status")} id="contract_status" type="checkbox" className="w-4 h-4 text-blue-600 rounded ring-offset-gray-800 bg-gray-700 border-gray-600" defaultChecked={currentProject?.contract_status} />
-                                <label htmlFor="contract_status" className="ml-2 text-sm font-medium text-gray-900">Contract status</label>
-                            </div>
+                        <div className="mb-4">
+                            <Input
+                                type="number"
+                                name="solution_fee"
+                                label="Solution Fee"
+                                placeholder="Enter amount"
+                                register={register}
+                                min={0}
+                                disabled={true}
+                                className="cursor-not-allowed"
+                            />
                         </div>
+                        <div className="mb-4">
+                            <Input
+                                type="number"
+                                name="production_advance"
+                                label="Production Advance"
+                                placeholder="Enter amount"
+                                register={register}
+                                min={0}
+                                disabled={true}
+                                className="cursor-not-allowed"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <Input
+                                type="number"
+                                name="negotiated_advance"
+                                label="Negotiated Advance"
+                                placeholder="Enter amount"
+                                register={register}
+                                min={0}
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <Input
+                                type="number"
+                                name="final_advance"
+                                label="Final Advance"
+                                placeholder="Enter amount"
+                                register={register}
+                                min={0}
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <Input
+                                type="number"
+                                name="post_project_client_total_payout"
+                                label="Post-Project Client’s Total Payout"
+                                placeholder="Enter amount"
+                                register={register}
+                                min={0}
+                            />
+                        </div>
+                        <div className="col-span-2 flex items-center">
+                            <input {...register("final_fee_settlement_status")} id="final_fee_settlement_status" type="checkbox" className="w-4 h-4 text-blue-600 rounded ring-offset-gray-800 bg-gray-700 border-gray-600" defaultChecked={currentProject?.final_fee_settlement_status} />
+                            <label htmlFor="final_fee_settlement_status" className="ml-2 text-sm font-medium text-gray-900">Final fee settlement</label>
+                        </div>
+                        <div className="col-span-2 flex items-center mb-4">
+                            <input {...register("contract_status")} id="contract_status" type="checkbox" className="w-4 h-4 text-blue-600 rounded ring-offset-gray-800 bg-gray-700 border-gray-600" defaultChecked={currentProject?.contract_status} />
+                            <label htmlFor="contract_status" className="ml-2 text-sm font-medium text-gray-900">Contract status</label>
+                        </div>
+                    </div>
                 }
 
                 <div className='p-4 pt-0 space-x-2 flex'>
@@ -530,3 +452,30 @@ const ProjectDashboard = () => {
 };
 
 export default ProjectDashboard;
+
+const TableRow = ({ label, content }) => {
+    return (
+        <tr class="text-gray-700">
+            <td class="px-4 py-3 border w-3/12">
+                <div class="flex items-center text-sm">
+                    <p class="font-semibold text-black">{label}</p>
+                </div>
+            </td>
+            <td class="px-4 py-3 text-sm border">
+                <span>{content}</span>
+            </td>
+        </tr>
+    );
+};
+
+const Status = ({ type, children }) => {
+    const statusTypes = {
+        error: "text-red-700 bg-red-100",
+        success: "text-green-700 bg-green-100"
+    }
+    return (
+        <span class={`px-2 py-1 font-semibold leading-tight rounded-sm
+            ${statusTypes[type] || statusTypes.error}
+        `}>{children}</span>
+    )
+}

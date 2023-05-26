@@ -72,7 +72,7 @@ const Root = () => {
                 <div onClick={() => dispatch(closeAllDropdown())} className={`${!searchAndFilterModal && !locationDropdown && !loginModal && !accountModal && !skillDropdown && 'hidden'} fixed left-0 top-0 h-screen w-screen`}></div>
                 {/* bg unfocused layer */}
 
-                <aside className={`hidden md:block col-span-5 ${showToolkit ? "lg:col-span-4" : "lg:col-span-5"} sticky top-20`}>
+                <aside className={`hidden md:block col-span-4 sticky top-20`}>
                     {
                         user?.role === "AM"
                             ? <FilterArtist />
@@ -82,7 +82,7 @@ const Root = () => {
 
 
 
-                <div className={`col-span-7 ${showToolkit ? "lg:col-span-5" : "lg:col-span-7"} relative`}>
+                <div className={`col-span-7 ${showToolkit ? "lg:col-span-5" : "lg:col-span-8"} relative`}>
 
 
                     {/* togglebar */}
