@@ -26,7 +26,7 @@ const ChatHeading = ({ isON, setIsON }) => {
     const pathname = useLocation().pathname;
 
     return (
-        <div className='hidden md:flex border-b shadow-sm p-2 rounded-t-lg items-center justify-between'>
+        <div className='flex border-b shadow-sm p-2 rounded-t-lg items-center justify-between'>
             <div className='flex gap-1 justify-between items-center w-full p-1.5'>
                 <h1 className="font-medium">Servicing Chat</h1>
                 {

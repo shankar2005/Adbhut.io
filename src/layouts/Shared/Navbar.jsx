@@ -39,9 +39,9 @@ const Navbar = ({ setShowToolkit }) => {
     };
 
     return (
-        <nav className='bg-white shadow-md sticky top-0 z-50'>
+        <nav className='bg-white border-b sticky top-0 z-50 py-2 h-[57px]'>
             <div className='w-11/12 max-w-screen-xl mx-auto flex items-center justify-between'>
-                <div className='flex items-center gap-8 py-3'>
+                <div className='flex items-center gap-8'>
                     <Link to="/" className='md:hidden'>
                         <img src={adbhutGIF} className='w-28 md:w-32' />
                     </Link>
@@ -54,7 +54,7 @@ const Navbar = ({ setShowToolkit }) => {
                         {/* skill, location, advance search used to place here */}
                     </div>
                 </div>
-                <ul className='flex items-center gap-4 text-gray-500 flex-1 py-3 justify-end'>
+                <ul className='flex items-center gap-4 text-gray-500 flex-1 justify-end'>
                     {
                         user?.role === "PM" && <Link to="/projects/inbox" className="relative text-sm hover:text-blue-600">
                             <SlEnvolope size={20} />

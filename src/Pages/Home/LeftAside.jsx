@@ -214,7 +214,7 @@ const LeftAside = () => {
     }, []);
 
     return (
-        <section className={`bg-white shadow-md rounded-b-lg md:rounded-lg ${pathname === "/" ? "h-[500px]" : "h-[calc(100vh-10.7rem)] md:h-[calc(100vh-6.5rem)]"} flex flex-col justify-between`}>
+        <section className={`bg-white shadow-md rounded-b-lg ${pathname === "/" ? "h-[500px]" : "h-[calc(100vh-10.7rem)] md:h-[calc(100vh-6.5rem)]"} flex flex-col justify-between`}>
             <ChatHeading isON={isON} setIsON={setIsON} />
             <div ref={chatboxRef} className='h-full overflow-y-scroll overflow-x-hidden relative flex flex-col justify-between'>
                 <div className='flex flex-col p-3 gap-5 mb-3'>

@@ -1,24 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useRootContext } from '../../../contexts/RootProvider';
 import { Link, useParams } from 'react-router-dom';
-import { AiOutlinePlus } from 'react-icons/ai';
 import ShortlistedArtistRow from './Components/ShortlistedArtistRow';
 import AssignedArtistRow from './Components/AssignedArtistRow';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetProjectQuery } from '../../../features/project/projectApi';
 import { setProjectData } from '../../../features/project/projectSlice';
-import { BsFilePdf } from 'react-icons/bs';
 
-import { DefaultPlayer as Video } from 'react-html5video';
-import 'react-html5video/dist/styles.css';
 import FileUpload from './Components/FileUpload';
-import Demo from '../../Project/Components/Demo';
 import ArtistRequest from './ArtistRequest';
 import Modal from '../../../Components/Modal/Modal';
-import Alert from '../../../Components/Badge/Alert';
 import Badge from '../../../Components/Badge/Badge';
 import TableRow from '../../../Components/Table/TableRow';
-import { IoIosArrowForward } from 'react-icons/io';
 
 const ProjectDashboard = () => {
     const { setIsModalOpen } = useRootContext();
@@ -84,13 +77,14 @@ const ProjectDashboard = () => {
                                     <tr class="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b">
                                         <th class="px-4 py-3 flex items-center gap-2">
                                             Shortlisted Artist
-                                            <div className="flex items-center gap-1">
-                                                <Link to="/artists">
-                                                    <Badge className="block border border-gray-200 bg-blue-100 text-blue-700">Add Artist</Badge>
-                                                </Link>
-                                                {user?.role === "PM" &&
-                                                    <Badge onClick={() => setArtistRequestModal(true)} className="block border border-gray-200 bg-blue-100 text-blue-700 cursor-pointer">Request for Artist</Badge>}
-                                            </div>
+                                            {user?.email &&
+                                                <div className="flex items-center gap-1">
+                                                    <Link to="/artists">
+                                                        <Badge className="block border border-gray-200 bg-blue-100 text-blue-700">Add Artist</Badge>
+                                                    </Link>
+                                                    {user?.role === "PM" &&
+                                                        <button onClick={() => setArtistRequestModal(true)}><Badge className="block border border-gray-200 bg-blue-100 text-blue-700">Request for Artist</Badge></button>}
+                                                </div>}
                                         </th>
                                         <th class="px-4 py-3">Actions</th>
                                     </tr>

@@ -31,7 +31,7 @@ const RightAside = () => {
     if (user?.role === "AM") {
         return (
             <>
-                <div className='bg-white rounded-lg'>
+                <div className='bg-white rounded-b-lg'>
                     <section className='border-b'>
                         <div className='border-b shadow-sm font-medium p-3.5'>
                             <h3>Toolkit</h3>
@@ -67,7 +67,7 @@ const RightAside = () => {
 
     return (
         <>
-            <div className='bg-white rounded-lg'>
+            <div className='bg-white rounded-b-lg'>
                 <section className='border-b'>
                     <div className='border-b shadow-sm font-medium p-3.5'>
                         <h3>Toolkit</h3>

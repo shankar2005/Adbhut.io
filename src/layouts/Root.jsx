@@ -67,12 +67,12 @@ const Root = () => {
 
             <Navbar setShowToolkit={setShowToolkit} />
 
-            <div className='w-11/12 max-w-screen-xl mx-auto md:grid grid-cols-12 gap-5 items-start mt-5 pb-5'>
+            <div className='w-11/12 max-w-screen-xl mx-auto md:grid grid-cols-12 gap-3 items-start pb-5'>
                 {/* bg unfocused layer */}
                 <div onClick={() => dispatch(closeAllDropdown())} className={`${!searchAndFilterModal && !locationDropdown && !loginModal && !accountModal && !skillDropdown && 'hidden'} fixed left-0 top-0 h-screen w-screen`}></div>
                 {/* bg unfocused layer */}
 
-                <aside className={`hidden md:block col-span-4 sticky top-20`}>
+                <aside className={`hidden md:block col-span-4 sticky top-[57px]`}>
                     {
                         user?.role === "AM"
                             ? <FilterArtist />
@@ -100,7 +100,7 @@ const Root = () => {
                 </div>
 
 
-                <aside className={`${showToolkit || "hidden"} col-span-3 sticky top-20 rightSide max-h-[88vh] overflow-y-scroll pb-5`}>
+                <aside className={`${showToolkit || "hidden"} col-span-3 sticky top-[57px] rightSide max-h-[88vh] overflow-y-scroll pb-5`}>
                     <div className='hidden md:block'>
                         <RightAside />
                     </div>
