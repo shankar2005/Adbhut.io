@@ -46,22 +46,22 @@ const TopToggleBar = ({ className }) => {
     }
 
     return (
-        <section className={`sticky top-[57px] w-full z-30 bg-white shadow ${className || ""}`}>
+        <section className={`sticky top-[57px] w-full z-30 bg-white border-b border-gray-200 shadow-sm ${className || ""}`}>
             <div className="flex justify-between items-center">
                 <nav className="flex items-center gap-2" aria-label="Breadcrumb">
                     <div className='space-y-1'>
                         <h4 className='font-sans font-medium p-2 px-3'>{
                             currentProject?.pk
                                 ? currentProject.title?.length > 30 ? currentProject.title?.slice(0, 30) + '...' : currentProject.title
-                                : "New Project"
+                                : "Create a Project"
                         }</h4>
-                        <ol className="inline-flex items-center">
-                            <li className="md:hidden flex items-center gap-2 bg-gray-100 p-2 border-t-2 border-t-blue-600 border">
+                        <ol className="flex items-center">
+                            <li className="md:hidden flex items-center gap-2 bg-gray-100 p-2 border-t-2 border-t-blue-600 border-x">
                                 <Link to="/projects/chat" className="relative text-sm hover:text-blue-600">
                                     Chat
                                 </Link>
                             </li>
-                            <li className="bg-gray-100 p-2 border-t-2 border-t-blue-600 border">
+                            <li className="bg-gray-100 p-2 border-t-2 border-t-blue-600 border-x">
                                 <div className="flex items-center">
                                     <Link to={
                                         currentProject?.pk ? `/projects/${currentProject?.pk}` : "/projects/create-project"
