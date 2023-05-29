@@ -3,9 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDeleteProjectMutation, useGetProjectQuery, useUpdateProjectMutation } from '../../../features/project/projectApi';
-import { useSendMessageToGPTMutation } from '../../../features/chat/chatApi';
 import { showLogin } from '../../../features/dropdown/dropdownSlice';
-import { addChatLog, clearProject } from '../../../features/project/projectSlice';
+import { clearProject } from '../../../features/project/projectSlice';
 import PageLoader from '../../../Components/Loader/PageLoader';
 import Badge from '../../../Components/Badge/Badge';
 import TableRow from '../../../Components/Table/TableRow';
@@ -15,9 +14,7 @@ import { useRootContext } from '../../../contexts/RootProvider';
 const EditProject = () => {
     const dispatch = useDispatch();
     const [updateProject, { isLoading: updateProjectLoading }] = useUpdateProjectMutation();
-    const [sendMessage] = useSendMessageToGPTMutation();
     const { user } = useSelector(state => state.auth);
-    const { chatLog } = useSelector(state => state.project);
 
     const { id } = useParams();
     const { data: currentProject = {}, refetch, isLoading: getProjectLoading } = useGetProjectQuery(id);
@@ -68,22 +65,6 @@ const EditProject = () => {
             id: currentProject.pk,
             data: formData
         })
-            .then(response => {
-                const data = response.data;
-                if (formData.post_project_client_feedback) {
-                    // send assignment to the chatbox
-                    if (user.role === "Client") {
-                        // chatlog
-                        const message = { msgID: chatLog.length + 1, user: data.post_project_client_feedback };
-                        dispatch(addChatLog(message));
-                        // send message api
-                        sendMessage({
-                            project_id: currentProject.pk,
-                            message: message
-                        })
-                    }
-                }
-            })
     }
 
     return (
