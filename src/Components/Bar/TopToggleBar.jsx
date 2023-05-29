@@ -1,35 +1,17 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 import { useRootContext } from '../../contexts/RootProvider';
 import Cta from '../../Pages/Home/Components/Cta';
-import { useDeleteProjectMutation } from '../../features/project/projectApi';
-import { toast } from 'react-hot-toast';
-import { clearProject } from '../../features/project/projectSlice';
 
 const TopToggleBar = ({ className }) => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
     const currentProject = useSelector(state => state.project);
     const { user } = useSelector(state => state.auth);
-    const [deleteProject] = useDeleteProjectMutation();
 
-    const { setViewAs, suggestions, removedSkills, setSuggestions, setRemovedSkill } = useRootContext();
+    const { setViewAs, suggestions, removedSkills } = useRootContext();
     const pathname = useLocation().pathname;
 
     const handleViewAs = e => {
         setViewAs(e.target.value);
-    }
-
-    const handleDeleteProject = () => {
-        deleteProject(currentProject.pk)
-            .then(data => {
-                toast.success(data.data.message);
-                dispatch(clearProject());
-                setSuggestions([]);
-                setRemovedSkill([]);
-                navigate("/projects/create-project");
-            });
     }
 
     // shows only on artists route

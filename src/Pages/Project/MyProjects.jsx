@@ -1,10 +1,12 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useSelector } from 'react-redux';
 import FeedCardSkeleton from '../../Components/Skeleton/FeedCardSkeleton';
 import { useGetCurrentProjectsQuery } from '../../features/project/projectApi';
 import ProjectCard from './ProjectCard';
 
 const MyProjects = () => {
-    const { data: projects, isSuccess } = useGetCurrentProjectsQuery();
+    const { user } = useSelector(state => state.auth);
+    const { data: projects, isSuccess } = useGetCurrentProjectsQuery(null, { skip: !user?.email });
 
     const fetchMoreData = () => { }
 
@@ -17,7 +19,7 @@ const MyProjects = () => {
         >
             {
                 isSuccess &&
-                projects.map(project => <ProjectCard projectId={project.pk} />)
+                projects.map(project => <ProjectCard key={project.pk} projectId={project.pk} />)
             }
         </InfiniteScroll>
     );

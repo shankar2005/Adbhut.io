@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useGetProjectQuery, useUpdateProjectMutation } from '../../../features/project/projectApi';
+import { useDeleteProjectMutation, useGetProjectQuery, useUpdateProjectMutation } from '../../../features/project/projectApi';
 import { useSendMessageToGPTMutation } from '../../../features/chat/chatApi';
 import { showLogin } from '../../../features/dropdown/dropdownSlice';
-import { addChatLog } from '../../../features/project/projectSlice';
+import { addChatLog, clearProject } from '../../../features/project/projectSlice';
 import PageLoader from '../../../Components/Loader/PageLoader';
 import Badge from '../../../Components/Badge/Badge';
 import TableRow from '../../../Components/Table/TableRow';
+import { toast } from 'react-hot-toast';
+import { useRootContext } from '../../../contexts/RootProvider';
 
 const EditProject = () => {
     const dispatch = useDispatch();
@@ -211,6 +213,8 @@ const EditProject = () => {
                 </div>
             </form>
 
+            <ProjectActions projectId={currentProject?.pk} />
+
             {
                 (updateProjectLoading || getProjectLoading) &&
                 <PageLoader />
@@ -247,3 +251,27 @@ const Input = ({
         />
     );
 };
+
+const ProjectActions = ({ projectId }) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [deleteProject] = useDeleteProjectMutation();
+    const { setSuggestions, setRemovedSkill } = useRootContext();
+
+    const handleDeleteProject = () => {
+        deleteProject(projectId)
+            .then(data => {
+                toast.success(data.data.message);
+                dispatch(clearProject());
+                setSuggestions([]);
+                setRemovedSkill([]);
+                navigate("/projects/myprojects");
+            });
+    }
+
+    return (
+        <div className="p-4 pt-1">
+            <button type="button" onClick={handleDeleteProject}><Badge type="error">Delete</Badge></button>
+        </div>
+    )
+}

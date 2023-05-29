@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { useRootContext } from '../../../contexts/RootProvider';
 import { useToggleChatGPTMutation } from '../../../features/chat/chatApi';
 
 const ChatHeading = ({ isON, setIsON }) => {

@@ -113,7 +113,6 @@ const CreateProject = () => {
                             <select name="project_template" onChange={e => {
                                 const content = JSON.parse(e.target.value);
                                 handleSelectContentProduct(content);
-                                navigate("/artists");
                             }} className="input bg-gray-50">
                                 <option selected>Select content product</option>
                                 {

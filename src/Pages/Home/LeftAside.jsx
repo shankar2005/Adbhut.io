@@ -5,40 +5,25 @@ import { BsFillMicFill, BsImageFill } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
 import { useRootContext } from '../../contexts/RootProvider';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import nsnlogo from '../../assets/logos/adbeta.jpeg';
-import ChatHeading from './Chat/ChatHeading';
-import TypingIndicator from '../../Components/TypingIndicator';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSendMessageMutation, useSendMessageToGPTMutation } from '../../features/chat/chatApi';
-import { useCreateProjectMutation, useUpdateProjectMutation, useUploadDemoMutation } from '../../features/project/projectApi';
-import { showLogin } from '../../features/dropdown/dropdownSlice';
-import { addChatLog, setChatLog } from '../../features/project/projectSlice';
-import GetProjectReference from './Chat/GetProjectReference';
-import { RiRefreshLine } from 'react-icons/ri';
+import { useUploadDemoMutation } from '../../features/project/projectApi';
 import ChatCallToAction from './Components/ChatCallToAction';
 import Message from './Chat/Message';
-import { io } from 'socket.io-client';
+import MessageNew from './Chat/MessageNew';
 
 const LeftAside = () => {
-    const { handleSelectContentProduct, contentProducts, isMobile, suggestions, avatar, currentProjectRefetch } = useRootContext();
+    const { handleSelectContentProduct, contentProducts, suggestions } = useRootContext();
 
-    const dispatch = useDispatch();
-    const [createProject] = useCreateProjectMutation();
-    const [updateProject] = useUpdateProjectMutation();
-    const { user } = useSelector(state => state.auth);
+    const { user, token } = useSelector(state => state.auth);
     const currentProject = useSelector(state => state.project);
 
-    const { chatLog, shortlistedArtists, selectedContentProduct, reference_links, referenceLinksHasTaken } = useSelector(state => state.project);
-
-    const [sendMessageToGPT] = useSendMessageToGPTMutation();
-    const [sendMessage] = useSendMessageMutation();
-    const [socket, setSocket] = useState(null);
+    const { selectedContentProduct } = useSelector(state => state.project);
 
     const navigate = useNavigate();
-    const pathname = useLocation().pathname;
 
+    // auto scroll
     const chatboxRef = useRef();
     useEffect(() => {
         const chatboxElement = chatboxRef.current;
@@ -54,53 +39,11 @@ const LeftAside = () => {
         }
     }, [])
 
-    const sender = (user.role === "Client" || !user.email) ? "user" : "bot";
-
-    // send brief
-    const handleSendBrief = () => {
-        if (!user.email) {
-            return dispatch(showLogin());
-        }
-
-        if (!referenceLinksHasTaken) {
-            setShowProjectReferenceLinkInput(true);
-            return
-        }
-
-        createProject({
-            "stage": "Lead",
-            "brief": JSON.stringify(chatLog),
-            "project_template": selectedContentProduct,
-            "shortlisted_artists": shortlistedArtists,
-            "reference_links": JSON.stringify(reference_links)
-        })
-            .then(response => {
-                const data = response.data;
-                toast.success("Project created successfully!");
-                navigate(`/projects/${data.pk}/`);
-            })
-    }
-
-    // handle change stage
-    const handleChangeStage = () => {
-        if (!user.email) {
-            return dispatch(showLogin());
-        }
-        updateProject({
-            id: currentProject.pk,
-            data: { stage: "Lead" }
-        }).then(response => {
-            const data = response.data;
-            navigate(`/projects/${data?.pk}`);
-        })
-    }
-
-    const [isTyping, setIsTyping] = useState(false);
-
-    // handle Chat Input
+    // handle send message
     const userInputRef = useRef();
     const [userInputText, setuserInputText] = useState("");
-    const handleChatInput = (e) => {
+
+    const handleSendMessage = (e) => {
         setuserInputText(e.target.value);
         // on key enter submit input
         if (e.key === "Enter") {
@@ -112,72 +55,20 @@ const LeftAside = () => {
             userInputRef.current.focus();
             return;
         };
-        user?.role === "Client" && isON && setIsTyping(true);
 
-        // chatlog
-        const message = { msgID: chatLog.length + 1, [sender]: userInputText };
-        // dispatch(addChatLog(message));
+        if (isOpen(socketRef.current)) {
+            socketRef.current?.send(
+                JSON.stringify({
+                    message: userInputText,
+                })
+            );
+        };
+
         setuserInputText("");
         userInputRef.current.value = "";
-
-        if (user.email && currentProject?.pk) {
-            sendMessage({
-                project_id: currentProject.pk,
-                message: message
-            }).then(response => {
-                const data = response.data;
-                if (data?.project?.pk) {
-                    dispatch(setChatLog(JSON.parse(data?.project?.brief)));
-                    setIsTyping(false);
-                }
-            }).catch((err) => {
-                setIsTyping(false);
-            })
-        } else {
-            sendMessageToGPT({
-                message: userInputText
-            }).then(response => {
-                const data = response.data;
-                if (data?.response) {
-                    dispatch(addChatLog({ msgID: chatLog.length + 1, bot: data?.response }));
-                    setIsTyping(false);
-                }
-            }).catch((err) => {
-                setIsTyping(false);
-            })
-        }
-
-        socket.emit("sendMessage", message);
-
-        //this logic might be assist with chathome
-        if (pathname === "/") {
-            if (isMobile) {
-                navigate("/projects/chat");
-            } else {
-                navigate("/artists");
-            }
-        }
     }
 
-    let name = user.name?.length > 2 ? user.name : user.email;
-
-    const TypingElement = isTyping &&
-        <div className='text-sm flex mb-5'>
-            <img className='w-10 h-10' src={nsnlogo} alt="" />
-            <div>
-                <TypingIndicator />
-            </div>
-        </div>
-
-    const [showProjectReferenceLinkInput, setShowProjectReferenceLinkInput] = useState(false);
-
-    const [isON, setIsON] = useState(currentProject?.chatbot_status?.status === "ON");
-    useEffect(() => {
-        setIsON(currentProject?.chatbot_status?.status === "ON");
-    }, [currentProject])
-
-
-    // file uploading functionality
+    // upload files
     const [file, setFile] = useState(null);
     const [uploadDemo] = useUploadDemoMutation();
 
@@ -198,63 +89,46 @@ const LeftAside = () => {
     }
 
     // socket
-    useEffect(() => {
-        const socket = io('http://localhost:3000');
-        setSocket(socket);
+    const [messages, setMessages] = useState([]);
 
-        socket.on('getMessage', (message) => {
-            console.log(message);
-            dispatch(addChatLog(message));
+    const socketRef = useRef();
+    useEffect(() => {
+        if (currentProject?.pk && user?.email) {
+            const receiverId = user?.role === "Client" ? "47" : currentProject?.client_details?.user_id;
+            const senderToken = token;
+            const url = `wss://dev.nsnco.in/ws/chat/${receiverId}/${currentProject?.pk}/?token=${senderToken}`;
+            socketRef.current = new WebSocket(url);
+        }
+
+        socketRef.current?.addEventListener('open', () => {
+            console.log('Connection established!');
         });
 
-        // Clean up the Socket.io connection
-        return () => {
-            socket.disconnect();
-        };
-    }, []);
+        socketRef.current?.addEventListener('message', data => {
+            setMessages(JSON.parse(data?.data)?.messages);
+        });
+    }, [currentProject, user]);
+
+    function isOpen(ws) { return ws.readyState === ws.OPEN }
+    // 
 
     return (
-        <section className={`bg-white shadow-md rounded-b-lg ${pathname === "/" ? "h-[500px]" : "h-[calc(100vh-10.7rem)] md:h-[calc(100vh-6.5rem)]"} flex flex-col justify-between`}>
-            <ChatHeading isON={isON} setIsON={setIsON} />
+        <section className={`bg-white shadow-md rounded-b-lg h-[calc(100vh-10rem)] md:h-[calc(100vh-4.8rem)] flex flex-col justify-between`}>
+            <h1 className='p-4 border-b shadow-sm font-medium'>Servicing Chat</h1>
             <div ref={chatboxRef} className='h-full overflow-y-scroll overflow-x-hidden relative flex flex-col justify-between'>
-                <div className='flex flex-col p-3 gap-5 mb-3'>
-                    <Message
+                <div className='flex flex-col p-3 gap-5'>
+                    {/* <Message
                         image={nsnlogo}
                         name="Adbhut.io"
                         text="Please select any of the content product or send your inputs here to continue"
                         isOwn={user.role === "PM" || user.role === "AM"}
-                    />
+                    /> */}
                     {
-                        chatLog?.map((chat, idx) => (
-                            <div key={idx}>
-                                {chat.bot
-                                    ? <Message
-                                        image={nsnlogo}
-                                        name="Adbhut.io"
-                                        text={chat.bot}
-                                        isOwn={user.role === "AM" || user.role === "PM"}
-                                    />
-                                    : <Message
-                                        image={user?.image || avatar}
-                                        name={currentProject?.pk ? currentProject?.client_details?.name : (name || "Guest Account")}
-                                        text={chat.user}
-                                        isOwn={user.role === "Client"}
-                                    />}
-                            </div>
-                        ))
+                        messages?.map(msg => <MessageNew
+                            msg={msg}
+                            isOwn={msg.sender_email === user?.email}
+                        />)
                     }
-
-                    {/* project reference links */}
-                    {showProjectReferenceLinkInput &&
-                        <Message
-                            image={nsnlogo}
-                            name="Adbhut.io"
-                            text={<GetProjectReference setShowProjectReferenceLinkInput={setShowProjectReferenceLinkInput} />}
-                            isOwn={false}
-                        />}
-                    {/* project reference links */}
-
-                    {TypingElement}
                 </div>
 
                 <ChatCallToAction />
@@ -279,13 +153,6 @@ const LeftAside = () => {
                 }
             </div>
 
-            <div className='absolute right-8 bottom-56'>
-                {
-                    currentProject?.pk &&
-                    <button onClick={() => currentProjectRefetch()} className='active:rotate-180 duration-300 opacity-30' type="button"><RiRefreshLine size={30} /></button>
-                }
-            </div>
-
             <div className='p-3 border-t-[3px] border-gray-300'>
                 {
                     file?.name
@@ -296,7 +163,7 @@ const LeftAside = () => {
                                 document.getElementById("file-upload").value = null;
                             }} />
                         </div>
-                        : <textarea ref={userInputRef} onKeyUp={handleChatInput} className="p-2 rounded-lg bg-gray-100 w-full focus:outline-none text-sm" rows="4" placeholder='Start a briefing...'></textarea>
+                        : <textarea ref={userInputRef} onKeyUp={handleSendMessage} className="p-2 rounded-lg bg-gray-100 w-full focus:outline-none text-sm" rows="4" placeholder='Start a briefing...'></textarea>
                 }
                 <div className='flex justify-between items-center'>
                     <div className='flex gap-2'>
@@ -310,14 +177,9 @@ const LeftAside = () => {
                     </div>
                     <div className='flex items-center space-x-1'>
                         <BsFillMicFill />
-                        {
-                            file ?
-                                <button type='button' onClick={handleSubmit} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
-                                : userInputText || currentProject?.pk
-                                    ? <button onClick={handleSendUserInput} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
-                                    : (selectedContentProduct || currentProject?.pk || shortlistedArtists?.length > 0)
-                                        ? <button onClick={currentProject?.stage === "DreamProject" ? handleChangeStage : handleSendBrief} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Save</button>
-                                        : <button className='bg-gray-300 text-gray-400 py-[3px] px-3 rounded-full text-sm' disabled>Save</button>
+                        {file
+                            ? <button type='button' onClick={handleSubmit} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
+                            : <button onClick={handleSendUserInput} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
                         }
                     </div>
                 </div>
