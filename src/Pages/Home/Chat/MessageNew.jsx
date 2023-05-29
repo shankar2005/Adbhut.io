@@ -16,7 +16,7 @@ const MessageNew = ({ msg, isOwn }) => {
                         <p className='bg-sky-100 w-fit ml-auto p-2.5 rounded-bl-lg rounded-br-lg rounded-tl-lg border border-gray-200'>
                             {msg.message}
                         </p>
-                        <small className="text-gray-400 flex items-center gap-1">{format(msg.timestamp)}</small>
+                        <p className="text-gray-400 flex items-center gap-1 text-xs mt-1">{format(msg.timestamp)}</p>
                     </div>
                     {/* <img className='w-10 h-10 rounded-full' src={image} alt="" /> */}
                 </div>
@@ -37,7 +37,7 @@ const MessageNew = ({ msg, isOwn }) => {
                     <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg w-fit'>
                         {msg.message}
                     </p>
-                    <small className="text-gray-400 flex items-center gap-1">{format(msg.timestamp)}</small>
+                    <p className="text-gray-400 flex items-center gap-1 text-xs mt-1">{format(msg.timestamp)}</p>
                 </div>
             </div>
         </motion.div>

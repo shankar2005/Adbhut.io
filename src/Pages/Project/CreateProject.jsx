@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import { AiOutlineExclamationCircle, AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlinePlus } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Alert from '../../Components/Badge/Alert';
@@ -10,7 +10,6 @@ import { useGetArtistByIdQuery } from '../../features/artist/artistApi';
 import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { useCreateProjectMutation } from '../../features/project/projectApi';
 import { setClientFeedback, setReferenceLinks, setTitle } from '../../features/project/projectSlice';
-import useSendMail from '../../hooks/useSendMail';
 import AssignedArtistRow from '../Admins/ProductionManager/Components/AssignedArtistRow';
 
 const CreateProject = () => {
@@ -79,13 +78,6 @@ const CreateProject = () => {
             if (data?.pk) {
                 if (data.stage === "Lead") {
                     toast.success("Project created successfully!", { id: "createNewProject" });
-                    const template = {
-                        project_title: data?.title,
-                        client_name: data?.client_details?.name,
-                        client_email: data?.client_details?.email,
-                        project_id: data?.pk
-                    };
-                    useSendMail(template);
                 } else {
                     toast.success("Added to DreamProject!", { id: "createNewProject" });
                 }

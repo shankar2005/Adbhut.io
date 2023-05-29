@@ -116,7 +116,10 @@ const LeftAside = () => {
         <section className={`bg-white shadow-md rounded-b-lg h-[calc(100vh-10rem)] md:h-[calc(100vh-4.8rem)] flex flex-col justify-between`}>
             <h1 className='p-4 border-b shadow-sm font-medium'>Servicing Chat</h1>
             <div ref={chatboxRef} className='h-full overflow-y-scroll overflow-x-hidden relative flex flex-col justify-between'>
-                <div className='flex flex-col p-3 gap-5'>
+
+                {messages?.length < 1 && <small className='block border border-yellow-300/5 bg-yellow-100 text-yellow-700 w-fit px-2 py-1 rounded-full mx-auto mt-3'>No messages, send a message to start the conversation</small>}
+
+                <div className='flex flex-col p-3 gap-3'>
                     {/* <Message
                         image={nsnlogo}
                         name="Adbhut.io"
