@@ -12,6 +12,7 @@ import { useUploadDemoMutation } from '../../features/project/projectApi';
 import ChatCallToAction from './Components/ChatCallToAction';
 import Message from './Chat/Message';
 import MessageNew from './Chat/MessageNew';
+import { useGetProductionManagerQuery } from '../../features/chat/chatApi';
 
 const LeftAside = () => {
     const { handleSelectContentProduct, contentProducts, suggestions } = useRootContext();
@@ -89,12 +90,15 @@ const LeftAside = () => {
     }
 
     // socket
+    const { data: productionManager } = useGetProductionManagerQuery(currentProject?.pk, { skip: !currentProject?.pk });
     const [messages, setMessages] = useState([]);
+
+    console.log(productionManager);
 
     const socketRef = useRef();
     useEffect(() => {
         if (currentProject?.pk && user?.email) {
-            const receiverId = user?.role === "Client" ? "47" : currentProject?.client_details?.user_id;
+            const receiverId = user?.role === "Client" ? productionManager?.production_manager_id : currentProject?.client_details?.user_id;
             const senderToken = token;
             const url = `wss://dev.nsnco.in/ws/chat/${receiverId}/${currentProject?.pk}/?token=${senderToken}`;
             socketRef.current = new WebSocket(url);
@@ -107,7 +111,7 @@ const LeftAside = () => {
         socketRef.current?.addEventListener('message', data => {
             setMessages(JSON.parse(data?.data)?.messages);
         });
-    }, [currentProject, user]);
+    }, [currentProject, user, productionManager?.production_manager_id]);
 
     function isOpen(ws) { return ws.readyState === ws.OPEN }
     // 

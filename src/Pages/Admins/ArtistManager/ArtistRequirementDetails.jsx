@@ -10,6 +10,8 @@ import { setProjectData } from "../../../features/project/projectSlice";
 import ShortlistedArtistRow from "../ProductionManager/Components/ShortlistedArtistRow";
 import Alert from "../../../Components/Badge/Alert";
 import AssignedArtistRow from "../ProductionManager/Components/AssignedArtistRow";
+import TableRow from "../../../Components/Table/TableRow";
+import Badge from "../../../Components/Badge/Badge";
 
 const ArtistRequirementDetails = () => {
     const { id } = useParams();
@@ -39,14 +41,28 @@ const ArtistRequirementDetails = () => {
         project
     } = data || {};
 
-    const location = useLocation();
-
     const handleDelete = () => {
         const isConfirm = confirm("Are you sure want to delete this?");
         if (isConfirm) {
             deleteArtistRequest(id);
         }
     }
+
+    const { data: currentProject } = useGetProjectQuery(project_details?.id, { skip: !project_details?.id });
+    const dispatch = useDispatch();
+
+    // useEffect(() => {
+    //     if (currentProject?.pk) {
+    //         dispatch(setProjectData({
+    //             // chatLog: JSON.parse(currentProject.brief),
+    //             chatLog: [],
+    //             shortlistedArtists: currentProject.shortlisted_artists_details?.map(artist => artist.id),
+    //             selectedContentProduct: currentProject.project_template,
+    //             ...currentProject
+    //         }))
+    //         sessionStorage.setItem("CURRENT_PROJECT", currentProject.pk);
+    //     }
+    // }, [currentProject])
 
     return (
         <section>
@@ -65,165 +81,54 @@ const ArtistRequirementDetails = () => {
                 </ul>
             </div>
 
-            <div className='bg-white shadow-sm text-sm'>
-                <div className="p-3 pt-1 border-t">
-                    <div className='text-xs flex flex-wrap gap-1 my-1'>
-                        {
-                            skills_details?.map((skill, idx) => <div key={idx} className='bg-sky-400 p-1 px-2 rounded-full text-white'>{skill}</div>)
-                        }
-                    </div>
-
-                    <table className="min-w-full text-sm mt-4">
-                        <thead className="bg-gray-200">
-                            <tr className="text-left">
-                                <th className="p-2.5">Estimate Fee #</th>
-                                <th className="p-2.5 text-right">Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr className="border-b border-opacity-20 border-gray-700">
-                                <td className="p-2">
-                                    <p>Budget Range:</p>
-                                </td>
-                                <td className="p-2 text-right">
-                                    <p>{budget_range}</p>
-                                </td>
-                            </tr>
-                            <tr className="border-b border-opacity-20 border-gray-700">
-                                <td className="p-2">
-                                    <p>Production Hiring:</p>
-                                </td>
-                                <td className="p-2 text-right">
-                                    <p>{production_hiring}</p>
-                                </td>
-                            </tr>
-                            <tr className="border-b border-opacity-20 border-gray-700">
-                                <td className="p-2">
-                                    <p>Service Hiring:</p>
-                                </td>
-                                <td className="p-2 text-right">
-                                    <p>{service_hiring}</p>
-                                </td>
-                            </tr>
-                            <tr className="border-b border-opacity-20 border-gray-700">
-                                <td className="p-2">
-                                    <p>Target:</p>
-                                </td>
-                                <td className="p-2 text-right">
-                                    <p>{target}</p>
-                                </td>
-                            </tr>
-                            <tr className="border-b border-opacity-20 border-gray-700">
-                                <td className="p-2">
-                                    <p>Location:</p>
-                                </td>
-                                <td className="p-2 text-right">
-                                    <p>{location_details?.name}</p>
-                                </td>
-                            </tr>
-                            <tr className="border-b border-opacity-20 border-gray-700">
-                                <td className="p-2">
-                                    <p>Language:</p>
-                                </td>
-                                <td className="p-2 text-right">
-                                    <p>{languages_details?.join(",")}</p>
-                                </td>
-                            </tr>
+            <div class="w-full overflow-hidden rounded-lg shadow-lg font-hero">
+                <div class="w-full overflow-x-auto">
+                    <table class="w-full">
+                        <tbody class="bg-white">
+                            <TableRow label="Skills" content={skills_details?.join(",  ")} />
+                            <TableRow label="Genre" content={genre_details?.map(genre => <span key={genre?.id}>{genre.name},  </span>)} />
+                            <TableRow label="Budget Range" content={budget_range} />
+                            <TableRow label="Production Hiring" content={production_hiring} />
+                            <TableRow label="Service Hiring" content={service_hiring} />
+                            <TableRow label="Target" content={target} />
+                            <TableRow label="Location" content={location_details?.name} />
+                            <TableRow label="Language" content={languages_details?.join(",")} />
                         </tbody>
                     </table>
 
-                    {
-                        genre_details?.length > 1 &&
-                        <div className='flex flex-wrap gap-1 my-1 items-center'>
-                            <span className="font-medium">Genre: </span>
-                            {
-                                genre_details?.map(genre => <div key={genre?.id} className='text-xs bg-gray-400 p-1 px-2 rounded-full text-white'>{genre.name}</div>)
-                            }
-                        </div>
-                    }
-
-                    {
-                        <div className="space-y-4 pt-4">
-                            <div className="flex justify-between items-center">
-                                <p className="text-gray-500 font-medium">Shortlisted artist</p>
-                                <div className="flex gap-1">
-                                    <Link to={`/artists/artist-list/${project_details?.id}`} state={{ from: location }}>
-                                        <button type='button' className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add Artist <AiOutlinePlus size={18} /></button>
+                    <table class="w-full">
+                        <thead>
+                            <tr class="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b">
+                                <th class="px-4 py-3 flex items-center gap-2">
+                                    Shortlisted Artist
+                                    <Link to="/artists">
+                                        <Badge className="block border border-gray-200 bg-blue-100 text-blue-700">Add Artist</Badge>
                                     </Link>
-                                </div>
-                            </div>
-                            <div>
-                                <ProjectDetails projectId={project_details?.id} />
-                            </div>
-                        </div>
-                    }
+                                </th>
+                                <th class="px-4 py-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white">{
+                            currentProject?.shortlisted_artists_details?.map(artist => (
+                                <ShortlistedArtistRow
+                                    key={artist.id}
+                                    artist={artist}
+                                    projectId={project_details?.id}
+                                />))
+                        }</tbody>
+                    </table>
 
-                    <div className="border-t mt-3 pt-3">
-                        <button onClick={handleDelete} className="text-red-500 cursor-pointer">Delete</button>
-                    </div>
+                    <table class="w-full">
+                        <tbody class="bg-white">
+                            <TableRow label="Production solution" content={currentProject?.production_solution} />
+                            <TableRow label="Artist discussion updates" content={currentProject?.artist_discussion_updates} />
+                            <TableRow label="Client Briefing" content={currentProject?.post_project_client_feedback} />
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>
     );
 };
-
-const ProjectDetails = ({ projectId }) => {
-    const { data: currentProject } = useGetProjectQuery(projectId);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (currentProject?.pk) {
-            dispatch(setProjectData({
-                // chatLog: JSON.parse(currentProject.brief),
-                chatLog: [],
-                shortlistedArtists: currentProject.shortlisted_artists_details?.map(artist => artist.id),
-                selectedContentProduct: currentProject.project_template,
-                ...currentProject
-            }))
-            sessionStorage.setItem("CURRENT_PROJECT", currentProject.pk);
-        }
-    }, [currentProject])
-
-    return (
-        <>
-            {
-                currentProject?.shortlisted_artists_details?.length > 0 ?
-                    currentProject.shortlisted_artists_details?.map(artist => <ShortlistedArtistRow
-                        key={artist.id}
-                        artist={artist}
-                        projectId={currentProject.pk}
-                    />)
-                    : <Alert>No artist selected!</Alert>
-            }
-            {
-                currentProject?.assigned_artists_details?.length > 0 &&
-                <div className="mb-4 mt-8">
-                    <label className="block mb-2 text-sm font-medium text-gray-900">Assigned Artists</label>
-                    {
-                        currentProject.assigned_artists_details?.map(artist => <AssignedArtistRow
-                            key={artist.id}
-                            artist={artist}
-                            projectId={currentProject.pk}
-                        />)
-                    }
-                </div>
-            }
-            {
-                currentProject?.post_project_client_feedback
-                && <div className="my-4">
-                    <label className="block mb-2 text-sm font-medium text-gray-900">Client Briefing: </label>
-                    <p className='rounded-bl-lg rounded-br-lg rounded-tr-lg rounded p-3 text-sm bg-yellow-100 font-sans'>{currentProject?.post_project_client_feedback}</p>
-                </div>
-            }
-            {
-                currentProject?.production_solution
-                && <div className="mb-4">
-                    <label className="block mb-2 text-sm font-medium text-gray-900">Production solution</label>
-                    <p className='rounded p-3 text-sm bg-sky-100 font-sans'>{currentProject?.production_solution}</p>
-                </div>
-            }
-        </>
-    )
-}
 
 export default ArtistRequirementDetails;
