@@ -7,12 +7,11 @@ import { BsEmojiSmile } from 'react-icons/bs';
 import { useRootContext } from '../../contexts/RootProvider';
 import { useNavigate } from 'react-router-dom';
 import nsnlogo from '../../assets/logos/adbeta.jpeg';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useUploadDemoMutation } from '../../features/project/projectApi';
 import ChatCallToAction from './Components/ChatCallToAction';
 import Message from './Chat/Message';
 import MessageNew from './Chat/MessageNew';
-import { useGetProductionManagerQuery } from '../../features/chat/chatApi';
 
 const LeftAside = () => {
     const { handleSelectContentProduct, contentProducts, suggestions } = useRootContext();
@@ -90,18 +89,12 @@ const LeftAside = () => {
     }
 
     // socket
-    const { data: productionManager } = useGetProductionManagerQuery(currentProject?.pk, { skip: !currentProject?.pk });
     const [messages, setMessages] = useState([]);
-
-    console.log(productionManager);
 
     const socketRef = useRef();
     useEffect(() => {
-        if (currentProject?.pk && user?.email) {
-            const receiverId = user?.role === "Client" ? productionManager?.production_manager_id : currentProject?.client_details?.user_id;
-            const senderToken = token;
-            const url = `wss://dev.nsnco.in/ws/chat/${receiverId}/${currentProject?.pk}/?token=${senderToken}`;
-            socketRef.current = new WebSocket(url);
+        if (currentProject?.pk && token) {
+            socketRef.current = new WebSocket(`wss://dev.nsnco.in/ws/chat/${currentProject?.pk}/?token=${token}`);
         }
 
         socketRef.current?.addEventListener('open', () => {
@@ -111,9 +104,9 @@ const LeftAside = () => {
         socketRef.current?.addEventListener('message', data => {
             setMessages(JSON.parse(data?.data)?.messages);
         });
-    }, [currentProject, user, productionManager?.production_manager_id]);
+    }, [currentProject, token]);
 
-    function isOpen(ws) { return ws.readyState === ws.OPEN }
+    function isOpen(ws) { return ws?.readyState === ws?.OPEN }
     // 
 
     return (

@@ -22,12 +22,8 @@ const chatApi = apis.injectEndpoints({
                 method: 'PATCH',
                 body: data
             })
-        }),
-
-        getProductionManager: builder.query({
-            query: (id) => `/production_manager/${id}/`
-        }),
+        })
     }),
 });
 
-export const { useToggleChatGPTMutation, useGetProductionManagerQuery } = chatApi;
+export const { useToggleChatGPTMutation } = chatApi;
