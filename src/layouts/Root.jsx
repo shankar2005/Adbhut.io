@@ -30,13 +30,10 @@ const Root = () => {
         searchAndFilterModal,
     } = useSelector(state => state.dropdown);
 
-
     useEffect(() => {
         if (artistProfile || isModalOpen) {
-            // Add the class to the body element when the modal is open
             document.body.classList.add("overflow-hidden");
         } else {
-            // Remove the class when the modal is closed
             document.body.classList.remove("overflow-hidden");
         }
     }, [artistProfile, isModalOpen]);

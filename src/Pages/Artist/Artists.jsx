@@ -14,7 +14,7 @@ const Artists = () => {
 
     const [page, setPage] = useState(1);
     const [hasNext, setHasNext] = useState(true);
-    const { data, refetch, isLoading } = useGetArtistsQuery({ page, name: searchText });
+    const { data, refetch, isLoading } = useGetArtistsQuery({ page, search: searchText });
     const [artists, setArtists] = useState([]);
 
     const fetchMoreData = () => {

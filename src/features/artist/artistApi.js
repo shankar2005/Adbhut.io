@@ -3,7 +3,7 @@ import apis from "../apis/apis";
 const artistApi = apis.injectEndpoints({
     endpoints: (builder) => ({
         getArtists: builder.query({
-            query: ({ page, name }) => `/artist_list/?page=${page}&name=${name}`,
+            query: ({ page, search }) => `/artist_list/?page=${page}&search=${search}`,
             providesTags: ["Artists"]
         }),
         getArtistById: builder.query({

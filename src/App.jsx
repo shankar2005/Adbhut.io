@@ -13,10 +13,11 @@ import Cookies from 'universal-cookie';
 import { useVerifyUserMutation } from './features/auth/authApi';
 import { useEffect } from 'react';
 import { setLoading, setToken, setUser } from './features/auth/authSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
   const dispatch = useDispatch();
+  const { loginModal } = useSelector(state => state.dropdown);
 
   // auth/user
   // auth/user
@@ -42,6 +43,16 @@ function App() {
   // auth/user
   // auth/user
   // auth/user
+
+  // hide scrollbar
+  useEffect(() => {
+    if (loginModal) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+  }, [loginModal]);
+  // hide scrollbar
 
   return (
     <>
