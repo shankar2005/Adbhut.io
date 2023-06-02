@@ -23,15 +23,14 @@ const Artists = () => {
 
     useEffect(() => {
         if (data?.results?.length) {
-            if (searchText) {
-                setArtists(data.results);
-            } else {
-                setArtists(prevState => [...prevState, ...data.results]);
+            if (searchText && page === 1) {
+                setArtists([]);
             }
+            setArtists(prevState => [...prevState, ...data.results]);
             setHasNext(data.next);
-        } else {
-            setArtists([]);
+            return;
         }
+        setArtists([]);
     }, [data, searchText])
 
     useEffect(() => {
