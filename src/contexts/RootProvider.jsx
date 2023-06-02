@@ -154,6 +154,9 @@ const RootProvider = ({ children }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const [page, setPage] = useState(1);
+    const [artists, setArtists] = useState([]);
+
     // stored values
     const value = {
         demoType,
@@ -186,7 +189,11 @@ const RootProvider = ({ children }) => {
         setRemovedSkill,
         currentProjectRefetch,
         isModalOpen,
-        setIsModalOpen
+        setIsModalOpen,
+        page,
+        setPage,
+        artists,
+        setArtists,
     }
 
     return (

@@ -22,7 +22,7 @@ const ArtistEntry = () => {
     const [addArtist, { isSuccess: addSuccess }] = useAddArtistMutation();
     const [updateArtist, { isSuccess: updateSuccess }] = useUpdateArtistMutation();
     const { skills: skillsData } = useRootContext();
-    const {data: locations } = useGetLocationsQuery();
+    const { data: locations } = useGetLocationsQuery();
 
     const { register, handleSubmit, formState: { errors }, control, reset } = useForm();
     const onSubmit = data => {
@@ -136,7 +136,7 @@ const ArtistEntry = () => {
                             label="Select location"
                             register={register}
                             defaultOption="Choose a location"
-                            defaultValue={artistData?.location.label}
+                            defaultValue={artistData?.location?.label}
                             options={locations}
                         />
                     </div>
@@ -256,7 +256,7 @@ const ArtistEntry = () => {
                         defaultValue={artistData?.pm_notes}
                         register={register}
                     />
-                    <Button type="submit">Add Artist</Button>
+                    <Button type="submit">{artistId ? "Update Artist" : "Add Artist"}</Button>
                 </div>
             </form>
 

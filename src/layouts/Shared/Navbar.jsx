@@ -15,7 +15,7 @@ import { setSearch } from '../../features/filter/filterSlice';
 import { closeLogin, showAccount, showLogin } from '../../features/dropdown/dropdownSlice';
 
 const Navbar = ({ setShowToolkit, showToolkit }) => {
-    const { avatar, currentProjects } = useRootContext();
+    const { avatar, currentProjects, setPage, setArtists } = useRootContext();
 
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
@@ -28,6 +28,9 @@ const Navbar = ({ setShowToolkit, showToolkit }) => {
         navigate("/artists/artist-list");
         dispatch(setSearch(e.target.search.value));
         e.target.reset();
+
+        setPage(1);
+        setArtists([]);
     }
 
     const [profileImageSrc, setProfileImageSrc] = useState(user.image);

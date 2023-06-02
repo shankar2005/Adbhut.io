@@ -53,11 +53,6 @@ const RightAside = () => {
                                     Add New Artist
                                 </Link>
                             </li>
-                            <li>
-                                <Link to="/artists/artist-list" className="hover:text-blue-600">
-                                    View Artists
-                                </Link>
-                            </li>
 
                             <li className='pt-3.5 border-t flex gap-4 uppercase'>
                                 {

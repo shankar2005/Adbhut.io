@@ -50,9 +50,9 @@ const ArtistRequirement = () => {
                                 <td class="px-4 py-1 text-sm border-y whitespace-pre-wrap">
                                     <span className="bg-red-500 text-white font-bold p-0.5 rounded">12</span>
                                 </td>
-                                <td class="px-4 py-1 text-sm border-y whitespace-pre-wrap w-1/6">
+                                {/* <td class="px-4 py-1 text-sm border-y whitespace-pre-wrap w-1/6">
                                     <span className="text-blue-700">Complete</span>
-                                </td>
+                                </td> */}
                             </tr>)}
                         </tbody>
                     </table>
