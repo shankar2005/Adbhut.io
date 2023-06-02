@@ -58,6 +58,18 @@ const RightAside = () => {
                                     View Artists
                                 </Link>
                             </li>
+
+                            <li className='pt-3.5 border-t flex gap-4 uppercase'>
+                                {
+                                    user?.role == "AM" &&
+                                    <Link to="/artists/artist-list" className="hover:text-blue-600 font-medium">
+                                        View Artists
+                                    </Link>
+                                }
+                                <Link to="/artists/" className="hover:text-blue-600 font-medium">
+                                    Artist's Stream
+                                </Link>
+                            </li>
                         </ul>
                     </section>
                 </div>
@@ -154,9 +166,15 @@ const RightAside = () => {
                                 </div>
                             </Link>
                         </li>
-                        <li className='pt-3.5 border-t'>
-                            <Link to="/artists/artist-list" className="hover:text-blue-600 font-medium">
-                                View Artists
+                        <li className='pt-3.5 border-t flex gap-4 uppercase'>
+                            {
+                                user?.role == "AM" &&
+                                <Link to="/artists/artist-list" className="hover:text-blue-600 font-medium">
+                                    View Artists
+                                </Link>
+                            }
+                            <Link to="/artists/" className="hover:text-blue-600 font-medium">
+                                Artist's Stream
                             </Link>
                         </li>
                     </ul>

@@ -62,7 +62,7 @@ const Root = () => {
     return (
         <div className='bg-gray-100 min-h-screen'>
 
-            <Navbar setShowToolkit={setShowToolkit} />
+            <Navbar showToolkit={showToolkit} setShowToolkit={setShowToolkit} />
 
             <div className='w-11/12 max-w-screen-xl mx-auto md:grid grid-cols-12 gap-3 items-start pb-5'>
                 {/* bg unfocused layer */}
