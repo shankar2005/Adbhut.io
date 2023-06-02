@@ -22,7 +22,10 @@ const utilsApi = apis.injectEndpoints({
                 body: data
             })
         }),
+        getArtistCountBySkills: builder.query({
+            query: () => `/artist_count/`,
+        }),
     })
 });
 
-export const { useGetSkillsQuery, useGetLocationsQuery, useGetLanguagesQuery, useGetContentProductsQuery, useGetSkillsOnProductSelectMutation } = utilsApi;
+export const { useGetSkillsQuery, useGetLocationsQuery, useGetLanguagesQuery, useGetContentProductsQuery, useGetSkillsOnProductSelectMutation, useGetArtistCountBySkillsQuery } = utilsApi;

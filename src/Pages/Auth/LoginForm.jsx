@@ -40,7 +40,11 @@ const LoginForm = () => {
         if (userData?.status === 'success') {
             dispatch(setUser(userData.user));
             dispatch(setLoading(false));
-            navigate("/projects/myprojects");
+            if (userData.user?.role === "AM") {
+                navigate("/projects/artist-requirement");
+            } else {
+                navigate("/projects/myprojects");
+            }
             dispatch(closeLogin());
         }
     }, [userData])

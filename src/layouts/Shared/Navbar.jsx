@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { AiOutlineBars } from 'react-icons/ai';
+import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
 import { SlEnvolope } from 'react-icons/sl';
 import { useRootContext } from '../../contexts/RootProvider';
 import logo from '../../assets/logos/cn.jpeg';
@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSearch } from '../../features/filter/filterSlice';
 import { closeLogin, showAccount, showLogin } from '../../features/dropdown/dropdownSlice';
 
-const Navbar = ({ setShowToolkit }) => {
+const Navbar = ({ setShowToolkit, showToolkit }) => {
     const { avatar, currentProjects } = useRootContext();
 
     const dispatch = useDispatch();
@@ -95,7 +95,7 @@ const Navbar = ({ setShowToolkit }) => {
                             </AnimatePresence>
                         </li>
                     }
-                    <AiOutlineBars className='cursor-pointer' onClick={() => setShowToolkit(prev => !prev)} size={25} />
+                    <MdArrowBackIosNew className={`cursor-pointer ${showToolkit && "rotate-180"} duration-200`} onClick={() => setShowToolkit(prev => !prev)} size={25} />
                 </ul>
             </div>
         </nav>

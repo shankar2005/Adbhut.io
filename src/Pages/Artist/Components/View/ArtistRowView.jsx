@@ -3,7 +3,6 @@ import { FaRegEnvelope } from 'react-icons/fa';
 import { HiPhone } from 'react-icons/hi';
 import { IoLanguageSharp, IoLocationSharp } from 'react-icons/io5';
 import { useRootContext } from '../../../../contexts/RootProvider';
-import brokenImage from "../../../../assets/placeholders/broken.jpg";
 import { AiOutlineEdit, AiOutlineUserDelete } from 'react-icons/ai';
 import { useDeleteArtistMutation, useShortlistArtistMutation } from '../../../../features/artist/artistApi';
 import { useSelector } from 'react-redux';
@@ -22,7 +21,7 @@ const ArtistRowView = ({ artist }) => {
 
     const handleImageError = () => {
         setIsImageLoaded(true);
-        setImageSrc(brokenImage);
+        setImageSrc("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIHmCTU-bsYS2-57aX_wuTEU-mKKLVQUJ2nQ&usqp=CAU");
     };
 
     const handleDelete = () => {

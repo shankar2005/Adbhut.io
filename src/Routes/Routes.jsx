@@ -19,11 +19,13 @@ import RightToLeft from "./PageTransitions/RightToLeft";
 import ArtistRequirementDetails from "../Pages/Admins/ArtistManager/ArtistRequirementDetails";
 import Artists from "../Pages/Artist/Artists";
 import EditProject from "../Pages/Admins/ProductionManager/EditProject";
+import ErrorPage from "../Components/Error/ErrorPage";
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <Home />,
+        errorElement: <ErrorPage />
     },
     {
         path: '/projects',
@@ -83,7 +85,7 @@ const router = createBrowserRouter([
                 path: '/projects/artist-requirement/:id',
                 element: <ArtistRequirementDetails />,
             },
-        ]
+        ],
     },
     {
         path: '/artists',
@@ -109,8 +111,8 @@ const router = createBrowserRouter([
                 path: '/artists/edit-artist/:artistId',
                 element: <ArtistEntry />
             },
-        ]
-    }
+        ],
+    },
 ]);
 
 export default router;

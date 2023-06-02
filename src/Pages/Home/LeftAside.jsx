@@ -176,7 +176,7 @@ const LeftAside = () => {
                         <AiOutlineGif className="opacity-30" />
                     </div>
                     <div className='flex items-center space-x-1'>
-                        <BsFillMicFill />
+                        <BsFillMicFill className="opacity-30" />
                         {file
                             ? <button type='button' onClick={handleSubmit} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
                             : <button onClick={handleSendUserInput} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>

@@ -21,7 +21,7 @@ const TopToggleBar = ({ className }) => {
         return (
             <section className={`sticky top-[57px] w-full z-30 bg-white shadow ${className || ""}`}>
                 <div className="flex justify-between items-center p-4">
-                    <h4 className='font-sans font-medium text-lg'>Artist Panel</h4>
+                    <h4 className='font-sans font-medium text-lg'>Artist Manager Panel</h4>
                 </div>
             </section>
         )
