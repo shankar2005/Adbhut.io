@@ -12,14 +12,16 @@ import { useUploadDemoMutation } from '../../features/project/projectApi';
 import ChatCallToAction from './Components/ChatCallToAction';
 import Message from './Chat/Message';
 import MessageNew from './Chat/MessageNew';
+import { useChatbotStatusQuery } from '../../features/chat/chatApi';
+import ChatHeading from './Chat/ChatHeading';
 
 const LeftAside = () => {
     const { handleSelectContentProduct, contentProducts, suggestions } = useRootContext();
 
     const { user, token } = useSelector(state => state.auth);
     const currentProject = useSelector(state => state.project);
-
     const { selectedContentProduct } = useSelector(state => state.project);
+    const { data: chatbotStatus, refetch } = useChatbotStatusQuery(currentProject?.pk, { skip: !currentProject?.pk });
 
     const navigate = useNavigate();
 
@@ -60,12 +62,15 @@ const LeftAside = () => {
             socketRef.current?.send(
                 JSON.stringify({
                     message: userInputText,
+                    toggle: chatbotStatus?.status
                 })
             );
         };
 
         setuserInputText("");
         userInputRef.current.value = "";
+        // test
+        refetch();
     }
 
     // upload files
@@ -111,7 +116,7 @@ const LeftAside = () => {
 
     return (
         <section className={`bg-white shadow-md rounded-b-lg h-[calc(100vh-10rem)] md:h-[calc(100vh-4.8rem)] flex flex-col justify-between`}>
-            <h1 className='p-4 border-b shadow-sm font-medium'>Servicing Chat</h1>
+            <ChatHeading chatbotStatus={chatbotStatus} />
             <div ref={chatboxRef} className='h-full overflow-y-scroll overflow-x-hidden relative flex flex-col justify-between'>
 
                 {messages?.length < 1 && <small className='block border border-yellow-300/5 bg-yellow-100 text-yellow-700 w-fit px-2 py-1 rounded-full mx-auto mt-3'>No messages, send a message to start the conversation</small>}

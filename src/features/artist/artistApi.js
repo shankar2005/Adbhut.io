@@ -89,6 +89,9 @@ const artistApi = apis.injectEndpoints({
             }),
             invalidatesTags: ["ArtistRequests"]
         }),
+        getTotalArtist: builder.query({
+            query: () => `/total_artist/`,
+        }),
     })
 });
 
@@ -106,5 +109,6 @@ export const {
     useAddArtistRequestMutation,
     useDeleteArtistRequestMutation,
     useDeleteArtistMutation,
-    useUpdateArtistMutation
+    useUpdateArtistMutation,
+    useGetTotalArtistQuery
 } = artistApi;

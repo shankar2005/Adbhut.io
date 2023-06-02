@@ -1,11 +1,17 @@
+import { useEffect } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useToggleChatGPTMutation } from '../../../features/chat/chatApi';
 
-const ChatHeading = ({ isON, setIsON }) => {
+const ChatHeading = ({ chatbotStatus }) => {
     const currentProject = useSelector(state => state.project);
     const { user } = useSelector(state => state.auth);
     const [toggleChatGPT] = useToggleChatGPTMutation();
+    const [isON, setIsON] = useState(chatbotStatus?.status === "ON");
+    useEffect(() => {
+        setIsON(chatbotStatus?.status === "ON");
+    }, [chatbotStatus])
 
     // handle chatgpt toggle
     const handleChatgptToggle = () => {

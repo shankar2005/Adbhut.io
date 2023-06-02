@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useGetArtistRequestsQuery } from "../../../features/artist/artistApi";
+import { useGetArtistRequestsQuery, useGetTotalArtistQuery } from "../../../features/artist/artistApi";
 import { BsArrowRight } from "react-icons/bs";
 import TableRow from "../../../Components/Table/TableRow";
 import Charts from "./Charts";
@@ -8,13 +8,14 @@ import { useGetArtistCountBySkillsQuery } from "../../../features/utils/utilsApi
 const ArtistRequirement = () => {
     const { data } = useGetArtistRequestsQuery();
     const { data: skills } = useGetArtistCountBySkillsQuery();
+    const { data: totalArtist } = useGetTotalArtistQuery();
 
     return (
         <section className="font-hero">
             <div className="my-2 grid grid-cols-4 gap-2">
                 <div className="p-3 bg-white shadow-sm border-b-4 border-blue-500">
                     <p className="text-sm font-semibold">Total Artists</p>
-                    <h2 className="text-4xl font-bold text-center pt-5 pb-8">900+</h2>
+                    <h2 className="text-4xl font-bold text-center pt-5 pb-8">{totalArtist?.total_count}</h2>
                 </div>
                 <div className="p-3 bg-white shadow-sm border-b-4 border-blue-500">
                     <p className="text-sm font-semibold">Artist Requirements</p>
