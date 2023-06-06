@@ -1,14 +1,24 @@
 import { Link } from "react-router-dom";
 import { useGetArtistRequestsQuery, useGetTotalArtistQuery } from "../../../features/artist/artistApi";
 import { BsArrowRight } from "react-icons/bs";
+import { MdUpload } from "react-icons/md";
+import { RxCross1 } from "react-icons/rx";
 import TableRow from "../../../Components/Table/TableRow";
 import Charts from "./Charts";
 import { useGetArtistCountBySkillsQuery } from "../../../features/utils/utilsApi";
+import Badge from "../../../Components/Badge/Badge";
+import { DefaultPlayer as Video } from 'react-html5video';
+import { useState } from "react";
 
 const ArtistRequirement = () => {
     const { data } = useGetArtistRequestsQuery();
     const { data: skills } = useGetArtistCountBySkillsQuery();
     const { data: totalArtist } = useGetTotalArtistQuery();
+    const [isDemoShown, setIsDemoShown] = useState(false);
+    const closeDemo = () => setIsDemoShown(false);
+    const showDemo = () => setIsDemoShown(true);
+    const [sorted, setSorted] = useState(false);
+    const toggleSort = () => setSorted(prev => !prev);
 
     return (
         <section className="font-hero">
@@ -21,10 +31,48 @@ const ArtistRequirement = () => {
                     <p className="text-sm font-semibold">Artist Requirements</p>
                     <h2 className="text-4xl font-bold text-center pt-5 pb-8">{data?.length}</h2>
                 </div>
-                <div className="p-3 bg-white shadow-sm border-b-4 border-blue-500">
-                    <p className="text-sm font-semibold">Demos</p>
-                    <h2 className="text-4xl font-bold text-center pt-5 pb-8">{data?.length}</h2>
+                <div className="p-3 bg-white shadow-sm border-b-4 border-blue-500 relative">
+                    <p className="text-sm font-semibold">Ready Demos</p>
+                    <h2 className="text-4xl font-bold text-center pt-5 pb-8">4</h2>
                 </div>
+            </div>
+
+            <div className="bg-white w-full border mb-3 flex">
+                <div className="flex-1 p-3 flex flex-col">
+                    <div className="flex items-center gap-2 mb-2 border-b pb-3">
+                        <h3 className="text-lg font-semibold">Demos</h3>
+                        <Badge type="success" className="inline-flex items-center justify-between">Upload demos <MdUpload size={20} /></Badge>
+                    </div>
+                    <ul className="my-2">
+                        <li><a href="#" onClick={showDemo} className="text-blue-600 hover:underline underline-offset-2">Demo lyrics 231 last.mp4</a></li>
+                        <li><a href="#" onClick={showDemo} className="text-blue-600 hover:underline underline-offset-2">Demo lyrics 231 Demo lyrics 231 last.mp4</a></li>
+                        <li><a href="#" onClick={showDemo} className="text-blue-600 hover:underline underline-offset-2">Demo lyrimo lyrics 231 last.mp4</a></li>
+                        <li><a href="#" onClick={showDemo} className="text-blue-600 hover:underline underline-offset-2">Demo lyrics 231 last.mp4</a></li>
+                    </ul>
+                    <div className="mt-auto border-t pt-2">
+                        <Link to="/projects/readydemos" className="text-blue-600 hover:underline underline-offset-2">View All</Link>
+                    </div>
+                </div>
+
+                {
+                    isDemoShown &&
+                    <div className="flex-1 border-l p-3 pb-16 relative">
+                        <div className="w-4/6">
+                            <Video autoPlay={false} loop={false}
+                                controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}>
+                                <source src="https://res.cloudinary.com/djqnk6djr/video/upload/v1681813785/aastey_Tribe_gbr8as.mp4" type="video/webm" />
+                            </Video>
+                        </div>
+                        <div className="mt-3">
+                            <p className="font-semibold">Demo lyrics 231 Demo lyrics 231 last.mp4</p>
+                            <p>Size: 4mb</p>
+                            <p>Length: 2min</p>
+                            <p>Artist: Test Artist </p>
+                        </div>
+
+                        <RxCross1 onClick={closeDemo} className="absolute top-0 right-0 m-3 cursor-pointer" size={25} />
+                    </div>
+                }
             </div>
 
             <div class="mb-2 w-full overflow-hidden flex">
@@ -37,12 +85,16 @@ const ArtistRequirement = () => {
                         <thead className="sticky top-0">
                             <tr class="text-md text-left bg-gray-100">
                                 <th class="px-4 py-1 font-normal">Skills</th>
-                                <th class="px-4 py-1 font-normal">Artists <button className="sort-by"></button></th>
-                                <th class="px-4 py-1 font-normal">Target <button className="sort-by"></button></th>
+                                <th onClick={toggleSort} class="px-4 py-1 font-normal cursor-pointer select-none">Artists <span className="sort-by"></span></th>
+                                <th class="px-4 py-1 font-normal">Target <span className="sort-by"></span></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {skills?.map(skill => <tr>
+                            {[...skills]?.sort((a, b) => {
+                                if (sorted) {
+                                    return b.artist - a.artist
+                                }
+                            })?.map(skill => <tr>
                                 <td class="px-4 py-1 border-y">
                                     <div class="flex items-center text-sm">
                                         <p>{skill.name}</p>
@@ -52,7 +104,7 @@ const ArtistRequirement = () => {
                                     {skill.artist}
                                 </td>
                                 <td class="px-4 py-1 text-sm border-y whitespace-pre-wrap">
-                                    <span className="bg-red-500 text-white font-bold p-0.5 rounded">12</span>
+                                    {/* <span className="bg-red-500 text-white font-bold p-0.5 rounded">12</span> */}
                                 </td>
                                 {/* <td class="px-4 py-1 text-sm border-y whitespace-pre-wrap w-1/6">
                                     <span className="text-blue-700">Complete</span>

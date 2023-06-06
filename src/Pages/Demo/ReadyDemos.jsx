@@ -9,7 +9,7 @@ const ReadyDemos = () => {
         <section>
             <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
                 <div className='flex items-center gap-2 mb-3'>
-                    <img className='w-12 h-12' src="http://localhost:5173/src/assets/logos/adbeta.jpeg" alt="" />
+                    <img className='w-12 h-12' src="https://adbhut.io/assets/adbeta-a97ec0b9.jpeg" alt="" />
                     <div className='text-sm'>
                         <p className='text-base font-medium'>Adbhut.io</p>
                         <p>Ready to use Demos</p>
@@ -23,7 +23,7 @@ const ReadyDemos = () => {
             </div>
             <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
                 <div className='flex items-center gap-2 mb-3'>
-                    <img className='w-12 h-12' src="http://localhost:5173/src/assets/logos/adbeta.jpeg" alt="" />
+                    <img className='w-12 h-12' src="https://adbhut.io/assets/adbeta-a97ec0b9.jpeg" alt="" />
                     <div className='text-sm'>
                         <p className='text-base font-medium'>Adbhut.io</p>
                         <p>Ready to use Demos</p>
