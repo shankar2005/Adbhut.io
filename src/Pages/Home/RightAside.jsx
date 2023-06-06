@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { BsCheck2Square } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { clearProject, setArtist, setChatLog, setContentProduct } from '../../features/project/projectSlice';
@@ -101,6 +102,16 @@ const RightAside = () => {
                                     </div>
                                     <p className='text-[0.6rem] leading-tight'>New Project</p>
                                 </div>
+                            </SwiperSlide>
+                            <SwiperSlide>
+                                <Link to="/projects/readydemos">
+                                    <div className='group flex flex-col gap-2 items-center cursor-pointer'>
+                                        <div className='flex items-center justify-center'>
+                                            <BsCheck2Square className="group-hover:scale-110 duration-150 overflow-hidden text-green-500" size={38} />
+                                        </div>
+                                        <p className='text-[0.6rem] leading-tight'>Ready To Use</p>
+                                    </div>
+                                </Link>
                             </SwiperSlide>
                             {
                                 contentProducts?.map(content => (

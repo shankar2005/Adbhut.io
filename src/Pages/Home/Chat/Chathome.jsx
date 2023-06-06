@@ -11,7 +11,7 @@ import { useRootContext } from '../../../contexts/RootProvider';
 import { clearProject } from '../../../features/project/projectSlice';
 import nsnlogo from '../../../assets/logos/adbeta.jpeg';
 import ChatHeading from './ChatHeading';
-import { BsEmojiSmile, BsFillMicFill, BsImageFill } from 'react-icons/bs';
+import { BsCheck2Square, BsEmojiSmile, BsFillMicFill, BsImageFill } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 
 const Chathome = () => {
@@ -93,6 +93,14 @@ const Chathome = () => {
                                     <p className='text-[0.6rem] leading-tight'>New Project</p>
                                 </div>
                             </Link>
+                        </SwiperSlide>
+                        <SwiperSlide>
+                            <div className='group flex flex-col gap-2 items-center cursor-pointer'>
+                                <div className='flex items-center justify-center'>
+                                    <BsCheck2Square className="scale-110 duration-150 overflow-hidden text-green-500" size={78} />
+                                </div>
+                                <p className='text-[0.6rem] leading-tight'>Ready To Use</p>
+                            </div>
                         </SwiperSlide>
                         {
                             contentProducts?.map(content => (
