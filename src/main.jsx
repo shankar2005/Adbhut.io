@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import RootProvider from './contexts/RootProvider'
 import './styles/index.css'
+import 'react-html5video/dist/styles.css';
 
 import store from './app/store'
 import { Provider } from 'react-redux'

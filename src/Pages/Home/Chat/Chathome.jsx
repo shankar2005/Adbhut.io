@@ -95,12 +95,13 @@ const Chathome = () => {
                             </Link>
                         </SwiperSlide>
                         <SwiperSlide>
-                            <div className='group flex flex-col gap-2 items-center cursor-pointer'>
+                            <Link to="/projects/readydemos"><div className='group flex flex-col gap-2 items-center cursor-pointer'>
                                 <div className='flex items-center justify-center'>
                                     <BsCheck2Square className="scale-110 duration-150 overflow-hidden text-green-500" size={78} />
                                 </div>
                                 <p className='text-[0.6rem] leading-tight'>Ready To Use</p>
                             </div>
+                            </Link>
                         </SwiperSlide>
                         {
                             contentProducts?.map(content => (

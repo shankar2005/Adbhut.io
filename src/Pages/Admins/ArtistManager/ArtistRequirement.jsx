@@ -21,6 +21,10 @@ const ArtistRequirement = () => {
                     <p className="text-sm font-semibold">Artist Requirements</p>
                     <h2 className="text-4xl font-bold text-center pt-5 pb-8">{data?.length}</h2>
                 </div>
+                <div className="p-3 bg-white shadow-sm border-b-4 border-blue-500">
+                    <p className="text-sm font-semibold">Demos</p>
+                    <h2 className="text-4xl font-bold text-center pt-5 pb-8">{data?.length}</h2>
+                </div>
             </div>
 
             <div class="mb-2 w-full overflow-hidden flex">
@@ -28,13 +32,13 @@ const ArtistRequirement = () => {
                     <h3 className="text-xl font-semibold">Skills</h3>
                     <small className="text-sm">Artist's number listed under each skills.</small>
                 </div>
-                <div class="w-full overflow-x-auto bg-white p-3">
+                <div class="w-full overflow-x-auto bg-white h-96 border-t">
                     <table class="w-full text-sm">
-                        <thead>
+                        <thead className="sticky top-0">
                             <tr class="text-md text-left bg-gray-100">
                                 <th class="px-4 py-1 font-normal">Skills</th>
-                                <th class="px-4 py-1 font-normal">Artists</th>
-                                <th class="px-4 py-1 font-normal">Target</th>
+                                <th class="px-4 py-1 font-normal">Artists <button className="sort-by"></button></th>
+                                <th class="px-4 py-1 font-normal">Target <button className="sort-by"></button></th>
                             </tr>
                         </thead>
                         <tbody>

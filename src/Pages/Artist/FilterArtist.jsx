@@ -4,7 +4,7 @@ import Input from '../../Components/Input/Input';
 
 const FilterArtist = () => {
     return (
-        <div className='bg-white rounded-lg shadow-sm relative'>
+        <div className='bg-white rounded-b-lg shadow-sm relative'>
             <div className='absolute top-0 left-0 w-full h-full backdrop-blur-sm rounded-lg z-10 flex items-center justify-center text-xl font-bold font-hero'><span className='animate-vibrate'>Coming Soon!</span></div>
             <h1 className='p-4 border-b shadow-sm font-medium flex items-center gap-1'><BiFilterAlt className='text-blue-600' size={20} /> Filter</h1>
             <div className='p-4 space-y-4'>

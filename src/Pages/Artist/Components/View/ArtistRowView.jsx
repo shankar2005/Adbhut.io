@@ -84,7 +84,7 @@ const ArtistRowView = ({ artist }) => {
                         artist.languages?.length > 0 &&
                         <p className='flex items-center gap-2'><IoLanguageSharp /> {artist.languages.join(", ")}</p>
                     }
-                    <p className='flex items-center gap-2'><IoLocationSharp /> {artist.location}</p>
+                    {artist.location && <p className='flex items-center gap-2'><IoLocationSharp /> {artist.location}</p>}
                 </div>
             </div>
 

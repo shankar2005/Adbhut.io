@@ -7,7 +7,6 @@ import { BsCheck2Square } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { clearProject, setArtist, setChatLog, setContentProduct } from '../../features/project/projectSlice';
-import { useGetArtistRequestsQuery } from '../../features/artist/artistApi';
 
 const RightAside = () => {
     const { contentProducts, handleSelectContentProduct, currentProjects, setSuggestions, setViewAs } = useRootContext();
@@ -16,8 +15,6 @@ const RightAside = () => {
     const { user } = useSelector(state => state.auth);
     const currentProject = useSelector(state => state.project);
     const { selectedContentProduct } = useSelector(state => state.project);
-
-    const { data } = useGetArtistRequestsQuery({ skip: user?.role !== "AM" });
 
     const navigate = useNavigate();
     const navigateCreateProject = () => {
@@ -43,10 +40,7 @@ const RightAside = () => {
                         <ul className="space-y-3 font-medium text-sm">
                             <li>
                                 <Link to="/projects/artist-requirement" className="inline-flex gap-2 hover:text-blue-600">
-                                    Artist Requirements
-                                    <div className='bg-red-500 h-fit py-0.5 px-2 text-white text-xs font-medium rounded'>
-                                        {data?.length || 0}
-                                    </div>
+                                    Dashboard
                                 </Link>
                             </li>
                             <li>

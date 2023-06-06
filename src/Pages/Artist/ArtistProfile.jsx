@@ -22,7 +22,7 @@ const ArtistProfile = () => {
     const { data, isLoading } = useGetArtistByIdQuery(artistProfile);
     const {
         works_links,
-        skill: skills,
+        skills,
         social,
         manager,
         artistID,
@@ -32,7 +32,6 @@ const ArtistProfile = () => {
         social_profile,
         name,
         artist_intro,
-        profile_pic,
         profile_image,
         age,
         email,
@@ -81,7 +80,7 @@ const ArtistProfile = () => {
                         </div>
                         <div className='text-sm text-gray-600'>
                             {location?.label && <p className='flex items-center gap-1'><IoLocationSharp /> {location.label}</p>}
-                            {languages && <p className='flex items-center gap-2'><IoLanguageSharp /> {languages?.map(lang => lang.label)}</p>}
+                            {languages.length > 0 && <p className='flex items-center gap-2'><IoLanguageSharp /> {languages?.map(lang => lang.label)}</p>}
                         </div>
                         <div className='flex flex-rightwrap gap-1 text-xs font-medium mt-1'>
                             {
@@ -123,16 +122,19 @@ const ArtistProfile = () => {
                         <BsStarFill className='text-yellow-400' />
                     </div>
                 }
-                <div className="mb-4">
-                    {budget_range && <p><strong>Budget Range: </strong>{budget_range}</p>}
-                    {budget_idea && <p><strong>Budget Idea: </strong>{budget_idea}</p>}
-                    {am_notes && <p><strong>Artist Manager Notes: </strong>{am_notes}</p>}
-                    {pm_notes && <p><strong>Production Manager Notes: </strong>{pm_notes}</p>}
-                    {ctc_per_annum && <p><strong>Production Manager Notes: </strong>{ctc_per_annum}</p>}
-                </div>
+                {
+                    user?.role === "PM" || user?.role === "AM" &&
+                    <div className="mb-4">
+                        {budget_range && <p><strong>Budget Range: </strong>{budget_range}</p>}
+                        {budget_idea && <p><strong>Budget Idea: </strong>{budget_idea}</p>}
+                        {am_notes && <p><strong>Artist Manager Notes: </strong>{am_notes}</p>}
+                        {pm_notes && <p><strong>Production Manager Notes: </strong>{pm_notes}</p>}
+                        {ctc_per_annum && <p><strong>Production Manager Notes: </strong>{ctc_per_annum}</p>}
+                    </div>
+                }
 
                 {
-                    user?.role === "PM" && user?.role === "AM" &&
+                    user?.role === "PM" || user?.role === "AM" &&
                     <div className='mt-4 pt-4'>
                         <h3 className='text-xl text-gray-600 mb-4'>Contact Info</h3>
                         <div>
