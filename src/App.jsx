@@ -14,6 +14,7 @@ import { useVerifyUserMutation } from './features/auth/authApi';
 import { useEffect } from 'react';
 import { setLoading, setToken, setUser } from './features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import NoInternetConnection from './Components/NotFound/NoInternetConnection';
 
 function App() {
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ function App() {
   // hide scrollbar
 
   return (
-    <>
+    <NoInternetConnection>
       <RouterProvider router={router} />
       <Toaster
         toastOptions={{
@@ -68,7 +69,7 @@ function App() {
           duration: 1000,
         }}
       />
-    </>
+    </NoInternetConnection>
   )
 }
 
