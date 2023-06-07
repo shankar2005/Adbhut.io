@@ -15,7 +15,7 @@ const Artists = () => {
     const dispatch = useDispatch();
 
     const [hasNext, setHasNext] = useState(true);
-    const { data, refetch, isLoading } = useGetArtistsQuery({ page, search: searchText });
+    const { data, isLoading } = useGetArtistsQuery({ page, search: searchText });
 
     const fetchMoreData = () => {
         setPage(page + 1);
@@ -25,18 +25,8 @@ const Artists = () => {
         if (data?.results?.length) {
             setArtists(prevState => [...prevState, ...data.results]);
             setHasNext(data.next);
-            return;
         }
-        setArtists([]);
-    }, [data, searchText])
-
-    useEffect(() => {
-        if (!searchText) {
-            setPage(1); // Reset page when search text is cleared
-            setArtists([]); // Clear artists when search text is cleared
-            refetch();
-        }
-    }, [searchText])
+    }, [data])
 
     if (isLoading) {
         return <div className="flex items-center justify-center py-10">
@@ -49,7 +39,7 @@ const Artists = () => {
             dataLength={artists?.length}
             next={fetchMoreData}
             hasMore={hasNext}
-            // loader={<FeedCardSkeleton />}
+            loader={<>Loading...</>}
             className="min-h-[50vh]"
         >
             <SearchInfo

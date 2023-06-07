@@ -73,8 +73,8 @@ const WorkDemo = ({ demo_type, demo_link }) => {
             {
                 demo_type === "Imdb"
                 && <div className='bg-black '>
-                <iframe src={demo_link} className="mx-auto" height="430" frameBorder="0" scrolling="no" allowtransparency="true"></iframe>
-            </div>
+                    <iframe src={demo_link} className="mx-auto" height="430" frameBorder="0" scrolling="no" allowtransparency="true"></iframe>
+                </div>
             }
             {
                 demo_type === "Drop Box"

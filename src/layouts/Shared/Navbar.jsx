@@ -25,12 +25,13 @@ const Navbar = ({ setShowToolkit, showToolkit }) => {
     // handle search
     const handleSearch = (e) => {
         e.preventDefault();
+        // clear
+        setPage(1);
+        setArtists([]);
+        // clear
         navigate("/artists/artist-list");
         dispatch(setSearch(e.target.search.value));
         e.target.reset();
-
-        setPage(1);
-        setArtists([]);
     }
 
     const [profileImageSrc, setProfileImageSrc] = useState(user.image);

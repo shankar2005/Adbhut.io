@@ -107,7 +107,6 @@ const ArtistProfile = () => {
                     </div>
                 }
                 {
-                    professional_rating &&
                     <div className='flex items-center gap-1'>
                         <strong>Professional Rating - </strong>
                         <p>({professional_rating})</p>
@@ -115,7 +114,6 @@ const ArtistProfile = () => {
                     </div>
                 }
                 {
-                    attitude_rating &&
                     <div className='flex items-center gap-1'>
                         <strong>Attitude Rating - </strong>
                         <p>({attitude_rating})</p>

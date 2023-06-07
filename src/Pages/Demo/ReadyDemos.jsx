@@ -1,8 +1,4 @@
 import { DefaultPlayer as Video } from 'react-html5video';
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
-import ReactAudioPlayer from 'react-audio-player';
-
 
 const ReadyDemos = () => {
     return (
@@ -34,12 +30,6 @@ const ReadyDemos = () => {
                     controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}>
                     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="video/webm" />
                 </Video>
-                {/* <AudioPlayer
-                    autoPlay={false}
-                    src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-                    onPlay={e => console.log("onPlay")}
-                // other props here
-                /> */}
             </div>
         </section>
     );

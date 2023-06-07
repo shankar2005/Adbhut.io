@@ -3,8 +3,6 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetProjectQuery } from '../../features/project/projectApi';
 import { DefaultPlayer as Video } from 'react-html5video';
-import 'react-photo-view/dist/react-photo-view.css';
-import { PhotoProvider, PhotoView } from 'react-photo-view';
 import { ImAttachment } from 'react-icons/im';
 import { BsFilePdfFill, BsLink45Deg, BsMusicNoteBeamed, BsPlayCircle } from 'react-icons/bs';
 import { IoMdVideocam } from 'react-icons/io';
