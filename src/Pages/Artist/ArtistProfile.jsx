@@ -8,7 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import { useGetArtistByIdQuery } from '../../features/artist/artistApi';
 import { useSelector } from 'react-redux';
-import { BsBoxArrowUpRight, BsStar, BsStarFill } from 'react-icons/bs';
+import { BsStarFill } from 'react-icons/bs';
 import { HiPhone } from 'react-icons/hi';
 import { FaRegEnvelope } from 'react-icons/fa';
 import WorkDemo from './Components/View/WorkDemo';
@@ -141,6 +141,29 @@ const ArtistProfile = () => {
                         </div>
                     </div>
                 }
+
+                <div className="w-full overflow-x-auto font-hero mt-5">
+                    <table className="w-full">
+                        <thead>
+                            <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border">
+                                <th className="px-4 py-3">Work Links</th>
+                                <th className="px-4 py-3"></th>
+                            </tr>
+                        </thead>
+                        <tbody className="bg-white">
+                            {
+                                works_links?.map(link => <tr>
+                                    <td className="px-4 py-3 text-sm border w-3/12">
+                                        {link.demo_type}
+                                    </td>
+                                    <td className="px-4 py-3 text-sm border">
+                                        <a target="_blank" href={link.weblink} className="text-blue-700 hover:underline">{link.weblink}</a>
+                                    </td>
+                                </tr>)
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div className='artistProfile mt-5'>

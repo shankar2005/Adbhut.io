@@ -78,10 +78,10 @@ const ArtistRequirementDetails = () => {
                 </ul>
             </div>
 
-            <div class="w-full overflow-hidden rounded-lg shadow-lg font-hero">
-                <div class="w-full overflow-x-auto">
-                    <table class="w-full">
-                        <tbody class="bg-white">
+            <div className="w-full overflow-hidden rounded-lg shadow-lg font-hero">
+                <div className="w-full overflow-x-auto">
+                    <table className="w-full">
+                        <tbody className="bg-white">
                             <TableRow label="Skills" content={skills_details?.join(",  ")} />
                             <TableRow label="Genre" content={genre_details?.map(genre => <span key={genre?.id}>{genre.name},  </span>)} />
                             <TableRow label="Budget Range" content={budget_range} />
@@ -93,19 +93,19 @@ const ArtistRequirementDetails = () => {
                         </tbody>
                     </table>
 
-                    <table class="w-full">
+                    <table className="w-full">
                         <thead>
-                            <tr class="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b">
-                                <th class="px-4 py-3 flex items-center gap-2">
+                            <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b">
+                                <th className="px-4 py-3 flex items-center gap-2">
                                     Shortlisted Artist
                                     <Link to="/artists">
                                         <Badge className="block border border-gray-200 bg-blue-100 text-blue-700">Add Artist</Badge>
                                     </Link>
                                 </th>
-                                <th class="px-4 py-3">Actions</th>
+                                <th className="px-4 py-3">Actions</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white">{
+                        <tbody className="bg-white">{
                             currentProject?.shortlisted_artists_details?.map(artist => (
                                 <ShortlistedArtistRow
                                     key={artist.id}
@@ -115,8 +115,8 @@ const ArtistRequirementDetails = () => {
                         }</tbody>
                     </table>
 
-                    <table class="w-full">
-                        <tbody class="bg-white">
+                    <table className="w-full">
+                        <tbody className="bg-white">
                             <TableRow label="Production solution" content={currentProject?.production_solution} />
                             <TableRow label="Artist discussion updates" content={currentProject?.artist_discussion_updates} />
                             <TableRow label="Client Briefing" content={currentProject?.post_project_client_feedback} />

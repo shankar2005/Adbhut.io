@@ -13,14 +13,14 @@ const AssignedArtistRow = ({ artist, projectId }) => {
     }
 
     return (
-        <tr class="text-gray-700">
-            <td class="px-4 py-3 border w-3/5">
-                <div class="flex items-center">
-                    <p onClick={() => setArtistProfile(artist?.id)} class="text-blue-700">{artist?.name}</p>
+        <tr className="text-gray-700">
+            <td className="px-4 py-3 border w-3/5">
+                <div className="flex items-center">
+                    <p onClick={() => setArtistProfile(artist?.id)} className="text-blue-700">{artist?.name}</p>
                 </div>
             </td>
             {user?.email &&
-                <td class="px-4 py-3 text-sm border space-x-2">
+                <td className="px-4 py-3 text-sm border space-x-2">
                     <button type='button' onClick={handleUnassignArtist}>
                         <Badge type="error">Unassigned</Badge>
                     </button>

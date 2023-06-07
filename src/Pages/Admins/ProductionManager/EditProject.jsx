@@ -73,25 +73,25 @@ const EditProject = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="p-4">
                     <div className='mb-5 flex items-center justify-center gap-1.5'>
-                        <div class="relative w-fit min-w-[200px] mt-2">
+                        <div className="relative w-fit min-w-[200px] mt-2">
                             <input
                                 type="text"
                                 name="title"
-                                class="peer h-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-pink-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 text-3xl font-bold font-hero text-gray-600"
+                                className="peer h-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-pink-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 text-3xl font-bold font-hero text-gray-600"
                                 placeholder=" "
                                 {...register("title", { required: true })}
                             />
-                            <label class="after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-pink-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-pink-500 peer-focus:after:scale-x-100 peer-focus:after:border-pink-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            <label className="after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-pink-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-pink-500 peer-focus:after:scale-x-100 peer-focus:after:border-pink-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                                 Title
                             </label>
                         </div>
                         <button type="submit"><Badge type="success">Save</Badge></button>
                     </div>
-                    <section class="font-hero">
-                        <div class="w-full overflow-hidden rounded-lg shadow-lg">
-                            <div class="w-full overflow-x-auto">
-                                <table class="w-full">
-                                    <tbody class="bg-white">
+                    <section className="font-hero">
+                        <div className="w-full overflow-hidden rounded-lg shadow-lg">
+                            <div className="w-full overflow-x-auto">
+                                <table className="w-full">
+                                    <tbody className="bg-white">
                                         <TableRow label="Client" content={<>{user.email ? currentProject?.client_details?.name : "ADBHUT.IO"} <br /> <span className='bg-gray-200 px-2 text-sm rounded-full'>{user.email ? currentProject?.client_details?.email : "servicing@adbhut.io"}</span></>} />
                                         <TableRow label="Stage" content={<Badge type="success">{currentProject?.stage}</Badge>} />
                                         <TableRow label="Content Product" content={currentProject.template?.length > 0 && <span className="font-semibold">{currentProject?.template[1]}</span>} />
@@ -129,14 +129,14 @@ const EditProject = () => {
                                     </tbody>
                                 </table>
                                 {user?.role === "PM" &&
-                                    <table class="w-full">
+                                    <table className="w-full">
                                         <thead>
-                                            <tr class="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b border-gray-600">
-                                                <th class="px-4 py-3">Estimate Fee #</th>
-                                                <th class="px-4 py-3">Amount</th>
+                                            <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b border-gray-600">
+                                                <th className="px-4 py-3">Estimate Fee #</th>
+                                                <th className="px-4 py-3">Amount</th>
                                             </tr>
                                         </thead>
-                                        <tbody class="bg-white">
+                                        <tbody className="bg-white">
                                             <TableRow label="Assigned artist payouts" content={
                                                 <Input
                                                     type="number"

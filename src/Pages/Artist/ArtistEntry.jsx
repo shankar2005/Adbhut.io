@@ -199,7 +199,7 @@ const ArtistEntry = () => {
                         placeholder="Social link"
                         defaultValue={artistData?.social_links}
                         register={register}
-                        required={true}
+                        required={false}
                     />
 
                     <div className='grid grid-cols-2 gap-2'>

@@ -75,18 +75,18 @@ const ArtistRequirement = () => {
                 }
             </div>
 
-            <div class="mb-2 w-full overflow-hidden flex">
+            <div className="mb-2 w-full overflow-hidden flex">
                 <div className="bg-white p-4">
                     <h3 className="text-xl font-semibold">Skills</h3>
                     <small className="text-sm">Artist's number listed under each skills.</small>
                 </div>
-                <div class="w-full overflow-x-auto bg-white h-96 border-t">
-                    <table class="w-full text-sm">
+                <div className="w-full overflow-x-auto bg-white h-96 border-t">
+                    <table className="w-full text-sm">
                         <thead className="sticky top-0">
-                            <tr class="text-md text-left bg-gray-100">
-                                <th class="px-4 py-1 font-normal">Skills</th>
-                                <th onClick={toggleSort} class="px-4 py-1 font-normal cursor-pointer select-none">Artists <span className="sort-by"></span></th>
-                                <th class="px-4 py-1 font-normal">Target <span className="sort-by"></span></th>
+                            <tr className="text-md text-left bg-gray-100">
+                                <th className="px-4 py-1 font-normal">Skills</th>
+                                <th onClick={toggleSort} className="px-4 py-1 font-normal cursor-pointer select-none">Artists <span className="sort-by"></span></th>
+                                <th className="px-4 py-1 font-normal">Target <span className="sort-by"></span></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -95,18 +95,18 @@ const ArtistRequirement = () => {
                                     return b.artist - a.artist
                                 }
                             })?.map(skill => <tr>
-                                <td class="px-4 py-1 border-y">
-                                    <div class="flex items-center text-sm">
+                                <td className="px-4 py-1 border-y">
+                                    <div className="flex items-center text-sm">
                                         <p>{skill.name}</p>
                                     </div>
                                 </td>
-                                <td class="px-4 py-1 text-sm border-y whitespace-pre-wrap">
+                                <td className="px-4 py-1 text-sm border-y whitespace-pre-wrap">
                                     {skill.artist}
                                 </td>
-                                <td class="px-4 py-1 text-sm border-y whitespace-pre-wrap">
+                                <td className="px-4 py-1 text-sm border-y whitespace-pre-wrap">
                                     {/* <span className="bg-red-500 text-white font-bold p-0.5 rounded">12</span> */}
                                 </td>
-                                {/* <td class="px-4 py-1 text-sm border-y whitespace-pre-wrap w-1/6">
+                                {/* <td className="px-4 py-1 text-sm border-y whitespace-pre-wrap w-1/6">
                                     <span className="text-blue-700">Complete</span>
                                 </td> */}
                             </tr>)}

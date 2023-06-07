@@ -31,14 +31,14 @@ const ProjectDemos = () => {
 
     return (
         <div className='bg-white'>
-            <div class="text-sm font-medium text-center text-gray-700 border-b border-gray-200 mb-3">
-                <ul class="flex flex-wrap">
+            <div className="text-sm font-medium text-center text-gray-700 border-b border-gray-200 mb-3">
+                <ul className="flex flex-wrap">
                     {
-                        tabs?.map(tab => <li class="mr-2" onClick={() => setCurrentTab(tab)}>
+                        tabs?.map(tab => <li className="mr-2" onClick={() => setCurrentTab(tab)}>
                             {
                                 tab.name === currentTab.name
-                                    ? <span class="inline-block p-4 pb-3.5 border-b-2 rounded-t-lg active text-blue-500 border-blue-500" aria-current="page">{tab.name}</span>
-                                    : <span class="inline-block p-4 pb-3.5 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 cursor-pointer">{tab.name}</span>
+                                    ? <span className="inline-block p-4 pb-3.5 border-b-2 rounded-t-lg active text-blue-500 border-blue-500" aria-current="page">{tab.name}</span>
+                                    : <span className="inline-block p-4 pb-3.5 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 cursor-pointer">{tab.name}</span>
                             }
                         </li>)
                     }

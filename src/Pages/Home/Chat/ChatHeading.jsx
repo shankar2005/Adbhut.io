@@ -38,13 +38,13 @@ const ChatHeading = ({ chatbotStatus }) => {
                     currentProject?.pk && user?.role === "PM" && pathname !== "/" &&
                     <div className='flex flex-col items-center justify-center'>
                         <span className='text-xs font-medium'>ChatGPT Toggle</span>
-                        <label class="inline-flex space-x-2 items-center cursor-pointer">
-                            <span class="text-sm text-gray-900">OFF</span>
+                        <label className="inline-flex space-x-2 items-center cursor-pointer">
+                            <span className="text-sm text-gray-900">OFF</span>
                             <span className='relative'>
-                                <input onChange={handleChatgptToggle} checked={isON} type="checkbox" value="" class="sr-only peer" />
-                                <div class="w-9 h-5 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all border-gray-600 peer-checked:bg-blue-500"></div>
+                                <input onChange={handleChatgptToggle} checked={isON} type="checkbox" value="" className="sr-only peer" />
+                                <div className="w-9 h-5 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all border-gray-600 peer-checked:bg-blue-500"></div>
                             </span>
-                            <span class="text-sm text-gray-900">ON</span>
+                            <span className="text-sm text-gray-900">ON</span>
                         </label>
                     </div>
                 }

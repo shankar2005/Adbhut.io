@@ -56,11 +56,11 @@ const ProjectDashboard = () => {
                         <Badge type="error">Edit</Badge>
                     </Link>}
                 </div>
-                <section class="font-hero">
-                    <div class="w-full overflow-hidden rounded-lg shadow-lg">
-                        <div class="w-full overflow-x-auto">
-                            <table class="w-full">
-                                <tbody class="bg-white">
+                <section className="font-hero">
+                    <div className="w-full overflow-hidden rounded-lg shadow-lg">
+                        <div className="w-full overflow-x-auto">
+                            <table className="w-full">
+                                <tbody className="bg-white">
                                     <TableRow label="Client" content={<>{user.email ? currentProject?.client_details?.name : "ADBHUT.IO"} <br /> <span className='bg-gray-200 px-2 text-sm rounded-full'>{user.email ? currentProject?.client_details?.email : "servicing@adbhut.io"}</span></>} />
                                     <TableRow label="Stage" content={<Badge type="success">{currentProject?.stage}</Badge>} />
                                     <TableRow label="Content Product" content={currentProject.template?.length > 0 && <span className="font-semibold">{currentProject?.template[1]}</span>} />
@@ -73,10 +73,10 @@ const ProjectDashboard = () => {
                                 </tbody>
                             </table>
 
-                            <table class="w-full">
+                            <table className="w-full">
                                 <thead>
-                                    <tr class="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b">
-                                        <th class="px-4 py-3 flex items-center gap-2">
+                                    <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b">
+                                        <th className="px-4 py-3 flex items-center gap-2">
                                             Shortlisted Artist
                                             {user?.email &&
                                                 <div className="flex items-center gap-1">
@@ -87,10 +87,10 @@ const ProjectDashboard = () => {
                                                         <button onClick={() => setArtistRequestModal(true)}><Badge className="block border border-gray-200 bg-blue-100 text-blue-700">Request for Artist</Badge></button>}
                                                 </div>}
                                         </th>
-                                        <th class="px-4 py-3">Actions</th>
+                                        <th className="px-4 py-3">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white">{
+                                <tbody className="bg-white">{
                                     currentProject.shortlisted_artists_details?.map(artist => (
                                         <ShortlistedArtistRow
                                             key={artist.id}
@@ -101,14 +101,14 @@ const ProjectDashboard = () => {
                             </table>
 
                             {currentProject.assigned_artists_details?.length > 0 &&
-                                <table class="w-full">
+                                <table className="w-full">
                                     <thead>
-                                        <tr class="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b border-gray-600">
-                                            <th class="px-4 py-3">Assigned Artist</th>
-                                            <th class="px-4 py-3">Actions</th>
+                                        <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b border-gray-600">
+                                            <th className="px-4 py-3">Assigned Artist</th>
+                                            <th className="px-4 py-3">Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="bg-white">{
+                                    <tbody className="bg-white">{
                                         currentProject.assigned_artists_details?.map(artist => (
                                             <AssignedArtistRow
                                                 key={artist.id}
@@ -119,16 +119,16 @@ const ProjectDashboard = () => {
                                 </table>
                             }
 
-                            <table class="w-full">
+                            <table className="w-full">
                                 <thead>
-                                    <tr class="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b">
-                                        <th class="px-4 py-3">Demos</th>
+                                    <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b">
+                                        <th className="px-4 py-3">Demos</th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white">
+                                <tbody className="bg-white">
                                     {currentProject?.pk === 148 &&
                                         <tr>
-                                            <td class="px-4 py-3 text-sm border whitespace-pre-wrap">
+                                            <td className="px-4 py-3 text-sm border whitespace-pre-wrap">
                                                 <div className='flex flex-wrap gap-x-4 items-center text-base'>
                                                     <a target="_blank" href="https://drive.google.com/file/d/1cwG-4RgV25jHHNaR0eUlSloqs5pM_AU1/view" className="text-blue-800 hover:text-red-900">
                                                         ALMOND SOLUTIONS COMMERCIAL[1]
@@ -143,14 +143,14 @@ const ProjectDashboard = () => {
                                 </tbody>
                             </table>
 
-                            <table class="w-full">
+                            <table className="w-full">
                                 <thead>
-                                    <tr class="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b border-gray-600">
-                                        <th class="px-4 py-3">Estimate Fee #</th>
-                                        <th class="px-4 py-3">Amount</th>
+                                    <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b border-gray-600">
+                                        <th className="px-4 py-3">Estimate Fee #</th>
+                                        <th className="px-4 py-3">Amount</th>
                                     </tr>
                                 </thead>
-                                <tbody class="bg-white">
+                                <tbody className="bg-white">
                                     {user?.role === "PM" && <TableRow label="Assigned artist payouts" content={currentProject?.assigned_artist_payouts} />}
                                     {user?.role === "PM" && <TableRow label="Negotiated Advance" content={currentProject?.negotiated_advance} />}
                                     {user?.role === "PM" && <TableRow label="Final Advance" content={currentProject?.final_advance} />}
