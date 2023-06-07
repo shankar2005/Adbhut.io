@@ -7,13 +7,16 @@ import 'react-html5video/dist/styles.css';
 
 import store from './app/store'
 import { Provider } from 'react-redux'
+import NoInternetConnection from './Components/NotFound/NoInternetConnection'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <RootProvider>
-        <App />
-      </RootProvider>
-    </Provider>
+    <NoInternetConnection>
+      <Provider store={store}>
+        <RootProvider>
+          <App />
+        </RootProvider>
+      </Provider>
+    </NoInternetConnection>
   </React.StrictMode>,
 )

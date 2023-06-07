@@ -10,7 +10,6 @@ import { SlArrowDown } from "react-icons/sl";
 import { useState } from 'react';
 import MentorSection from './Sections/MentorSection';
 import Chathome from "../Home/Chat/Chathome";
-import LeftAside from './LeftAside';
 
 const Home = () => {
     const dispatch = useDispatch();
