@@ -94,7 +94,7 @@ const ArtistRowView = ({ artist }) => {
                     <Link to={`/artists/edit-artist/${artist.id}`}>
                         <AiOutlineEdit className="cursor-pointer hover:text-blue-500" size={20} />
                     </Link>
-                    <AiOutlineUserDelete onClick={handleDelete} className="cursor-pointer hover:text-red-400" size={20} />
+                    {/* <AiOutlineUserDelete onClick={handleDelete} className="cursor-pointer hover:text-red-400" size={20} /> */}
                 </div>
             }
         </div>

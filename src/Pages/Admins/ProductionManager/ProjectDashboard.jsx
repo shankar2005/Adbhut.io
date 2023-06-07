@@ -12,6 +12,7 @@ import ArtistRequest from './ArtistRequest';
 import Modal from '../../../Components/Modal/Modal';
 import Badge from '../../../Components/Badge/Badge';
 import TableRow from '../../../Components/Table/TableRow';
+import Container from '../../../Components/Container/Container';
 
 const ProjectDashboard = () => {
     const { setIsModalOpen } = useRootContext();
@@ -47,7 +48,7 @@ const ProjectDashboard = () => {
     }, [artistRequestModal]);
 
     return (
-        <div className='bg-white rounded-b-lg shadow-lg'>
+        <Container>
             <div className="p-4">
                 <div className='mb-5 flex items-center justify-center gap-1.5'>
                     <h1 className='text-3xl font-bold font-hero text-gray-600'>{currentProject?.title}</h1>
@@ -184,7 +185,7 @@ const ProjectDashboard = () => {
                 </Modal>
             }
 
-        </div >
+        </Container >
     );
 };
 

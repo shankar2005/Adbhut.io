@@ -25,7 +25,7 @@ const ArtistProfile = () => {
         skills,
         social,
         manager,
-        artistID,
+        id,
         genre,
         language: languages,
         location,
@@ -80,7 +80,7 @@ const ArtistProfile = () => {
                         </div>
                         <div className='text-sm text-gray-600'>
                             {location?.label && <p className='flex items-center gap-1'><IoLocationSharp /> {location.label}</p>}
-                            {languages.length > 0 && <p className='flex items-center gap-2'><IoLanguageSharp /> {languages?.map(lang => lang.label)}</p>}
+                            {languages?.length > 0 && <p className='flex items-center gap-2'><IoLanguageSharp /> {languages?.map(lang => lang.label)}</p>}
                         </div>
                         <div className='flex flex-rightwrap gap-1 text-xs font-medium mt-1'>
                             {
@@ -90,9 +90,9 @@ const ArtistProfile = () => {
                     </div>
                 </div>
                 {
-                    shortlistedArtists?.includes(artistID)
+                    shortlistedArtists?.includes(id)
                         ? <button className='ml-auto text-green-600 border-2 bg-sky-100 border-sky-100 py-2.5 px-4 rounded-lg font-medium'><GiCheckMark /></button>
-                        : <button onClick={() => handleShortlist(artistID)} className='ml-auto text-blue-500 border-2 hover:border-blue-500 bg-sky-100 border-sky-100 py-3 px-4 rounded-lg font-medium z-10'>Shortlist</button>
+                        : <button onClick={() => handleShortlist(id)} className='ml-auto text-blue-500 border-2 hover:border-blue-500 bg-sky-100 border-sky-100 py-3 px-4 rounded-lg font-medium z-10'>Shortlist</button>
                 }
             </div>
 

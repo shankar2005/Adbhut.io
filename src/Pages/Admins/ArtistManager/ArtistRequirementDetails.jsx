@@ -51,18 +51,16 @@ const ArtistRequirementDetails = () => {
     const { data: currentProject } = useGetProjectQuery(project_details?.id, { skip: !project_details?.id });
     const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     if (currentProject?.pk) {
-    //         dispatch(setProjectData({
-    //             // chatLog: JSON.parse(currentProject.brief),
-    //             chatLog: [],
-    //             shortlistedArtists: currentProject.shortlisted_artists_details?.map(artist => artist.id),
-    //             selectedContentProduct: currentProject.project_template,
-    //             ...currentProject
-    //         }))
-    //         sessionStorage.setItem("CURRENT_PROJECT", currentProject.pk);
-    //     }
-    // }, [currentProject])
+    useEffect(() => {
+        if (currentProject?.pk) {
+            dispatch(setProjectData({
+                shortlistedArtists: currentProject.shortlisted_artists_details?.map(artist => artist.id),
+                selectedContentProduct: currentProject.project_template,
+                ...currentProject
+            }))
+            sessionStorage.setItem("CURRENT_PROJECT", currentProject.pk);
+        }
+    }, [currentProject])
 
     return (
         <section>

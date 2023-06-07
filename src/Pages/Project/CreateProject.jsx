@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Alert from '../../Components/Badge/Alert';
 import Button from '../../Components/Button/Button';
+import Container from '../../Components/Container/Container';
 import { useRootContext } from '../../contexts/RootProvider';
 import { useGetArtistByIdQuery } from '../../features/artist/artistApi';
 import { showLogin } from '../../features/dropdown/dropdownSlice';
@@ -91,7 +92,7 @@ const CreateProject = () => {
     const location = useLocation();
 
     return (
-        <div className='bg-white rounded-b-lg shadow-lg'>
+        <Container>
             <form>
                 <div className="p-4">
                     <div className="mb-4 items-center gap-2">
@@ -164,7 +165,7 @@ const CreateProject = () => {
                 </div>
 
             </form>
-        </div>
+        </Container>
     );
 };
 

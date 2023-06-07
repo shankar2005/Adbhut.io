@@ -10,6 +10,7 @@ import Badge from '../../../Components/Badge/Badge';
 import TableRow from '../../../Components/Table/TableRow';
 import { toast } from 'react-hot-toast';
 import { useRootContext } from '../../../contexts/RootProvider';
+import Container from '../../../Components/Container/Container';
 
 const EditProject = () => {
     const dispatch = useDispatch();
@@ -68,7 +69,7 @@ const EditProject = () => {
     }
 
     return (
-        <div className='bg-white rounded-b-lg shadow-lg'>
+        <Container>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="p-4">
                     <div className='mb-5 flex items-center justify-center gap-1.5'>
@@ -200,7 +201,7 @@ const EditProject = () => {
                 (updateProjectLoading || getProjectLoading) &&
                 <PageLoader />
             }
-        </div>
+        </Container>
     );
 };
 
