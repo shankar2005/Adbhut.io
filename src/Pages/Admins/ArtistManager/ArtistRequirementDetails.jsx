@@ -74,9 +74,8 @@ const ArtistRequirementDetails = () => {
                             <SlArrowRight />
                         </Link>
                     </li>
-                    <li className="flex-1 flex items-center justify-between gap-2 font-medium">
+                    <li className="flex-1 font-medium">
                         <p>{project_details?.name}</p>
-                        <span className='w-fit px-0.5 text-sm font-normal font-sans italic text-gray-700 bg-yellow-100'>{hiring_status || "In Progress"}</span>
                     </li>
                 </ul>
             </div>

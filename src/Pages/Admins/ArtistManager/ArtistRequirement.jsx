@@ -90,7 +90,7 @@ const ArtistRequirement = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {[...skills]?.sort((a, b) => {
+                            {skills?.length && [...skills]?.sort((a, b) => {
                                 if (sorted) {
                                     return b.artist - a.artist
                                 }
