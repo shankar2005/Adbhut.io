@@ -116,6 +116,30 @@ const ArtistRequirementDetails = () => {
                     </table>
 
                     <table className="w-full">
+                        <thead>
+                            <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b">
+                                <th className="px-4 py-3">Demos</th>
+                            </tr>
+                        </thead>
+                        <tbody className="bg-white">
+                            {currentProject?.pk === 148 &&
+                                <tr>
+                                    <td className="px-4 py-3 text-sm border whitespace-pre-wrap">
+                                        <div className='flex flex-wrap gap-x-4 items-center text-base'>
+                                            <a target="_blank" href="https://drive.google.com/file/d/1cwG-4RgV25jHHNaR0eUlSloqs5pM_AU1/view" className="text-blue-800 hover:text-red-900">
+                                                ALMOND SOLUTIONS COMMERCIAL[1]
+                                            </a>
+                                            <a target="_blank" href="https://drive.google.com/file/d/1rF1eqirsozTPtXz2y70Q-cio-0T8ehD3/view?usp=sharing" className="text-blue-800 hover:text-red-900">
+                                                Vishal- Almond Solutions
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <table className="w-full">
                         <tbody className="bg-white">
                             <TableRow label="Production solution" content={currentProject?.production_solution} />
                             <TableRow label="Artist discussion updates" content={currentProject?.artist_discussion_updates} />
