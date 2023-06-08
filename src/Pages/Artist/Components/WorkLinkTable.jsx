@@ -32,7 +32,7 @@ const WorkLinkTable = ({ works_links }) => {
                             <tr key={link.pk}>
                                 <td className="p-2 text-sm border whitespace-nowrap">
                                     {editingId === link.pk ? (
-                                        <select name="" className="border border-gray-500">
+                                        <select name="" className="border rounded">
                                             <option value={link.demo_type}>{link.demo_type}</option>
                                         </select>
                                     ) : (
@@ -44,7 +44,7 @@ const WorkLinkTable = ({ works_links }) => {
                                     {editingId === link.pk ? (
                                         <input
                                             type="text"
-                                            className="w-full border border-gray-500"
+                                            className="w-full border rounded pl-1"
                                             defaultValue={link.weblink}
                                         />
                                     ) : (

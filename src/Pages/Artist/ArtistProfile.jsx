@@ -171,7 +171,7 @@ const ArtistProfile = () => {
                     {skills?.length > 0 &&
                         <div className="p-5 bg-gray-50 border border-gray-100">
                             <p className="font-medium text-sm mb-3">Skills</p>
-                            <div className='flex flex-rightwrap gap-2 text-xs font-medium mt-1'>
+                            <div className='flex flex-wrap gap-2 text-xs font-medium mt-1'>
                                 {
                                     skills?.map(skill => <div key={skill.value} className='px-2 py-1.5 border text-gray-500 border-gray-500 rounded-lg'>{skill.label}</div>)
                                 }
@@ -180,7 +180,7 @@ const ArtistProfile = () => {
                     {genre?.length > 0 &&
                         <div className="p-5 bg-gray-50 border border-gray-100">
                             <p className="font-medium text-sm mb-3">Genre</p>
-                            <div className='flex flex-rightwrap gap-2 text-xs font-medium mt-1'>
+                            <div className='flex flex-wrap gap-2 text-xs font-medium mt-1'>
                                 {
                                     genre?.map(genre => <div key={genre.value} className='px-2 py-1.5 border text-gray-500 border-gray-500 rounded-lg'>{genre.label}</div>)
                                 }
