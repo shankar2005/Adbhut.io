@@ -11,8 +11,10 @@ import { useSelector } from 'react-redux';
 import { BsStarFill } from 'react-icons/bs';
 import { HiPhone } from 'react-icons/hi';
 import { FaRegEnvelope } from 'react-icons/fa';
+import { TbEdit } from 'react-icons/tb';
 import WorkDemo from './Components/View/WorkDemo';
 import Spinner from '../../Components/Loader/Spinner';
+import WorkLinkTable from './Components/WorkLinkTable';
 
 const ArtistProfile = () => {
     const { shortlistedArtists } = useSelector(state => state.project);
@@ -66,7 +68,7 @@ const ArtistProfile = () => {
 
     return (
         <div className='bg-white rounded-l-md p-5 shadow-xl h-screen overflow-y-scroll'>
-            <div className='flex items-start'>
+            <div className='flex items-start mb-5'>
                 <div className="flex gap-3 items-center">
                     <button onClick={() => setArtistProfile(null)} type='button'>
                         <FiArrowLeft className='w-6 h-6 text-blue-500 cursor-pointer ml-2' />
@@ -78,93 +80,116 @@ const ArtistProfile = () => {
                             ({attitude_rating})
                             <BsStarFill className='text-yellow-400' />
                         </div>
-                        <div className='text-sm text-gray-600'>
-                            {location?.label && <p className='flex items-center gap-1'><IoLocationSharp /> {location.label}</p>}
-                            {languages?.length > 0 && <p className='flex items-center gap-2'><IoLanguageSharp /> {languages?.map(lang => lang.label)}</p>}
-                        </div>
-                        <div className='flex flex-rightwrap gap-1 text-xs font-medium mt-1'>
-                            {
-                                skills?.map(skill => <div key={skill.value} className='px-1 border text-gray-500 border-gray-500 rounded-full'>{skill.label}</div>)
-                            }
-                        </div>
+                        {artist_intro && <div className='w-fit mb-2 px-0.5 text-xs font-sans text-gray-700'>{artist_intro}</div>}
                     </div>
                 </div>
                 {
                     shortlistedArtists?.includes(id)
-                        ? <button className='ml-auto text-green-600 border-2 bg-sky-100 border-sky-100 py-2.5 px-4 rounded-lg font-medium'><GiCheckMark /></button>
-                        : <button onClick={() => handleShortlist(id)} className='ml-auto text-blue-500 border-2 hover:border-blue-500 bg-sky-100 border-sky-100 py-3 px-4 rounded-lg font-medium z-10'>Shortlist</button>
+                        ? <button className='ml-auto bg-blue-500 py-2.5 px-4 text-white rounded text-sm font-hero'><GiCheckMark /></button>
+                        : <button onClick={() => handleShortlist(id)} className='ml-auto bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero'>Shortlist</button>
                 }
             </div>
 
-
-            <div className='mt-5'>
-                {artist_intro && <div className='w-fit my-1 px-0.5 text-sm font-normal font-sans italic text-gray-700 bg-yellow-100'>&#9679; {artist_intro}</div>}
-                {
-                    genre?.length > 0 &&
-                    <div className='flex flex-wrap items-center gap-1 mt-1'>
-                        <strong>Genre:</strong>
-                        {genre?.map(genre => <div key={genre.value} className='text-xs font-medium px-1 border text-gray-500 border-gray-500 rounded-full'>{genre.label}</div>)}
-                    </div>
-                }
-                {
-                    <div className='flex items-center gap-1'>
-                        <strong>Professional Rating - </strong>
-                        <p>({professional_rating})</p>
-                        <BsStarFill className='text-yellow-400' />
-                    </div>
-                }
-                {
-                    <div className='flex items-center gap-1'>
-                        <strong>Attitude Rating - </strong>
-                        <p>({attitude_rating})</p>
-                        <BsStarFill className='text-yellow-400' />
-                    </div>
-                }
-                {
-                    user?.role === "PM" || user?.role === "AM" &&
-                    <div className="mb-4">
-                        {budget_range && <p><strong>Budget Range: </strong>{budget_range}</p>}
-                        {budget_idea && <p><strong>Budget Idea: </strong>{budget_idea}</p>}
-                        {am_notes && <p><strong>Artist Manager Notes: </strong>{am_notes}</p>}
-                        {pm_notes && <p><strong>Production Manager Notes: </strong>{pm_notes}</p>}
-                        {ctc_per_annum && <p><strong>Production Manager Notes: </strong>{ctc_per_annum}</p>}
-                    </div>
-                }
-
-                {
-                    user?.role === "PM" || user?.role === "AM" &&
-                    <div className='mt-4 pt-4'>
-                        <h3 className='text-xl text-gray-600 mb-4'>Contact Info</h3>
-                        <div>
-                            {email && <p className='flex items-center gap-2'><FaRegEnvelope />{email}</p>}
-                            {phone && <p className='flex items-center gap-2'><HiPhone />{phone}</p>}
-                        </div>
-                    </div>
-                }
-
-                <div className="w-full overflow-x-auto font-hero mt-5">
-                    <table className="w-full">
-                        <thead>
-                            <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border">
-                                <th className="px-4 py-3">Work Links</th>
-                                <th className="px-4 py-3"></th>
-                            </tr>
-                        </thead>
-                        <tbody className="bg-white">
-                            {
-                                works_links?.map(link => <tr>
-                                    <td className="px-4 py-3 text-sm border w-3/12">
-                                        {link.demo_type}
+            <div className="grid grid-cols-12 gap-4 items-start">
+                <div className='col-span-8 space-y-4'>
+                    <div className='bg-gray-50 p-3 border border-gray-100'>
+                        <table className="w-full text-sm font-hero">
+                            <tbody>
+                                {location?.label && <tr>
+                                    <td className="p-2 w-3/6">Location</td>
+                                    <td className="p-2">{location.label}</td>
+                                </tr>}
+                                {languages?.length > 0 && <tr>
+                                    <td className="p-2">Language</td>
+                                    <td className="p-2">{languages?.map(lang => lang.label)}</td>
+                                </tr>}
+                                <tr>
+                                    <td className="p-2">Professional Rating</td>
+                                    <td className="p-2">
+                                        <div className='flex items-center gap-1'>
+                                            <p>({professional_rating})</p>
+                                            <BsStarFill className='text-yellow-400' />
+                                        </div>
                                     </td>
-                                    <td className="px-4 py-3 text-sm border">
-                                        <a target="_blank" href={link.weblink} className="text-blue-700 hover:underline">{link.weblink}</a>
+                                </tr>
+                                <tr>
+                                    <td className="p-2">Attitude Rating</td>
+                                    <td className="p-2">
+                                        <div className='flex items-center gap-1'>
+                                            <p>({attitude_rating})</p>
+                                            <BsStarFill className='text-yellow-400' />
+                                        </div>
                                     </td>
-                                </tr>)
-                            }
-                        </tbody>
-                    </table>
+                                </tr>
+
+                                {user?.role === "PM" || user?.role === "AM" &&
+                                    <>
+                                        {budget_range && <tr>
+                                            <td className="p-2">Budget Range</td>
+                                            <td className="p-2">{budget_range}</td>
+                                        </tr>}
+                                        {budget_idea && <tr>
+                                            <td className="p-2">Budget Idea</td>
+                                            <td className="p-2">{budget_idea}</td>
+                                        </tr>}
+                                        {am_notes && <tr>
+                                            <td className="p-2">Artist Manager Note</td>
+                                            <td className="p-2">{am_notes}</td>
+                                        </tr>}
+                                        {pm_notes && <tr>
+                                            <td className="p-2">Production Manager Note</td>
+                                            <td className="p-2">{pm_notes}</td>
+                                        </tr>}
+                                        {ctc_per_annum && <tr>
+                                            <td className="p-2">CTC Per Annum</td>
+                                            <td className="p-2">{ctc_per_annum}</td>
+                                        </tr>}
+                                    </>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {user?.role === "PM" || user?.role === "AM" &&
+                        <div className='bg-gray-50 border border-gray-100'>
+                            <table className="w-full text-sm font-hero">
+                                <tbody>
+                                    {email && <tr>
+                                        <td className="p-2 w-3/6">Email</td>
+                                        <td className="p-2">{email}</td>
+                                    </tr>}
+                                    {phone && <tr>
+                                        <td className="p-2">Phone No.</td>
+                                        <td className="p-2">{phone}</td>
+                                    </tr>}
+                                </tbody>
+                            </table>
+                        </div>}
+                </div>
+
+                <div className="col-span-4 space-y-4">
+                    {skills?.length > 0 &&
+                        <div className="p-5 bg-gray-50 border border-gray-100">
+                            <p className="font-medium text-sm mb-3">Skills</p>
+                            <div className='flex flex-rightwrap gap-2 text-xs font-medium mt-1'>
+                                {
+                                    skills?.map(skill => <div key={skill.value} className='px-2 py-1.5 border text-gray-500 border-gray-500 rounded-lg'>{skill.label}</div>)
+                                }
+                            </div>
+                        </div>}
+                    {genre?.length > 0 &&
+                        <div className="p-5 bg-gray-50 border border-gray-100">
+                            <p className="font-medium text-sm mb-3">Genre</p>
+                            <div className='flex flex-rightwrap gap-2 text-xs font-medium mt-1'>
+                                {
+                                    genre?.map(genre => <div key={genre.value} className='px-2 py-1.5 border text-gray-500 border-gray-500 rounded-lg'>{genre.label}</div>)
+                                }
+                            </div>
+                        </div>}
                 </div>
             </div>
+
+            <WorkLinkTable works_links={works_links} />
 
             <div className='artistProfile mt-5'>
                 <Swiper
