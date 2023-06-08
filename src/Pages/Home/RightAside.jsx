@@ -2,8 +2,10 @@ import { useRootContext } from '../../contexts/RootProvider';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import { Link, useNavigate } from 'react-router-dom';
-import { AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlineDashboard, AiOutlinePlus, AiOutlineUserAdd } from 'react-icons/ai';
 import { BsCheck2Square } from 'react-icons/bs';
+import { FiUsers } from 'react-icons/fi';
+import { MdOutlineRssFeed } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { clearProject, setArtist, setChatLog, setContentProduct } from '../../features/project/projectSlice';
@@ -36,28 +38,29 @@ const RightAside = () => {
                         </div>
                     </section>
 
-                    <section className='text-gray-700 p-4 border-b'>
-                        <ul className="space-y-3 font-medium text-sm">
+                    <section className='text-gray-700 p-2 border-b'>
+                        <ul className="font-medium text-sm">
                             <li>
-                                <Link to="/projects/artist-requirement" className="inline-flex gap-2 hover:text-blue-600">
-                                    Dashboard
+                                <Link to="/projects/artist-requirement" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
+                                    <AiOutlineDashboard size={20} /> Dashboard
                                 </Link>
                             </li>
                             <li>
-                                <Link to="/artists/artist-entry" className="hover:text-blue-600">
-                                    Add New Artist
+                                <Link to="/artists/artist-entry" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
+                                    <AiOutlineUserAdd size={20} /> Add New Artist
                                 </Link>
                             </li>
-
-                            <li className='pt-3.5 border-t flex gap-4 uppercase'>
+                            <li>
                                 {
                                     user?.role == "AM" &&
-                                    <Link to="/artists/artist-list" className="hover:text-blue-600 font-medium">
-                                        View Artists
+                                    <Link to="/artists/artist-list" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
+                                        <FiUsers size={20} /> View Artists
                                     </Link>
                                 }
-                                <Link to="/artists/" className="hover:text-blue-600 font-medium">
-                                    Artist's Stream
+                            </li>
+                            <li>
+                                <Link to="/artists/" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
+                                    <MdOutlineRssFeed size={20} /> Artist's Stream
                                 </Link>
                             </li>
                         </ul>
