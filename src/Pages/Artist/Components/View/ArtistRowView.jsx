@@ -3,11 +3,9 @@ import { FaRegEnvelope } from 'react-icons/fa';
 import { HiPhone } from 'react-icons/hi';
 import { IoLanguageSharp, IoLocationSharp } from 'react-icons/io5';
 import { useRootContext } from '../../../../contexts/RootProvider';
-import { AiOutlineEdit } from 'react-icons/ai';
 import { useShortlistArtistMutation } from '../../../../features/artist/artistApi';
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { GiCheckMark } from 'react-icons/gi';
 import { BsLightningChargeFill } from 'react-icons/bs';
 
 const ArtistRowView = ({ artist }) => {
@@ -50,7 +48,7 @@ const ArtistRowView = ({ artist }) => {
             </div>
             <div className='flex-1'>
                 <div>
-                    <p onClick={() => setArtistProfile(artist.id)} className='font-medium cursor-pointer w-fit '>
+                    <p onClick={() => setArtistProfile(artist.id)} className='font-medium cursor-pointer w-fit'>
                         {artist.name}
                     </p>
                     {artist?.artist_intro && <p className='w-fit mb-1 px-0.5 text-xs font-sans text-gray-700'>{artist.artist_intro}</p>}
@@ -68,9 +66,17 @@ const ArtistRowView = ({ artist }) => {
 
                 {
                     artist.skill?.length > 0 &&
-                    <div className='flex flex-wrap gap-1 text-xs font-medium mt-2'>
+                    <div className='flex items-center flex-wrap gap-1 font-medium mt-2'>
                         {
-                            artist?.skill?.map((skill, idx) => <div key={idx} className='px-1 border text-gray-500 border-gray-500 rounded-full'>{skill}</div>)
+                            artist?.skill?.map((skill, idx) => <p key={idx} className='text-xs px-2 py-1 bg-blue-500 text-white rounded-full'>{skill}</p>)
+                        }
+                    </div>
+                }
+                {
+                    artist.genre?.length > 0 &&
+                    <div className='flex items-center flex-wrap gap-1 font-medium mt-2'>
+                        {
+                            artist?.genre?.map((genre, idx) => <div key={idx} className='text-xs px-1 border text-gray-500 border-gray-500 rounded-full'>{genre}</div>)
                         }
                     </div>
                 }
