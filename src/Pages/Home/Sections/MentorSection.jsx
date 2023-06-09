@@ -16,13 +16,7 @@ const MentorSection = ({ setIsMentorHovered }) => {
             profile: kanika,
             title: "Ex-MD Global Advertising Business, K-Trends.",
             desc: "Digital & Brand Consultant, CMO Harappa Education, COO Mullen Lowe Singapore ( Unilever Brands), SVP Digital Dubai Tourism, Managing Director of Razorfish India, President of Digitas India, Co-founder of Solutions, McCann Erickson."
-        },
-        {
-            name: "Aashish Chopra",
-            profile: "https://miro.medium.com/v2/resize:fit:3150/1*_Qrx2lONZSja118b-FxFVA.jpeg",
-            title: "Viral Content Expert, Ixigo.",
-            desc: "Best-selling author: “Fast, Cheap & Viral”, Viral videos coach: 490M views, 79 Virals & counting. Ft. on Forbes, VP Content Writing"
-        },
+        }
     ];
 
     return (

@@ -7,6 +7,8 @@ import { AiOutlineEdit } from 'react-icons/ai';
 import { useShortlistArtistMutation } from '../../../../features/artist/artistApi';
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
+import { GiCheckMark } from 'react-icons/gi';
+import { BsLightningChargeFill } from 'react-icons/bs';
 
 const ArtistRowView = ({ artist }) => {
     const { projectId } = useParams();
@@ -33,42 +35,28 @@ const ArtistRowView = ({ artist }) => {
     const { shortlistedArtists } = useSelector(state => state.project);
 
     return (
-        <div className='bg-white border-b flex gap-3 p-3 relative'>
+        <div className='bg-white border-b flex gap-3 p-3'>
             <div className='relative'>
                 <img
                     onClick={() => setArtistProfile(artist.id)}
-                    className='w-[70px] h-[70px] object-cover object-top rounded-full cursor-pointer placeholder:bg-black'
+                    className='w-16 h-w-16 object-cover object-top rounded-full cursor-pointer placeholder:bg-black'
                     src={imageSrc}
                     alt="Profile Image"
                     onError={handleImageError}
                     onLoad={() => setIsImageLoaded(true)}
                     style={{ display: isImageLoaded ? 'block' : 'none' }}
                 />
+                <span className='border rounded-full border-blue-600 text-blue-600 text-xs px-2.5 py-0.5 font-medium flex items-center gap-1 mt-3'><BsLightningChargeFill size={15} /> Full Time</span>
             </div>
             <div className='flex-1'>
-                <div className='flex items-center gap-2 mb-0.5'>
+                <div>
                     <p onClick={() => setArtistProfile(artist.id)} className='font-medium cursor-pointer w-fit '>
                         {artist.name}
                     </p>
-                    {
-                        user?.role === "AM" && projectId && (
-                            shortlistedArtists?.includes(artist.id)
-                                ? <button className="bg-green-400 text-white border rounded-full px-1 text-xs" disabled>Assigned</button>
-                                : <button onClick={handleAssign} className="bg-gray-100 border rounded-full px-1 text-sm">Assign</button>
-                        )
-                    }
-
+                    {artist?.artist_intro && <p className='w-fit mb-1 px-0.5 text-xs font-sans text-gray-700'>{artist.artist_intro}</p>}
+                    {artist.location && <p className='flex mb-1 items-center gap-1 text-sm text-gray-700'><IoLocationSharp /> {artist.location}</p>}
                 </div>
 
-                {
-                    artist.skill?.length > 0 &&
-                    <div className='flex flex-wrap gap-1 text-xs font-medium mb-1'>
-                        {
-                            artist?.skill?.map((skill, idx) => <div key={idx} className='px-1 border text-gray-500 border-gray-500 rounded-full'>{skill}</div>)
-                        }
-                    </div>
-                }
-                {artist.artist_intro && <div className='w-fit my-1 px-0.5 text-sm font-normal font-sans italic text-gray-700 bg-yellow-100'>&#9679; {artist.artist_intro}</div>}
                 <div className='text-xs'>
                     {(user?.role === "AM" || user?.role === "PM") && artist.email && <p className='flex items-center gap-2'><FaRegEnvelope />{artist.email}</p>}
                     {(user?.role === "AM" || user?.role === "PM") && artist.phone && <p className='flex items-center gap-2'><HiPhone />{artist.phone}</p>}
@@ -76,15 +64,28 @@ const ArtistRowView = ({ artist }) => {
                         artist.languages?.length > 0 &&
                         <p className='flex items-center gap-2'><IoLanguageSharp /> {artist.languages.join(", ")}</p>
                     }
-                    {artist.location && <p className='flex items-center gap-2'><IoLocationSharp /> {artist.location}</p>}
                 </div>
+
+                {
+                    artist.skill?.length > 0 &&
+                    <div className='flex flex-wrap gap-1 text-xs font-medium mt-2'>
+                        {
+                            artist?.skill?.map((skill, idx) => <div key={idx} className='px-1 border text-gray-500 border-gray-500 rounded-full'>{skill}</div>)
+                        }
+                    </div>
+                }
             </div>
 
             {
                 user?.role === "AM" &&
-                <div className='absolute top-0 right-0 flex m-3 gap-2'>
+                <div>
+                    {/* {
+                        shortlistedArtists?.includes(artist.id)
+                            ? <button className='bg-blue-500 py-2.5 px-4 text-white rounded text-sm font-hero' disabled><GiCheckMark /></button>
+                            : <button onClick={handleAssign} className="bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero">Shortlist</button>
+                    } */}
                     <Link to={`/artists/edit-artist/${artist.id}`}>
-                        <AiOutlineEdit className="cursor-pointer hover:text-blue-500" size={20} />
+                        <button className="bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero">Edit</button>
                     </Link>
                 </div>
             }

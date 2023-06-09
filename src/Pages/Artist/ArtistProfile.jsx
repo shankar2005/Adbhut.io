@@ -80,12 +80,12 @@ const ArtistProfile = () => {
                             ({attitude_rating})
                             <BsStarFill className='text-yellow-400' />
                         </div>
-                        {artist_intro && <div className='w-fit mb-2 px-0.5 text-xs font-sans text-gray-700'>{artist_intro}</div>}
+                        {artist_intro && <p className='w-fit mb-2 px-0.5 text-xs font-sans text-gray-700'>{artist_intro}</p>}
                     </div>
                 </div>
                 {
                     shortlistedArtists?.includes(id)
-                        ? <button className='ml-auto bg-blue-500 py-2.5 px-4 text-white rounded text-sm font-hero'><GiCheckMark /></button>
+                        ? <button className='ml-auto bg-blue-500 py-2.5 px-4 text-white rounded text-sm font-hero' disabled><GiCheckMark /></button>
                         : <button onClick={() => handleShortlist(id)} className='ml-auto bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero'>Shortlist</button>
                 }
             </div>

@@ -53,7 +53,6 @@ const RootProvider = ({ children }) => {
     //clearing all state of project when selecting different content product
     const clearCurrentProject = () => {
         dispatch(clearProject());
-        dispatch(setSearch(""));
         setSuggestions([]);
         setRemovedSkill([]);
     }
