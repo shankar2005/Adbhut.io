@@ -66,7 +66,7 @@ const WorkLinks = ({ workLinks, setWorkLinks, defaultWorkLinks }) => {
                     )}
                 </div>
             ))}
-            <Button onClick={handleAddField} className="flex items-center gap-2">Add Work <AiOutlinePlus size={25} /></Button>
+            <button type="button" onClick={handleAddField} className="bg-gray-400 rounded px-2 py-1 text-sm text-white flex items-center gap-1">Add Work <AiOutlinePlus size={25} /></button>
         </div>
     );
 };
