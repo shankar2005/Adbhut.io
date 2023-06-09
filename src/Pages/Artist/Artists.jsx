@@ -22,6 +22,11 @@ const Artists = () => {
     };
 
     useEffect(() => {
+        setArtists([]);
+        setPage(1);
+    }, [])
+
+    useEffect(() => {
         if (data?.results?.length) {
             setArtists(prevState => [...prevState, ...data.results]);
             setHasNext(data.next);

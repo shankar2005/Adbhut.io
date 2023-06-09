@@ -13,7 +13,7 @@ const apis = createApi({
         },
     }),
     endpoints: (builder) => ({}),
-    tagTypes: ["DreamProjects", "CurrentProjects", "Project", "ArtistRequests", "Artists"]
+    tagTypes: ["DreamProjects", "CurrentProjects", "Project", "ArtistRequests", "Artists", "Artist"]
 })
 
 export default apis;

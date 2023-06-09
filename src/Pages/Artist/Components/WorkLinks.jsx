@@ -3,7 +3,7 @@ import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import Button from '../../../Components/Button/Button';
 
 const WorkLinks = ({ workLinks, setWorkLinks, defaultWorkLinks }) => {
-    const fileTypes = ["Youtube", "Google Drive", "Behance", "Imdb", "Instagram", "Vimeo", "Wixsite", "Other"];
+    const fileTypes = ["Youtube", "Google Drive", "Behance", "Imdb", "Instagram", "Vimeo", "Wixsite", "Other", "Other Document"];
 
     const handleInputChange = (index, event) => {
         const values = [...workLinks];
@@ -35,7 +35,7 @@ const WorkLinks = ({ workLinks, setWorkLinks, defaultWorkLinks }) => {
 
     useEffect(() => {
         const formattedWorkLinks = defaultWorkLinks?.map(i => {
-            return { weblink: i.weblink }
+            return { weblink: i.weblink, demo_type: i.demo_type }
         });
         setWorkLinks(formattedWorkLinks || [{ weblink: '', demo_type: '' }]);
     }, [defaultWorkLinks])
@@ -57,8 +57,8 @@ const WorkLinks = ({ workLinks, setWorkLinks, defaultWorkLinks }) => {
                     <div className="w-3/6">
                         <label className="block mb-2 text-sm font-medium text-gray-900">Demo Type</label>
                         <select onChange={(event) => handleTypeChange(index, event)} className="input">
-                            <option selected={!field.demo_type} disabled>Choose</option>
-                            {fileTypes.map(type => <option value={type} selected={field.demo_type}>{type}</option>)}
+                            <option selected={!field.demo_type}>Choose</option>
+                            {fileTypes.map(type => <option value={type} selected={field.demo_type === type}>{type}</option>)}
                         </select>
                     </div>
                     {workLinks.length > 1 && (

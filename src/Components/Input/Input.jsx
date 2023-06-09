@@ -13,7 +13,7 @@ const Input = ({
         <div>
             <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-900">{label}</label>
             <input
-                {...register(name, { required: !defaultValue })}
+                {...register(name, { required })}
                 type={type}
                 id={name}
                 className={`input ${className}`}

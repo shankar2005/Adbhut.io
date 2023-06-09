@@ -7,7 +7,8 @@ const artistApi = apis.injectEndpoints({
             providesTags: ["Artists"]
         }),
         getArtistById: builder.query({
-            query: (id) => `/get_artist/${id}/`
+            query: (id) => `/get_artist/${id}/`,
+            providesTags: ["Artist"]
         }),
         addArtist: builder.mutation({
             query: (data) => ({
@@ -23,7 +24,7 @@ const artistApi = apis.injectEndpoints({
                 method: "PUT",
                 body: data
             }),
-            invalidatesTags: ["Project"]
+            invalidatesTags: ["Project", "Artist"]
         }),
         deleteArtist: builder.mutation({
             query: (id) => ({

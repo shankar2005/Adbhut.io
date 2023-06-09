@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
 import { useRootContext } from '../../contexts/RootProvider';
 import { useAddArtistMutation } from '../../features/artist/artistApi';
 import WorkLinks from './Components/WorkLinks';
@@ -11,11 +10,12 @@ import MultiSelect from '../../Components/Input/MultiSelect';
 import { useGetLanguagesQuery, useGetLocationsQuery } from '../../features/utils/utilsApi';
 import TableRow from '../../Components/Table/TableRow';
 import Button from '../../Components/Button/Button';
+import { toast } from 'react-hot-toast';
 
 const ArtistEntry = () => {
     const [workLinks, setWorkLinks] = useState([{ weblink: '', demo_type: '' }]);
 
-    const [addArtist, { isSuccess: addSuccess }] = useAddArtistMutation();
+    const [addArtist, { isSuccess, isError, error }] = useAddArtistMutation();
     const { skills: skillsData } = useRootContext();
     const { data: locations } = useGetLocationsQuery();
 
@@ -34,16 +34,12 @@ const ArtistEntry = () => {
 
     const navigate = useNavigate();
     useEffect(() => {
-        if (addSuccess) {
-            Swal.fire(
-                'Success!',
-                `Artist has been ${addSuccess ? "added" : "updated"}!`,
-                'success'
-            )
+        if (isSuccess) {
+            toast.success("Artist has been added");
             reset();
             navigate("/artists/artist-list");
         }
-    }, [addSuccess])
+    }, [isSuccess])
 
     const inputFields = [
         {
@@ -93,7 +89,7 @@ const ArtistEntry = () => {
     });
 
     return (
-        <div className='font-hero bg-white rounded-b-lg shadow-lg'>
+        <div className='font-hero bg-white rounded-b-lg shadow'>
             <form onSubmit={handleSubmit(onSubmit)}>
 
                 <table className="w-full">
@@ -122,7 +118,7 @@ const ArtistEntry = () => {
                         } />
                         <TableRow label="Artist intro" content={
                             <Textarea
-                                name="intro"
+                                name="artist_intro"
                                 placeholder="Artist intro"
                                 register={register}
                             />
@@ -149,9 +145,12 @@ const ArtistEntry = () => {
                     setWorkLinks={setWorkLinks}
                 />
 
+                {isError && <p className='bg-red-100 text-red-500 text-sm p-3'>{Object.values(error?.data)[0][0]}</p>}
+
                 <div className='p-4'>
                     <Button type="submit">Add Artist</Button>
                 </div>
+
             </form>
         </div>
     );
@@ -159,14 +158,7 @@ const ArtistEntry = () => {
 
 export default ArtistEntry;
 
-const Input = ({
-    name,
-    type,
-    placeholder,
-    required,
-    register = () => { },
-    ...props
-}) => {
+const Input = ({ name, type, placeholder, required, register = () => { }, ...props }) => {
     return (
         <input
             {...register(name, { required })}
@@ -180,6 +172,13 @@ const Input = ({
 
 const Textarea = ({ name, placeholder, defaultValue, required, register, ...props }) => {
     return (
-        <textarea {...register(name, { required })} id={name} rows="5" className="w-full border p-1" placeholder={placeholder} defaultValue={defaultValue} {...props}></textarea>
+        <textarea
+            {...register(name, { required })}
+            rows="5"
+            className="w-full border p-1"
+            placeholder={placeholder}
+            defaultValue={defaultValue}
+            {...props}
+        ></textarea>
     );
 };

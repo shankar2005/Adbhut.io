@@ -32,11 +32,9 @@ const RightAside = () => {
         return (
             <>
                 <div className='bg-white rounded-b-lg'>
-                    <section className='border-b'>
-                        <div className='border-b shadow-sm font-medium p-3.5'>
-                            <h3>Toolkit</h3>
-                        </div>
-                    </section>
+                    <div className='border-b shadow-sm font-medium p-3.5'>
+                        <h3>Toolkit</h3>
+                    </div>
 
                     <section className='text-gray-700 p-2 border-b'>
                         <ul className="font-medium text-sm">

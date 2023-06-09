@@ -99,11 +99,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/artists',
-                element: <RightToLeft><Feed /></RightToLeft>
+                element: <Feed />
             },
             {
                 path: '/artists/artist-list',
-                element: <RightToLeft><Artists /></RightToLeft>
+                element: <Artists />
             },
             {
                 path: '/artists/artist-list/:projectId',

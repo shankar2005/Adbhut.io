@@ -3,8 +3,8 @@ import { FaRegEnvelope } from 'react-icons/fa';
 import { HiPhone } from 'react-icons/hi';
 import { IoLanguageSharp, IoLocationSharp } from 'react-icons/io5';
 import { useRootContext } from '../../../../contexts/RootProvider';
-import { AiOutlineEdit, AiOutlineUserDelete } from 'react-icons/ai';
-import { useDeleteArtistMutation, useShortlistArtistMutation } from '../../../../features/artist/artistApi';
+import { AiOutlineEdit } from 'react-icons/ai';
+import { useShortlistArtistMutation } from '../../../../features/artist/artistApi';
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 
@@ -13,7 +13,6 @@ const ArtistRowView = ({ artist }) => {
     const [shortlistArtist] = useShortlistArtistMutation();
 
     const { setArtistProfile } = useRootContext();
-    const [deleteArtist] = useDeleteArtistMutation();
     const { user } = useSelector(state => state.auth);
 
     const [imageSrc, setImageSrc] = useState(artist.profile_image);
@@ -23,13 +22,6 @@ const ArtistRowView = ({ artist }) => {
         setIsImageLoaded(true);
         setImageSrc("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIHmCTU-bsYS2-57aX_wuTEU-mKKLVQUJ2nQ&usqp=CAU");
     };
-
-    const handleDelete = () => {
-        const isConfirm = confirm("Are you sure want to delete this?");
-        if (isConfirm) {
-            deleteArtist(artist.id);
-        }
-    }
 
     const handleAssign = () => {
         shortlistArtist({
@@ -94,7 +86,6 @@ const ArtistRowView = ({ artist }) => {
                     <Link to={`/artists/edit-artist/${artist.id}`}>
                         <AiOutlineEdit className="cursor-pointer hover:text-blue-500" size={20} />
                     </Link>
-                    {/* <AiOutlineUserDelete onClick={handleDelete} className="cursor-pointer hover:text-red-400" size={20} /> */}
                 </div>
             }
         </div>
