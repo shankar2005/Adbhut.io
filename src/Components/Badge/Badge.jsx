@@ -3,6 +3,7 @@ const Badge = ({ type, children, className = "", ...props }) => {
         error: "text-red-700 bg-red-100",
         success: "text-green-700 bg-green-100",
         warning: "text-yellow-700 bg-yellow-100",
+        gray: "text-white bg-gray-500",
         custom: "",
     }
     return (

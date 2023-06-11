@@ -120,7 +120,7 @@ const EditArtist = () => {
     const confirmInputRef = useRef();
     const [showConfirm, setShowConfirm] = useState(false);
     const handleDeleteArtist = () => {
-        if (!confirmInputRef.current?.value) {
+        if (confirmInputRef.current?.value.trim() !== "Delete") {
             setShowConfirm(true);
             confirmInputRef.current?.focus();
         } else {

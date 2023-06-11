@@ -13,15 +13,22 @@ import Modal from '../../../Components/Modal/Modal';
 import Badge from '../../../Components/Badge/Badge';
 import TableRow from '../../../Components/Table/TableRow';
 import Container from '../../../Components/Container/Container';
+import { MdUpload } from 'react-icons/md';
+import { CgAddR } from 'react-icons/cg';
+import { IoIosArrowDown } from 'react-icons/io';
+import { AiOutlineSearch } from 'react-icons/ai';
+import { BiLink } from 'react-icons/bi';
+import Button from '../../../Components/Button/Button';
+import AssignDemo from './Components/AssignDemo';
+import AddDemoUrl from './Components/AddDemoUrl';
 
 const ProjectDashboard = () => {
     const { setIsModalOpen } = useRootContext();
-
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
-
     const { id } = useParams();
     const { data: currentProject = {}, refetch, isLoading: getProjectLoading } = useGetProjectQuery(id);
+    const [demoSec, setDemoSec] = useState(null);
 
     useEffect(() => {
         if (user?.email) {
@@ -46,6 +53,13 @@ const ProjectDashboard = () => {
     useEffect(() => {
         setIsModalOpen(artistRequestModal);
     }, [artistRequestModal]);
+
+    let DemoSec;
+    if (demoSec === "preDemo") {
+        DemoSec = <AssignDemo setDemoSec={setDemoSec} />
+    } else if (demoSec === "linkDemo") {
+        DemoSec = <AddDemoUrl setDemoSec={setDemoSec} />
+    }
 
     return (
         <Container>
@@ -121,9 +135,22 @@ const ProjectDashboard = () => {
                         <table className="w-full">
                             <thead>
                                 <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b">
-                                    <th className="px-4 py-3">Demos</th>
+                                    <th className="px-4 py-3">
+                                        <div className="flex items-center gap-2">
+                                            <h3 className="text-lg font-semibold">Demos</h3>
+                                            <Badge onClick={() => setDemoSec("preDemo")} type="gray" className="inline-flex gap-1 items-center justify-between cursor-pointer">
+                                                Assign demo <CgAddR size={20} />
+                                            </Badge>
+                                            <Badge onClick={() => setDemoSec("linkDemo")} type="gray" className="inline-flex gap-1 items-center justify-between cursor-pointer">
+                                                Add link <BiLink size={20} />
+                                            </Badge>
+                                        </div>
+                                    </th>
                                 </tr>
                             </thead>
+
+                            {DemoSec}
+
                             <tbody className="bg-white">
                                 {currentProject?.pk === 148 &&
                                     <tr>
