@@ -8,12 +8,12 @@ import { useRootContext } from '../../contexts/RootProvider';
 import { useNavigate } from 'react-router-dom';
 import nsnlogo from '../../assets/logos/adbeta.jpeg';
 import { useSelector } from 'react-redux';
-import { useUploadDemoMutation } from '../../features/project/projectApi';
 import ChatCallToAction from './Components/ChatCallToAction';
 import Message from './Chat/Message';
 import MessageNew from './Chat/MessageNew';
 import { useChatbotStatusQuery } from '../../features/chat/chatApi';
 import ChatHeading from './Chat/ChatHeading';
+import { useCreateDemoMutation } from '../../features/demo/demoApi';
 
 const LeftAside = () => {
     const { handleSelectContentProduct, contentProducts, suggestions } = useRootContext();
@@ -75,22 +75,22 @@ const LeftAside = () => {
 
     // upload files
     const [file, setFile] = useState(null);
-    const [uploadDemo] = useUploadDemoMutation();
+    const [uploadDemo] = useCreateDemoMutation();
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
     }
 
     const handleSubmit = (e) => {
-        const formData = new FormData();
-        formData.append("document", file);
-        formData.append("project", currentProject?.pk);
-        formData.append("status", "Selected");
+        // const formData = new FormData();
+        // formData.append("document", file);
+        // formData.append("project", currentProject?.pk);
+        // formData.append("status", "Selected");
 
-        uploadDemo(formData)
-            .then(data => {
-                setFile(null);
-            })
+        // uploadDemo(formData)
+        //     .then(data => {
+        //         setFile(null);
+        //     })
     }
 
     // socket

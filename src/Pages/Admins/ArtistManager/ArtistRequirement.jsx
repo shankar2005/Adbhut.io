@@ -9,6 +9,9 @@ import { useGetArtistCountBySkillsQuery } from "../../../features/utils/utilsApi
 import Badge from "../../../Components/Badge/Badge";
 import { DefaultPlayer as Video } from 'react-html5video';
 import { useState } from "react";
+import FileUpload from "../../Admins/ProductionManager/Components/FileUpload";
+import { useGetDemosQuery } from "../../../features/demo/demoApi";
+import { useSelector } from "react-redux";
 
 const ArtistRequirement = () => {
     const { data } = useGetArtistRequestsQuery();
@@ -16,9 +19,11 @@ const ArtistRequirement = () => {
     const { data: totalArtist } = useGetTotalArtistQuery();
     const [isDemoShown, setIsDemoShown] = useState(false);
     const closeDemo = () => setIsDemoShown(false);
-    const showDemo = () => setIsDemoShown(true);
     const [sorted, setSorted] = useState(false);
     const toggleSort = () => setSorted(prev => !prev);
+    const [showUpload, setShowUpload] = useState(null);
+    const { user } = useSelector(state => state.auth);
+    const { data: demos } = useGetDemosQuery(null, { skip: !user?.email });
 
     return (
         <section className="font-hero">
@@ -41,13 +46,20 @@ const ArtistRequirement = () => {
                 <div className="flex-1 p-3 flex flex-col">
                     <div className="flex items-center gap-2 mb-2 border-b pb-3">
                         <h3 className="text-lg font-semibold">Demos</h3>
-                        <Badge type="success" className="inline-flex items-center justify-between">Upload demos <MdUpload size={20} /></Badge>
+                        <Badge onClick={() => setShowUpload(!showUpload)} type="success" className="inline-flex items-center justify-between cursor-pointer">Upload demos <MdUpload size={20} /></Badge>
                     </div>
+
+                    {showUpload && <div className="px-4 py-8 relative border-b mb-4">
+                        <RxCross1 onClick={() => setShowUpload(null)} size={20} className="absolute top-0 right-0 m-4 cursor-pointer" />
+                        <h4 className='font-semibold text-lg'>Upload a demo</h4>
+                        <small>The demo can be a <strong>Video, Audio</strong> file. Uploaded demo will be shown in the ready to use demo section. Production manager can easily assign those ready to use demo in any project.</small>
+                        <div className="mt-10">
+                            <FileUpload setShowUpload={setShowUpload} />
+                        </div>
+                    </div>}
+
                     <ul className="my-2">
-                        <li><a href="#" onClick={showDemo} className="text-blue-600 hover:underline underline-offset-2">Demo lyrics 231 last.mp4</a></li>
-                        <li><a href="#" onClick={showDemo} className="text-blue-600 hover:underline underline-offset-2">Demo lyrics 231 Demo lyrics 231 last.mp4</a></li>
-                        <li><a href="#" onClick={showDemo} className="text-blue-600 hover:underline underline-offset-2">Demo lyrimo lyrics 231 last.mp4</a></li>
-                        <li><a href="#" onClick={showDemo} className="text-blue-600 hover:underline underline-offset-2">Demo lyrics 231 last.mp4</a></li>
+                        {demos?.map(demo => <li><a href="#" onClick={() => setIsDemoShown(demo)} className="text-blue-600 hover:underline underline-offset-2">{demo.Title}</a></li>)}
                     </ul>
                     <div className="mt-auto border-t pt-2">
                         <Link to="/projects/readydemos" className="text-blue-600 hover:underline underline-offset-2">View All</Link>
@@ -64,10 +76,8 @@ const ArtistRequirement = () => {
                             </Video>
                         </div>
                         <div className="mt-3">
-                            <p className="font-semibold">Demo lyrics 231 Demo lyrics 231 last.mp4</p>
-                            <p>Size: 4mb</p>
-                            <p>Length: 2min</p>
-                            <p>Artist: Test Artist </p>
+                            <p className="font-semibold">{isDemoShown?.Title}</p>
+                            <p>Description: {isDemoShown?.comment}</p>
                         </div>
 
                         <RxCross1 onClick={closeDemo} className="absolute top-0 right-0 m-3 cursor-pointer" size={25} />

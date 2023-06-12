@@ -7,18 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useGetProjectQuery } from '../../../features/project/projectApi';
 import { setProjectData } from '../../../features/project/projectSlice';
 
-import FileUpload from './Components/FileUpload';
 import ArtistRequest from './ArtistRequest';
 import Modal from '../../../Components/Modal/Modal';
 import Badge from '../../../Components/Badge/Badge';
 import TableRow from '../../../Components/Table/TableRow';
 import Container from '../../../Components/Container/Container';
-import { MdUpload } from 'react-icons/md';
 import { CgAddR } from 'react-icons/cg';
-import { IoIosArrowDown } from 'react-icons/io';
-import { AiOutlineSearch } from 'react-icons/ai';
 import { BiLink } from 'react-icons/bi';
-import Button from '../../../Components/Button/Button';
 import AssignDemo from './Components/AssignDemo';
 import AddDemoUrl from './Components/AddDemoUrl';
 
@@ -58,7 +53,7 @@ const ProjectDashboard = () => {
     if (demoSec === "preDemo") {
         DemoSec = <AssignDemo setDemoSec={setDemoSec} />
     } else if (demoSec === "linkDemo") {
-        DemoSec = <AddDemoUrl setDemoSec={setDemoSec} />
+        DemoSec = <AddDemoUrl setDemoSec={setDemoSec} projectId={currentProject.pk} />
     }
 
     return (
@@ -152,20 +147,17 @@ const ProjectDashboard = () => {
                             {DemoSec}
 
                             <tbody className="bg-white">
-                                {currentProject?.pk === 148 &&
-                                    <tr>
-                                        <td className="px-4 py-3 text-sm border whitespace-pre-wrap">
-                                            <div className='flex flex-wrap gap-x-4 items-center text-base'>
-                                                <a target="_blank" href="https://drive.google.com/file/d/1cwG-4RgV25jHHNaR0eUlSloqs5pM_AU1/view" className="text-blue-800 hover:text-red-900">
-                                                    ALMOND SOLUTIONS COMMERCIAL[1]
+                                <tr>
+                                    <td className="px-4 py-3 text-sm border whitespace-pre-wrap">
+                                        <div className='flex flex-wrap gap-x-4 items-center text-base'>
+                                            {currentProject.project_demos?.map(demo => (
+                                                <a target="_blank" href={demo.link} className="text-blue-800 hover:text-red-900">
+                                                    {demo.Title}
                                                 </a>
-                                                <a target="_blank" href="https://drive.google.com/file/d/1rF1eqirsozTPtXz2y70Q-cio-0T8ehD3/view?usp=sharing" className="text-blue-800 hover:text-red-900">
-                                                    Vishal- Almond Solutions
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                }
+                                            ))}
+                                        </div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
 
@@ -195,12 +187,6 @@ const ProjectDashboard = () => {
                         </table>
                     </div>
                 </div>
-
-                {
-                    null && user?.role === "PM" &&
-                    <FileUpload />
-                }
-
             </div >
 
             {

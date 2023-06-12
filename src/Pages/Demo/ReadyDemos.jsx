@@ -1,6 +1,12 @@
 import { DefaultPlayer as Video } from 'react-html5video';
+import { useSelector } from 'react-redux';
+import { useGetDemosQuery } from '../../features/demo/demoApi';
 
 const ReadyDemos = () => {
+    const { user } = useSelector(state => state.auth);
+    const { data } = useGetDemosQuery(null, { skip: !user?.email });
+    console.log(data);
+
     return (
         <section>
             <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>

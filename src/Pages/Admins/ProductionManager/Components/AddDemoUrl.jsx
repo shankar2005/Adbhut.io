@@ -1,12 +1,30 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { RxCross1 } from "react-icons/rx";
 import Button from "../../../../Components/Button/Button";
+import { useAssignDemoToProjectMutation, useCreateDemoMutation } from "../../../../features/demo/demoApi";
 
-const AddDemoUrl = ({ setDemoSec }) => {
+const AddDemoUrl = ({ setDemoSec, projectId }) => {
+    const [createDemo, { data: demo }] = useCreateDemoMutation();
+    const [assignDemoToProject] = useAssignDemoToProjectMutation();
     const { register, handleSubmit } = useForm();
     const onSubmit = data => {
-        console.log(data);
+        createDemo({
+            "Title": data.title,
+            "link": data.url,
+            "comment": data.description
+        })
     }
+
+    useEffect(() => {
+        if (demo?.id) {
+            setDemoSec(null);
+            assignDemoToProject({
+                id: projectId,
+                data: { project_demos: [demo?.id] }
+            })
+        }
+    }, [demo?.id, projectId])
 
     return (
         <div className="px-4 py-8 relative">
