@@ -150,7 +150,7 @@ const ArtistEntry = () => {
                                 validation={{ maxLength: 150 }}
                             />
                             {errors.artist_intro && errors.artist_intro.type === 'maxLength' && (
-                                <p className='text-red-600'>Maximum character limit exceeded (100 characters).</p>
+                                <p className='text-red-600'>Maximum character limit exceeded (150 characters).</p>
                             )}
                         </>
                         } />
