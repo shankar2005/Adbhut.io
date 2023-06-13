@@ -15,6 +15,7 @@ const ArtistEntry = () => {
     const [addArtist, { data: artist, isSuccess, isError, error }] = useAddArtistMutation();
     const { skills: skillsData } = useRootContext();
     const { data: locations } = useGetLocationsQuery();
+    const { data: languagesData } = useGetLanguagesQuery();
     const [file, setFile] = useState(null);
     const [isFullTime, setIsFullTime] = useState(false);
 
@@ -36,21 +37,16 @@ const ArtistEntry = () => {
             attitude_rating: data.attitude_rating || 0,
             has_manager: false,
             works_links: [],
-            is_full_time: isFullTime
+            full_time: isFullTime
         };
 
         const formData = new FormData();
-
         // Append other form fields to the form data
         Object.entries(copyData).forEach(([key, value]) => {
             formData.append(key, value);
         });
-        console.log(file?.name);
-        if (file?.name) {
-            formData.append('profile_pic', file); // Add the file to the form data
-        } else {
-            formData.append('profile_pic', {});
-        }
+        formData.append('profile_pic', file); // Add the file to the form data
+
         addArtist(formData);
     }
 
@@ -64,7 +60,6 @@ const ArtistEntry = () => {
     }, [isSuccess])
 
     // structured the data in expected form of `react-select`
-    const { data: languagesData } = useGetLanguagesQuery();
     const languages = languagesData?.map(language => {
         return { value: language.pk, label: language.name }
     });
@@ -184,11 +179,6 @@ const ArtistEntry = () => {
                         </span>} />}
                     </tbody>
                 </table>
-
-                {/* <WorkLinks
-                    workLinks={workLinks}
-                    setWorkLinks={setWorkLinks}
-                /> */}
 
                 {isError && <p className='bg-red-100 text-red-500 text-sm p-3'>{Object.values(error?.data)[0][0]}</p>}
 

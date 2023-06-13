@@ -1,11 +1,10 @@
 import { Controller } from 'react-hook-form';
 import Select from 'react-select';
 
-const MultiSelectUpdate = ({ name, label, control, options, defaultValue }) => {
+const MultiSelectUpdate = ({ name, control, options, defaultValue }) => {
     if (!defaultValue) return;
     return (
         <div>
-            <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-900">{label}</label>
             <Controller
                 control={control}
                 name={name}

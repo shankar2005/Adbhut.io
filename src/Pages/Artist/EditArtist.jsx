@@ -16,11 +16,30 @@ import WorkLinkTable from './Components/WorkLinkTable';
 
 const EditArtist = () => {
     const { artistId } = useParams();
-
+    const navigate = useNavigate();
     const { data: artistData } = useGetArtistByIdQuery(artistId, { skip: !artistId });
     const [updateArtist, { isSuccess }] = useUpdateArtistMutation();
     const { skills: skillsData } = useRootContext();
     const { data: locations } = useGetLocationsQuery();
+    const { data: languagesData } = useGetLanguagesQuery();
+    const [file, setFile] = useState(null);
+    const [isFullTime, setIsFullTime] = useState(false);
+
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    }
+    const handleUploadImage = () => {
+        const formData = new FormData();
+        formData.append('profile_pic', file);
+        updateArtist({
+            id: artistId,
+            data: formData
+        });
+    }
+
+    const handleChangeCTC = (e) => {
+        setIsFullTime(e.target.checked);
+    }
 
     const { register, handleSubmit, formState: { errors }, control, reset } = useForm();
     const onSubmit = data => {
@@ -29,7 +48,8 @@ const EditArtist = () => {
             age: +data.age,
             professional_rating: data.professional_rating || 0,
             attitude_rating: data.attitude_rating || 0,
-            has_manager: false
+            has_manager: false,
+            full_time: isFullTime
         }
         updateArtist({
             id: artistId,
@@ -37,60 +57,14 @@ const EditArtist = () => {
         })
     }
 
-    const navigate = useNavigate();
     useEffect(() => {
         if (isSuccess) {
             toast.success("Artist has been updated");
-            reset();
-            navigate("/artists/artist-list");
+            setFile(null);
         }
-    }, [isSuccess])
-
-    const inputFields = [
-        {
-            name: "name",
-            type: "text",
-            label: "Name",
-            placeholder: "Your Name",
-            required: true,
-            value: artistData?.name
-        },
-        {
-            name: "age",
-            type: "number",
-            label: "Age",
-            placeholder: "Your age",
-            required: false,
-            value: artistData?.age
-        },
-        {
-            name: "email",
-            type: "email",
-            label: "Email",
-            placeholder: "Your Email",
-            required: true,
-            value: artistData?.email
-        },
-        {
-            name: "phone",
-            type: "tel",
-            label: "Phone",
-            placeholder: "Your phone number",
-            required: true,
-            value: artistData?.phone
-        },
-        {
-            name: "profile_image",
-            type: "url",
-            label: "Profile image",
-            placeholder: "Profile image",
-            required: false,
-            value: artistData?.profile_image
-        },
-    ]
+    }, [isSuccess]);
 
     // structured the data in expected form of `react-select`
-    const { data: languagesData } = useGetLanguagesQuery();
     const languages = languagesData?.map(language => {
         return { value: language.pk, label: language.name }
     });
@@ -99,6 +73,7 @@ const EditArtist = () => {
     });
 
     useEffect(() => {
+        setIsFullTime(artistData?.full_time);
         reset();
     }, [reset, artistData])
 
@@ -131,21 +106,71 @@ const EditArtist = () => {
 
                 <table className="w-full">
                     <tbody className="bg-white">
-                        {inputFields?.map(field => (
-                            <TableRow
-                                key={field.name}
-                                label={<span className="whitespace-nowrap">{field.label} {field.required && <span className="text-red-500 text-base">*</span>}</span>}
-                                content={
-                                    <Input
-                                        type={field.type}
-                                        name={field.name}
-                                        placeholder={field.placeholder}
-                                        defaultValue={field.value}
-                                        register={register}
-                                        required={field.required}
+                        <TableRow
+                            label={<>Name <RequiredMark /></>}
+                            content={
+                                <Input
+                                    type="text"
+                                    name="name"
+                                    placeholder="Artist name"
+                                    register={register}
+                                    required={true}
+                                    defaultValue={artistData?.name}
+                                />
+                            } />
+                        <TableRow
+                            label="Age"
+                            content={
+                                <Input
+                                    type="number"
+                                    name="age"
+                                    placeholder="Artist age"
+                                    register={register}
+                                    defaultValue={artistData?.age}
+                                />
+                            } />
+                        <TableRow
+                            label="Email"
+                            content={
+                                <Input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Artist email"
+                                    register={register}
+                                    required={true}
+                                    defaultValue={artistData?.email}
+                                />
+                            } />
+                        <TableRow
+                            label="Phone"
+                            content={<div className="flex">
+                                <select className="border">
+                                    <option value="+91">+91</option>
+                                </select>
+                                <Input
+                                    type="tel"
+                                    name="phone"
+                                    placeholder="Artist phone number"
+                                    register={register}
+                                    required={true}
+                                    defaultValue={artistData?.phone}
+                                />
+                            </div>} />
+                        <TableRow label={<span className="whitespace-nowrap">Profile Picture <RequiredMark /></span>} content={(
+                            <>
+                                <div className="flex items-center gap-2">
+                                    <img className="w-10 h-10 object-contain mb-1 rounded-full border" src={artistData?.profile_pic} alt="" />
+                                    <input
+                                        type="file"
+                                        name="profile_pic"
+                                        className="border cursor-pointer"
+                                        onChange={handleFileChange}
                                     />
-                                } />
-                        ))}
+                                    {file?.name && <button onClick={handleUploadImage} type='button' className='bg-gray-500 text-white py-1 px-2'>Upload</button>}
+                                </div>
+                                <a target="_blank" href={artistData?.profile_pic} className="text-blue-800">{artistData?.profile_pic?.slice(0, 50)}...</a>
+                            </>
+                        )} />
                         <TableRow label="Select location" content={
                             <Select
                                 name="location"
@@ -171,14 +196,18 @@ const EditArtist = () => {
                                 defaultValue={artistData?.skills}
                             />
                         } />
-                        <TableRow label="Artist Intro" content={
-                            <Textarea
-                                name="artist_intro"
+                        <TableRow label="Artist Intro" content={<>
+                            <textarea
+                                {...register("artist_intro", { required: false, maxLength: 150 })}
+                                rows="5"
+                                className="w-full border p-1"
                                 placeholder="Artist Intro"
                                 defaultValue={artistData?.artist_intro}
-                                register={register}
-                            />
-                        } />
+                            ></textarea>
+                            {errors.artist_intro && errors.artist_intro.type === 'maxLength' && (
+                                <p className='text-red-600'>Maximum character limit exceeded (150 characters).</p>
+                            )}
+                        </>} />
                     </tbody>
                 </table>
 
@@ -253,6 +282,22 @@ const EditArtist = () => {
                                 register={register}
                             />
                         } />
+                        <TableRow content={
+                            <div class="flex items-center">
+                                <input onChange={handleChangeCTC} id={`fulltime-checkbox`} type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" checked={isFullTime} />
+                                <label for={`fulltime-checkbox`} class="ml-2 text-sm font-medium text-gray-900">Full Time</label>
+                            </div>
+                        } />
+                        {isFullTime && <TableRow content={<span className='flex'>
+                            <label class="mr-2 text-sm font-medium text-gray-900">CTC</label>
+                            <Input
+                                type="number"
+                                name="ctc_per_annum"
+                                placeholder="CTC per annum"
+                                register={register}
+                                defaultValue={artistData?.ctc_per_annum}
+                            />
+                        </span>} />}
                     </tbody>
                 </table>
 
@@ -272,3 +317,5 @@ const EditArtist = () => {
 };
 
 export default EditArtist;
+
+const RequiredMark = () => <span className="text-red-500 text-base">*</span>

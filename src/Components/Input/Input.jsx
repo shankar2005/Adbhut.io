@@ -11,7 +11,7 @@ const Input = ({
 }) => {
     return (
         <div>
-            <label htmlFor={name} className="block mb-2 text-sm font-medium text-gray-900">{label}</label>
+            <label htmlFor={name} className="block text-sm font-medium text-gray-900">{label}</label>
             <input
                 {...register(name, { required })}
                 type={type}

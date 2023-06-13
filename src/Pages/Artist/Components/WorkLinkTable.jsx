@@ -202,8 +202,8 @@ const AddWorkLink = ({ artistId }) => {
             data: {
                 weblink: linkRef.current?.value,
                 tags,
-                isDemo: bestWorkRef.current?.checked,
-                isBestWork: demoRef.current?.checked
+                isdemo: bestWorkRef.current?.checked,
+                best_work: demoRef.current?.checked
             }
         })
     }
