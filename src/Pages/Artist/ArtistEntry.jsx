@@ -13,7 +13,7 @@ import { toast } from 'react-hot-toast';
 
 const ArtistEntry = () => {
     const [workLinks, setWorkLinks] = useState([{ weblink: '', demo_type: '' }]);
-    const [addArtist, { isSuccess, isError, error }] = useAddArtistMutation();
+    const [addArtist, { data: artist, isSuccess, isError, error }] = useAddArtistMutation();
     const { skills: skillsData } = useRootContext();
     const { data: locations } = useGetLocationsQuery();
     const [file, setFile] = useState(null);
@@ -46,7 +46,12 @@ const ArtistEntry = () => {
         Object.entries(copyData).forEach(([key, value]) => {
             formData.append(key, value);
         });
-        formData.append('profile_pic', file); // Add the file to the form data
+        console.log(file?.name);
+        if (file?.name) {
+            formData.append('profile_pic', file); // Add the file to the form data
+        } else {
+            formData.append('profile_pic', {});
+        }
         addArtist(formData);
     }
 
@@ -55,7 +60,7 @@ const ArtistEntry = () => {
         if (isSuccess) {
             toast.success("Artist has been added");
             reset();
-            navigate("/artists/artist-list");
+            navigate(`/artists/artist-entry/works/${artist?.artist?.id}`);
         }
     }, [isSuccess])
 
@@ -120,22 +125,13 @@ const ArtistEntry = () => {
                                     required={true}
                                 />
                             </>} />
-                        <TableRow
-                            label="Profile Picture"
-                            content={
-                                <Input
-                                    type="url"
-                                    name="profile_image"
-                                    placeholder="Artist image URL"
-                                    register={register}
-                                />
-                            } />
-                        <TableRow label="Profile Picture" content={
+                        <TableRow label={<span className="whitespace-nowrap">Profile Picture <RequiredMark /></span>} content={
                             <input
                                 type="file"
                                 name="profile_pic"
                                 className="border cursor-pointer"
                                 onChange={handleFileChange}
+                                required
                             />
                         } />
                         <TableRow label="Select location" content={
@@ -223,7 +219,6 @@ const Input = ({ name, type, placeholder, required, register = () => { }, ...pro
 };
 
 const Textarea = ({ name, placeholder, defaultValue, required, register, validation, ...props }) => {
-    console.log(validation);
     return (
         <textarea
             {...register(name, { required, ...validation })}

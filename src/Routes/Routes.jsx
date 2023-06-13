@@ -22,7 +22,7 @@ import EditProject from "../Pages/Admins/ProductionManager/EditProject";
 import ErrorPage from "../Components/Error/ErrorPage";
 import ReadyDemos from "../Pages/Demo/ReadyDemos";
 import EditArtist from "../Pages/Artist/EditArtist";
-import WorkLinkTable from "../Pages/Artist/Components/WorkLinkTable";
+import WorkEntry from "../Pages/Artist/WorkEntry";
 
 const router = createBrowserRouter([
     {
@@ -116,7 +116,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/artists/artist-entry/works/:artistId',
-                element: <WorkLinkTable />
+                element: <WorkEntry />
             },
             {
                 path: '/artists/edit-artist/:artistId',
