@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import Button from '../../Components/Button/Button';
@@ -7,18 +6,16 @@ import Textarea from '../../Components/Input/Textarea';
 import Input from '../../Components/Input/Input';
 import { useRootContext } from '../../contexts/RootProvider';
 import { useDeleteArtistMutation, useGetArtistByIdQuery, useUpdateArtistMutation } from '../../features/artist/artistApi';
-import WorkLinks from './Components/WorkLinks';
 import Select from '../../Components/Input/Select';
-import MultiSelect from '../../Components/Input/MultiSelect';
 import { useGetLanguagesQuery, useGetLocationsQuery } from '../../features/utils/utilsApi';
 import MultiSelectUpdate from '../../Components/Input/MultiSelectUpdate';
 import TableRow from '../../Components/Table/TableRow';
 import { useRef } from 'react';
 import { toast } from 'react-hot-toast';
+import WorkLinkTable from './Components/WorkLinkTable';
 
 const EditArtist = () => {
     const { artistId } = useParams();
-    const [workLinks, setWorkLinks] = useState([{ weblink: '', demo_type: '' }]);
 
     const { data: artistData } = useGetArtistByIdQuery(artistId, { skip: !artistId });
     const [updateArtist, { isSuccess }] = useUpdateArtistMutation();
@@ -32,10 +29,8 @@ const EditArtist = () => {
             age: +data.age,
             professional_rating: data.professional_rating || 0,
             attitude_rating: data.attitude_rating || 0,
-            has_manager: false,
-            works_links: workLinks
-        };
-
+            has_manager: false
+        }
         updateArtist({
             id: artistId,
             data: formData
@@ -90,7 +85,7 @@ const EditArtist = () => {
             label: "Profile image",
             placeholder: "Profile image",
             required: false,
-            value: artistData?.profile_pic
+            value: artistData?.profile_image
         },
     ]
 
@@ -187,11 +182,7 @@ const EditArtist = () => {
                     </tbody>
                 </table>
 
-                <WorkLinks
-                    workLinks={workLinks}
-                    setWorkLinks={setWorkLinks}
-                    defaultWorkLinks={artistData?.works_links}
-                />
+                <WorkLinkTable works_links={artistData?.works_links} artistId={artistData?.id} />
 
                 <table className="w-full">
                     <tbody className="bg-white">

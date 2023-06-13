@@ -95,6 +95,14 @@ const artistApi = apis.injectEndpoints({
         }),
 
         // work link
+        createWrokLink: builder.mutation({
+            query: ({ id, data }) => ({
+                url: `/artist_create_link/${id}/`,
+                method: "POST",
+                body: data
+            }),
+            invalidatesTags: ["Artist"]
+        }),
         updateWrokLink: builder.mutation({
             query: ({ id, data }) => ({
                 url: `/edit_tags/${id}/`,
@@ -122,5 +130,6 @@ export const {
     useDeleteArtistMutation,
     useUpdateArtistMutation,
     useGetTotalArtistQuery,
-    useUpdateWrokLinkMutation
+    useUpdateWrokLinkMutation,
+    useCreateWrokLinkMutation
 } = artistApi;

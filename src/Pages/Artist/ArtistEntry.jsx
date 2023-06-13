@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useRootContext } from '../../contexts/RootProvider';
 import { useAddArtistMutation } from '../../features/artist/artistApi';
-import WorkLinks from './Components/WorkLinks';
 import Select from '../../Components/Input/Select';
 import MultiSelect from '../../Components/Input/MultiSelect';
 import { useGetLanguagesQuery, useGetLocationsQuery } from '../../features/utils/utilsApi';
@@ -14,21 +13,40 @@ import { toast } from 'react-hot-toast';
 
 const ArtistEntry = () => {
     const [workLinks, setWorkLinks] = useState([{ weblink: '', demo_type: '' }]);
-
     const [addArtist, { isSuccess, isError, error }] = useAddArtistMutation();
     const { skills: skillsData } = useRootContext();
     const { data: locations } = useGetLocationsQuery();
+    const [file, setFile] = useState(null);
+    const [isFullTime, setIsFullTime] = useState(false);
+
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    }
+
+    const handleChangeCTC = (e) => {
+        setIsFullTime(e.target.checked);
+    }
 
     const { register, handleSubmit, formState: { errors }, control, reset } = useForm();
     const onSubmit = data => {
-        const formData = {
+        const copyData = {
             ...data,
             age: +data.age,
+            phone: `+91${data.phone}`,
             professional_rating: data.professional_rating || 0,
             attitude_rating: data.attitude_rating || 0,
             has_manager: false,
-            works_links: workLinks
+            works_links: [],
+            is_full_time: isFullTime
         };
+
+        const formData = new FormData();
+
+        // Append other form fields to the form data
+        Object.entries(copyData).forEach(([key, value]) => {
+            formData.append(key, value);
+        });
+        formData.append('profile_pic', file); // Add the file to the form data
         addArtist(formData);
     }
 
@@ -40,44 +58,6 @@ const ArtistEntry = () => {
             navigate("/artists/artist-list");
         }
     }, [isSuccess])
-
-    const inputFields = [
-        {
-            name: "name",
-            type: "text",
-            label: "Name",
-            placeholder: "Artist name",
-            required: true,
-        },
-        {
-            name: "age",
-            type: "number",
-            label: "Age",
-            placeholder: "Artist age",
-            required: false,
-        },
-        {
-            name: "email",
-            type: "email",
-            label: "Email",
-            placeholder: "Artist email",
-            required: true,
-        },
-        {
-            name: "phone",
-            type: "tel",
-            label: "Phone",
-            placeholder: "Artist phone number",
-            required: true,
-        },
-        {
-            name: "profile_image",
-            type: "url",
-            label: "Profile Picture",
-            placeholder: "Artist image URL",
-            required: false,
-        },
-    ]
 
     // structured the data in expected form of `react-select`
     const { data: languagesData } = useGetLanguagesQuery();
@@ -94,20 +74,70 @@ const ArtistEntry = () => {
 
                 <table className="w-full">
                     <tbody className="bg-white">
-                        {inputFields?.map(field => (
-                            <TableRow
-                                key={field.name}
-                                label={<span className="whitespace-nowrap">{field.label} {field.required && <span className="text-red-500 text-base">*</span>}</span>}
-                                content={
-                                    <Input
-                                        type={field.type}
-                                        name={field.name}
-                                        placeholder={field.placeholder}
-                                        register={register}
-                                        required={field.required}
-                                    />
-                                } />
-                        ))}
+                        <TableRow
+                            label={<>Name <RequiredMark /></>}
+                            content={
+                                <Input
+                                    type="text"
+                                    name="name"
+                                    placeholder="Artist name"
+                                    register={register}
+                                    required={true}
+                                />
+                            } />
+                        <TableRow
+                            label="Age"
+                            content={
+                                <Input
+                                    type="number"
+                                    name="age"
+                                    placeholder="Artist age"
+                                    register={register}
+                                />
+                            } />
+                        <TableRow
+                            label="Email"
+                            content={
+                                <Input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Artist email"
+                                    register={register}
+                                    required={true}
+                                />
+                            } />
+                        <TableRow
+                            label="Phone"
+                            content={<>
+                                <select className="border">
+                                    <option value="+91">+91</option>
+                                </select>
+                                <Input
+                                    type="tel"
+                                    name="phone"
+                                    placeholder="Artist phone number"
+                                    register={register}
+                                    required={true}
+                                />
+                            </>} />
+                        <TableRow
+                            label="Profile Picture"
+                            content={
+                                <Input
+                                    type="url"
+                                    name="profile_image"
+                                    placeholder="Artist image URL"
+                                    register={register}
+                                />
+                            } />
+                        <TableRow label="Profile Picture" content={
+                            <input
+                                type="file"
+                                name="profile_pic"
+                                className="border cursor-pointer"
+                                onChange={handleFileChange}
+                            />
+                        } />
                         <TableRow label="Select location" content={
                             <Select
                                 name="location"
@@ -116,12 +146,17 @@ const ArtistEntry = () => {
                                 options={locations}
                             />
                         } />
-                        <TableRow label="Artist intro" content={
+                        <TableRow label="Artist intro" content={<>
                             <Textarea
                                 name="artist_intro"
                                 placeholder="Artist intro"
                                 register={register}
+                                validation={{ maxLength: 100 }}
                             />
+                            {errors.artist_intro && errors.artist_intro.type === 'maxLength' && (
+                                <p className='text-red-600'>Maximum character limit exceeded (100 characters).</p>
+                            )}
+                        </>
                         } />
                         <TableRow label="Select language" content={
                             <MultiSelect
@@ -137,13 +172,28 @@ const ArtistEntry = () => {
                                 options={skills}
                             />
                         } />
+                        <TableRow content={
+                            <div class="flex items-center">
+                                <input onChange={handleChangeCTC} id={`fulltime-checkbox`} type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
+                                <label for={`fulltime-checkbox`} class="ml-2 text-sm font-medium text-gray-900">Full Time</label>
+                            </div>
+                        } />
+                        {isFullTime && <TableRow content={<span className='flex'>
+                            <label class="mr-2 text-sm font-medium text-gray-900">CTC</label>
+                            <Input
+                                type="number"
+                                name="ctc_per_annum"
+                                placeholder="CTC per annum"
+                                register={register}
+                            />
+                        </span>} />}
                     </tbody>
                 </table>
 
-                <WorkLinks
+                {/* <WorkLinks
                     workLinks={workLinks}
                     setWorkLinks={setWorkLinks}
-                />
+                /> */}
 
                 {isError && <p className='bg-red-100 text-red-500 text-sm p-3'>{Object.values(error?.data)[0][0]}</p>}
 
@@ -158,6 +208,8 @@ const ArtistEntry = () => {
 
 export default ArtistEntry;
 
+const RequiredMark = () => <span className="text-red-500 text-base">*</span>
+
 const Input = ({ name, type, placeholder, required, register = () => { }, ...props }) => {
     return (
         <input
@@ -170,10 +222,11 @@ const Input = ({ name, type, placeholder, required, register = () => { }, ...pro
     );
 };
 
-const Textarea = ({ name, placeholder, defaultValue, required, register, ...props }) => {
+const Textarea = ({ name, placeholder, defaultValue, required, register, validation, ...props }) => {
+    console.log(validation);
     return (
         <textarea
-            {...register(name, { required })}
+            {...register(name, { required, ...validation })}
             rows="5"
             className="w-full border p-1"
             placeholder={placeholder}

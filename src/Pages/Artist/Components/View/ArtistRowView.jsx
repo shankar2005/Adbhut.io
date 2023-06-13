@@ -15,7 +15,7 @@ const ArtistRowView = ({ artist }) => {
     const { setArtistProfile } = useRootContext();
     const { user } = useSelector(state => state.auth);
 
-    const [imageSrc, setImageSrc] = useState(artist.profile_image);
+    const [imageSrc, setImageSrc] = useState(artist.profile_pic);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
 
     const handleImageError = () => {

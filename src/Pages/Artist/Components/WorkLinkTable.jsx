@@ -3,11 +3,11 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import Badge from "../../../Components/Badge/Badge";
-import { useUpdateWrokLinkMutation } from "../../../features/artist/artistApi";
+import { useCreateWrokLinkMutation, useUpdateWrokLinkMutation } from "../../../features/artist/artistApi";
 
-const WorkLinkTable = ({ works_links }) => {
+const WorkLinkTable = ({ works_links, artistId }) => {
     const [editingId, setEditingId] = useState(null);
-    const editingLink = works_links.find(l => l.pk === editingId);
+    const editingLink = works_links?.find(l => l.pk === editingId);
     const [tags, setTags] = useState([]);
     const linkRef = useRef();
     const [updateWorkLink] = useUpdateWrokLinkMutation();
@@ -41,13 +41,14 @@ const WorkLinkTable = ({ works_links }) => {
     }
 
     return (
-        <div className="w-full overflow-x-auto font-hero mt-5">
+        <div className="w-full overflow-x-auto font-hero">
             <table className="w-full">
                 <thead>
                     <tr className="text-md text-left text-gray-900 bg-gray-100 text-sm">
                         <th className="p-2 border font-semibold">Type</th>
                         <th className="p-2 border font-semibold">Link</th>
                         <th className="p-2 border font-semibold">Keywords</th>
+                        <th className="p-2 border font-semibold">Status</th>
                         <th className="p-2 border font-semibold">Actions</th>
                     </tr>
                 </thead>
@@ -100,6 +101,9 @@ const WorkLinkTable = ({ works_links }) => {
                             </td>
                         </tr>
                     ))}
+
+                    <AddWorkLink artistId={artistId} />
+
                 </tbody>
             </table>
         </div>
@@ -142,6 +146,7 @@ const KeywordInput = ({ tags, setTags }) => {
                         >
                             {tag}
                             <button
+                                type="button"
                                 className="ml-2 text-gray-500 focus:outline-none"
                                 onClick={() => removeTag(index)}
                             >
@@ -165,5 +170,73 @@ const KeywordInput = ({ tags, setTags }) => {
                 Press Enter to add a tag
             </small>
         </div>
+    )
+}
+
+// 
+
+const AddWorkLink = ({ artistId }) => {
+    const [tags, setTags] = useState([]);
+    const linkRef = useRef();
+    const bestWorkRef = useRef();
+    const demoRef = useRef();
+    const handleCloseInput = () => { }
+    const fileTypes = ["Youtube", "Google Drive", "Behance", "Imdb", "Instagram", "Vimeo", "Wixsite", "Other", "Other Document"];
+    const [createWrokLink, { isSuccess }] = useCreateWrokLinkMutation()
+
+    const handleSave = () => {
+        createWrokLink({
+            id: artistId,
+            data: {
+                weblink: linkRef.current?.value,
+                tags,
+                isDemo: bestWorkRef.current?.checked,
+                isBestWork: demoRef.current?.checked
+            }
+        })
+    }
+
+    useEffect(() => {
+        if (isSuccess) {
+            setTags([]);
+        }
+    }, [isSuccess])
+
+    return (
+        <tr>
+            <td className="p-2 text-sm border space-y-1">
+                <select name="" className="border rounded">
+                    <option value="">Select type</option>
+                    {fileTypes.map(type => <option value={type}>{type}</option>)}
+                </select>
+            </td>
+            <td className="p-2 text-sm border">
+                <input
+                    type="text"
+                    className="w-full border rounded pl-1"
+                    placeholder="Work link"
+                    ref={linkRef}
+                />
+            </td>
+            <td className="p-2 text-sm border">
+                <KeywordInput tags={tags} setTags={setTags} />
+            </td>
+            <td className="p-2 text-sm border space-y-1">
+                <div class="flex items-center">
+                    <input ref={bestWorkRef} id="best-work-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
+                    <label for="best-work-checkbox" class="ml-2 text-sm font-medium text-gray-900">Best Work</label>
+                </div>
+                <div class="flex items-center">
+                    <input ref={demoRef} id="demo-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
+                    <label for="demo-checkbox" class="ml-2 text-sm font-medium text-gray-900">Demo</label>
+                </div>
+            </td>
+            <td className="p-2 text-sm border">
+                <div className="flex gap-1">
+                    <Badge onClick={handleSave} className="cursor-pointer" type="success">Add</Badge>
+                    <RxCross2 onClick={handleCloseInput} size={25} className="text-gray-700 cursor-pointer" />
+                </div>
+            </td>
+        </tr>
     )
 }

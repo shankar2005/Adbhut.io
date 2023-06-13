@@ -2,6 +2,7 @@ import React from 'react';
 import { BsBoxArrowUpRight } from 'react-icons/bs';
 import { Spotify } from 'react-spotify-embed';
 import useYoutubeEmbaded from '../../../../hooks/useYoutubeEmbaded';
+import { InstagramEmbed } from 'react-social-media-embed';
 
 const WorkDemo = ({ demo_type, demo_link }) => {
     function extractFolderId(driveLink) {
@@ -23,8 +24,8 @@ const WorkDemo = ({ demo_type, demo_link }) => {
             }
             {
                 demo_type === "Instagram"
-                && <div className='border rounded-lg bg-gray-200 overflow-hidden'>
-                    <iframe src={demo_link} className="mx-auto border-l border-r -mt-14" height="430" frameBorder="0" scrolling="no" allowtransparency="true"></iframe>
+                && <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <InstagramEmbed url={demo_link} width={400} />
                 </div>
             }
             {

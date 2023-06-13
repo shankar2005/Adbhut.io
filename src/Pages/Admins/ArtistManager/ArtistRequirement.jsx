@@ -27,6 +27,53 @@ const ArtistRequirement = () => {
 
     return (
         <section className="font-hero">
+            <div className="mt-5 mb-8 border-b pb-8">
+                <h1 className="text-3xl">Hi <strong>{user?.name?.split(" ")[0]}</strong>🙂,</h1>
+                <p className="text-xl mt-2">It's <span className="text-blue-600">6 June 2023</span>, and you've got <span className="text-3xl font-bold text-red-500">100</span> Artist targets for today. Best of Luck! 🎉</p>
+                <div className="w-full overflow-x-auto bg-white mt-8">
+                    <table className="w-full text-sm">
+                        <thead>
+                            <tr className="text-md text-left">
+                                <th className="px-4 py-1 border-t">Date</th>
+                                <th className="px-4 py-1 border-t">Target</th>
+                                <th className="px-4 py-1 border-t">Details</th>
+                                <th className="px-4 py-1 border-t">Spanshot</th>
+                                <th className="px-4 py-1 border-t">Target Filled</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td className="px-4 py-1 border-t">12 June 2023</td>
+                                <td className="px-4 py-1 border-t">100</td>
+                                <td className="px-4 py-1 border-t">Please Try to fill the artist required for project "Demo"</td>
+                                <td className="px-4 py-1 border-t">672</td>
+                                <td className="px-4 py-1 border-t">
+                                    <input className="border w-16 pl-1" type="number" placeholder="Filled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="px-4 py-1 border-t">12 June 2023</td>
+                                <td className="px-4 py-1 border-t">100</td>
+                                <td className="px-4 py-1 border-t">Please Try to fill the artist required for project "Demo"</td>
+                                <td className="px-4 py-1 border-t">672</td>
+                                <td className="px-4 py-1 border-t">
+                                    <input className="border w-16 pl-1" type="number" placeholder="Filled" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="px-4 py-1 border-t">12 June 2023</td>
+                                <td className="px-4 py-1 border-t">100</td>
+                                <td className="px-4 py-1 border-t">Please Try to fill the artist required for project "Demo"</td>
+                                <td className="px-4 py-1 border-t">672</td>
+                                <td className="px-4 py-1 border-t">
+                                    <input className="border w-16 pl-1" type="number" placeholder="Filled" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <div className="my-2 grid grid-cols-4 gap-2">
                 <div className="p-3 bg-white shadow-sm border-b-4 border-blue-500">
                     <p className="text-sm font-semibold">Total Artists</p>
@@ -42,7 +89,7 @@ const ArtistRequirement = () => {
                 </div>
             </div>
 
-            <div className="bg-white w-full border mb-3 flex">
+            <div className="bg-white w-full border my-3 flex">
                 <div className="flex-1 p-3 flex flex-col">
                     <div className="flex items-center gap-2 mb-2 border-b pb-3">
                         <h3 className="text-lg font-semibold">Demos</h3>
@@ -130,7 +177,7 @@ const ArtistRequirement = () => {
                 <h1 className="p-4 text-base font-bold border-b">Artist Requirements</h1>
                 {data?.map(requirement => <Row requirement={requirement} />)}
             </div>
-        </section>
+        </section >
     );
 };
 
