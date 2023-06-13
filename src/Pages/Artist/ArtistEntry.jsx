@@ -12,7 +12,6 @@ import Button from '../../Components/Button/Button';
 import { toast } from 'react-hot-toast';
 
 const ArtistEntry = () => {
-    const [workLinks, setWorkLinks] = useState([{ weblink: '', demo_type: '' }]);
     const [addArtist, { data: artist, isSuccess, isError, error }] = useAddArtistMutation();
     const { skills: skillsData } = useRootContext();
     const { data: locations } = useGetLocationsQuery();

@@ -10,6 +10,8 @@ const WorkLinkTable = ({ works_links, artistId }) => {
     const editingLink = works_links?.find(l => l.pk === editingId);
     const [tags, setTags] = useState([]);
     const linkRef = useRef();
+    const bestWorkRef = useRef();
+    const demoRef = useRef();
     const [updateWorkLink] = useUpdateWrokLinkMutation();
 
     const handleRowClick = (id) => {
@@ -86,6 +88,16 @@ const WorkLinkTable = ({ works_links, artistId }) => {
                                     </div>
                                 )}
 
+                            </td>
+                            <td className="p-2 text-sm border space-y-1">
+                                <div class="flex items-center">
+                                    <input ref={bestWorkRef} id="best-work-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
+                                    <label for="best-work-checkbox" class="ml-2 text-sm font-medium text-gray-900">Best Work</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input ref={demoRef} id="demo-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
+                                    <label for="demo-checkbox" class="ml-2 text-sm font-medium text-gray-900">Demo</label>
+                                </div>
                             </td>
                             <td className="p-2 text-sm border">
                                 <div>
