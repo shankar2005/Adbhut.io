@@ -147,7 +147,7 @@ const ArtistEntry = () => {
                                 name="artist_intro"
                                 placeholder="Artist intro"
                                 register={register}
-                                validation={{ maxLength: 100 }}
+                                validation={{ maxLength: 150 }}
                             />
                             {errors.artist_intro && errors.artist_intro.type === 'maxLength' && (
                                 <p className='text-red-600'>Maximum character limit exceeded (100 characters).</p>
