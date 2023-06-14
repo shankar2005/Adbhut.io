@@ -69,11 +69,6 @@ const TopToggleBar = ({ className }) => {
                 </div>
             </div>
 
-            {
-                (suggestions?.length > 0 || removedSkills?.length > 0) && pathname.includes("/artists") &&
-                <Cta className="border-t" />
-            }
-
         </section>
     );
 };

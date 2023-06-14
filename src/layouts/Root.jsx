@@ -71,12 +71,12 @@ const Root = () => {
 
                 <div className={`flex-grow relative`}>
                     {/* togglebar */}
-                    <div className='sticky top-[57px] z-30'>
+                    {/* <div className='sticky top-[57px] z-30'>
                         <TopToggleBar />
-                    </div>
+                    </div> */}
                     {/* togglebar */}
 
-                    <main className='w-full md:w-9/12 mx-auto'>
+                    <main>
                         <AnimatePresence initial={false} exitBeforeEnter>
                             <Outlet key={pathname} />
                         </AnimatePresence>

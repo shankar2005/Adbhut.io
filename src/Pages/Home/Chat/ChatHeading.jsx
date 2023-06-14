@@ -1,10 +1,16 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { BiDotsHorizontalRounded } from 'react-icons/bi';
+import { SlArrowUp } from 'react-icons/sl';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { useRootContext } from '../../../contexts/RootProvider';
 import { useToggleChatGPTMutation } from '../../../features/chat/chatApi';
+import logo from "../../../assets/logos/adbeta.jpeg"
 
 const ChatHeading = ({ chatbotStatus }) => {
+    const { setShowChat, showChat } = useRootContext();
+    const [showMore, setShowMore] = useState(false);
     const currentProject = useSelector(state => state.project);
     const { user } = useSelector(state => state.auth);
     const [toggleChatGPT] = useToggleChatGPTMutation();
@@ -32,12 +38,16 @@ const ChatHeading = ({ chatbotStatus }) => {
 
     return (
         <div className='flex border-b shadow-sm p-2 rounded-t-lg items-center justify-between'>
-            <div className='flex gap-1 justify-between items-center w-full p-1.5'>
-                <h1 className="font-medium">Servicing Chat</h1>
-                {
+            <div className='flex gap-3 justify-between items-center w-full relative'>
+                <div className="mr-auto flex items-center gap-2">
+                    <img className="w-10 h-10" src={logo} alt="" />
+                    <h1 className="font-semibold">Servicing Chat</h1>
+                </div>
+
+                {showMore &&
                     currentProject?.pk && user?.role === "PM" && pathname !== "/" &&
-                    <div className='flex flex-col items-center justify-center'>
-                        <span className='text-xs font-medium'>ChatGPT Toggle</span>
+                    <div className='absolute bottom-10 right-0 bg-white shadow border p-3 w-52 flex flex-col justify-center'>
+                        <span className='text-xs font-semibold'>ChatGPT Toggle</span>
                         <label className="inline-flex space-x-2 items-center cursor-pointer">
                             <span className="text-sm text-gray-900">OFF</span>
                             <span className='relative'>
@@ -48,6 +58,12 @@ const ChatHeading = ({ chatbotStatus }) => {
                         </label>
                     </div>
                 }
+
+                <BiDotsHorizontalRounded className='cursor-pointer' onClick={() => setShowMore(prev => !prev)} size={20} />
+
+                <button onClick={() => setShowChat(prev => !prev)}>
+                    {showChat ? <SlArrowUp /> : <SlArrowUp className='rotate-180' />}
+                </button>
             </div>
         </div>
     );

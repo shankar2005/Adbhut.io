@@ -115,7 +115,7 @@ const LeftAside = () => {
     // 
 
     return (
-        <section className={`bg-white shadow border rounded-lg h-[70vh] flex flex-col justify-between`}>
+        <section className={`bg-white font-hero shadow border rounded-lg h-[70vh] flex flex-col justify-between`}>
             <ChatHeading chatbotStatus={chatbotStatus} />
             <div ref={chatboxRef} className='h-full overflow-y-scroll overflow-x-hidden relative flex flex-col justify-between'>
 
@@ -141,7 +141,7 @@ const LeftAside = () => {
                 {
                     suggestions?.length === 0 && contentProducts?.length > 0 && !selectedContentProduct &&
                     <div className='sticky bottom-0 p-2 pb-0 bg-white'>
-                        <div className='pb-2 flex flex-wrap gap-2 text-sm font-medium select-none'>
+                        <div className='pb-2 flex flex-wrap gap-2 text-sm font-semibold select-none'>
                             {
                                 contentProducts.map(contentProduct => <div
                                     onClick={() => {

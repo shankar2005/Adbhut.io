@@ -156,6 +156,8 @@ const RootProvider = ({ children }) => {
     const [page, setPage] = useState(1);
     const [artists, setArtists] = useState([]);
 
+    const [showChat, setShowChat] = useState(false);
+
     // stored values
     const value = {
         demoType,
@@ -193,6 +195,8 @@ const RootProvider = ({ children }) => {
         setPage,
         artists,
         setArtists,
+        showChat,
+        setShowChat,
     }
 
     return (

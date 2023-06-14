@@ -6,8 +6,8 @@ const Cta = ({ className }) => {
     const navigate = useNavigate();
 
     return (
-        <div className={`p-2 bg-white ${className || ""}`}>
-            <div className='pl-2 pt-2 pb-2.5 skillScroll overflow-x-scroll flex gap-2 text-sm font-medium select-none'>
+        <div className={`bg-white ${className || ""}`}>
+            <div className='w-full p-2 pb-2.5 flex flex-wrap gap-2 text-sm font-medium select-none'>
                 {
                     suggestions.map((skill, idx) => <div
                         onClick={() => {

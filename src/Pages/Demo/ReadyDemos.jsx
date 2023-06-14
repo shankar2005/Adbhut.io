@@ -8,7 +8,7 @@ const ReadyDemos = () => {
     console.log(data);
 
     return (
-        <section>
+        <section className='stream'>
             <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
                 <div className='flex items-center gap-2 mb-3'>
                     <img className='w-12 h-12' src="https://adbhut.io/assets/adbeta-a97ec0b9.jpeg" alt="" />

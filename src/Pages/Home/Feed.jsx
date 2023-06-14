@@ -11,6 +11,7 @@ import NothingFound from '../../Components/NotFound/NothingFound';
 import ArtistRowViewSkeleton from '../../Components/Skeleton/ArtistRowViewSkeleton';
 import Artists from '../Artist/Artists';
 import SearchInfo from '../Artist/Components/SearchInfo';
+import FilterArtist from '../Artist/FilterArtist';
 
 const Feed = () => {
     const { demoType, checkedSkills, checkedGenres, checkedLocations, viewAs } = useRootContext();
@@ -99,25 +100,32 @@ const Feed = () => {
     }
 
     return (
-        <div className='stream relative overflow-auto'>
-            {loading && <h2 className=''>Loading...</h2>}
+        <section className='w-11/12 mx-auto grid grid-cols-6 mt-5'>
 
-            <SearchInfo
-                searchText={searchText}
-                clearSearch={() => dispatch(setSearch(""))}
-            />
+            <div className='col-span-2'>
+                <FilterArtist />
+            </div>
 
-            {!artists.length && <NothingFound />}
+            <div className='stream col-span-4 relative overflow-auto'>
+                {loading && <h2 className=''>Loading...</h2>}
 
-            <InfiniteScroll
-                dataLength={artists.length}
-                next={fetchMoreData}
-                hasMore={hasNext}
-                loader={<FeedCardSkeleton />}
-            >
-                {content}
-            </InfiniteScroll>
-        </div>
+                <SearchInfo
+                    searchText={searchText}
+                    clearSearch={() => dispatch(setSearch(""))}
+                />
+
+                {!artists.length && <NothingFound />}
+
+                <InfiniteScroll
+                    dataLength={artists.length}
+                    next={fetchMoreData}
+                    hasMore={hasNext}
+                    loader={<FeedCardSkeleton />}
+                >
+                    {content}
+                </InfiniteScroll>
+            </div>
+        </section>
     );
 };
 

@@ -19,7 +19,7 @@ import AddDemoUrl from './Components/AddDemoUrl';
 import LeftAside from '../../Home/LeftAside';
 
 const ProjectDashboard = () => {
-    const { setIsModalOpen } = useRootContext();
+    const { setIsModalOpen, showChat } = useRootContext();
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
     const { id } = useParams();
@@ -197,7 +197,7 @@ const ProjectDashboard = () => {
                 </Modal>
             }
 
-            <div className='w-[450px] fixed bottom-0 left-10'>
+            <div className={`w-[450px] fixed bottom-0 ${showChat ? "translate-y-[88%]" : "translate-y-0"} duration-200 right-10 z-50`}>
                 <LeftAside />
             </div>
 
