@@ -19,7 +19,7 @@ import AddDemoUrl from './Components/AddDemoUrl';
 import LeftAside from '../../Home/LeftAside';
 
 const ProjectDashboard = () => {
-    const { setIsModalOpen, showChat } = useRootContext();
+    const { setIsModalOpen, setShowChat, showChat } = useRootContext();
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
     const { id } = useParams();
@@ -42,6 +42,10 @@ const ProjectDashboard = () => {
             }))
 
             sessionStorage.setItem("CURRENT_PROJECT", currentProject.pk);
+            // open the chat in delay
+            setTimeout(() => {
+                setShowChat(true);
+            }, 3000);
         }
     }, [currentProject])
 
@@ -197,7 +201,7 @@ const ProjectDashboard = () => {
                 </Modal>
             }
 
-            <div className={`w-[450px] fixed bottom-0 ${showChat ? "translate-y-[88%]" : "translate-y-0"} duration-200 right-10 z-50`}>
+            <div className={`w-[450px] fixed bottom-0 ${showChat ? "translate-y-0" : "translate-y-[88%]"} duration-200 right-10 z-50`}>
                 <LeftAside />
             </div>
 

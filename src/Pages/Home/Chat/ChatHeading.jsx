@@ -37,7 +37,7 @@ const ChatHeading = ({ chatbotStatus }) => {
     const pathname = useLocation().pathname;
 
     return (
-        <div className='flex border-b shadow-sm p-2 rounded-t-lg items-center justify-between'>
+        <div className='flex border-b shadow-sm p-2 pr-4 rounded-t-lg items-center justify-between'>
             <div className='flex gap-3 justify-between items-center w-full relative'>
                 <div className="mr-auto flex items-center gap-2">
                     <img className="w-10 h-10" src={logo} alt="" />
@@ -62,7 +62,7 @@ const ChatHeading = ({ chatbotStatus }) => {
                 <BiDotsHorizontalRounded className='cursor-pointer' onClick={() => setShowMore(prev => !prev)} size={20} />
 
                 <button onClick={() => setShowChat(prev => !prev)}>
-                    {showChat ? <SlArrowUp /> : <SlArrowUp className='rotate-180' />}
+                    {showChat ? <SlArrowUp className='rotate-180' /> : <SlArrowUp />}
                 </button>
             </div>
         </div>
