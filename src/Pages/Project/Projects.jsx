@@ -14,6 +14,7 @@ const Projects = () => {
             next={fetchMoreData}
             hasMore={true}
             loader={<FeedCardSkeleton />}
+            className="stream"
         >
             {
                 isSuccess &&

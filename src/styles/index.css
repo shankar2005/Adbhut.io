@@ -31,3 +31,11 @@ body {
 .input{
     @apply border border-gray-300 text-sm outline-0 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
 }
+
+.stream{
+    @apply w-[600px] mx-auto
+}
+
+.stream-lg{
+    @apply w-[700px] mx-auto
+}

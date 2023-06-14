@@ -16,6 +16,7 @@ import { CgAddR } from 'react-icons/cg';
 import { BiLink } from 'react-icons/bi';
 import AssignDemo from './Components/AssignDemo';
 import AddDemoUrl from './Components/AddDemoUrl';
+import LeftAside from '../../Home/LeftAside';
 
 const ProjectDashboard = () => {
     const { setIsModalOpen } = useRootContext();
@@ -196,7 +197,11 @@ const ProjectDashboard = () => {
                 </Modal>
             }
 
-        </Container >
+            <div className='w-[450px] fixed bottom-0 left-10'>
+                <LeftAside />
+            </div>
+
+        </Container>
     );
 };
 

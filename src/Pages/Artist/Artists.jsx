@@ -45,7 +45,7 @@ const Artists = () => {
             next={fetchMoreData}
             hasMore={hasNext}
             loader={<>Loading...</>}
-            className="min-h-[50vh]"
+            className="stream-lg min-h-[50vh]"
         >
             <SearchInfo
                 searchText={searchText}

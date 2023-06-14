@@ -115,7 +115,7 @@ const LeftAside = () => {
     // 
 
     return (
-        <section className={`bg-white shadow-md rounded-b-lg h-[calc(100vh-10rem)] md:h-[calc(100vh-4.8rem)] flex flex-col justify-between`}>
+        <section className={`bg-white shadow border rounded-lg h-[70vh] flex flex-col justify-between`}>
             <ChatHeading chatbotStatus={chatbotStatus} />
             <div ref={chatboxRef} className='h-full overflow-y-scroll overflow-x-hidden relative flex flex-col justify-between'>
 
@@ -136,7 +136,7 @@ const LeftAside = () => {
                     }
                 </div>
 
-                <ChatCallToAction />
+                {/* <ChatCallToAction /> */}
 
                 {
                     suggestions?.length === 0 && contentProducts?.length > 0 && !selectedContentProduct &&

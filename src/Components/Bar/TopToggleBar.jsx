@@ -19,7 +19,7 @@ const TopToggleBar = ({ className }) => {
 
     if (user?.role === "AM") {
         return (
-            <section className={`sticky top-[57px] w-full z-30 bg-white shadow ${className || ""}`}>
+            <section className={`w-full bg-white shadow ${className || ""}`}>
                 <div className="flex justify-between items-center p-4">
                     <h4 className='font-sans font-medium text-lg'>Artist Manager Panel</h4>
                 </div>
@@ -28,7 +28,7 @@ const TopToggleBar = ({ className }) => {
     }
 
     return (
-        <section className={`sticky top-[57px] w-full z-30 bg-white border-b border-gray-200 shadow-sm ${className || ""}`}>
+        <section className={`w-full bg-white border-b border-gray-200 shadow-sm ${className || ""}`}>
             <div className="flex justify-between items-center">
                 <nav className="flex items-center gap-2" aria-label="Breadcrumb">
                     <div className='space-y-1'>

@@ -122,20 +122,17 @@ const ArtistRequirementDetails = () => {
                             </tr>
                         </thead>
                         <tbody className="bg-white">
-                            {currentProject?.pk === 148 &&
-                                <tr>
-                                    <td className="px-4 py-3 text-sm border whitespace-pre-wrap">
-                                        <div className='flex flex-wrap gap-x-4 items-center text-base'>
-                                            <a target="_blank" href="https://drive.google.com/file/d/1cwG-4RgV25jHHNaR0eUlSloqs5pM_AU1/view" className="text-blue-800 hover:text-red-900">
-                                                ALMOND SOLUTIONS COMMERCIAL[1]
+                            <tr>
+                                <td className="px-4 py-3 text-sm border border-b-0 whitespace-pre-wrap">
+                                    <div className='flex flex-wrap gap-x-4 items-center text-base'>
+                                        {currentProject.project_demos?.map(demo => (
+                                            <a target="_blank" href={demo.link} className="text-blue-800 hover:text-red-900">
+                                                {demo.Title}
                                             </a>
-                                            <a target="_blank" href="https://drive.google.com/file/d/1rF1eqirsozTPtXz2y70Q-cio-0T8ehD3/view?usp=sharing" className="text-blue-800 hover:text-red-900">
-                                                Vishal- Almond Solutions
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
+                                        ))}
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
 

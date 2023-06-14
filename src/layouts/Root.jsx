@@ -60,46 +60,31 @@ const Root = () => {
     };
 
     return (
-        <div className='bg-gray-100 min-h-screen'>
+        <div className='bg-gray-100 overflow-clip'>
 
             <Navbar showToolkit={showToolkit} setShowToolkit={setShowToolkit} />
 
-            <div className='w-11/12 max-w-screen-xl mx-auto md:grid grid-cols-12 gap-3 items-start pb-5'>
+            <div className='flex'>
                 {/* bg unfocused layer */}
                 <div onClick={() => dispatch(closeAllDropdown())} className={`${!searchAndFilterModal && !locationDropdown && !loginModal && !accountModal && !skillDropdown && 'hidden'} fixed left-0 top-0 h-screen w-screen`}></div>
                 {/* bg unfocused layer */}
 
-                <aside className={`hidden md:block col-span-4 sticky top-[57px]`}>
-                    {
-                        user?.role === "AM"
-                            ? <FilterArtist />
-                            : <LeftAside />
-                    }
-                </aside>
-
-
-                <div className={`col-span-7 ${showToolkit ? "lg:col-span-5" : "lg:col-span-8"} relative`}>
-
-
+                <div className={`flex-grow relative`}>
                     {/* togglebar */}
-                    <TopToggleBar />
+                    <div className='sticky top-[57px] z-30'>
+                        <TopToggleBar />
+                    </div>
                     {/* togglebar */}
 
-
-                    <main>
+                    <main className='w-full md:w-9/12 mx-auto'>
                         <AnimatePresence initial={false} exitBeforeEnter>
                             <Outlet key={pathname} />
                         </AnimatePresence>
                     </main>
-
-
                 </div>
 
-
-                <aside className={`${showToolkit || "hidden"} col-span-3 sticky top-[57px] rightSide max-h-[88vh] overflow-y-scroll pb-5`}>
-                    <div className='hidden md:block'>
-                        <RightAside />
-                    </div>
+                <aside className={`hidden md:block ${showToolkit ? "w-72" : "w-0"} sticky top-[57px] whitespace-nowrap h-[91.3vh] border-l bg-white duration-200 rightSide`}>
+                    <RightAside />
                 </aside>
 
                 <div className='lg:hidden'>
@@ -121,6 +106,7 @@ const Root = () => {
                     </AnimatePresence>
                 </div>
 
+                {/* necessary */}
                 <AnimatePresence exitBeforeEnter={true}>
                     {
                         artistProfile &&

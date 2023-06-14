@@ -98,12 +98,10 @@ const Feed = () => {
         )
     }
 
-    if (loading) {
-        return <h2 className=''>Loading...</h2>
-    }
-
     return (
-        <div className='relative'>
+        <div className='stream relative overflow-auto'>
+            {loading && <h2 className=''>Loading...</h2>}
+
             <SearchInfo
                 searchText={searchText}
                 clearSearch={() => dispatch(setSearch(""))}

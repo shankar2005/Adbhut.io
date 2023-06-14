@@ -70,7 +70,6 @@ const ArtistEntry = () => {
     return (
         <div className='font-hero bg-white rounded-b-lg shadow'>
             <form onSubmit={handleSubmit(onSubmit)}>
-
                 <table className="w-full">
                     <tbody className="bg-white">
                         <TableRow
@@ -185,7 +184,6 @@ const ArtistEntry = () => {
                 <div className='p-4'>
                     <Button type="submit">Add Artist</Button>
                 </div>
-
             </form>
         </div>
     );
