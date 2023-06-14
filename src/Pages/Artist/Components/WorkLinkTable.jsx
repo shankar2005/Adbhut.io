@@ -2,17 +2,19 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
+import { FcDeleteDatabase } from "react-icons/fc";
 import Badge from "../../../Components/Badge/Badge";
-import { useCreateWrokLinkMutation, useUpdateWrokLinkMutation } from "../../../features/artist/artistApi";
+import { useCreateWrokLinkMutation, useDeleteWrokLinkMutation, useUpdateWrokLinkMutation } from "../../../features/artist/artistApi";
 
 const WorkLinkTable = ({ works_links, artistId }) => {
     const [editingId, setEditingId] = useState(null);
     const editingLink = works_links?.find(l => l.pk === editingId);
     const [tags, setTags] = useState([]);
     const linkRef = useRef();
-    const bestWorkRef = useRef();
-    const demoRef = useRef();
+    const [isBestWork, setIsBestWork] = useState();
+    const [isDemo, setIsDemo] = useState();
     const [updateWorkLink] = useUpdateWrokLinkMutation();
+    const [deleteWorkLink] = useDeleteWrokLinkMutation();
 
     const handleRowClick = (id) => {
         setEditingId(id);
@@ -25,6 +27,8 @@ const WorkLinkTable = ({ works_links, artistId }) => {
     useEffect(() => {
         if (editingId) {
             setTags(editingLink?.tags);
+            setIsBestWork(editingLink?.best_work);
+            setIsDemo(editingLink?.is_demo);
         }
     }, [editingId, editingLink?.tags])
 
@@ -33,10 +37,12 @@ const WorkLinkTable = ({ works_links, artistId }) => {
             id: editingId,
             data: {
                 weblink: linkRef.current?.value,
-                tags
+                tags,
+                best_work: isBestWork,
+                is_demo: isDemo
             }
         }).then(data => {
-            if (data?.data?.message === "Updated successfully") {
+            if (data?.data?.id) {
                 setEditingId(null);
             }
         })
@@ -87,29 +93,46 @@ const WorkLinkTable = ({ works_links, artistId }) => {
                                         {link.tags?.map(keyword => <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-xs">{keyword}</span>)}
                                     </div>
                                 )}
-
                             </td>
                             <td className="p-2 text-sm border space-y-1">
-                                <div class="flex items-center">
-                                    <input ref={bestWorkRef} id="best-work-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
-                                    <label for="best-work-checkbox" class="ml-2 text-sm font-medium text-gray-900">Best Work</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <input ref={demoRef} id="demo-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
-                                    <label for="demo-checkbox" class="ml-2 text-sm font-medium text-gray-900">Demo</label>
-                                </div>
+                                {editingId === link.pk ? (
+                                    <>
+                                        <div class="flex items-center">
+                                            <input onChange={() => setIsBestWork(prev => !prev)} id="best-work-checkbox-edit" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" checked={isBestWork} />
+                                            <label for="best-work-checkbox-edit" class="ml-2 text-sm font-medium text-gray-900">Best Work</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input onChange={() => setIsDemo(prev => !prev)} id="demo-checkbox-edit" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" checked={isDemo} />
+                                            <label for="demo-checkbox-edit" class="ml-2 text-sm font-medium text-gray-900">Demo</label>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div class="flex items-center">
+                                            <input type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" checked={link.best_work} disabled />
+                                            <label class="ml-2 text-sm font-medium text-gray-900">Best Work</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" checked={link.is_demo} disabled />
+                                            <label class="ml-2 text-sm font-medium text-gray-900">Demo</label>
+                                        </div>
+                                    </>
+                                )}
+
                             </td>
                             <td className="p-2 text-sm border">
-                                <div>
-                                    {editingId === link.pk ? (
-                                        <div className="flex gap-1">
-                                            <Badge onClick={handleSave} className="cursor-pointer" type="success">Save</Badge>
-                                            <RxCross2 onClick={handleCloseInput} size={25} className="text-gray-700 cursor-pointer" />
-                                        </div>
-                                    ) : (
+                                {editingId === link.pk ? (
+                                    <div className="flex gap-1">
+                                        <Badge onClick={handleSave} className="cursor-pointer" type="success">Save</Badge>
+                                        <RxCross2 onClick={handleCloseInput} size={25} className="text-gray-700 cursor-pointer" />
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center gap-1">
+                                        {console.log(link)}
                                         <Badge className="cursor-pointer" type="error" onClick={() => handleRowClick(link.pk)}>Edit</Badge>
-                                    )}
-                                </div>
+                                        <button onClick={() => deleteWorkLink(link.pk)} type="button"><FcDeleteDatabase size={25} /></button>
+                                    </div>
+                                )}
                             </td>
                         </tr>
                     ))}
@@ -117,8 +140,8 @@ const WorkLinkTable = ({ works_links, artistId }) => {
                     <AddWorkLink artistId={artistId} />
 
                 </tbody>
-            </table>
-        </div>
+            </table >
+        </div >
     );
 };
 
@@ -202,8 +225,8 @@ const AddWorkLink = ({ artistId }) => {
             data: {
                 weblink: linkRef.current?.value,
                 tags,
-                isdemo: bestWorkRef.current?.checked,
-                best_work: demoRef.current?.checked
+                best_work: bestWorkRef.current?.checked,
+                is_demo: demoRef.current?.checked
             }
         })
     }
@@ -235,12 +258,12 @@ const AddWorkLink = ({ artistId }) => {
             </td>
             <td className="p-2 text-sm border space-y-1">
                 <div class="flex items-center">
-                    <input ref={bestWorkRef} id="best-work-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
-                    <label for="best-work-checkbox" class="ml-2 text-sm font-medium text-gray-900">Best Work</label>
+                    <input ref={bestWorkRef} id="best-work-checkbox-create" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
+                    <label for="best-work-checkbox-create" class="ml-2 text-sm font-medium text-gray-900">Best Work</label>
                 </div>
                 <div class="flex items-center">
-                    <input ref={demoRef} id="demo-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
-                    <label for="demo-checkbox" class="ml-2 text-sm font-medium text-gray-900">Demo</label>
+                    <input ref={demoRef} id="demo-checkbox-create" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
+                    <label for="demo-checkbox-create" class="ml-2 text-sm font-medium text-gray-900">Demo</label>
                 </div>
             </td>
             <td className="p-2 text-sm border">

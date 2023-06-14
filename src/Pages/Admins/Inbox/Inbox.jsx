@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Container from '../../../Components/Container/Container';
 import { useRootContext } from '../../../contexts/RootProvider';
 import { useGetProjectQuery } from '../../../features/project/projectApi';
 import { setProjectData } from '../../../features/project/projectSlice';
@@ -9,7 +10,7 @@ const Inbox = () => {
     const { currentProjects } = useRootContext();
 
     return (
-        <div className='bg-white rounded-lg shadow-lg'>
+        <Container>
             <h3 className='font-medium p-3'>Client Messages</h3>
             <ul>
                 {
@@ -22,7 +23,7 @@ const Inbox = () => {
                 </li> */}
 
             </ul>
-        </div>
+        </Container>
     );
 };
 

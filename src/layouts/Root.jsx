@@ -69,19 +69,9 @@ const Root = () => {
                 <div onClick={() => dispatch(closeAllDropdown())} className={`${!searchAndFilterModal && !locationDropdown && !loginModal && !accountModal && !skillDropdown && 'hidden'} fixed left-0 top-0 h-screen w-screen`}></div>
                 {/* bg unfocused layer */}
 
-                <div className={`flex-grow relative`}>
-                    {/* togglebar */}
-                    {/* <div className='sticky top-[57px] z-30'>
-                        <TopToggleBar />
-                    </div> */}
-                    {/* togglebar */}
-
-                    <main>
-                        <AnimatePresence initial={false} exitBeforeEnter>
-                            <Outlet key={pathname} />
-                        </AnimatePresence>
-                    </main>
-                </div>
+                <main className="flex-grow relative">
+                    <Outlet />
+                </main>
 
                 <aside className={`hidden md:block ${showToolkit ? "w-72" : "w-0"} sticky top-[57px] whitespace-nowrap h-[91.3vh] border-l bg-white duration-200 rightSide`}>
                     <RightAside />

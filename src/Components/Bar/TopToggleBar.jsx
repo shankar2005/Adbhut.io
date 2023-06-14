@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { useRootContext } from '../../contexts/RootProvider';
-import Cta from '../../Pages/Home/Components/Cta';
 
 const TopToggleBar = ({ className }) => {
     const currentProject = useSelector(state => state.project);

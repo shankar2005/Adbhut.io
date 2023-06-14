@@ -9,19 +9,17 @@ const FilterArtist = () => {
 
     return (
         <div className='sticky top-16 bg-white rounded-lg shadow-lg border mb-2 p-2'>
-            <h1 className='p-2 shadow-sm font-medium flex items-center gap-1'><BiFilterAlt className='text-blue-600' size={20} /> Filter</h1>
+            <h1 className='p-2 font-medium flex items-center gap-1 mb-1'><BiFilterAlt className='text-blue-600' size={20} /> Filter</h1>
             <div>
-                <div className='sticky bottom-0 p-2 pb-0 bg-white mb-1'>
-                    <div className='pb-2 flex categoryScroll overflow-x-scroll gap-2 text-sm font-medium select-none'>
-                        {
-                            contentProducts.map(contentProduct => <div
-                                onClick={() => handleSelectContentProduct(contentProduct)}
-                                key={contentProduct.pk}
-                                className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
-                                {contentProduct.name}
-                            </div>)
-                        }
-                    </div>
+                <div className='pb-2 flex categoryScroll overflow-x-scroll gap-2 text-sm font-medium select-none'>
+                    {
+                        contentProducts.map(contentProduct => <div
+                            onClick={() => handleSelectContentProduct(contentProduct)}
+                            key={contentProduct.pk}
+                            className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
+                            {contentProduct.name}
+                        </div>)
+                    }
                 </div>
 
                 {
@@ -29,7 +27,7 @@ const FilterArtist = () => {
                     <Cta />
                 }
             </div>
-        </div>
+        </div >
     );
 };
 

@@ -19,6 +19,7 @@ const ArtistEntry = () => {
     const { data: languagesData } = useGetLanguagesQuery();
     const [file, setFile] = useState(null);
     const [isFullTime, setIsFullTime] = useState(false);
+    const [errorMsg, setErrorMsg] = useState(null);
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
@@ -58,7 +59,20 @@ const ArtistEntry = () => {
             reset();
             navigate(`/artists/artist-entry/works/${artist?.artist?.id}`);
         }
+
     }, [isSuccess])
+
+    useEffect(() => {
+        if (isError) {
+            if (error?.data?.languages) {
+                setErrorMsg("Please select at least one language");
+            } else if (error?.data?.skill) {
+                setErrorMsg("Please select at least one skill");
+            } else {
+                setErrorMsg(Object.values(error?.data)[0][0]);
+            }
+        }
+    }, [isError])
 
     // structured the data in expected form of `react-select`
     const languages = languagesData?.map(language => {
@@ -180,7 +194,7 @@ const ArtistEntry = () => {
                     </tbody>
                 </table>
 
-                {isError && <p className='bg-red-100 text-red-500 text-sm p-3'>{Object.values(error?.data)[0][0]}</p>}
+                {errorMsg && <p className='bg-red-100 text-red-500 text-sm p-3'>{errorMsg}</p>}
 
                 <div className='p-4'>
                     <Button type="submit">Add Artist</Button>

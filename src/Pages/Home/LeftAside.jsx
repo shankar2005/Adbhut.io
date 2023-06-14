@@ -4,9 +4,6 @@ import { RxCross1 } from 'react-icons/rx';
 import { BsFillMicFill, BsImageFill } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { BsEmojiSmile } from 'react-icons/bs';
-import { useRootContext } from '../../contexts/RootProvider';
-import { useNavigate } from 'react-router-dom';
-import nsnlogo from '../../assets/logos/adbeta.jpeg';
 import { useSelector } from 'react-redux';
 import ChatCallToAction from './Components/ChatCallToAction';
 import Message from './Chat/Message';
@@ -16,14 +13,9 @@ import ChatHeading from './Chat/ChatHeading';
 import { useCreateDemoMutation } from '../../features/demo/demoApi';
 
 const LeftAside = () => {
-    const { handleSelectContentProduct, contentProducts, suggestions } = useRootContext();
-
     const { user, token } = useSelector(state => state.auth);
     const currentProject = useSelector(state => state.project);
-    const { selectedContentProduct } = useSelector(state => state.project);
     const { data: chatbotStatus, refetch } = useChatbotStatusQuery(currentProject?.pk, { skip: !currentProject?.pk });
-
-    const navigate = useNavigate();
 
     // auto scroll
     const chatboxRef = useRef();
@@ -115,7 +107,7 @@ const LeftAside = () => {
     // 
 
     return (
-        <section className={`bg-white font-hero shadow border rounded-lg h-[470px] flex flex-col justify-between`}>
+        <section className={`bg-white font-hero shadow border rounded-lg h-screen md:h-[470px] flex flex-col justify-between`}>
             <ChatHeading chatbotStatus={chatbotStatus} />
             <div ref={chatboxRef} className='h-full overflow-y-scroll overflow-x-hidden relative flex flex-col justify-between'>
 
@@ -137,25 +129,6 @@ const LeftAside = () => {
                 </div>
 
                 {/* <ChatCallToAction /> */}
-
-                {
-                    suggestions?.length === 0 && contentProducts?.length > 0 && !selectedContentProduct &&
-                    <div className='sticky bottom-0 p-2 pb-0 bg-white'>
-                        <div className='pb-2 flex flex-wrap gap-2 text-sm font-semibold select-none'>
-                            {
-                                contentProducts.map(contentProduct => <div
-                                    onClick={() => {
-                                        handleSelectContentProduct(contentProduct);
-                                        navigate("/artists")
-                                    }}
-                                    key={contentProduct.pk}
-                                    className='whitespace-nowrap py-1 px-3 border text-gray-500 border-gray-500 rounded-full cursor-pointer hover:bg-blue-100'>
-                                    {contentProduct.name}
-                                </div>)
-                            }
-                        </div>
-                    </div>
-                }
             </div>
 
             <div className='p-3 border-t-[3px] border-gray-300'>
