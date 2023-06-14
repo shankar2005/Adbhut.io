@@ -44,19 +44,16 @@ const Navbar = ({ setShowToolkit, showToolkit }) => {
 
     return (
         <nav className='bg-white border-b sticky top-0 z-50 py-2 h-[57px]'>
-            <div className='w-11/12 max-w-screen-xl mx-auto flex items-center justify-between'>
-                <div className='flex items-center gap-8'>
-                    <Link to="/" className='md:hidden'>
+            <div className='px-3 flex items-center justify-between'>
+                <div className='flex items-center gap-3'>
+                    <Link to="/" className=''>
                         <img src={adbhutGIF} className='w-28 md:w-32' />
                     </Link>
-                    <div className='hidden md:flex relative'>
-                        <form onSubmit={handleSearch} className="flex">
-                            <input type="search" name="search" className='border border-gray-300 py-2 w-72 pl-10 pr-3 outline-0 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm rounded' placeholder='Search your artist here...' defaultValue={searchText} required />
-                            <AiOutlineSearch className='w-6 h-6 text-gray-500 absolute top-1/2 -translate-y-1/2 left-2' />
-                            <button className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="submit">Search</button>
-                        </form>
-                        {/* skill, location, advance search used to place here */}
-                    </div>
+                    <form onSubmit={handleSearch} className="hidden md:flex relative">
+                        <input type="search" name="search" className='border border-gray-300 py-2 w-72 pl-10 pr-3 outline-0 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm rounded' placeholder='Search your artist here...' defaultValue={searchText} required />
+                        <AiOutlineSearch className='w-6 h-6 text-gray-500 absolute top-1/2 -translate-y-1/2 left-2' />
+                        <button className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="submit">Search</button>
+                    </form>
                 </div>
                 <ul className='flex items-center gap-4 text-gray-500 flex-1 justify-end'>
                     {
@@ -99,7 +96,9 @@ const Navbar = ({ setShowToolkit, showToolkit }) => {
                             </AnimatePresence>
                         </li>
                     }
-                    <MdArrowBackIosNew className={`cursor-pointer ${showToolkit && "rotate-180"} duration-200`} onClick={() => setShowToolkit(prev => !prev)} size={25} />
+                    <div className="p-1 bg-gray-50 shadow-sm rounded-l-full text-gray-400" onClick={() => setShowToolkit(prev => !prev)}>
+                        <MdArrowBackIosNew className={`cursor-pointer ${showToolkit && "rotate-180"} duration-200`} size={25} />
+                    </div>
                 </ul>
             </div>
         </nav>

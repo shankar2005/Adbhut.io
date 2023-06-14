@@ -12,6 +12,7 @@ import Alert from "../../../Components/Badge/Alert";
 import AssignedArtistRow from "../ProductionManager/Components/AssignedArtistRow";
 import TableRow from "../../../Components/Table/TableRow";
 import Badge from "../../../Components/Badge/Badge";
+import Container from "../../../Components/Container/Container";
 
 const ArtistRequirementDetails = () => {
     const { id } = useParams();
@@ -63,7 +64,7 @@ const ArtistRequirementDetails = () => {
     }, [currentProject])
 
     return (
-        <section>
+        <Container>
             <div className="p-4">
                 <ul className="flex items-center gap-2 text-sm">
                     <li>
@@ -125,7 +126,7 @@ const ArtistRequirementDetails = () => {
                             <tr>
                                 <td className="px-4 py-3 text-sm border border-b-0 whitespace-pre-wrap">
                                     <div className='flex flex-wrap gap-x-4 items-center text-base'>
-                                        {currentProject.project_demos?.map(demo => (
+                                        {currentProject?.project_demos?.map(demo => (
                                             <a target="_blank" href={demo.link} className="text-blue-800 hover:text-red-900">
                                                 {demo.Title}
                                             </a>
@@ -145,7 +146,7 @@ const ArtistRequirementDetails = () => {
                     </table>
                 </div>
             </div>
-        </section>
+        </Container>
     );
 };
 
