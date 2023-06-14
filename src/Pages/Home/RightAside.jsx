@@ -30,7 +30,7 @@ const RightAside = () => {
 
     if (user?.role === "AM") {
         return (
-            <section className='bg-white rounded-b-lg'>
+            <section className='w-72 bg-white rounded-b-lg'>
                 <div className='text-gray-700 p-2 border-b'>
                     <ul className="font-medium text-sm">
                         <li>
@@ -63,7 +63,7 @@ const RightAside = () => {
     }
 
     return (
-        <section className='bg-white rounded-b-lg'>
+        <section className='w-72 bg-white rounded-b-lg'>
             <div className='border-b'>
                 <div className='flex justify-between mb-1 text-sm p-4 pb-0'>
                     <h3 className='font-medium'>Content Products</h3>

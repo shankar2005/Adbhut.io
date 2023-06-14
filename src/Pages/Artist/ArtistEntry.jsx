@@ -10,6 +10,7 @@ import { useGetLanguagesQuery, useGetLocationsQuery } from '../../features/utils
 import TableRow from '../../Components/Table/TableRow';
 import Button from '../../Components/Button/Button';
 import { toast } from 'react-hot-toast';
+import Container from '../../Components/Container/Container';
 
 const ArtistEntry = () => {
     const [addArtist, { data: artist, isSuccess, isError, error }] = useAddArtistMutation();
@@ -68,7 +69,7 @@ const ArtistEntry = () => {
     });
 
     return (
-        <div className='font-hero bg-white rounded-b-lg shadow'>
+        <Container className='font-hero'>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <table className="w-full">
                     <tbody className="bg-white">
@@ -185,7 +186,7 @@ const ArtistEntry = () => {
                     <Button type="submit">Add Artist</Button>
                 </div>
             </form>
-        </div>
+        </Container>
     );
 };
 

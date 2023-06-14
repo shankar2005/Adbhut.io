@@ -100,13 +100,11 @@ const Feed = () => {
     }
 
     return (
-        <section className='w-11/12 mx-auto grid grid-cols-6 mt-5'>
+        <section className='stream mt-5'>
 
-            <div className='col-span-2'>
-                <FilterArtist />
-            </div>
+            <FilterArtist />
 
-            <div className='stream col-span-4 relative overflow-auto'>
+            <div className='relative overflow-auto bg-gray-100'>
                 {loading && <h2 className=''>Loading...</h2>}
 
                 <SearchInfo

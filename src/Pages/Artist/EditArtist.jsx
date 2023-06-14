@@ -13,6 +13,7 @@ import TableRow from '../../Components/Table/TableRow';
 import { useRef } from 'react';
 import { toast } from 'react-hot-toast';
 import WorkLinkTable from './Components/WorkLinkTable';
+import Container from '../../Components/Container/Container';
 
 const EditArtist = () => {
     const { artistId } = useParams();
@@ -101,7 +102,7 @@ const EditArtist = () => {
     }
 
     return (
-        <div className='font-hero bg-white rounded-b-lg shadow-lg'>
+        <Container className='font-hero'>
             <form onSubmit={handleSubmit(onSubmit)}>
 
                 <table className="w-full">
@@ -312,7 +313,7 @@ const EditArtist = () => {
                 </div>
             </form>
 
-        </div>
+        </Container>
     );
 };
 

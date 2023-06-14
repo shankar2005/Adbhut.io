@@ -26,7 +26,7 @@ const ArtistRequirement = () => {
     const { data: demos } = useGetDemosQuery(null, { skip: !user?.email });
 
     return (
-        <section className="font-hero">
+        <section className="w-11/12 mx-auto font-hero">
             <div className="mt-5 mb-8 border-b pb-8">
                 <h1 className="text-3xl">Hi <strong>{user?.name?.split(" ")[0]}</strong>🙂,</h1>
                 <p className="text-xl mt-2">It's <span className="text-blue-600">{new Date().getDate()} June 2023</span>, and you've got <span className="text-3xl font-bold text-red-500">100</span> Artist targets for today. Best of Luck! 🎉</p>

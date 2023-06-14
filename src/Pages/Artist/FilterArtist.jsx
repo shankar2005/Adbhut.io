@@ -8,12 +8,11 @@ const FilterArtist = () => {
     const { setViewAs, suggestions, removedSkills, contentProducts, selectedContentProduct, handleSelectContentProduct } = useRootContext();
 
     return (
-        <div className='sticky top-16 bg-white rounded-lg shadow-lg border'>
+        <div className='sticky top-16 bg-white rounded-lg shadow-lg border mb-2 p-2'>
             <h1 className='p-4 border-b shadow-sm font-medium flex items-center gap-1'><BiFilterAlt className='text-blue-600' size={20} /> Filter</h1>
-            <div className='space-y-4'>
-
-                <div className='sticky bottom-0 p-2 pb-0 bg-white'>
-                    <div className='pb-2 flex flex-wrap gap-2 text-sm font-medium select-none'>
+            <div>
+                <div className='sticky bottom-0 p-2 pb-0 bg-white mb-1'>
+                    <div className='pb-2 flex categoryScroll overflow-x-scroll gap-2 text-sm font-medium select-none'>
                         {
                             contentProducts.map(contentProduct => <div
                                 onClick={() => handleSelectContentProduct(contentProduct)}

@@ -64,7 +64,7 @@ const Root = () => {
 
             <Navbar showToolkit={showToolkit} setShowToolkit={setShowToolkit} />
 
-            <div className='flex'>
+            <div className='flex min-h-screen'>
                 {/* bg unfocused layer */}
                 <div onClick={() => dispatch(closeAllDropdown())} className={`${!searchAndFilterModal && !locationDropdown && !loginModal && !accountModal && !skillDropdown && 'hidden'} fixed left-0 top-0 h-screen w-screen`}></div>
                 {/* bg unfocused layer */}
