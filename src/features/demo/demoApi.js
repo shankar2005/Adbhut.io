@@ -3,7 +3,7 @@ import apis from "../apis/apis";
 const demoApi = apis.injectEndpoints({
     endpoints: (builder) => ({
         getDemos: builder.query({
-            query: () => `/demo_link_doc/`,
+            query: () => `/demos_list/`,
         }),
         createDemo: builder.mutation({
             query: (data) => ({

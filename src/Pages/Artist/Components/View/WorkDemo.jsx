@@ -109,9 +109,7 @@ const WorkDemo = ({ demo_type, demo_link }) => {
             break;
 
         default:
-            content = (
-                <div>Default</div>
-            )
+            break;
     }
 
     return content;

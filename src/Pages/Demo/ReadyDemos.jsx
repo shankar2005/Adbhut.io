@@ -1,5 +1,6 @@
 import { DefaultPlayer as Video } from 'react-html5video';
 import { useSelector } from 'react-redux';
+import Button from '../../Components/Button/Button';
 import { useGetDemosQuery } from '../../features/demo/demoApi';
 import WorkDemo from '../Artist/Components/View/WorkDemo';
 
@@ -10,20 +11,10 @@ const ReadyDemos = () => {
 
     return (
         <section className='stream'>
-            {/* {data?.map(demo => )} */}
+            {data?.map(demo => <DemoCard key={demo.id} demo={demo} />)}
 
-            <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
-                <div className='flex items-center gap-2 mb-3'>
-                    <img className='w-12 h-12' src="https://adbhut.io/assets/adbeta-a97ec0b9.jpeg" alt="" />
-                    <div className='text-sm'>
-                        <p className='text-base font-medium'>Adbhut.io</p>
-                        <p>Ready to use Demos</p>
-                    </div>
-                    <button className='ml-auto text-blue-500 border-2 border-blue-500 hover:bg-sky-100 hover:border-sky-100 py-2.5 px-4 rounded-lg font-medium'>Click to Use</button>
-                </div>
-                {data?.length && <WorkDemo demo_type={"Google Drive"} demo_link={data[0]?.link} />}
-            </div>
-            
+
+
             {/* <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
                 <div className='flex items-center gap-2 mb-3'>
                     <img className='w-12 h-12' src="https://adbhut.io/assets/adbeta-a97ec0b9.jpeg" alt="" />
@@ -57,3 +48,20 @@ const ReadyDemos = () => {
 };
 
 export default ReadyDemos;
+
+const DemoCard = ({ demo }) => {
+    const { Title, demo_type, link} = demo || {};
+    return (
+        <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
+            <div className='flex items-center gap-2 mb-3'>
+                <img className='w-12 h-12' src="https://adbhut.io/assets/adbeta-a97ec0b9.jpeg" alt="" />
+                <div className='text-sm'>
+                    <p className='text-base font-medium'>Adbhut.io</p>
+                    <p>{Title}</p>
+                </div>
+                <Button className="ml-auto">Customize</Button>
+            </div>
+            <WorkDemo demo_type={demo_type} demo_link={link} />
+        </div>
+    )
+}

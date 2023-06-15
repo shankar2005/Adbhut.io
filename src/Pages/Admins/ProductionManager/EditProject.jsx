@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,8 @@ import { toast } from 'react-hot-toast';
 import { useRootContext } from '../../../contexts/RootProvider';
 import Container from '../../../Components/Container/Container';
 import Input from '../../../Components/Input/Input';
+import { useState } from 'react';
+import Button from '../../../Components/Button/Button';
 
 const EditProject = () => {
     const dispatch = useDispatch();
@@ -217,23 +219,37 @@ const Textarea = ({ name, placeholder, defaultValue, required, register, ...prop
 const ProjectActions = ({ projectId }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [deleteProject] = useDeleteProjectMutation();
     const { setSuggestions, setRemovedSkill } = useRootContext();
 
+    // delete project
+    const [deleteProject] = useDeleteProjectMutation();
+    const confirmInputRef = useRef();
+    const [showConfirm, setShowConfirm] = useState(false);
+
     const handleDeleteProject = () => {
-        deleteProject(projectId)
-            .then(data => {
-                toast.success(data.data.message);
-                dispatch(clearProject());
-                setSuggestions([]);
-                setRemovedSkill([]);
-                navigate("/projects/myprojects");
-            });
+        if (confirmInputRef.current?.value.trim() !== "Delete") {
+            setShowConfirm(true);
+            confirmInputRef.current?.focus();
+        } else {
+            deleteProject(projectId)
+                .then(data => {
+                    toast.success(data.data.message);
+                    dispatch(clearProject());
+                    setSuggestions([]);
+                    setRemovedSkill([]);
+                    navigate("/projects/myprojects");
+                });
+        }
     }
 
     return (
         <div className="p-4 pt-1">
-            <button type="button" onClick={handleDeleteProject}><Badge type="error">Delete</Badge></button>
+            {showConfirm && <div className='mb-2'>
+                <p className='text-sm mb-1 font-semibold'>To confirm, type "<span className='font-bold text-red-600'>Delete</span>" in the box below</p>
+                <input ref={confirmInputRef} type="text" className="border-2 border-blue-500 outline-red-500 rounded pl-1 text-sm" />
+            </div>}
+
+            <Button onClick={handleDeleteProject} type="button" variant="danger">Delete</Button>
         </div>
     )
 }
