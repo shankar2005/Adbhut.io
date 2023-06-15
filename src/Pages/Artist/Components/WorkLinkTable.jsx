@@ -4,9 +4,12 @@ import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { FcDeleteDatabase } from "react-icons/fc";
 import Badge from "../../../Components/Badge/Badge";
-import { useCreateWrokLinkMutation, useDeleteWrokLinkMutation, useUpdateWrokLinkMutation } from "../../../features/artist/artistApi";
+import { useCreateWrokLinkMutation, useDeleteWrokLinkMutation, useGetArtistWrokLinksQuery, useUpdateWrokLinkMutation } from "../../../features/artist/artistApi";
+import ActionLoader from "../../../Components/Loader/ActionLoader";
 
-const WorkLinkTable = ({ works_links, artistId }) => {
+const WorkLinkTable = ({ artistId }) => {
+    const { data } = useGetArtistWrokLinksQuery(artistId, { skip: !artistId });
+    const works_links = data?.works_links;
     const [editingId, setEditingId] = useState(null);
     const editingLink = works_links?.find(l => l.pk === editingId);
     const [tags, setTags] = useState([]);
@@ -14,7 +17,7 @@ const WorkLinkTable = ({ works_links, artistId }) => {
     const [isBestWork, setIsBestWork] = useState();
     const [isDemo, setIsDemo] = useState();
     const [updateWorkLink] = useUpdateWrokLinkMutation();
-    const [deleteWorkLink] = useDeleteWrokLinkMutation();
+    const [deleteWorkLink, { isLoading: deleteLoading }] = useDeleteWrokLinkMutation();
 
     const handleRowClick = (id) => {
         setEditingId(id);
@@ -124,14 +127,11 @@ const WorkLinkTable = ({ works_links, artistId }) => {
                                 {editingId === link.pk ? (
                                     <div className="flex gap-1">
                                         <Badge onClick={handleSave} className="cursor-pointer" type="success">Save</Badge>
+                                        {deleteLoading ? <ActionLoader /> : <Badge onClick={() => deleteWorkLink(link.pk)} className="cursor-pointer" type="error">Del</Badge>}
                                         <RxCross2 onClick={handleCloseInput} size={25} className="text-gray-700 cursor-pointer" />
                                     </div>
                                 ) : (
-                                    <div className="flex items-center gap-1">
-                                        {console.log(link)}
-                                        <Badge className="cursor-pointer" type="error" onClick={() => handleRowClick(link.pk)}>Edit</Badge>
-                                        <button onClick={() => deleteWorkLink(link.pk)} type="button"><FcDeleteDatabase size={25} /></button>
-                                    </div>
+                                    <Badge className="cursor-pointer" type="error" onClick={() => handleRowClick(link.pk)}>Edit</Badge>
                                 )}
                             </td>
                         </tr>
@@ -174,7 +174,7 @@ const KeywordInput = ({ tags, setTags }) => {
         <div className="flex flex-col">
             <div className="flex items-center">
                 <ul className="flex flex-wrap border border-gray-300 rounded max-h-52 overflow-auto">
-                    {tags.map((tag, index) => (
+                    {tags?.map((tag, index) => (
                         <li
                             key={index}
                             className="flex items-center bg-gray-200 text-gray-700 rounded-full px-2 py-1 m-0.5 text-xs"
@@ -220,6 +220,10 @@ const AddWorkLink = ({ artistId }) => {
     const [createWrokLink, { isSuccess }] = useCreateWrokLinkMutation()
 
     const handleSave = () => {
+        if (!linkRef.current?.value) {
+            linkRef.current?.focus();
+            return;
+        }
         createWrokLink({
             id: artistId,
             data: {

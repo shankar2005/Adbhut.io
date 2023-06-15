@@ -77,7 +77,7 @@ const Root = () => {
                     <RightAside />
                 </aside>
 
-                <div className='lg:hidden'>
+                <div className='md:hidden'>
                     <AnimatePresence initial={false} exitBeforeEnter>
                         {
                             showToolkit &&

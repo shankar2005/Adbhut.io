@@ -90,7 +90,7 @@ const ArtistProfile = () => {
                 }
             </div>
 
-            <div className="grid grid-cols-12 gap-4 items-start">
+            <div className="grid grid-cols-12 gap-4 items-start mb-4">
                 <div className='col-span-8 space-y-4'>
                     <div className='bg-gray-50 p-3 border border-gray-100'>
                         <table className="w-full text-sm font-hero">
@@ -189,7 +189,7 @@ const ArtistProfile = () => {
                 </div>
             </div>
 
-            <WorkLinkTable works_links={works_links} />
+            <WorkLinkTable artistId={id} />
 
             <div className='artistProfile mt-5'>
                 <Swiper

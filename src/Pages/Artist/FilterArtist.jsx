@@ -8,7 +8,7 @@ const FilterArtist = () => {
     const { setViewAs, suggestions, removedSkills, contentProducts, selectedContentProduct, handleSelectContentProduct } = useRootContext();
 
     return (
-        <div className='sticky top-16 bg-white rounded-lg shadow-lg border mb-2 p-2'>
+        <div className='w-[92vw] md:w-full sticky top-16 bg-white rounded-lg shadow-lg border mb-2 p-2'>
             <h1 className='p-2 font-medium flex items-center gap-1 mb-1'><BiFilterAlt className='text-blue-600' size={20} /> Filter</h1>
             <div>
                 <div className='pb-2 flex categoryScroll overflow-x-scroll gap-2 text-sm font-medium select-none'>

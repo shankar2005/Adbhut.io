@@ -105,7 +105,7 @@ const artistApi = apis.injectEndpoints({
                 method: "POST",
                 body: data
             }),
-            invalidatesTags: ["Artist", "ArtistWorkLinks"]
+            invalidatesTags: ["ArtistWorkLinks"]
         }),
         updateWrokLink: builder.mutation({
             query: ({ id, data }) => ({
@@ -113,14 +113,14 @@ const artistApi = apis.injectEndpoints({
                 method: "PUT",
                 body: data
             }),
-            invalidatesTags: ["Artist", "ArtistWorkLinks"]
+            invalidatesTags: ["ArtistWorkLinks"]
         }),
         deleteWrokLink: builder.mutation({
             query: (id) => ({
                 url: `/artist_works_links/${id}/`,
                 method: "DELETE",
             }),
-            invalidatesTags: ["Artist", "ArtistWorkLinks"]
+            invalidatesTags: ["ArtistWorkLinks"]
         }),
     })
 });
