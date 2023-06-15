@@ -1,27 +1,22 @@
 const Input = ({
     name,
-    label,
     type,
     placeholder,
     defaultValue,
     required,
     register = () => { },
-    className = "",
+    className,
     ...props
 }) => {
     return (
-        <div>
-            <label htmlFor={name} className="block text-sm font-medium text-gray-900">{label}</label>
-            <input
-                {...register(name, { required })}
-                type={type}
-                id={name}
-                className={`input ${className}`}
-                placeholder={placeholder}
-                defaultValue={defaultValue}
-                {...props}
-            />
-        </div>
+        <input
+            {...register(name, { required })}
+            type={type}
+            className={`border px-1 outline-none ${className && className}`}
+            placeholder={placeholder}
+            defaultValue={defaultValue}
+            {...props}
+        />
     );
 };
 

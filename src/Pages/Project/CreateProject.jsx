@@ -6,6 +6,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Alert from '../../Components/Badge/Alert';
 import Button from '../../Components/Button/Button';
 import Container from '../../Components/Container/Container';
+import Input from '../../Components/Input/Input';
+import TableRow from '../../Components/Table/TableRow';
 import { useRootContext } from '../../contexts/RootProvider';
 import { useGetArtistByIdQuery } from '../../features/artist/artistApi';
 import { showLogin } from '../../features/dropdown/dropdownSlice';
@@ -92,34 +94,54 @@ const CreateProject = () => {
     const location = useLocation();
 
     return (
-        <Container>
+        <Container className="font-hero">
+            <div className='mb-5 flex items-center justify-center gap-1.5'>
+                <div className="relative w-fit min-w-[200px] mt-2">
+                    <input
+                        type="text"
+                        name="title"
+                        className="peer h-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-pink-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 text-3xl font-bold font-hero text-gray-600"
+                        placeholder=" "
+                        onBlur={e => dispatch(setTitle(e.target.value))}
+                        defaultValue={currentProject?.title}
+                    />
+                    <label className="after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-pink-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-pink-500 peer-focus:after:scale-x-100 peer-focus:after:border-pink-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        Title
+                    </label>
+                </div>
+            </div>
+
             <form>
+                <table className="w-full">
+                    <tbody className="bg-white">
+                        <TableRow
+                            label="Project Reference Link"
+                            content={
+                                <Input
+                                    type="url"
+                                    className="w-full"
+                                    placeholder="Enter project reference link"
+                                    onBlur={e => dispatch(setReferenceLinks([e.target.value]))}
+                                    defaultValue={currentProject?.reference_links}
+                                />
+                            } />
+                        <TableRow
+                            label="Content Product"
+                            content={
+                                <select onChange={(e) => {
+                                    const content = JSON.parse(e.target.value);
+                                    handleSelectContentProduct(content);
+                                }} className="border">
+                                    <option selected>Select content product</option>
+                                    {
+                                        contentProducts?.map(content => <option selected={selectedContentProduct === content.pk} value={JSON.stringify(content)}>{content.name}</option>)
+                                    }
+                                </select>
+                            } />
+                    </tbody>
+                </table>
+
                 <div className="p-4">
-                    <div className="mb-4 items-center gap-2">
-                        <label className="block mb-2 text-sm font-medium text-gray-900">Project Title</label>
-                        <input type="text" name="title" onBlur={e => dispatch(setTitle(e.target.value))} className="input" placeholder="Enter a Project title" defaultValue={currentProject?.title} />
-                    </div>
-
-                    <div className='flex gap-4'>
-                        <div className="mb-4 w-full">
-                            <label className="flex-1 text-sm font-medium text-gray-900">Content Product: </label>
-                            <select name="project_template" onChange={e => {
-                                const content = JSON.parse(e.target.value);
-                                handleSelectContentProduct(content);
-                            }} className="input bg-gray-50">
-                                <option selected>Select content product</option>
-                                {
-                                    contentProducts?.map(content => <option selected={selectedContentProduct === content.pk} value={JSON.stringify(content)}>{content.name}</option>)
-                                }
-                            </select>
-                        </div>
-                    </div>
-
-                    <div className="mb-4">
-                        <label className="block mb-2 text-sm font-medium text-gray-900">Project Reference Link:</label>
-                        <input type="text" name="reference_links" onBlur={e => dispatch(setReferenceLinks([e.target.value]))} className="input" placeholder="Enter project reference link" defaultValue={currentProject?.reference_links} />
-                    </div>
-
                     {
                         <div className="mb-4 mt-8">
                             <div className='flex justify-between mb-1'>

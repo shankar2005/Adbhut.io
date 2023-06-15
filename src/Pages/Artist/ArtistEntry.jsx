@@ -11,6 +11,8 @@ import TableRow from '../../Components/Table/TableRow';
 import Button from '../../Components/Button/Button';
 import { toast } from 'react-hot-toast';
 import Container from '../../Components/Container/Container';
+import Input from '../../Components/Input/Input';
+import RequiredMark from '../../Components/Input/RequiredMark';
 
 const ArtistEntry = () => {
     const [addArtist, { data: artist, isSuccess, isError, error }] = useAddArtistMutation();
@@ -205,20 +207,6 @@ const ArtistEntry = () => {
 };
 
 export default ArtistEntry;
-
-const RequiredMark = () => <span className="text-red-500 text-base">*</span>
-
-const Input = ({ name, type, placeholder, required, register = () => { }, ...props }) => {
-    return (
-        <input
-            {...register(name, { required })}
-            type={type}
-            className="border px-1 outline-none"
-            placeholder={placeholder}
-            {...props}
-        />
-    );
-};
 
 const Textarea = ({ name, placeholder, defaultValue, required, register, validation, ...props }) => {
     return (

@@ -12,6 +12,8 @@ import ArtistRowViewSkeleton from '../../Components/Skeleton/ArtistRowViewSkelet
 import Artists from '../Artist/Artists';
 import SearchInfo from '../Artist/Components/SearchInfo';
 import FilterArtist from '../Artist/FilterArtist';
+import { Link } from 'react-router-dom';
+import { BiArrowBack } from 'react-icons/bi';
 
 const Feed = () => {
     const { demoType, checkedSkills, checkedGenres, checkedLocations, viewAs } = useRootContext();
@@ -100,7 +102,9 @@ const Feed = () => {
     }
 
     return (
-        <section className='stream mt-5'>
+        <section className='stream mt-5 relative'>
+
+            <Link to="/projects/create-project"><BiArrowBack className='cursor-pointer bg-gray-200 text-gray-700 rounded-full p-1 absolute -left-10 top-0.5' size={30} /></Link>
 
             <FilterArtist />
 

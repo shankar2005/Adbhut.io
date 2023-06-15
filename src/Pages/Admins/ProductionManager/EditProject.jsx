@@ -11,6 +11,7 @@ import TableRow from '../../../Components/Table/TableRow';
 import { toast } from 'react-hot-toast';
 import { useRootContext } from '../../../contexts/RootProvider';
 import Container from '../../../Components/Container/Container';
+import Input from '../../../Components/Input/Input';
 
 const EditProject = () => {
     const dispatch = useDispatch();
@@ -210,27 +211,6 @@ export default EditProject;
 const Textarea = ({ name, placeholder, defaultValue, required, register, ...props }) => {
     return (
         <textarea {...register(name, { required })} id={name} rows="5" className="w-full border p-1" placeholder={placeholder} defaultValue={defaultValue} {...props}></textarea>
-    );
-};
-
-const Input = ({
-    name,
-    type,
-    placeholder,
-    defaultValue,
-    required,
-    register = () => { },
-    ...props
-}) => {
-    return (
-        <input
-            {...register(name, { required: !defaultValue })}
-            type={type}
-            className="border px-1"
-            placeholder={placeholder}
-            defaultValue={defaultValue}
-            {...props}
-        />
     );
 };
 
