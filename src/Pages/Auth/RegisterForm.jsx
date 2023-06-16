@@ -1,21 +1,65 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { useRegisterUserMutation } from "../../features/auth/authApi";
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+import { useState } from "react";
+import { BiHide, BiShowAlt } from "react-icons/bi";
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const RegisterForm = () => {
     const [registerUser, { isSuccess, isError, error }] = useRegisterUserMutation();
+    const [phone, setPhone] = useState(null);
+    const [phoneNumberErr, setPhoneNumberErr] = useState(null);
+    const [err, setErr] = useState(null);
+    const phoneNumberRegex = /^9[0-9]{11}$/;
+    const [showPassword, setShowPassword] = useState(false);
 
-    const { register, handleSubmit, reset } = useForm();
+    const schema = yup.object().shape({
+        name: yup
+            .string()
+            .required('Name is required'),
+        email: yup
+            .string()
+            .required('Email is required')
+            .matches(
+                /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                "Provide a valid email address"
+            ),
+        password: yup
+            .string()
+            .required('Password is required')
+            .min(8, 'Password must be at least 8 characters long'),
+        password2: yup
+            .string()
+            .required('Password is required')
+    });
+
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({
+        resolver: yupResolver(schema),
+    });
     const onSubmit = data => {
+        if (!phone || !phoneNumberRegex.test(phone)) {
+            return setPhoneNumberErr("Please enter your valid phone number");
+        } else {
+            setPhoneNumberErr(null);
+        }
+
+        if (data.password !== data.password2) {
+            return setErr("Password didn't match");
+        } else {
+            setErr(null);
+        }
+
         registerUser({
             email: data.email,
             password: data.password,
             password2: data.password2,
             company: data.company,
             url: data.url,
-            phone: data.phone,
+            phone: "+" + phone,
             name: data.name
         })
     };
@@ -29,38 +73,47 @@ const RegisterForm = () => {
             )
             reset();
         }
-    }, [isSuccess])
+    }, [isSuccess]);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="space-y-3 mb-4">
-                <div className="space-y-1">
-                    <label htmlFor="name" className="block text-sm">Full Name</label>
-                    <input type="text" {...register("name", { required: true })} id="name" placeholder="John Doe" className="w-full p-3 border rounded-md border-gray-700" data-temp-mail-org="2" />
+            <div className="space-y-2 mb-4">
+                <div className="space-y-0.5">
+                    <label htmlFor="name" className="block text-xs text-gray-600 font-semibold">Name</label>
+                    <input type="text" {...register("name")} id="name" placeholder="Your name" className="input" />
+                    {errors.name && <small className='text-red-400'>{errors.name?.message}</small>}
                 </div>
-                <div className="space-y-1">
-                    <label htmlFor="email" className="block text-sm">Email</label>
-                    <input type="email" {...register("email", { required: true })} id="email" placeholder="john@example.com" className="w-full p-3 border rounded-md border-gray-700" data-temp-mail-org="2" />
+                <div className="space-y-0.5">
+                    <label htmlFor="email" className="block text-xs text-gray-600 font-semibold">Email</label>
+                    <input type="text" {...register("email")} id="email" placeholder="Enter email" className={`input ${errors.email?.message && "!border-red-300 !ring-red-500"}`}
+                    />
+                    {errors.email && <small className='text-red-400'>{errors.email?.message}</small>}
                 </div>
-                <div className="space-y-1">
-                    <label htmlFor="phone" className="block text-sm">Phone</label>
-                    <input type="phone" {...register("phone", { required: true })} id="phone" placeholder="+91*********" className="w-full p-3 border rounded-md border-gray-700" data-temp-mail-org="2" />
+                <div className="space-y-0.5">
+                    <label htmlFor="phone" className="block text-xs text-gray-600 font-semibold">Phone</label>
+                    <PhoneInput
+                        onlyCountries={['in']}
+                        country={'in'}
+                        value={phone}
+                        onChange={ph => setPhone(ph)}
+                        inputStyle={{ width: "100%", fontFamily: 'Source Sans Pro' }}
+                        countryCodeEditable={false}
+                    />
+                    {phoneNumberErr && <small className='text-red-400'>{phoneNumberErr}</small>}
                 </div>
-                <div className="space-y-1">
-                    <label htmlFor="company" className="block text-sm">Company</label>
-                    <input type="company" {...register("company", { required: true })} id="company" placeholder="Microsoft" className="w-full p-3 border rounded-md border-gray-700" data-temp-mail-org="2" />
+                <div className="space-y-0.5 relative">
+                    <label htmlFor="password" className="text-xs text-gray-600 font-semibold">Password</label>
+                    <input type={showPassword ? "text" : "password"} {...register("password")} id="password" placeholder="Password" className="input" />
+                    <button type="button" onClick={() => setShowPassword(prev => !prev)} className="absolute bottom-0 right-0 -translate-x-2 -translate-y-2 text-gray-600">
+                        {showPassword ? <BiHide size={20} /> : <BiShowAlt size={20} />}
+                    </button>
+                    {err && <small className='text-red-400'>{err}</small>}
+                    {errors.password && <small className='text-red-400'>{errors.password.message}</small>}
                 </div>
-                <div className="space-y-1">
-                    <label htmlFor="url" className="block text-sm">Company Website</label>
-                    <input type="url" {...register("url", { required: true })} id="url" placeholder="microsoft.com" className="w-full p-3 border rounded-md border-gray-700" data-temp-mail-org="2" />
-                </div>
-                <div className="space-y-1">
-                    <label htmlFor="password" className="text-sm">Password</label>
-                    <input type="password" {...register("password", { required: true })} id="password" placeholder="*****" className="w-full p-3 border rounded-md border-gray-700" />
-                </div>
-                <div className="space-y-1">
-                    <label htmlFor="password2" className="text-sm">Confirm Password</label>
-                    <input type="password" {...register("password2", { required: true })} id="password2" placeholder="*****" className="w-full p-3 border rounded-md border-gray-700" />
+                <div className="space-y-0.5">
+                    <label htmlFor="password2" className="text-xs text-gray-600 font-semibold">Confirm Password</label>
+                    <input type={showPassword ? "text" : "password"} {...register("password2")} id="password2" placeholder="Confirm password" className="input" />
+                    {err && <small className='text-red-400'>{err}</small>}
                 </div>
             </div>
             {

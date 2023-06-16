@@ -29,7 +29,7 @@ body {
 }
 
 .input{
-    @apply border border-gray-300 text-sm outline-0 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
+    @apply border border-gray-400/60 text-sm outline-0 block w-full p-2.5 py-[7px] rounded-md
 }
 
 .stream{

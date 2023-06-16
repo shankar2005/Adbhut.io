@@ -9,18 +9,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.1.1",
     "@paypal/react-paypal-js": "^7.8.2",
     "@reduxjs/toolkit": "^1.9.3",
     "framer-motion": "^8.4.3",
     "react": "^18.2.0",
     "react-calendly": "^4.1.1",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.41.5",
+    "react-hook-form": "^7.44.3",
     "react-hot-toast": "^2.4.0",
     "react-html5video": "^2.5.1",
     "react-icons": "^4.7.1",
     "react-infinite-scroll-component": "^6.1.0",
     "react-loading-skeleton": "^3.1.0",
+    "react-phone-input-2": "^2.15.1",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.1",
     "react-select": "^5.7.0",
@@ -30,7 +32,8 @@
     "sweetalert2": "^11.7.3",
     "swiper": "^8.4.5",
     "timeago.js": "^4.0.2",
-    "universal-cookie": "^4.0.4"
+    "universal-cookie": "^4.0.4",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@types/react-dom": "^18.0.9",

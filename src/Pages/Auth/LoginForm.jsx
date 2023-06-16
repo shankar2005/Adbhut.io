@@ -50,7 +50,7 @@ const LoginForm = () => {
     }, [userData])
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="mb-16">
             <div className="space-y-4 mb-4">
                 <div className="space-y-2">
                     <label htmlFor="email" className="block text-sm">Email</label>
@@ -65,7 +65,7 @@ const LoginForm = () => {
                         })}
                         id="email"
                         placeholder="Enter email"
-                        className={`input !py-3 rounded ${errors.email?.message && "!border-red-500 !ring-red-500"}`}
+                        className={`input ${errors.email?.message && "!border-red-500 !ring-red-500"}`}
                     />
                     {errors.email?.message && <small className='text-red-400'>{errors.email?.message}</small>}
                 </div>
@@ -74,12 +74,10 @@ const LoginForm = () => {
                         <label htmlFor="password" className="text-sm">Password</label>
                         <a rel="noopener noreferrer" href="#" className="text-xs hover:underline text-gray-400">Forgot password?</a>
                     </div>
-                    <input type={showPassword ? "text" : "password"} {...register("password", { required: true })} id="password" placeholder="*****" className="input !py-3 rounded" />
-                    <div onClick={() => setShowPassword(prev => !prev)} className="absolute bottom-0 right-0 -translate-x-2.5 -translate-y-2.5 text-gray-400 cursor-pointer">
-                        <Badge type="success" className="block text-sm">
-                            {showPassword ? <BiHide size={20} /> : <BiShowAlt size={20} />}
-                        </Badge>
-                    </div>
+                    <input type={showPassword ? "text" : "password"} {...register("password", { required: true })} id="password" placeholder="*****" className="input" />
+                    <button type="button" onClick={() => setShowPassword(prev => !prev)} className="absolute bottom-0 right-0 -translate-x-2 -translate-y-2 text-gray-600">
+                        {showPassword ? <BiHide size={20} /> : <BiShowAlt size={20} />}
+                    </button>
                 </div>
             </div>
             {
