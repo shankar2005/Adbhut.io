@@ -1,19 +1,18 @@
 import { DefaultPlayer as Video } from 'react-html5video';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Button from '../../Components/Button/Button';
 import { useGetDemosQuery } from '../../features/demo/demoApi';
+import { setDemo } from '../../features/project/projectSlice';
 import WorkDemo from '../Artist/Components/View/WorkDemo';
 
 const ReadyDemos = () => {
     const { user } = useSelector(state => state.auth);
     const { data } = useGetDemosQuery(null, { skip: !user?.email });
-    console.log(data);
 
     return (
         <section className='stream'>
             {data?.map(demo => <DemoCard key={demo.id} demo={demo} />)}
-
-
 
             {/* <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
                 <div className='flex items-center gap-2 mb-3'>
@@ -50,7 +49,12 @@ const ReadyDemos = () => {
 export default ReadyDemos;
 
 const DemoCard = ({ demo }) => {
-    const { Title, demo_type, link} = demo || {};
+    const { Title, demo_type, link } = demo || {};
+    const dispatch = useDispatch();
+    const handleCustomize = () => {
+        dispatch(setDemo(demo));
+    }
+
     return (
         <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
             <div className='flex items-center gap-2 mb-3'>
@@ -59,7 +63,9 @@ const DemoCard = ({ demo }) => {
                     <p className='text-base font-medium'>Ready to Use</p>
                     <p>{Title}</p>
                 </div>
-                <Button className="ml-auto">Customize</Button>
+                <Link to="/projects/create-project" onClick={handleCustomize} className="ml-auto">
+                    <Button>Customize</Button>
+                </Link>
             </div>
             <WorkDemo demo_type={demo_type} demo_link={link} />
         </div>

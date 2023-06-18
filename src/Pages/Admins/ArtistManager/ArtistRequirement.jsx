@@ -12,6 +12,8 @@ import { useState } from "react";
 import FileUpload from "../../Admins/ProductionManager/Components/FileUpload";
 import { useGetDemosQuery } from "../../../features/demo/demoApi";
 import { useSelector } from "react-redux";
+import WorkDemo from "../../Artist/Components/View/WorkDemo";
+import AssignArtistToDemo from "../ProductionManager/Components/AssignArtistToDemo";
 
 const ArtistRequirement = () => {
     const { data } = useGetArtistRequestsQuery();
@@ -24,6 +26,8 @@ const ArtistRequirement = () => {
     const [showUpload, setShowUpload] = useState(null);
     const { user } = useSelector(state => state.auth);
     const { data: demos } = useGetDemosQuery(null, { skip: !user?.email });
+
+    console.log(isDemoShown);
 
     return (
         <section className="w-11/12 mx-auto font-hero">
@@ -116,16 +120,13 @@ const ArtistRequirement = () => {
                 {
                     isDemoShown &&
                     <div className="flex-1 border-l p-3 pb-16 relative">
-                        <div className="w-4/6">
-                            <Video autoPlay={false} loop={false}
-                                controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}>
-                                <source src="https://res.cloudinary.com/djqnk6djr/video/upload/v1681813785/aastey_Tribe_gbr8as.mp4" type="video/webm" />
-                            </Video>
+                        <div className="w-4/6 mb-3">
+                            <WorkDemo demo_type={isDemoShown?.demo_type} demo_link={isDemoShown?.link} />
                         </div>
-                        <div className="mt-3">
-                            <p className="font-semibold">{isDemoShown?.Title}</p>
-                            <p>Description: {isDemoShown?.comment}</p>
-                        </div>
+                        <p className="font-semibold">{isDemoShown?.Title}</p>
+                        <p>Description: {isDemoShown?.comment || "N/A"}</p>
+
+                        <AssignArtistToDemo demoId={isDemoShown?.id} />
 
                         <RxCross1 onClick={closeDemo} className="absolute top-0 right-0 m-3 cursor-pointer" size={25} />
                     </div>

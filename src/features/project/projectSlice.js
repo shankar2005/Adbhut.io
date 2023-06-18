@@ -10,6 +10,7 @@ const initialState = {
     title: "",
     reference_links: [],
     post_project_client_feedback: "",
+    project_demo: "",
 
     // not part of the project just confirming
     referenceLinksHasTaken: false
@@ -38,7 +39,9 @@ const projectSlice = createSlice({
             state.shortlistedArtists = action.payload;
         },
         removeArtist: (state, action) => {
-            state.shortlistedArtists = state.shortlistedArtists.pop(action.payload);
+            const copy = [...state.shortlistedArtists];
+            copy.pop(action.payload);
+            state.shortlistedArtists = copy;
         },
 
         // content product
@@ -56,6 +59,9 @@ const projectSlice = createSlice({
         },
         setClientFeedback: (state, action) => {
             state.post_project_client_feedback = action.payload;
+        },
+        setDemo: (state, action) => {
+            state.project_demo = action.payload;
         },
 
         setProjectData: (state, action) => {
@@ -80,5 +86,5 @@ const projectSlice = createSlice({
     },
 });
 
-export const { addChatLog, setChatLog, removeChatLog, clearProject, addArtist, setArtist, removeArtist, setContentProduct, setTitle, setReferenceLinks, setClientFeedback, setProjectData, setReferenceLinksHasTaken } = projectSlice.actions;
+export const { addChatLog, setChatLog, removeChatLog, clearProject, addArtist, setArtist, removeArtist, setContentProduct, setTitle, setReferenceLinks, setClientFeedback, setProjectData, setReferenceLinksHasTaken, setDemo } = projectSlice.actions;
 export default projectSlice.reducer;

@@ -134,6 +134,7 @@ export const {
     useUnAssignArtistMutation,
     useGetShortlistedArtistsQuery,
     useGetArtistsQuery,
+    useLazyGetArtistsQuery,
     useGetArtistRequestsQuery,
     useGetArtistRequestQuery,
     useAddArtistRequestMutation,

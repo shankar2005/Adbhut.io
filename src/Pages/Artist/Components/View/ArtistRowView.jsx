@@ -3,14 +3,14 @@ import { FaRegEnvelope } from 'react-icons/fa';
 import { HiPhone } from 'react-icons/hi';
 import { IoLanguageSharp, IoLocationSharp } from 'react-icons/io5';
 import { useRootContext } from '../../../../contexts/RootProvider';
-import { useShortlistArtistMutation } from '../../../../features/artist/artistApi';
 import { useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { BsLightningChargeFill } from 'react-icons/bs';
+import { GiCheckMark } from 'react-icons/gi';
 
 const ArtistRowView = ({ artist }) => {
-    const { projectId } = useParams();
-    const [shortlistArtist] = useShortlistArtistMutation();
+    const { handleShortlist } = useRootContext();
+    const { shortlistedArtists } = useSelector(state => state.project);
 
     const { setArtistProfile } = useRootContext();
     const { user } = useSelector(state => state.auth);
@@ -22,15 +22,6 @@ const ArtistRowView = ({ artist }) => {
         setIsImageLoaded(true);
         setImageSrc("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIHmCTU-bsYS2-57aX_wuTEU-mKKLVQUJ2nQ&usqp=CAU");
     };
-
-    const handleAssign = () => {
-        shortlistArtist({
-            projectId,
-            artistId: artist.id
-        })
-    }
-
-    const { shortlistedArtists } = useSelector(state => state.project);
 
     return (
         <div className='bg-white border-b flex gap-3 p-3'>
@@ -82,19 +73,19 @@ const ArtistRowView = ({ artist }) => {
                 }
             </div>
 
-            {
-                user?.role === "AM" &&
-                <div>
-                    {/* {
-                        shortlistedArtists?.includes(artist.id)
-                            ? <button className='bg-blue-500 py-2.5 px-4 text-white rounded text-sm font-hero' disabled><GiCheckMark /></button>
-                            : <button onClick={handleAssign} className="bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero">Shortlist</button>
-                    } */}
+            <div className='space-x-2'>
+                {
+                    shortlistedArtists?.includes(artist.id)
+                        ? <button className='bg-blue-500 py-2.5 px-4 text-white rounded text-sm font-hero' disabled><GiCheckMark /></button>
+                        : <button onClick={() => handleShortlist(artist.id)} className="bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero">Shortlist</button>
+                }
+                {
+                    user?.role === "AM" &&
                     <Link to={`/artists/edit-artist/${artist.id}`}>
                         <button className="bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero">Edit</button>
                     </Link>
-                </div>
-            }
+                }
+            </div>
         </div>
     );
 };

@@ -1,6 +1,10 @@
 import { useState } from 'react';
-import { AiOutlineCloudUpload } from 'react-icons/ai';
-import { useCreateDemoMutation } from '../../../../features/demo/demoApi';
+import { AiOutlineCloudUpload, AiOutlineSearch } from 'react-icons/ai';
+import { RxCross1 } from 'react-icons/rx';
+import { useAssignArtistToDemoMutation, useCreateDemoMutation } from '../../../../features/demo/demoApi';
+import { useGetArtistsQuery } from "../../../../features/artist/artistApi";
+import Badge from '../../../../Components/Badge/Badge';
+import AssignArtistToDemo from './AssignArtistToDemo';
 
 const FileUpload = ({ setShowUpload }) => {
   const [file, setFile] = useState(null);
@@ -26,8 +30,9 @@ const FileUpload = ({ setShowUpload }) => {
 
   return (
     <div className="max-w-md mx-auto mb-4">
-      <form encType="multipart/form-data">
-        <div className="flex items-center justify-center w-full h-36 border-2 border-gray-300 border-dashed rounded-lg mb-4">
+      <div className="space-y-3">
+        <input type="text" className="input" placeholder="Content Product / Demo category" />
+        <div className="flex items-center justify-center w-full h-36 border-2 border-gray-300 border-dashed rounded-lg">
           <label htmlFor="file-upload" className="relative cursor-pointer">
             <AiOutlineCloudUpload size={40} className="mx-auto text-gray-400" />
             <span className="ml-2 text-sm leading-normal">{file?.name ? file.name : "Select a file"}</span>
@@ -40,7 +45,10 @@ const FileUpload = ({ setShowUpload }) => {
             />
           </label>
         </div>
-        <textarea onBlur={(e) => setDesc(e.target.value)} rows="5" className="input" placeholder="Description (optional)"></textarea>
+        {/* <textarea onBlur={(e) => setDesc(e.target.value)} rows="5" className="input" placeholder="Description (optional)"></textarea> */}
+
+        <AssignArtistToDemo />
+
         {file && (
           <div className="flex justify-center mt-4">
             <button type="button" onClick={handleSubmit} className="px-4 py-2 text-white bg-primary rounded-lg hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">
@@ -48,10 +56,9 @@ const FileUpload = ({ setShowUpload }) => {
             </button>
           </div>
         )}
-      </form>
+      </div>
     </div>
   );
 }
-
 
 export default FileUpload;

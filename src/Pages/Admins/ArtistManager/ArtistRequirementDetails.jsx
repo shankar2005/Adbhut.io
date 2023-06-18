@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setProjectData } from "../../../features/project/projectSlice";
 import ShortlistedArtistRow from "../ProductionManager/Components/ShortlistedArtistRow";
-import Alert from "../../../Components/Badge/Alert";
 import AssignedArtistRow from "../ProductionManager/Components/AssignedArtistRow";
 import TableRow from "../../../Components/Table/TableRow";
 import Badge from "../../../Components/Badge/Badge";

@@ -1,9 +1,9 @@
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import { AiOutlinePlus } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Alert from '../../Components/Badge/Alert';
+import Badge from '../../Components/Badge/Badge';
 import Button from '../../Components/Button/Button';
 import Container from '../../Components/Container/Container';
 import Input from '../../Components/Input/Input';
@@ -13,7 +13,8 @@ import { useGetArtistByIdQuery } from '../../features/artist/artistApi';
 import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { useCreateProjectMutation } from '../../features/project/projectApi';
 import { setClientFeedback, setReferenceLinks, setTitle } from '../../features/project/projectSlice';
-import AssignedArtistRow from '../Admins/ProductionManager/Components/AssignedArtistRow';
+import { removeArtist } from '../../features/project/projectSlice';
+import WorkDemo from '../Artist/Components/View/WorkDemo';
 
 const CreateProject = () => {
     const { contentProducts, handleSelectContentProduct } = useRootContext();
@@ -25,7 +26,7 @@ const CreateProject = () => {
     const { user } = useSelector(state => state.auth);
     const {
         chatLog, shortlistedArtists, selectedContentProduct,
-        title, reference_links, post_project_client_feedback,
+        title, reference_links, post_project_client_feedback, project_demo
     } = useSelector(state => state.project);
 
     const navigate = useNavigate();
@@ -91,37 +92,35 @@ const CreateProject = () => {
         }
     }, [isSuccess])
 
-    const location = useLocation();
+    // const [realtedWorks, setRelatedWorks] = useState(null);
+    // useEffect(() => {
+    //     fetch('https://dev.nsnco.in/api/v1/get_feed/')
+    //         .then(res => res.json())
+    //         .then(data => setRelatedWorks(data.results?.slice(0, 3)));
+    // }, []);
 
     return (
         <Container className="font-hero">
-            <h1 className="text-3xl font-semibold p-3 text-center border-b">Create Project</h1>
-            <div className='mb-5 flex items-center justify-center gap-1.5'>
-                <div className="relative w-fit min-w-[200px] mt-2">
-                    <input
-                        type="text"
-                        name="title"
-                        className="peer h-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-pink-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 text-3xl font-bold font-hero text-gray-600"
-                        placeholder=" "
-                        onBlur={e => dispatch(setTitle(e.target.value))}
-                        defaultValue={currentProject?.title}
-                    />
-                    <label className="after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-pink-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-pink-500 peer-focus:after:scale-x-100 peer-focus:after:border-pink-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-                        Title
-                    </label>
-                </div>
-            </div>
-
+            <h1 className="text-3xl font-semibold p-3 text-center">Create Project</h1>
             <form>
                 <table className="w-full">
                     <tbody className="bg-white">
                         <TableRow
-                            label="Project Reference Link"
+                            label="Title"
+                            content={
+                                <Input
+                                    type="text"
+                                    placeholder="Enter project title"
+                                    onBlur={e => dispatch(setTitle(e.target.value))}
+                                    defaultValue={currentProject?.title}
+                                />
+                            } />
+                        <TableRow
+                            label="Reference Link"
                             content={
                                 <Input
                                     type="url"
-                                    className="w-full"
-                                    placeholder="Enter project reference link"
+                                    placeholder="Reference link"
                                     onBlur={e => dispatch(setReferenceLinks([e.target.value]))}
                                     defaultValue={currentProject?.reference_links}
                                 />
@@ -142,47 +141,70 @@ const CreateProject = () => {
                     </tbody>
                 </table>
 
-                <div className="p-4">
-                    {
-                        <div className="mb-4 mt-8">
-                            <div className='flex justify-between mb-1'>
-                                <label className="block mb-2 text-sm font-medium text-gray-900">{
-                                    shortlistedArtists?.length ? 'Shortlisted Artists' : 'Shortlist Artists'
-                                }</label>
-                                <Link to="/artists" state={{ from: location }}>
-                                    <button type='button' onClick={() => navigate("/")} className='bg-sky-400 hover:bg-sky-500 drop-shadow text-white p-1 px-2 rounded-lg text-sm font-meidum flex items-center gap-0.5'>Add Artist <AiOutlinePlus size={18} /></button>
-                                </Link>
-                            </div>
-                            {
-                                shortlistedArtists?.length > 0 ?
-                                    shortlistedArtists?.map(artistId => <ArtistRow artistId={artistId} />)
-                                    : <Alert>No artist selected!</Alert>
-                            }
-                        </div>
-                    }
+                {/* <div className='grid grid-cols-4 gap-2 p-4 h-40 overflow-hidden'>
+                    {realtedWorks?.map(work => <WorkDemo demo_type={work.demo_type} demo_link={work.weblink} />)}
+                    <Link to="/artists" className='flex items-center justify-center'>Show More</Link>
+                </div> */}
 
-                    {
-                        currentProject?.assigned_artists_details?.length > 0 &&
-                        <div className="mb-4 mt-8">
-                            <label className="block mb-2 text-sm font-medium text-gray-900">Assigned Artists</label>
-                            {
-                                currentProject.assigned_artists_details?.map(artist => <AssignedArtistRow
-                                    key={artist.id}
-                                    artist={artist}
-                                    projectId={currentProject.pk}
-                                    refetch={refetch}
-                                />)
-                            }
-                        </div>
-                    }
 
-                    <div className="mb-4">
-                        <label className="block mb-2 text-sm font-medium text-gray-900">Send assignment:</label>
-                        <textarea name="post_project_client_feedback" onBlur={e => dispatch(setClientFeedback(e.target.value))} rows="5" className="input" placeholder="Your assignment" defaultValue={currentProject?.post_project_client_feedback}></textarea>
-                    </div>
-                </div>
+                <table className="w-full">
+                    <thead>
+                        <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b">
+                            <th className="px-4 py-3">
+                                <h3 className="text-lg font-semibold">Demos</h3>
+                            </th>
+                        </tr>
+                    </thead>
 
-                <div className='p-4 pt-0 space-x-2 flex'>
+                    <tbody className="bg-white">
+                        <tr>
+                            <td className="px-4 py-3 text-sm border whitespace-pre-wrap">
+                                <div className='flex flex-wrap gap-x-4 items-center text-base'>
+                                    <a target="_blank" href={project_demo.link} className="text-blue-800 hover:text-red-900">
+                                        {project_demo.Title}
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table className="w-full">
+                    <thead>
+                        <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b">
+                            <th className="px-4 py-3 flex items-center gap-2">
+                                Shortlisted Artist
+                                <div className="flex items-center gap-1">
+                                    <Link to="/artists">
+                                        <Badge className="block border border-gray-200 bg-blue-100 text-blue-700">Add Artist</Badge>
+                                    </Link>
+                                </div>
+                            </th>
+                            <th className="px-4 py-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody className="bg-white">{
+                        shortlistedArtists?.map(artistId => (
+                            <ArtistRow artistId={artistId} />))
+                    }</tbody>
+                </table>
+
+                <table className="w-full">
+                    <tbody className="bg-white">
+                        <TableRow label="Assignment" content={
+                            <textarea
+                                name="post_project_client_feedback"
+                                rows="5"
+                                className="border w-4/5 p-1"
+                                placeholder="Your assignment"
+                                defaultValue={currentProject?.post_project_client_feedback}
+                                onBlur={e => dispatch(setClientFeedback(e.target.value))}
+                            ></textarea>
+                        } />
+                    </tbody>
+                </table>
+
+                <div className='p-4 space-x-2 flex'>
                     <Button variant="primary" onClick={handleAddToDreamProject}>Add to dream project</Button>
                     <Button variant="primary" onClick={handleSendBrief}>Send Brief</Button>
                 </div>
@@ -196,16 +218,26 @@ export default CreateProject;
 
 
 const ArtistRow = ({ artistId }) => {
-    const { setArtistProfile, avatar } = useRootContext();
+    const { setArtistProfile } = useRootContext();
     const { data: artist = {} } = useGetArtistByIdQuery(artistId);
+    const dispatch = useDispatch();
+
+    const handleRejectArtist = () => {
+        dispatch(removeArtist(artistId));
+    }
 
     return (
-        <div className='flex items-center gap-2 text-sm bg-gray-100 p-2 mb-1 border border-blue-300 rounded-lg'>
-            <img className='w-10 h-10 rounded-full' src={avatar} alt="" />
-            <div>
-                <p onClick={() => setArtistProfile(artist.artistID)} className='font-medium hover:underline'>{artist.name}</p>
-                <p className='text-xs'>Status: <span className='bg-gray-400 p-0.5 px-1 rounded text-gray-50'>available</span></p>
-            </div>
-        </div>
+        <tr className="text-gray-700">
+            <td className="px-4 py-3 border w-3/5">
+                <div className="flex items-center">
+                    <p onClick={() => setArtistProfile(artist.artistID)} className="text-blue-700 hover:text-red-800 cursor-pointer">{artist?.name}</p>
+                </div>
+            </td>
+            <td className="px-4 py-3 text-sm border space-x-2">
+                <button type='button' onClick={handleRejectArtist}>
+                    <Badge type="error">Reject</Badge>
+                </button>
+            </td>
+        </tr>
     )
 }

@@ -29,12 +29,12 @@ const ShortlistedArtistRow = ({ artist, projectId }) => {
                 <td className="px-4 py-3 text-sm border border-b-0 space-x-2">
                     <button type='button' onClick={handleRejectArtist}>
                         {rejectLoading ?
-                            <ActionLoader />
+                            <ActionLoader size="sm" />
                             : <Badge type="error">Reject</Badge>}
                     </button>
                     <button type='button' onClick={handleAssignArtist}>
                         {assignLoading ?
-                            <ActionLoader />
+                            <ActionLoader size="sm" />
                             : <Badge type="success">Shortlist</Badge>}
                     </button>
                 </td>}

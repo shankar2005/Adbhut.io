@@ -127,7 +127,7 @@ const WorkLinkTable = ({ artistId }) => {
                                 {editingId === link.pk ? (
                                     <div className="flex gap-1">
                                         <Badge onClick={handleSave} className="cursor-pointer" type="success">Save</Badge>
-                                        {deleteLoading ? <ActionLoader /> : <Badge onClick={() => deleteWorkLink(link.pk)} className="cursor-pointer" type="error">Del</Badge>}
+                                        {deleteLoading ? <ActionLoader size="sm" /> : <Badge onClick={() => deleteWorkLink(link.pk)} className="cursor-pointer" type="error">Del</Badge>}
                                         <RxCross2 onClick={handleCloseInput} size={25} className="text-gray-700 cursor-pointer" />
                                     </div>
                                 ) : (
