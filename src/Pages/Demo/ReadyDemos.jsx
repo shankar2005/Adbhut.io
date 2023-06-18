@@ -56,7 +56,7 @@ const DemoCard = ({ demo }) => {
             <div className='flex items-center gap-2 mb-3'>
                 <img className='w-12 h-12' src="https://adbhut.io/assets/adbeta-a97ec0b9.jpeg" alt="" />
                 <div className='text-sm'>
-                    <p className='text-base font-medium'>Adbhut.io</p>
+                    <p className='text-base font-medium'>Ready to Use</p>
                     <p>{Title}</p>
                 </div>
                 <Button className="ml-auto">Customize</Button>

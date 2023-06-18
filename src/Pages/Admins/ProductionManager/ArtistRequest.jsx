@@ -112,7 +112,7 @@ const ArtistRequest = ({ setArtistRequestModal }) => {
                 <div className='grid grid-cols-2 items-end gap-3 mb-4'>
                     <MultiSelect
                         name="skill"
-                        label="Select skill"
+                        label="Select skills"
                         control={control}
                         options={skills}
                     />
@@ -128,7 +128,7 @@ const ArtistRequest = ({ setArtistRequestModal }) => {
 
                     <MultiSelect
                         name="languages"
-                        label="Select language"
+                        label="Select languages"
                         control={control}
                         options={languages}
                     />

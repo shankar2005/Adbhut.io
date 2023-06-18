@@ -164,14 +164,14 @@ const ArtistEntry = () => {
                             )}
                         </>
                         } />
-                        <TableRow label="Select language" content={
+                        <TableRow label="Select languages" content={
                             <MultiSelect
                                 name="languages"
                                 control={control}
                                 options={languages}
                             />
                         } />
-                        <TableRow label={<span className="whitespace-nowrap">Select skill <span className="text-red-500 text-base">*</span></span>} content={
+                        <TableRow label={<span className="whitespace-nowrap">Select skills <span className="text-red-500 text-base">*</span></span>} content={
                             <MultiSelect
                                 name="skill"
                                 control={control}

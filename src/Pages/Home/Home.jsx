@@ -50,7 +50,7 @@ const Home = () => {
 
                         {
                             user?.email
-                                ? <Link to="/projects/myprojects"><Button variant="primary" className='uppercase'>Get Started</Button></Link>
+                                ? <Link to="/projects/readydemos"><Button variant="primary" className='uppercase'>Get Started</Button></Link>
                                 : <Button variant="primary" onClick={() => dispatch(showLogin())} className='uppercase'>Login</Button>
                         }
                     </div>

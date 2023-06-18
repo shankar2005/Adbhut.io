@@ -107,12 +107,8 @@ const Chathome = () => {
                             contentProducts?.map(content => (
                                 <SwiperSlide key={content.pk}>
                                     <div onClick={() => {
-                                        handleSelectContentProduct(content)
-                                        if (isMobile) {
-                                            navigate("/projects/chat");
-                                        } else {
-                                            navigate("/artists");
-                                        }
+                                        handleSelectContentProduct(content);
+                                        navigate("/projects/create-project");
                                     }} className='group flex flex-col items-center gap-2 text-gray-700 cursor-pointer'>
                                         <div className={`${currentProject?.project_template === content.pk || selectedContentProduct === content.pk ? 'w-20 h-20' : 'w-[75px] h-[75px]'} p-1 border rounded-md`}>
                                             <img className='group-hover:scale-110 duration-150 overflow-hidden' src={content.weblink} />

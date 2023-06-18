@@ -181,7 +181,7 @@ const EditArtist = () => {
                                 defaultValue={location}
                             />
                         } />
-                        <TableRow label="Select language" content={
+                        <TableRow label="Select languages" content={
                             <MultiSelectUpdate
                                 name="languages"
                                 control={control}
@@ -189,7 +189,7 @@ const EditArtist = () => {
                                 defaultValue={artistData?.language}
                             />
                         } />
-                        <TableRow label="Select skill" content={
+                        <TableRow label="Select skills" content={
                             <MultiSelectUpdate
                                 name="skill"
                                 control={control}
@@ -212,7 +212,7 @@ const EditArtist = () => {
                     </tbody>
                 </table>
 
-                <WorkLinkTable works_links={artistData?.works_links} artistId={artistData?.id} />
+                <WorkLinkTable artistId={artistData?.id} />
 
                 <table className="w-full">
                     <tbody className="bg-white">

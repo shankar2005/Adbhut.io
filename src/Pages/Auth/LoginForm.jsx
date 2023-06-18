@@ -43,7 +43,7 @@ const LoginForm = () => {
             if (userData.user?.role === "AM") {
                 navigate("/projects/artist-requirement");
             } else {
-                navigate("/projects/myprojects");
+                navigate("/projects/readydemos");
             }
             dispatch(closeLogin());
         }

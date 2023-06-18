@@ -95,6 +95,7 @@ const CreateProject = () => {
 
     return (
         <Container className="font-hero">
+            <h1 className="text-3xl font-semibold p-3 text-center border-b">Create Project</h1>
             <div className='mb-5 flex items-center justify-center gap-1.5'>
                 <div className="relative w-fit min-w-[200px] mt-2">
                     <input

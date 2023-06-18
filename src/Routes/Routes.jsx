@@ -23,6 +23,7 @@ import ErrorPage from "../Components/Error/ErrorPage";
 import ReadyDemos from "../Pages/Demo/ReadyDemos";
 import EditArtist from "../Pages/Artist/EditArtist";
 import WorkEntry from "../Pages/Artist/WorkEntry";
+import ArtistAccount, { DemoInfo, PersonalInfo, UserInfo } from "../Pages/Artist/ArtistAccount";
 
 const router = createBrowserRouter([
     {
@@ -121,6 +122,24 @@ const router = createBrowserRouter([
             {
                 path: '/artists/edit-artist/:artistId',
                 element: <EditArtist />
+            },
+            {
+                path: '/artists/account',
+                element: <ArtistAccount />,
+                children: [
+                    {
+                        path: '/artists/account',
+                        element: <UserInfo />
+                    },
+                    {
+                        path: '/artists/account/personal-info',
+                        element: <PersonalInfo />
+                    },
+                    {
+                        path: '/artists/account/demo-info',
+                        element: <DemoInfo />
+                    },
+                ]
             },
         ],
     },
