@@ -14,6 +14,7 @@ import { useAssignArtistToDemoMutation, useGetDemoByIdQuery, useGetDemosQuery, u
 import { useSelector } from "react-redux";
 import WorkDemo from "../../Artist/Components/View/WorkDemo";
 import AssignArtistToDemo from "../ProductionManager/Components/AssignArtistToDemo";
+import { useRootContext } from "../../../contexts/RootProvider";
 
 const ArtistRequirement = () => {
     const { data } = useGetArtistRequestsQuery();
@@ -181,6 +182,7 @@ const ArtistRequirement = () => {
 // }
 
 const DemoDetails = ({ closeDemo, demoId }) => {
+    const { setArtistProfile } = useRootContext();
     const { data: demo } = useGetDemoByIdQuery(demoId);
     const [unassignArtistFromDemo] = useUnassignArtistFromDemoMutation();
     const [assignArtistToDemo] = useAssignArtistToDemoMutation();
@@ -188,7 +190,9 @@ const DemoDetails = ({ closeDemo, demoId }) => {
         assignArtistToDemo({
             demoId: demo.id,
             artistId: id
-        });
+        }).then(data => {
+            console.log(data);
+        })
     }
     const handleUnassign = (id) => {
         unassignArtistFromDemo({
@@ -205,12 +209,15 @@ const DemoDetails = ({ closeDemo, demoId }) => {
             <p className="font-semibold">{demo?.Title}</p>
             <p>Description: {demo?.comment || "N/A"}</p>
             <ul className="my-3 space-y-2">
-                {demo?.artist && <li className="border-b pb-1">{demo?.artist_name} <span className="ml-1 bg-gray-100 text-gray-600 px-1 border rounded-full text-sm">owner</span></li>}
+                {demo?.artist && <li className="border-b pb-1">
+                    <span className="hover:underline cursor-pointer" onClick={() => setArtistProfile(demo?.artist)}>{demo?.artist_name}</span>
+                    <span className="ml-1 bg-gray-100 text-gray-600 px-1 border rounded-full text-sm">owner</span>
+                </li>}
                 {demo?.collaborators?.map(c => (
                     <li className="border-b pb-2 flex justify-between">
-                        {c.name}
+                        <span className="hover:underline cursor-pointer" onClick={() => setArtistProfile(c.id)}>{c.name}</span>
                         <div className="space-x-1">
-                            {demo?.id === null && <Badge onClick={() => handleMakeOwner(c.id)} className="cursor-pointer text-sm font-normal border" type="success">make owner</Badge>}
+                            {!demo?.artist && <Badge onClick={() => handleMakeOwner(c.id)} className="cursor-pointer text-sm font-normal border" type="success">make owner</Badge>}
                             <Badge onClick={() => handleUnassign(c.id)} className="cursor-pointer text-sm font-normal border" type="error">remove</Badge>
                         </div>
                     </li>

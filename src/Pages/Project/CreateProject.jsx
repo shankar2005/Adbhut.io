@@ -101,12 +101,15 @@ const CreateProject = () => {
     // }, []);
 
     useEffect(() => {
-        dispatch(setArtist([]));
-        if (project_demo?.artist) {
-            dispatch(addArtist(project_demo?.artist));
-        }
-        if (project_demo?.collaborators?.length) {
-            dispatch(setArtist(project_demo?.collaborators?.map(c => c.id)));
+        if (project_demo.id) {
+            dispatch(setArtist([]));
+
+            if (project_demo?.artist) {
+                dispatch(addArtist(project_demo?.artist));
+            }
+            if (project_demo?.collaborators?.length) {
+                dispatch(setArtist(project_demo?.collaborators?.map(c => c.id)));
+            }
         }
     }, [project_demo]);
 
@@ -123,7 +126,7 @@ const CreateProject = () => {
                                     type="text"
                                     placeholder="Enter project title"
                                     onBlur={e => dispatch(setTitle(e.target.value))}
-                                    defaultValue={currentProject?.title}
+                                    defaultValue={currentProject?.title || project_demo?.Title}
                                 />
                             } />
                         <TableRow

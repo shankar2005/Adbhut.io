@@ -27,7 +27,7 @@ const AssignArtistToDemo = ({ demoId }) => {
 
     return (
         <div className="pt-8 relative">
-            <RxCross1 size={20} className="absolute top-0 right-0 m-4 cursor-pointer" />
+            {/* <RxCross1 size={20} className="absolute top-0 right-0 m-4 cursor-pointer" /> */}
             <h4 className='font-semibold text-lg'>Add collaborators</h4>
             <div className="mt-10">
                 <div className="flex justify-between items-center mb-5 gap-5">
@@ -37,12 +37,12 @@ const AssignArtistToDemo = ({ demoId }) => {
                         <AiOutlineSearch className='w-6 h-6 text-gray-500 absolute top-1/2 -translate-y-1/2 left-2' />
                     </div>
                 </div>
-                <ul className="h-64 overflow-y-auto shadow-md border">
+                {data?.results?.length && <ul className="h-64 overflow-y-auto shadow-md border">
                     {isLoading && <div className="flex justify-center mt-2">
                         <ActionLoader />
                     </div>}
                     {data?.results?.map(artist => <li onClick={() => handleAssign(artist.id)} className="hover:bg-gray-200 py-2 border-b flex items-center justify-between px-2">{artist.name} <Badge type="success" className="border border-green-200 cursor-pointer text-sm font-normal">Assign</Badge></li>)}
-                </ul>
+                </ul>}
             </div>
         </div>
     )
