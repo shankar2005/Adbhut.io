@@ -21,12 +21,10 @@ const demoApi = apis.injectEndpoints({
             }),
         }),
         assignArtistToDemo: builder.mutation({
-            query: ({ demoId, artistId }) => ({
+            query: ({ demoId, data }) => ({
                 url: `/assign_demo_artist/${demoId}/`,
                 method: 'PUT',
-                body: {
-                    artist: artistId
-                }
+                body: data
             }),
         }),
     }),

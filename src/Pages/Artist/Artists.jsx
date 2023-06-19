@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { BiArrowBack } from "react-icons/bi";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Spinner from "../../Components/Loader/Spinner";
 import NothingFound from "../../Components/NotFound/NothingFound";
 import { useRootContext } from "../../contexts/RootProvider";
@@ -8,14 +10,17 @@ import { useGetArtistsQuery } from "../../features/artist/artistApi";
 import { setSearch } from "../../features/filter/filterSlice";
 import SearchInfo from "./Components/SearchInfo";
 import ArtistRowView from "./Components/View/ArtistRowView";
+import FilterArtist from "./FilterArtist";
 
 const Artists = () => {
-    const { setArtists, artists, page, setPage } = useRootContext();
+    const { setArtists, artists, page, setPage, handleClearFilter } = useRootContext();
     const { searchText } = useSelector(state => state.filter);
     const dispatch = useDispatch();
 
+    const { selectedContentProduct } = useSelector(state => state.project);
+
     const [hasNext, setHasNext] = useState(true);
-    const { data, isLoading } = useGetArtistsQuery({ page, search: searchText });
+    const { data, isLoading, isFetching } = useGetArtistsQuery({ page, search: searchText });
 
     const fetchMoreData = () => {
         setPage(page + 1);
@@ -40,24 +45,32 @@ const Artists = () => {
     }
 
     return (
-        <InfiniteScroll
-            dataLength={artists?.length}
-            next={fetchMoreData}
-            hasMore={hasNext}
-            loader={<>Loading...</>}
-            className="stream-lg min-h-[50vh]"
-        >
-            <SearchInfo
-                searchText={searchText}
-                clearSearch={() => dispatch(setSearch(""))}
-            />
-
-            {!artists.length && <NothingFound />}
-
+        <section className='stream-lg mt-5 relative'>
             {
-                artists?.map(artist => <ArtistRowView key={artist?.id} artist={artist} setArtists={setArtists} />)
+                selectedContentProduct && <>
+                    <Link to="/projects/create-project"><BiArrowBack className='cursor-pointer bg-gray-200 text-gray-700 rounded-full p-1 absolute -left-10 top-0.5' size={30} /></Link>
+                    <FilterArtist />
+                </>
             }
-        </InfiniteScroll>
+
+            <InfiniteScroll
+                dataLength={artists?.length}
+                next={fetchMoreData}
+                hasMore={hasNext}
+                className="stream-lg min-h-[50vh]"
+            >
+                <SearchInfo
+                    searchText={searchText}
+                    clearSearch={handleClearFilter}
+                />
+
+                {!isFetching && !artists.length && <NothingFound />}
+
+                {
+                    artists?.map(artist => <ArtistRowView key={artist?.id} artist={artist} setArtists={setArtists} />)
+                }
+            </InfiniteScroll>
+        </section>
     );
 };
 

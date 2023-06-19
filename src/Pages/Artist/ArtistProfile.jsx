@@ -191,7 +191,7 @@ const ArtistProfile = () => {
 
             <WorkLinkTable artistId={id} />
 
-            <div className='artistProfile mt-5'>
+            <div className='stream-lg artistProfile mt-5'>
                 <Swiper
                     slidesPerView={1}
                     modules={[Navigation]}

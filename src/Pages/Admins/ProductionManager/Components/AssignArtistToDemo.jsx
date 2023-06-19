@@ -17,9 +17,12 @@ const AssignArtistToDemo = ({ demoId }) => {
     }
 
     const handleAssign = (artistId) => {
+        console.log(artistId);
         assignArtistToDemo({
             demoId,
-            artistId
+            data: {
+                assigned_artists: [artistId]
+            }
         })
             .then(data => {
                 console.log(data);

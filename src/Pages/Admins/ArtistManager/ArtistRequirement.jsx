@@ -125,6 +125,12 @@ const ArtistRequirement = () => {
                         </div>
                         <p className="font-semibold">{isDemoShown?.Title}</p>
                         <p>Description: {isDemoShown?.comment || "N/A"}</p>
+                        <ul className="my-3 space-y-2">
+                            <li className="border-b pb-1 w-fit">{isDemoShown?.artist_name} <span className="ml-1 bg-gray-100 text-gray-600 px-1 border rounded-full text-sm">owner</span></li>
+                            {isDemoShown?.collaborators?.map(c => (
+                                <li className="border-b pb-1 w-fit">{c.name}</li>
+                            ))}
+                        </ul>
 
                         <AssignArtistToDemo demoId={isDemoShown?.id} />
 

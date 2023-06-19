@@ -104,6 +104,11 @@ const RootProvider = ({ children }) => {
         setSuggestions(current => current.filter(i => i[1] + '' !== skill[1] + ''));
         setRemovedSkill(current => [...current, skill]);
 
+        // clear
+        setPage(1);
+        setArtists([]);
+        // clear
+
         dispatch(setSearch(skill[0]));
     }
 
@@ -123,6 +128,11 @@ const RootProvider = ({ children }) => {
     const handleClearFilter = () => {
         setSuggestions(removedSkills);
         setRemovedSkill([]);
+        // clear
+        dispatch(setSearch(""));
+        setPage(1);
+        setArtists([]);
+        // clear
     }
 
     // 

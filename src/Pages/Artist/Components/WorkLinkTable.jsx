@@ -30,7 +30,7 @@ const WorkLinkTable = ({ artistId }) => {
     useEffect(() => {
         if (editingId) {
             setTags(editingLink?.tags);
-            setIsBestWork(editingLink?.best_work);
+            setIsBestWork(editingLink?.show_in_top_feed);
             setIsDemo(editingLink?.is_demo);
         }
     }, [editingId, editingLink?.tags])
@@ -41,7 +41,7 @@ const WorkLinkTable = ({ artistId }) => {
             data: {
                 weblink: linkRef.current?.value,
                 tags,
-                best_work: isBestWork,
+                show_in_top_feed: isBestWork,
                 is_demo: isDemo
             }
         }).then(data => {
@@ -101,23 +101,23 @@ const WorkLinkTable = ({ artistId }) => {
                                 {editingId === link.pk ? (
                                     <>
                                         <div class="flex items-center">
-                                            <input onChange={() => setIsBestWork(prev => !prev)} id="best-work-checkbox-edit" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" checked={isBestWork} />
-                                            <label for="best-work-checkbox-edit" class="ml-2 text-sm font-medium text-gray-900">Best Work</label>
+                                            <input onChange={() => setIsBestWork(prev => !prev)} id={`best-work-checkbox-edit-${link.pk}`} type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" checked={isBestWork} />
+                                            <label for={`best-work-checkbox-edit-${link.pk}`} class="ml-2 text-sm font-medium text-gray-900">Best Work</label>
                                         </div>
                                         <div class="flex items-center">
                                             <input onChange={() => setIsDemo(prev => !prev)} id="demo-checkbox-edit" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" checked={isDemo} />
-                                            <label for="demo-checkbox-edit" class="ml-2 text-sm font-medium text-gray-900">Demo</label>
+                                            <label for="demo-checkbox-edit" class="ml-2 text-sm font-medium text-gray-900">Customizable</label>
                                         </div>
                                     </>
                                 ) : (
                                     <>
                                         <div class="flex items-center">
-                                            <input type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" checked={link.best_work} disabled />
+                                            <input type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" checked={link.show_in_top_feed} disabled />
                                             <label class="ml-2 text-sm font-medium text-gray-900">Best Work</label>
                                         </div>
                                         <div class="flex items-center">
                                             <input type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" checked={link.is_demo} disabled />
-                                            <label class="ml-2 text-sm font-medium text-gray-900">Demo</label>
+                                            <label class="ml-2 text-sm font-medium text-gray-900">Customizable</label>
                                         </div>
                                     </>
                                 )}
@@ -229,7 +229,7 @@ const AddWorkLink = ({ artistId }) => {
             data: {
                 weblink: linkRef.current?.value,
                 tags,
-                best_work: bestWorkRef.current?.checked,
+                show_in_top_feed: bestWorkRef.current?.checked,
                 is_demo: demoRef.current?.checked
             }
         })

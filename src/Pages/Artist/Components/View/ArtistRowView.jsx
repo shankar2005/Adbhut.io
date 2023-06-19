@@ -35,7 +35,7 @@ const ArtistRowView = ({ artist }) => {
                     onLoad={() => setIsImageLoaded(true)}
                     style={{ display: isImageLoaded ? 'block' : 'none' }}
                 />
-                <span className='border rounded-full border-blue-600 text-blue-600 text-xs px-2.5 py-0.5 font-medium flex items-center gap-1 mt-3'><BsLightningChargeFill size={15} /> Full Time</span>
+                {artist.full_time && <span className='border rounded-full border-blue-600 text-blue-600 text-xs px-2.5 py-0.5 font-medium flex items-center gap-1 mt-3'><BsLightningChargeFill size={15} /> Full Time</span>}
             </div>
             <div className='flex-1'>
                 <div>

@@ -104,18 +104,18 @@ const Feed = () => {
     return (
         <section className='stream mt-5 relative'>
 
-            <Link to="/projects/create-project"><BiArrowBack className='cursor-pointer bg-gray-200 text-gray-700 rounded-full p-1 absolute -left-10 top-0.5' size={30} /></Link>
-            <FilterArtist />
+            {/* <Link to="/projects/create-project"><BiArrowBack className='cursor-pointer bg-gray-200 text-gray-700 rounded-full p-1 absolute -left-10 top-0.5' size={30} /></Link>
+            <FilterArtist /> */}
 
             <div className='relative overflow-auto bg-gray-100'>
-                {loading && <h2 className=''>Loading...</h2>}
+                {/* {loading && <h2 className=''>Loading...</h2>} */}
 
-                <SearchInfo
+                {/* <SearchInfo
                     searchText={searchText}
                     clearSearch={() => dispatch(setSearch(""))}
-                />
+                /> */}
 
-                {!artists.length && <NothingFound />}
+                {/* {!artists.length && <NothingFound />} */}
 
                 <InfiniteScroll
                     dataLength={artists.length}

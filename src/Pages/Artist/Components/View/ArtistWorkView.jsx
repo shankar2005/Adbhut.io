@@ -25,8 +25,8 @@ const ArtistWorkView = ({ artist = {} }) => {
                 </div>
                 {
                     shortlistedArtists?.includes(artist.owner_id)
-                        ? <button className='ml-auto text-green-600 border-2 bg-sky-100 border-sky-100 py-2.5 px-4 rounded-lg font-medium'><GiCheckMark /></button>
-                        : <button onClick={() => handleShortlist(artist.owner_id)} className='ml-auto text-blue-500 border-2 border-blue-500 hover:bg-sky-100 hover:border-sky-100 py-2.5 px-4 rounded-lg font-medium'>Shortlist</button>
+                        ? <button className='ml-auto bg-blue-500 py-2.5 px-4 text-white rounded text-sm font-hero' disabled><GiCheckMark /></button>
+                        : <button onClick={() => handleShortlist(artist.owner_id)} className='ml-auto bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero'>Shortlist</button>
                 }
             </div>
             <div>

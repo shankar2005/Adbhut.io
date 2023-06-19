@@ -101,11 +101,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/artists',
-                element: <Feed />
+                element: <Artists />
             },
             {
-                path: '/artists/artist-list',
-                element: <Artists />
+                path: '/artists/feed',
+                element: <Feed />
             },
             {
                 path: '/artists/artist-list/:projectId',

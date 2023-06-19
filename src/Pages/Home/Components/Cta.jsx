@@ -1,3 +1,4 @@
+import { RxCross2 } from 'react-icons/rx';
 import { useNavigate } from 'react-router-dom';
 import { useRootContext } from '../../../contexts/RootProvider';
 
@@ -33,8 +34,9 @@ const Cta = ({ className }) => {
                     removedSkills?.length > 0 &&
                     removedSkills.map(skill => <div
                         key={`removedSkill${skill[1]}`}
-                        className='whitespace-nowrap py-1 px-3 border text-gray-400 border-gray-200 bg-gray-200 rounded-full font-normal'>
+                        className='whitespace-nowrap pl-3 pr-2 border text-gray-400 border-gray-200 rounded-full font-normal flex items-center gap-1'>
                         {skill[0]}
+                        <RxCross2 />
                     </div>)
                 }
             </div>

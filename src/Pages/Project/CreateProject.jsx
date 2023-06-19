@@ -147,7 +147,7 @@ const CreateProject = () => {
                 </div> */}
 
 
-                <table className="w-full">
+                {project_demo.id && <table className="w-full">
                     <thead>
                         <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b">
                             <th className="px-4 py-3">
@@ -167,7 +167,7 @@ const CreateProject = () => {
                             </td>
                         </tr>
                     </tbody>
-                </table>
+                </table>}
 
                 <table className="w-full">
                     <thead>

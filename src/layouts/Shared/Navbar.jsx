@@ -30,7 +30,7 @@ const Navbar = ({ setShowToolkit, showToolkit }) => {
         setPage(1);
         setArtists([]);
         // clear
-        navigate("/artists/artist-list");
+        navigate("/artists");
         dispatch(setSearch(e.target.search.value));
     }
 
