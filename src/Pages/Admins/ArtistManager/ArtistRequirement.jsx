@@ -10,7 +10,7 @@ import Badge from "../../../Components/Badge/Badge";
 import { DefaultPlayer as Video } from 'react-html5video';
 import { useState } from "react";
 import FileUpload from "../../Admins/ProductionManager/Components/FileUpload";
-import { useGetDemosQuery } from "../../../features/demo/demoApi";
+import { useAssignArtistToDemoMutation, useGetDemoByIdQuery, useGetDemosQuery, useUnassignArtistFromDemoMutation } from "../../../features/demo/demoApi";
 import { useSelector } from "react-redux";
 import WorkDemo from "../../Artist/Components/View/WorkDemo";
 import AssignArtistToDemo from "../ProductionManager/Components/AssignArtistToDemo";
@@ -27,11 +27,9 @@ const ArtistRequirement = () => {
     const { user } = useSelector(state => state.auth);
     const { data: demos } = useGetDemosQuery(null, { skip: !user?.email });
 
-    console.log(isDemoShown);
-
     return (
         <section className="w-11/12 mx-auto font-hero">
-            <div className="mt-5 mb-8 border-b pb-8">
+            {/* <div className="mt-5 mb-8 border-b pb-8">
                 <h1 className="text-3xl">Hi <strong>{user?.name?.split(" ")[0]}</strong>🙂,</h1>
                 <p className="text-xl mt-2">It's <span className="text-blue-600">{new Date().getDate()} June 2023</span>, and you've got <span className="text-3xl font-bold text-red-500">100</span> Artist targets for today. Best of Luck! 🎉</p>
                 <div className="w-full overflow-x-auto bg-white mt-8">
@@ -76,7 +74,7 @@ const ArtistRequirement = () => {
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> */}
 
             <div className="my-2 grid grid-cols-4 gap-2">
                 <div className="p-3 bg-white shadow-sm border-b-4 border-blue-500">
@@ -110,36 +108,17 @@ const ArtistRequirement = () => {
                     </div>}
 
                     <ul className="my-2">
-                        {demos?.map(demo => <li><a href="#" onClick={() => setIsDemoShown(demo)} className="text-blue-600 hover:underline underline-offset-2">{demo.Title}</a></li>)}
+                        {demos?.map(demo => <li onClick={() => setIsDemoShown(demo.id)} className="text-blue-600 hover:underline underline-offset-2 cursor-pointer">{demo.Title}</li>)}
                     </ul>
                     <div className="mt-auto border-t pt-2">
                         <Link to="/projects/readydemos" className="text-blue-600 hover:underline underline-offset-2">View All</Link>
                     </div>
                 </div>
 
-                {
-                    isDemoShown &&
-                    <div className="flex-1 border-l p-3 pb-16 relative">
-                        <div className="w-4/6 mb-3">
-                            <WorkDemo demo_type={isDemoShown?.demo_type} demo_link={isDemoShown?.link} />
-                        </div>
-                        <p className="font-semibold">{isDemoShown?.Title}</p>
-                        <p>Description: {isDemoShown?.comment || "N/A"}</p>
-                        <ul className="my-3 space-y-2">
-                            <li className="border-b pb-1 w-fit">{isDemoShown?.artist_name} <span className="ml-1 bg-gray-100 text-gray-600 px-1 border rounded-full text-sm">owner</span></li>
-                            {isDemoShown?.collaborators?.map(c => (
-                                <li className="border-b pb-1 w-fit">{c.name}</li>
-                            ))}
-                        </ul>
-
-                        <AssignArtistToDemo demoId={isDemoShown?.id} />
-
-                        <RxCross1 onClick={closeDemo} className="absolute top-0 right-0 m-3 cursor-pointer" size={25} />
-                    </div>
-                }
+                {isDemoShown && <DemoDetails demoId={isDemoShown} closeDemo={closeDemo} />}
             </div>
 
-            <div className="mb-2 w-full overflow-hidden flex">
+            {/* <div className="mb-2 w-full overflow-hidden flex">
                 <div className="bg-white p-4">
                     <h3 className="text-xl font-semibold">Skills</h3>
                     <small className="text-sm">Artist's number listed under each skills.</small>
@@ -167,44 +146,81 @@ const ArtistRequirement = () => {
                                 <td className="px-4 py-1 text-sm border-y whitespace-pre-wrap">
                                     {skill.artist}
                                 </td>
-                                <td className="px-4 py-1 text-sm border-y whitespace-pre-wrap">
-                                    {/* <span className="bg-red-500 text-white font-bold p-0.5 rounded">12</span> */}
-                                </td>
-                                {/* <td className="px-4 py-1 text-sm border-y whitespace-pre-wrap w-1/6">
-                                    <span className="text-blue-700">Complete</span>
-                                </td> */}
                             </tr>)}
                         </tbody>
                     </table>
                 </div>
-                {/* <Charts /> */}
-            </div>
+            </div> */}
 
-            <div className='bg-white'>
+            {/* <div className='bg-white'>
                 <h1 className="p-4 text-base font-bold border-b">Artist Requirements</h1>
                 {data?.map(requirement => <Row requirement={requirement} />)}
-            </div>
+            </div> */}
         </section >
     );
 };
 
-const Row = ({ requirement }) => {
-    const {
-        id,
-        project_details,
-        hiring_status,
-    } = requirement;
+// const Row = ({ requirement }) => {
+//     const {
+//         id,
+//         project_details,
+//         hiring_status,
+//     } = requirement;
+
+//     return (
+
+//         <div className="flex items-center justify-between p-4 bg-white border-b text-sm">
+//             <div className='font-medium space-x-2'>
+//                 <Link to={`/projects/artist-requirement/${id}`} className="text-blue-700 underline underline-offset-2">{project_details?.name}</Link>
+//                 <span>&#9679;</span>
+//                 <span className='w-fit my-1 px-0.5 font-sans italic text-gray-700 bg-yellow-100'>{hiring_status || "In Progress"}</span>
+//             </div>
+//         </div>
+
+//     )
+// }
+
+const DemoDetails = ({ closeDemo, demoId }) => {
+    const { data: demo } = useGetDemoByIdQuery(demoId);
+    const [unassignArtistFromDemo] = useUnassignArtistFromDemoMutation();
+    const [assignArtistToDemo] = useAssignArtistToDemoMutation();
+    const handleMakeOwner = (id) => {
+        assignArtistToDemo({
+            demoId: demo.id,
+            artistId: id
+        });
+    }
+    const handleUnassign = (id) => {
+        unassignArtistFromDemo({
+            demoId: demo.id,
+            artistId: id
+        });
+    }
 
     return (
-
-        <div className="flex items-center justify-between p-4 bg-white border-b text-sm">
-            <div className='font-medium space-x-2'>
-                <Link to={`/projects/artist-requirement/${id}`} className="text-blue-700 underline underline-offset-2">{project_details?.name}</Link>
-                <span>&#9679;</span>
-                <span className='w-fit my-1 px-0.5 font-sans italic text-gray-700 bg-yellow-100'>{hiring_status || "In Progress"}</span>
+        <div div className="flex-1 border-l p-3 pb-16 relative">
+            <div className="w-4/6 mb-3">
+                <WorkDemo demo_type={demo?.demo_type} demo_link={demo?.link} />
             </div>
-        </div>
+            <p className="font-semibold">{demo?.Title}</p>
+            <p>Description: {demo?.comment || "N/A"}</p>
+            <ul className="my-3 space-y-2">
+                {demo?.artist && <li className="border-b pb-1">{demo?.artist_name} <span className="ml-1 bg-gray-100 text-gray-600 px-1 border rounded-full text-sm">owner</span></li>}
+                {demo?.collaborators?.map(c => (
+                    <li className="border-b pb-2 flex justify-between">
+                        {c.name}
+                        <div className="space-x-1">
+                            {demo?.id === null && <Badge onClick={() => handleMakeOwner(c.id)} className="cursor-pointer text-sm font-normal border" type="success">make owner</Badge>}
+                            <Badge onClick={() => handleUnassign(c.id)} className="cursor-pointer text-sm font-normal border" type="error">remove</Badge>
+                        </div>
+                    </li>
+                ))}
+            </ul>
 
+            <AssignArtistToDemo demoId={demo?.id} />
+
+            <RxCross1 onClick={closeDemo} className="absolute top-0 right-0 m-3 cursor-pointer" size={25} />
+        </div>
     )
 }
 

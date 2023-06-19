@@ -1,14 +1,13 @@
-import { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { RxCross1 } from "react-icons/rx";
 import Badge from "../../../../Components/Badge/Badge";
 import ActionLoader from "../../../../Components/Loader/ActionLoader";
 import { useLazyGetArtistsQuery } from "../../../../features/artist/artistApi";
-import { useAssignArtistToDemoMutation } from "../../../../features/demo/demoApi";
+import { useAssignCollabToDemoMutation } from "../../../../features/demo/demoApi";
 
 const AssignArtistToDemo = ({ demoId }) => {
     const [getArtists, { data, isLoading }] = useLazyGetArtistsQuery();
-    const [assignArtistToDemo] = useAssignArtistToDemoMutation();
+    const [assignCollabToDemo] = useAssignCollabToDemoMutation();
 
     const handleSearch = (e) => {
         if (e.key === "Enter") {
@@ -17,12 +16,9 @@ const AssignArtistToDemo = ({ demoId }) => {
     }
 
     const handleAssign = (artistId) => {
-        console.log(artistId);
-        assignArtistToDemo({
+        assignCollabToDemo({
             demoId,
-            data: {
-                assigned_artists: [artistId]
-            }
+            artistId
         })
             .then(data => {
                 console.log(data);
@@ -32,7 +28,7 @@ const AssignArtistToDemo = ({ demoId }) => {
     return (
         <div className="pt-8 relative">
             <RxCross1 size={20} className="absolute top-0 right-0 m-4 cursor-pointer" />
-            <h4 className='font-semibold text-lg'>Assign artist to the demo</h4>
+            <h4 className='font-semibold text-lg'>Add collaborators</h4>
             <div className="mt-10">
                 <div className="flex justify-between items-center mb-5 gap-5">
                     <h5 className="text-xl font-bold border-b flex-grow pb-1">Artists</h5>
@@ -45,7 +41,7 @@ const AssignArtistToDemo = ({ demoId }) => {
                     {isLoading && <div className="flex justify-center mt-2">
                         <ActionLoader />
                     </div>}
-                    {data?.results?.map(artist => <li onClick={() => handleAssign(artist.id)} className="hover:bg-gray-200 py-2 border-b flex items-center justify-between px-2">{artist.name} <Badge type="success" className="border border-green-200 cursor-pointer">Assign</Badge></li>)}
+                    {data?.results?.map(artist => <li onClick={() => handleAssign(artist.id)} className="hover:bg-gray-200 py-2 border-b flex items-center justify-between px-2">{artist.name} <Badge type="success" className="border border-green-200 cursor-pointer text-sm font-normal">Assign</Badge></li>)}
                 </ul>
             </div>
         </div>

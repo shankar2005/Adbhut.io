@@ -15,9 +15,10 @@ import { useCreateProjectMutation } from '../../features/project/projectApi';
 import { setClientFeedback, setReferenceLinks, setTitle } from '../../features/project/projectSlice';
 import { removeArtist } from '../../features/project/projectSlice';
 import WorkDemo from '../Artist/Components/View/WorkDemo';
+import { setArtist, addArtist } from '../../features/project/projectSlice';
 
 const CreateProject = () => {
-    const { contentProducts, handleSelectContentProduct } = useRootContext();
+    const { contentProducts, handleSelectContentProduct, handleShortlist } = useRootContext();
 
     const currentProject = useSelector(state => state.project);
 
@@ -98,6 +99,16 @@ const CreateProject = () => {
     //         .then(res => res.json())
     //         .then(data => setRelatedWorks(data.results?.slice(0, 3)));
     // }, []);
+
+    useEffect(() => {
+        dispatch(setArtist([]));
+        if (project_demo?.artist) {
+            dispatch(addArtist(project_demo?.artist));
+        }
+        if (project_demo?.collaborators?.length) {
+            dispatch(setArtist(project_demo?.collaborators?.map(c => c.id)));
+        }
+    }, [project_demo]);
 
     return (
         <Container className="font-hero">

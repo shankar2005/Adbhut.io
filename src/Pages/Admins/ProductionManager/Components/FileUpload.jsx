@@ -4,7 +4,6 @@ import { RxCross1 } from 'react-icons/rx';
 import { useAssignArtistToDemoMutation, useCreateDemoMutation } from '../../../../features/demo/demoApi';
 import { useGetArtistsQuery } from "../../../../features/artist/artistApi";
 import Badge from '../../../../Components/Badge/Badge';
-import AssignArtistToDemo from './AssignArtistToDemo';
 
 const FileUpload = ({ setShowUpload }) => {
   const [file, setFile] = useState(null);
@@ -46,8 +45,6 @@ const FileUpload = ({ setShowUpload }) => {
           </label>
         </div>
         {/* <textarea onBlur={(e) => setDesc(e.target.value)} rows="5" className="input" placeholder="Description (optional)"></textarea> */}
-
-        <AssignArtistToDemo />
 
         {file && (
           <div className="flex justify-center mt-4">
