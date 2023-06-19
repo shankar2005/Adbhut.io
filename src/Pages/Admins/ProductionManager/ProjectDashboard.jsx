@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRootContext } from '../../../contexts/RootProvider';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import ShortlistedArtistRow from './Components/ShortlistedArtistRow';
 import AssignedArtistRow from './Components/AssignedArtistRow';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,13 +17,14 @@ import { BiLink } from 'react-icons/bi';
 import AssignDemo from './Components/AssignDemo';
 import AddDemoUrl from './Components/AddDemoUrl';
 import LeftAside from '../../Home/LeftAside';
+import { useAssignDemoToProjectMutation } from '../../../features/demo/demoApi';
 
 const ProjectDashboard = () => {
     const { setIsModalOpen, showChat } = useRootContext();
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
     const { id } = useParams();
-    const { data: currentProject = {}, refetch  } = useGetProjectQuery(id);
+    const { data: currentProject = {}, refetch } = useGetProjectQuery(id);
     const [demoSec, setDemoSec] = useState(null);
 
     useEffect(() => {
@@ -56,6 +57,25 @@ const ProjectDashboard = () => {
     } else if (demoSec === "linkDemo") {
         DemoSec = <AddDemoUrl setDemoSec={setDemoSec} projectId={currentProject.pk} />
     }
+
+    // this logic is for after creating project assigning the demo to the project
+    const location = useLocation();
+    const [assignDemoToProject] = useAssignDemoToProjectMutation();
+    useEffect(() => {
+        const project_demo = location.state?.project_demo;
+        console.log(project_demo);
+        if (project_demo) {
+            assignDemoToProject({
+                id: currentProject.pk,
+                data: { project_demos: [project_demo] }
+            }).then(data => {
+                if (data?.data?.project_demos?.length) {
+                    location.state = {};
+                }
+            })
+        }
+    }, [currentProject.pk]);
+    // 
 
     return (
         <Container>

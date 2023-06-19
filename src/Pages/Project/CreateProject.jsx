@@ -43,7 +43,7 @@ const CreateProject = () => {
         shortlisted_artists: shortlistedArtists,
         // optionals
         project_template: selectedContentProduct,
-        title,
+        title: title || project_demo?.Title,
         reference_links: JSON.stringify(reference_links),
         post_project_client_feedback,
     }
@@ -86,7 +86,11 @@ const CreateProject = () => {
                 } else {
                     toast.success("Added to DreamProject!", { id: "createNewProject" });
                 }
-                navigate(`/projects/${data.pk}`);
+                if (project_demo?.id) {
+                    navigate(`/projects/${data.pk}`, { state: { project_demo: project_demo.id } });
+                } else {
+                    navigate(`/projects/${data.pk}`);
+                }
             } else {
                 toast.error("Something went wrong!", { id: "createNewProject" });
             }

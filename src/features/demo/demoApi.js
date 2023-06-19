@@ -23,7 +23,7 @@ const demoApi = apis.injectEndpoints({
                 method: 'PUT',
                 body: data
             }),
-            invalidatesTags: ["Demo"]
+            invalidatesTags: ["Demo", "Project"]
         }),
         assignArtistToDemo: builder.mutation({
             query: ({ demoId, artistId }) => ({
