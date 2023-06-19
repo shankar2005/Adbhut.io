@@ -5,7 +5,7 @@ const Projects = () => {
     const { data: projects, isSuccess } = useGetDreamProjectsQuery();
 
     return (
-        <section className="stream" >
+        <section className="stream mt-3" >
             {
                 isSuccess &&
                 projects.map(project => <ProjectCard projectId={project.pk} />)

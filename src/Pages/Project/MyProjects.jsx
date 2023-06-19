@@ -7,7 +7,7 @@ const MyProjects = () => {
     const { data: projects, isSuccess } = useGetCurrentProjectsQuery(null, { skip: !user?.email });
 
     return (
-        <section className="stream">
+        <section className="stream mt-3">
             {
                 isSuccess &&
                 projects.map(project => <ProjectCard key={project.pk} projectId={project.pk} />)

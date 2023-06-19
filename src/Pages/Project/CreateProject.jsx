@@ -248,7 +248,7 @@ const ArtistRow = ({ artistId }) => {
         <tr className="text-gray-700">
             <td className="px-4 py-3 border w-3/5">
                 <div className="flex items-center">
-                    <p onClick={() => setArtistProfile(artist.artistID)} className="text-blue-700 hover:text-red-800 cursor-pointer">{artist?.name}</p>
+                    <p onClick={() => setArtistProfile(artist.id)} className="text-blue-700 hover:text-red-800 cursor-pointer">{artist?.name}</p>
                 </div>
             </td>
             <td className="px-4 py-3 text-sm border space-x-2">

@@ -137,16 +137,10 @@ const RightAside = () => {
                         </li>
                     }
                     <li>
-                        <Link to="/projects" className='hover:underline'>
-                            <p className='font-medium'>Dream Projects</p>
-                            <p className='text-xs'>Insights projects</p>
-                        </Link>
-                    </li>
-                    <li>
                         <Link to="/projects" className='hover:underline flex justify-between items-center'>
                             <div>
-                                <p className='font-medium'>Recommended Projects</p>
-                                <p className='text-xs'>Projects you might like</p>
+                                <p className='font-medium'>Dream Projects</p>
+                                <p className='text-xs'>Insights projects</p>
                             </div>
                             <div className='bg-blue-500 h-fit py-0.5 px-2 text-white text-xs font-medium rounded'>
                                 New

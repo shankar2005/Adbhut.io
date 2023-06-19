@@ -189,7 +189,29 @@ const ArtistProfile = () => {
                 </div>
             </div>
 
-            <WorkLinkTable artistId={id} />
+            {user?.role === "AM"
+                ? <WorkLinkTable artistId={id} />
+                : (
+                    <div className="w-full overflow-x-auto font-hero">
+                        <table className="w-full ">
+                            <thead>
+                                <tr className="text-md text-left text-gray-900 bg-gray-100 text-sm">
+                                    <th className="p-2 border font-semibold">Link</th>
+                                </tr>
+                            </thead>
+                            <tbody className="bg-white">
+                                {works_links?.map(link => (
+                                    <tr>
+                                        <td className="p-2 text-sm border whitespace-nowrap">
+                                            <a target="_blank" href={link.weblink} className="text-blue-700 hover:underline">{link.weblink}</a>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )
+            }
 
             <div className='stream-lg artistProfile mt-5'>
                 <Swiper

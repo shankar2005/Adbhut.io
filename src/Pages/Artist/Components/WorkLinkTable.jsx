@@ -141,7 +141,7 @@ const WorkLinkTable = ({ artistId }) => {
 
                 </tbody>
             </table >
-        </div >
+        </div>
     );
 };
 
