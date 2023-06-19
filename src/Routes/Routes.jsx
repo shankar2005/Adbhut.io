@@ -108,10 +108,6 @@ const router = createBrowserRouter([
                 element: <Feed />
             },
             {
-                path: '/artists/artist-list/:projectId',
-                element: <Artists />
-            },
-            {
                 path: '/artists/artist-entry',
                 element: <ArtistEntry />
             },

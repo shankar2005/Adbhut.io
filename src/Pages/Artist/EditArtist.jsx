@@ -96,7 +96,7 @@ const EditArtist = () => {
             confirmInputRef.current?.focus();
         } else {
             deleteArtist(artistData?.id);
-            navigate("/artists/artist-list");
+            navigate("/artists");
             toast.success("Deleted!");
         }
     }

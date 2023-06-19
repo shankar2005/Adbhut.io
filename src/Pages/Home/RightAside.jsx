@@ -150,7 +150,7 @@ const RightAside = () => {
                     <li className='pt-3.5 border-t flex gap-4 uppercase'>
                         {
                             user?.role == "AM" &&
-                            <Link to="/artists/artist-list" className="hover:text-blue-600 font-medium">
+                            <Link to="/artists" className="hover:text-blue-600 font-medium">
                                 View Artists
                             </Link>
                         }
