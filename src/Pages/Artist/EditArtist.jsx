@@ -14,17 +14,19 @@ import { useRef } from 'react';
 import { toast } from 'react-hot-toast';
 import WorkLinkTable from './Components/WorkLinkTable';
 import Container from '../../Components/Container/Container';
+import RequiredMark from '../../Components/Input/RequiredMark';
 
 const EditArtist = () => {
     const { artistId } = useParams();
     const navigate = useNavigate();
     const { data: artistData } = useGetArtistByIdQuery(artistId, { skip: !artistId });
-    const [updateArtist, { isSuccess }] = useUpdateArtistMutation();
+    const [updateArtist, { isSuccess, isError, error }] = useUpdateArtistMutation();
     const { skills: skillsData } = useRootContext();
     const { data: locations } = useGetLocationsQuery();
     const { data: languagesData } = useGetLanguagesQuery();
     const [file, setFile] = useState(null);
     const [isFullTime, setIsFullTime] = useState(false);
+    const [errorMsg, setErrorMsg] = useState(null);
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
@@ -47,6 +49,7 @@ const EditArtist = () => {
         const formData = {
             ...data,
             age: +data.age,
+            phone: `+91${data.phone}`,
             professional_rating: data.professional_rating || 0,
             attitude_rating: data.attitude_rating || 0,
             has_manager: false,
@@ -73,18 +76,15 @@ const EditArtist = () => {
         return { value: skill.pk, label: skill.name }
     });
 
-    useEffect(() => {
-        setIsFullTime(artistData?.full_time);
-        reset();
-    }, [reset, artistData])
-
     const [location, setLocation] = useState(null);
     const [budgetRange, setBudgetRange] = useState(null);
 
     useEffect(() => {
+        setIsFullTime(artistData?.full_time);
         setLocation(artistData?.location?.label);
         setBudgetRange(artistData?.budget_range);
-    }, [artistData]);
+        reset();
+    }, [reset, artistData])
 
     // delete artist
     const [deleteArtist] = useDeleteArtistMutation();
@@ -100,6 +100,21 @@ const EditArtist = () => {
             toast.success("Deleted!");
         }
     }
+
+    // handle errors
+    useEffect(() => {
+        if (isError) {
+            if (error?.data?.languages) {
+                setErrorMsg("Please select at least one language");
+            } else if (error?.data?.skill) {
+                setErrorMsg("Please select at least one skill");
+            } else {
+                setErrorMsg(Object.values(error?.data)[0][0]);
+            }
+        } else {
+            setErrorMsg(null);
+        }
+    }, [isError])
 
     return (
         <Container className='font-hero'>
@@ -144,10 +159,7 @@ const EditArtist = () => {
                             } />
                         <TableRow
                             label={<>Phone <RequiredMark /></>}
-                            content={<div className="flex">
-                                <select className="border">
-                                    <option value="+91">+91</option>
-                                </select>
+                            content={
                                 <Input
                                     type="tel"
                                     name="phone"
@@ -155,8 +167,8 @@ const EditArtist = () => {
                                     register={register}
                                     required={true}
                                     defaultValue={artistData?.phone}
-                                />
-                            </div>} />
+                                />}
+                        />
                         <TableRow label={<span className="whitespace-nowrap">Profile Picture <RequiredMark /></span>} content={(
                             <>
                                 <div className="flex items-center gap-2">
@@ -302,6 +314,8 @@ const EditArtist = () => {
                     </tbody>
                 </table>
 
+                {errorMsg && <p className='bg-red-100 text-red-500 text-sm p-3'>{errorMsg}</p>}
+
                 {showConfirm && <div className='p-4 pb-0'>
                     <p className='text-sm mb-1 font-semibold'>To confirm, type "<span className='font-bold text-red-600'>Delete</span>" in the box below</p>
                     <input ref={confirmInputRef} type="text" className="border-2 border-blue-500 outline-red-500 rounded pl-1 text-sm" />
@@ -318,5 +332,3 @@ const EditArtist = () => {
 };
 
 export default EditArtist;
-
-const RequiredMark = () => <span className="text-red-500 text-base">*</span>
