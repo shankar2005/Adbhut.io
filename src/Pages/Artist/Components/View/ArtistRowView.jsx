@@ -25,7 +25,7 @@ const ArtistRowView = ({ artist }) => {
 
     return (
         <div className='bg-white border-b flex gap-3 p-3'>
-            <div className='relative'>
+            <div>
                 <img
                     onClick={() => setArtistProfile(artist.id)}
                     className='w-16 h-w-16 object-cover object-top rounded-full cursor-pointer placeholder:bg-black'
@@ -35,12 +35,12 @@ const ArtistRowView = ({ artist }) => {
                     onLoad={() => setIsImageLoaded(true)}
                     style={{ display: isImageLoaded ? 'block' : 'none' }}
                 />
-                {artist.full_time && <span className='border rounded-full border-blue-600 text-blue-600 text-xs px-2.5 py-0.5 font-medium flex items-center gap-1 mt-3'><BsLightningChargeFill size={15} /> Full Time</span>}
             </div>
             <div className='flex-1'>
                 <div>
-                    <p onClick={() => setArtistProfile(artist.id)} className='font-medium cursor-pointer w-fit'>
-                        {artist.name}
+                    <p className='font-medium flex items-center gap-2'>
+                        <button type='button' onClick={() => setArtistProfile(artist.id)}>{artist.name}</button>
+                        {artist.full_time && <span className='border rounded-full border-blue-600 text-blue-600 text-xs px-2 py-0.5 font-medium flex items-center gap-1'><BsLightningChargeFill size={15} /> Full Time</span>}
                     </p>
                     {artist?.artist_intro && <p className='w-fit mb-1 px-0.5 text-xs font-sans text-gray-700'>{artist.artist_intro}</p>}
                     {artist.location && <p className='flex mb-1 items-center gap-1 text-sm text-gray-700'><IoLocationSharp /> {artist.location}</p>}
