@@ -96,8 +96,8 @@ const RegisterForm = () => {
                         country={'in'}
                         value={phone}
                         onChange={ph => setPhone(ph)}
-                        inputStyle={{ width: "100%", fontFamily: 'Source Sans Pro' }}
-                        countryCodeEditable={false}
+                        // inputStyle={{ width: "100%", fontFamily: 'Source Sans Pro' }}
+                        // countryCodeEditable={false}
                     />
                     {phoneNumberErr && <small className='text-red-400'>{phoneNumberErr}</small>}
                 </div>
