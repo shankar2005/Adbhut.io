@@ -4,11 +4,13 @@ import { RxCross1 } from 'react-icons/rx';
 import { useAssignArtistToDemoMutation, useCreateDemoMutation } from '../../../../features/demo/demoApi';
 import { useGetArtistsQuery } from "../../../../features/artist/artistApi";
 import Badge from '../../../../Components/Badge/Badge';
+import { useRootContext } from '../../../../contexts/RootProvider';
 
 const FileUpload = ({ setShowUpload }) => {
+  const { contentProducts } = useRootContext();
   const [file, setFile] = useState(null);
-  const [desc, setDesc] = useState(null);
   const [createDemo] = useCreateDemoMutation();
+  const [contentProduct, setContentProduct] = useState(null);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -18,7 +20,7 @@ const FileUpload = ({ setShowUpload }) => {
     const formData = new FormData();
     formData.append("document", file);
     formData.append("Title", file?.name);
-    formData.append("comment", desc);
+    formData.append("content_product", contentProduct);
 
     createDemo(formData)
       .then(data => {
@@ -30,7 +32,18 @@ const FileUpload = ({ setShowUpload }) => {
   return (
     <div className="max-w-md mx-auto mb-4">
       <div className="space-y-3">
-        <input type="text" className="input" placeholder="Content Product / Demo category" />
+        <input type="text" className="input" placeholder="Title (optional)" />
+
+        <select onChange={(e) => {
+          const content = JSON.parse(e.target.value);
+          setContentProduct(content.pk);
+        }} className="input">
+          <option selected>Select content product</option>
+          {
+            contentProducts?.map(content => <option className="text-gray-900" value={JSON.stringify(content)}>{content.name}</option>)
+          }
+        </select>
+
         <div className="flex items-center justify-center w-full h-36 border-2 border-gray-300 border-dashed rounded-lg">
           <label htmlFor="file-upload" className="relative cursor-pointer">
             <AiOutlineCloudUpload size={40} className="mx-auto text-gray-400" />

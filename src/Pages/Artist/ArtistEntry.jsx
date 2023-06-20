@@ -111,7 +111,7 @@ const ArtistEntry = () => {
                                 />
                             } />
                         <TableRow
-                            label="Email"
+                            label={<>Email <RequiredMark /></>}
                             content={
                                 <Input
                                     type="email"
@@ -122,7 +122,7 @@ const ArtistEntry = () => {
                                 />
                             } />
                         <TableRow
-                            label="Phone"
+                            label={<>Phone <RequiredMark /></>}
                             content={<>
                                 <select className="border">
                                     <option value="+91">+91</option>
@@ -164,7 +164,7 @@ const ArtistEntry = () => {
                             )}
                         </>
                         } />
-                        <TableRow label="Select languages" content={
+                        <TableRow label={<>Select languages <RequiredMark /></>} content={
                             <MultiSelect
                                 name="languages"
                                 control={control}

@@ -131,7 +131,7 @@ const EditArtist = () => {
                                 />
                             } />
                         <TableRow
-                            label="Email"
+                            label={<>Email <RequiredMark /></>}
                             content={
                                 <Input
                                     type="email"
@@ -143,7 +143,7 @@ const EditArtist = () => {
                                 />
                             } />
                         <TableRow
-                            label="Phone"
+                            label={<>Phone <RequiredMark /></>}
                             content={<div className="flex">
                                 <select className="border">
                                     <option value="+91">+91</option>
@@ -181,7 +181,7 @@ const EditArtist = () => {
                                 defaultValue={location}
                             />
                         } />
-                        <TableRow label="Select languages" content={
+                        <TableRow label={<>Select languages <RequiredMark /></>} content={
                             <MultiSelectUpdate
                                 name="languages"
                                 control={control}
@@ -189,7 +189,7 @@ const EditArtist = () => {
                                 defaultValue={artistData?.language}
                             />
                         } />
-                        <TableRow label="Select skills" content={
+                        <TableRow label={<>Select skills <RequiredMark /></>} content={
                             <MultiSelectUpdate
                                 name="skill"
                                 control={control}

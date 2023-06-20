@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useRootContext } from '../../contexts/RootProvider';
 import { useAddArtistMutation } from '../../features/artist/artistApi';
 import Select from '../../Components/Input/Select';
@@ -17,6 +17,7 @@ import WorkLinkTable from './Components/WorkLinkTable';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { FcCheckmark } from 'react-icons/fc';
 import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
+import { useSelector } from 'react-redux';
 
 const ArtistAccount = () => {
     const [addArtist, { data: artist, isSuccess, isError, error }] = useAddArtistMutation();
@@ -91,9 +92,9 @@ const ArtistAccount = () => {
     return (
         <div>
             <ol className="font-hero font-semibold w-full md:w-9/12 mx-auto my-5 flex items-center gap-5">
-                <li className="bg-white shadow border border-green-500 p-3 rounded-lg gap-x-24 flex justify-between items-center">1. User info <FcCheckmark size={20} /></li>
-                <li className="bg-white shadow border border-blue-400 p-3 rounded-lg gap-x-24 flex justify-between items-center">2. Account info <HiOutlineArrowNarrowRight size={20} className="text-blue-600" /></li>
-                <li className="bg-white shadow border border-blue-400 p-3 rounded-lg gap-x-24 flex justify-between items-center">3. Work Demo <HiOutlineArrowNarrowRight size={20} className="text-blue-600" /></li>
+                <Link to="/artists/account"><li className="bg-white shadow border border-green-500 p-3 rounded-lg gap-x-24 flex justify-between items-center">1. User info <FcCheckmark size={20} /></li></Link>
+                <Link to="/artists/account/personal-info"><li className="bg-white shadow border border-blue-400 p-3 rounded-lg gap-x-24 flex justify-between items-center">2. Account info <HiOutlineArrowNarrowRight size={20} className="text-blue-600" /></li></Link>
+                <Link to="/artists/account/demo-info"><li className="bg-white shadow border border-blue-400 p-3 rounded-lg gap-x-24 flex justify-between items-center">3. Work Demo <HiOutlineArrowNarrowRight size={20} className="text-blue-600" /></li></Link>
             </ol>
 
             <Outlet />
@@ -118,39 +119,33 @@ const Textarea = ({ name, placeholder, defaultValue, required, register, validat
 };
 
 export const UserInfo = () => {
-    const handleSubmit = () => { }
-    const onSubmit = () => { }
-    const register = () => { }
+    const { user } = useSelector(state => state.auth);
     return (
         <Container className="font-hero">
             <div className="border p-4 border-b-0">
                 <h1 className="text-3xl font-semibold">Your User Info</h1>
                 <small>Minimum requirements to login or access your account.</small>
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <table className="w-full">
-                    <tbody className="bg-white">
-                        <TableRow
-                            label={<>Name <RequiredMark /></>}
-                            content="Test Artist"
-                        />
-                        <TableRow
-                            label="Email"
-                            content="test@gmail.com"
-                        />
-                        <TableRow
-                            label="Phone"
-                            content="+9134234234"
-                        />
-                    </tbody>
-                </table>
-
-                {/* {errorMsg && <p className='bg-red-100 text-red-500 text-sm p-3'>{errorMsg}</p>} */}
-
-                <div className='p-4'>
-                    <Button type="submit">Submit</Button>
-                </div>
-            </form>
+            <table className="w-full">
+                <tbody className="bg-white">
+                    <TableRow
+                        label={<>Name <RequiredMark /></>}
+                        content={user?.name}
+                    />
+                    <TableRow
+                        label={<>Email <RequiredMark /></>}
+                        content={user?.email}
+                    />
+                    <TableRow
+                        label={<>Phone <RequiredMark /></>}
+                        content={user?.phone}
+                    />
+                    <TableRow
+                        label={<>Password <RequiredMark /></>}
+                        content="**********"
+                    />
+                </tbody>
+            </table>
         </Container>
     );
 };
@@ -159,6 +154,14 @@ export const PersonalInfo = () => {
     const handleSubmit = () => { }
     const onSubmit = () => { }
     const register = () => { }
+    const handleFileChange = () => { }
+    const errors = {};
+    const locations = []
+    const control = {}
+    const languages = {}
+    const skills = {}
+    const handleChangeCTC = () => { }
+    const isFullTime = ""
     return (
         <Container className="font-hero">
             <div className="border p-4 border-b-0">
@@ -209,20 +212,20 @@ export const PersonalInfo = () => {
                                 options={locations}
                             />
                         } />
-                        <TableRow label="Select languages" content={
+                        {/* <TableRow label="Select languages" content={
                             <MultiSelect
                                 name="languages"
                                 control={control}
                                 options={languages}
                             />
-                        } />
-                        <TableRow label={<span className="whitespace-nowrap">Select skills <span className="text-red-500 text-base">*</span></span>} content={
+                        } /> */}
+                        {/* <TableRow label={<span className="whitespace-nowrap">Select skills <span className="text-red-500 text-base">*</span></span>} content={
                             <MultiSelect
                                 name="skill"
                                 control={control}
                                 options={skills}
                             />
-                        } />
+                        } /> */}
                         <TableRow label="Social Link" content={
                             <Input
                                 type="text"

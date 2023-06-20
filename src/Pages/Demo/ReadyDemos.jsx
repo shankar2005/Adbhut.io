@@ -2,6 +2,7 @@ import { DefaultPlayer as Video } from 'react-html5video';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Button from '../../Components/Button/Button';
+import { useRootContext } from '../../contexts/RootProvider';
 import { useGetDemosQuery } from '../../features/demo/demoApi';
 import { setDemo } from '../../features/project/projectSlice';
 import WorkDemo from '../Artist/Components/View/WorkDemo';
@@ -49,10 +50,14 @@ const ReadyDemos = () => {
 export default ReadyDemos;
 
 const DemoCard = ({ demo }) => {
-    const { Title, demo_type, link } = demo || {};
+    const { setArtistProfile } = useRootContext();
+    const { Title, demo_type, link, artist } = demo || {};
     const dispatch = useDispatch();
     const handleCustomize = () => {
         dispatch(setDemo(demo));
+    }
+    const showProfile = () => {
+        setArtistProfile(artist);
     }
 
     return (
@@ -61,7 +66,7 @@ const DemoCard = ({ demo }) => {
                 <img className='w-12 h-12' src="https://adbhut.io/assets/adbeta-a97ec0b9.jpeg" alt="" />
                 <div className='text-sm'>
                     <p className='text-base font-medium'>Ready to Use</p>
-                    <p>{Title}</p>
+                    <p onClick={showProfile} className="hover:underline cursor-pointer">{Title}</p>
                 </div>
                 <Link to="/projects/create-project" onClick={handleCustomize} className="ml-auto">
                     <Button>Customize</Button>
