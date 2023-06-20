@@ -24,6 +24,7 @@ import ReadyDemos from "../Pages/Demo/ReadyDemos";
 import EditArtist from "../Pages/Artist/EditArtist";
 import WorkEntry from "../Pages/Artist/WorkEntry";
 import ArtistAccount, { DemoInfo, PersonalInfo, UserInfo } from "../Pages/Artist/ArtistAccount";
+import ArtistsList from "../Pages/Artist/ArtistsList";
 
 const router = createBrowserRouter([
     {
@@ -102,6 +103,10 @@ const router = createBrowserRouter([
             {
                 path: '/artists',
                 element: <Artists />
+            },
+            {
+                path: '/artists/artist-list',
+                element: <ArtistsList />
             },
             {
                 path: '/artists/artist-entry',
