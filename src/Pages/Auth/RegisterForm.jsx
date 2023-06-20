@@ -2,12 +2,13 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { useRegisterUserMutation } from "../../features/auth/authApi";
-import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { useState } from "react";
 import { BiHide, BiShowAlt } from "react-icons/bi";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import PI from "react-phone-input-2";
+const PhoneInput = PI.default ? PI.default : PI;
 
 const RegisterForm = () => {
     const [registerUser, { isSuccess, isError, error }] = useRegisterUserMutation();
@@ -96,8 +97,8 @@ const RegisterForm = () => {
                         country={'in'}
                         value={phone}
                         onChange={ph => setPhone(ph)}
-                        // inputStyle={{ width: "100%", fontFamily: 'Source Sans Pro' }}
-                        // countryCodeEditable={false}
+                        inputStyle={{ width: "100%", fontFamily: 'Source Sans Pro' }}
+                        countryCodeEditable={false}
                     />
                     {phoneNumberErr && <small className='text-red-400'>{phoneNumberErr}</small>}
                 </div>
