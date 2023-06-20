@@ -104,10 +104,6 @@ const router = createBrowserRouter([
                 element: <Artists />
             },
             {
-                path: '/artists/feed',
-                element: <Feed />
-            },
-            {
                 path: '/artists/artist-entry',
                 element: <ArtistEntry />
             },

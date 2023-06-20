@@ -151,17 +151,75 @@ export const UserInfo = () => {
 };
 
 export const PersonalInfo = () => {
-    const handleSubmit = () => { }
-    const onSubmit = () => { }
-    const register = () => { }
-    const handleFileChange = () => { }
-    const errors = {};
-    const locations = []
-    const control = {}
-    const languages = {}
-    const skills = {}
-    const handleChangeCTC = () => { }
-    const isFullTime = ""
+    const [addArtist, { data: artist, isSuccess, isError, error }] = useAddArtistMutation();
+    const { skills: skillsData } = useRootContext();
+    const { data: locations } = useGetLocationsQuery();
+    const { data: languagesData } = useGetLanguagesQuery();
+    const [file, setFile] = useState(null);
+    const [isFullTime, setIsFullTime] = useState(false);
+    const [errorMsg, setErrorMsg] = useState(null);
+
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    }
+
+    const handleChangeCTC = (e) => {
+        setIsFullTime(e.target.checked);
+    }
+
+    const { register, handleSubmit, formState: { errors }, control, reset } = useForm();
+    const onSubmit = data => {
+        const copyData = {
+            ...data,
+            age: +data.age,
+            phone: `+91${data.phone}`,
+            professional_rating: data.professional_rating || 0,
+            attitude_rating: data.attitude_rating || 0,
+            has_manager: false,
+            works_links: [],
+            full_time: isFullTime
+        };
+
+        const formData = new FormData();
+        // Append other form fields to the form data
+        Object.entries(copyData).forEach(([key, value]) => {
+            formData.append(key, value);
+        });
+        formData.append('profile_pic', file); // Add the file to the form data
+
+        addArtist(formData);
+    }
+
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success("Artist has been added");
+            reset();
+            navigate(`/artists/artist-entry/works/${artist?.artist?.id}`);
+        }
+
+    }, [isSuccess])
+
+    useEffect(() => {
+        if (isError) {
+            if (error?.data?.languages) {
+                setErrorMsg("Please select at least one language");
+            } else if (error?.data?.skill) {
+                setErrorMsg("Please select at least one skill");
+            } else {
+                setErrorMsg(Object.values(error?.data)[0][0]);
+            }
+        }
+    }, [isError])
+
+    // structured the data in expected form of `react-select`
+    const languages = languagesData?.map(language => {
+        return { value: language.pk, label: language.name }
+    });
+    const skills = skillsData?.map(skill => {
+        return { value: skill.pk, label: skill.name }
+    });
+
     return (
         <Container className="font-hero">
             <div className="border p-4 border-b-0">
@@ -212,20 +270,20 @@ export const PersonalInfo = () => {
                                 options={locations}
                             />
                         } />
-                        {/* <TableRow label="Select languages" content={
+                        <TableRow label="Select languages" content={
                             <MultiSelect
                                 name="languages"
                                 control={control}
                                 options={languages}
                             />
-                        } /> */}
-                        {/* <TableRow label={<span className="whitespace-nowrap">Select skills <span className="text-red-500 text-base">*</span></span>} content={
+                        } />
+                        <TableRow label={<span className="whitespace-nowrap">Select skills <span className="text-red-500 text-base">*</span></span>} content={
                             <MultiSelect
                                 name="skill"
                                 control={control}
                                 options={skills}
                             />
-                        } /> */}
+                        } />
                         <TableRow label="Social Link" content={
                             <Input
                                 type="text"
@@ -259,7 +317,7 @@ export const PersonalInfo = () => {
                     </tbody>
                 </table>
 
-                {/* {errorMsg && <p className='bg-red-100 text-red-500 text-sm p-3'>{errorMsg}</p>} */}
+                {errorMsg && <p className='bg-red-100 text-red-500 text-sm p-3'>{errorMsg}</p>}
 
                 <div className='p-4'>
                     <Button type="submit">Submit</Button>

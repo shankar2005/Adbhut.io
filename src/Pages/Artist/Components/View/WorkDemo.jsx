@@ -26,7 +26,6 @@ const WorkDemo = ({ demo_type, demo_link }) => {
         return null;
     }
 
-
     let content;
 
     switch (demo_type) {
@@ -122,7 +121,7 @@ const WorkDemo = ({ demo_type, demo_link }) => {
         case "Vimeo":
             content = (
                 <div className='bg-black'>
-                    <iframe src="https://player.vimeo.com/video/299439811" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                    <iframe src="https://player.vimeo.com/video/299439811" width="100%" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                 </div>
             )
             break;

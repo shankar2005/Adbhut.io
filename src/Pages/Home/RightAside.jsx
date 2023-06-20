@@ -44,16 +44,13 @@ const RightAside = () => {
                             </Link>
                         </li>
                         <li>
-                            {
-                                user?.role == "AM" &&
-                                <Link to="/artists" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
-                                    <FiUsers size={20} /> View Artists
-                                </Link>
-                            }
+                            <Link to="/artists" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
+                                <MdOutlineRssFeed size={20} /> Artist's Stream
+                            </Link>
                         </li>
                         <li>
-                            <Link to="/artists/feed" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
-                                <MdOutlineRssFeed size={20} /> Artist's Stream
+                            <Link to="/artists" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
+                                <MdOutlineRssFeed size={20} /> Ready Demos
                             </Link>
                         </li>
                     </ul>
@@ -148,13 +145,7 @@ const RightAside = () => {
                         </Link>
                     </li>
                     <li className='pt-3.5 border-t flex gap-4 uppercase'>
-                        {
-                            user?.role == "AM" &&
-                            <Link to="/artists" className="hover:text-blue-600 font-medium">
-                                View Artists
-                            </Link>
-                        }
-                        <Link to="/artists/feed" className="hover:text-blue-600 font-medium">
+                        <Link to="/artists" className="hover:text-blue-600 font-medium">
                             Artist's Stream
                         </Link>
                     </li>

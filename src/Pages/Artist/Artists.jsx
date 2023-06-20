@@ -10,6 +10,7 @@ import { useGetArtistsQuery } from "../../features/artist/artistApi";
 import { setSearch } from "../../features/filter/filterSlice";
 import SearchInfo from "./Components/SearchInfo";
 import ArtistRowView from "./Components/View/ArtistRowView";
+import ArtistWorkView from "./Components/View/ArtistWorkView";
 import FilterArtist from "./FilterArtist";
 
 const Artists = () => {
@@ -45,7 +46,7 @@ const Artists = () => {
     }
 
     return (
-        <section className='stream-lg mt-5 relative'>
+        <section className='stream mt-5 relative'>
             {
                 selectedContentProduct && <>
                     <Link to="/projects/create-project"><BiArrowBack className='cursor-pointer bg-gray-200 text-gray-700 rounded-full p-1 absolute -left-10 top-0.5' size={30} /></Link>
@@ -57,7 +58,7 @@ const Artists = () => {
                 dataLength={artists?.length}
                 next={fetchMoreData}
                 hasMore={hasNext}
-                className="stream-lg min-h-[50vh]"
+                className="stream min-h-[50vh]"
             >
                 <SearchInfo
                     searchText={searchText}
@@ -67,7 +68,7 @@ const Artists = () => {
                 {!isFetching && !artists.length && <NothingFound />}
 
                 {
-                    artists?.map(artist => <ArtistRowView key={artist?.id} artist={artist} setArtists={setArtists} />)
+                    artists?.map(artist => (artist?.works_links[0]?.weblink && <ArtistWorkView key={artist?.id} artist={artist} />))
                 }
             </InfiniteScroll>
         </section>

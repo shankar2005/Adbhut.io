@@ -28,7 +28,7 @@ const ArtistRowView = ({ artist }) => {
             <div>
                 <img
                     onClick={() => setArtistProfile(artist.id)}
-                    className='w-16 h-w-16 object-cover object-top rounded-full cursor-pointer placeholder:bg-black'
+                    className='w-16 h-16 object-cover object-top rounded-full cursor-pointer placeholder:bg-black'
                     src={imageSrc}
                     alt="Profile Image"
                     onError={handleImageError}

@@ -16,6 +16,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi';
 
 const Feed = () => {
+    return
     const { demoType, checkedSkills, checkedGenres, checkedLocations, viewAs } = useRootContext();
 
     const { user } = useSelector(state => state.auth);
