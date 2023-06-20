@@ -2,7 +2,7 @@ import { BsBoxArrowUpRight } from 'react-icons/bs';
 import { Spotify } from 'react-spotify-embed';
 import useYoutubeEmbaded from '../../../../hooks/useYoutubeEmbaded';
 
-const WorkDemo = ({ demo_type, demo_link }) => {
+const WorkDemoSm = ({ demo_type, demo_link }) => {
     function extractFolderId(driveLink) {
         const regex = /\/folders\/([^/?]+)/;
         const matches = driveLink.match(regex);
@@ -39,9 +39,9 @@ const WorkDemo = ({ demo_type, demo_link }) => {
         case "Instagram":
             content = (
                 <a target="_blank" href={demo_link}>
-                    <div className="h-80 border flex flex-col gap-3 items-center justify-center text-center">
-                        <img className="w-12" src="https://cdn-icons-png.flaticon.com/512/87/87390.png" alt="" />
-                        <strong className="text-blue-700">View this post on Instagram</strong>
+                    <div className="aspect-square border flex flex-col gap-3 items-center justify-center text-center">
+                        <img className="w-8" src="https://cdn-icons-png.flaticon.com/512/87/87390.png" alt="" />
+                        <strong className="text-blue-700 text-sm">View this post on Instagram</strong>
                     </div>
                 </a>
             )
@@ -49,7 +49,7 @@ const WorkDemo = ({ demo_type, demo_link }) => {
         case "Soundcloud":
             content = (
                 <div className='border rounded-lg'>
-                    <iframe width="100%" height="166" scrolling="no" frameBorder="no" src={`https://w.soundcloud.com/player/?url=${demo_link};auto_play=false&amp;show_artwork=true`}></iframe>
+                    <iframe className='aspect-square' width="100%" scrolling="no" frameBorder="no" src={`https://w.soundcloud.com/player/?url=${demo_link};auto_play=false&amp;show_artwork=true`}></iframe>
                 </div>
             )
             break;
@@ -74,8 +74,8 @@ const WorkDemo = ({ demo_type, demo_link }) => {
                 <>
                     {
                         (demo_link?.includes("drive.google.com") && demo_link?.includes("/folders/"))
-                            ? <iframe className="border bg-gray-100" src={`https://drive.google.com/embeddedfolderview?id=${extractFolderId(demo_link)}#grid`} width="100%" height={260} scrolling="no"></iframe>
-                            : <iframe className="border" src={demo_link.replace("/view", "/preview")} width="100%" height={265} allow="autoplay"></iframe>
+                            ? <iframe className="border bg-gray-100 aspect-square" src={`https://drive.google.com/embeddedfolderview?id=${extractFolderId(demo_link)}#grid`} width="100%" scrolling="no"></iframe>
+                            : <iframe className="border aspect-square" src={demo_link.replace("/view", "/preview")} width="100%" allow="autoplay"></iframe>
                     }
                 </>
             )
@@ -114,14 +114,14 @@ const WorkDemo = ({ demo_type, demo_link }) => {
         case "Wixsite":
             content = (
                 <div className='bg-black'>
-                    <iframe src={demo_link} className="mx-auto w-full" height="430" frameBorder="0" scrolling="no" allowtransparency="true"></iframe>
+                    <iframe src={demo_link} className="mx-auto w-full aspect-square" frameBorder="0" scrolling="no" allowtransparency="true"></iframe>
                 </div>
             )
             break;
         case "Vimeo":
             content = (
                 <div className='bg-black'>
-                    <iframe src="https://player.vimeo.com/video/299439811" width="100%" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                    <iframe className='aspect-square' src="https://player.vimeo.com/video/299439811" width="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                 </div>
             )
             break;
@@ -144,13 +144,13 @@ const WorkDemo = ({ demo_type, demo_link }) => {
             }
             else if (demo_link?.includes("dribbble")) {
                 content = (
-                    <iframe src={`https://dribbble.com/shots/${extractShotId(demo_link)}/embed`} className="border" width="100%" height="300" frameborder="0" scrolling="no" allowfullscreen></iframe>
+                    <iframe src={`https://dribbble.com/shots/${extractShotId(demo_link)}/embed`} className="border aspect-square" width="100%" frameborder="0" scrolling="no" allowfullscreen></iframe>
                 )
             }
             else {
                 content = (
                     <div className='border'>
-                        <iframe src={demo_link} className="mx-auto w-full" height="430" frameBorder="0" scrolling="no" allowtransparency="true"></iframe>
+                        <iframe src={demo_link} className="mx-auto aspect-square w-full" frameBorder="0" scrolling="no" allowtransparency="true"></iframe>
                     </div>
                 )
             }
@@ -163,4 +163,4 @@ const WorkDemo = ({ demo_type, demo_link }) => {
     return content;
 };
 
-export default WorkDemo;
+export default WorkDemoSm;

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import { AiOutlineRight } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Badge from '../../Components/Badge/Badge';
@@ -14,8 +15,8 @@ import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { useCreateProjectMutation } from '../../features/project/projectApi';
 import { setClientFeedback, setReferenceLinks, setTitle } from '../../features/project/projectSlice';
 import { removeArtist } from '../../features/project/projectSlice';
-import WorkDemo from '../Artist/Components/View/WorkDemo';
 import { setArtist, addArtist } from '../../features/project/projectSlice';
+import WorkDemoSm from '../Artist/Components/View/WorkDemoSm';
 
 const CreateProject = () => {
     const { contentProducts, handleSelectContentProduct, handleShortlist } = useRootContext();
@@ -97,12 +98,12 @@ const CreateProject = () => {
         }
     }, [isSuccess])
 
-    // const [realtedWorks, setRelatedWorks] = useState(null);
-    // useEffect(() => {
-    //     fetch('https://dev.nsnco.in/api/v1/get_feed/')
-    //         .then(res => res.json())
-    //         .then(data => setRelatedWorks(data.results?.slice(0, 3)));
-    // }, []);
+    const [realtedWorks, setRelatedWorks] = useState(null);
+    useEffect(() => {
+        fetch('https://dev.nsnco.in/api/v1/artist_list/')
+            .then(res => res.json())
+            .then(data => setRelatedWorks(data.results?.slice(5, 8)));
+    }, []);
 
     useEffect(() => {
         if (project_demo.id) {
@@ -159,11 +160,10 @@ const CreateProject = () => {
                     </tbody>
                 </table>
 
-                {/* <div className='grid grid-cols-4 gap-2 p-4 h-40 overflow-hidden'>
-                    {realtedWorks?.map(work => <WorkDemo demo_type={work.demo_type} demo_link={work.weblink} />)}
-                    <Link to="/artists" className='flex items-center justify-center'>Show More</Link>
-                </div> */}
-
+                <div className='grid grid-cols-4 items-center gap-2 p-4 overflow-hidden'>
+                    {realtedWorks?.map(work => <WorkDemoSm demo_type={work?.works_links[0]?.demo_type} demo_link={work?.works_links[0]?.weblink} />)}
+                    <Link to="/artists" className='h-fit w-fit ml-5 underline underline-offset-2 text-blue-900 flex items-center gap-1'>Show More <AiOutlineRight /></Link>
+                </div>
 
                 {project_demo.id && <table className="w-full">
                     <thead>
