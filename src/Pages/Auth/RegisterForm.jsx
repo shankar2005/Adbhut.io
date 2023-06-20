@@ -91,7 +91,7 @@ const RegisterForm = () => {
                 </div>
                 <div className="space-y-0.5">
                     <label htmlFor="phone" className="block text-xs text-gray-600 font-semibold">Phone</label>
-                    {/* <PhoneInput
+                    <PhoneInput
                         onlyCountries={['in']}
                         country={'in'}
                         value={phone}
@@ -99,7 +99,7 @@ const RegisterForm = () => {
                         inputStyle={{ width: "100%", fontFamily: 'Source Sans Pro' }}
                         countryCodeEditable={false}
                     />
-                    {phoneNumberErr && <small className='text-red-400'>{phoneNumberErr}</small>} */}
+                    {phoneNumberErr && <small className='text-red-400'>{phoneNumberErr}</small>}
                 </div>
                 <div className="space-y-0.5 relative">
                     <label htmlFor="password" className="text-xs text-gray-600 font-semibold">Password</label>
