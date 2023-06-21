@@ -119,26 +119,26 @@ const router = createBrowserRouter([
             {
                 path: '/artists/edit-artist/:artistId',
                 element: <EditArtist />
-            },
+            }
+        ],
+    },
+    {
+        path: '/artists/account',
+        element: <ArtistAccount />,
+        children: [
             {
                 path: '/artists/account',
-                element: <ArtistAccount />,
-                children: [
-                    {
-                        path: '/artists/account',
-                        element: <UserInfo />
-                    },
-                    {
-                        path: '/artists/account/personal-info',
-                        element: <PersonalInfo />
-                    },
-                    {
-                        path: '/artists/account/demo-info',
-                        element: <DemoInfo />
-                    },
-                ]
+                element: <UserInfo />
             },
-        ],
+            {
+                path: '/artists/account/personal-info',
+                element: <PersonalInfo />
+            },
+            {
+                path: '/artists/account/demo-info',
+                element: <DemoInfo />
+            },
+        ]
     },
 ]);
 

@@ -7,7 +7,6 @@ import { useLoginUserMutation, useVerifyUserMutation } from '../../features/auth
 import { setLoading, setToken, setUser } from '../../features/auth/authSlice';
 import { closeLogin } from '../../features/dropdown/dropdownSlice';
 import { BiHide, BiShowAlt } from "react-icons/bi";
-import Badge from '../../Components/Badge/Badge';
 import { useState } from 'react';
 
 const LoginForm = () => {

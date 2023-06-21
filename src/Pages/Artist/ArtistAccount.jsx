@@ -20,103 +20,19 @@ import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
 import { useSelector } from 'react-redux';
 
 const ArtistAccount = () => {
-    const [addArtist, { data: artist, isSuccess, isError, error }] = useAddArtistMutation();
-    const { skills: skillsData } = useRootContext();
-    const { data: locations } = useGetLocationsQuery();
-    const { data: languagesData } = useGetLanguagesQuery();
-    const [file, setFile] = useState(null);
-    const [isFullTime, setIsFullTime] = useState(false);
-    const [errorMsg, setErrorMsg] = useState(null);
-
-    const handleFileChange = (e) => {
-        setFile(e.target.files[0]);
-    }
-
-    const handleChangeCTC = (e) => {
-        setIsFullTime(e.target.checked);
-    }
-
-    const { register, handleSubmit, formState: { errors }, control, reset } = useForm();
-    const onSubmit = data => {
-        const copyData = {
-            ...data,
-            age: +data.age,
-            phone: `+91${data.phone}`,
-            professional_rating: data.professional_rating || 0,
-            attitude_rating: data.attitude_rating || 0,
-            has_manager: false,
-            works_links: [],
-            full_time: isFullTime
-        };
-
-        const formData = new FormData();
-        // Append other form fields to the form data
-        Object.entries(copyData).forEach(([key, value]) => {
-            formData.append(key, value);
-        });
-        formData.append('profile_pic', file); // Add the file to the form data
-
-        addArtist(formData);
-    }
-
-    const navigate = useNavigate();
-    useEffect(() => {
-        if (isSuccess) {
-            toast.success("Artist has been added");
-            reset();
-            navigate(`/artists/artist-entry/works/${artist?.artist?.id}`);
-        }
-
-    }, [isSuccess])
-
-    useEffect(() => {
-        if (isError) {
-            if (error?.data?.languages) {
-                setErrorMsg("Please select at least one language");
-            } else if (error?.data?.skill) {
-                setErrorMsg("Please select at least one skill");
-            } else {
-                setErrorMsg(Object.values(error?.data)[0][0]);
-            }
-        }
-    }, [isError])
-
-    // structured the data in expected form of `react-select`
-    const languages = languagesData?.map(language => {
-        return { value: language.pk, label: language.name }
-    });
-    const skills = skillsData?.map(skill => {
-        return { value: skill.pk, label: skill.name }
-    });
-
     return (
-        <div>
-            <ol className="font-hero font-semibold w-full md:w-9/12 mx-auto my-5 flex items-center gap-5">
+        <div className="bg-gray-50 py-5 min-h-screen">
+            <ol className="font-hero font-semibold w-full md:w-9/12 mx-auto mb-5 flex items-center gap-5">
                 <Link to="/artists/account"><li className="bg-white shadow border border-green-500 p-3 rounded-lg gap-x-24 flex justify-between items-center">1. User info <FcCheckmark size={20} /></li></Link>
                 <Link to="/artists/account/personal-info"><li className="bg-white shadow border border-blue-400 p-3 rounded-lg gap-x-24 flex justify-between items-center">2. Account info <HiOutlineArrowNarrowRight size={20} className="text-blue-600" /></li></Link>
                 <Link to="/artists/account/demo-info"><li className="bg-white shadow border border-blue-400 p-3 rounded-lg gap-x-24 flex justify-between items-center">3. Work Demo <HiOutlineArrowNarrowRight size={20} className="text-blue-600" /></li></Link>
             </ol>
-
             <Outlet />
-
         </div>
     );
 };
 
 export default ArtistAccount;
-
-const Textarea = ({ name, placeholder, defaultValue, required, register, validation, ...props }) => {
-    return (
-        <textarea
-            {...register(name, { required, ...validation })}
-            rows="5"
-            className="w-full border p-1"
-            placeholder={placeholder}
-            defaultValue={defaultValue}
-            {...props}
-        ></textarea>
-    );
-};
 
 export const UserInfo = () => {
     const { user } = useSelector(state => state.auth);
@@ -372,3 +288,16 @@ export const DemoInfo = () => {
         </Container>
     )
 }
+
+const Textarea = ({ name, placeholder, defaultValue, required, register, validation, ...props }) => {
+    return (
+        <textarea
+            {...register(name, { required, ...validation })}
+            rows="5"
+            className="w-full border p-1"
+            placeholder={placeholder}
+            defaultValue={defaultValue}
+            {...props}
+        ></textarea>
+    );
+};

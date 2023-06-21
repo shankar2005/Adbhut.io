@@ -55,23 +55,18 @@ const RegisterForm = () => {
         }
 
         registerUser({
+            name: data.name,
             email: data.email,
+            phone: "+" + phone,
             password: data.password,
             password2: data.password2,
-            company: data.company,
-            url: data.url,
-            phone: "+" + phone,
-            name: data.name
+            role: "Artist"
         })
     };
 
     useEffect(() => {
         if (isSuccess) {
-            Swal.fire(
-                'Congratulations!',
-                'User has been created successfully!',
-                'success'
-            )
+            
             reset();
         }
     }, [isSuccess]);
