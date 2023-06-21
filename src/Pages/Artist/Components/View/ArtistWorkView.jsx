@@ -5,8 +5,10 @@ import { useSelector } from 'react-redux';
 import WorkDemo from './WorkDemo';
 import { IoLocationSharp } from 'react-icons/io5';
 import { BsLightningChargeFill } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 const ArtistWorkView = ({ artist }) => {
+    const { user } = useSelector(state => state.auth);
     const { handleShortlist, avatar, setArtistProfile } = useRootContext();
     const { shortlistedArtists } = useSelector(state => state.project);
 
@@ -48,11 +50,19 @@ const ArtistWorkView = ({ artist }) => {
                         </div>
                     }
                 </div>
-                {
-                    shortlistedArtists?.includes(artist.id)
-                        ? <button className='ml-auto bg-blue-500 py-2.5 px-4 text-white rounded text-sm font-hero' disabled><GiCheckMark /></button>
-                        : <button onClick={() => handleShortlist(artist.id)} className='ml-auto bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero'>Shortlist</button>
-                }
+                <div className='space-x-1'>
+                    {
+                        user?.role === "AM" &&
+                        <Link to={`/artists/edit-artist/${artist.id}`}>
+                            <button className="bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero">Edit</button>
+                        </Link>
+                    }
+                    {
+                        shortlistedArtists?.includes(artist.id)
+                            ? <button className='bg-blue-500 py-2.5 px-4 text-white rounded text-sm font-hero' disabled><GiCheckMark /></button>
+                            : <button onClick={() => handleShortlist(artist.id)} className='bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero'>Shortlist</button>
+                    }
+                </div>
             </div>
             <div>
                 <WorkDemo demo_type={artist?.works_links[0]?.demo_type} demo_link={artist?.works_links[0]?.weblink} />
