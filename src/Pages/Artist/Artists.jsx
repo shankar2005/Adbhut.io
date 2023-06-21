@@ -27,6 +27,11 @@ const Artists = () => {
     useEffect(() => {
         setArtists([]);
         setPage(1);
+        // set everything to initial stage when unmount
+        return () => {
+            setArtists([]);
+            setPage(1);
+        }
     }, [])
 
     useEffect(() => {
