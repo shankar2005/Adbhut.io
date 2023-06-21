@@ -100,10 +100,10 @@ const CreateProject = () => {
 
     const [realtedWorks, setRelatedWorks] = useState(null);
     useEffect(() => {
-        fetch('https://dev.nsnco.in/api/v1/artist_list/')
+        fetch(`https://dev.nsnco.in/api/v1/get_content_work/${selectedContentProduct}/?limit=3`)
             .then(res => res.json())
-            .then(data => setRelatedWorks(data.results?.slice(5, 8)));
-    }, []);
+            .then(data => setRelatedWorks(data.content_works));
+    }, [selectedContentProduct]);
 
     useEffect(() => {
         if (project_demo.id) {
@@ -161,7 +161,7 @@ const CreateProject = () => {
                 </table>
 
                 <div className='grid grid-cols-4 items-center gap-2 p-4 overflow-hidden'>
-                    {realtedWorks?.map(work => <WorkDemoSm demo_type={work?.works_links[0]?.demo_type} demo_link={work?.works_links[0]?.weblink} />)}
+                    {realtedWorks?.map(work => <WorkDemoSm demo_type={work.demo_type} demo_link={work.weblink} />)}
                     <Link to="/artists" className='h-fit w-fit ml-5 underline underline-offset-2 text-blue-900 flex items-center gap-1'>Show More <AiOutlineRight /></Link>
                 </div>
 

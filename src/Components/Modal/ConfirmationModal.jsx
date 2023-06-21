@@ -54,10 +54,10 @@ const ConfirmationModal = () => {
                 animate="visible"
                 exit="exit"
             >
-                <div className="pt-6 text-black bg-white rounded-md p-5 shadow-2xl overflow-y-auto scroll-none relative mx-5 md:mx-0">
+                <div className="font-hero pt-6 text-black bg-white rounded-md p-5 shadow-2xl overflow-y-auto scroll-none relative mx-5 md:mx-0">
                     <div className='flex flex-col items-center gap-5'>
                         <BsExclamationCircle className='text-gray-500' size={40} />
-                        <p className='font-serif font-medium text-gray-600'>Your project data will be lost, Are you sure want to continue?</p>
+                        <p className='font-medium text-gray-600'>Your project data will be lost, Are you sure want to continue?</p>
                         <div className='space-x-3'>
                             <Button variant="primary" onClick={handleYes}>Yes, I'm sure</Button>
                             <Button variant="danger" onClick={handleNo}>No, cancel</Button>
