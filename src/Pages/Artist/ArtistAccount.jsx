@@ -67,6 +67,8 @@ export const UserInfo = () => {
 };
 
 export const PersonalInfo = () => {
+    const artistId = useSelector(state => state.auth?.user?.id);
+    console.log(artistId);
     const [addArtist, { data: artist, isSuccess, isError, error }] = useAddArtistMutation();
     const { skills: skillsData } = useRootContext();
     const { data: locations } = useGetLocationsQuery();

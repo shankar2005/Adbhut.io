@@ -2,9 +2,9 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { useGetCurrentProjectsQuery, useGetProjectQuery } from '../features/project/projectApi';
 import { useGetContentProductsQuery, useGetLocationsQuery, useGetSkillsOnProductSelectMutation, useGetSkillsQuery } from '../features/utils/utilsApi';
 import { useDispatch, useSelector } from 'react-redux';
-import { useShortlistArtistMutation } from '../features/artist/artistApi';
+import { useDeclineArtistMutation, useShortlistArtistMutation } from '../features/artist/artistApi';
 import { setSearch } from '../features/filter/filterSlice';
-import { addArtist, addChatLog, clearProject, setContentProduct, setProjectData } from '../features/project/projectSlice';
+import { addArtist, removeArtist, addChatLog, clearProject, setContentProduct, setProjectData } from '../features/project/projectSlice';
 
 const RootContext = createContext();
 
@@ -13,6 +13,7 @@ const RootProvider = ({ children }) => {
     const avatar = "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541";
 
     const [shortlistArtist] = useShortlistArtistMutation();
+    const [declineArtist] = useDeclineArtistMutation();
     const { data: skills = [] } = useGetSkillsQuery();
     const { data: contentProducts = [] } = useGetContentProductsQuery();
     const [getSkillsOnProductSelect] = useGetSkillsOnProductSelectMutation();
@@ -35,6 +36,16 @@ const RootProvider = ({ children }) => {
         dispatch(addArtist(artistID));
         if (currentProject?.pk) {
             shortlistArtist({
+                projectId: currentProject.pk,
+                artistId: artistID
+            })
+        }
+    }
+
+    const handleDecline = (artistID) => {
+        dispatch(removeArtist(artistID));
+        if (currentProject?.pk) {
+            declineArtist({
                 projectId: currentProject.pk,
                 artistId: artistID
             })
@@ -126,8 +137,12 @@ const RootProvider = ({ children }) => {
     }, [selectedContentProduct]);
 
     const handleClearFilter = () => {
-        setSuggestions(removedSkills);
+        getSkillsOnProductSelect({ product: selectedContentProduct })
+            .then(data => {
+                setSuggestions(data?.data?.skills);
+            });
         setRemovedSkill([]);
+
         // clear
         dispatch(setSearch(""));
         setPage(1);
@@ -177,6 +192,7 @@ const RootProvider = ({ children }) => {
         checkedGenres,
         setcheckedGenres,
         handleShortlist,
+        handleDecline,
         checkedLocations,
         setcheckedLocations,
         skills,

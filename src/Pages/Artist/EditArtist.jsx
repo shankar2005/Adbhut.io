@@ -49,7 +49,7 @@ const EditArtist = () => {
         const formData = {
             ...data,
             age: +data.age,
-            phone: `+91${data.phone}`,
+            phone: data.phone,
             professional_rating: data.professional_rating || 0,
             attitude_rating: data.attitude_rating || 0,
             has_manager: false,

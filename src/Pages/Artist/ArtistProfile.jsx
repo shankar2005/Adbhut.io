@@ -21,7 +21,7 @@ const ArtistProfile = () => {
     const { shortlistedArtists } = useSelector(state => state.project);
     const { user } = useSelector(state => state.auth);
 
-    const { handleShortlist, artistProfile, setArtistProfile, avatar } = useRootContext();
+    const { handleShortlist, handleDecline, artistProfile, setArtistProfile, avatar } = useRootContext();
     const { data, isLoading } = useGetArtistByIdQuery(artistProfile);
     const {
         works_links,
@@ -93,7 +93,7 @@ const ArtistProfile = () => {
                     }
                     {
                         shortlistedArtists?.includes(id)
-                            ? <button className='bg-blue-500 py-2.5 px-4 text-white rounded text-sm font-hero' disabled><GiCheckMark /></button>
+                            ? <button onDoubleClick={() => handleDecline(id)} className='bg-blue-500 py-2.5 px-4 text-white rounded text-sm font-hero'><GiCheckMark /></button>
                             : <button onClick={() => handleShortlist(id)} className='bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero'>Shortlist</button>
                     }
                 </div>

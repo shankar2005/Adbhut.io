@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 const ArtistWorkView = ({ artist }) => {
     const { user } = useSelector(state => state.auth);
-    const { handleShortlist, avatar, setArtistProfile } = useRootContext();
+    const { handleShortlist, handleDecline, avatar, setArtistProfile } = useRootContext();
     const { shortlistedArtists } = useSelector(state => state.project);
 
     const [imageSrc, setImageSrc] = useState(artist.profile_pic);
@@ -59,7 +59,7 @@ const ArtistWorkView = ({ artist }) => {
                     }
                     {
                         shortlistedArtists?.includes(artist.id)
-                            ? <button className='bg-blue-500 py-2.5 px-4 text-white rounded text-sm font-hero' disabled><GiCheckMark /></button>
+                            ? <button onDoubleClick={() => handleDecline(artist.id)} className='bg-blue-500 py-2.5 px-4 text-white rounded text-sm font-hero'><GiCheckMark /></button>
                             : <button onClick={() => handleShortlist(artist.id)} className='bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero'>Shortlist</button>
                     }
                 </div>

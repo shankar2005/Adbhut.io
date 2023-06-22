@@ -20,7 +20,6 @@ const Navbar = ({ setShowToolkit, showToolkit }) => {
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
     const { loginModal, accountModal } = useSelector(state => state.dropdown);
-    const { searchText } = useSelector(state => state.filter);
 
     const navigate = useNavigate();
     // handle search
@@ -32,6 +31,7 @@ const Navbar = ({ setShowToolkit, showToolkit }) => {
         // clear
         navigate("/artists");
         dispatch(setSearch(e.target.search.value));
+        e.target.reset();
     }
 
     const [profileImageSrc, setProfileImageSrc] = useState(user.image);
@@ -50,7 +50,7 @@ const Navbar = ({ setShowToolkit, showToolkit }) => {
                         <img src={adbhutGIF} className='w-28 md:w-32' />
                     </Link>
                     <form onSubmit={handleSearch} className="hidden md:flex relative">
-                        <input type="search" name="search" className='border border-gray-300 py-2 w-72 pl-10 pr-3 outline-0 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm rounded' placeholder='Search your artist here...' defaultValue={searchText} required />
+                        <input type="search" name="search" className='border border-gray-300 py-2 w-72 pl-10 pr-3 outline-0 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm rounded' placeholder='Search your artist here...' required />
                         <AiOutlineSearch className='w-6 h-6 text-gray-500 absolute top-1/2 -translate-y-1/2 left-2' />
                         <button className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200 ml-2" type="submit">Search</button>
                     </form>

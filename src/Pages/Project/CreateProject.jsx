@@ -19,9 +19,9 @@ import { setArtist, addArtist } from '../../features/project/projectSlice';
 import WorkDemoSm from '../Artist/Components/View/WorkDemoSm';
 
 const CreateProject = () => {
-    const { contentProducts, handleSelectContentProduct, handleShortlist } = useRootContext();
-
+    const { contentProducts, handleSelectContentProduct } = useRootContext();
     const currentProject = useSelector(state => state.project);
+    const [contentErr, setContentErr] = useState(null);
 
     const dispatch = useDispatch();
     const [createProject, { isSuccess, data: projectData }] = useCreateProjectMutation();
@@ -54,8 +54,9 @@ const CreateProject = () => {
             return dispatch(showLogin());
         }
         if (!selectedContentProduct) {
-            return toast("Select a content product!");
+            return setContentErr("Select a content product!");
         }
+        setContentErr(null);
 
         createProject({
             stage: "Lead",
@@ -69,8 +70,9 @@ const CreateProject = () => {
             return dispatch(showLogin());
         }
         if (!selectedContentProduct) {
-            return toast("Select a content product!");
+            return setContentErr("Select a content product!");
         }
+        setContentErr(null);
 
         createProject({
             stage: "DreamProject",
@@ -102,7 +104,8 @@ const CreateProject = () => {
     useEffect(() => {
         fetch(`https://dev.nsnco.in/api/v1/get_content_work/${selectedContentProduct}/?limit=3`)
             .then(res => res.json())
-            .then(data => setRelatedWorks(data.content_works));
+            .then(data => setRelatedWorks(data.content_works))
+            .catch(err => setRelatedWorks(null));
     }, [selectedContentProduct]);
 
     useEffect(() => {
@@ -146,24 +149,27 @@ const CreateProject = () => {
                             } />
                         <TableRow
                             label="Content Product"
-                            content={
+                            content={<>
                                 <select onChange={(e) => {
                                     const content = JSON.parse(e.target.value);
                                     handleSelectContentProduct(content);
                                 }} className="border">
-                                    <option selected>Select content product</option>
+                                    <option value={JSON.stringify({})} selected>Select content product</option>
                                     {
                                         contentProducts?.map(content => <option selected={selectedContentProduct === content.pk} value={JSON.stringify(content)}>{content.name}</option>)
                                     }
                                 </select>
-                            } />
+                                {contentErr && <p className='text-red-500 mt-0.5'>{contentErr}</p>}
+                            </>} />
                     </tbody>
                 </table>
 
-                <div className='grid grid-cols-4 items-center gap-2 p-4 overflow-hidden'>
-                    {realtedWorks?.map(work => <WorkDemoSm demo_type={work.demo_type} demo_link={work.weblink} />)}
-                    <Link to="/artists" className='h-fit w-fit ml-5 underline underline-offset-2 text-blue-900 flex items-center gap-1'>Show More <AiOutlineRight /></Link>
-                </div>
+                {realtedWorks?.length > 0 && (
+                    <div className='grid grid-cols-4 items-center gap-2 p-4 overflow-hidden'>
+                        {realtedWorks?.map(work => <WorkDemoSm demo_type={work.demo_type} demo_link={work.weblink} />)}
+                        <div className='flex items-center justify-center'><Link to="/artists" className='hover:underline underline-offset-2 text-blue-900'><Badge>Show More</Badge></Link></div>
+                    </div>
+                )}
 
                 {project_demo.id && <table className="w-full">
                     <thead>

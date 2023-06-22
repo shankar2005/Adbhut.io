@@ -9,7 +9,7 @@ import { BsLightningChargeFill } from 'react-icons/bs';
 import { GiCheckMark } from 'react-icons/gi';
 
 const ArtistRowView = ({ artist }) => {
-    const { handleShortlist } = useRootContext();
+    const { handleShortlist, handleDecline } = useRootContext();
     const { shortlistedArtists } = useSelector(state => state.project);
 
     const { setArtistProfile } = useRootContext();
@@ -76,7 +76,7 @@ const ArtistRowView = ({ artist }) => {
             <div className='space-x-2'>
                 {
                     shortlistedArtists?.includes(artist.id)
-                        ? <button className='bg-blue-500 py-2.5 px-4 text-white rounded text-sm font-hero' disabled><GiCheckMark /></button>
+                        ? <button onDoubleClick={() => handleDecline(artist.id)} className='bg-blue-500 py-2.5 px-4 text-white rounded text-sm font-hero'><GiCheckMark /></button>
                         : <button onClick={() => handleShortlist(artist.id)} className="bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero">Shortlist</button>
                 }
                 {
