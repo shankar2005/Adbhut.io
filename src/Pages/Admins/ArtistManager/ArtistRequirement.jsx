@@ -10,7 +10,8 @@ import { useState } from "react";
 import FileUpload from "../../Admins/ProductionManager/Components/FileUpload";
 import { useGetDemosQuery } from "../../../features/demo/demoApi";
 import { useSelector } from "react-redux";
-import DemoSection from "../../Demo/DemoSection";
+import DemoDetails from "../../Demo/Components/DemoDetails";
+import Modal from "../../../Components/Modal/Modal";
 
 const ArtistRequirement = () => {
     const { data } = useGetArtistRequestsQuery();
@@ -88,7 +89,37 @@ const ArtistRequirement = () => {
                 </div>
             </div>
 
-            <DemoSection />
+            <div className="bg-white w-full border my-3 flex">
+                <div className="flex-1 p-3 flex flex-col">
+                    <div className="flex items-center gap-2 mb-2 border-b pb-3">
+                        <h3 className="text-lg font-semibold">Demos</h3>
+                        <Badge onClick={() => setShowUpload(!showUpload)} type="success" className="inline-flex items-center justify-between cursor-pointer">Upload demos <MdUpload size={20} /></Badge>
+                    </div>
+
+                    <ul className="my-2">
+                        {demos?.map(demo => <li onClick={() => setIsDemoShown(demo.id)} className="text-blue-600 hover:underline underline-offset-2 cursor-pointer">{demo.Title}</li>)}
+                    </ul>
+                    <div className="mt-auto border-t pt-2">
+                        <Link to="/projects/readydemos" className="text-blue-600 hover:underline underline-offset-2">View All</Link>
+                    </div>
+                </div>
+
+                {isDemoShown && <DemoDetails demoId={isDemoShown} closeDemo={closeDemo} />}
+
+                {
+                    showUpload &&
+                    <Modal onClick={() => setShowUpload(false)}>
+                        <div className="bg-white px-4 py-8 relative border-b mb-4">
+                            <RxCross1 onClick={() => setShowUpload(null)} size={20} className="absolute top-0 right-0 m-4 cursor-pointer" />
+                            <h4 className='font-semibold text-lg'>Upload a demo</h4>
+                            <small>The demo can be a <strong>Video, Audio</strong> file. Uploaded demo will be shown in the ready to use demo section. Production manager can easily assign those ready to use demo in any project.</small>
+                            <div className="mt-10">
+                                <FileUpload setShowUpload={setShowUpload} />
+                            </div>
+                        </div>
+                    </Modal>
+                }
+            </div>
 
             {/* <div className="mb-2 w-full overflow-hidden flex">
                 <div className="bg-white p-4">

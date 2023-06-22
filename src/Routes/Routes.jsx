@@ -21,6 +21,7 @@ import EditArtist from "../Pages/Artist/EditArtist";
 import WorkEntry from "../Pages/Artist/WorkEntry";
 import ArtistAccount, { DemoInfo, PersonalInfo } from "../Pages/Artist/ArtistAccount";
 import ArtistsList from "../Pages/Artist/ArtistsList";
+import AddNewDemo from "../Pages/Demo/AddNewDemo";
 
 const router = createBrowserRouter([
     {
@@ -121,6 +122,10 @@ const router = createBrowserRouter([
                         element: <DemoInfo />
                     },
                 ]
+            },
+            {
+                path: '/artists/addnewdemo',
+                element: <AddNewDemo />
             },
         ],
     },

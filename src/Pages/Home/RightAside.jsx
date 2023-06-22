@@ -69,7 +69,7 @@ const RightAside = () => {
                 <div className='text-gray-700 p-2 border-b'>
                     <ul className="font-medium text-sm">
                         <li>
-                            <Link to="/projects/artist-requirement" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
+                            <Link to="/artists/addnewdemo" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
                                 <MdPlaylistAdd size={20} /> Add New Demo
                             </Link>
                         </li>
