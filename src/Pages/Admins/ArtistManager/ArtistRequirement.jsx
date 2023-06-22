@@ -4,7 +4,6 @@ import { BsArrowRight } from "react-icons/bs";
 import { MdUpload } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 import TableRow from "../../../Components/Table/TableRow";
-import Charts from "./Charts";
 import { useGetArtistCountBySkillsQuery } from "../../../features/utils/utilsApi";
 import Badge from "../../../Components/Badge/Badge";
 import { DefaultPlayer as Video } from 'react-html5video';

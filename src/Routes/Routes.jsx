@@ -4,18 +4,14 @@ import Inbox from "../Pages/Admins/Inbox/Inbox";
 import ProjectDashboard from "../Pages/Admins/ProductionManager/ProjectDashboard";
 import ArtistEntry from "../Pages/Artist/ArtistEntry";
 import ShortlistedArtists from "../Pages/Artist/ShortlistedArtists";
-import Feed from "../Pages/Home/Feed";
 import Home from "../Pages/Home/Home";
 import LeftAside from "../Pages/Home/LeftAside";
 import CreateProject from "../Pages/Project/CreateProject";
-import Docusign from "../Pages/Project/Docusign";
 import MyProjects from "../Pages/Project/MyProjects";
 import ProjectDemos from "../Pages/Project/ProjectDemos";
-import ProjectDone from "../Pages/Project/ProjectDone";
 import ArtistRequirement from "../Pages/Admins/ArtistManager/ArtistRequirement";
 import Projects from "../Pages/Project/Projects";
 import LeftToRight from "./PageTransitions/LeftToRight";
-import RightToLeft from "./PageTransitions/RightToLeft";
 import ArtistRequirementDetails from "../Pages/Admins/ArtistManager/ArtistRequirementDetails";
 import Artists from "../Pages/Artist/Artists";
 import EditProject from "../Pages/Admins/ProductionManager/EditProject";
@@ -59,14 +55,6 @@ const router = createBrowserRouter([
             {
                 path: '/projects/create-project',
                 element: <CreateProject />,
-            },
-            {
-                path: '/projects/sign-project',
-                element: <Docusign />,
-            },
-            {
-                path: '/projects/completed',
-                element: <ProjectDone />,
             },
             {
                 path: '/projects/chat',
