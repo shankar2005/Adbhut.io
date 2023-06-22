@@ -7,10 +7,10 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { BsLightningChargeFill } from 'react-icons/bs';
 import { GiCheckMark } from 'react-icons/gi';
+import ShortlistArtistBtn from '../ShortlistArtistBtn';
 
 const ArtistRowView = ({ artist }) => {
-    const { handleShortlist, handleDecline } = useRootContext();
-    const { shortlistedArtists } = useSelector(state => state.project);
+    const { avatar } = useRootContext();
 
     const { setArtistProfile } = useRootContext();
     const { user } = useSelector(state => state.auth);
@@ -20,7 +20,7 @@ const ArtistRowView = ({ artist }) => {
 
     const handleImageError = () => {
         setIsImageLoaded(true);
-        setImageSrc("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIHmCTU-bsYS2-57aX_wuTEU-mKKLVQUJ2nQ&usqp=CAU");
+        setImageSrc(avatar);
     };
 
     return (
@@ -74,11 +74,7 @@ const ArtistRowView = ({ artist }) => {
             </div>
 
             <div className='space-x-2'>
-                {
-                    shortlistedArtists?.includes(artist.id)
-                        ? <button onDoubleClick={() => handleDecline(artist.id)} className='bg-blue-500 py-2.5 px-4 text-white rounded text-sm font-hero'><GiCheckMark /></button>
-                        : <button onClick={() => handleShortlist(artist.id)} className="bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero">Shortlist</button>
-                }
+                <ShortlistArtistBtn artistId={artist.id} />
                 {
                     user?.role === "AM" &&
                     <Link to={`/artists/edit-artist/${artist.id}`}>

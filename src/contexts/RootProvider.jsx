@@ -1,10 +1,9 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useGetCurrentProjectsQuery, useGetProjectQuery } from '../features/project/projectApi';
-import { useGetContentProductsQuery, useGetLocationsQuery, useGetSkillsOnProductSelectMutation, useGetSkillsQuery } from '../features/utils/utilsApi';
+import { useGetContentProductsQuery, useGetSkillsOnProductSelectMutation, useGetSkillsQuery } from '../features/utils/utilsApi';
 import { useDispatch, useSelector } from 'react-redux';
-import { useDeclineArtistMutation, useShortlistArtistMutation } from '../features/artist/artistApi';
 import { setSearch } from '../features/filter/filterSlice';
-import { addArtist, removeArtist, addChatLog, clearProject, setContentProduct, setProjectData } from '../features/project/projectSlice';
+import { addChatLog, clearProject, setContentProduct, setProjectData } from '../features/project/projectSlice';
 
 const RootContext = createContext();
 
@@ -12,8 +11,6 @@ const RootProvider = ({ children }) => {
     const { user } = useSelector(state => state.auth);
     const avatar = "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541";
 
-    const [shortlistArtist] = useShortlistArtistMutation();
-    const [declineArtist] = useDeclineArtistMutation();
     const { data: skills = [] } = useGetSkillsQuery();
     const { data: contentProducts = [] } = useGetContentProductsQuery();
     const [getSkillsOnProductSelect] = useGetSkillsOnProductSelectMutation();
@@ -31,26 +28,6 @@ const RootProvider = ({ children }) => {
     const [checkedSkills, setcheckedSkills] = useState([]);
     const [checkedGenres, setcheckedGenres] = useState([]);
     const [checkedLocations, setcheckedLocations] = useState([]);
-
-    const handleShortlist = (artistID) => {
-        dispatch(addArtist(artistID));
-        if (currentProject?.pk) {
-            shortlistArtist({
-                projectId: currentProject.pk,
-                artistId: artistID
-            })
-        }
-    }
-
-    const handleDecline = (artistID) => {
-        dispatch(removeArtist(artistID));
-        if (currentProject?.pk) {
-            declineArtist({
-                projectId: currentProject.pk,
-                artistId: artistID
-            })
-        }
-    }
 
     // views
     const [viewAs, setViewAs] = useState("large");
@@ -191,8 +168,6 @@ const RootProvider = ({ children }) => {
         setcheckedSkills,
         checkedGenres,
         setcheckedGenres,
-        handleShortlist,
-        handleDecline,
         checkedLocations,
         setcheckedLocations,
         skills,

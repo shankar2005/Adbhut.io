@@ -7,7 +7,6 @@ import { BsCheck2Square } from 'react-icons/bs';
 import { FiUsers } from 'react-icons/fi';
 import { MdOutlineRssFeed } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
-import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js';
 import { clearProject, setArtist, setChatLog, setContentProduct } from '../../features/project/projectSlice';
 
 const RightAside = () => {
@@ -56,6 +55,37 @@ const RightAside = () => {
                         <li>
                             <Link to="/projects/readydemos" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
                                 <MdOutlineRssFeed size={20} /> Ready Demos
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        );
+    }
+
+    if (user?.role === "Artist") {
+        return (
+            <section className='w-full md:w-72 bg-white rounded-b-lg'>
+                <div className='text-gray-700 p-2 border-b'>
+                    <ul className="font-medium text-sm">
+                        <li>
+                            <Link to="/projects/artist-requirement" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
+                                <AiOutlineDashboard size={20} /> Add New Demo
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/artists/account" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
+                                <AiOutlineUserAdd size={20} /> Account Settings
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/projects/readydemos" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
+                                <MdOutlineRssFeed size={20} /> Project Stream
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/artists/artist-list" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
+                                <FiUsers size={20} /> Demo Requirements
                             </Link>
                         </li>
                     </ul>
@@ -186,14 +216,6 @@ const RightAside = () => {
                                 </tr>
                             </tbody>
                         </table>
-
-                        <PayPalScriptProvider options={{ "client-id": "test" }}>
-                            <PayPalButtons style={{ layout: "horizontal" }} />
-                        </PayPalScriptProvider>
-
-                        {/* <Button className="bg-yellow-400 focus:ring-yellow-200 sm:w-full flex justify-center mt-5">
-                            <img className='w-20' src={paypal} alt="" />
-                        </Button> */}
                     </div>
                 </div>
             }

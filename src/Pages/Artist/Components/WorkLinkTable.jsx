@@ -217,7 +217,7 @@ const AddWorkLink = ({ artistId }) => {
     const demoRef = useRef();
     const handleCloseInput = () => { }
     const fileTypes = ["Youtube", "Google Drive", "Behance", "Imdb", "Instagram", "Vimeo", "Wixsite", "Other", "Other Document"];
-    const [createWrokLink, { isSuccess }] = useCreateWrokLinkMutation()
+    const [createWrokLink, { isSuccess }] = useCreateWrokLinkMutation();
 
     const handleSave = () => {
         if (!linkRef.current?.value) {

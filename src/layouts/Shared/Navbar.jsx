@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
+import { MdArrowBackIosNew } from 'react-icons/md';
 import { SlEnvolope } from 'react-icons/sl';
 import { useRootContext } from '../../contexts/RootProvider';
 import logo from '../../assets/logos/cn.jpeg';
@@ -15,7 +15,7 @@ import { setSearch } from '../../features/filter/filterSlice';
 import { closeLogin, showAccount, showLogin } from '../../features/dropdown/dropdownSlice';
 
 const Navbar = ({ setShowToolkit, showToolkit }) => {
-    const { avatar, currentProjects, setPage, setArtists } = useRootContext();
+    const { avatar, currentProjects, setPage, setArtists, setArtistProfile } = useRootContext();
 
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
@@ -67,10 +67,10 @@ const Navbar = ({ setShowToolkit, showToolkit }) => {
                     {
                         user.email &&
                         <li className='flex items-center gap-2 relative'>
-                            <img className='hidden md:block w-24' src={logo} alt="" />
+                            <img className='hidden md:block w-24 cursor-pointer' src={logo} alt="" />
                             <img
-                                onClick={() => dispatch(showAccount())}
-                                className='w-10 h-10 rounded-full border object-cover'
+                                onClick={() => user?.role === "Artist" ? setArtistProfile(user.id) : dispatch(showAccount())}
+                                className='w-10 h-10 rounded-full border object-cover cursor-pointer'
                                 src={user?.role === "Client" ? (profileImageSrc || avatar) : nsnlogo}
                                 alt="Profile Picture"
                                 onError={handleImageError}

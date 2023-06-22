@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useRootContext } from '../../contexts/RootProvider';
-import { useAddArtistMutation, useGetArtistByIdQuery, useUpdateArtistMutation } from '../../features/artist/artistApi';
+import { useAddArtistMutation, useCreateWrokLinkMutation, useDeleteWrokLinkMutation, useGetArtistByIdQuery, useGetArtistWrokLinksQuery, useUpdateArtistMutation, useUpdateWrokLinkMutation } from '../../features/artist/artistApi';
 import Select from '../../Components/Input/Select';
 import MultiSelect from '../../Components/Input/MultiSelect';
 import { useGetLanguagesQuery, useGetLocationsQuery } from '../../features/utils/utilsApi';
@@ -19,14 +19,32 @@ import { FcCheckmark } from 'react-icons/fc';
 import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
 import { useSelector } from 'react-redux';
 import MultiSelectUpdate from '../../Components/Input/MultiSelectUpdate';
+import { useRef } from 'react';
+import Badge from '../../Components/Badge/Badge';
+import { RxCross2 } from 'react-icons/rx';
+import ActionLoader from '../../Components/Loader/ActionLoader';
 
 const ArtistAccount = () => {
+    const location = useLocation();
+    const pathname = location?.pathname;
     return (
         <div className="bg-gray-50 py-5 min-h-screen">
             <ol className="font-hero font-semibold w-full md:w-9/12 mx-auto mb-5 flex items-center gap-5">
                 <li className="bg-white shadow border border-green-500 p-3 rounded-lg gap-x-24 flex justify-between items-center">1. User info <FcCheckmark size={20} /></li>
-                <Link to="/artists/account"><li className="bg-white shadow border border-blue-400 p-3 rounded-lg gap-x-24 flex justify-between items-center">2. Account info <HiOutlineArrowNarrowRight size={20} className="text-blue-600" /></li></Link>
-                <Link to="/artists/account/demo-info"><li className="bg-white shadow border border-blue-400 p-3 rounded-lg gap-x-24 flex justify-between items-center">3. Work Demo <HiOutlineArrowNarrowRight size={20} className="text-blue-600" /></li></Link>
+                <Link to="/artists/account">
+                    <li className={`bg-white shadow border ${pathname === "/artists/account" ? "border-blue-400" : "border-green-400"} p-3 rounded-lg gap-x-24 flex justify-between items-center`}>
+                        2. Account info {pathname === "/artists/account"
+                            ? <HiOutlineArrowNarrowRight size={20} className="text-blue-600" />
+                            : <FcCheckmark />
+                        }
+                    </li>
+                </Link>
+                <Link to="/artists/account/demo-info">
+                    <li className="bg-white shadow border border-blue-400 p-3 rounded-lg gap-x-24 flex justify-between items-center">
+                        3. Work Demo
+                        <HiOutlineArrowNarrowRight size={20} className="text-blue-600" />
+                    </li>
+                </Link>
             </ol>
             <Outlet />
         </div>
@@ -91,12 +109,10 @@ export const PersonalInfo = () => {
     });
 
     const [location, setLocation] = useState(null);
-    const [budgetRange, setBudgetRange] = useState(null);
 
     useEffect(() => {
         setIsFullTime(artistData?.full_time);
         setLocation(artistData?.location?.label);
-        setBudgetRange(artistData?.budget_range);
         reset();
     }, [reset, artistData])
 
@@ -151,11 +167,11 @@ export const PersonalInfo = () => {
                                     type="email"
                                     name="email"
                                     placeholder="Artist email"
-                                    register={register}
-                                    required={true}
+                                    // register={register}
+                                    // required={true}
                                     defaultValue={artistData?.email}
                                     disabled
-                                    className="bg-gray-100 border-none text-gray-500"
+                                    className="bg-gray-50 border-none text-gray-400"
                                 />
                             } />
                         <TableRow
@@ -179,6 +195,7 @@ export const PersonalInfo = () => {
                                         name="profile_pic"
                                         className="border cursor-pointer"
                                         onChange={handleFileChange}
+                                    // required={!artistData?.profile_pic}
                                     />
                                     {file?.name && <button onClick={handleUploadImage} type='button' className='bg-gray-500 text-white py-1 px-2'>Upload</button>}
                                 </div>
@@ -210,12 +227,12 @@ export const PersonalInfo = () => {
                                 defaultValue={artistData?.skills}
                             />
                         } />
-                        <TableRow label="Artist Intro" content={<>
+                        <TableRow label="Intro" content={<>
                             <textarea
                                 {...register("artist_intro", { required: false, maxLength: 150 })}
                                 rows="5"
                                 className="w-full border p-1"
-                                placeholder="Artist Intro"
+                                placeholder="Intro"
                                 defaultValue={artistData?.artist_intro}
                             ></textarea>
                             {errors.artist_intro && errors.artist_intro.type === 'maxLength' && (
@@ -267,6 +284,7 @@ export const PersonalInfo = () => {
 
                 <div className='p-4 space-x-2'>
                     <Button type="submit">Update Artist</Button>
+                    <Link to="/artists/account/demo-info"><Button type="button" variant="secondary">Next</Button></Link>
                 </div>
             </form>
 
@@ -275,50 +293,177 @@ export const PersonalInfo = () => {
 }
 
 export const DemoInfo = () => {
-    const handleSubmit = () => { }
-    const onSubmit = () => { }
-    const register = () => { }
+    const artistId = useSelector(state => state.auth?.user?.id);
+    const { data } = useGetArtistWrokLinksQuery(artistId, { skip: !artistId });
+    const works_links = data?.works_links;
+    const [editingId, setEditingId] = useState(null);
+    const editingLink = works_links?.find(l => l.pk === editingId);
+    const linkRef = useRef();
+    const [isBestWork, setIsBestWork] = useState();
+    const [isDemo, setIsDemo] = useState();
+    const [updateWorkLink] = useUpdateWrokLinkMutation();
+    const [deleteWorkLink, { isLoading: deleteLoading }] = useDeleteWrokLinkMutation();
+
+    const handleRowClick = (id) => {
+        setEditingId(id);
+    };
+
+    const handleCloseInput = () => {
+        setEditingId(null);
+    };
+
+    useEffect(() => {
+        if (editingId) {
+            setIsBestWork(editingLink?.show_in_top_feed);
+            setIsDemo(editingLink?.is_demo);
+        }
+    }, [editingId, editingLink?.tags])
+
+    const handleSave = () => {
+        updateWorkLink({
+            id: editingId,
+            data: {
+                weblink: linkRef.current?.value,
+                show_in_top_feed: isBestWork,
+                is_demo: isDemo
+            }
+        }).then(data => {
+            if (data?.data?.id) {
+                setEditingId(null);
+            }
+        })
+    }
+
     return (
         <Container className="font-hero">
             <div className="border p-4 border-b-0">
                 <h1 className="text-3xl font-semibold">Your Work Demo <RequiredMark /></h1>
                 <small>You've to have at least one work demo to continue.</small>
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <table className="w-full">
-                    <tbody className="bg-white">
-                        <TableRow
-                            label="Work link"
-                            content={<div className="flex items-center gap-4">
-                                <Input
-                                    type="text"
-                                    name="work_link"
-                                    placeholder="Your work link"
-                                    register={register}
-                                    className="flex-grow"
-                                />
-                                <div class="flex items-center">
-                                    <input id={`isBestWrok-checkbox`} type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
-                                    <label for={`isBestWrok-checkbox`} class="ml-2 text-sm font-medium text-gray-900">Best Work</label>
-                                </div>
-                                <div class="flex items-center">
-                                    <input id={`isDemo-checkbox`} type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
-                                    <label for={`isDemo-checkbox`} class="ml-2 text-sm font-medium text-gray-900">Customizable</label>
-                                </div>
-                            </div>
-                            } />
-                    </tbody>
-                </table>
 
-                {/* {errorMsg && <p className='bg-red-100 text-red-500 text-sm p-3'>{errorMsg}</p>} */}
+            <table className="w-full">
+                <thead>
+                    <tr className="text-md text-left text-gray-900 bg-gray-100 text-sm">
+                        <th className="p-2 border font-semibold">Link</th>
+                        <th className="p-2 border font-semibold">Status</th>
+                        <th className="p-2 border font-semibold">Actions</th>
+                    </tr>
+                </thead>
+                <tbody className="bg-white">
+                    {works_links?.map(link => (
+                        <tr key={link.pk}>
+                            <td className="p-2 text-sm border border-b-0">
+                                {editingId === link.pk ? (
+                                    <input
+                                        type="text"
+                                        className="w-full border rounded pl-1"
+                                        defaultValue={link.weblink}
+                                        ref={linkRef}
+                                    />
+                                ) : (
+                                    <a target="_blank" href={link.weblink} className="text-blue-700 hover:underline">{link.weblink}</a>
+                                )}
+                            </td>
+                            <td className="p-2 text-sm border border-b-0 space-y-1">
+                                {editingId === link.pk ? (
+                                    <>
+                                        <div class="flex items-center">
+                                            <input onChange={() => setIsBestWork(prev => !prev)} id={`best-work-checkbox-edit-${link.pk}`} type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" checked={isBestWork} />
+                                            <label for={`best-work-checkbox-edit-${link.pk}`} class="ml-2 text-sm font-medium text-gray-900">Best Work</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input onChange={() => setIsDemo(prev => !prev)} id="demo-checkbox-edit" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" checked={isDemo} />
+                                            <label for="demo-checkbox-edit" class="ml-2 text-sm font-medium text-gray-900">Customizable</label>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div class="flex items-center">
+                                            <input type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" checked={link.show_in_top_feed} disabled />
+                                            <label class="ml-2 text-sm font-medium text-gray-900">Best Work</label>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <input type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" checked={link.is_demo} disabled />
+                                            <label class="ml-2 text-sm font-medium text-gray-900">Customizable</label>
+                                        </div>
+                                    </>
+                                )}
+                            </td>
+                            <td className="p-2 text-sm border border-b-0">
+                                {editingId === link.pk ? (
+                                    <div className="flex gap-1">
+                                        <Badge onClick={handleSave} className="cursor-pointer" type="success">Save</Badge>
+                                        {deleteLoading ? <ActionLoader size="sm" /> : <Badge onClick={() => deleteWorkLink(link.pk)} className="cursor-pointer" type="error">Del</Badge>}
+                                        <RxCross2 onClick={handleCloseInput} size={25} className="text-gray-700 cursor-pointer" />
+                                    </div>
+                                ) : (
+                                    <Badge className="cursor-pointer" type="error" onClick={() => handleRowClick(link.pk)}>Edit</Badge>
+                                )}
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
 
-                <div className='p-4'>
-                    <Button type="submit">Submit</Button>
-                </div>
-            </form>
+            {/* Entry */}
+            <WorkLinkEntry />
+
         </Container>
     )
 }
+
+const WorkLinkEntry = () => {
+    const [createWrokLink, { isSuccess }] = useCreateWrokLinkMutation();
+    const artistId = useSelector(state => state.auth?.user?.id);
+
+    const { register, handleSubmit, reset } = useForm();
+    const onSubmit = (data) => {
+        createWrokLink({
+            id: artistId,
+            data
+        })
+    }
+
+    useEffect(() => {
+        if (isSuccess) reset();
+    }, [isSuccess]);
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <table className="w-full">
+                <tbody className="bg-white">
+                    <TableRow
+                        label="Work link"
+                        content={<div className="flex items-center gap-4">
+                            <Input
+                                type="url"
+                                name="weblink"
+                                placeholder="Your work link"
+                                register={register}
+                                className="flex-grow"
+                                required
+                            />
+                            <div class="flex items-center">
+                                <input {...register("show_in_top_feed")} id={`isBestWrok-checkbox`} type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
+                                <label for={`isBestWrok-checkbox`} class="ml-2 text-sm font-medium text-gray-900">Best Work</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input {...register("is_demo")} id={`isDemo-checkbox`} type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" />
+                                <label for={`isDemo-checkbox`} class="ml-2 text-sm font-medium text-gray-900">Customizable</label>
+                            </div>
+                            <Button size="sm" type="submit">Add</Button>
+                        </div>
+                        } />
+                </tbody>
+            </table>
+
+            <div className='p-4 space-x-1'>
+                <Link to="/projects/readydemos"><Button type="button" variant="secondary">Proceed</Button></Link>
+            </div>
+        </form>
+    )
+}
+
 
 const Textarea = ({ name, placeholder, defaultValue, required, register, validation, ...props }) => {
     return (

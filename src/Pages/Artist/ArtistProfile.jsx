@@ -16,12 +16,12 @@ import WorkDemo from './Components/View/WorkDemo';
 import Spinner from '../../Components/Loader/Spinner';
 import WorkLinkTable from './Components/WorkLinkTable';
 import { Link } from 'react-router-dom';
+import ShortlistArtistBtn from './Components/ShortlistArtistBtn';
 
 const ArtistProfile = () => {
-    const { shortlistedArtists } = useSelector(state => state.project);
     const { user } = useSelector(state => state.auth);
 
-    const { handleShortlist, handleDecline, artistProfile, setArtistProfile, avatar } = useRootContext();
+    const { artistProfile, setArtistProfile, avatar } = useRootContext();
     const { data, isLoading } = useGetArtistByIdQuery(artistProfile);
     const {
         works_links,
@@ -85,17 +85,13 @@ const ArtistProfile = () => {
                     </div>
                 </div>
                 <div className="ml-auto space-x-1">
-                    {
-                        user?.role === "AM" &&
-                        <Link to={`/artists/edit-artist/${id}`} onClick={() => setArtistProfile(null)}>
-                            <button className="bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero">Edit</button>
-                        </Link>
-                    }
-                    {
-                        shortlistedArtists?.includes(id)
-                            ? <button onDoubleClick={() => handleDecline(id)} className='bg-blue-500 py-2.5 px-4 text-white rounded text-sm font-hero'><GiCheckMark /></button>
-                            : <button onClick={() => handleShortlist(id)} className='bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero'>Shortlist</button>
-                    }
+                    {(user?.role === "AM" || user?.role === "Artist") &&
+                        <Link to={user?.role === "Artist" ? "/artists/account" : `/artists/edit-artist/${id}`} onClick={() => setArtistProfile(null)}>
+                            <button className="bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero">
+                                {user?.role === "Artist" ? "Settings" : "Edit"}
+                            </button>
+                        </Link>}
+                    <ShortlistArtistBtn artistId={id} />
                 </div>
             </div>
 
@@ -131,7 +127,7 @@ const ArtistProfile = () => {
                                     </td>
                                 </tr>
 
-                                {user?.role === "PM" || user?.role === "AM" &&
+                                {user?.role === "PM" || user?.role === "AM" || user?.role === "Artist" &&
                                     <>
                                         {budget_range && <tr>
                                             <td className="p-2">Budget Range</td>
@@ -159,7 +155,7 @@ const ArtistProfile = () => {
                         </table>
                     </div>
 
-                    {user?.role === "PM" || user?.role === "AM" &&
+                    {user?.role === "PM" || user?.role === "AM" || user?.role === "Artist" &&
                         <div className='bg-gray-50 border border-gray-100'>
                             <table className="w-full text-sm font-hero">
                                 <tbody>

@@ -178,6 +178,7 @@ const EditArtist = () => {
                                         name="profile_pic"
                                         className="border cursor-pointer"
                                         onChange={handleFileChange}
+                                        required={!artistData?.profile_pic}
                                     />
                                     {file?.name && <button onClick={handleUploadImage} type='button' className='bg-gray-500 text-white py-1 px-2'>Upload</button>}
                                 </div>

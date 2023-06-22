@@ -6,11 +6,11 @@ import WorkDemo from './WorkDemo';
 import { IoLocationSharp } from 'react-icons/io5';
 import { BsLightningChargeFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import ShortlistArtistBtn from '../ShortlistArtistBtn';
 
 const ArtistWorkView = ({ artist }) => {
     const { user } = useSelector(state => state.auth);
-    const { handleShortlist, handleDecline, avatar, setArtistProfile } = useRootContext();
-    const { shortlistedArtists } = useSelector(state => state.project);
+    const { avatar, setArtistProfile } = useRootContext();
 
     const [imageSrc, setImageSrc] = useState(artist.profile_pic);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
@@ -51,17 +51,11 @@ const ArtistWorkView = ({ artist }) => {
                     }
                 </div>
                 <div className='space-x-1'>
-                    {
-                        user?.role === "AM" &&
+                    {user?.role === "AM" &&
                         <Link to={`/artists/edit-artist/${artist.id}`}>
                             <button className="bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero">Edit</button>
-                        </Link>
-                    }
-                    {
-                        shortlistedArtists?.includes(artist.id)
-                            ? <button onDoubleClick={() => handleDecline(artist.id)} className='bg-blue-500 py-2.5 px-4 text-white rounded text-sm font-hero'><GiCheckMark /></button>
-                            : <button onClick={() => handleShortlist(artist.id)} className='bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero'>Shortlist</button>
-                    }
+                        </Link>}
+                    <ShortlistArtistBtn artistId={artist.id} />
                 </div>
             </div>
             <div>
