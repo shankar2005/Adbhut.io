@@ -96,10 +96,10 @@ const ArtistProfile = () => {
                     </div>
                 </div>
                 <div className="ml-auto space-x-1">
-                    {(user?.role === "AM" || (user?.role === "Artist" && user?.id === id)) &&
-                        <Link to={user?.role === "Artist" ? "/artists/account" : `/artists/edit-artist/${id}`} onClick={() => setArtistProfile(null)}>
+                    {user?.role === "AM" &&
+                        <Link to={`/artists/edit-artist/${id}`} onClick={() => setArtistProfile(null)}>
                             <button className="bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero">
-                                {user?.role === "Artist" ? "Settings" : "Edit"}
+                                Edit
                             </button>
                         </Link>}
                     <ShortlistArtistBtn artistId={id} />

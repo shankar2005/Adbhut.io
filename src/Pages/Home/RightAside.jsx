@@ -8,9 +8,10 @@ import { FiUsers } from 'react-icons/fi';
 import { MdEmojiFlags, MdOutlineRssFeed, MdPlaylistAdd } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearProject, setArtist, setChatLog, setContentProduct } from '../../features/project/projectSlice';
+import { FaUserCircle } from 'react-icons/fa';
 
 const RightAside = () => {
-    const { contentProducts, handleSelectContentProduct, currentProjects, setSuggestions, setViewAs } = useRootContext();
+    const { contentProducts, handleSelectContentProduct, currentProjects, setSuggestions, setViewAs, setArtistProfile } = useRootContext();
 
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
@@ -72,6 +73,11 @@ const RightAside = () => {
                             <Link to="/artists/addnewdemo" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
                                 <MdPlaylistAdd size={20} /> Add New Demo
                             </Link>
+                        </li>
+                        <li>
+                            <button onClick={() => setArtistProfile(user?.id)} className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded w-full">
+                                <FaUserCircle size={20} /> View Profile
+                            </button>
                         </li>
                         <li>
                             <Link to="/artists/account" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">

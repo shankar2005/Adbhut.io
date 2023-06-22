@@ -30,7 +30,6 @@ const ArtistAccount = () => {
     return (
         <div className="bg-gray-50 py-5 min-h-screen">
             <ol className="font-hero font-semibold w-full md:w-9/12 mx-auto mb-5 flex items-center gap-5">
-                <li className="bg-white shadow border border-green-500 p-3 rounded-lg gap-x-24 flex justify-between items-center">1. User info <FcCheckmark size={20} /></li>
                 <Link to="/artists/account">
                     <li className={`bg-white shadow border ${pathname === "/artists/account" ? "border-blue-400" : "border-green-400"} p-3 rounded-lg gap-x-24 flex justify-between items-center`}>
                         2. Account info {pathname === "/artists/account"

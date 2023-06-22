@@ -15,7 +15,7 @@ import { setSearch } from '../../features/filter/filterSlice';
 import { closeLogin, showAccount, showLogin } from '../../features/dropdown/dropdownSlice';
 
 const Navbar = ({ setShowToolkit, showToolkit }) => {
-    const { avatar, currentProjects, setPage, setArtists, setArtistProfile } = useRootContext();
+    const { avatar, currentProjects, setPage, setArtists } = useRootContext();
 
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
@@ -69,9 +69,9 @@ const Navbar = ({ setShowToolkit, showToolkit }) => {
                         <li className='flex items-center gap-2 relative'>
                             <img className='hidden md:block w-24 cursor-pointer' src={logo} alt="" />
                             <img
-                                onClick={() => user?.role === "Artist" ? setArtistProfile(user.id) : dispatch(showAccount())}
+                                onClick={() => dispatch(showAccount())}
                                 className='w-10 h-10 rounded-full border object-cover cursor-pointer'
-                                src={user?.role === "Client" ? (profileImageSrc || avatar) : nsnlogo}
+                                src={(user?.role === "AM" || user?.role === "PM") ? nsnlogo : (profileImageSrc || avatar)}
                                 alt="Profile Picture"
                                 onError={handleImageError}
                                 onLoad={() => setIsImageLoaded(true)}
