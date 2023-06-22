@@ -2,11 +2,10 @@ import { useState } from "react";
 import { MdUpload } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import Badge from "../../Components/Badge/Badge";
 import Container from "../../Components/Container/Container";
 import Modal from "../../Components/Modal/Modal";
-import { useGetDemosQuery } from "../../features/demo/demoApi";
+import { useGetDemoByArtistQuery } from "../../features/demo/demoApi";
 import FileUpload from "../Admins/ProductionManager/Components/FileUpload";
 import DemoDetails from "./Components/DemoDetails";
 
@@ -15,7 +14,7 @@ const AddNewDemo = () => {
     const closeDemo = () => setIsDemoShown(false);
     const [showUpload, setShowUpload] = useState(null);
     const { user } = useSelector(state => state.auth);
-    const { data: demos } = useGetDemosQuery(null, { skip: !user?.email });
+    const { data: demos } = useGetDemoByArtistQuery(user?.id, { skip: !user?.email });
 
     return (
         <Container className="font-hero">

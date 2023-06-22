@@ -1,16 +1,15 @@
 import { useState } from 'react';
-import { AiOutlineCloudUpload, AiOutlineSearch } from 'react-icons/ai';
-import { RxCross1 } from 'react-icons/rx';
-import { useAssignArtistToDemoMutation, useCreateDemoMutation } from '../../../../features/demo/demoApi';
-import { useGetArtistsQuery } from "../../../../features/artist/artistApi";
-import Badge from '../../../../Components/Badge/Badge';
+import { AiOutlineCloudUpload } from 'react-icons/ai';
+import { useCreateDemoMutation } from '../../../../features/demo/demoApi';
 import { useRootContext } from '../../../../contexts/RootProvider';
+import { useSelector } from 'react-redux';
 
 const FileUpload = ({ setShowUpload }) => {
   const { contentProducts } = useRootContext();
   const [file, setFile] = useState(null);
   const [createDemo] = useCreateDemoMutation();
   const [contentProduct, setContentProduct] = useState(null);
+  const { user } = useSelector(state => state.auth);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -21,6 +20,9 @@ const FileUpload = ({ setShowUpload }) => {
     formData.append("document", file);
     formData.append("Title", file?.name);
     formData.append("content_product", contentProduct);
+    if (user?.role === "Artist") {
+      formData.append("artist", user?.id);
+    }
 
     createDemo(formData)
       .then(data => {

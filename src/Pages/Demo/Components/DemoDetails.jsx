@@ -28,10 +28,11 @@ const DemoDetails = ({ closeDemo, demoId }) => {
     return (
         <div div className="flex-1 border-l p-3 pb-16 relative">
             <div className="w-4/6 mb-3">
-                <WorkDemo demo_type={demo?.demo_type} demo_link={demo?.link} />
+                <WorkDemo demo_type={demo?.demo_type} demo_link={demo?.link || demo?.document} />
             </div>
             <p className="font-semibold">{demo?.Title}</p>
             <p>Description: {demo?.comment || "N/A"}</p>
+            <p>Content Product: {demo?.content_product_name || "N/A"}</p>
             <ul className="my-3 space-y-2">
                 {demo?.artist && <li className="border-b pb-1">
                     <span className="hover:underline cursor-pointer" onClick={() => setArtistProfile(demo?.artist)}>{demo?.artist_name}</span>

@@ -3,11 +3,16 @@ import apis from "../apis/apis";
 const demoApi = apis.injectEndpoints({
     endpoints: (builder) => ({
         getDemos: builder.query({
-            query: () => `/demos_list/`
+            query: () => `/demos_list/`,
+            providesTags: ["Demos"]
         }),
         getDemoById: builder.query({
             query: (id) => `/get_project_demo/${id}/`,
             providesTags: ["Demo"]
+        }),
+        getDemoByArtist: builder.query({
+            query: (artistId) => `/get_artist_demos/${artistId}/`,
+            providesTags: ["ArtistDemos"]
         }),
         createDemo: builder.mutation({
             query: (data) => ({
@@ -15,6 +20,7 @@ const demoApi = apis.injectEndpoints({
                 method: 'POST',
                 body: data
             }),
+            invalidatesTags: ["Demos", "ArtistDemos"]
         }),
 
         assignDemoToProject: builder.mutation({
@@ -65,5 +71,6 @@ export const {
     useAssignDemoToProjectMutation,
     useAssignArtistToDemoMutation,
     useAssignCollabToDemoMutation,
-    useUnassignArtistFromDemoMutation
+    useUnassignArtistFromDemoMutation,
+    useGetDemoByArtistQuery
 } = demoApi;

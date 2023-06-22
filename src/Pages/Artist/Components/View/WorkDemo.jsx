@@ -53,10 +53,10 @@ const WorkDemo = ({ demo_type, demo_link }) => {
                 </div>
             )
             break;
-        case "Image":
+        case "webp":
             content = (
-                <div className='bg-black'>
-                    <img className='w-1/2 mx-auto bg-white' src={demo_link} alt="" />
+                <div className='bg-black min-h-[17rem] flex items-center justify-center'>
+                    <img className='bg-white' src={demo_link} alt="" />
                 </div>
             )
             break;
