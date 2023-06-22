@@ -19,7 +19,7 @@ import ErrorPage from "../Components/Error/ErrorPage";
 import ReadyDemos from "../Pages/Demo/ReadyDemos";
 import EditArtist from "../Pages/Artist/EditArtist";
 import WorkEntry from "../Pages/Artist/WorkEntry";
-import ArtistAccount, { DemoInfo, PersonalInfo, UserInfo } from "../Pages/Artist/ArtistAccount";
+import ArtistAccount, { DemoInfo, PersonalInfo } from "../Pages/Artist/ArtistAccount";
 import ArtistsList from "../Pages/Artist/ArtistsList";
 
 const router = createBrowserRouter([
@@ -116,10 +116,6 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/artists/account',
-                element: <UserInfo />
-            },
-            {
-                path: '/artists/account/personal-info',
                 element: <PersonalInfo />
             },
             {

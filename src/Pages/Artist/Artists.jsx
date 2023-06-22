@@ -48,7 +48,7 @@ const Artists = () => {
     }
 
     return (
-        <section className='stream mt-5'>
+        <section className='stream mt-3'>
 
             <div className="sticky top-16">
                 <Link to="/projects/create-project" className="absolute top-1 -left-10"><BiArrowBack className='cursor-pointer bg-gray-200 text-gray-700 rounded-full p-1' size={30} /></Link>
