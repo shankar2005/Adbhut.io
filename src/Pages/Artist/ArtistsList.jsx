@@ -44,7 +44,7 @@ const ArtistsList = () => {
     }
 
     return (
-        <section className='stream mt-5 relative'>
+        <section className='stream mt-3 relative'>
             {
                 selectedContentProduct && <>
                     <Link to="/projects/create-project"><BiArrowBack className='cursor-pointer bg-gray-200 text-gray-700 rounded-full p-1 absolute -left-10 top-0.5' size={30} /></Link>
