@@ -1,7 +1,7 @@
 import { FiArrowLeft } from 'react-icons/fi';
 import { IoLanguageSharp, IoLocationSharp } from 'react-icons/io5';
 import { useRootContext } from '../../contexts/RootProvider';
-import { GiCheckMark } from 'react-icons/gi';
+import { BiChevronRight, BiChevronLeft } from 'react-icons/bi';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -17,8 +17,10 @@ import Spinner from '../../Components/Loader/Spinner';
 import WorkLinkTable from './Components/WorkLinkTable';
 import { Link } from 'react-router-dom';
 import ShortlistArtistBtn from './Components/ShortlistArtistBtn';
+import { useRef } from 'react';
 
 const ArtistProfile = () => {
+    const swiperRef = useRef(null);
     const { user } = useSelector(state => state.auth);
 
     const { artistProfile, setArtistProfile, avatar } = useRootContext();
@@ -58,6 +60,15 @@ const ArtistProfile = () => {
         has_agreement,
         agreement,
     } = data || {};
+
+    const nextSlide = () => {
+        console.log("click next", swiperRef.current);
+        swiperRef.current?.swiper.slideNext();
+    };
+    const prevSlide = () => {
+        console.log("click next", swiperRef.current);
+        swiperRef.current?.swiper.slidePrev();
+    };
 
     if (isLoading) {
         return (
@@ -218,11 +229,16 @@ const ArtistProfile = () => {
                 )
             }
 
+            <div className='space-x-2 mt-4 flex justify-end'>
+                <button onClick={prevSlide} className="bg-gray-100 p-2 rounded-full"><BiChevronLeft size={20} /></button>
+                <button onClick={nextSlide} className="bg-gray-100 p-2 rounded-full"><BiChevronRight size={20} /></button>
+            </div>
+
             <div className='stream-lg artistProfile mt-5'>
                 <Swiper
+                    ref={swiperRef}
                     slidesPerView={1}
                     modules={[Navigation]}
-                    navigation
                 >
                     {
                         works_links?.map(link => <SwiperSlide>
