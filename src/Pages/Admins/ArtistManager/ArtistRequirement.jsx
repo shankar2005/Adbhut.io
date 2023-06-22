@@ -6,14 +6,11 @@ import { RxCross1 } from "react-icons/rx";
 import TableRow from "../../../Components/Table/TableRow";
 import { useGetArtistCountBySkillsQuery } from "../../../features/utils/utilsApi";
 import Badge from "../../../Components/Badge/Badge";
-import { DefaultPlayer as Video } from 'react-html5video';
 import { useState } from "react";
 import FileUpload from "../../Admins/ProductionManager/Components/FileUpload";
-import { useAssignArtistToDemoMutation, useGetDemoByIdQuery, useGetDemosQuery, useUnassignArtistFromDemoMutation } from "../../../features/demo/demoApi";
+import { useGetDemosQuery } from "../../../features/demo/demoApi";
 import { useSelector } from "react-redux";
-import WorkDemo from "../../Artist/Components/View/WorkDemo";
-import AssignArtistToDemo from "../ProductionManager/Components/AssignArtistToDemo";
-import { useRootContext } from "../../../contexts/RootProvider";
+import DemoSection from "../../Demo/DemoSection";
 
 const ArtistRequirement = () => {
     const { data } = useGetArtistRequestsQuery();
@@ -91,32 +88,7 @@ const ArtistRequirement = () => {
                 </div>
             </div>
 
-            <div className="bg-white w-full border my-3 flex">
-                <div className="flex-1 p-3 flex flex-col">
-                    <div className="flex items-center gap-2 mb-2 border-b pb-3">
-                        <h3 className="text-lg font-semibold">Demos</h3>
-                        <Badge onClick={() => setShowUpload(!showUpload)} type="success" className="inline-flex items-center justify-between cursor-pointer">Upload demos <MdUpload size={20} /></Badge>
-                    </div>
-
-                    {showUpload && <div className="px-4 py-8 relative border-b mb-4">
-                        <RxCross1 onClick={() => setShowUpload(null)} size={20} className="absolute top-0 right-0 m-4 cursor-pointer" />
-                        <h4 className='font-semibold text-lg'>Upload a demo</h4>
-                        <small>The demo can be a <strong>Video, Audio</strong> file. Uploaded demo will be shown in the ready to use demo section. Production manager can easily assign those ready to use demo in any project.</small>
-                        <div className="mt-10">
-                            <FileUpload setShowUpload={setShowUpload} />
-                        </div>
-                    </div>}
-
-                    <ul className="my-2">
-                        {demos?.map(demo => <li onClick={() => setIsDemoShown(demo.id)} className="text-blue-600 hover:underline underline-offset-2 cursor-pointer">{demo.Title}</li>)}
-                    </ul>
-                    <div className="mt-auto border-t pt-2">
-                        <Link to="/projects/readydemos" className="text-blue-600 hover:underline underline-offset-2">View All</Link>
-                    </div>
-                </div>
-
-                {isDemoShown && <DemoDetails demoId={isDemoShown} closeDemo={closeDemo} />}
-            </div>
+            <DemoSection />
 
             {/* <div className="mb-2 w-full overflow-hidden flex">
                 <div className="bg-white p-4">
@@ -179,55 +151,5 @@ const ArtistRequirement = () => {
 
 //     )
 // }
-
-const DemoDetails = ({ closeDemo, demoId }) => {
-    const { setArtistProfile } = useRootContext();
-    const { data: demo } = useGetDemoByIdQuery(demoId);
-    const [unassignArtistFromDemo] = useUnassignArtistFromDemoMutation();
-    const [assignArtistToDemo] = useAssignArtistToDemoMutation();
-    const handleMakeOwner = (id) => {
-        assignArtistToDemo({
-            demoId: demo.id,
-            artistId: id
-        }).then(data => {
-            console.log(data);
-        })
-    }
-    const handleUnassign = (id) => {
-        unassignArtistFromDemo({
-            demoId: demo.id,
-            artistId: id
-        });
-    }
-
-    return (
-        <div div className="flex-1 border-l p-3 pb-16 relative">
-            <div className="w-4/6 mb-3">
-                <WorkDemo demo_type={demo?.demo_type} demo_link={demo?.link} />
-            </div>
-            <p className="font-semibold">{demo?.Title}</p>
-            <p>Description: {demo?.comment || "N/A"}</p>
-            <ul className="my-3 space-y-2">
-                {demo?.artist && <li className="border-b pb-1">
-                    <span className="hover:underline cursor-pointer" onClick={() => setArtistProfile(demo?.artist)}>{demo?.artist_name}</span>
-                    <span className="ml-1 bg-gray-100 text-gray-600 px-1 border rounded-full text-sm">owner</span>
-                </li>}
-                {demo?.collaborators?.map(c => (
-                    <li className="border-b pb-2 flex justify-between">
-                        <span className="hover:underline cursor-pointer" onClick={() => setArtistProfile(c.id)}>{c.name}</span>
-                        <div className="space-x-1">
-                            {!demo?.artist && <Badge onClick={() => handleMakeOwner(c.id)} className="cursor-pointer text-sm font-normal border" type="success">make owner</Badge>}
-                            <Badge onClick={() => handleUnassign(c.id)} className="cursor-pointer text-sm font-normal border" type="error">remove</Badge>
-                        </div>
-                    </li>
-                ))}
-            </ul>
-
-            <AssignArtistToDemo demoId={demo?.id} />
-
-            <RxCross1 onClick={closeDemo} className="absolute top-0 right-0 m-3 cursor-pointer" size={25} />
-        </div>
-    )
-}
 
 export default ArtistRequirement;

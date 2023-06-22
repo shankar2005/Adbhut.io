@@ -2,10 +2,10 @@ import { useRootContext } from '../../contexts/RootProvider';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import { Link, useNavigate } from 'react-router-dom';
-import { AiOutlineDashboard, AiOutlinePlus, AiOutlineUserAdd } from 'react-icons/ai';
+import { AiOutlineDashboard, AiOutlinePlus, AiOutlineUserAdd, AiTwotoneSetting } from 'react-icons/ai';
 import { BsCheck2Square } from 'react-icons/bs';
 import { FiUsers } from 'react-icons/fi';
-import { MdOutlineRssFeed } from 'react-icons/md';
+import { MdEmojiFlags, MdOutlineRssFeed, MdPlaylistAdd } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearProject, setArtist, setChatLog, setContentProduct } from '../../features/project/projectSlice';
 
@@ -70,12 +70,12 @@ const RightAside = () => {
                     <ul className="font-medium text-sm">
                         <li>
                             <Link to="/projects/artist-requirement" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
-                                <AiOutlineDashboard size={20} /> Add New Demo
+                                <MdPlaylistAdd size={20} /> Add New Demo
                             </Link>
                         </li>
                         <li>
                             <Link to="/artists/account" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
-                                <AiOutlineUserAdd size={20} /> Account Settings
+                                <AiTwotoneSetting size={20} /> Account Settings
                             </Link>
                         </li>
                         <li>
@@ -85,7 +85,7 @@ const RightAside = () => {
                         </li>
                         <li>
                             <Link to="/artists/artist-list" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
-                                <FiUsers size={20} /> Demo Requirements
+                                <MdEmojiFlags size={20} /> Demo Requirements
                             </Link>
                         </li>
                     </ul>
