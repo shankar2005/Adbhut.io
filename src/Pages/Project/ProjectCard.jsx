@@ -32,12 +32,8 @@ const ProjectCard = ({ projectId }) => {
                         <img className='w-12 h-12 rounded-full' src={artist.profile_pic || avatar} alt="" />
                     </Link>
                     <div className='text-sm'>
-                        <Link to={`/projects/${project.pk}`}>
-                            <span className='font-medium'>{project?.title}</span>
-                        </Link>
-                        <p>
-                            Musical
-                        </p>
+                        <Link to={`/projects/${project.pk}`}><p className='text-sm'><strong>{project?.client_details?.name}</strong> </p></Link>
+                        <Link to={`/projects/${project.pk}`}>{project?.title}</Link>
                     </div>
                 </div>
                 <Link to={`/projects/${project.pk}`}>

@@ -39,10 +39,22 @@ const LoginForm = () => {
         if (userData?.status === 'success') {
             dispatch(setUser(userData.user));
             dispatch(setLoading(false));
-            if (userData.user?.role === "AM") {
-                navigate("/projects/artist-requirement");
-            } else {
-                navigate("/projects/readydemos");
+            switch (userData.user?.role) {
+                case "PM":
+                    navigate("/projects");
+                    break;
+                case "AM":
+                    navigate("/projects/artist-requirement");
+                    break;
+                case "Artist":
+                    navigate("/projects/demos");
+                    break;
+                case "Client":
+                    navigate("/projects/readydemos");
+                    break;
+                default:
+                    navigate("/projects/readydemos");
+                    break;
             }
             dispatch(closeLogin());
         }

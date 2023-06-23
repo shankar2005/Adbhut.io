@@ -58,7 +58,11 @@ function App() {
   return (
     <NoInternetConnection>
       <RouterProvider router={router} />
-      <Toaster position="bottom-right" />
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          className: 'border border-gray-200'
+        }} />
     </NoInternetConnection>
   )
 }

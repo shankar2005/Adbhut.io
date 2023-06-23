@@ -1,13 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import Root from "../layouts/Root";
-import Inbox from "../Pages/Admins/Inbox/Inbox";
 import ProjectDashboard from "../Pages/Admins/ProductionManager/ProjectDashboard";
 import ArtistEntry from "../Pages/Artist/ArtistEntry";
 import ShortlistedArtists from "../Pages/Artist/ShortlistedArtists";
 import Home from "../Pages/Home/Home";
 import LeftAside from "../Pages/Home/LeftAside";
 import CreateProject from "../Pages/Project/CreateProject";
-import MyProjects from "../Pages/Project/MyProjects";
 import ProjectDemos from "../Pages/Project/ProjectDemos";
 import ArtistRequirement from "../Pages/Admins/ArtistManager/ArtistRequirement";
 import Projects from "../Pages/Project/Projects";
@@ -22,6 +20,7 @@ import WorkEntry from "../Pages/Artist/WorkEntry";
 import ArtistAccount, { DemoInfo, PersonalInfo } from "../Pages/Artist/ArtistAccount";
 import ArtistsList from "../Pages/Artist/ArtistsList";
 import AddNewDemo from "../Pages/Demo/AddNewDemo";
+import DreamProjects from "../Pages/Project/DreamProjects";
 
 const router = createBrowserRouter([
     {
@@ -38,8 +37,8 @@ const router = createBrowserRouter([
                 element: <Projects />,
             },
             {
-                path: '/projects/myprojects',
-                element: <MyProjects />,
+                path: '/projects/dreamprojects',
+                element: <DreamProjects />,
             },
             {
                 path: '/projects/demos/:id',
@@ -66,10 +65,6 @@ const router = createBrowserRouter([
             {
                 path: '/projects/shortlisted-artists',
                 element: <ShortlistedArtists />,
-            },
-            {
-                path: '/projects/inbox',
-                element: <Inbox />,
             },
             {
                 path: '/projects/artist-requirement',
@@ -124,7 +119,7 @@ const router = createBrowserRouter([
                 ]
             },
             {
-                path: '/artists/addnewdemo',
+                path: '/artists/demos',
                 element: <AddNewDemo />
             },
         ],

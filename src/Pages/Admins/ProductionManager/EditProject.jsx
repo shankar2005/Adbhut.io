@@ -237,7 +237,7 @@ const ProjectActions = ({ projectId }) => {
                     dispatch(clearProject());
                     setSuggestions([]);
                     setRemovedSkill([]);
-                    navigate("/projects/myprojects");
+                    navigate("/projects");
                 });
         }
     }

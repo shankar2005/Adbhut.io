@@ -70,7 +70,7 @@ const RightAside = () => {
                 <div className='text-gray-700 p-2 border-b'>
                     <ul className="font-medium text-sm">
                         <li>
-                            <Link to="/artists/addnewdemo" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
+                            <Link to="/artists/demos" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
                                 <MdPlaylistAdd size={20} /> Add New Demo
                             </Link>
                         </li>
@@ -90,7 +90,7 @@ const RightAside = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/artists/artist-list" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
+                            <Link className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
                                 <MdEmojiFlags size={20} /> Demo Requirements
                             </Link>
                         </li>
@@ -154,7 +154,7 @@ const RightAside = () => {
                     {
                         user?.email &&
                         <li>
-                            <Link to="/projects/myprojects" className='hover:underline flex justify-between'>
+                            <Link to="/projects" className='hover:underline flex justify-between'>
                                 {
                                     user?.role === "PM"
                                         ? <div>
@@ -173,7 +173,7 @@ const RightAside = () => {
                         </li>
                     }
                     <li>
-                        <Link to="/projects" className='hover:underline flex justify-between items-center'>
+                        <Link to="/projects/dreamprojects" className='hover:underline flex justify-between items-center'>
                             <div>
                                 <p className='font-medium'>Dream Projects</p>
                                 <p className='text-xs'>Insights projects</p>
