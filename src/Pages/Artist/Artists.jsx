@@ -15,7 +15,7 @@ const Artists = () => {
     const { setArtists, artists, page, setPage, handleClearFilter } = useRootContext();
     const { searchText } = useSelector(state => state.filter);
 
-    const { selectedContentProduct } = useSelector(state => state.project);
+    const { pk: currentProjectId, selectedContentProduct } = useSelector(state => state.project);
 
     const [hasNext, setHasNext] = useState(true);
     const { data, isLoading, isFetching } = useGetArtistsQuery({ page, search: searchText });
@@ -51,7 +51,12 @@ const Artists = () => {
         <section className='stream mt-3'>
 
             <div className="sticky top-16">
-                <Link to="/projects/create-project" className="absolute top-1 -left-10"><BiArrowBack className='cursor-pointer bg-gray-200 text-gray-700 rounded-full p-1' size={30} /></Link>
+                <Link to={
+                    currentProjectId
+                        ? `/projects/${currentProjectId}`
+                        : "/projects/create-project"} className="absolute top-1 -left-10">
+                    <BiArrowBack className='cursor-pointer bg-gray-200 text-gray-700 rounded-full p-1' size={30} />
+                </Link>
                 {selectedContentProduct && <FilterArtist />}
             </div>
 

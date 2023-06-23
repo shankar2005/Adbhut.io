@@ -7,16 +7,17 @@ const ShortlistArtistBtn = ({ artistId }) => {
     const { user } = useSelector(state => state.auth);
     if (user?.role === "Client" || user?.role === "PM" || user?.role === "AM") {
         // check if the user isn't artist // artists can't shortlist themselves
-        const { shortlistedArtists } = useSelector(state => state.project);
+        const { pk: currentProjectId, shortlistedArtists } = useSelector(state => state.project);
         const [shortlistArtist] = useShortlistArtistMutation();
         const [declineArtist] = useDeclineArtistMutation();
         const dispatch = useDispatch();
 
         const handleShortlist = (artistID) => {
+            console.log('object');
             dispatch(addArtist(artistID));
-            if (currentProject?.pk) {
+            if (currentProjectId) {
                 shortlistArtist({
-                    projectId: currentProject.pk,
+                    projectId: currentProjectId,
                     artistId: artistID
                 })
             }
@@ -24,9 +25,9 @@ const ShortlistArtistBtn = ({ artistId }) => {
 
         const handleDecline = (artistID) => {
             dispatch(removeArtist(artistID));
-            if (currentProject?.pk) {
+            if (currentProjectId) {
                 declineArtist({
-                    projectId: currentProject.pk,
+                    projectId: currentProjectId,
                     artistId: artistID
                 })
             }
