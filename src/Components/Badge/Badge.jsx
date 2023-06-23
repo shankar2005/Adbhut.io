@@ -12,7 +12,7 @@ const Badge = ({ type, children, className = "", ...props }) => {
             ${className}
         `}
             {...props}
-        > {children}</span >
+        >{children}</span >
     );
 };
 

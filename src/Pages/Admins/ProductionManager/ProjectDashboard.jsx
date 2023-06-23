@@ -92,6 +92,7 @@ const ProjectDashboard = () => {
                             <tbody className="bg-white">
                                 <TableRow label="Client" content={<>{user.email ? currentProject?.client_details?.name : "ADBHUT.IO"} <br /> <span className='bg-gray-200 px-2 text-sm rounded-full'>{user.email ? currentProject?.client_details?.email : "servicing@adbhut.io"}</span></>} />
                                 <TableRow label="Stage" content={<Badge type="success">{currentProject?.stage}</Badge>} />
+                                <TableRow label="Visibility" content={<Badge type="warning">{currentProject?.visibility}</Badge>} />
                                 <TableRow label="Content Product" content={currentProject.template?.length > 0 && <span className="font-semibold">{currentProject?.template[1]}</span>} />
                                 <TableRow label="Production solution" content={currentProject?.production_solution} />
                                 <TableRow label="Artist discussion updates" content={currentProject?.artist_discussion_updates} />
@@ -202,8 +203,16 @@ const ProjectDashboard = () => {
                                 <TableRow label="Advance Status" content={<Badge type="warning">{"Pending"}</Badge>} />
                                 <TableRow label="Artist payout status" content={<Badge type="warning">{currentProject?.artist_payout_status || 'N/A'}</Badge>} />
 
-                                {user?.role === "PM" && <TableRow label="Final fee settlement" content={<Badge type="error">Incomplete</Badge>} />}
-                                {user?.role === "PM" && <TableRow label="Contract status" content={<Badge type="error">Incomplete</Badge>} />}
+                                {user?.role === "PM" && <TableRow label="Final fee settlement status" content={
+                                    currentProject?.final_fee_settlement_status
+                                        ? <Badge type="success">Complete</Badge>
+                                        : <Badge type="error">Incomplete</Badge>
+                                } />}
+                                {user?.role === "PM" && <TableRow label="Contract status" content={
+                                    currentProject?.contract_status
+                                        ? <Badge type="success">Complete</Badge>
+                                        : <Badge type="error">Incomplete</Badge>
+                                } />}
                             </tbody>
                         </table>
                     </div>

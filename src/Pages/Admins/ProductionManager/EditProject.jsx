@@ -15,6 +15,10 @@ import Input from '../../../Components/Input/Input';
 import { useState } from 'react';
 import Button from '../../../Components/Button/Button';
 import Select from '../../../Components/Input/Select';
+import Textarea from '../../../Components/Input/Textarea';
+
+// post_project_client_feedback - this field means Client Briefing
+// not giving PM to update this field
 
 const EditProject = () => {
     const dispatch = useDispatch();
@@ -34,15 +38,22 @@ const EditProject = () => {
         if (currentProject.pk) {
             // set data in form
             setValue("title", currentProject.title);
+            setValue("stage", currentProject.stage);
+            setValue("visibility", currentProject.visibility);
+            setValue("production_solution", currentProject.production_solution);
+            setValue("artist_discussion_updates", currentProject.artist_discussion_updates);
+            setValue("post_project_client_feedback", currentProject.post_project_client_feedback);
             setValue("assigned_artist_payouts", currentProject.assigned_artist_payouts);
             setValue("solution_fee", currentProject.solution_fee);
             setValue("production_advance", currentProject.production_advance);
             setValue("negotiated_advance", currentProject.negotiated_advance);
             setValue("final_advance", currentProject.final_advance);
             setValue("post_project_client_total_payout", currentProject.post_project_client_total_payout);
-            setValue("production_solution", currentProject.production_solution);
-            setValue("artist_discussion_updates", currentProject.artist_discussion_updates);
-            setValue("post_project_client_total_feedback", currentProject.post_project_client_total_feedback);
+            setValue("project_fee_Status", currentProject.project_fee_Status);
+            setValue("advance_status", currentProject.advance_status);
+            setValue("artist_payout_status", currentProject.artist_payout_status);
+            setValue("final_fee_settlement_status", currentProject.final_fee_settlement_status);
+            setValue("contract_status", currentProject.contract_status);
         }
     }, [currentProject])
 
@@ -55,6 +66,7 @@ const EditProject = () => {
         const formData = {
             title: data.title,
             stage: data.stage,
+            visibility: data.visibility,
             post_project_client_feedback: data.post_project_client_feedback,
             production_solution: data.production_solution,
             artist_discussion_updates: data.artist_discussion_updates,
@@ -63,6 +75,9 @@ const EditProject = () => {
             negotiated_advance: +data.negotiated_advance,
             final_advance: +data.final_advance,
             post_project_client_total_payout: +data.post_project_client_total_payout,
+            project_fee_Status: data.project_fee_Status,
+            advance_status: data.advance_status,
+            artist_payout_status: data.artist_payout_status,
             final_fee_settlement_status: data.final_fee_settlement_status,
             contract_status: data.contract_status,
         }
@@ -102,7 +117,6 @@ const EditProject = () => {
                                             <Select
                                                 name="stage"
                                                 register={register}
-                                                defaultValue={currentProject?.stage}
                                                 options={[
                                                     { name: "DreamProject", value: "DreamProject" },
                                                     { name: "Lead", value: "Lead" },
@@ -111,7 +125,16 @@ const EditProject = () => {
                                                     { name: "Finish", value: "Finish" },
                                                 ]}
                                             />
-
+                                        } />
+                                        <TableRow label="Visibility" content={
+                                            <Select
+                                                name="visibility"
+                                                register={register}
+                                                options={[
+                                                    { name: "private", value: "private" },
+                                                    { name: "public", value: "public" },
+                                                ]}
+                                            />
                                         } />
                                         <TableRow label="Content Product" content={currentProject.template?.length > 0 && <span className="font-semibold">{currentProject?.template[1]}</span>} />
                                         {user?.role === "PM" &&
@@ -141,7 +164,6 @@ const EditProject = () => {
                                                     name="post_project_client_feedback"
                                                     placeholder="Client Briefing"
                                                     register={register}
-                                                    defaultValue={currentProject?.post_project_client_feedback}
                                                 />
                                             } />
                                         }
@@ -196,15 +218,45 @@ const EditProject = () => {
                                             <TableRow label="Solution Fee" content={currentProject?.solution_fee || "WIP"} />
                                             <TableRow label="Production Advance" content={currentProject?.production_advance || "WIP"} />
 
-                                            <TableRow label="Project fee Status" content={<Badge>{currentProject?.project_fee_Status || "N/A"}</Badge>} />
-                                            <TableRow label="Advance Status" content={<Badge>{"Pending"}</Badge>} />
-                                            <TableRow label="Artist payout status" content={<Badge>{currentProject?.artist_payout_status || 'N/A'}</Badge>} />
+                                            <TableRow label="Project fee Status" content={
+                                                <Select
+                                                    name="project_fee_Status"
+                                                    register={register}
+                                                    options={[
+                                                        { name: "Unpaid", value: "Unpaid" },
+                                                        { name: "Partially Paid", value: "Partially Paid" },
+                                                        { name: "Paid", value: "Paid" },
+                                                    ]}
+                                                />
+                                            } />
+                                            <TableRow label="Advance Status" content={
+                                                <Select
+                                                    name="advance_status"
+                                                    register={register}
+                                                    options={[
+                                                        { name: "Pending", value: "Pending" },
+                                                        { name: "In Progress", value: "In Progress" },
+                                                        { name: "Done", value: "Done" },
+                                                    ]}
+                                                />
+                                            } />
+                                            <TableRow label="Artist payout status" content={
+                                                <Select
+                                                    name="artist_payout_status"
+                                                    register={register}
+                                                    options={[
+                                                        { name: "In Progress", value: "In Progress" },
+                                                        { name: "Advance Payment Done", value: "Advance Payment Done" },
+                                                        { name: "Full Payment Done", value: "Full Payment Done" },
+                                                    ]}
+                                                />
+                                            } />
 
-                                            <TableRow label="Final fee settlement" content={
-                                                <input {...register("final_fee_settlement_status")} id="final_fee_settlement_status" type="checkbox" className="w-4 h-4 text-blue-600 rounded ring-offset-gray-800 bg-gray-700 border-gray-600" defaultChecked={currentProject?.final_fee_settlement_status} />
+                                            <TableRow label="Final fee settlement status" content={
+                                                <input {...register("final_fee_settlement_status")} id="final_fee_settlement_status" type="checkbox" className="w-4 h-4 text-blue-600 rounded ring-offset-gray-800 bg-gray-700 border-gray-600" />
                                             } />
                                             <TableRow label="Contract status" content={
-                                                <input {...register("contract_status")} id="contract_status" type="checkbox" className="w-4 h-4 text-blue-600 rounded ring-offset-gray-800 bg-gray-700 border-gray-600" defaultChecked={currentProject?.contract_status} />
+                                                <input {...register("contract_status")} id="contract_status" type="checkbox" className="w-4 h-4 text-blue-600 rounded ring-offset-gray-800 bg-gray-700 border-gray-600" />
                                             } />
                                         </tbody>
                                     </table>}
@@ -225,12 +277,6 @@ const EditProject = () => {
 };
 
 export default EditProject;
-
-const Textarea = ({ name, placeholder, defaultValue, required, register, ...props }) => {
-    return (
-        <textarea {...register(name, { required })} id={name} rows="5" className="w-full border p-1" placeholder={placeholder} defaultValue={defaultValue} {...props}></textarea>
-    );
-};
 
 const ProjectActions = ({ projectId }) => {
     const dispatch = useDispatch();

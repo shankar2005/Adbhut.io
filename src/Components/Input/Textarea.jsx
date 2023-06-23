@@ -6,7 +6,9 @@ const Textarea = ({ name, placeholder, defaultValue, required, register, ...prop
             rows="5"
             className="input"
             placeholder={placeholder}
-            defaultValue={defaultValue}{...props}></textarea>
+            defaultValue={defaultValue}
+            {...props}
+        ></textarea>
     );
 };
 
