@@ -14,6 +14,7 @@ import Container from '../../../Components/Container/Container';
 import Input from '../../../Components/Input/Input';
 import { useState } from 'react';
 import Button from '../../../Components/Button/Button';
+import Select from '../../../Components/Input/Select';
 
 const EditProject = () => {
     const dispatch = useDispatch();
@@ -53,6 +54,7 @@ const EditProject = () => {
 
         const formData = {
             title: data.title,
+            stage: data.stage,
             post_project_client_feedback: data.post_project_client_feedback,
             production_solution: data.production_solution,
             artist_discussion_updates: data.artist_discussion_updates,
@@ -96,7 +98,21 @@ const EditProject = () => {
                                 <table className="w-full">
                                     <tbody className="bg-white">
                                         <TableRow label="Client" content={<>{user.email ? currentProject?.client_details?.name : "ADBHUT.IO"} <br /> <span className='bg-gray-200 px-2 text-sm rounded-full'>{user.email ? currentProject?.client_details?.email : "servicing@adbhut.io"}</span></>} />
-                                        <TableRow label="Stage" content={<Badge type="success">{currentProject?.stage}</Badge>} />
+                                        <TableRow label="Stage" content={
+                                            <Select
+                                                name="stage"
+                                                register={register}
+                                                defaultValue={currentProject?.stage}
+                                                options={[
+                                                    { name: "DreamProject", value: "DreamProject" },
+                                                    { name: "Lead", value: "Lead" },
+                                                    { name: "In Progress", value: "In Progress" },
+                                                    { name: "Halt", value: "Halt" },
+                                                    { name: "Finish", value: "Finish" },
+                                                ]}
+                                            />
+
+                                        } />
                                         <TableRow label="Content Product" content={currentProject.template?.length > 0 && <span className="font-semibold">{currentProject?.template[1]}</span>} />
                                         {user?.role === "PM" &&
                                             <TableRow label="Production solution" content={
