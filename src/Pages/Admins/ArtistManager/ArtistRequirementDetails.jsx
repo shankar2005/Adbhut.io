@@ -1,14 +1,11 @@
 import { SlArrowRight } from "react-icons/sl";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { AiOutlinePlus } from "react-icons/ai";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDeleteArtistRequestMutation, useGetArtistRequestQuery } from "../../../features/artist/artistApi";
-import brokenAvatar from "../../../assets/placeholders/broken.jpg";
 import { useGetProjectQuery } from "../../../features/project/projectApi";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setProjectData } from "../../../features/project/projectSlice";
 import ShortlistedArtistRow from "../ProductionManager/Components/ShortlistedArtistRow";
-import AssignedArtistRow from "../ProductionManager/Components/AssignedArtistRow";
 import TableRow from "../../../Components/Table/TableRow";
 import Badge from "../../../Components/Badge/Badge";
 import Container from "../../../Components/Container/Container";

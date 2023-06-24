@@ -14,7 +14,6 @@ import DemoDetails from "../../Demo/Components/DemoDetails";
 import Modal from "../../../Components/Modal/Modal";
 import { CgAddR } from "react-icons/cg";
 import { BiLink } from "react-icons/bi";
-import AssignDemo from "../../Demo/Components/AssignDemo";
 import AddDemoUrl from "../../Demo/Components/AddDemoUrl";
 import UploadDemoFile from "../../Demo/Components/UploadDemoFile";
 

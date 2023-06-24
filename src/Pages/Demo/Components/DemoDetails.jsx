@@ -4,6 +4,7 @@ import { useRootContext } from "../../../contexts/RootProvider";
 import { useAssignArtistToDemoMutation, useGetDemoByIdQuery, useUnassignArtistFromDemoMutation } from "../../../features/demo/demoApi";
 import WorkDemo from "../../Artist/Components/View/WorkDemo";
 import AssignArtistToDemo from "./AssignArtistToDemo";
+import AssignDemoToProject from "./AssignProjectToDemo";
 
 const DemoDetails = ({ closeDemo, demoId }) => {
     const { setArtistProfile } = useRootContext();
@@ -50,6 +51,7 @@ const DemoDetails = ({ closeDemo, demoId }) => {
             </ul>
 
             <AssignArtistToDemo demoId={demo?.id} />
+            <AssignDemoToProject />
 
             <RxCross1 onClick={closeDemo} className="absolute top-0 right-0 m-3 cursor-pointer" size={25} />
         </div>

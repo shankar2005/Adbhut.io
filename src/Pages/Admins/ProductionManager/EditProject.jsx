@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDeleteProjectMutation, useGetProjectQuery, useUpdateProjectMutation } from '../../../features/project/projectApi';
 import { showLogin } from '../../../features/dropdown/dropdownSlice';
@@ -16,13 +16,15 @@ import { useState } from 'react';
 import Button from '../../../Components/Button/Button';
 import Select from '../../../Components/Input/Select';
 import Textarea from '../../../Components/Input/Textarea';
+import { BiArrowBack } from 'react-icons/bi';
 
 // post_project_client_feedback - this field means Client Briefing
 // not giving PM to update this field
 
 const EditProject = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [updateProject, { isLoading: updateProjectLoading }] = useUpdateProjectMutation();
+    const [updateProject, { isLoading: updateProjectLoading, isSuccess }] = useUpdateProjectMutation();
     const { user } = useSelector(state => state.auth);
 
     const { id } = useParams();
@@ -88,8 +90,18 @@ const EditProject = () => {
         })
     }
 
+    useEffect(() => {
+        if (isSuccess) {
+            navigate(`/projects/${currentProject?.pk}`)
+        }
+    }, [isSuccess, currentProject?.pk]);
+
     return (
-        <Container>
+        <Container className="relative">
+            <Link to={`/projects/${currentProject.pk}`} className="absolute left-4 top-10">
+                <BiArrowBack className='cursor-pointer bg-gray-200 text-gray-700 rounded-full p-1' size={30} />
+            </Link>
+
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="p-4">
                     <div className='mb-5 flex items-center justify-center gap-1.5'>
