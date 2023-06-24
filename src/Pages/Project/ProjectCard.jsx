@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Button from "../../Components/Button/Button";
 import { useRootContext } from "../../contexts/RootProvider";
 import { useGetProjectQuery } from "../../features/project/projectApi";
 import WorkDemo from "../Artist/Components/View/WorkDemo";
@@ -23,9 +24,7 @@ const ProjectCard = ({ projectId }) => {
                     </div>
                 </div>
                 <Link to={`/projects/${project.pk}`}>
-                    <button className='text-blue-600 bg-sky-100 py-2.5 px-4 rounded-lg font-medium text-sm md:text-base'>
-                        {project.stage === "DreamProject" ? "Get Inspired" : "View Details"}
-                    </button>
+                    <Button> {project.stage === "DreamProject" ? "Get Inspired" : "View Details"}</Button>
                 </Link>
             </div>
             <p className='text-sm mb-2'>

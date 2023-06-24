@@ -27,15 +27,15 @@ const EditProject = () => {
     const dispatch = useDispatch();
     const [updateProject, { isLoading: updateProjectLoading, isSuccess }] = useUpdateProjectMutation();
     const { user } = useSelector(state => state.auth);
-
     const { id } = useParams();
     const { data: currentProject = {}, refetch, isLoading: getProjectLoading } = useGetProjectQuery(id);
+    const [refLinks, setRefLinks] = useState(currentProject?.reference_links);
 
     useEffect(() => {
         if (user?.email) {
             refetch();
         }
-    }, [user])
+    }, [user]);
 
     useEffect(() => {
         if (currentProject.pk) {
@@ -143,13 +143,19 @@ const EditProject = () => {
                                             )
                                         } />
                                         <TableRow label="Reference Links" content={
-                                            <textarea
-                                                {...register("reference_links")}
-                                                placeholder="Reference link"
-                                                defaultValue={currentProject?.links?.map(({ link }) => link)}
-                                                className="input"
-                                                rows={1}
-                                            />
+                                            <>
+                                                {refLinks && refLinks.split(",")?.map(link => <span className="bg-gray-200 px-2 rounded-full inline-block w-fit mb-1 mr-0.5">{link}</span>)}
+                                                <input
+                                                    type="text"
+                                                    {...register("reference_links")}
+                                                    className="input"
+                                                    placeholder="Reference link"
+                                                    onChange={(e) => setRefLinks(e.target.value)}
+                                                    onKeyDown={(event) => event.key === ' ' && event.preventDefault()}
+                                                    defaultValue={currentProject?.reference_links}
+                                                />
+                                                <small>separate multiple reference links with comma (, )</small>
+                                            </>
                                         } />
                                         <TableRow label="Visibility" content={
                                             <Select
