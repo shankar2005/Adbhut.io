@@ -2,7 +2,7 @@ import { useRootContext } from '../../contexts/RootProvider';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import { Link, useNavigate } from 'react-router-dom';
-import { AiOutlineDashboard, AiOutlinePlus, AiOutlineUserAdd, AiTwotoneSetting } from 'react-icons/ai';
+import { AiOutlineDashboard, AiOutlinePlus, AiOutlineProject, AiOutlineUserAdd, AiTwotoneSetting } from 'react-icons/ai';
 import { BsCheck2Square } from 'react-icons/bs';
 import { FiUsers } from 'react-icons/fi';
 import { MdEmojiFlags, MdOutlineRssFeed, MdPlaylistAdd } from 'react-icons/md';
@@ -56,6 +56,11 @@ const RightAside = () => {
                         <li>
                             <Link to="/projects/readydemos" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
                                 <MdOutlineRssFeed size={20} /> Ready Demos
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/projects" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
+                                <AiOutlineProject size={20} /> All Projects
                             </Link>
                         </li>
                     </ul>

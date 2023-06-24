@@ -88,7 +88,7 @@ const Navbar = ({ setShowToolkit, showToolkit }) => {
                             </AnimatePresence>
                         </li>
                     }
-                    <div className="p-1 bg-gray-50 shadow-sm rounded-l-full text-gray-400" onClick={() => setShowToolkit(prev => !prev)}>
+                    <div className="md:hidden p-1 bg-gray-50 shadow-sm rounded-l-full text-gray-400" onClick={() => setShowToolkit(prev => !prev)}>
                         <MdArrowBackIosNew className={`cursor-pointer ${showToolkit && "rotate-180"} duration-200`} size={25} />
                     </div>
                 </ul>

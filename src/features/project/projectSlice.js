@@ -11,9 +11,6 @@ const initialState = {
     reference_links: [],
     post_project_client_feedback: "",
     project_demo: "",
-
-    // not part of the project just confirming
-    referenceLinksHasTaken: false
 }
 
 const projectSlice = createSlice({
@@ -55,7 +52,6 @@ const projectSlice = createSlice({
         },
         setReferenceLinks: (state, action) => {
             state.reference_links = action.payload;
-            state.referenceLinksHasTaken = true;
         },
         setClientFeedback: (state, action) => {
             state.post_project_client_feedback = action.payload;
@@ -78,13 +74,9 @@ const projectSlice = createSlice({
             });
         },
 
-        setReferenceLinksHasTaken: (state) => {
-            state.referenceLinksHasTaken = true;
-        },
-
         clearProject: () => initialState
     },
 });
 
-export const { addChatLog, setChatLog, removeChatLog, clearProject, addArtist, setArtist, removeArtist, setContentProduct, setTitle, setReferenceLinks, setClientFeedback, setProjectData, setReferenceLinksHasTaken, setDemo } = projectSlice.actions;
+export const { addChatLog, setChatLog, removeChatLog, clearProject, addArtist, setArtist, removeArtist, setContentProduct, setTitle, setReferenceLinks, setClientFeedback, setProjectData, setDemo } = projectSlice.actions;
 export default projectSlice.reducer;

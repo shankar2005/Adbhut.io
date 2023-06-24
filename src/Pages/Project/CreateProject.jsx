@@ -16,6 +16,7 @@ import { useCreateProjectMutation } from '../../features/project/projectApi';
 import { setClientFeedback, setReferenceLinks, setTitle } from '../../features/project/projectSlice';
 import { removeArtist } from '../../features/project/projectSlice';
 import { setArtist, addArtist } from '../../features/project/projectSlice';
+import WorkDemo from '../Artist/Components/View/WorkDemo';
 import WorkDemoSm from '../Artist/Components/View/WorkDemoSm';
 
 const CreateProject = () => {
@@ -37,6 +38,11 @@ const CreateProject = () => {
         sessionStorage.removeItem("CURRENT_PROJECT");
     }, [])
 
+    const handleSetRefLinks = (e) => {
+        const value = e.target.value.split("\n");
+        dispatch(setReferenceLinks(value));
+    }
+
     // send brief
     const formData = {
         // required
@@ -45,7 +51,7 @@ const CreateProject = () => {
         // optionals
         project_template: selectedContentProduct,
         title: title || project_demo?.Title,
-        reference_links: JSON.stringify(reference_links),
+        reference_links: reference_links,
         post_project_client_feedback,
     }
 
@@ -121,31 +127,46 @@ const CreateProject = () => {
         }
     }, [project_demo]);
 
+    console.log(project_demo);
+
     return (
         <Container className="font-hero">
-            <h1 className="text-3xl font-semibold p-3 text-center">Create Project</h1>
+            <div className='mb-5 flex justify-center'>
+                <div className="relative w-fit min-w-[200px] mt-2">
+                    <input
+                        type="text"
+                        className="peer h-full border-b border-blue-gray-200 bg-transparent pt-4 pb-1.5 font-sans text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-pink-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 text-3xl font-bold font-hero text-gray-600"
+                        placeholder=" "
+                        onBlur={e => dispatch(setTitle(e.target.value))}
+                        defaultValue={currentProject?.title || project_demo?.Title}
+                    />
+                    <label className="after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-pink-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-pink-500 peer-focus:after:scale-x-100 peer-focus:after:border-pink-500 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                        Title
+                    </label>
+                </div>
+            </div>
+
+            <div className='stream'>
+                <WorkDemoSm demo_type={project_demo?.demo_type} demo_link={project_demo?.link || project_demo?.document} />
+            </div>
+            
             <form>
                 <table className="w-full">
                     <tbody className="bg-white">
                         <TableRow
-                            label="Title"
-                            content={
-                                <Input
-                                    type="text"
-                                    placeholder="Enter project title"
-                                    onBlur={e => dispatch(setTitle(e.target.value))}
-                                    defaultValue={currentProject?.title || project_demo?.Title}
-                                />
-                            } />
-                        <TableRow
                             label="Reference Link"
                             content={
-                                <Input
-                                    type="url"
-                                    placeholder="Reference link"
-                                    onBlur={e => dispatch(setReferenceLinks([e.target.value]))}
-                                    defaultValue={currentProject?.reference_links}
-                                />
+                                <>
+                                    {reference_links?.map(link => <span className="bg-gray-200 px-2 rounded-full inline-block w-fit mb-1 mr-0.5">{link}</span>)}
+                                    <textarea
+                                        type="url"
+                                        placeholder="Reference link"
+                                        onChange={handleSetRefLinks}
+                                        defaultValue={currentProject?.reference_links}
+                                        className="input"
+                                        rows={5}
+                                    />
+                                </>
                             } />
                         <TableRow
                             label="Content Product"

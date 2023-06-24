@@ -32,11 +32,13 @@ const ShortlistedArtistRow = ({ artist, projectId }) => {
                             <ActionLoader size="sm" />
                             : <Badge type="error">Reject</Badge>}
                     </button>
-                    <button type='button' onClick={handleAssignArtist}>
-                        {assignLoading ?
-                            <ActionLoader size="sm" />
-                            : <Badge type="success">Assign</Badge>}
-                    </button>
+                    {(user?.role === "PM" || user?.role === "PM") && (
+                        <button type='button' onClick={handleAssignArtist}>
+                            {assignLoading ?
+                                <ActionLoader size="sm" />
+                                : <Badge type="success">Assign</Badge>}
+                        </button>
+                    )}
                 </td>}
         </tr>
     )

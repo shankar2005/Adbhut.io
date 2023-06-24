@@ -39,3 +39,7 @@ body {
 .stream-lg{
     @apply px-2 md:px-0 w-11/12 mx-auto
 }
+
+.demo-square{
+    @apply hover:underline bg-black h-[550px] flex flex-col items-center justify-center border rounded-lg
+}

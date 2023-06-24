@@ -1,4 +1,5 @@
 import { AiOutlineSearch } from 'react-icons/ai';
+import Badge from '../../../Components/Badge/Badge';
 import { useGetCurrentProjectsQuery } from '../../../features/project/projectApi';
 
 const AssignProjectToDemo = () => {
@@ -18,7 +19,10 @@ const AssignProjectToDemo = () => {
                 </div>
                 <ul>
                     {
-                        projects?.map(project => <li className="hover:bg-gray-200 px-3 py-2 border-b">ALMOND SOLUTIONS COMMERCIAL[1]</li>)
+                        projects?.map(project => <li className="hover:bg-gray-200 px-3 py-2 border-b flex justify-between">
+                            {project.title}
+                            <Badge type="success" className="border border-green-200 cursor-pointer text-sm font-normal">Assign</Badge>
+                        </li>)
                     }
                 </ul>
             </div>

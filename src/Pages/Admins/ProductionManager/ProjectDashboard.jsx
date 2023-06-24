@@ -14,13 +14,14 @@ import TableRow from '../../../Components/Table/TableRow';
 import Container from '../../../Components/Container/Container';
 import LeftAside from '../../Home/LeftAside';
 import { useAssignDemoToProjectMutation } from '../../../features/demo/demoApi';
+import WorkDemoSm from '../../Artist/Components/View/WorkDemoSm';
 
 const ProjectDashboard = () => {
     const { setIsModalOpen, showChat } = useRootContext();
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
     const { id } = useParams();
-    const { data: currentProject = {}, refetch } = useGetProjectQuery(id);
+    const { data: currentProject = {}, refetch, isFetching } = useGetProjectQuery(id);
 
     useEffect(() => {
         if (user?.email) {
@@ -65,6 +66,10 @@ const ProjectDashboard = () => {
     }, [currentProject.pk]);
     // 
 
+    if (isFetching || (!currentProject?.pk && currentProject?.message)) {
+        return <div className="p-4 font-hero"><Badge type="error" className="border border-red-200">{currentProject?.message}</Badge></div>
+    }
+
     return (
         <Container>
             <div className="p-4">
@@ -74,11 +79,16 @@ const ProjectDashboard = () => {
                         <Badge type="error">Edit</Badge>
                     </Link>}
                 </div>
+
+                <div className='stream'>
+                    <WorkDemoSm demo_type={currentProject?.project_demo?.demo_type} demo_link={currentProject?.project_demo?.link || currentProject?.project_demo?.document} />
+                </div>
+
                 <div className="w-full overflow-hidden rounded-lg shadow-lg font-hero">
                     <div className="w-full overflow-x-auto">
                         <table className="w-full">
                             <tbody className="bg-white">
-                                <TableRow label="Client" content={<>{user.email ? currentProject?.client_details?.name : "ADBHUT.IO"} <br /> <span className='bg-gray-200 px-2 text-sm rounded-full'>{user.email ? currentProject?.client_details?.email : "servicing@adbhut.io"}</span></>} />
+                                <TableRow label="Client" content={<>{currentProject?.client_details?.name} <br /> <span className='bg-gray-200 px-2 text-sm rounded-full'>{currentProject?.client_details?.email}</span></>} />
                                 <TableRow label="Stage" content={<Badge type="success">{currentProject?.stage}</Badge>} />
                                 <TableRow label="Visibility" content={<Badge type="warning">{currentProject?.visibility}</Badge>} />
                                 <TableRow label="Content Product" content={currentProject.template?.length > 0 && <span className="font-semibold">{currentProject?.template[1]}</span>} />

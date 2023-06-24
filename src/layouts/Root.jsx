@@ -41,8 +41,12 @@ const Root = () => {
     const isShowToolkit = JSON.parse(localStorage.getItem("SHOW_TOOLKIT"));
     const [showToolkit, setShowToolkit] = useState(isShowToolkit);
     useEffect(() => {
-        localStorage.setItem("SHOW_TOOLKIT", showToolkit);
-    }, [showToolkit])
+        if (isShowToolkit) {
+            localStorage.setItem("SHOW_TOOLKIT", showToolkit);
+        } else {
+            localStorage.setItem("SHOW_TOOLKIT", true);
+        }
+    }, [showToolkit]);
 
     const pageTransition = {
         initial: {
