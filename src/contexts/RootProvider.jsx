@@ -3,7 +3,7 @@ import { useGetCurrentProjectsQuery, useGetProjectQuery } from '../features/proj
 import { useGetContentProductsQuery, useGetSkillsOnProductSelectMutation, useGetSkillsQuery } from '../features/utils/utilsApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearch } from '../features/filter/filterSlice';
-import { addChatLog, clearProject, setContentProduct, setProjectData } from '../features/project/projectSlice';
+import { clearProject, setContentProduct, setProjectData } from '../features/project/projectSlice';
 
 const RootContext = createContext();
 
@@ -17,7 +17,7 @@ const RootProvider = ({ children }) => {
 
     const { data: currentProjects = [] } = useGetCurrentProjectsQuery(null, { skip: !user?.email });
 
-    const { chatLog, selectedContentProduct } = useSelector(state => state.project);
+    const { selectedContentProduct } = useSelector(state => state.project);
     const currentProject = useSelector(state => state.project);
 
     const dispatch = useDispatch();
@@ -61,8 +61,6 @@ const RootProvider = ({ children }) => {
 
         if (!isExist) {
             dispatch(setContentProduct(product.pk));
-            // chatlog
-            dispatch(addChatLog({ msgID: chatLog.length + 1, bot: `Thank your for selecting ${product.name}! To help us better understand, please select one of the following skills.` }));
         }
     }
 
@@ -70,8 +68,6 @@ const RootProvider = ({ children }) => {
         if (confirm) {
             clearCurrentProject();
             dispatch(setContentProduct(changeContentProduct.pk));
-            // chatlog
-            dispatch(addChatLog({ msgID: chatLog.length + 1, [sender]: `You've selected ${changeContentProduct.name}` }));
             setConfirm(false);
         }
     }, [confirm])
@@ -142,7 +138,6 @@ const RootProvider = ({ children }) => {
     useEffect(() => {
         if (currentProjectData.pk) {
             dispatch(setProjectData({
-                chatLog: JSON.parse(currentProjectData.brief),
                 shortlistedArtists: currentProjectData.shortlisted_artists_details?.map(artist => artist.id),
                 selectedContentProduct: currentProjectData.project_template,
                 ...currentProjectData

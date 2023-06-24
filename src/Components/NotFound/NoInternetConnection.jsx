@@ -34,7 +34,7 @@ const NoInternetPage = () => {
             <div className="h-screen flex items-center justify-center">
                 <div className="font-hero text-center space-y-2">
                     <img src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/noconnection/default_800.png" alt="" />
-                    <h3 className="text-2xl font-semibold">You appear to be offline</h3>
+                    <h3 className="text-2xl fontnote-semibold">You appear to be offline</h3>
                     <p className="text-sm">You can't use Adbhut.io until you're connected to the Internet</p>
                     <button className="bg-blue-500 py-1.5 px-6 text-white rounded">Retry</button>
                 </div>

@@ -1,28 +1,14 @@
 import { Link } from "react-router-dom";
-import { Spotify } from "react-spotify-embed";
 import { useRootContext } from "../../contexts/RootProvider";
 import { useGetProjectQuery } from "../../features/project/projectApi";
-import useYoutubeEmbaded from "../../hooks/useYoutubeEmbaded";
+import WorkDemo from "../Artist/Components/View/WorkDemo";
 
 const ProjectCard = ({ projectId }) => {
     const { avatar } = useRootContext();
     const { data: project = {} } = useGetProjectQuery(projectId);
     const artist = {};
 
-    const thumbnail = project?.reference_links && JSON.parse(project?.reference_links)[0]
-
-    let thumbnailEle;
-    if (thumbnail && thumbnail.includes("youtu")) {
-        thumbnailEle = <div className='aspect-video'>
-            {useYoutubeEmbaded(thumbnail)}
-        </div>
-    } else if (thumbnail && thumbnail.includes("spotify")) {
-        thumbnailEle = <div className="flex justify-center bg-black pt-6">
-            <Spotify link="https://open.spotify.com/track/1i6LMHYCn5hQE6G8HCjcf2" />
-        </div>
-    } else {
-        thumbnailEle = <img className="w-full" src="https://www.unfe.org/wp-content/uploads/2019/04/SM-placeholder.png" alt="" />
-    }
+    const thumbnail = project.links?.length > 0 && project.links[0];
 
     return (
         <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
@@ -45,9 +31,7 @@ const ProjectCard = ({ projectId }) => {
             <p className='text-sm mb-2'>
                 {project?.production_solution?.length > 200 ? project?.production_solution?.slice(0, 200) + "..." : project?.production_solution}
             </p>
-            {
-                thumbnail ? thumbnailEle : <img className="w-full" src="https://www.unfe.org/wp-content/uploads/2019/04/SM-placeholder.png" alt="" />
-            }
+            <WorkDemo demo_type={thumbnail.link_type} demo_link={thumbnail.link} />
         </div>
     )
 }

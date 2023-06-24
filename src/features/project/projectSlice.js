@@ -1,14 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    // required
-    shortlistedArtists: [],
-    selectedContentProduct: null,
-    chatLog: [],
-
-    // optional
     title: "",
-    reference_links: [],
+    selectedContentProduct: null,
+    reference_links: "",
+    shortlistedArtists: [],
     post_project_client_feedback: "",
     project_demo: "",
 }
@@ -17,17 +13,6 @@ const projectSlice = createSlice({
     name: 'project',
     initialState,
     reducers: {
-        // chatlog
-        addChatLog: (state, action) => {
-            state.chatLog.push(action.payload);
-        },
-        setChatLog: (state, action) => {
-            state.chatLog = action.payload;
-        },
-        removeChatLog: (state, action) => {
-            state.chatLog = state.chatLog.filter(msg => msg.msgID !== action.payload);
-        },
-
         // artist
         addArtist: (state, action) => {
             state.shortlistedArtists.push(action.payload);
@@ -61,9 +46,8 @@ const projectSlice = createSlice({
         },
 
         setProjectData: (state, action) => {
-            const { shortlistedArtists, selectedContentProduct, chatLog, ...otherFields } = action.payload;
+            const { shortlistedArtists, selectedContentProduct, ...otherFields } = action.payload;
 
-            state.chatLog = chatLog
             state.shortlistedArtists = shortlistedArtists
             state.selectedContentProduct = selectedContentProduct
 
@@ -78,5 +62,5 @@ const projectSlice = createSlice({
     },
 });
 
-export const { addChatLog, setChatLog, removeChatLog, clearProject, addArtist, setArtist, removeArtist, setContentProduct, setTitle, setReferenceLinks, setClientFeedback, setProjectData, setDemo } = projectSlice.actions;
+export const { clearProject, addArtist, setArtist, removeArtist, setContentProduct, setTitle, setReferenceLinks, setClientFeedback, setProjectData, setDemo } = projectSlice.actions;
 export default projectSlice.reducer;

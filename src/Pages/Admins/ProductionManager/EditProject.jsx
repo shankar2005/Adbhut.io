@@ -70,6 +70,7 @@ const EditProject = () => {
             title: data.title,
             stage: data.stage,
             visibility: data.visibility,
+            reference_links: data.reference_links,
             post_project_client_feedback: data.post_project_client_feedback,
             production_solution: data.production_solution,
             artist_discussion_updates: data.artist_discussion_updates,
@@ -126,16 +127,28 @@ const EditProject = () => {
                                     <tbody className="bg-white">
                                         <TableRow label="Client" content={<>{user.email ? currentProject?.client_details?.name : "ADBHUT.IO"} <br /> <span className='bg-gray-200 px-2 text-sm rounded-full'>{user.email ? currentProject?.client_details?.email : "servicing@adbhut.io"}</span></>} />
                                         <TableRow label="Stage" content={
-                                            <Select
-                                                name="stage"
-                                                register={register}
-                                                options={[
-                                                    { name: "DreamProject", value: "DreamProject" },
-                                                    { name: "Lead", value: "Lead" },
-                                                    { name: "In Progress", value: "In Progress" },
-                                                    { name: "Halt", value: "Halt" },
-                                                    { name: "Finish", value: "Finish" },
-                                                ]}
+                                            user?.role === "PM" ? (
+                                                <Select
+                                                    name="stage"
+                                                    register={register}
+                                                    options={[
+                                                        { name: "DreamProject", value: "DreamProject" },
+                                                        { name: "Lead", value: "Lead" },
+                                                        { name: "In Progress", value: "In Progress" },
+                                                        { name: "Halt", value: "Halt" },
+                                                        { name: "Finish", value: "Finish" },
+                                                    ]}
+                                                />) : (
+                                                <Badge type="success">{currentProject?.stage}</Badge>
+                                            )
+                                        } />
+                                        <TableRow label="Reference Links" content={
+                                            <textarea
+                                                {...register("reference_links")}
+                                                placeholder="Reference link"
+                                                defaultValue={currentProject?.links?.map(({ link }) => link)}
+                                                className="input"
+                                                rows={1}
                                             />
                                         } />
                                         <TableRow label="Visibility" content={

@@ -15,6 +15,7 @@ import Container from '../../../Components/Container/Container';
 import LeftAside from '../../Home/LeftAside';
 import { useAssignDemoToProjectMutation } from '../../../features/demo/demoApi';
 import WorkDemoSm from '../../Artist/Components/View/WorkDemoSm';
+import WorkDemo from '../../Artist/Components/View/WorkDemo';
 
 const ProjectDashboard = () => {
     const { setIsModalOpen, showChat } = useRootContext();
@@ -32,7 +33,6 @@ const ProjectDashboard = () => {
     useEffect(() => {
         if (currentProject.pk) {
             dispatch(setProjectData({
-                chatLog: JSON.parse(currentProject.brief),
                 shortlistedArtists: currentProject.shortlisted_artists_details?.map(artist => artist.id),
                 selectedContentProduct: currentProject.project_template,
                 ...currentProject
@@ -80,10 +80,6 @@ const ProjectDashboard = () => {
                     </Link>}
                 </div>
 
-                <div className='stream'>
-                    <WorkDemoSm demo_type={currentProject?.project_demo?.demo_type} demo_link={currentProject?.project_demo?.link || currentProject?.project_demo?.document} />
-                </div>
-
                 <div className="w-full overflow-hidden rounded-lg shadow-lg font-hero">
                     <div className="w-full overflow-x-auto">
                         <table className="w-full">
@@ -94,9 +90,11 @@ const ProjectDashboard = () => {
                                 <TableRow label="Content Product" content={currentProject.template?.length > 0 && <span className="font-semibold">{currentProject?.template[1]}</span>} />
                                 <TableRow label="Production solution" content={currentProject?.production_solution} />
                                 <TableRow label="Artist discussion updates" content={currentProject?.artist_discussion_updates} />
-                                {/* {urrentProject?.reference_links?.startsWith("[") && currentProject?.reference_links?.endsWith("]") &&
-                                        JSON.parse(currentProject?.reference_links)?.length > 0 &&} */}
-                                {/* <TableRow label="Project Reference Links" content={JSON.parse(currentProject?.reference_links)} /> */}
+                                <TableRow label="Artist discussion updates" content={currentProject?.artist_discussion_updates} />
+                                <TableRow label="Reference Links" content={
+                                    currentProject?.links?.map(({ link }) => (
+                                        <span className="bg-gray-200 px-2 rounded-full inline-block w-fit mb-1 mr-0.5">{link}</span>))
+                                } />
                                 <TableRow label="Client Briefing" content={currentProject?.post_project_client_feedback} />
                             </tbody>
                         </table>
@@ -161,9 +159,10 @@ const ProjectDashboard = () => {
                                     <td className="px-4 py-3 text-sm border whitespace-pre-wrap">
                                         <div className='flex flex-wrap gap-x-4 items-center text-base'>
                                             {currentProject.project_demos?.map(demo => (
-                                                <a target="_blank" href={demo.link} className="text-blue-800 hover:text-red-900">
-                                                    {demo.Title}
-                                                </a>
+                                                <WorkDemoSm demo_type={demo.demo_type} demo_link={demo.link || demo.document} />
+                                                // <a target="_blank" href={demo.link} className="text-blue-800 hover:text-red-900">
+                                                //     {demo.Title}
+                                                // </a>
                                             ))}
                                         </div>
                                     </td>

@@ -28,7 +28,7 @@ const CreateProject = () => {
     const [createProject, { isSuccess, data: projectData }] = useCreateProjectMutation();
     const { user } = useSelector(state => state.auth);
     const {
-        chatLog, shortlistedArtists, selectedContentProduct,
+        shortlistedArtists, selectedContentProduct,
         title, reference_links, post_project_client_feedback, project_demo
     } = useSelector(state => state.project);
 
@@ -38,20 +38,12 @@ const CreateProject = () => {
         sessionStorage.removeItem("CURRENT_PROJECT");
     }, [])
 
-    const handleSetRefLinks = (e) => {
-        const value = e.target.value.split("\n");
-        dispatch(setReferenceLinks(value));
-    }
-
     // send brief
     const formData = {
-        // required
-        brief: JSON.stringify(chatLog),
-        shortlisted_artists: shortlistedArtists,
-        // optionals
-        project_template: selectedContentProduct,
         title: title || project_demo?.Title,
-        reference_links: reference_links,
+        project_template: selectedContentProduct,
+        reference_links,
+        shortlisted_artists: shortlistedArtists,
         post_project_client_feedback,
     }
 
@@ -108,10 +100,12 @@ const CreateProject = () => {
 
     const [realtedWorks, setRelatedWorks] = useState(null);
     useEffect(() => {
-        fetch(`https://dev.nsnco.in/api/v1/get_content_work/${selectedContentProduct}/?limit=3`)
-            .then(res => res.json())
-            .then(data => setRelatedWorks(data.content_works))
-            .catch(err => setRelatedWorks(null));
+        if (selectedContentProduct) {
+            fetch(`https://dev.nsnco.in/api/v1/get_content_work/${selectedContentProduct}/?limit=3`)
+                .then(res => res.json())
+                .then(data => setRelatedWorks(data.content_works))
+                .catch(err => setRelatedWorks(null));
+        }
     }, [selectedContentProduct]);
 
     useEffect(() => {
@@ -126,8 +120,6 @@ const CreateProject = () => {
             }
         }
     }, [project_demo]);
-
-    console.log(project_demo);
 
     return (
         <Container className="font-hero">
@@ -149,7 +141,7 @@ const CreateProject = () => {
             <div className='stream'>
                 <WorkDemoSm demo_type={project_demo?.demo_type} demo_link={project_demo?.link || project_demo?.document} />
             </div>
-            
+
             <form>
                 <table className="w-full">
                     <tbody className="bg-white">
@@ -157,15 +149,16 @@ const CreateProject = () => {
                             label="Reference Link"
                             content={
                                 <>
-                                    {reference_links?.map(link => <span className="bg-gray-200 px-2 rounded-full inline-block w-fit mb-1 mr-0.5">{link}</span>)}
-                                    <textarea
-                                        type="url"
-                                        placeholder="Reference link"
-                                        onChange={handleSetRefLinks}
-                                        defaultValue={currentProject?.reference_links}
+                                    {reference_links && reference_links.split(",")?.map(link => <span className="bg-gray-200 px-2 rounded-full inline-block w-fit mb-1 mr-0.5">{link}</span>)}
+                                    <input
+                                        type="text"
                                         className="input"
-                                        rows={5}
+                                        placeholder="Reference link"
+                                        onChange={(e) => dispatch(setReferenceLinks(e.target.value.trim()))}
+                                        onKeyDown={(event) => event.key === ' ' && event.preventDefault()}
+                                        defaultValue={currentProject?.reference_links}
                                     />
+                                    <small>separate multiple reference links with comma (, )</small>
                                 </>
                             } />
                         <TableRow
@@ -240,7 +233,7 @@ const CreateProject = () => {
                             <textarea
                                 name="post_project_client_feedback"
                                 rows="5"
-                                className="border w-4/5 p-1"
+                                className="input"
                                 placeholder="Your assignment"
                                 defaultValue={currentProject?.post_project_client_feedback}
                                 onBlur={e => dispatch(setClientFeedback(e.target.value))}

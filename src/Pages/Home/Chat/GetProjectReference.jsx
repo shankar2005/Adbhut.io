@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FiPlus, FiTrash } from "react-icons/fi";
-import { useDispatch, useSelector } from "react-redux";
-import { addChatLog, setReferenceLinks, setReferenceLinksHasTaken } from "../../../features/project/projectSlice";
+import { useDispatch } from "react-redux";
+import { setReferenceLinks, setReferenceLinksHasTaken } from "../../../features/project/projectSlice";
 
 const GetProjectReference = ({ setShowProjectReferenceLinkInput }) => {
     const [fields, setFields] = useState(['']);
@@ -26,11 +26,9 @@ const GetProjectReference = ({ setShowProjectReferenceLinkInput }) => {
     };
 
     const dispatch = useDispatch();
-    const { chatLog } = useSelector(state => state.project);
     const handleSubmit = () => {
         dispatch(setReferenceLinks(fields));
         setShowProjectReferenceLinkInput(false);
-        dispatch(addChatLog({ msgID: chatLog.length + 1, bot: `Project Reference Links: ${fields?.join(", ")}` }));
     }
 
     return (
