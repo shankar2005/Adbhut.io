@@ -1,9 +1,9 @@
 import { AiOutlineSearch } from "react-icons/ai";
 import { RxCross1 } from "react-icons/rx";
-import Badge from "../../../../Components/Badge/Badge";
-import ActionLoader from "../../../../Components/Loader/ActionLoader";
-import { useLazyGetArtistsQuery } from "../../../../features/artist/artistApi";
-import { useAssignCollabToDemoMutation } from "../../../../features/demo/demoApi";
+import ActionLoader from "../../../Components/Loader/ActionLoader";
+import Badge from "../../../Components/Badge/Badge";
+import { useLazyGetArtistsQuery } from "../../../features/artist/artistApi";
+import { useAssignCollabToDemoMutation } from "../../../features/demo/demoApi";
 
 const AssignArtistToDemo = ({ demoId }) => {
     const [getArtists, { data, isLoading }] = useLazyGetArtistsQuery();

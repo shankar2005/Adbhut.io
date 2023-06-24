@@ -12,7 +12,7 @@ const ReadyDemos = () => {
     const { data } = useGetDemosQuery(null, { skip: !user?.email });
 
     return (
-        <section className='stream'>
+        <section className='w-full'>
             {data?.map(demo => <DemoCard key={demo.id} demo={demo} />)}
 
             {/* <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>

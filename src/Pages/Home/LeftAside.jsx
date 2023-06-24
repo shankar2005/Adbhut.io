@@ -145,16 +145,16 @@ const LeftAside = () => {
                 }
                 <div className='flex justify-between items-center'>
                     <div className='flex gap-2'>
-                        <BsEmojiSmile className="opacity-30" />
+                        {/* <BsEmojiSmile className="opacity-30" /> */}
+                        {/* <BsImageFill className="opacity-30" />
+                        <AiOutlineGif className="opacity-30" /> */}
+                    </div>
+                    <div className='flex items-center space-x-1'>
                         <div>
                             <label htmlFor="file-upload"><ImAttachment className="cursor-pointer" /></label>
                             <input onChange={handleFileChange} id="file-upload" className="hidden" type="file" />
                         </div>
-                        <BsImageFill className="opacity-30" />
-                        <AiOutlineGif className="opacity-30" />
-                    </div>
-                    <div className='flex items-center space-x-1'>
-                        <BsFillMicFill className="opacity-30" />
+                        {/* <BsFillMicFill className="opacity-30" /> */}
                         {file
                             ? <button type='button' onClick={handleSubmit} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>
                             : <button onClick={handleSendUserInput} className='bg-sky-500 text-white py-[3px] px-3 rounded-full text-sm'>Send</button>

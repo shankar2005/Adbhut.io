@@ -57,14 +57,6 @@ const Navbar = ({ setShowToolkit, showToolkit }) => {
                 </div>
                 <ul className='flex items-center gap-4 text-gray-500 flex-1 justify-end'>
                     {
-                        user?.role === "PM" && <Link to="/projects/inbox" className="relative text-sm hover:text-blue-600">
-                            <SlEnvolope size={20} />
-                            <span className='absolute -top-1.5 -right-2 rounded-full bg-red-500 h-4 w-4 text-xs text-white flex justify-center items-center'>
-                                {currentProjects?.length}
-                            </span>
-                        </Link>
-                    }
-                    {
                         user.email &&
                         <li className='flex items-center gap-2 relative'>
                             <img className='hidden md:block w-24 cursor-pointer' src={logo} alt="" />

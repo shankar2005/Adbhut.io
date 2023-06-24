@@ -12,10 +12,6 @@ import Modal from '../../../Components/Modal/Modal';
 import Badge from '../../../Components/Badge/Badge';
 import TableRow from '../../../Components/Table/TableRow';
 import Container from '../../../Components/Container/Container';
-import { CgAddR } from 'react-icons/cg';
-import { BiLink } from 'react-icons/bi';
-import AssignDemo from './Components/AssignDemo';
-import AddDemoUrl from './Components/AddDemoUrl';
 import LeftAside from '../../Home/LeftAside';
 import { useAssignDemoToProjectMutation } from '../../../features/demo/demoApi';
 
@@ -25,7 +21,6 @@ const ProjectDashboard = () => {
     const { user } = useSelector(state => state.auth);
     const { id } = useParams();
     const { data: currentProject = {}, refetch } = useGetProjectQuery(id);
-    const [demoSec, setDemoSec] = useState(null);
 
     useEffect(() => {
         if (user?.email) {
@@ -50,13 +45,6 @@ const ProjectDashboard = () => {
     useEffect(() => {
         setIsModalOpen(artistRequestModal);
     }, [artistRequestModal]);
-
-    let DemoSec;
-    if (demoSec === "preDemo") {
-        DemoSec = <AssignDemo setDemoSec={setDemoSec} />
-    } else if (demoSec === "linkDemo") {
-        DemoSec = <AddDemoUrl setDemoSec={setDemoSec} projectId={currentProject.pk} />
-    }
 
     // this logic is for after creating project assigning the demo to the project
     const location = useLocation();
@@ -153,20 +141,10 @@ const ProjectDashboard = () => {
                             <thead>
                                 <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b">
                                     <th className="px-4 py-3">
-                                        <div className="flex items-center gap-2">
-                                            <h3 className="text-lg font-semibold">Demos</h3>
-                                            <Badge onClick={() => setDemoSec("preDemo")} type="gray" className="inline-flex gap-1 items-center justify-between cursor-pointer">
-                                                Assign demo <CgAddR size={20} />
-                                            </Badge>
-                                            <Badge onClick={() => setDemoSec("linkDemo")} type="gray" className="inline-flex gap-1 items-center justify-between cursor-pointer">
-                                                Add link <BiLink size={20} />
-                                            </Badge>
-                                        </div>
+                                        <h5 className="text-lg font-semibold">Demos</h5>
                                     </th>
                                 </tr>
                             </thead>
-
-                            {DemoSec}
 
                             <tbody className="bg-white">
                                 <tr>

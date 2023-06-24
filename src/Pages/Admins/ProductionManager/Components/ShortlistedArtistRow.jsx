@@ -35,7 +35,7 @@ const ShortlistedArtistRow = ({ artist, projectId }) => {
                     <button type='button' onClick={handleAssignArtist}>
                         {assignLoading ?
                             <ActionLoader size="sm" />
-                            : <Badge type="success">Shortlist</Badge>}
+                            : <Badge type="success">Assign</Badge>}
                     </button>
                 </td>}
         </tr>

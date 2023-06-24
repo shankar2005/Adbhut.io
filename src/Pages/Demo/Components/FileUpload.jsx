@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
-import { useCreateDemoMutation } from '../../../../features/demo/demoApi';
-import { useRootContext } from '../../../../contexts/RootProvider';
+import { useCreateDemoMutation } from '../../../features/demo/demoApi';
+import { useRootContext } from '../../../contexts/RootProvider';
 import { useSelector } from 'react-redux';
 
-const FileUpload = ({ setShowUpload }) => {
+const FileUpload = () => {
   const { contentProducts } = useRootContext();
   const [file, setFile] = useState(null);
   const [createDemo] = useCreateDemoMutation();
@@ -27,7 +27,6 @@ const FileUpload = ({ setShowUpload }) => {
     createDemo(formData)
       .then(data => {
         setFile(null);
-        setShowUpload(null);
       })
   }
 

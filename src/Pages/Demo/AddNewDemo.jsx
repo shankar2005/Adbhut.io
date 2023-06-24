@@ -6,8 +6,8 @@ import Badge from "../../Components/Badge/Badge";
 import Container from "../../Components/Container/Container";
 import Modal from "../../Components/Modal/Modal";
 import { useGetDemoByArtistQuery } from "../../features/demo/demoApi";
-import FileUpload from "../Admins/ProductionManager/Components/FileUpload";
 import DemoDetails from "./Components/DemoDetails";
+import FileUpload from "./Components/FileUpload";
 
 const AddNewDemo = () => {
     const [isDemoShown, setIsDemoShown] = useState(false);

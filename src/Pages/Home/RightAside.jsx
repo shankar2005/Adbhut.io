@@ -43,11 +43,11 @@ const RightAside = () => {
                                 <AiOutlineUserAdd size={20} /> Add New Artist
                             </Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link to="/artists" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
                                 <MdOutlineRssFeed size={20} /> Artist's Stream
                             </Link>
-                        </li>
+                        </li> */}
                         <li>
                             <Link to="/artists/artist-list" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
                                 <FiUsers size={20} /> View Artists
@@ -183,11 +183,11 @@ const RightAside = () => {
                             </div>
                         </Link>
                     </li>
-                    <li className='pt-3.5 border-t flex gap-4 uppercase'>
+                    {/* <li className='pt-3.5 border-t flex gap-4 uppercase'>
                         <Link to="/artists" className="hover:text-blue-600 font-medium">
                             Artist's Stream
                         </Link>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
 

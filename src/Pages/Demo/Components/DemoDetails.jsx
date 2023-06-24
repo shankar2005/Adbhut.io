@@ -2,8 +2,8 @@ import { RxCross1 } from "react-icons/rx";
 import Badge from "../../../Components/Badge/Badge";
 import { useRootContext } from "../../../contexts/RootProvider";
 import { useAssignArtistToDemoMutation, useGetDemoByIdQuery, useUnassignArtistFromDemoMutation } from "../../../features/demo/demoApi";
-import AssignArtistToDemo from "../../Admins/ProductionManager/Components/AssignArtistToDemo";
 import WorkDemo from "../../Artist/Components/View/WorkDemo";
+import AssignArtistToDemo from "./AssignArtistToDemo";
 
 const DemoDetails = ({ closeDemo, demoId }) => {
     const { setArtistProfile } = useRootContext();

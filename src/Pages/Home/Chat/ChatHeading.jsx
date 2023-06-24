@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useRootContext } from '../../../contexts/RootProvider';
 import { useToggleChatGPTMutation } from '../../../features/chat/chatApi';
-import logo from "../../../assets/logos/adbeta.jpeg"
+import logo from "../../../assets/logos/adbeta.jpeg";
 
 const ChatHeading = ({ chatbotStatus }) => {
     const { setShowChat, showChat } = useRootContext();
@@ -41,7 +41,7 @@ const ChatHeading = ({ chatbotStatus }) => {
             <div className='flex gap-3 justify-between items-center w-full relative'>
                 <div className="mr-auto flex items-center gap-2">
                     <img className="w-10 h-10" src={logo} alt="" />
-                    <h1 className="font-semibold">Servicing Chat</h1>
+                    <h1 className="font-semibold">Contact Hub</h1>
                 </div>
 
                 {showMore &&

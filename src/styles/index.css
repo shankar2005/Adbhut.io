@@ -33,9 +33,9 @@ body {
 }
 
 .stream{
-    @apply px-2 md:px-0 w-full md:w-[600px] mx-auto
+    @apply px-2 md:px-0 w-11/12 mx-auto
 }
 
 .stream-lg{
-    @apply px-2 md:px-0 w-full md:w-[700px] mx-auto
+    @apply px-2 md:px-0 w-11/12 mx-auto
 }

@@ -7,11 +7,16 @@ import TableRow from "../../../Components/Table/TableRow";
 import { useGetArtistCountBySkillsQuery } from "../../../features/utils/utilsApi";
 import Badge from "../../../Components/Badge/Badge";
 import { useState } from "react";
-import FileUpload from "../../Admins/ProductionManager/Components/FileUpload";
+import FileUpload from "../../Demo/Components/FileUpload";
 import { useGetDemosQuery } from "../../../features/demo/demoApi";
 import { useSelector } from "react-redux";
 import DemoDetails from "../../Demo/Components/DemoDetails";
 import Modal from "../../../Components/Modal/Modal";
+import { CgAddR } from "react-icons/cg";
+import { BiLink } from "react-icons/bi";
+import AssignDemo from "../../Demo/Components/AssignDemo";
+import AddDemoUrl from "../../Demo/Components/AddDemoUrl";
+import UploadDemoFile from "../../Demo/Components/UploadDemoFile";
 
 const ArtistRequirement = () => {
     const { data } = useGetArtistRequestsQuery();
@@ -21,12 +26,20 @@ const ArtistRequirement = () => {
     const closeDemo = () => setIsDemoShown(false);
     const [sorted, setSorted] = useState(false);
     const toggleSort = () => setSorted(prev => !prev);
-    const [showUpload, setShowUpload] = useState(null);
+    const [showAddNewDemo, setShowAddNewDemo] = useState(null);
     const { user } = useSelector(state => state.auth);
     const { data: demos } = useGetDemosQuery(null, { skip: !user?.email });
 
+    const [demoSec, setDemoSec] = useState(null);
+    let DemoSec;
+    if (demoSec === "fileDemo") {
+        DemoSec = <UploadDemoFile />
+    } else if (demoSec === "linkDemo") {
+        DemoSec = <AddDemoUrl />
+    }
+
     return (
-        <section className="w-11/12 mx-auto font-hero">
+        <section className="w-11/12 mx-auto font-hero mb-5">
             {/* <div className="mt-5 mb-8 border-b pb-8">
                 <h1 className="text-3xl">Hi <strong>{user?.name?.split(" ")[0]}</strong>🙂,</h1>
                 <p className="text-xl mt-2">It's <span className="text-blue-600">{new Date().getDate()} June 2023</span>, and you've got <span className="text-3xl font-bold text-red-500">100</span> Artist targets for today. Best of Luck! 🎉</p>
@@ -85,7 +98,7 @@ const ArtistRequirement = () => {
                 </div>
                 <div className="p-3 bg-white shadow-sm border-b-4 border-blue-500 relative">
                     <p className="text-sm font-semibold">Ready Demos</p>
-                    <h2 className="text-4xl font-bold text-center pt-5 pb-8">4</h2>
+                    <h2 className="text-4xl font-bold text-center pt-5 pb-8">{demos?.length}</h2>
                 </div>
             </div>
 
@@ -93,11 +106,13 @@ const ArtistRequirement = () => {
                 <div className="flex-1 p-3 flex flex-col">
                     <div className="flex items-center gap-2 mb-2 border-b pb-3">
                         <h3 className="text-lg font-semibold">Demos</h3>
-                        <Badge onClick={() => setShowUpload(!showUpload)} type="success" className="inline-flex items-center justify-between cursor-pointer">Upload demos <MdUpload size={20} /></Badge>
+                        <Badge onClick={() => setShowAddNewDemo(!showAddNewDemo)} type="gray" className="inline-flex gap-1 items-center justify-between cursor-pointer">
+                            Add New Demo <CgAddR size={20} />
+                        </Badge>
                     </div>
 
                     <ul className="my-2">
-                        {demos?.map(demo => <li onClick={() => setIsDemoShown(demo.id)} className="text-blue-600 hover:underline underline-offset-2 cursor-pointer">{demo.Title}</li>)}
+                        {demos?.map(demo => <li onClick={() => setIsDemoShown(demo.id)} className="text-blue-600 hover:underline underline-offset-2 cursor-pointer w-fit">{demo.Title}</li>)}
                     </ul>
                     <div className="mt-auto border-t pt-2">
                         <Link to="/projects/readydemos" className="text-blue-600 hover:underline underline-offset-2">View All</Link>
@@ -107,15 +122,22 @@ const ArtistRequirement = () => {
                 {isDemoShown && <DemoDetails demoId={isDemoShown} closeDemo={closeDemo} />}
 
                 {
-                    showUpload &&
-                    <Modal onClick={() => setShowUpload(false)}>
-                        <div className="bg-white px-4 py-8 relative border-b mb-4">
-                            <RxCross1 onClick={() => setShowUpload(null)} size={20} className="absolute top-0 right-0 m-4 cursor-pointer" />
-                            <h4 className='font-semibold text-lg'>Upload a demo</h4>
-                            <small>The demo can be a <strong>Video, Audio</strong> file. Uploaded demo will be shown in the ready to use demo section. Production manager can easily assign those ready to use demo in any project.</small>
-                            <div className="mt-10">
-                                <FileUpload setShowUpload={setShowUpload} />
-                            </div>
+                    showAddNewDemo &&
+                    <Modal onClick={() => {
+                        setShowAddNewDemo(false)
+                        setDemoSec(null)
+                    }}>
+                        <div className="bg-white px-4 py-8 relative border-b mb-4 space-x-1">
+                            {/* <RxCross1 onClick={() => setShowAddNewDemo(null)} size={20} className="absolute top-0 right-0 m-4 cursor-pointer" /> */}
+
+                            <Badge onClick={() => setDemoSec("fileDemo")} type="gray" className="inline-flex items-center justify-between cursor-pointer">
+                                Upload file <MdUpload size={20} />
+                            </Badge>
+                            <Badge onClick={() => setDemoSec("linkDemo")} type="gray" className="inline-flex gap-1 items-center justify-between cursor-pointer">
+                                Add link <BiLink size={20} />
+                            </Badge>
+
+                            {DemoSec}
                         </div>
                     </Modal>
                 }
@@ -155,32 +177,23 @@ const ArtistRequirement = () => {
                 </div>
             </div> */}
 
-            {/* <div className='bg-white'>
+            <div className='bg-white'>
                 <h1 className="p-4 text-base font-bold border-b">Artist Requirements</h1>
-                {data?.map(requirement => <Row requirement={requirement} />)}
-            </div> */}
+                {data?.map((
+                    {
+                        id,
+                        project_details,
+                        hiring_status,
+                    }
+                ) => (
+                    <div key={id} className="flex items-center justify-between p-4 bg-white border-b">
+                        <div className='font-medium space-x-2'>
+                            <Link to={`/projects/artist-requirement/${id}`} className="text-blue-700 hover:underline underline-offset-2">{project_details?.name}</Link>
+                        </div>
+                    </div>))}
+            </div>
         </section >
     );
 };
-
-// const Row = ({ requirement }) => {
-//     const {
-//         id,
-//         project_details,
-//         hiring_status,
-//     } = requirement;
-
-//     return (
-
-//         <div className="flex items-center justify-between p-4 bg-white border-b text-sm">
-//             <div className='font-medium space-x-2'>
-//                 <Link to={`/projects/artist-requirement/${id}`} className="text-blue-700 underline underline-offset-2">{project_details?.name}</Link>
-//                 <span>&#9679;</span>
-//                 <span className='w-fit my-1 px-0.5 font-sans italic text-gray-700 bg-yellow-100'>{hiring_status || "In Progress"}</span>
-//             </div>
-//         </div>
-
-//     )
-// }
 
 export default ArtistRequirement;
