@@ -184,11 +184,6 @@ const EditProject = () => {
                                                     register={register}
                                                 />
                                             } />}
-
-                                        {/* {urrentProject?.reference_links?.startsWith("[") && currentProject?.reference_links?.endsWith("]") &&
-                                            JSON.parse(currentProject?.reference_links)?.length > 0 &&} */}
-                                        {/* <TableRow label="Project Reference Links" content={JSON.parse(currentProject?.reference_links)} /> */}
-
                                         {user?.role === "Client" &&
                                             <TableRow label="Client Briefing" content={
                                                 <Textarea

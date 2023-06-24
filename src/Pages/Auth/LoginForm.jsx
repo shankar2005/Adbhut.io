@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from 'react-redux';
 import Cookies from 'universal-cookie';
@@ -14,6 +14,7 @@ const LoginForm = () => {
     const [verifyUser, { data: userData }] = useVerifyUserMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const [showPassword, setShowPassword] = useState(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -39,6 +40,10 @@ const LoginForm = () => {
         if (userData?.status === 'success') {
             dispatch(setUser(userData.user));
             dispatch(setLoading(false));
+            dispatch(closeLogin());
+            if (location.pathname.includes("/create-project")) {
+                return navigate("/projects/create-project")
+            }
             switch (userData.user?.role) {
                 case "PM":
                     navigate("/projects");
@@ -56,7 +61,6 @@ const LoginForm = () => {
                     navigate("/projects/readydemos");
                     break;
             }
-            dispatch(closeLogin());
         }
     }, [userData])
 
