@@ -17,6 +17,7 @@ import Button from '../../../Components/Button/Button';
 import Select from '../../../Components/Input/Select';
 import Textarea from '../../../Components/Input/Textarea';
 import { BiArrowBack } from 'react-icons/bi';
+import { RxCross1 } from 'react-icons/rx';
 
 // post_project_client_feedback - this field means Client Briefing
 // not giving PM to update this field
@@ -104,7 +105,7 @@ const EditProject = () => {
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="p-4">
-                    <div className='mb-5 flex items-center justify-center gap-1.5'>
+                    <div className='mb-5 flex justify-center'>
                         <div className="relative w-fit min-w-[200px] mt-2">
                             <input
                                 type="text"
@@ -117,7 +118,6 @@ const EditProject = () => {
                                 Title
                             </label>
                         </div>
-                        <button type="submit"><Badge type="success">Save</Badge></button>
                     </div>
                     <section className="font-hero">
                         <div className="w-full overflow-hidden rounded-lg shadow-lg">
@@ -275,10 +275,10 @@ const EditProject = () => {
                             </div>
                         </div>
                     </section>
+                    <ProjectActions projectId={currentProject?.pk} />
                 </div>
             </form>
 
-            <ProjectActions projectId={currentProject?.pk} />
 
             {
                 (updateProjectLoading || getProjectLoading) &&
@@ -317,12 +317,13 @@ const ProjectActions = ({ projectId }) => {
     }
 
     return (
-        <div className="p-4 pt-1">
+        <div className="mt-4">
             {showConfirm && <div className='mb-2'>
-                <p className='text-sm mb-1 font-semibold'>To confirm, type "<span className='font-bold text-red-600'>Delete</span>" in the box below</p>
+                <p className='text-sm mb-1 font-semibold'>To confirm, type "<span className='font-bold text-red-600'>Delete</span>" in the box below <RxCross1 onClick={() => setShowConfirm(false)} className='inline cursor-pointer' /></p>
                 <input ref={confirmInputRef} type="text" className="border-2 border-blue-500 outline-red-500 rounded pl-1 text-sm" />
             </div>}
 
+            <Button type="submit" className="mr-1">Save</Button>
             <Button onClick={handleDeleteProject} type="button" variant="danger">Delete</Button>
         </div>
     )
