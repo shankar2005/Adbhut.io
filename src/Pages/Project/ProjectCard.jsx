@@ -3,6 +3,7 @@ import Button from "../../Components/Button/Button";
 import { useRootContext } from "../../contexts/RootProvider";
 import { useGetProjectQuery } from "../../features/project/projectApi";
 import WorkDemo from "../Artist/Components/View/WorkDemo";
+import logo from "../../assets/logos/ad.jpeg"
 
 const ProjectCard = ({ projectId }) => {
     const { avatar } = useRootContext();
@@ -30,7 +31,13 @@ const ProjectCard = ({ projectId }) => {
             <p className='text-sm mb-2'>
                 {project?.production_solution?.length > 200 ? project?.production_solution?.slice(0, 200) + "..." : project?.production_solution}
             </p>
-            <WorkDemo demo_type={thumbnail.link_type} demo_link={thumbnail.link} />
+
+            {thumbnail.link
+                ? <WorkDemo demo_type={thumbnail.link_type} demo_link={thumbnail.link} />
+                : <div className='aspect-video bg-black flex items-center justify-center rounded-lg'>
+                    <img className='w-20' src={logo} alt="" />
+                </div>
+            }
         </div>
     )
 }

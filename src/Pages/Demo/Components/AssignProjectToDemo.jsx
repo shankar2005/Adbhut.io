@@ -1,9 +1,18 @@
 import { AiOutlineSearch } from 'react-icons/ai';
 import Badge from '../../../Components/Badge/Badge';
+import { useAssignDemoToProjectMutation } from '../../../features/demo/demoApi';
 import { useGetCurrentProjectsQuery } from '../../../features/project/projectApi';
 
 const AssignProjectToDemo = () => {
     const { data: projects } = useGetCurrentProjectsQuery();
+    const [assignDemoToProject] = useAssignDemoToProjectMutation();
+
+    const handleAssignProjectToDemo = () => {
+        assignDemoToProject({
+            id: projectId,
+            data: { project_demos: [demo?.id] }
+        })
+    }
 
     return (
         <div className="px-4 py-8 relative">

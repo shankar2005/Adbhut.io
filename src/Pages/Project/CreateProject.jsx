@@ -122,7 +122,7 @@ const CreateProject = () => {
     }, [project_demo]);
 
     return (
-        <Container className="font-hero">
+        <Container className="font-hero pt-4">
             <div className='mb-5 flex justify-center'>
                 <div className="relative w-fit min-w-[200px] mt-2">
                     <input
@@ -138,8 +138,8 @@ const CreateProject = () => {
                 </div>
             </div>
 
-            <div className='stream'>
-                <WorkDemoSm demo_type={project_demo?.demo_type} demo_link={project_demo?.link || project_demo?.document} />
+            <div className='stream mb-5'>
+                <WorkDemo demo_type={project_demo?.demo_type} demo_link={project_demo?.link || project_demo?.document} />
             </div>
 
             <form>

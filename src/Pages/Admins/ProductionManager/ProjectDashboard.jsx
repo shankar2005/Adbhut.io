@@ -70,6 +70,8 @@ const ProjectDashboard = () => {
         return <div className="p-4 font-hero"><Badge type="error" className="border border-red-200">{currentProject?.message}</Badge></div>
     }
 
+    const thumbnail = currentProject.links?.length > 0 && currentProject.links[0];
+
     return (
         <Container>
             <div className="p-4">
@@ -78,6 +80,10 @@ const ProjectDashboard = () => {
                     {user?.email && <Link to={`/projects/edit-project/${currentProject?.pk}`}>
                         <Badge type="error">Edit</Badge>
                     </Link>}
+                </div>
+
+                <div className='stream mb-5'>
+                    <WorkDemo demo_type={thumbnail.link_type} demo_link={thumbnail.link} />
                 </div>
 
                 <div className="w-full overflow-hidden rounded-lg shadow-lg font-hero">
@@ -159,10 +165,10 @@ const ProjectDashboard = () => {
                                     <td className="px-4 py-3 text-sm border whitespace-pre-wrap">
                                         <div className='flex flex-wrap gap-x-4 items-center text-base'>
                                             {currentProject.project_demos?.map(demo => (
-                                                <WorkDemoSm demo_type={demo.demo_type} demo_link={demo.link || demo.document} />
-                                                // <a target="_blank" href={demo.link} className="text-blue-800 hover:text-red-900">
-                                                //     {demo.Title}
-                                                // </a>
+                                                // <WorkDemoSm demo_type={demo.demo_type} demo_link={demo.link || demo.document} />
+                                                <a target="_blank" href={demo.link} className="text-blue-800 hover:text-red-900">
+                                                    {demo.Title}
+                                                </a>
                                             ))}
                                         </div>
                                     </td>

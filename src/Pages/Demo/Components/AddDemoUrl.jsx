@@ -18,15 +18,15 @@ const AddDemoUrl = () => {
         })
     }
 
-    // useEffect(() => {
-    //     if (demo?.id) {
-    //         setDemoSec(null);
-    //         assignDemoToProject({
-    //             id: projectId,
-    //             data: { project_demos: [demo?.id] }
-    //         })
-    //     }
-    // }, [demo?.id, projectId])
+    useEffect(() => {
+        if (demo?.id) {
+            setDemoSec(null);
+            assignDemoToProject({
+                id: projectId,
+                data: { project_demos: [demo?.id] }
+            })
+        }
+    }, [demo?.id, projectId])
 
     return (
         <div className="px-4 py-8 relative">
