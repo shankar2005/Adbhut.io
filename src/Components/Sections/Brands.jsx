@@ -102,11 +102,25 @@ const Brands = ({ setIsHovered }) => {
             <Swiper
                 spaceBetween={5}
                 slidesPerView={6}
+                breakpoints={{
+                    // when window width is >= 320px
+                    320: {
+                        slidesPerView: 3,
+                    },
+                    // when window width is >= 480px
+                    480: {
+                        slidesPerView: 4,
+                    },
+                    // when window width is >= 640px
+                    640: {
+                        slidesPerView: 6,
+                    }
+                }}
             >
                 {brands.map(brand => (
                     <SwiperSlide key={brand.id}>
                         <a target={brand.url && "_blank"} href={brand.url ? brand.url : "#"} className="block hover:scale-105 duration-150">
-                            <img className="w-32 m-auto h-32 object-contain" src={brand.img} alt="" />
+                            <img className="w-24 md:w-32 m-auto h-32 object-contain" src={brand.img} alt="" />
                         </a>
                     </SwiperSlide>
                 ))}
@@ -117,7 +131,7 @@ const Brands = ({ setIsHovered }) => {
             <Swiper
                 ref={swiperRef}
                 slidesPerView={1}
-                className="w-3/6 mt-5 relative"
+                className="w-full lg:w-3/6 mt-5 relative"
                 modules={[Pagination]}
                 pagination={{ clickable: true }}
             >

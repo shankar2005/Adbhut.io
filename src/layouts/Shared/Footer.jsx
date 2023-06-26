@@ -12,7 +12,7 @@ const Footer = () => {
 
     return (
         <footer className='bg-gray-100'>
-            <div className='w-10/12 max-w-screen-xl mx-auto py-8 flex justify-between'>
+            <div className='w-10/12 max-w-screen-xl mx-auto py-8 flex flex-col md:flex-row justify-between gap-y-8'>
                 <div>
                     <h2 className='uppercase text-sm font-medium mb-4'>Our Parent Firm</h2>
                     <img className='w-24' src="https://nsnco.in/assets/img/new-logo.png" alt="" />

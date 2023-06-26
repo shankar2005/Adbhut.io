@@ -36,11 +36,11 @@ const Home = () => {
             <header>
                 <nav className='p-3 md:px-5 shadow-sm relative'>
                     <div className='flex items-center justify-between'>
-                        <div className="flex items-center gap-2">
-                            <img src={adbhutGIF} className='w-28 md:w-32 mr-8' />
+                        <div className="flex items-center gap-4">
+                            <img src={adbhutGIF} className='w-28 md:w-32' />
 
                             <p onClick={() => setIsHovered(!isHovered)} className='flex items-center gap-2 font-medium font-hero cursor-pointer'>
-                                <img className='hidden md:block w-24 cursor-pointer' src={carbonNeutral} alt="" />
+                                <img className='w-24 cursor-pointer' src={carbonNeutral} alt="" />
                                 <SlArrowDown className={`${isHovered && "rotate-180"} duration-200`} size={10} />
                             </p>
                             {
@@ -57,7 +57,7 @@ const Home = () => {
                     </div>
                 </nav>
 
-                <section className='w-4/6 mx-auto mt-20'>
+                <section className='px-5 md:px-0 w-full md:w-4/6 mx-auto mt-20'>
                     <h1 className='text-4xl font-bold mb-5'>
                         Create amazing creative content directly via artists
                     </h1>
