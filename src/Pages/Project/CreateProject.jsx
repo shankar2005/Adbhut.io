@@ -149,7 +149,7 @@ const CreateProject = () => {
                             label="Reference Link"
                             content={
                                 <>
-                                    {reference_links && reference_links.split(",")?.map(link => <span className="bg-gray-200 px-2 rounded-full inline-block w-fit mb-1 mr-0.5">{link}</span>)}
+                                    {/* {reference_links && reference_links.split(",")?.map(link => <span className="bg-gray-200 px-2 rounded-full inline-block w-fit mb-1 mr-0.5">{link}</span>)} */}
                                     <input
                                         type="text"
                                         className="input"

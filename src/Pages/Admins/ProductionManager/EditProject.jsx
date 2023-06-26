@@ -144,11 +144,11 @@ const EditProject = () => {
                                         } />
                                         <TableRow label="Reference Links" content={
                                             <>
-                                                {refLinks && refLinks.split(",")?.map(link => <span className="bg-gray-200 px-2 rounded-full inline-block w-fit mb-1 mr-0.5">{link}</span>)}
+                                                {refLinks && refLinks.split(",")?.map(link => <span className="mr-0.5 block">{link},</span>)}
                                                 <input
                                                     type="text"
                                                     {...register("reference_links")}
-                                                    className="input"
+                                                    className="input mt-2"
                                                     placeholder="Reference link"
                                                     onChange={(e) => setRefLinks(e.target.value)}
                                                     onKeyDown={(event) => event.key === ' ' && event.preventDefault()}

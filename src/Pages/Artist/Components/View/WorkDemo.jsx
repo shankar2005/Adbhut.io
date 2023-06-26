@@ -1,6 +1,7 @@
 import { BsBoxArrowUpRight } from 'react-icons/bs';
 import { Spotify } from 'react-spotify-embed';
 import useYoutubeEmbaded from '../../../../hooks/useYoutubeEmbaded';
+import { LinkedInEmbed } from 'react-social-media-embed';
 
 const WorkDemo = ({ demo_type, demo_link }) => {
     function extractFolderId(driveLink) {
@@ -26,6 +27,15 @@ const WorkDemo = ({ demo_type, demo_link }) => {
         return null;
     }
 
+    function extractLinkedInPostId(url) {
+        const pattern = /activity-(\d+)/i;
+        const match = url.match(pattern);
+        if (match && match[1]) {
+            return match[1];
+        }
+        return null;
+    }
+
     let content;
 
     switch (demo_type) {
@@ -46,11 +56,14 @@ const WorkDemo = ({ demo_type, demo_link }) => {
                 </a>
             )
             break;
+        case "Linkedin":
+            content = (
+                <iframe className="aspect-video border-y rounded-lg" src={`https://www.linkedin.com/embed/feed/update/${extractLinkedInPostId(demo_link)}/`} width="100%" frameborder="0" scrolling="no" allowfullscreen></iframe>
+            )
+            break;
         case "Soundcloud":
             content = (
-                <div className='border rounded-lg'>
-                    <iframe width="100%" height="166" scrolling="no" frameBorder="no" src={`https://w.soundcloud.com/player/?url=${demo_link};auto_play=false&amp;show_artwork=true`}></iframe>
-                </div>
+                <iframe className='aspect-video border rounded-lg' width="100%" scrolling="no" frameBorder="no" src={`https://w.soundcloud.com/player/?url=${demo_link};auto_play=false&amp;show_artwork=true`}></iframe>
             )
             break;
         case "webp":

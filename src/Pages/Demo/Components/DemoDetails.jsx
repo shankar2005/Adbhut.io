@@ -51,7 +51,7 @@ const DemoDetails = ({ closeDemo, demoId }) => {
             </ul>
 
             <AssignArtistToDemo demoId={demo?.id} />
-            <AssignDemoToProject />
+            <AssignDemoToProject demoId={demo?.id} />
 
             <RxCross1 onClick={closeDemo} className="absolute top-0 right-0 m-3 cursor-pointer" size={25} />
         </div>

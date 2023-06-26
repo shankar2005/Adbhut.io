@@ -25,7 +25,15 @@ const demoApi = apis.injectEndpoints({
 
         assignDemoToProject: builder.mutation({
             query: ({ id, data }) => ({
-                url: `/assign_demo_project/${id}/`,
+                url: `/assign_demos_to_project/${id}/`,
+                method: 'PUT',
+                body: data
+            }),
+            invalidatesTags: ["Demo", "Project"]
+        }),
+        assignProjectToDemo: builder.mutation({
+            query: ({ id, data }) => ({
+                url: `/assign_project_to_demo/${id}/`,
                 method: 'PUT',
                 body: data
             }),
@@ -69,6 +77,7 @@ export const {
     useGetDemoByIdQuery,
     useCreateDemoMutation,
     useAssignDemoToProjectMutation,
+    useAssignProjectToDemoMutation,
     useAssignArtistToDemoMutation,
     useAssignCollabToDemoMutation,
     useUnassignArtistFromDemoMutation,

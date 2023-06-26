@@ -32,12 +32,15 @@ const ProjectCard = ({ projectId }) => {
                 {project?.production_solution?.length > 200 ? project?.production_solution?.slice(0, 200) + "..." : project?.production_solution}
             </p>
 
-            {thumbnail.link
-                ? <WorkDemo demo_type={thumbnail.link_type} demo_link={thumbnail.link} />
-                : <div className='aspect-video bg-black flex items-center justify-center rounded-lg'>
-                    <img className='w-20' src={logo} alt="" />
-                </div>
-            }
+            <div className="relative">
+                {thumbnail.link
+                    ? <WorkDemo demo_type={thumbnail.link_type} demo_link={thumbnail.link} />
+                    : <div className='aspect-video bg-black flex items-center justify-center rounded-lg'>
+                        <img className='w-20' src={logo} alt="" />
+                    </div>
+                }
+                <Link to={`/projects/${project.pk}`}><div className="absolute top-0 left-0 w-full h-full z-10"></div></Link>
+            </div>
         </div>
     )
 }

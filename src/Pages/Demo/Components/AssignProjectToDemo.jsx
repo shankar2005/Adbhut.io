@@ -3,14 +3,14 @@ import Badge from '../../../Components/Badge/Badge';
 import { useAssignDemoToProjectMutation } from '../../../features/demo/demoApi';
 import { useGetCurrentProjectsQuery } from '../../../features/project/projectApi';
 
-const AssignProjectToDemo = () => {
+const AssignProjectToDemo = ({ demoId }) => {
     const { data: projects } = useGetCurrentProjectsQuery();
     const [assignDemoToProject] = useAssignDemoToProjectMutation();
 
-    const handleAssignProjectToDemo = () => {
+    const handleAssignProjectToDemo = (projectId) => {
         assignDemoToProject({
             id: projectId,
-            data: { project_demos: [demo?.id] }
+            data: { project_demos: [demoId] }
         })
     }
 
@@ -30,7 +30,9 @@ const AssignProjectToDemo = () => {
                     {
                         projects?.map(project => <li className="hover:bg-gray-200 px-3 py-2 border-b flex justify-between">
                             {project.title}
-                            <Badge type="success" className="border border-green-200 cursor-pointer text-sm font-normal">Assign</Badge>
+                            <button onClick={() => handleAssignProjectToDemo(project.pk)}>
+                                <Badge type="success" className="border border-green-200 cursor-pointer text-sm font-normal">Assign</Badge>
+                            </button>
                         </li>)
                     }
                 </ul>

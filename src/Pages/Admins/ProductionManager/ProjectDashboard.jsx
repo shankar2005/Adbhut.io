@@ -6,7 +6,6 @@ import AssignedArtistRow from './Components/AssignedArtistRow';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetProjectQuery } from '../../../features/project/projectApi';
 import { setProjectData } from '../../../features/project/projectSlice';
-
 import ArtistRequest from './ArtistRequest';
 import Modal from '../../../Components/Modal/Modal';
 import Badge from '../../../Components/Badge/Badge';
@@ -14,7 +13,6 @@ import TableRow from '../../../Components/Table/TableRow';
 import Container from '../../../Components/Container/Container';
 import LeftAside from '../../Home/LeftAside';
 import { useAssignDemoToProjectMutation } from '../../../features/demo/demoApi';
-import WorkDemoSm from '../../Artist/Components/View/WorkDemoSm';
 import WorkDemo from '../../Artist/Components/View/WorkDemo';
 
 const ProjectDashboard = () => {
@@ -82,9 +80,9 @@ const ProjectDashboard = () => {
                     </Link>}
                 </div>
 
-                <div className='stream mb-5'>
+                {thumbnail.link && <div className='stream mb-5'>
                     <WorkDemo demo_type={thumbnail.link_type} demo_link={thumbnail.link} />
-                </div>
+                </div>}
 
                 <div className="w-full overflow-hidden rounded-lg shadow-lg font-hero">
                     <div className="w-full overflow-x-auto">
@@ -99,7 +97,7 @@ const ProjectDashboard = () => {
                                 <TableRow label="Artist discussion updates" content={currentProject?.artist_discussion_updates} />
                                 <TableRow label="Reference Links" content={
                                     currentProject?.links?.map(({ link }) => (
-                                        <span className="bg-gray-200 px-2 rounded-full inline-block w-fit mb-1 mr-0.5">{link}</span>))
+                                        <a target="_blank" href={link} className="text-blue-800">{link}</a>))
                                 } />
                                 <TableRow label="Client Briefing" content={currentProject?.post_project_client_feedback} />
                             </tbody>
@@ -107,7 +105,7 @@ const ProjectDashboard = () => {
 
                         <table className="w-full">
                             <thead>
-                                <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b">
+                                <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border border-t-0">
                                     <th className="px-4 py-3 flex items-center gap-2">
                                         Shortlisted Artist
                                         {user?.email &&
@@ -153,32 +151,43 @@ const ProjectDashboard = () => {
 
                         <table className="w-full">
                             <thead>
-                                <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b">
+                                <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border">
                                     <th className="px-4 py-3">
                                         <h5 className="text-lg font-semibold">Demos</h5>
+                                    </th>
+                                    <th className="px-4 py-3">
+                                        <h5 className="text-lg font-semibold">Actions</h5>
                                     </th>
                                 </tr>
                             </thead>
 
                             <tbody className="bg-white">
-                                <tr>
-                                    <td className="px-4 py-3 text-sm border whitespace-pre-wrap">
-                                        <div className='flex flex-wrap gap-x-4 items-center text-base'>
-                                            {currentProject.project_demos?.map(demo => (
-                                                // <WorkDemoSm demo_type={demo.demo_type} demo_link={demo.link || demo.document} />
-                                                <a target="_blank" href={demo.link} className="text-blue-800 hover:text-red-900">
-                                                    {demo.Title}
-                                                </a>
-                                            ))}
-                                        </div>
-                                    </td>
-                                </tr>
+                                {currentProject.project_demos?.map(demo => (
+                                    <tr className="text-gray-700">
+                                        <td className="px-4 py-3 border border-b-0 w-3/5">
+                                            <a target="_blank" href={demo.link} className="text-blue-800 hover:text-red-900">
+                                                {demo.Title}
+                                            </a>
+                                        </td>
+                                        <td className="px-4 py-3 text-sm border border-b-0 space-x-2">
+                                            <button type='button'>
+                                                <Badge type="success">Select</Badge>
+                                            </button>
+                                            <button type='button'>
+                                                <Badge type="success">Shortlist</Badge>
+                                            </button>
+                                            <button type='button'>
+                                                <Badge type="error">Reject</Badge>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
 
                         <table className="w-full">
                             <thead>
-                                <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border-b border-gray-600">
+                                <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border">
                                     <th className="px-4 py-3">Estimate Fee #</th>
                                     <th className="px-4 py-3">Amount</th>
                                 </tr>
