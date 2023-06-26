@@ -228,7 +228,7 @@ const ProjectDashboard = () => {
                 </Modal>
             }
 
-            <div className={`w-full md:w-[450px] fixed bottom-0 right-0 md:right-10 ${showChat ? "translate-y-0" : "translate-y-[88%]"} duration-200 z-50`}>
+            <div className={`w-full md:w-[350px] fixed bottom-0 right-0 md:right-0 ${showChat ? "translate-y-0" : "translate-y-[88%]"} duration-200 z-50`}>
                 <LeftAside />
             </div>
 

@@ -41,7 +41,8 @@ const ChatHeading = ({ chatbotStatus }) => {
             <div className='flex gap-3 justify-between items-center w-full relative'>
                 <div className="mr-auto flex items-center gap-2">
                     <img className="w-10 h-10" src={logo} alt="" />
-                    <h1 className="font-semibold">Contact Hub</h1>
+                    <h1 className="font-semibold">Contact Hub </h1>
+                    <span className='bg-red-500 h-fit px-1 text-white'>1</span>
                 </div>
 
                 {showMore &&

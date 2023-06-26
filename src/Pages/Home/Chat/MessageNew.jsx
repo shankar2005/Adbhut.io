@@ -11,9 +11,9 @@ const MessageNew = ({ msg, isOwn }) => {
                 className="w-fit ml-auto"
             >
                 <div className='text-sm flex gap-2'>
-                    <div className='ml-12 flex flex-col items-end'>
+                    <div className='ml-2 flex flex-col items-end'>
                         {/* <h4 className='font-medium text-right'>{name}</h4> */}
-                        <p className='bg-sky-100 w-fit ml-auto p-2.5 rounded-bl-lg rounded-br-lg rounded-tl-lg border border-gray-200'>
+                        <p className='bg-sky-100 ml-auto p-2.5 rounded-bl-lg rounded-br-lg rounded-tl-lg border border-gray-200 w-fit'>
                             {msg.message}
                         </p>
                         <p className="text-gray-400 flex items-center gap-1 text-xs mt-1">{format(msg.timestamp)}</p>
@@ -32,7 +32,7 @@ const MessageNew = ({ msg, isOwn }) => {
         >
             <div className='text-sm flex gap-2'>
                 {/* <img className='w-10 h-10 rounded-full' src={image} alt="" /> */}
-                <div className='mr-12 flex flex-col items-start'>
+                <div className='mr-2 flex flex-col items-start'>
                     {/* <h4 className='font-medium'>{name}</h4> */}
                     <p className='bg-sky-500 text-white p-3 rounded-bl-lg rounded-br-lg rounded-tr-lg w-fit'>
                         {msg.message}
