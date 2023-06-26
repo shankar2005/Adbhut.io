@@ -54,7 +54,7 @@ const Artists = () => {
                 <Link to={
                     currentProjectId
                         ? `/projects/${currentProjectId}`
-                        : "/projects/create-project"} className="absolute top-1 -left-10">
+                        : "/projects/create-project"} className="absolute top-1">
                     <BiArrowBack className='cursor-pointer bg-gray-200 text-gray-700 rounded-full p-1' size={30} />
                 </Link>
                 {selectedContentProduct && <FilterArtist />}

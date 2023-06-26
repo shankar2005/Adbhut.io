@@ -223,7 +223,7 @@ const ProjectDashboard = () => {
 
             {
                 artistRequestModal &&
-                <Modal onClick={() => setArtistRequestModal(false)}>
+                <Modal onClick={() => setArtistRequestModal(false)} className="w-11 /12 max-w-2xl">
                     <ArtistRequest setArtistRequestModal={setArtistRequestModal} />
                 </Modal>
             }

@@ -56,7 +56,7 @@ const WorkLinkTable = ({ artistId }) => {
             <table className="w-full">
                 <thead>
                     <tr className="text-md text-left text-gray-900 bg-gray-100 text-sm">
-                        <th className="p-2 border font-semibold">Type</th>
+                        {/* <th className="p-2 border font-semibold">Type</th> */}
                         <th className="p-2 border font-semibold">Link</th>
                         <th className="p-2 border font-semibold">Keywords</th>
                         <th className="p-2 border font-semibold">Status</th>
@@ -66,7 +66,7 @@ const WorkLinkTable = ({ artistId }) => {
                 <tbody className="bg-white">
                     {works_links?.map(link => (
                         <tr key={link.pk}>
-                            <td className="p-2 text-sm border whitespace-nowrap">
+                            {/* <td className="p-2 text-sm border whitespace-nowrap">
                                 {editingId === link.pk ? (
                                     <select name="" className="border rounded">
                                         <option value={link.demo_type}>{link.demo_type}</option>
@@ -74,8 +74,7 @@ const WorkLinkTable = ({ artistId }) => {
                                 ) : (
                                     link.demo_type
                                 )}
-
-                            </td>
+                            </td> */}
                             <td className="p-2 text-sm border">
                                 {editingId === link.pk ? (
                                     <input
@@ -243,12 +242,12 @@ const AddWorkLink = ({ artistId }) => {
 
     return (
         <tr>
-            <td className="p-2 text-sm border space-y-1">
+            {/* <td className="p-2 text-sm border space-y-1">
                 <select name="" className="border rounded">
                     <option value="">Select type</option>
                     {fileTypes.map(type => <option value={type}>{type}</option>)}
                 </select>
-            </td>
+            </td> */}
             <td className="p-2 text-sm border">
                 <input
                     type="text"

@@ -125,7 +125,9 @@ const ArtistRequirement = () => {
                     <Modal onClick={() => {
                         setShowAddNewDemo(false)
                         setDemoSec(null)
-                    }}>
+                    }}
+                        className="w-11 /12 max-w-2xl"
+                    >
                         <div className="bg-white px-4 py-8 relative border-b mb-4 space-x-1">
                             {/* <RxCross1 onClick={() => setShowAddNewDemo(null)} size={20} className="absolute top-0 right-0 m-4 cursor-pointer" /> */}
 

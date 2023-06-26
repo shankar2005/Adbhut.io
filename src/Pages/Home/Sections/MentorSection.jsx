@@ -1,9 +1,8 @@
-import { InlineWidget, PopupButton } from 'react-calendly';
-import { AiOutlineRight } from 'react-icons/ai';
+import { PopupButton } from 'react-calendly';
 import vivek from "../../../assets/mentors/vivek.png";
 import kanika from "../../../assets/mentors/kanika.jpg";
 
-const MentorSection = ({ setIsMentorHovered }) => {
+const MentorSection = () => {
     const mentors = [
         {
             name: "Vivek Srivastava",
@@ -20,7 +19,7 @@ const MentorSection = ({ setIsMentorHovered }) => {
     ];
 
     return (
-        <section onMouseLeave={() => setIsMentorHovered(false)} className='absolute top-16 left-0 w-full bg-white shadow border p-10 py-16 flex flex-col md:flex-row gap-10 z-50 rounded-b-lg'>
+        <section className='bg-white p-10 py-16 flex flex-col md:flex-row gap-10 z-50'>
             <div className='w-full md:w-3/12 font-hero'>
                 <h1 className='text-xl font-bold mb-1.5'>Meet Our Mentors</h1>
                 <p className='text-sm text-gray-600'>Let's start with booking a consultancy session for your project from one of these Industry Veterans, and boost its effects!</p>

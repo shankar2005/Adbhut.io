@@ -37,7 +37,7 @@ const AddNewDemo = () => {
 
             {
                 showUpload &&
-                <Modal onClick={() => setShowUpload(false)}>
+                <Modal onClick={() => setShowUpload(false)} className="w-11 /12 max-w-2xl">
                     <div className="bg-white px-4 py-8 relative border-b mb-4">
                         <RxCross1 onClick={() => setShowUpload(null)} size={20} className="absolute top-0 right-0 m-4 cursor-pointer" />
                         <h4 className='font-semibold text-lg'>Upload a demo</h4>

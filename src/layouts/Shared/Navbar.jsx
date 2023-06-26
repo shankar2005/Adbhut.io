@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { MdArrowBackIosNew } from 'react-icons/md';
-import { SlEnvolope } from 'react-icons/sl';
 import { useRootContext } from '../../contexts/RootProvider';
-import logo from '../../assets/logos/cn.jpeg';
 import nsnlogo from '../../assets/logos/adbeta.jpeg';
 import { Link, useNavigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
@@ -15,7 +13,7 @@ import { setSearch } from '../../features/filter/filterSlice';
 import { closeLogin, showAccount, showLogin } from '../../features/dropdown/dropdownSlice';
 
 const Navbar = ({ setShowToolkit, showToolkit }) => {
-    const { avatar, currentProjects, setPage, setArtists } = useRootContext();
+    const { avatar, setPage, setArtists } = useRootContext();
 
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
@@ -59,7 +57,6 @@ const Navbar = ({ setShowToolkit, showToolkit }) => {
                     {
                         user.email &&
                         <li className='flex items-center gap-2 relative'>
-                            <img className='hidden md:block w-24 cursor-pointer' src={logo} alt="" />
                             <img
                                 onClick={() => dispatch(showAccount())}
                                 className='w-10 h-10 rounded-full border object-cover cursor-pointer'
