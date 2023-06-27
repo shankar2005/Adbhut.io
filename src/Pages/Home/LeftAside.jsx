@@ -74,6 +74,7 @@ const LeftAside = () => {
     }
 
     const handleSubmit = (e) => {
+        console.log('test');
         // const formData = new FormData();
         // formData.append("document", file);
         // formData.append("project", currentProject?.pk);

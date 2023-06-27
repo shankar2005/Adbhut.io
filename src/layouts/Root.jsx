@@ -38,8 +38,7 @@ const Root = () => {
             document.body.classList.remove("overflow-hidden");
         }
     }, [artistProfile, isModalOpen]);
-
-
+    
     const pageTransition = {
         initial: {
             x: "100vw",
