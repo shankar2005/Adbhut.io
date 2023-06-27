@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import Backdrop from "../../../Components/Backdrop/Backdrop";
 import AuthSection from "../AuthSection";
 
-const AuthModal = ({ onClick }) => {
+const AuthModal = () => {
     const dropIn = {
         hidden: {
             y: "-100vh",
@@ -25,7 +25,7 @@ const AuthModal = ({ onClick }) => {
     }
 
     return (
-        <Backdrop onClick={onClick}>
+        <Backdrop>
             <motion.div
                 onClick={(e) => e.stopPropagation()}
                 variants={dropIn}

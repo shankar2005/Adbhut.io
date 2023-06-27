@@ -16,7 +16,7 @@ import { useAssignDemoToProjectMutation } from '../../../features/demo/demoApi';
 import WorkDemo from '../../Artist/Components/View/WorkDemo';
 
 const ProjectDashboard = () => {
-    const { setIsModalOpen, showChat } = useRootContext();
+    const { setIsModalOpen, showChat, isMobile } = useRootContext();
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
     const { id } = useParams();
@@ -38,7 +38,17 @@ const ProjectDashboard = () => {
 
             sessionStorage.setItem("CURRENT_PROJECT", currentProject.pk);
         }
-    }, [currentProject])
+    }, [currentProject]);
+
+    useEffect(() => {
+        if (isMobile) {
+            if (showChat) {
+                document.body.classList.add("overflow-hidden");
+            } else {
+                document.body.classList.remove("overflow-hidden");
+            }
+        }
+    }, [showChat, isMobile]);
 
     const [artistRequestModal, setArtistRequestModal] = useState(false);
     useEffect(() => {

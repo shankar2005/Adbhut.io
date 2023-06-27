@@ -40,7 +40,6 @@ const ArtistEntry = () => {
             professional_rating: data.professional_rating || 0,
             attitude_rating: data.attitude_rating || 0,
             has_manager: false,
-            works_links: [],
             full_time: isFullTime
         };
 

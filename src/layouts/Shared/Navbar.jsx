@@ -10,7 +10,7 @@ import ProfileDropdown from '../../Pages/User/Components/ProfileDropdown';
 import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearch } from '../../features/filter/filterSlice';
-import { closeLogin, showAccount, showLogin } from '../../features/dropdown/dropdownSlice';
+import { showAccount, showLogin } from '../../features/dropdown/dropdownSlice';
 
 const Navbar = ({ setShowToolkit, showToolkit }) => {
     const { avatar, setPage, setArtists } = useRootContext();
@@ -81,7 +81,7 @@ const Navbar = ({ setShowToolkit, showToolkit }) => {
                             <button onClick={() => dispatch(showLogin())} className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200" type="button">Login</button>
                             {/* auth modal */}
                             <AnimatePresence initial={false} exitBeforeEnter={true}>
-                                {loginModal && <AuthModal onClick={() => dispatch(closeLogin())} />}
+                                {loginModal && <AuthModal />}
                             </AnimatePresence>
                         </li>
                     }

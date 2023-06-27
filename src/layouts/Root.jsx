@@ -17,6 +17,7 @@ import FilterArtist from '../Pages/Artist/FilterArtist';
 const Root = () => {
     const { artistProfile, setArtistProfile, showModal, isModalOpen } = useRootContext();
     const { user } = useSelector(state => state.auth);
+    const [showToolkit, setShowToolkit] = useState(false);
 
     const location = useLocation();
     const pathname = location.pathname;
@@ -38,15 +39,6 @@ const Root = () => {
         }
     }, [artistProfile, isModalOpen]);
 
-    const isShowToolkit = JSON.parse(localStorage.getItem("SHOW_TOOLKIT"));
-    const [showToolkit, setShowToolkit] = useState(isShowToolkit);
-    useEffect(() => {
-        if (isShowToolkit) {
-            localStorage.setItem("SHOW_TOOLKIT", showToolkit);
-        } else {
-            localStorage.setItem("SHOW_TOOLKIT", true);
-        }
-    }, [showToolkit]);
 
     const pageTransition = {
         initial: {
@@ -77,7 +69,7 @@ const Root = () => {
                     <Outlet />
                 </main>
 
-                <aside className={`hidden md:block ${showToolkit ? "w-72" : "w-0"} sticky top-[57px] whitespace-nowrap h-[91.3vh] border-l bg-white duration-200 rightSide`}>
+                <aside className={`hidden md:block w-72 sticky top-[57px] whitespace-nowrap h-[91.3vh] border-l bg-white duration-200 rightSide`}>
                     <RightAside />
                 </aside>
 

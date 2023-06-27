@@ -4,12 +4,11 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setViewMode } from '../../features/view/viewModeSlice';
 import Button from '../../Components/Button/Button';
-import { closeLogin, showLogin } from '../../features/dropdown/dropdownSlice';
+import { showLogin } from '../../features/dropdown/dropdownSlice';
 import { AnimatePresence } from 'framer-motion';
 import AuthModal from '../Auth/Components/AuthModal';
 import { SlArrowDown } from "react-icons/sl";
 import { useState } from 'react';
-import MentorSection from './Sections/MentorSection';
 import Hero from './Sections/Hero';
 import Brands from '../../Components/Sections/Brands';
 import { useEffect } from 'react';
@@ -77,7 +76,7 @@ const Home = () => {
 
             {/* auth modal */}
             <AnimatePresence initial={false} exitBeforeEnter={true}>
-                {loginModal && <AuthModal onClick={() => dispatch(closeLogin())} />}
+                {loginModal && <AuthModal />}
             </AnimatePresence>
 
             <Footer />
