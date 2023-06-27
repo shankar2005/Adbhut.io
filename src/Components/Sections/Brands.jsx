@@ -12,7 +12,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { RxCross1 } from "react-icons/rx";
 import Modal from "../Modal/Modal";
 import { useRef, useState } from "react";
-import { Pagination } from "swiper";
+import { Navigation, Pagination } from "swiper";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 
 const Brands = ({ setIsHovered }) => {
@@ -100,8 +100,11 @@ const Brands = ({ setIsHovered }) => {
             </div>
 
             <Swiper
+                className="select-none"
                 spaceBetween={5}
                 slidesPerView={6}
+                modules={[Navigation]}
+                navigation
                 breakpoints={{
                     // when window width is >= 320px
                     320: {

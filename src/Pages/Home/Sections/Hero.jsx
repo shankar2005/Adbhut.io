@@ -4,6 +4,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { BsCheck2Square } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useRootContext } from '../../../contexts/RootProvider';
 
@@ -30,6 +31,8 @@ const Hero = () => {
                     <Swiper
                         spaceBetween={5}
                         slidesPerView={6}
+                        modules={[Navigation]}
+                        navigation
                         breakpoints={{
                             // when window width is >= 320px
                             320: {
