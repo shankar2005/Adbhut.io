@@ -57,10 +57,11 @@ const LoginForm = () => {
                     navigate("/projects/demos");
                     break;
                 case "Client":
-                    if(currentProjects?.length){
-                        return navigate("/projects");
+                    if (currentProjects?.length) {
+                        navigate("/projects");
+                    } else {
+                        navigate("/projects/readydemos");
                     }
-                    navigate("/projects/readydemos");
                     break;
                 default:
                     navigate("/projects/readydemos");

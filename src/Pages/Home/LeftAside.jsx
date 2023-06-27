@@ -107,7 +107,7 @@ const LeftAside = () => {
     // 
 
     return (
-        <section className={`bg-white font-hero shadow border rounded-lg h-screen md:h-[470px] flex flex-col justify-between`}>
+        <section className={`bg-white font-hero shadow border rounded-lg h-[94vh] md:h-[470px] flex flex-col justify-between`}>
             <ChatHeading chatbotStatus={chatbotStatus} />
             <div ref={chatboxRef} className='h-full overflow-y-scroll overflow-x-hidden relative flex flex-col justify-between'>
 
