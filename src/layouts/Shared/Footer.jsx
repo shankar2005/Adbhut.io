@@ -12,25 +12,25 @@ const Footer = () => {
 
     return (
         <footer className='bg-gray-100'>
-            <div className='w-10/12 max-w-screen-xl mx-auto py-8 flex flex-col md:flex-row justify-between gap-y-8'>
-                <div>
-                    <h2 className='uppercase text-sm font-medium mb-4'>Our Parent Firm</h2>
-                    <img className='w-24' src="https://nsnco.in/assets/img/new-logo.png" alt="" />
+            <div className='w-10/12 max-w-screen-xl mx-auto py-8 grid grid-cols-12 justify-between gap-y-8'>
+                <div className='col-span-8 md:col-span-4'>
+                    <h2 className='uppercase text-sm font-medium mb-4'>Product By</h2>
+                    <img className='w-24' src="https://nsnco.in/assets/img/Swaraj.png" alt="" />
                     <p className='mt-4 text-sm'>
                         26, 2nd Main Road Perumalnagar, <br />
                         Old Pallavaram, Chennai - 600117 <br />
                         India
                     </p>
                 </div>
-                <div>
-                    <h1 className='uppercase text-sm font-medium mb-4'>Call to actions</h1>
+                <div className='col-span-4 md:col-span-4'>
+                    <h1 className='uppercase text-sm font-medium mb-4'>Links</h1>
                     <ul className='text-sm space-y-2'>
                         <li onClick={() => setIsShowMentor(true)} className='hover:underline'>Mentors</li>
                         <li className='hover:underline'><Link to="/artists">Artists</Link></li>
                         <li className='hover:underline'><a target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show'>Hiring</a></li>
                     </ul>
                 </div>
-                <div>
+                <div className='col-span-full md:col-span-4'>
                     <h1 className='uppercase text-sm font-medium mb-4'>Contact</h1>
                     <div className='space-y-5'>
                         <div className='flex gap-4 items-center'>
@@ -40,8 +40,7 @@ const Footer = () => {
                             <div>
                                 <h4 className='font-medium text-xl'>Location:</h4>
                                 <p className='text-sm'>
-                                    H-102, Amprapali Platinum. Sect-119, <br />
-                                    Noida - 201301
+                                    Block E, South City I, Sector 41, Gurugram, Haryana 122022
                                 </p>
                             </div>
                         </div>

@@ -8,6 +8,7 @@ import { setLoading, setToken, setUser } from '../../features/auth/authSlice';
 import { closeLogin } from '../../features/dropdown/dropdownSlice';
 import { BiHide, BiShowAlt } from "react-icons/bi";
 import { useState } from 'react';
+import { useRootContext } from '../../contexts/RootProvider';
 
 const LoginForm = () => {
     const [loginUser, { data, isError, error, isLoading }] = useLoginUserMutation();
@@ -16,6 +17,7 @@ const LoginForm = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [showPassword, setShowPassword] = useState(false);
+    const { currentProjects } = useRootContext();
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
@@ -55,6 +57,9 @@ const LoginForm = () => {
                     navigate("/projects/demos");
                     break;
                 case "Client":
+                    if(currentProjects?.length){
+                        return navigate("/projects");
+                    }
                     navigate("/projects/readydemos");
                     break;
                 default:

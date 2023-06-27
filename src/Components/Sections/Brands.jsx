@@ -14,6 +14,7 @@ import Modal from "../Modal/Modal";
 import { useRef, useState } from "react";
 import { Navigation, Pagination } from "swiper";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+import thhs from "../../assets/logos/thhs.png"
 
 const Brands = ({ setIsHovered }) => {
     // const [isPlay, setIsPlay] = useState(false);
@@ -101,7 +102,7 @@ const Brands = ({ setIsHovered }) => {
     ]
 
     return (
-        <section className='fixed top-16 left-0 w-full bg-white shadow border p-2 md:p-5 pb-20 z-10 rounded-b-lg h-screen overflow-auto'>
+        <section className='fixed top-16 left-0 w-full bg-white shadow border p-5 pb-16 z-10 rounded-b-lg h-screen overflow-auto'>
             <RxCross1 onClick={() => setIsHovered(false)} className='absolute right-5 top-5 z-20 cursor-pointer' size={25} />
 
             <div className='w-full md:w-3/12 font-hero mb-8'>
@@ -161,6 +162,7 @@ const Brands = ({ setIsHovered }) => {
                 </div>
             </Swiper>
 
+            <a target="_blank" href="https://thhs.in/invite"><img className="w-96 mx-auto my-20" src={thhs} alt="" /></a>
 
             {/* {isPlay && <Modal onClick={() => setIsPlay(false)}>
                 <div className="bg-white p-5 w-full">

@@ -95,7 +95,7 @@ const ArtistProfile = () => {
                         {artist_intro && <p className='w-fit mb-2 px-0.5 text-xs font-sans text-gray-700'>{artist_intro}</p>}
                     </div>
                 </div>
-                <div className="ml-auto space-x-1">
+                <div className="ml-auto flex gap-x-1">
                     {user?.role === "AM" &&
                         <Link to={`/artists/edit-artist/${id}`} onClick={() => setArtistProfile(null)}>
                             <button className="bg-blue-500 py-1.5 px-4 text-white rounded text-sm font-hero">
@@ -234,7 +234,7 @@ const ArtistProfile = () => {
                 <button onClick={nextSlide} className="bg-gray-100 p-2 rounded-full"><BiChevronRight size={20} /></button>
             </div>
 
-            <div className='stream-lg artistProfile mt-5'>
+            <div className='stream artistProfile mt-5'>
                 <Swiper
                     ref={swiperRef}
                     slidesPerView={1}
