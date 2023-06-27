@@ -61,7 +61,7 @@ const Home = () => {
                     <h1 className='text-4xl font-bold mb-5'>
                         Create amazing creative content directly via artists
                     </h1>
-                    <label htmlFor="userState" className="hidden md:inline-flex items-center p-1 cursor-pointer bg-gray-300 text-black text-xs font-bold uppercase select-none">
+                    <label htmlFor="userState" className="inline-flex items-center p-1 cursor-pointer bg-gray-300 text-black text-xs font-bold uppercase select-none">
                         <input onChange={() => dispatch(setViewMode())} id="userState" type="checkbox" className="hidden peer" />
                         <span className={`px-3 py-2 ${isFullTime ? "bg-black text-white" : "bg-gray-300"} duration-300`}>Full Time</span>
                         <span className={`px-3 py-2 ${isFullTime ? "bg-gray-300" : "bg-black text-white"} duration-300`}>For Project</span>
