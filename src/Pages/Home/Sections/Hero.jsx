@@ -1,14 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { BiChevronLeft, BiChevronRight } from 'react-icons/bi';
 import { BsCheck2Square } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useRootContext } from '../../../contexts/RootProvider';
 
 const Hero = () => {
+    const contentSwiperRef = useRef(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { isFullTime } = useSelector(state => state.viewMode);
@@ -23,26 +24,30 @@ const Hero = () => {
 
     const [limit, setLimit] = useState(20);
 
+    const brandNextSlide = () => {
+        contentSwiperRef.current?.swiper.slideNext();
+    };
+    const brandPrevSlide = () => {
+        contentSwiperRef.current?.swiper.slidePrev();
+    };
+
     return (
         <div>
             {
                 !isFullTime && contentProducts.length > 0 &&
-                <div className='sticky bottom-0 bg-white py-6 contentProducts text-center select-none mt-8'>
+                <div className='text-center select-none mt-8'>
                     <Swiper
+                        className='px-4'
+                        ref={contentSwiperRef}
                         spaceBetween={5}
                         slidesPerView={6}
-                        modules={[Navigation]}
-                        navigation
                         breakpoints={{
-                            // when window width is >= 320px
                             320: {
                                 slidesPerView: 3,
                             },
-                            // when window width is >= 480px
                             480: {
                                 slidesPerView: 4,
                             },
-                            // when window width is >= 640px
                             640: {
                                 slidesPerView: 6,
                             }
@@ -83,6 +88,10 @@ const Hero = () => {
                                 </SwiperSlide>
                             ))
                         }
+                        <div className='absolute top-1/2 -translate-y-1/2 z-10 left-0 flex justify-between w-full '>
+                            <button onClick={brandPrevSlide} className="bg-blue-500 p-2 rounded-full text-white"><BiChevronLeft size={20} /></button>
+                            <button onClick={brandNextSlide} className="bg-blue-500 p-2 rounded-full text-white"><BiChevronRight size={20} /></button>
+                        </div>
                     </Swiper>
                 </div>
             }

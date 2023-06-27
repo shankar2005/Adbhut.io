@@ -19,6 +19,8 @@ const Brands = ({ setIsHovered }) => {
     // const [isPlay, setIsPlay] = useState(false);
 
     const swiperRef = useRef(null);
+    const brandSwiperRef = useRef(null);
+
     const nextSlide = () => {
         console.log("click next", swiperRef.current);
         swiperRef.current?.swiper.slideNext();
@@ -26,6 +28,13 @@ const Brands = ({ setIsHovered }) => {
     const prevSlide = () => {
         console.log("click next", swiperRef.current);
         swiperRef.current?.swiper.slidePrev();
+    };
+
+    const brandNextSlide = () => {
+        brandSwiperRef.current?.swiper.slideNext();
+    };
+    const brandPrevSlide = () => {
+        brandSwiperRef.current?.swiper.slidePrev();
     };
 
     const brands = [
@@ -37,7 +46,7 @@ const Brands = ({ setIsHovered }) => {
         {
             id: 2,
             img: dollar,
-            url: ""
+            url: "https://mojapp.in/@thejunepaul06/video/2496599085?referrer=iOS&h=T7iPqUJ-1fx9eyx"
         },
         {
             id: 3,
@@ -57,7 +66,7 @@ const Brands = ({ setIsHovered }) => {
         {
             id: 6,
             img: tmc,
-            url: ""
+            url: "https://drive.google.com/file/d/132L7Ed6gjTmkcRPhXXKN2yOd4mI2sdsR/view?usp=sharing"
         },
         {
             id: 7,
@@ -67,12 +76,12 @@ const Brands = ({ setIsHovered }) => {
         {
             id: 8,
             img: equal_experts,
-            url: ""
+            url: "https://drive.google.com/file/d/1fu5XGQTtjdeJqoh5riZHF2OX1-_jLi7T/view?usp=sharing"
         },
         {
             id: 9,
             img: exch,
-            url: ""
+            url: "https://mojapp.in/@mubarak_ms/video/3086823464?referrer=iOS&h=TcXUdwU-1fx9eyx"
         },
     ];
 
@@ -92,7 +101,7 @@ const Brands = ({ setIsHovered }) => {
     ]
 
     return (
-        <section className='fixed top-16 left-0 w-full bg-white shadow border p-5 pb-20 z-10 rounded-b-lg h-screen overflow-auto'>
+        <section className='fixed top-16 left-0 w-full bg-white shadow border p-2 md:p-5 pb-20 z-10 rounded-b-lg h-screen overflow-auto'>
             <RxCross1 onClick={() => setIsHovered(false)} className='absolute right-5 top-5 z-20 cursor-pointer' size={25} />
 
             <div className='w-full md:w-3/12 font-hero mb-8'>
@@ -100,11 +109,10 @@ const Brands = ({ setIsHovered }) => {
             </div>
 
             <Swiper
-                className="select-none"
+                ref={brandSwiperRef}
+                className="select-none relative"
                 spaceBetween={5}
                 slidesPerView={6}
-                modules={[Navigation]}
-                navigation
                 breakpoints={{
                     // when window width is >= 320px
                     320: {
@@ -127,6 +135,10 @@ const Brands = ({ setIsHovered }) => {
                         </a>
                     </SwiperSlide>
                 ))}
+                <div className='absolute top-1/2 -translate-y-1/2 z-10 left-0 flex justify-between w-full '>
+                    <button onClick={brandPrevSlide} className="bg-blue-500 p-2 rounded-full text-white"><BiChevronLeft size={20} /></button>
+                    <button onClick={brandNextSlide} className="bg-blue-500 p-2 rounded-full text-white"><BiChevronRight size={20} /></button>
+                </div>
             </Swiper>
 
             <p className="text-center text-2xl mt-10">74 trees planted</p>
