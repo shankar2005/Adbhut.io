@@ -9,11 +9,19 @@ import { useDispatch } from 'react-redux';
 
 const AuthSection = () => {
     const [isLoginForm, setsIsLoginForm] = useState(true);
+    const [role, setRole] = useState(null);
 
     const dispatch = useDispatch();
     const closeModal = () => {
         dispatch(closeLogin())
         setsIsLoginForm(true);
+    }
+
+    let heading;
+    if (role === "Artist") {
+        heading = "Sign up as an artist";
+    } else if (role === "Client") {
+        heading = "Sign up as a client";
     }
 
     return (
@@ -24,18 +32,20 @@ const AuthSection = () => {
             {
                 isLoginForm
                     ? <h2 className="mb-3 text-2xl font-semibold text-center">Login to your account</h2>
-                    : <h2 className="mb-3 text-2xl font-semibold text-center">Sign up an account</h2>
+                    : <h2 className="mb-3 text-2xl font-semibold text-center">{
+                        heading || "Sign up an account"
+                    }</h2>
             }
 
             {
                 isLoginForm
                     ? <LoginForm />
-                    : <RegisterForm />
+                    : <RegisterForm role={role} setRole={setRole} />
             }
 
             {
                 isLoginForm
-                    ? <p className="text-sm text-center text-gray-400 mt-4">Sign up as an artist?
+                    ? <p className="text-sm text-center text-gray-400 mt-4">Don't have an account?
                         <button onClick={() => setsIsLoginForm(false)} className="focus:underline hover:underline ml-1">Sign up</button>
                     </p>
                     : <p className="text-sm text-center text-gray-400 mt-4">Already have account?

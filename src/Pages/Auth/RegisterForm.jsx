@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Swal from "sweetalert2";
 import { useRegisterUserMutation } from "../../features/auth/authApi";
 import 'react-phone-input-2/lib/style.css'
 import { useState } from "react";
-import { BiHide, BiShowAlt } from "react-icons/bi";
+import { BiArrowBack, BiHide, BiShowAlt } from "react-icons/bi";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import PI from "react-phone-input-2";
+import Badge from "../../Components/Badge/Badge";
 const PhoneInput = PI.default ? PI.default : PI;
 
-const RegisterForm = () => {
+const RegisterForm = ({ role, setRole }) => {
     const [registerUser, { isSuccess, isError, error }] = useRegisterUserMutation();
     const [phone, setPhone] = useState(null);
     const [phoneNumberErr, setPhoneNumberErr] = useState(null);
@@ -54,26 +54,42 @@ const RegisterForm = () => {
             setErr(null);
         }
 
-        registerUser({
+        const formData = {
             name: data.name,
             email: data.email,
             phone: "+" + phone,
             password: data.password,
             password2: data.password2,
-            role: "Artist"
-        })
+            role: role
+        };
+
+
+        if (role === "Client") {
+            formData.company = data.company;
+            formData.url = data.url;
+        }
+        registerUser(formData);
     };
 
     useEffect(() => {
-        if (isSuccess) {
-            
+        if (isSuccess || role) {
             reset();
         }
-    }, [isSuccess]);
+    }, [isSuccess, role]);
+
+    if (!role) {
+        return (
+            <div className="flex justify-center mt-5 gap-3 py-5">
+                <button onClick={() => setRole("Client")} type="button" className="border-2 hover:border-blue-500 rounded-lg py-10 w-full text-center font-semibold duration-150">Join as a Client</button>
+                <button onClick={() => setRole("Artist")} type="button" className="border-2 hover:border-blue-500 rounded-lg py-10 w-full text-center font-semibold duration-150">Join as an Artist</button>
+            </div>
+        )
+    }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="space-y-2 mb-4">
+                {isSuccess && <Badge type="success" className="block w-full py-2 border border-green-200 mb-3 rounded text-sm">User created successfully! Login to access your account.</Badge>}
                 <div className="space-y-0.5">
                     <label htmlFor="name" className="block text-xs text-gray-600 font-semibold">Name</label>
                     <input type="text" {...register("name")} id="name" placeholder="Your name" className="input" />
@@ -97,12 +113,28 @@ const RegisterForm = () => {
                     />
                     {phoneNumberErr && <small className='text-red-400'>{phoneNumberErr}</small>}
                 </div>
-                <div className="space-y-0.5 relative">
+                {role === "Client" && (
+                    <>
+                        <div className="space-y-0.5">
+                            <label htmlFor="company" className="block text-xs text-gray-600 font-semibold">Company</label>
+                            <input type="text" {...register("company", { required: "Company name is required" })} id="company" placeholder="Company name" className="input" />
+                            {errors.company && <small className='text-red-400'>{errors.company?.message}</small>}
+                        </div>
+                        <div className="space-y-0.5">
+                            <label htmlFor="url" className="block text-xs text-gray-600 font-semibold">Company Website</label>
+                            <input type="url" {...register("url", { required: "Company website is required" })} id="url" placeholder="Company portfolio" className="input" />
+                            {errors.name && <small className='text-red-400'>{errors.name?.message}</small>}
+                        </div>
+                    </>
+                )}
+                <div className="space-y-0.5">
                     <label htmlFor="password" className="text-xs text-gray-600 font-semibold">Password</label>
-                    <input type={showPassword ? "text" : "password"} {...register("password")} id="password" placeholder="Password" className="input" />
-                    <button type="button" onClick={() => setShowPassword(prev => !prev)} className="absolute bottom-0 right-0 -translate-x-2 -translate-y-2 text-gray-600">
-                        {showPassword ? <BiHide size={20} /> : <BiShowAlt size={20} />}
-                    </button>
+                    <div className="relative">
+                        <input type={showPassword ? "text" : "password"} {...register("password")} id="password" placeholder="Password" className="input" />
+                        <button type="button" onClick={() => setShowPassword(prev => !prev)} className="absolute top-1/2 right-0 -translate-x-2 -translate-y-1/2 text-gray-600">
+                            {showPassword ? <BiHide size={20} /> : <BiShowAlt size={20} />}
+                        </button>
+                    </div>
                     {err && <small className='text-red-400'>{err}</small>}
                     {errors.password && <small className='text-red-400'>{errors.password.message}</small>}
                 </div>
@@ -121,6 +153,8 @@ const RegisterForm = () => {
             {
                 isError && <p className='text-red-500 text-sm mt-3'>{error?.data?.error}</p>
             }
+
+            <button onClick={() => setRole(null)} type="button" className="absolute top-0 left-0 ml-3 mt-4"><BiArrowBack size={20} /></button>
         </form>
     );
 };
