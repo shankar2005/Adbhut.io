@@ -1,21 +1,11 @@
 import { Link } from "react-router-dom";
 import { useGetArtistRequestsQuery, useGetTotalArtistQuery } from "../../../features/artist/artistApi";
-import { BsArrowRight } from "react-icons/bs";
-import { MdUpload } from "react-icons/md";
-import { RxCross1 } from "react-icons/rx";
-import TableRow from "../../../Components/Table/TableRow";
 import { useGetArtistCountBySkillsQuery } from "../../../features/utils/utilsApi";
-import Badge from "../../../Components/Badge/Badge";
 import { useState } from "react";
-import FileUpload from "../../Demo/Components/FileUpload";
 import { useGetDemosQuery } from "../../../features/demo/demoApi";
 import { useSelector } from "react-redux";
 import DemoDetails from "../../Demo/Components/DemoDetails";
-import Modal from "../../../Components/Modal/Modal";
-import { CgAddR } from "react-icons/cg";
-import { BiLink } from "react-icons/bi";
-import AddDemoUrl from "../../Demo/Components/AddDemoUrl";
-import UploadDemoFile from "../../Demo/Components/UploadDemoFile";
+import AddNewDemo from "../../Demo/AddNewDemo";
 
 const ArtistRequirement = () => {
     const { data } = useGetArtistRequestsQuery();
@@ -25,17 +15,8 @@ const ArtistRequirement = () => {
     const closeDemo = () => setIsDemoShown(false);
     const [sorted, setSorted] = useState(false);
     const toggleSort = () => setSorted(prev => !prev);
-    const [showAddNewDemo, setShowAddNewDemo] = useState(null);
     const { user } = useSelector(state => state.auth);
     const { data: demos } = useGetDemosQuery(null, { skip: !user?.email });
-
-    const [demoSec, setDemoSec] = useState(null);
-    let DemoSec;
-    if (demoSec === "fileDemo") {
-        DemoSec = <UploadDemoFile />
-    } else if (demoSec === "linkDemo") {
-        DemoSec = <AddDemoUrl />
-    }
 
     return (
         <section className="w-11/12 mx-auto font-hero mb-5">
@@ -105,9 +86,7 @@ const ArtistRequirement = () => {
                 <div className="flex-1 p-3 flex flex-col">
                     <div className="flex items-center gap-2 mb-2 border-b pb-3">
                         <h3 className="text-lg font-semibold">Demos</h3>
-                        <Badge onClick={() => setShowAddNewDemo(!showAddNewDemo)} type="gray" className="inline-flex gap-1 items-center justify-between cursor-pointer">
-                            Add New Demo <CgAddR size={20} />
-                        </Badge>
+                        <AddNewDemo />
                     </div>
 
                     <ul className="my-2">
@@ -119,29 +98,6 @@ const ArtistRequirement = () => {
                 </div>
 
                 {isDemoShown && <DemoDetails demoId={isDemoShown} closeDemo={closeDemo} />}
-
-                {
-                    showAddNewDemo &&
-                    <Modal onClick={() => {
-                        setShowAddNewDemo(false)
-                        setDemoSec(null)
-                    }}
-                        className="w-11 /12 max-w-2xl"
-                    >
-                        <div className="bg-white px-4 py-8 relative border-b mb-4 space-x-1">
-                            {/* <RxCross1 onClick={() => setShowAddNewDemo(null)} size={20} className="absolute top-0 right-0 m-4 cursor-pointer" /> */}
-
-                            <Badge onClick={() => setDemoSec("fileDemo")} type="gray" className="inline-flex items-center justify-between cursor-pointer">
-                                Upload file <MdUpload size={20} />
-                            </Badge>
-                            <Badge onClick={() => setDemoSec("linkDemo")} type="gray" className="inline-flex gap-1 items-center justify-between cursor-pointer">
-                                Add link <BiLink size={20} />
-                            </Badge>
-
-                            {DemoSec}
-                        </div>
-                    </Modal>
-                }
             </div>
 
             {/* <div className="mb-2 w-full overflow-hidden flex">

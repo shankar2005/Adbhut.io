@@ -54,7 +54,7 @@ const LoginForm = () => {
                     navigate("/projects/artist-requirement");
                     break;
                 case "Artist":
-                    navigate("/projects/demos");
+                    navigate("/artists/demos");
                     break;
                 case "Client":
                     if (currentProjects?.length) {

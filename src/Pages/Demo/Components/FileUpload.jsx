@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
-import { useCreateDemoMutation } from '../../../features/demo/demoApi';
+import { useAssignDemoToProjectMutation, useCreateDemoMutation } from '../../../features/demo/demoApi';
 import { useRootContext } from '../../../contexts/RootProvider';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
-const FileUpload = () => {
+const FileUpload = ({ setDemoSec }) => {
   const { contentProducts } = useRootContext();
+  const currentProjectId = useSelector(state => state.project.pk);
   const [file, setFile] = useState(null);
-  const [createDemo] = useCreateDemoMutation();
+  const [createDemo, { data: demo }] = useCreateDemoMutation();
+  const [assignDemoToProject, { isSuccess }] = useAssignDemoToProjectMutation();
   const [contentProduct, setContentProduct] = useState(null);
   const { user } = useSelector(state => state.auth);
 
@@ -19,7 +22,7 @@ const FileUpload = () => {
     const formData = new FormData();
     formData.append("document", file);
     formData.append("Title", file?.name);
-    formData.append("content_product", contentProduct);
+    // formData.append("content_product", contentProduct);
     if (user?.role === "Artist") {
       formData.append("artist", user?.id);
     }
@@ -30,12 +33,23 @@ const FileUpload = () => {
       })
   }
 
+  useEffect(() => {
+    if (demo?.id && currentProjectId) {
+      assignDemoToProject({
+        id: currentProjectId,
+        data: { project_demos: [demo?.id] }
+      });
+    }
+  }, [demo?.id, currentProjectId]);
+
+  useEffect(() => {
+    if (isSuccess) setDemoSec(null);
+  }, [isSuccess]);
+
   return (
     <div className="max-w-md mx-auto mb-4">
       <div className="space-y-3">
-        <input type="text" className="input" placeholder="Title (optional)" />
-
-        <select onChange={(e) => {
+        {/* <select onChange={(e) => {
           const content = JSON.parse(e.target.value);
           setContentProduct(content.pk);
         }} className="input">
@@ -43,7 +57,7 @@ const FileUpload = () => {
           {
             contentProducts?.map(content => <option className="text-gray-900" value={JSON.stringify(content)}>{content.name}</option>)
           }
-        </select>
+        </select> */}
 
         <div className="flex items-center justify-center w-full h-36 border-2 border-gray-300 border-dashed rounded-lg">
           <label htmlFor="file-upload" className="relative cursor-pointer">

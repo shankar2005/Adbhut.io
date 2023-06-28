@@ -3,30 +3,35 @@ import { useForm } from "react-hook-form";
 import Button from "../../../Components/Button/Button";
 import { useAssignDemoToProjectMutation, useCreateDemoMutation } from "../../../features/demo/demoApi";
 import { useRootContext } from '../../../contexts/RootProvider';
+import { useSelector } from "react-redux";
 
-const AddDemoUrl = () => {
+const AddDemoUrl = ({ setDemoSec }) => {
     const { contentProducts } = useRootContext();
+    const currentProjectId = useSelector(state => state.project.pk)
     const [createDemo, { data: demo }] = useCreateDemoMutation();
-    const [assignDemoToProject] = useAssignDemoToProjectMutation();
+    const [assignDemoToProject, { isSuccess }] = useAssignDemoToProjectMutation();
     const [contentProduct, setContentProduct] = useState(null);
     const { register, handleSubmit } = useForm();
     const onSubmit = data => {
         createDemo({
             "Title": data.title,
             "link": data.url,
-            "comment": data.description
+            // "comment": data.description
         })
     }
 
-    // useEffect(() => {
-    //     if (demo?.id) {
-    //         setDemoSec(null);
-    //         assignDemoToProject({
-    //             id: projectId,
-    //             data: { project_demos: [demo?.id] }
-    //         })
-    //     }
-    // }, [demo?.id, projectId])
+    useEffect(() => {
+        if (demo?.id && currentProjectId) {
+            assignDemoToProject({
+                id: currentProjectId,
+                data: { project_demos: [demo?.id] }
+            });
+        }
+    }, [demo?.id, currentProjectId]);
+
+    useEffect(() => {
+        if (isSuccess) setDemoSec(null);
+    }, [isSuccess]);
 
     return (
         <div className="px-4 py-8 relative">
@@ -47,7 +52,7 @@ const AddDemoUrl = () => {
                     </select>
 
                     <input {...register("url", { required: true })} type="url" className="input" placeholder="Demo url (Googe drive file link)" />
-                    <textarea {...register("description")} rows="5" className="input" placeholder="Comment (optional)"></textarea>
+                    {/* <textarea {...register("description")} rows="5" className="input" placeholder="Comment (optional)"></textarea> */}
                     <div className="flex justify-center"><Button type="submit">Upload</Button></div>
                 </form>
             </div>

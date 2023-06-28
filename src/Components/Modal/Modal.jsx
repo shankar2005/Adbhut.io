@@ -5,7 +5,7 @@ const Modal = ({ children, onClick, className }) => {
     return (
         <Backdrop>
             <div className={`${className} max-h-full relative`}>
-                <RxCross1 onClick={onClick} className='absolute top-0 right-0 m-4 cursor-pointer' size={25} />
+                <RxCross1 onClick={onClick} className='absolute top-0 right-0 m-4 cursor-pointer z-10' size={25} />
                 {children}
             </div>
         </Backdrop>

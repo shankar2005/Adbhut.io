@@ -14,6 +14,7 @@ import Container from '../../../Components/Container/Container';
 import LeftAside from '../../Home/LeftAside';
 import { useAssignDemoToProjectMutation } from '../../../features/demo/demoApi';
 import WorkDemo from '../../Artist/Components/View/WorkDemo';
+import AddNewDemo from '../../Demo/AddNewDemo';
 
 const ProjectDashboard = () => {
     const { setIsModalOpen, showChat, isMobile } = useRootContext();
@@ -104,7 +105,6 @@ const ProjectDashboard = () => {
                                 <TableRow label="Content Product" content={currentProject.template?.length > 0 && <span className="font-semibold">{currentProject?.template[1]}</span>} />
                                 <TableRow label="Production solution" content={currentProject?.production_solution} />
                                 <TableRow label="Artist discussion updates" content={currentProject?.artist_discussion_updates} />
-                                <TableRow label="Artist discussion updates" content={currentProject?.artist_discussion_updates} />
                                 <TableRow label="Reference Links" content={
                                     currentProject?.links?.map(({ link }) => (
                                         <a target="_blank" href={link} className="text-blue-800">{link}</a>))
@@ -162,8 +162,9 @@ const ProjectDashboard = () => {
                         <table className="w-full">
                             <thead>
                                 <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border">
-                                    <th className="px-4 py-3">
+                                    <th className="px-4 py-3 flex items-center gap-2">
                                         <h5 className="text-lg font-semibold">Demos</h5>
+                                        <AddNewDemo />
                                     </th>
                                     <th className="px-4 py-3">
                                         <h5 className="text-lg font-semibold">Actions</h5>
@@ -175,7 +176,7 @@ const ProjectDashboard = () => {
                                 {currentProject.project_demos?.map(demo => (
                                     <tr className="text-gray-700">
                                         <td className="px-4 py-3 border border-b-0 w-3/5">
-                                            <a target="_blank" href={demo.link} className="text-blue-800 hover:text-red-900">
+                                            <a target="_blank" href={demo.link || demo.document} className="text-blue-800 hover:text-red-900">
                                                 {demo.Title}
                                             </a>
                                         </td>
@@ -195,45 +196,47 @@ const ProjectDashboard = () => {
                             </tbody>
                         </table>
 
-                        <table className="w-full">
-                            <thead>
-                                <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border">
-                                    <th className="px-4 py-3">Estimate Fee #</th>
-                                    <th className="px-4 py-3">Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody className="bg-white">
-                                {user?.role === "PM" && <TableRow label="Assigned artist payouts" content={currentProject?.assigned_artist_payouts} />}
-                                {user?.role === "PM" && <TableRow label="Negotiated Advance" content={currentProject?.negotiated_advance} />}
-                                {user?.role === "PM" && <TableRow label="Final Advance" content={currentProject?.final_advance} />}
-                                {user?.role === "PM" && <TableRow label="Post-Project Client’s Total Payout" content={currentProject?.post_project_client_total_payout} />}
+                        {user?.role !== "Artist" &&
+                            (<table className="w-full">
+                                <thead>
+                                    <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border">
+                                        <th className="px-4 py-3">Estimate Fee #</th>
+                                        <th className="px-4 py-3">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="bg-white">
+                                    {user?.role === "PM" && <TableRow label="Assigned artist payouts" content={currentProject?.assigned_artist_payouts} />}
+                                    {user?.role === "PM" && <TableRow label="Negotiated Advance" content={currentProject?.negotiated_advance} />}
+                                    {user?.role === "PM" && <TableRow label="Final Advance" content={currentProject?.final_advance} />}
+                                    {user?.role === "PM" && <TableRow label="Post-Project Client’s Total Payout" content={currentProject?.post_project_client_total_payout} />}
 
-                                <TableRow label="Solution Fee" content={currentProject?.solution_fee || "WIP"} />
-                                <TableRow label="Production Advance" content={currentProject?.production_advance || "WIP"} />
+                                    <TableRow label="Solution Fee" content={currentProject?.solution_fee || "WIP"} />
+                                    <TableRow label="Production Advance" content={currentProject?.production_advance || "WIP"} />
 
-                                <TableRow label="Project fee Status" content={<Badge type="warning">{currentProject?.project_fee_Status || "N/A"}</Badge>} />
-                                <TableRow label="Advance Status" content={<Badge type="warning">{"Pending"}</Badge>} />
-                                <TableRow label="Artist payout status" content={<Badge type="warning">{currentProject?.artist_payout_status || 'N/A'}</Badge>} />
+                                    <TableRow label="Project fee Status" content={<Badge type="warning">{currentProject?.project_fee_Status || "N/A"}</Badge>} />
+                                    <TableRow label="Advance Status" content={<Badge type="warning">{"Pending"}</Badge>} />
+                                    <TableRow label="Artist payout status" content={<Badge type="warning">{currentProject?.artist_payout_status || 'N/A'}</Badge>} />
 
-                                {user?.role === "PM" && <TableRow label="Final fee settlement status" content={
-                                    currentProject?.final_fee_settlement_status
-                                        ? <Badge type="success">Complete</Badge>
-                                        : <Badge type="error">Incomplete</Badge>
-                                } />}
-                                {user?.role === "PM" && <TableRow label="Contract status" content={
-                                    currentProject?.contract_status
-                                        ? <Badge type="success">Complete</Badge>
-                                        : <Badge type="error">Incomplete</Badge>
-                                } />}
-                            </tbody>
-                        </table>
+                                    {user?.role === "PM" && <TableRow label="Final fee settlement status" content={
+                                        currentProject?.final_fee_settlement_status
+                                            ? <Badge type="success">Complete</Badge>
+                                            : <Badge type="error">Incomplete</Badge>
+                                    } />}
+                                    {user?.role === "PM" && <TableRow label="Contract status" content={
+                                        currentProject?.contract_status
+                                            ? <Badge type="success">Complete</Badge>
+                                            : <Badge type="error">Incomplete</Badge>
+                                    } />}
+                                </tbody>
+                            </table>)
+                        }
                     </div>
                 </div>
             </div >
 
             {
                 artistRequestModal &&
-                <Modal onClick={() => setArtistRequestModal(false)} className="w-11 /12 max-w-2xl">
+                <Modal onClick={() => setArtistRequestModal(false)} className="w-11/12 max-w-2xl">
                     <ArtistRequest setArtistRequestModal={setArtistRequestModal} />
                 </Modal>
             }
