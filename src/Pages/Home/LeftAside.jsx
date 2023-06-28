@@ -82,11 +82,11 @@ const LeftAside = () => {
             projectId: currentProject?.pk,
             data: formData
         }).then(data => {
-            if (data.data) {
+            if (data.data.chat_file) {
                 if (isOpen(socketRef.current)) {
                     socketRef.current?.send(
                         JSON.stringify({
-                            message: data.data.chat_file,
+                            message: data.data.files[data.data.files.length - 1].name,
                             toggle: chatbotStatus?.status
                         })
                     );

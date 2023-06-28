@@ -12,9 +12,10 @@ import Badge from '../../../Components/Badge/Badge';
 import TableRow from '../../../Components/Table/TableRow';
 import Container from '../../../Components/Container/Container';
 import LeftAside from '../../Home/LeftAside';
-import { useAssignDemoToProjectMutation } from '../../../features/demo/demoApi';
+import { useAssignDemoToProjectMutation, useUpdateDemoMutation } from '../../../features/demo/demoApi';
 import WorkDemo from '../../Artist/Components/View/WorkDemo';
 import AddNewDemo from '../../Demo/AddNewDemo';
+import Button from '../../../Components/Button/Button';
 
 const ProjectDashboard = () => {
     const { setIsModalOpen, showChat, isMobile } = useRootContext();
@@ -75,6 +76,15 @@ const ProjectDashboard = () => {
     }, [currentProject.pk]);
     // 
 
+    // Demos Actions
+    const [updateDemo] = useUpdateDemoMutation();
+    const handleChangeDemoStatus = (demoId, status) => {
+        updateDemo({
+            id: demoId,
+            data: { status }
+        })
+    }
+
     if (isFetching || (!currentProject?.pk && currentProject?.message)) {
         return <div className="p-4 font-hero"><Badge type="error" className="border border-red-200">{currentProject?.message}</Badge></div>
     }
@@ -113,7 +123,7 @@ const ProjectDashboard = () => {
                                 } />
                                 <TableRow label="Client Briefing" content={currentProject?.post_project_client_feedback} />
                                 <TableRow label="Briefing Files" content={<>
-                                    {currentProject?.files?.map(file => <a className="text-blue-700 hover:text-blue-800" href={file.url} target="_blank">{file.url}</a>)}
+                                    {currentProject?.files?.map(file => <a className="text-blue-700 hover:text-blue-800 text-base hover:underline mr-3" href={file.url} target="_blank">{file.name}</a>)}
                                 </>} />
                             </tbody>
                         </table>
@@ -168,38 +178,48 @@ const ProjectDashboard = () => {
 
                         <table className="w-full">
                             <thead>
-                                <tr className="font-semibold text-left text-gray-900 bg-gray-100 border">
+                                <tr className="font-semibold text-base text-left text-gray-900 bg-gray-100 border">
                                     <th className="px-4 py-3 flex items-center gap-2">
-                                        <h5 className="font-semibold">Demos</h5>
-                                        <AddNewDemo />
+                                        Demos
+                                        {user?.role === "Artist" && <AddNewDemo />}
                                     </th>
-                                    <th className="px-4 py-3">
-                                        <h5 className="font-semibold">Actions</h5>
-                                    </th>
+                                    {(user?.role === "PM" || user?.role === "Client") &&
+                                        <th className="px-4 py-3">Actions</th>}
                                 </tr>
                             </thead>
 
                             <tbody className="bg-white">
                                 {currentProject.project_demos?.map(demo => (
-                                    <tr className="text-gray-700">
+                                    (demo.status === "Selected"
+                                        || demo.status === "Shortlisted"
+                                        || demo.status === "Available to sell"
+                                        || user?.role === "PM") &&
+                                    <tr key={demo.id} className="text-gray-700">
                                         <td className="px-4 py-3 border border-b-0 w-3/5">
                                             <a target="_blank" href={demo.link || demo.document} className="text-blue-800 hover:text-red-900">
                                                 {demo.Title}
                                             </a>
                                         </td>
-                                        {user?.role === "PM" && (
-                                            <td className="px-4 py-3 text-sm border border-b-0 space-x-2">
-                                                <button type='button'>
-                                                    <Badge type="success">Select</Badge>
-                                                </button>
-                                                <button type='button'>
-                                                    <Badge type="success">Shortlist</Badge>
-                                                </button>
-                                                <button type='button'>
-                                                    <Badge type="error">Reject</Badge>
-                                                </button>
-                                            </td>
-                                        )}
+                                        {(user?.role === "PM" || user?.role === "Client") && (
+                                            <td className="px-4 py-3 text-sm border border-b-0 space-x-1">
+                                                {user?.role === "PM" && (
+                                                    demo.status !== "Selected" &&
+                                                    <Button size="xs" onClick={() => handleChangeDemoStatus(demo.id, "Selected")} type='button'>
+                                                        Select
+                                                    </Button>
+                                                )}
+                                                {demo.status === "Shortlisted"
+                                                    ? <span className="bg-gray-100 text-gray-400 rounded-full px-2 text-xs">shortlisted</span>
+                                                    : <Button size="xs" onClick={() => handleChangeDemoStatus(demo.id, "Shortlisted")} type='button'>
+                                                        Shortlist
+                                                    </Button>}
+                                                {demo.status === "Available to sell"
+                                                    ? <span className="bg-red-100 text-red-400 rounded-full px-2 text-xs">rejected</span>
+                                                    : <Button size="xs" variant="danger" onClick={() => handleChangeDemoStatus(demo.id, "Available to sell")} type='button'>
+                                                        Reject
+                                                    </Button>}
+                                            </td>)
+                                        }
                                     </tr>
                                 ))}
                             </tbody>

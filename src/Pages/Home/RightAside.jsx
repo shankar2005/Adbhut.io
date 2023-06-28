@@ -79,11 +79,6 @@ const RightAside = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/projects/readydemos" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
-                                <MdOutlineRssFeed size={20} /> Project Stream
-                            </Link>
-                        </li>
-                        <li>
                             <Link to="/projects" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
                                 <MdEmojiFlags size={20} /> Demo Requirements
                             </Link>

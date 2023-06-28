@@ -2,10 +2,11 @@ import { useState } from "react";
 import { MdUpload } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Badge from "../../Components/Badge/Badge";
 import Container from "../../Components/Container/Container";
 import Modal from "../../Components/Modal/Modal";
-import { useGetDemoByArtistQuery } from "../../features/demo/demoApi";
+import { useGetDemoByArtistQuery, useGetDemosQuery } from "../../features/demo/demoApi";
 import DemoDetails from "./Components/DemoDetails";
 import FileUpload from "./Components/FileUpload";
 
@@ -14,7 +15,8 @@ const ArtistDashboard = () => {
     const closeDemo = () => setIsDemoShown(false);
     const [showUpload, setShowUpload] = useState(null);
     const { user } = useSelector(state => state.auth);
-    const { data: demos } = useGetDemoByArtistQuery(user?.id, { skip: !user?.email });
+    const { data: myDemos } = useGetDemoByArtistQuery(user?.id, { skip: !user?.email });
+    const { data: demos } = useGetDemosQuery();
 
     return (
         <Container className="font-hero">
@@ -24,11 +26,20 @@ const ArtistDashboard = () => {
                         <div className="flex items-center gap-2 mb-2 border-b pb-3">
                             <h3 className="text-lg font-semibold">Upload your customizable demo</h3>
                             <Badge onClick={() => setShowUpload(!showUpload)} type="success" className="inline-flex items-center justify-between cursor-pointer">Upload demos <MdUpload size={20} /></Badge>
+                            <Link to="/projects" className="ml-auto"><Badge type="gray" className="inline-flex items-center justify-between cursor-pointer">Apply to project demo</Badge></Link>
                         </div>
 
                         <ul className="my-2">
+                            <li className="font-semibold text-lg">My demos</li>
+                            {myDemos?.map(demo => <li onClick={() => setIsDemoShown(demo.id)} className="text-blue-600 hover:underline underline-offset-2 cursor-pointer">{demo.Title}</li>)}
+                        </ul>
+                        <ul className="my-2">
+                            <li className="font-semibold text-lg">Related demos</li>
                             {demos?.map(demo => <li onClick={() => setIsDemoShown(demo.id)} className="text-blue-600 hover:underline underline-offset-2 cursor-pointer">{demo.Title}</li>)}
                         </ul>
+                        <div className="mt-auto border-t pt-2">
+                            <Link to="/projects/readydemos" className="text-blue-600 hover:underline underline-offset-2">View All</Link>
+                        </div>
                     </div>
 
                     {isDemoShown && <DemoDetails demoId={isDemoShown} closeDemo={closeDemo} />}

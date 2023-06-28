@@ -12,6 +12,7 @@ const Button = ({ children, type, variant, size, onClick, className }) => {
     }
 
     const sizes = {
+        xs: "px-1 py-0.5 text-xs",
         sm: "px-2 py-1",
         md: "px-5 py-2.5",
     }

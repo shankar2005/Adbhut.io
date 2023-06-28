@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 const AddDemoUrl = ({ setDemoSec }) => {
     const { contentProducts } = useRootContext();
+    const { user } = useState(state => state.auth);
     const currentProjectId = useSelector(state => state.project.pk)
     const [createDemo, { data: demo }] = useCreateDemoMutation();
     const [assignDemoToProject, { isSuccess }] = useAssignDemoToProjectMutation();
@@ -16,6 +17,7 @@ const AddDemoUrl = ({ setDemoSec }) => {
         createDemo({
             "Title": data.title,
             "link": data.url,
+            "artist": user?.id,
             // "comment": data.description
         })
     }

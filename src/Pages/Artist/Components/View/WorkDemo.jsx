@@ -77,11 +77,28 @@ const WorkDemo = ({ demo_type, demo_link }) => {
                 <iframe className='aspect-video border rounded-lg' width="100%" scrolling="no" frameBorder="no" src={`https://w.soundcloud.com/player/?url=${demo_link};auto_play=false&amp;show_artwork=true`}></iframe>
             )
             break;
+        // image
         case "webp":
             content = (
-                <img className='w-full' src={demo_link} alt="" />
+                <img className='w-full aspect-video object-contain bg-black' src={demo_link} alt="" />
             )
             break;
+        case "png":
+            content = (
+                <img className='w-full aspect-video object-contain bg-black' src={demo_link} alt="" />
+            )
+            break;
+        case "jpg":
+            content = (
+                <img className='w-full aspect-video object-contain bg-black' src={demo_link} alt="" />
+            )
+            break;
+        case "jpeg":
+            content = (
+                <img className='w-full aspect-video object-contain bg-black' src={demo_link} alt="" />
+            )
+            break;
+        // image
         case "Video":
             content = (
                 <div className='border rounded-lg'>
