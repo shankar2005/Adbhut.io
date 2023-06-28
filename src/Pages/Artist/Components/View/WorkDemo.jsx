@@ -36,6 +36,17 @@ const WorkDemo = ({ demo_type, demo_link }) => {
         return null;
     }
 
+    function extractVimeoId(url) {
+        if (url.includes('vimeo.com')) {
+            var idIndex = url.lastIndexOf('/') + 1;
+            return url.substring(idIndex);
+        } else {
+            return null;
+        }
+    }
+
+    console.log(extractVimeoId(demo_link));
+
     let content;
 
     switch (demo_type) {
@@ -131,9 +142,7 @@ const WorkDemo = ({ demo_type, demo_link }) => {
             break;
         case "Vimeo":
             content = (
-                <div className='bg-black'>
-                    <iframe src="https://player.vimeo.com/video/299439811" width="100%" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-                </div>
+                <iframe className="aspect-video w-full border rounded-lg" src={`https://player.vimeo.com/video/${extractVimeoId(demo_link)}`} frameborder="0"></iframe>
             )
             break;
         case "Other Document":

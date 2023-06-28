@@ -27,10 +27,7 @@ const FileUpload = ({ setDemoSec }) => {
       formData.append("artist", user?.id);
     }
 
-    createDemo(formData)
-      .then(data => {
-        setFile(null);
-      })
+    createDemo(formData);
   }
 
   useEffect(() => {
@@ -39,6 +36,7 @@ const FileUpload = ({ setDemoSec }) => {
         id: currentProjectId,
         data: { project_demos: [demo?.id] }
       });
+      setFile(null);
     }
   }, [demo?.id, currentProjectId]);
 

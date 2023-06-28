@@ -86,9 +86,11 @@ const ProjectDashboard = () => {
             <div className="p-4">
                 <div className='mb-5 flex items-center justify-center gap-1.5'>
                     <h1 className='text-3xl font-bold font-hero text-gray-600'>{currentProject?.title}</h1>
-                    {user?.email && <Link to={`/projects/edit-project/${currentProject?.pk}`}>
-                        <Badge type="error">Edit</Badge>
-                    </Link>}
+                    {(user?.role === "PM" || user?.email === currentProject?.client_details?.name)
+                        && (<Link to={`/projects/edit-project/${currentProject?.pk}`}>
+                            <Badge type="error">Edit</Badge>
+                        </Link>)
+                    }
                 </div>
 
                 {thumbnail.link && <div className='stream mb-5'>
@@ -110,35 +112,40 @@ const ProjectDashboard = () => {
                                         <a target="_blank" href={link} className="text-blue-800">{link}</a>))
                                 } />
                                 <TableRow label="Client Briefing" content={currentProject?.post_project_client_feedback} />
+                                <TableRow label="Briefing Files" content={<>
+                                    {currentProject?.files?.map(file => <a className="text-blue-700 hover:text-blue-800" href={file.url} target="_blank">{file.url}</a>)}
+                                </>} />
                             </tbody>
                         </table>
 
-                        <table className="w-full">
-                            <thead>
-                                <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border border-t-0">
-                                    <th className="px-4 py-3 flex items-center gap-2">
-                                        Shortlisted Artist
-                                        {user?.email &&
-                                            <div className="flex items-center gap-1">
-                                                <Link to="/artists">
-                                                    <Badge className="block border border-gray-200 bg-blue-100 text-blue-700">Add Artist</Badge>
-                                                </Link>
-                                                {user?.role === "PM" &&
-                                                    <button onClick={() => setArtistRequestModal(true)}><Badge className="block border border-gray-200 bg-blue-100 text-blue-700">Request for Artist</Badge></button>}
-                                            </div>}
-                                    </th>
-                                    <th className="px-4 py-3">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody className="bg-white">{
-                                currentProject.shortlisted_artists_details?.map(artist => (
-                                    <ShortlistedArtistRow
-                                        key={artist.id}
-                                        artist={artist}
-                                        projectId={currentProject.pk}
-                                    />))
-                            }</tbody>
-                        </table>
+                        {user?.role !== "Artist" && (
+                            <table className="w-full">
+                                <thead>
+                                    <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border border-t-0">
+                                        <th className="px-4 py-3 flex items-center gap-2">
+                                            Shortlisted Artist
+                                            {user?.email &&
+                                                <div className="flex items-center gap-1">
+                                                    <Link to="/artists">
+                                                        <Badge className="block border border-gray-200 bg-blue-100 text-blue-700">Add Artist</Badge>
+                                                    </Link>
+                                                    {user?.role === "PM" &&
+                                                        <button onClick={() => setArtistRequestModal(true)}><Badge className="block border border-gray-200 bg-blue-100 text-blue-700">Request for Artist</Badge></button>}
+                                                </div>}
+                                        </th>
+                                        <th className="px-4 py-3">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="bg-white">{
+                                    currentProject.shortlisted_artists_details?.map(artist => (
+                                        <ShortlistedArtistRow
+                                            key={artist.id}
+                                            artist={artist}
+                                            projectId={currentProject.pk}
+                                        />))
+                                }</tbody>
+                            </table>)
+                        }
 
                         {currentProject.assigned_artists_details?.length > 0 &&
                             <table className="w-full">
@@ -161,13 +168,13 @@ const ProjectDashboard = () => {
 
                         <table className="w-full">
                             <thead>
-                                <tr className="text-md font-semibold text-left text-gray-900 bg-gray-100 border">
+                                <tr className="font-semibold text-left text-gray-900 bg-gray-100 border">
                                     <th className="px-4 py-3 flex items-center gap-2">
-                                        <h5 className="text-lg font-semibold">Demos</h5>
+                                        <h5 className="font-semibold">Demos</h5>
                                         <AddNewDemo />
                                     </th>
                                     <th className="px-4 py-3">
-                                        <h5 className="text-lg font-semibold">Actions</h5>
+                                        <h5 className="font-semibold">Actions</h5>
                                     </th>
                                 </tr>
                             </thead>
@@ -180,17 +187,19 @@ const ProjectDashboard = () => {
                                                 {demo.Title}
                                             </a>
                                         </td>
-                                        <td className="px-4 py-3 text-sm border border-b-0 space-x-2">
-                                            <button type='button'>
-                                                <Badge type="success">Select</Badge>
-                                            </button>
-                                            <button type='button'>
-                                                <Badge type="success">Shortlist</Badge>
-                                            </button>
-                                            <button type='button'>
-                                                <Badge type="error">Reject</Badge>
-                                            </button>
-                                        </td>
+                                        {user?.role === "PM" && (
+                                            <td className="px-4 py-3 text-sm border border-b-0 space-x-2">
+                                                <button type='button'>
+                                                    <Badge type="success">Select</Badge>
+                                                </button>
+                                                <button type='button'>
+                                                    <Badge type="success">Shortlist</Badge>
+                                                </button>
+                                                <button type='button'>
+                                                    <Badge type="error">Reject</Badge>
+                                                </button>
+                                            </td>
+                                        )}
                                     </tr>
                                 ))}
                             </tbody>
@@ -241,11 +250,13 @@ const ProjectDashboard = () => {
                 </Modal>
             }
 
-            <div className={`w-full md:w-[350px] fixed bottom-0 right-0 md:right-0 ${showChat ? "translate-y-0" : "translate-y-[88%]"} duration-200 z-50`}>
-                <LeftAside />
-            </div>
+            {(user?.role === "PM" || user?.email === currentProject?.client_details?.name) && (
+                <div className={`w-full md:w-[350px] fixed bottom-0 right-0 md:right-0 ${showChat ? "translate-y-0" : "translate-y-[88%]"} duration-200 z-50`}>
+                    <LeftAside />
+                </div>)
+            }
 
-        </Container>
+        </Container >
     );
 };
 

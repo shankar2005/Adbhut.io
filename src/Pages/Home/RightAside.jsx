@@ -84,7 +84,7 @@ const RightAside = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
+                            <Link to="/projects" className="hover:text-blue-600 flex items-center gap-2 font-hero font-semibold hover:bg-gray-100 p-2 rounded">
                                 <MdEmojiFlags size={20} /> Demo Requirements
                             </Link>
                         </li>

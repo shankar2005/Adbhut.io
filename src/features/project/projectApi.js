@@ -44,7 +44,15 @@ const projectApi = apis.injectEndpoints({
                 method: 'DELETE',
             }),
             invalidatesTags: ["Project"]
-        })
+        }),
+        uploadBrief: builder.mutation({
+            query: ({ projectId, data }) => ({
+                url: `/save_chat_file/${projectId}/`,
+                method: 'PUT',
+                body: data
+            }),
+            invalidatesTags: ["Project"]
+        }),
     }),
 });
 
@@ -55,5 +63,6 @@ export const {
     useCreateProjectMutation,
     useDeleteProjectMutation,
     useUpdateProjectMutation,
-    useDeleteDemoMutation
+    useDeleteDemoMutation,
+    useUploadBriefMutation
 } = projectApi;

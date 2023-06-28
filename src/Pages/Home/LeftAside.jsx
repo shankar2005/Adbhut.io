@@ -11,6 +11,7 @@ import MessageNew from './Chat/MessageNew';
 import { useChatbotStatusQuery } from '../../features/chat/chatApi';
 import ChatHeading from './Chat/ChatHeading';
 import { useCreateDemoMutation } from '../../features/demo/demoApi';
+import { useUploadBriefMutation } from '../../features/project/projectApi';
 
 const LeftAside = () => {
     const { user, token } = useSelector(state => state.auth);
@@ -67,23 +68,31 @@ const LeftAside = () => {
 
     // upload files
     const [file, setFile] = useState(null);
-    const [uploadDemo] = useCreateDemoMutation();
+    const [uploadBrief, { isSuccess }] = useUploadBriefMutation();
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
     }
 
     const handleSubmit = (e) => {
-        console.log('test');
-        // const formData = new FormData();
-        // formData.append("document", file);
-        // formData.append("project", currentProject?.pk);
-        // formData.append("status", "Selected");
+        const formData = new FormData();
+        formData.append("chat_file", file);
 
-        // uploadDemo(formData)
-        //     .then(data => {
-        //         setFile(null);
-        //     })
+        uploadBrief({
+            projectId: currentProject?.pk,
+            data: formData
+        }).then(data => {
+            if (data.data) {
+                if (isOpen(socketRef.current)) {
+                    socketRef.current?.send(
+                        JSON.stringify({
+                            message: data.data.chat_file,
+                            toggle: chatbotStatus?.status
+                        })
+                    );
+                };
+            }
+        })
     }
 
     // socket
