@@ -16,6 +16,7 @@ import { useAssignDemoToProjectMutation, useUpdateDemoMutation } from '../../../
 import WorkDemo from '../../Artist/Components/View/WorkDemo';
 import AddNewDemo from '../../Demo/AddNewDemo';
 import Button from '../../../Components/Button/Button';
+import { MdUpload } from 'react-icons/md';
 
 const ProjectDashboard = () => {
     const { setIsModalOpen, showChat, isMobile } = useRootContext();
@@ -85,11 +86,11 @@ const ProjectDashboard = () => {
         })
     }
 
+    const thumbnail = currentProject.links?.length > 0 && currentProject.links[0];
+
     if (isFetching || (!currentProject?.pk && currentProject?.message)) {
         return <div className="p-4 font-hero"><Badge type="error" className="border border-red-200">{currentProject?.message}</Badge></div>
     }
-
-    const thumbnail = currentProject.links?.length > 0 && currentProject.links[0];
 
     return (
         <Container>
@@ -121,10 +122,18 @@ const ProjectDashboard = () => {
                                     currentProject?.links?.map(({ link }) => (
                                         <a target="_blank" href={link} className="text-blue-800">{link}</a>))
                                 } />
-                                <TableRow label="Client Briefing" content={currentProject?.post_project_client_feedback} />
-                                <TableRow label="Briefing Files" content={<>
-                                    {currentProject?.files?.map(file => <a className="text-blue-700 hover:text-blue-800 text-base hover:underline mr-3" href={file.url} target="_blank">{file.name}</a>)}
-                                </>} />
+                                <TableRow label={<div className="flex items-center gap-2">
+                                    Client Briefing
+                                    {/* {(user?.role === "Client" || user?.role === "PM") &&
+                                        <Badge type="gray" className="inline-flex items-center justify-between cursor-pointer">
+                                            <MdUpload size={20} />
+                                        </Badge>} */}
+                                </div>} content={
+                                    <>
+                                        {currentProject?.post_project_client_feedback}
+                                        {currentProject?.files?.map(file => <a className="block text-blue-700 hover:text-blue-800 text-base hover:underline mr-3" href={file.url} target="_blank">{file.name}</a>)}
+                                    </>
+                                } />
                             </tbody>
                         </table>
 
