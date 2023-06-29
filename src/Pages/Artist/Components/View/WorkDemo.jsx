@@ -37,6 +37,7 @@ const WorkDemo = ({ demo_type, demo_link }) => {
     }
 
     function extractVimeoId(url) {
+        console.log(url);
         if (url.includes('vimeo.com')) {
             var idIndex = url.lastIndexOf('/') + 1;
             return url.substring(idIndex);
@@ -44,8 +45,6 @@ const WorkDemo = ({ demo_type, demo_link }) => {
             return null;
         }
     }
-
-    console.log(extractVimeoId(demo_link));
 
     let content;
 
