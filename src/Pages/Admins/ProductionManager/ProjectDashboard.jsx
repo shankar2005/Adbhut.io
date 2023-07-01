@@ -97,7 +97,7 @@ const ProjectDashboard = () => {
             <div className="p-4">
                 <div className='mb-5 flex items-center justify-center gap-1.5'>
                     <h1 className='text-3xl font-bold font-hero text-gray-600'>{currentProject?.title}</h1>
-                    {(user?.role === "PM" || user?.email === currentProject?.client_details?.name)
+                    {(user?.role === "PM" || user?.email === currentProject?.client_details?.email)
                         && (<Link to={`/projects/edit-project/${currentProject?.pk}`}>
                             <Badge type="error">Edit</Badge>
                         </Link>)
