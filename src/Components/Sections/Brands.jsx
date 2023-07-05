@@ -47,22 +47,22 @@ const Brands = ({ setIsHovered }) => {
         {
             id: 2,
             img: dollar,
-            url: "https://mojapp.in/@thejunepaul06/video/2496599085?referrer=iOS&h=T7iPqUJ-1fx9eyx"
+            url: "https://mojapp.in/thejunepaul06/video/2496599085?referrer=web"
         },
         {
             id: 3,
             img: amazon,
-            url: "https://mojapp.in/@arishfakhan138/video/2547569601?referrer=iOSh=T5UplrP-1fx9eyx"
+            url: "https://mojapp.in/arishfakhan138/video/2547569601?referrer=web"
         },
         {
             id: 4,
             img: ap,
-            url: "https://mojapp.in/@raam_choreographer/video/2871504030?referrer=iOS&h=TNbbUin-1fx9eyx"
+            url: "https://mojapp.in/raam_choreographer/video/2871504030?referrer=web"
         },
         {
             id: 5,
             img: phil,
-            url: "https://mojapp.in/@himanshu_s01/video/2548816507?referrer=T5WkotE-1GVPXS1"
+            url: "https://mojapp.in/himanshu_s01/video/2548816507?referrer=web"
         },
         {
             id: 6,
@@ -82,7 +82,7 @@ const Brands = ({ setIsHovered }) => {
         {
             id: 9,
             img: exch,
-            url: "https://mojapp.in/@mubarak_ms/video/3086823464?referrer=iOS&h=TcXUdwU-1fx9eyx"
+            url: "https://mojapp.in/mubarak_ms/video/3086823464?referrer=web"
         },
     ];
 
