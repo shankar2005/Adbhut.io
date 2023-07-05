@@ -27,7 +27,11 @@ const Navbar = ({ setShowToolkit, showToolkit }) => {
         setPage(1);
         setArtists([]);
         // clear
-        navigate("/artists");
+        if (user?.role === "AM") {
+            navigate("/artists/artist-list");
+        } else {
+            navigate("/artists");
+        }
         dispatch(setSearch(e.target.search.value));
         e.target.reset();
     }
