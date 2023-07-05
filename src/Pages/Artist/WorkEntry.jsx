@@ -9,11 +9,13 @@ const WorkEntry = () => {
 
     return (
         <Container className="p-4 flex flex-col">
-            <h4 className='my-4 font-hero font-semibold text-lg text-blue-600/80'>Add work link</h4>
+            <div className='flex items-center justify-between mb-5'>
+                <h4 className='font-hero font-semibold text-lg text-blue-600/80'>Add work link</h4>
+                <Link to={`/artists/edit-artist/${artistId}`} className="text-gray-500">
+                    <BsArrowRightCircle size={28} />
+                </Link>
+            </div>
             <WorkLinkTable artistId={artistId} />
-            <Link to={`/artists/edit-artist/${artistId}`} className="block ml-auto mt-5 text-gray-500">
-                <BsArrowRightCircle size={30} />
-            </Link>
         </Container>
     );
 };
