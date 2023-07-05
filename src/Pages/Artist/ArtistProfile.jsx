@@ -96,7 +96,7 @@ const ArtistProfile = () => {
                     </div>
                 </div>
                 <div className="ml-auto flex gap-x-1">
-                    {user?.role === "AM" || user?.role === "Artist" &&
+                    {(user?.role === "AM" || user?.role === "Artist") &&
                         <Link to={
                             user?.role === "Artist" ? "/artists/account" : `/artists/edit-artist/${id}`
                         } onClick={() => setArtistProfile(null)}>
