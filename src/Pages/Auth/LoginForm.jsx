@@ -9,6 +9,7 @@ import { closeLogin } from '../../features/dropdown/dropdownSlice';
 import { BiHide, BiShowAlt } from "react-icons/bi";
 import { useState } from 'react';
 import { useRootContext } from '../../contexts/RootProvider';
+import Badge from '../../Components/Badge/Badge';
 
 const LoginForm = () => {
     const [loginUser, { data, isError, error, isLoading }] = useLoginUserMutation();
@@ -36,7 +37,7 @@ const LoginForm = () => {
             cookies.set('auth_token', data.token, { path: '/' });
             dispatch(setToken(data.token));
         }
-    }, [data])
+    }, [data]);
 
     useEffect(() => {
         if (userData?.status === 'success') {
@@ -68,11 +69,15 @@ const LoginForm = () => {
                     break;
             }
         }
-    }, [userData])
+    }, [userData]);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="mb-16">
             <div className="space-y-4 mb-4">
+                {
+                    data?.length > 0 && data[0].toLowerCase().includes("verify") &&
+                    <Badge type="warning" className="block w-full py-2 border border-yellow-200 mb-3 rounded text-sm">{data[0]}</Badge>
+                }
                 <div className="space-y-2">
                     <label htmlFor="email" className="block text-sm">Email</label>
                     <input

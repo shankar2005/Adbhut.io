@@ -6,7 +6,7 @@ import WorkLinkTable from './Components/WorkLinkTable';
 
 const WorkEntry = () => {
     const { artistId } = useParams();
-
+    
     return (
         <Container className="p-4 flex flex-col">
             <div className='flex items-center justify-between mb-5'>

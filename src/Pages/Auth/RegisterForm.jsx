@@ -89,7 +89,7 @@ const RegisterForm = ({ role, setRole }) => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="space-y-2 mb-4">
-                {isSuccess && <Badge type="success" className="block w-full py-2 border border-green-200 mb-3 rounded text-sm">User created successfully! Login to access your account.</Badge>}
+                {isSuccess && <Badge type="success" className="block w-full py-2 border border-green-200 mb-3 rounded text-sm">Registration Successful! Please check your email and verify your account to activate it.</Badge>}
                 <div className="space-y-0.5">
                     <label htmlFor="name" className="block text-xs text-gray-600 font-semibold">Name</label>
                     <input type="text" {...register("name")} id="name" placeholder="Your name" className="input" />
