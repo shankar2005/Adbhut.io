@@ -278,14 +278,13 @@ const ProjectDashboard = () => {
                     <ArtistRequest setArtistRequestModal={setArtistRequestModal} />
                 </Modal>
             }
-
-            {(user?.role === "PM" || user?.email === currentProject?.client_details?.name) && (
+            {(user?.role === "PM" || user?.email === currentProject?.client_details?.email) && (
                 <div className={`w-full md:w-[350px] fixed bottom-0 right-0 md:right-0 ${showChat ? "translate-y-0" : "translate-y-[88%]"} duration-200 z-50`}>
                     <LeftAside />
                 </div>)
             }
 
-        </Container >
+        </Container>
     );
 };
 

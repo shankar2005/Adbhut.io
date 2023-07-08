@@ -125,7 +125,7 @@ const EditProject = () => {
                             <div className="w-full overflow-x-auto">
                                 <table className="w-full">
                                     <tbody className="bg-white">
-                                        <TableRow label="Client" content={<>{user.email ? currentProject?.client_details?.name : "ADBHUT.IO"} <br /> <span className='bg-gray-200 px-2 text-sm rounded-full'>{user.email ? currentProject?.client_details?.email : "servicing@adbhut.io"}</span></>} />
+                                        <TableRow label="Client" content={currentProject?.client_details?.name} />
                                         <TableRow label="Stage" content={
                                             user?.role === "PM" ? (
                                                 <Select
