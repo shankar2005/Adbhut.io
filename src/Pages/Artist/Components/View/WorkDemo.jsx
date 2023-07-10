@@ -1,7 +1,6 @@
 import { BsBoxArrowUpRight } from 'react-icons/bs';
 import { Spotify } from 'react-spotify-embed';
 import useYoutubeEmbaded from '../../../../hooks/useYoutubeEmbaded';
-import { LinkedInEmbed } from 'react-social-media-embed';
 
 const WorkDemo = ({ demo_type, demo_link }) => {
     function extractFolderId(driveLink) {
