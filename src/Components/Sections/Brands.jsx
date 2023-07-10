@@ -15,6 +15,7 @@ import { useRef, useState } from "react";
 import { Navigation, Pagination } from "swiper";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import thhs from "../../assets/logos/thhs.png"
+import CountUp from 'react-countup';
 
 const Brands = ({ setIsHovered }) => {
     // const [isPlay, setIsPlay] = useState(false);
@@ -142,7 +143,10 @@ const Brands = ({ setIsHovered }) => {
                 </div>
             </Swiper>
 
-            <p className="text-center text-2xl mt-10">74 trees planted</p>
+            <div className="text-center text-2xl mt-10 space-x-1">
+                <span className="bg-green-600 text-white p-2 font-semibold"><CountUp end={74} duration={3} /></span>
+                <span>trees planted</span>
+            </div>
 
             <Swiper
                 ref={swiperRef}
