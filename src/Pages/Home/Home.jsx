@@ -56,7 +56,7 @@ const Home = () => {
                     </div>
                 </nav>
 
-                <section className='w-9/12 max-w-screen-xl mx-auto mt-16 py-16'>
+                <section className='w-11/12 md:w-9/12 max-w-screen-xl mx-auto mt-16 py-16'>
                     <h1 className='text-4xl font-bold mb-5'>
                         Create amazing creative content directly via artists
                     </h1>
@@ -70,7 +70,7 @@ const Home = () => {
             </header>
 
             <div onClick={() => setIsHovered(false)} className="bg-gray-100 text-black mt-10 py-20">
-                <div className="w-9/12 max-w-screen-xl mx-auto">
+                <div className="w-11/12 md:w-9/12 max-w-screen-xl mx-auto">
                     <h1 className='text-4xl font-bold mb-5'>Revolutionize your content with cutting-edge ML technology</h1>
                     <iframe className='w-full aspect-video' src="https://player.vimeo.com/video/819139346?h=d6fa5efcc3" frameBorder="0" allow="autoplay; fullscreen" allowFullScreen></iframe>
                 </div>
