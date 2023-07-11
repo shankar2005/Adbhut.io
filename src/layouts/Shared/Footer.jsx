@@ -12,7 +12,7 @@ const Footer = () => {
 
     return (
         <footer className='bg-gray-100'>
-            <div className='w-10/12 max-w-screen-xl mx-auto py-8 grid grid-cols-12 justify-between gap-y-8'>
+            <div className='w-11/12 max-w-screen-xl mx-auto py-8 grid grid-cols-12 justify-between gap-y-8'>
                 <div className='col-span-8 md:col-span-4'>
                     <h2 className='uppercase text-sm font-medium mb-4'>Product By</h2>
                     <img className='w-24' src="https://nsnco.in/assets/img/Swaraj.png" alt="" />

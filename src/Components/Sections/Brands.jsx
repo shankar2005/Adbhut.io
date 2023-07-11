@@ -138,8 +138,8 @@ const Brands = ({ setIsHovered }) => {
                     </SwiperSlide>
                 ))}
                 <div className='absolute top-1/2 -translate-y-1/2 z-10 left-0 flex justify-between w-full '>
-                    <button onClick={brandPrevSlide} className="bg-blue-500 p-2 rounded-full text-white"><BiChevronLeft size={20} /></button>
-                    <button onClick={brandNextSlide} className="bg-blue-500 p-2 rounded-full text-white"><BiChevronRight size={20} /></button>
+                    <button onClick={brandPrevSlide} className="bg-gray-400 rounded-full text-white"><BiChevronLeft size={30} /></button>
+                    <button onClick={brandNextSlide} className="bg-gray-400 rounded-full text-white"><BiChevronRight size={30} /></button>
                 </div>
             </Swiper>
 

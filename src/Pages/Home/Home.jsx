@@ -33,8 +33,8 @@ const Home = () => {
     return (
         <div className='font-hero'>
             <header>
-                <nav className='p-3 md:px-5 shadow-sm relative'>
-                    <div className='flex items-center justify-between'>
+                <nav className='p-2 shadow-sm relative'>
+                    <div className='w-11/12 max-w-screen-xl mx-auto  flex items-center justify-between'>
                         <div className="flex items-center gap-4">
                             <img src={adbhutGIF} className='w-28 md:w-32' />
 
@@ -56,7 +56,7 @@ const Home = () => {
                     </div>
                 </nav>
 
-                <section className='px-5 md:px-0 w-full md:w-4/6 mx-auto mt-20'>
+                <section className='w-9/12 max-w-screen-xl mx-auto mt-16 py-16'>
                     <h1 className='text-4xl font-bold mb-5'>
                         Create amazing creative content directly via artists
                     </h1>
@@ -69,9 +69,11 @@ const Home = () => {
                 </section>
             </header>
 
-            <div onClick={() => setIsHovered(false)} className="flex flex-col justify-center items-center bg-gray-100 text-black mt-10 pt-12 relative">
-                <h1 className='text-4xl font-bold absolute 2xl:static top-16 px-5 md:px-0 '>Revolutionize your content with cutting-edge ML technology</h1>
-                <iframe className='px-5 md:px-0 w-full md:w-3/6' src="https://player.vimeo.com/video/819139346?h=d6fa5efcc3" height="564" frameBorder="0" allow="autoplay; fullscreen" allowFullScreen></iframe>
+            <div onClick={() => setIsHovered(false)} className="bg-gray-100 text-black mt-10 py-20">
+                <div className="w-9/12 max-w-screen-xl mx-auto">
+                    <h1 className='text-4xl font-bold mb-5'>Revolutionize your content with cutting-edge ML technology</h1>
+                    <iframe className='w-full aspect-video' src="https://player.vimeo.com/video/819139346?h=d6fa5efcc3" frameBorder="0" allow="autoplay; fullscreen" allowFullScreen></iframe>
+                </div>
             </div>
 
             {/* auth modal */}

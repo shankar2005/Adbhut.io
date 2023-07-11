@@ -39,8 +39,7 @@ const Hero = () => {
                     <Swiper
                         className='px-4'
                         ref={contentSwiperRef}
-                        spaceBetween={5}
-                        slidesPerView={6}
+                        slidesPerView={7}
                         breakpoints={{
                             320: {
                                 slidesPerView: 3,
@@ -49,7 +48,7 @@ const Hero = () => {
                                 slidesPerView: 4,
                             },
                             640: {
-                                slidesPerView: 6,
+                                slidesPerView: 7,
                             }
                         }}
                     >
@@ -59,7 +58,7 @@ const Hero = () => {
                                     <div className='border rounded-md h-[76px] w-[76px] flex items-center justify-center'>
                                         <AiOutlinePlus className='group-hover:scale-110 duration-150 overflow-hidden text-gray-600' size={40} />
                                     </div>
-                                    <p className='text-[0.6rem] leading-tight'>New Project</p>
+                                    <p className='text-xs leading-tight font-semibold'>New Project</p>
                                 </div>
                             </Link>
                         </SwiperSlide>
@@ -69,7 +68,7 @@ const Hero = () => {
                                     <div className='flex items-center justify-center'>
                                         <BsCheck2Square className="scale-110 duration-150 overflow-hidden text-green-500" size={78} />
                                     </div>
-                                    <p className='text-[0.6rem] leading-tight'>Ready To Use</p>
+                                    <p className='text-xs leading-tight font-semibold'>Ready To Use</p>
                                 </div>
                             </Link>
                         </SwiperSlide>
@@ -83,14 +82,14 @@ const Hero = () => {
                                         <div className={`${currentProject?.project_template === content.pk || selectedContentProduct === content.pk ? 'w-20 h-20' : 'w-[75px] h-[75px]'} p-1 border rounded-md`}>
                                             <img className='group-hover:scale-110 duration-150 overflow-hidden' src={content.weblink} />
                                         </div>
-                                        <p className={`${currentProject?.project_template === content.pk || selectedContentProduct === content.pk && 'text-blue-600 font-medium'} text-[0.6rem] leading-tight`}>{content.name}</p>
+                                        <p className={`${currentProject?.project_template === content.pk || selectedContentProduct === content.pk && 'text-blue-600 font-bold'} font-semibold text-xs leading-tight`}>{content.name}</p>
                                     </div>
                                 </SwiperSlide>
                             ))
                         }
                         <div className='absolute top-1/2 -translate-y-1/2 z-10 left-0 flex justify-between w-full '>
-                            <button onClick={brandPrevSlide} className="bg-blue-500 p-2 rounded-full text-white"><BiChevronLeft size={20} /></button>
-                            <button onClick={brandNextSlide} className="bg-blue-500 p-2 rounded-full text-white"><BiChevronRight size={20} /></button>
+                            <button onClick={brandPrevSlide} className="bg-gray-400 rounded-full text-white"><BiChevronLeft size={30} /></button>
+                            <button onClick={brandNextSlide} className="bg-gray-400 rounded-full text-white"><BiChevronRight size={30} /></button>
                         </div>
                     </Swiper>
                 </div>
