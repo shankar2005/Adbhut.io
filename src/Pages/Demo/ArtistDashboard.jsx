@@ -21,28 +21,41 @@ const ArtistDashboard = () => {
     return (
         <Container className="font-hero">
             <div className="bg-white w-full border my-3">
-                <div className="flex">
-                    <div className="flex-1 p-3 flex flex-col">
-                        <div className="flex items-center gap-2 mb-2 border-b pb-3">
-                            <h3 className="text-lg font-semibold">Upload your customizable demo</h3>
-                            <Badge onClick={() => setShowUpload(!showUpload)} type="success" className="inline-flex items-center justify-between cursor-pointer">Upload demos <MdUpload size={20} /></Badge>
-                            <Link to="/projects" className="ml-auto"><Badge type="gray" className="inline-flex items-center justify-between cursor-pointer">Apply to project demo</Badge></Link>
-                        </div>
-
-                        <ul className="my-2">
-                            <li className="font-semibold text-lg">My demos</li>
-                            {myDemos?.map(demo => <li onClick={() => setIsDemoShown(demo.id)} className="text-blue-600 hover:underline underline-offset-2 cursor-pointer">{demo.Title}</li>)}
-                        </ul>
-                        <ul className="my-2">
-                            <li className="font-semibold text-lg">Related demos</li>
-                            {demos?.map(demo => <li onClick={() => setIsDemoShown(demo.id)} className="text-blue-600 hover:underline underline-offset-2 cursor-pointer">{demo.Title}</li>)}
-                        </ul>
-                        <div className="mt-auto border-t pt-2">
-                            <Link to="/projects/readydemos" className="text-blue-600 hover:underline underline-offset-2">View All</Link>
-                        </div>
+                <div className="p-3 flex flex-col">
+                    <div className="flex items-center gap-2 mb-2 border-b pb-3">
+                        <h3 className="text-lg font-semibold">Upload your customizable demo</h3>
+                        <Badge onClick={() => setShowUpload(!showUpload)} type="success" className="inline-flex items-center justify-between cursor-pointer">Upload demos <MdUpload size={20} /></Badge>
+                        <Link to="/projects" className="ml-auto"><Badge type="gray" className="inline-flex items-center justify-between cursor-pointer">Apply to project demo</Badge></Link>
                     </div>
 
-                    {isDemoShown && <DemoDetails demoId={isDemoShown} closeDemo={closeDemo} />}
+                    <ul className="my-2">
+                        <li className="font-semibold text-lg">My demos</li>
+                        {myDemos?.map(demo => <li className="border p-3 rounded flex items-center">
+                            <div className="flex-1">
+                                <Link to={`/artists/demos/${demo.id}`}><span className="text-blue-600 hover:underline underline-offset-2 cursor-pointer">{demo.Title}</span></Link>
+                            </div>
+                            <div className="flex-1">
+                                <div className="flex flex-wrap gap-1">
+                                    <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-xs">keyword</span>
+                                    <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-xs">keyword</span>
+                                    <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-xs">keyword</span>
+                                    <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-xs">keyword</span>
+                                    <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-xs">keyword</span>
+                                    <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-xs">keyword</span>
+                                    <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-xs">keyword</span>
+                                    <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-xs">keyword</span>
+                                </div>
+                                <small>*Keywords would be mapped to the client briefs</small>
+                            </div>
+                        </li>)}
+                    </ul>
+                    <ul className="my-2">
+                        <li className="font-semibold text-lg">Related demos</li>
+                        {demos?.map(demo => <li onClick={() => setIsDemoShown(demo.id)} className="text-blue-600 hover:underline underline-offset-2 cursor-pointer">{demo.Title}</li>)}
+                    </ul>
+                    <div className="mt-auto border-t pt-2">
+                        <Link to="/projects/readydemos" className="text-blue-600 hover:underline underline-offset-2">View All</Link>
+                    </div>
                 </div>
             </div>
 

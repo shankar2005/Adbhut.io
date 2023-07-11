@@ -15,7 +15,7 @@ const AssignProjectToDemo = ({ demoId }) => {
     }
 
     return (
-        <div className="px-4 py-8 relative">
+        <div className="py-8 relative">
             <h4 className='font-semibold text-lg'>Assign project to this demo</h4>
             <small>Choose the demo you want to link to your project. The demo you've choosen can be modified according your needs. It's just an template to give you the idea.</small>
             <div className="mt-10">

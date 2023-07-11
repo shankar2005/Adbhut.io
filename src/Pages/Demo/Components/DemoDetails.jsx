@@ -1,12 +1,15 @@
 import { RxCross1 } from "react-icons/rx";
+import { Link, useParams } from "react-router-dom";
 import Badge from "../../../Components/Badge/Badge";
+import Button from "../../../Components/Button/Button";
 import { useRootContext } from "../../../contexts/RootProvider";
 import { useAssignArtistToDemoMutation, useGetDemoByIdQuery, useUnassignArtistFromDemoMutation } from "../../../features/demo/demoApi";
 import WorkDemo from "../../Artist/Components/View/WorkDemo";
 import AssignArtistToDemo from "./AssignArtistToDemo";
 import AssignDemoToProject from "./AssignProjectToDemo";
 
-const DemoDetails = ({ closeDemo, demoId }) => {
+const DemoDetails = () => {
+    const demoId = useParams().id;
     const { setArtistProfile } = useRootContext();
     const { data: demo } = useGetDemoByIdQuery(demoId);
     const [unassignArtistFromDemo] = useUnassignArtistFromDemoMutation();
@@ -27,8 +30,9 @@ const DemoDetails = ({ closeDemo, demoId }) => {
     }
 
     return (
-        <div div className="flex-1 border-l p-3 pb-16 relative">
-            <div className="w-4/6 mb-3">
+        <section className="font-hero w-11/12 mx-auto p-3 relative">
+            <Link to="/artists/demos"><Button>Back</Button></Link>
+            <div className="w-4/6 my-3">
                 <WorkDemo demo_type={demo?.demo_type} demo_link={demo?.link || demo?.document} />
             </div>
             <p className="font-semibold">{demo?.Title}</p>
@@ -52,9 +56,7 @@ const DemoDetails = ({ closeDemo, demoId }) => {
 
             <AssignArtistToDemo demoId={demo?.id} />
             <AssignDemoToProject demoId={demo?.id} />
-
-            <RxCross1 onClick={closeDemo} className="absolute top-0 right-0 m-3 cursor-pointer" size={25} />
-        </div>
+        </section>
     )
 }
 
