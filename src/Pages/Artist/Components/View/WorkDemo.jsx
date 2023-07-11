@@ -1,6 +1,7 @@
 import { BsBoxArrowUpRight } from 'react-icons/bs';
 import { Spotify } from 'react-spotify-embed';
 import useYoutubeEmbaded from '../../../../hooks/useYoutubeEmbaded';
+import ig_placeholder_bg from "../../../../assets/placeholders/ig_placeholder_bg.jpg"
 
 const WorkDemo = ({ demo_type, demo_link }) => {
     function extractFolderId(driveLink) {
@@ -58,9 +59,12 @@ const WorkDemo = ({ demo_type, demo_link }) => {
         case "Instagram":
             content = (
                 <a target="_blank" href={demo_link}>
-                    <div className="aspect-video flex flex-col items-center justify-center border rounded-lg bg-white gap-y-3">
-                        <img className="w-12" src="https://cdn-icons-png.flaticon.com/512/87/87390.png" alt="" />
-                        <strong className="text-blue-700">View this post on Instagram</strong>
+                    <div className="aspect-video flex items-center justify-center border rounded-lg bg-white relative group">
+                        <img className='absolute top-0 left-0 w-full h-full rounded-lg group-hover:brightness-75 duration-200' src={ig_placeholder_bg} alt="" />
+                        <div className='z-10 flex flex-col items-center gap-y-3'>
+                            <img className="w-12" src="https://www.edigitalagency.com.au/wp-content/uploads/new-Instagram-logo-white-glyph.png" alt="" />
+                            <strong className="text-white">View this post on Instagram</strong>
+                        </div>
                     </div>
                 </a>
             )
@@ -111,8 +115,8 @@ const WorkDemo = ({ demo_type, demo_link }) => {
                 <>
                     {
                         (demo_link?.includes("drive.google.com") && demo_link?.includes("/folders/"))
-                            ? <iframe className="w-full aspect-video border bg-gray-100" src={`https://drive.google.com/embeddedfolderview?id=${extractFolderId(demo_link)}#grid`} scrolling="no"></iframe>
-                            : <iframe className="w-full aspect-video border" src={demo_link.replace("/view", "/preview")} allow="autoplay"></iframe>
+                            ? <iframe className="w-full aspect-video border-t rounded-xl bg-gray-50" src={`https://drive.google.com/embeddedfolderview?id=${extractFolderId(demo_link)}#grid`} scrolling="no"></iframe>
+                            : <iframe className="w-full aspect-video border-t rounded-xl" src={demo_link.replace("/view", "/preview")} allow="autoplay"></iframe>
                     }
                 </>
             )

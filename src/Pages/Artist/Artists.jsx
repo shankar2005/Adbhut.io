@@ -50,7 +50,7 @@ const Artists = () => {
     return (
         <section className='stream mt-3'>
 
-            <div className="sticky top-16">
+            <div className="sticky top-16 z-50">
                 <Link to={
                     currentProjectId
                         ? `/projects/${currentProjectId}`

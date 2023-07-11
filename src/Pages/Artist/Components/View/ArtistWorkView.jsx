@@ -21,8 +21,8 @@ const ArtistWorkView = ({ artist }) => {
     };
 
     return (
-        <div className='mb-5 p-5 bg-white rounded-lg shadow-md'>
-            <div className='flex items-start gap-2 mb-3'>
+        <div className='mb-5 bg-white rounded-lg shadow-md'>
+            <div className='p-3 flex items-start gap-2'>
                 <div>
                     <img
                         onClick={() => setArtistProfile(artist.id)}
