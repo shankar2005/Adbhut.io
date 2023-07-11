@@ -22,6 +22,7 @@ import ArtistsList from "../Pages/Artist/ArtistsList";
 import DreamProjects from "../Pages/Project/DreamProjects";
 import ArtistDashboard from "../Pages/Demo/ArtistDashboard";
 import DemoDetails from "../Pages/Demo/Components/DemoDetails";
+import ArtistLandingPage from "../Pages/Artist/ArtistLandingPage";
 
 const router = createBrowserRouter([
     {
@@ -129,6 +130,10 @@ const router = createBrowserRouter([
             },
         ],
     },
+    {
+        path: '/artist',
+        element: <ArtistLandingPage />
+    }
 ]);
 
 export default router;

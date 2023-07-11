@@ -46,6 +46,7 @@ const Home = () => {
                                 isHovered &&
                                 <Brands setIsHovered={setIsHovered} />
                             }
+                            <Link className='font-semibold' to="/artist">Become an Artist</Link>
                         </div>
 
                         {
