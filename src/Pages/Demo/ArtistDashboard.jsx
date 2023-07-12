@@ -37,14 +37,6 @@ const ArtistDashboard = () => {
                                     <Link className="text-blue-600 hover:underline underline-offset-2 cursor-pointer" to={`/artists/demos/${demo.id}`}>{demo.Title}</Link>
                                 </span>
                             </div>
-                            <div className="flex-1">
-                                <div className="flex flex-wrap gap-1">
-                                    {demo.comment && JSON.parse(replaceSingleQuotes(demo.comment))?.map(keyword => (
-                                        <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-xs">{keyword}</span>
-                                    ))}
-                                </div>
-                                {demo.comment && <small>*Keywords would be mapped to the client briefs</small>}
-                            </div>
                         </li>)}
                     </ul>
                     <ul className="my-2">
