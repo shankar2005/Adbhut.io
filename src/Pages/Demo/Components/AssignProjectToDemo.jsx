@@ -26,7 +26,7 @@ const AssignProjectToDemo = ({ demoId }) => {
                         <AiOutlineSearch className='w-6 h-6 text-gray-500 absolute top-1/2 -translate-y-1/2 left-2' />
                     </form>
                 </div>
-                <ul>
+                <ul className="h-80 overflow-auto bg-white">
                     {
                         projects?.map(project => <li className="hover:bg-gray-200 px-3 py-2 border-b flex justify-between">
                             {project.title}

@@ -9,8 +9,8 @@ const FileUpload = ({ setDemoSec }) => {
   const { contentProducts } = useRootContext();
   const currentProjectId = useSelector(state => state.project.pk);
   const [file, setFile] = useState(null);
-  const [createDemo, { data: demo }] = useCreateDemoMutation();
-  const [assignDemoToProject, { isSuccess }] = useAssignDemoToProjectMutation();
+  const [createDemo, { data: demo, isSuccess }] = useCreateDemoMutation();
+  const [assignDemoToProject] = useAssignDemoToProjectMutation();
   const [contentProduct, setContentProduct] = useState(null);
   const { user } = useSelector(state => state.auth);
 
@@ -39,9 +39,6 @@ const FileUpload = ({ setDemoSec }) => {
       setFile(null);
     }
   }, [demo?.id, currentProjectId]);
-
-  console.log(isSuccess);
-  console.log(setDemoSec);
 
   useEffect(() => {
     if (isSuccess) setDemoSec(null);
