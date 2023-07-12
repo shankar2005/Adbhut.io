@@ -101,13 +101,11 @@ const WorkDemo = ({ demo_type, demo_link }) => {
             )
             break;
         // image
-        case "Video":
+        case "mp4":
             content = (
-                <div className='border rounded-lg'>
-                    <video controls autoPlay width="300" className='mx-auto'>
-                        <source src={demo_link} type="video/mp4" />
-                    </video>
-                </div>
+                <video controls autoPlay={false} className='mx-auto aspect-video'>
+                    <source src={demo_link} type="video/mp4" />
+                </video>
             )
             break;
         case "Google Drive":

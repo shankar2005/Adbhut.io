@@ -40,6 +40,9 @@ const FileUpload = ({ setDemoSec }) => {
     }
   }, [demo?.id, currentProjectId]);
 
+  console.log(isSuccess);
+  console.log(setDemoSec);
+
   useEffect(() => {
     if (isSuccess) setDemoSec(null);
   }, [isSuccess]);

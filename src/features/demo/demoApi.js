@@ -77,6 +77,15 @@ const demoApi = apis.injectEndpoints({
             }),
             invalidatesTags: ["Demo"]
         }),
+
+        generateLables: builder.mutation({
+            query: (data) => ({
+                url: `/generate_demo_project_lables/`,
+                method: 'POST',
+                body: data
+            }),
+            invalidatesTags: ["Demo"]
+        }),
     }),
 });
 
@@ -90,5 +99,6 @@ export const {
     useAssignCollabToDemoMutation,
     useUnassignArtistFromDemoMutation,
     useGetDemoByArtistQuery,
-    useUpdateDemoMutation
+    useUpdateDemoMutation,
+    useGenerateLablesMutation
 } = demoApi;

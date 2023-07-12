@@ -1,18 +1,15 @@
 import { useState } from "react";
 import { MdUpload } from "react-icons/md";
-import { RxCross1 } from "react-icons/rx";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Badge from "../../Components/Badge/Badge";
+import Button from "../../Components/Button/Button";
 import Container from "../../Components/Container/Container";
 import Modal from "../../Components/Modal/Modal";
-import { useGetDemoByArtistQuery, useGetDemosQuery } from "../../features/demo/demoApi";
-import DemoDetails from "./Components/DemoDetails";
+import { useGenerateLablesMutation, useGetDemoByArtistQuery, useGetDemosQuery } from "../../features/demo/demoApi";
 import FileUpload from "./Components/FileUpload";
 
 const ArtistDashboard = () => {
-    const [isDemoShown, setIsDemoShown] = useState(false);
-    const closeDemo = () => setIsDemoShown(false);
     const [showUpload, setShowUpload] = useState(null);
     const { user } = useSelector(state => state.auth);
     const { data: myDemos } = useGetDemoByArtistQuery(user?.id, { skip: !user?.email });
@@ -36,7 +33,9 @@ const ArtistDashboard = () => {
                         <li className="font-semibold text-lg">My demos</li>
                         {myDemos?.map(demo => <li className="border p-3 rounded flex items-center mb-2">
                             <div className="flex-1">
-                                <Link to={`/artists/demos/${demo.id}`}><span className="text-blue-600 hover:underline underline-offset-2 cursor-pointer">{demo.Title}</span></Link>
+                                <span className="flex items-center gap-2">
+                                    <Link className="text-blue-600 hover:underline underline-offset-2 cursor-pointer" to={`/artists/demos/${demo.id}`}>{demo.Title}</Link>
+                                </span>
                             </div>
                             <div className="flex-1">
                                 <div className="flex flex-wrap gap-1">
@@ -50,7 +49,7 @@ const ArtistDashboard = () => {
                     </ul>
                     <ul className="my-2">
                         <li className="font-semibold text-lg">Related demos</li>
-                        {demos?.map(demo => <li onClick={() => setIsDemoShown(demo.id)} className="text-blue-600 hover:underline underline-offset-2 cursor-pointer">{demo.Title}</li>)}
+                        {demos?.map(demo => <li className="text-blue-600 hover:underline underline-offset-2 cursor-pointer">{demo.Title}</li>)}
                     </ul>
                     <div className="mt-auto border-t pt-2">
                         <Link to="/projects/readydemos" className="text-blue-600 hover:underline underline-offset-2">View All</Link>
