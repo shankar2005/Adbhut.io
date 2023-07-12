@@ -96,27 +96,16 @@ const ArtistLandingPage = () => {
                 </div>
                 <div className='flex-1 bg-neutral-900 rounded-lg p-10'>
                     <h5 className='text-xl font-semibold mb-4'>Generated Keywords</h5>
-                    {/* <ul className='flex flex-wrap gap-1.5'>
-                        <li className='bg-gray-100 rounded-full py-1 px-3 text-black'>Loremwe</li>
-                        <li className='bg-gray-100 rounded-full py-1 px-3 text-black'>ipsum</li>
-                        <li className='bg-gray-100 rounded-full py-1 px-3 text-black'>dolorw</li>
-                        <li className='bg-gray-100 rounded-full py-1 px-3 text-black'>sit</li>
-                        <li className='bg-gray-100 rounded-full py-1 px-3 text-black'>amet.</li>
-                        <li className='bg-gray-100 rounded-full py-1 px-3 text-black'>Loremwe</li>
-                        <li className='bg-gray-100 rounded-full py-1 px-3 text-black'>sit</li>
-                        <li className='bg-gray-100 rounded-full py-1 px-3 text-black'>dolorw</li>
-                        <li className='bg-gray-100 rounded-full py-1 px-3 text-black'>ipsum</li>
-                        <li className='bg-gray-100 rounded-full py-1 px-3 text-black'>Loremwe</li>
-                        <li className='bg-gray-100 rounded-full py-1 px-3 text-black'>ipsum</li>
-                        <li className='bg-gray-100 rounded-full py-1 px-3 text-black'>dolorw</li>
-                        <li className='bg-gray-100 rounded-full py-1 px-3 text-black'>sit</li>
-                        <li className='bg-gray-100 rounded-full py-1 px-3 text-black'>amet.</li>
-                        <li className='bg-gray-100 rounded-full py-1 px-3 text-black'>Loremwe</li>
-                        <li className='bg-gray-100 rounded-full py-1 px-3 text-black'>sit</li>
-                        <li className='bg-gray-100 rounded-full py-1 px-3 text-black'>dolorw</li>
-                        <li className='bg-gray-100 rounded-full py-1 px-3 text-black'>ipsum</li>
-                    </ul> */}
-                    <ul>
+                    <ul className='h-80 overflow-y-auto no-scroll'>
+                        <li className='bg-green-100 py-1 px-3 text-black'>Loremwe</li>
+                        <li className='bg-green-200 py-1 px-3 text-black'>ipsum</li>
+                        <li className='bg-green-300 py-1 px-3 text-black'>dolorw</li>
+                        <li className='bg-green-400 py-1 px-3 text-black'>sit</li>
+                        <li className='bg-green-500 py-1 px-3 text-black'>amet.</li>
+                        <li className='bg-green-600 py-1 px-3 text-black'>Loremwe</li>
+                        <li className='bg-green-700 py-1 px-3 text-black'>sit</li>
+                        <li className='bg-green-800 py-1 px-3 text-black'>dolorw</li>
+                        <li className='bg-green-900 py-1 px-3 text-black'>ipsum</li>
                         <li className='bg-green-100 py-1 px-3 text-black'>Loremwe</li>
                         <li className='bg-green-200 py-1 px-3 text-black'>ipsum</li>
                         <li className='bg-green-300 py-1 px-3 text-black'>dolorw</li>

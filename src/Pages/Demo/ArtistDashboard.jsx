@@ -18,6 +18,10 @@ const ArtistDashboard = () => {
     const { data: myDemos } = useGetDemoByArtistQuery(user?.id, { skip: !user?.email });
     const { data: demos } = useGetDemosQuery();
 
+    function replaceSingleQuotes(str) {
+        return str.replace(/'/g, '"');
+    }
+
     return (
         <Container className="font-hero">
             <div className="bg-white w-full border my-3">
@@ -30,22 +34,17 @@ const ArtistDashboard = () => {
 
                     <ul className="my-2">
                         <li className="font-semibold text-lg">My demos</li>
-                        {myDemos?.map(demo => <li className="border p-3 rounded flex items-center">
+                        {myDemos?.map(demo => <li className="border p-3 rounded flex items-center mb-2">
                             <div className="flex-1">
                                 <Link to={`/artists/demos/${demo.id}`}><span className="text-blue-600 hover:underline underline-offset-2 cursor-pointer">{demo.Title}</span></Link>
                             </div>
                             <div className="flex-1">
                                 <div className="flex flex-wrap gap-1">
-                                    <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-xs">keyword</span>
-                                    <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-xs">keyword</span>
-                                    <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-xs">keyword</span>
-                                    <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-xs">keyword</span>
-                                    <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-xs">keyword</span>
-                                    <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-xs">keyword</span>
-                                    <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-xs">keyword</span>
-                                    <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-xs">keyword</span>
+                                    {demo.comment && JSON.parse(replaceSingleQuotes(demo.comment))?.map(keyword => (
+                                        <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-xs">{keyword}</span>
+                                    ))}
                                 </div>
-                                <small>*Keywords would be mapped to the client briefs</small>
+                                {demo.comment && <small>*Keywords would be mapped to the client briefs</small>}
                             </div>
                         </li>)}
                     </ul>
@@ -63,11 +62,10 @@ const ArtistDashboard = () => {
                 showUpload &&
                 <Modal onClick={() => setShowUpload(false)} className="w-11/12 max-w-2xl">
                     <div className="bg-white px-4 py-8 relative border-b mb-4">
-                        <RxCross1 onClick={() => setShowUpload(null)} size={20} className="absolute top-0 right-0 m-4 cursor-pointer" />
                         <h4 className='font-semibold text-lg'>Upload a demo</h4>
                         <small>The demo can be a <strong>Video, Audio</strong> file. Uploaded demo will be shown in the ready to use demo section. Production manager can easily assign those ready to use demo in any project.</small>
                         <div className="mt-10">
-                            <FileUpload setShowUpload={setShowUpload} />
+                            <FileUpload setDemoSec={setShowUpload} />
                         </div>
                     </div>
                 </Modal>

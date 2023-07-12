@@ -232,3 +232,22 @@
 	border-top-color: #666;
 	margin-top: 1px;
 }
+
+/* no scroll */
+
+
+
+.no-scroll::-webkit-scrollbar {
+  width: 2px;
+}
+
+
+.no-scroll::-webkit-scrollbar-track, .categoryScroll::-webkit-scrollbar-track {
+  border-radius: 50%;
+}
+
+.no-scroll::-webkit-scrollbar-thumb {
+  background-color: #575757;
+  outline: 1px solid #575757;
+  border-radius: 10px;
+}
