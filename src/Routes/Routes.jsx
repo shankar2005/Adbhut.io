@@ -23,6 +23,7 @@ import DreamProjects from "../Pages/Project/DreamProjects";
 import ArtistDashboard from "../Pages/Demo/ArtistDashboard";
 import DemoDetails from "../Pages/Demo/Components/DemoDetails";
 import ArtistLandingPage from "../Pages/Artist/ArtistLandingPage";
+import ArtistDashboardTest from "../Pages/Artist/ArtistDashboard";
 
 const router = createBrowserRouter([
     {
@@ -133,6 +134,10 @@ const router = createBrowserRouter([
     {
         path: '/artist',
         element: <ArtistLandingPage />
+    },
+    {
+        path: '/artist/dashboard',
+        element: <ArtistDashboardTest />
     }
 ]);
 

@@ -6,7 +6,7 @@ import Badge from "../../Components/Badge/Badge";
 import Button from "../../Components/Button/Button";
 import Container from "../../Components/Container/Container";
 import Modal from "../../Components/Modal/Modal";
-import { useGenerateLablesMutation, useGetDemoByArtistQuery, useGetDemosQuery } from "../../features/demo/demoApi";
+import { useGetDemoByArtistQuery, useGetDemosQuery } from "../../features/demo/demoApi";
 import FileUpload from "./Components/FileUpload";
 
 const ArtistDashboard = () => {
@@ -14,10 +14,6 @@ const ArtistDashboard = () => {
     const { user } = useSelector(state => state.auth);
     const { data: myDemos } = useGetDemoByArtistQuery(user?.id, { skip: !user?.email });
     const { data: demos } = useGetDemosQuery();
-
-    function replaceSingleQuotes(str) {
-        return str.replace(/'/g, '"');
-    }
 
     return (
         <Container className="font-hero">
