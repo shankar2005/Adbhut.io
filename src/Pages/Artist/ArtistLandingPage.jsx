@@ -22,10 +22,10 @@ const ArtistLandingPage = () => {
                 <div className='p-32 flex justify-between items-center'>
                     <div className='flex-1 space-y-5'>
                         <h1 className='text-6xl font-bold'>
-                            Create audio stories <br />
+                            Create content <br />
                             people love
                         </h1>
-                        <p className='text-xl'>Build a lifestyle from your creativity</p>
+                        <p className='text-xl'>Earn via brand integrations in your content</p>
                         <Link to="/artist/dashboard" className="block w-fit">
                             <button type="button" class="bg-gradient-to-r from-pink-500 to-yellow-500 py-3 px-6 rounded font-semibold">
                                 Upload Now
@@ -39,22 +39,22 @@ const ArtistLandingPage = () => {
             </header>
 
             <section className='mt-40'>
-                <h3 className='text-4xl font-bold text-center mb-5'>Programs offered by our clubs</h3>
+                <h3 className='text-4xl font-bold text-center mb-5'>Content you can upload to start earning</h3>
                 <div className='w-10/12 mx-auto space-y-16'>
                     <div className='flex items-center'>
                         <div className='flex-1'>
                             <img className='mx-auto' src="https://d251apx0x5nzbt.cloudfront.net/0x350/website/images/audio_story_writing.png" alt="" />
                         </div>
                         <div className='flex-1'>
-                            <h1 className='text-6xl font-bold mb-2'>Audio Story <br /> Writing</h1>
-                            <p className='text-lg'>Make your name in the industry as an Audio Story Writer by learning the best practices and working on Top Projects.</p>
+                            <h1 className='text-6xl font-bold mb-2'>Story Telling <br /> Formats</h1>
+                            <p className='text-lg'>Create your video in 1st person shoot as a Story Teller. Learn the best practices and how to get in Top Talents here.</p>
                             <button className='font-semibold mt-5'>Explore More</button>
                         </div>
                     </div>
                     <div className='flex items-center'>
                         <div className='flex-1'>
-                            <h1 className='text-6xl font-bold mb-2'>Audio Story <br /> Writing</h1>
-                            <p className='text-lg'>Make your name in the industry as an Audio Story Writer by learning the best practices and working on Top Projects.</p>
+                            <h1 className='text-6xl font-bold mb-2'>Animation Reel  <br /> Formats</h1>
+                            <p className='text-lg'>Create your video as a Animated Video of Story Telling. Learn the best practices and how to get in Top Talents here.</p>
                             <button className='font-semibold mt-5'>Explore More</button>
                         </div>
                         <div className='flex-1'>
@@ -66,8 +66,8 @@ const ArtistLandingPage = () => {
                             <img className='mx-auto' src="https://d251apx0x5nzbt.cloudfront.net/0x350/website/images/audio_story_writing.png" alt="" />
                         </div>
                         <div className='flex-1'>
-                            <h1 className='text-6xl font-bold mb-2'>Audio Story <br /> Writing</h1>
-                            <p className='text-lg'>Make your name in the industry as an Audio Story Writer by learning the best practices and working on Top Projects.</p>
+                            <h1 className='text-6xl font-bold mb-2'>Slider Reel <br /> Formats</h1>
+                            <p className='text-lg'>Create your video as a Slider Video for Story Telling. Learn the best practices and how to get in Top Talents here.</p>
                             <button className='font-semibold mt-5'>Explore More</button>
                         </div>
                     </div>

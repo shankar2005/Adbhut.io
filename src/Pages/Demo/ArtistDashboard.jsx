@@ -20,13 +20,13 @@ const ArtistDashboard = () => {
             <div className="bg-white w-full border my-3">
                 <div className="p-3 flex flex-col">
                     <div className="flex items-center gap-2 mb-2 border-b pb-3">
-                        <h3 className="text-lg font-semibold">Upload your customizable demo</h3>
-                        <Badge onClick={() => setShowUpload(!showUpload)} type="success" className="inline-flex items-center justify-between cursor-pointer">Upload demos <MdUpload size={20} /></Badge>
+                        <h3 className="text-lg font-semibold">Upload content available for brand integrations</h3>
+                        <Badge onClick={() => setShowUpload(!showUpload)} type="success" className="inline-flex items-center justify-between cursor-pointer">Upload content <MdUpload size={20} /></Badge>
                         <Link to="/projects" className="ml-auto"><Badge type="gray" className="inline-flex items-center justify-between cursor-pointer">Apply to project demo</Badge></Link>
                     </div>
 
                     <ul className="my-2">
-                        <li className="font-semibold text-lg">My demos</li>
+                        <li className="font-semibold text-lg">My content</li>
                         {myDemos?.map(demo => <li className="border p-3 rounded flex items-center mb-2">
                             <div className="flex-1">
                                 <span className="flex items-center gap-2">
@@ -36,7 +36,7 @@ const ArtistDashboard = () => {
                         </li>)}
                     </ul>
                     <ul className="my-2">
-                        <li className="font-semibold text-lg">Related demos</li>
+                        <li className="font-semibold text-lg">Related content</li>
                         {demos?.map(demo => <li className="text-blue-600 hover:underline underline-offset-2 cursor-pointer">{demo.Title}</li>)}
                     </ul>
                     <div className="mt-auto border-t pt-2">
