@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from "../../assets/logos/adbhutGIF.gif"
 
 const ArtistLandingPage = () => {
     return (
@@ -7,7 +8,8 @@ const ArtistLandingPage = () => {
             <header>
                 <nav className='p-5 flex justify-between items-center'>
                     <Link to="/">
-                        <h5 className='text-xl font-bold'>Adbhut.io</h5>
+                        <img className="w-32 rounded-sm" src={logo} alt="" />
+                        {/* <h5 className='text-xl font-bold'>Adbhut.io</h5> */}
                     </Link>
                     <ul className='flex gap-x-8 items-center'>
                         <li>Home</li>
