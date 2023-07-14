@@ -17,6 +17,7 @@
     "react-calendly": "^4.1.1",
     "react-countup": "^6.4.2",
     "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
     "react-hook-form": "^7.44.3",
     "react-hot-toast": "^2.4.0",
     "react-html5video": "^2.5.1",

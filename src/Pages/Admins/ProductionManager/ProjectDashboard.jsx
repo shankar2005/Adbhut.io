@@ -16,7 +16,7 @@ import { useAssignDemoToProjectMutation, useUpdateDemoMutation } from '../../../
 import WorkDemo from '../../Artist/Components/View/WorkDemo';
 import AddNewDemo from '../../Demo/AddNewDemo';
 import Button from '../../../Components/Button/Button';
-import { MdUpload } from 'react-icons/md';
+import { Helmet } from 'react-helmet';
 
 const ProjectDashboard = () => {
     const { setIsModalOpen, showChat, isMobile } = useRootContext();
@@ -94,6 +94,12 @@ const ProjectDashboard = () => {
 
     return (
         <Container>
+            {/* helmet */}
+            <Helmet>
+                <title>{currentProject.title}</title>
+                <meta name="description" content={currentProject.production_solution?.slice(0, 100)} />
+            </Helmet>
+            {/* helmet */}
             <div className="p-4">
                 <div className='mb-5 flex items-center justify-center gap-1.5'>
                     <h1 className='text-3xl font-bold font-hero text-gray-600'>{currentProject?.title}</h1>
