@@ -28,6 +28,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.6.1",
     "react-select": "^5.7.0",
+    "react-snap": "^1.23.0",
     "react-spotify-embed": "^2.0.3",
     "recharts": "^2.6.2",
     "sweetalert2": "^11.7.3",
