@@ -96,8 +96,8 @@ const ProjectDashboard = () => {
         <Container>
             {/* helmet */}
             <Helmet>
-                <title>{currentProject.title}</title>
-                <meta name="description" content={currentProject.production_solution?.slice(0, 100)} />
+                <meta property="og:title" content={currentProject.title} />
+                <meta name="og:description" content={currentProject.production_solution?.slice(0, 100)} />
             </Helmet>
             {/* helmet */}
             <div className="p-4">
