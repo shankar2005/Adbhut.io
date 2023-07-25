@@ -21,7 +21,7 @@ const ArtistLandingPage = () => {
                     </ul>
                 </nav>
 
-                <div className='p-32 flex justify-between items-center'>
+                <div className='px-32 flex justify-between items-center'>
                     <div className='flex-1 space-y-5'>
                         <h1 className='text-6xl font-bold'>
                             Create content <br />
@@ -35,7 +35,7 @@ const ArtistLandingPage = () => {
                         </Link>
                     </div>
                     <div className='flex-1'>
-                        <img className='rotate-90 ml-auto' src="https://d2sbanhm648peq.cloudfront.net/thumbnails/sync/home_page_banner.png" alt="" />
+                        <img className='rotate-90 ml-auto' src="https://pastatic.picsart.com/cms-pastatic/e4d6252e-7d0c-46bd-8d76-109a147def47.png?type=webp&to=min&r=-1" alt="" />
                     </div>
                 </div>
             </header>
