@@ -75,14 +75,14 @@ const ArtistLandingPage = () => {
                     </h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 mt-12 gap-5">
-                        <div className="bg-secondary p-5 rounded-xl flex items-start gap-2.5">
+                        <div className="bg-secondary p-5 rounded-xl flex items-start gap-2.5 bg-gray-100">
                             <img src="https://edvive.netlify.app/assets/Star-af99be9c.svg" alt="" />
                             <div>
                                 <h3 className="font-extrabold text-xl font-theme mb-2">Tech-Powered Media Cases</h3>
                                 <p className="text-muted">An Introduction: Students can be speaking on case studies with use of technology in media.</p>
                             </div>
                         </div>
-                        <div className="bg-secondary p-5 rounded-xl flex items-start gap-2.5">
+                        <div className="bg-secondary p-5 rounded-xl flex items-start gap-2.5 bg-gray-100">
                             <img src="https://edvive.netlify.app/assets/Star-af99be9c.svg" alt="" />
                             <div>
                                 <h3 className="font-extrabold text-xl font-theme mb-2">Sales Funnel Mastery</h3>
@@ -90,7 +90,7 @@ const ArtistLandingPage = () => {
                                     Gmass learning setting online sales funnel (I have a set training module).</p>
                             </div>
                         </div>
-                        <div className="bg-secondary p-5 rounded-xl flex items-start gap-2.5">
+                        <div className="bg-secondary p-5 rounded-xl flex items-start gap-2.5 bg-gray-100">
                             <img src="https://edvive.netlify.app/assets/Star-af99be9c.svg" alt="" />
                             <div>
                                 <h3 className="font-extrabold text-xl font-theme mb-2">Brand-Building Initiative</h3>
@@ -98,7 +98,7 @@ const ArtistLandingPage = () => {
                                     Gmass mass mailer campaign for automation of our marketing efforts. Record the efforts, edit and publish</p>
                             </div>
                         </div>
-                        <div className="bg-secondary p-5 rounded-xl flex items-start gap-2.5">
+                        <div className="bg-secondary p-5 rounded-xl flex items-start gap-2.5 bg-gray-100">
                             <img src="https://edvive.netlify.app/assets/Star-af99be9c.svg" alt="" />
                             <div>
                                 <h3 className="font-extrabold text-xl font-theme mb-2">Innovative Campus Engagement</h3>
