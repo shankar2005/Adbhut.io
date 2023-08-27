@@ -4,7 +4,6 @@ import { MdArrowBackIosNew } from 'react-icons/md';
 import { useRootContext } from '../../contexts/RootProvider';
 import nsnlogo from '../../assets/logos/adbeta.jpeg';
 import { Link, useNavigate } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
 import AuthModal from '../../Pages/Auth/Components/AuthModal';
 import ProfileDropdown from '../../Pages/User/Components/ProfileDropdown';
 import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
@@ -17,7 +16,7 @@ const Navbar = ({ setShowToolkit, showToolkit }) => {
 
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.auth);
-    const { loginModal, accountModal } = useSelector(state => state.dropdown);
+    const { accountModal } = useSelector(state => state.dropdown);
 
     const navigate = useNavigate();
     // handle search
@@ -84,9 +83,7 @@ const Navbar = ({ setShowToolkit, showToolkit }) => {
                         <li>
                             <button onClick={() => dispatch(showLogin())} className="focus:ring-1 focus:outline-none focus:ring-gray-400 font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center border border-gray-500 text-gray-600 hover:bg-gray-200" type="button">Login</button>
                             {/* auth modal */}
-                            <AnimatePresence initial={false} exitBeforeEnter={true}>
-                                {loginModal && <AuthModal />}
-                            </AnimatePresence>
+                            <AuthModal />
                         </li>
                     }
                     <div className="md:hidden p-1 bg-gray-50 shadow-sm rounded-l-full text-gray-400" onClick={() => setShowToolkit(prev => !prev)}>

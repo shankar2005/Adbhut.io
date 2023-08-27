@@ -7,14 +7,16 @@ body {
 }
 
 .font-hero {
-    font-family: 'Source Sans Pro', sans-serif;    
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
-.artistProfile .swiper-button-next:after, .artistProfile .swiper-button-prev:after {
+.artistProfile .swiper-button-next:after,
+.artistProfile .swiper-button-prev:after {
     color: white;
 }
 
-.contentProducts .swiper-button-next:after, .contentProducts .swiper-button-prev:after {
+.contentProducts .swiper-button-next:after,
+.contentProducts .swiper-button-prev:after {
     font-size: 22px;
 }
 
@@ -28,10 +30,15 @@ body {
     margin-top: -35px;
 }
 
-.input{
+.text-hero {
+    font-family: 'Darker Grotesque', sans-serif;
+    /* font-family: 'Montserrat', sans-serif; */
+}
+
+.input {
     @apply border border-gray-400/60 text-sm outline-0 block w-full p-2.5 py-[7px] rounded-md
 }
 
-.stream{
+.stream {
     @apply md:px-0 w-full md:w-11/12 mx-auto
 }

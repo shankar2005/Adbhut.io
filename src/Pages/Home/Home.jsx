@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setViewMode } from '../../features/view/viewModeSlice';
 import Button from '../../Components/Button/Button';
 import { showLogin } from '../../features/dropdown/dropdownSlice';
-import { AnimatePresence } from 'framer-motion';
 import AuthModal from '../Auth/Components/AuthModal';
 import { SlArrowDown } from "react-icons/sl";
 import { useState } from 'react';
@@ -17,7 +16,6 @@ import Footer from '../../layouts/Shared/Footer';
 const Home = () => {
     const dispatch = useDispatch();
     const { isFullTime } = useSelector(state => state.viewMode);
-    const { loginModal } = useSelector(state => state.dropdown);
     const { user } = useSelector(state => state.auth);
 
     const [isHovered, setIsHovered] = useState(false);
@@ -78,9 +76,7 @@ const Home = () => {
             </div>
 
             {/* auth modal */}
-            <AnimatePresence initial={false} exitBeforeEnter={true}>
-                {loginModal && <AuthModal />}
-            </AnimatePresence>
+            <AuthModal />
 
             <Footer />
         </div>
