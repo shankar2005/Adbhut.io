@@ -12,6 +12,7 @@ import Hero from './Sections/Hero';
 import Brands from '../../Components/Sections/Brands';
 import { useEffect } from 'react';
 import Footer from '../../layouts/Shared/Footer';
+import { IoIosArrowDown } from 'react-icons/io';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -97,19 +98,82 @@ const Home = () => {
                 </div>
             </section>
 
-            <div className="bg-gray-100 text-black mt-10 py-20">
+            <section className='w-9/12 mx-auto grid grid-cols-2 items-center gap-10'>
+                <img className='w-11/12 mr-auto' src="https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/AI-make-Art-2-768x571.png" alt="" />
+                <div>
+                    <small className='text-orange-500 font-bold'>ABOUT</small>
+                    <h4 className='text-5xl font-semibold mb-4 mt-2'>Cutting-Edge Artificial Intelligence</h4>
+                    <p className='text-gray-500 text-sm mb-6'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet arcu lacus. Maecenas nec diam hendrerit, finibus nunc eget, pharetra ligula. Sed pulvinar ligula dolor, eget elementum massa mollis id. Quisque lobortis est accumsan nunc convallis interdum non eu arcu.</p>
+                    <button className='bg-sky-500 py-3 px-5 rounded-full text-sm text-white'>Get Started</button>
+                </div>
+            </section>
+
+            <section className='w-9/12 mx-auto grid grid-cols-12 items-center gap-5 my-24'>
+                <div className='col-span-5 shadow-lg h-full p-12 rounded-lg'>
+                    <small className='text-green-500 font-bold'>WORK ASSISTANT</small>
+                    <h4 className='text-5xl font-semibold mb-4 mt-2'>A Personal Assistant Just For You</h4>
+                    <p className='text-gray-500 text-sm mb-6'>
+                        Pellentesque in erat purus. Morbi quis ornare nisl, a convallis augue. Vestibulum vulputate finibus diam, ac faucibus quam ultricies a. Donec a mauris id urna tincidunt varius porttitor sed mauris. Maecenas ac feugiat augue.
+                        <br />
+                        <br />
+                        Molestie tortor non imperdiet luctus. Duis eleifend turpis ut vehicula placerat. Duis erat nisi, pretium et nisi ut, tincidunt ultrices magna.
+                    </p>
+                    <button className='bg-sky-500 py-3 px-5 rounded-full text-sm text-white'>Get Started</button>
+                </div>
+                <div className='col-span-7 grid grid-cols-2'>
+                    <img src="https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/ai-generated-face-of-young-businessman-in-formalwe-2022-09-29-17-44-01-utc-copy-768x614.jpg" alt="" />
+                    <img src="https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/businessman-phone-and-smile-with-luggage-for-trav-2023-01-27-16-23-38-utc-copy-768x614.jpg" alt="" />
+                    <img className='col-span-2' src="https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/Chat-AI-Mobile-App3-copy-768x387.jpg" alt="" />
+                </div>
+            </section>
+
+            <section className="bg-gray-50 text-black mt-10 py-20">
                 <div className="w-10/12 mx-auto grid grid-cols-2 items-center gap-10">
                     <div>
-                        <h1 className='text-3xl font-semibold mb-5'>Revolutionize your content with cutting-edge ML technology</h1>
+                        <h1 className='text-4xl font-semibold mb-5'>Revolutionize your content with cutting-edge ML technology</h1>
                         <small className='text-sm block mb-8'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet arcu lacus. Maecenas nec diam hendrerit, finibus nunc eget, pharetra ligula.</small>
                         <button className='bg-white border border-sky-500 py-3 px-5 rounded-full text-sm text-black'>Learn More</button>
                     </div>
                     <iframe className='w-full aspect-video' src="https://player.vimeo.com/video/819139346?h=d6fa5efcc3" frameBorder="0" allow="autoplay; fullscreen" allowFullScreen></iframe>
                 </div>
-            </div>
+            </section>
 
-            <section className="py-28 bg-[url('https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/C4D_035_13_i5-copy.jpg')] bg-cover text-center">
-                <h1 className='text-5xl font-bold text-white mb-5'>Let's Find Out Who Else Uses AI Here</h1>
+            <section className="py-24 bg-sky-100 bg-[url('https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/line.png')] bg-cover">
+                <div className='w-10/12 mx-auto'>
+                    <p className='text-sky-500 font-bold mb-2'>Common Queries</p>
+                    <h1 className='text-5xl font-semibold mb-3'>Frequently Asked Question</h1>
+                    <p className='text-sm mb-6 text-gray-600'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+                    <ul className='grid grid-cols-2 gap-x-12 gap-y-2'>
+                        <li className='bg-white border rounded-r-full border-neutral-300 text-sm text-black flex items-center'>
+                            <button className='bg-emerald-500 text-white py-3 px-5 h-full'><IoIosArrowDown size={20} /></button>
+                            <p className="py-3 px-5">How to operate this AI tools?</p>
+                        </li>
+                        <li className='bg-white border rounded-r-full border-neutral-300 text-sm text-black flex items-center'>
+                            <button className='bg-emerald-500 text-white py-3 px-5 h-full'><IoIosArrowDown size={20} /></button>
+                            <p className="py-3 px-5">How to operate this AI tools?</p>
+                        </li>
+                        <li className='bg-white border rounded-r-full border-neutral-300 text-sm text-black flex items-center'>
+                            <button className='bg-emerald-500 text-white py-3 px-5 h-full'><IoIosArrowDown size={20} /></button>
+                            <p className="py-3 px-5">How to operate this AI tools?</p>
+                        </li>
+                        <li className='bg-white border rounded-r-full border-neutral-300 text-sm text-black flex items-center'>
+                            <button className='bg-emerald-500 text-white py-3 px-5 h-full'><IoIosArrowDown size={20} /></button>
+                            <p className="py-3 px-5">How to operate this AI tools?</p>
+                        </li>
+                        <li className='bg-white border rounded-r-full border-neutral-300 text-sm text-black flex items-center'>
+                            <button className='bg-emerald-500 text-white py-3 px-5 h-full'><IoIosArrowDown size={20} /></button>
+                            <p className="py-3 px-5">How to operate this AI tools?</p>
+                        </li>
+                        <li className='bg-white border rounded-r-full border-neutral-300 text-sm text-black flex items-center'>
+                            <button className='bg-emerald-500 text-white py-3 px-5 h-full'><IoIosArrowDown size={20} /></button>
+                            <p className="py-3 px-5">How to operate this AI tools?</p>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section className="py-24 footer-top-section bg-cover text-center">
+                <h1 className='text-5xl font-semibold text-white mb-5'>Let's Find Out Who Else Uses <br /> AI Here</h1>
                 <button className='bg-white border border-neutral-400 py-3 px-5 rounded-full text-sm text-black shadow'>Learn More</button>
             </section>
 

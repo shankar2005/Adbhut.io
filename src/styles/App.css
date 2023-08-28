@@ -1,8 +1,10 @@
-.skillScroll::-webkit-scrollbar, .categoryScroll::-webkit-scrollbar {
+.skillScroll::-webkit-scrollbar,
+.categoryScroll::-webkit-scrollbar {
   height: 8px;
 }
 
-.skillScroll::-webkit-scrollbar-track, .categoryScroll::-webkit-scrollbar-track {
+.skillScroll::-webkit-scrollbar-track,
+.categoryScroll::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(98, 140, 174, 0.3);
   border-radius: 10px;
 }
@@ -209,28 +211,31 @@
 
 
 
-.sort-by { 
-	padding-right: 18px;
-	position: relative;
+.sort-by {
+  padding-right: 18px;
+  position: relative;
 }
+
 .sort-by:before,
 .sort-by:after {
-	border: 4px solid transparent;
-	content: "";
-	display: block;
-	height: 0;
-	right: 5px;
-	top: 50%;
-	position: absolute;
-	width: 0;
+  border: 4px solid transparent;
+  content: "";
+  display: block;
+  height: 0;
+  right: 5px;
+  top: 50%;
+  position: absolute;
+  width: 0;
 }
+
 .sort-by:before {
-	border-bottom-color: #666;
-	margin-top: -9px;
+  border-bottom-color: #666;
+  margin-top: -9px;
 }
+
 .sort-by:after {
-	border-top-color: #666;
-	margin-top: 1px;
+  border-top-color: #666;
+  margin-top: 1px;
 }
 
 /* no scroll */
@@ -242,7 +247,8 @@
 }
 
 
-.no-scroll::-webkit-scrollbar-track, .categoryScroll::-webkit-scrollbar-track {
+.no-scroll::-webkit-scrollbar-track,
+.categoryScroll::-webkit-scrollbar-track {
   border-radius: 50%;
 }
 
@@ -250,4 +256,8 @@
   background-color: #575757;
   outline: 1px solid #575757;
   border-radius: 10px;
+}
+
+.footer-top-section {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)), url("https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/C4D_035_13_i5-copy.jpg");
 }
