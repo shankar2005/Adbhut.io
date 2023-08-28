@@ -11,7 +11,7 @@ const Footer = () => {
     const [isShowMentor, setIsShowMentor] = useState(false);
 
     return (
-        <footer className='bg-gray-100'>
+        <footer className='bg-neutral-800 text-white'>
             <div className='w-11/12 max-w-screen-xl mx-auto py-8 grid grid-cols-12 justify-between gap-y-8'>
                 <div className='col-span-8 md:col-span-4'>
                     <h2 className='uppercase text-sm font-medium mb-4'>Product By</h2>
@@ -34,7 +34,7 @@ const Footer = () => {
                     <h1 className='uppercase text-sm font-medium mb-4'>Contact</h1>
                     <div className='space-y-5'>
                         <div className='flex gap-4 items-center'>
-                            <div className='bg-slate-200 p-3 rounded-full flex justify-center items-center'>
+                            <div className='bg-neutral-700 p-3 rounded-full flex justify-center items-center'>
                                 <IoLocationSharp size={20} />
                             </div>
                             <div>
@@ -45,7 +45,7 @@ const Footer = () => {
                             </div>
                         </div>
                         <div className='flex gap-4 items-center'>
-                            <div className='bg-slate-200 p-3 rounded-full flex justify-center items-center'>
+                            <div className='bg-neutral-700 p-3 rounded-full flex justify-center items-center'>
                                 <FaEnvelope size={16} />
                             </div>
                             <div>
@@ -54,7 +54,7 @@ const Footer = () => {
                             </div>
                         </div>
                         <div className='flex gap-4 items-center'>
-                            <div className='bg-slate-200 p-3 rounded-full flex justify-center items-center'>
+                            <div className='bg-neutral-700 p-3 rounded-full flex justify-center items-center'>
                                 <IoMdCall size={20} />
                             </div>
                             <div>
@@ -66,7 +66,7 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div className='py-2 text-center text-gray-500 text-sm font-hero'>
+            <div className='py-2 text-center text-neutral-400 text-sm font-hero'>
                 &copy; Mirashious Technologies Pvt Ltd
             </div>
 
