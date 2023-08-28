@@ -12,29 +12,29 @@ const ArtistLandingPage = () => {
             {/* auth modal */}
             <AuthModal />
 
-            <header>
-                <nav className='p-5 flex justify-between items-center'>
+            <header className="mica-banner">
+                <nav className='w-10/12 mx-auto px-10 py-5 flex justify-between items-center'>
                     <Link to="/">
                         <img className="w-32 rounded-sm" src={logo} alt="" />
                         {/* <h5 className='text-xl font-bold'>Adbhut.io</h5> */}
                     </Link>
                     <ul className='flex gap-x-8 items-center'>
                         <li>
-                            <button onClick={() => dispatch(showLogin())} type="button" class="bg-gradient-to-r from-pink-500 to-yellow-500 py-2 px-4 rounded font-semibold text-white">
+                            <button onClick={() => dispatch(showLogin())} type="button" class="bg-sky-500 py-3 px-5 rounded-full text-sm text-white">
                                 Login
                             </button>
                         </li>
                     </ul>
                 </nav>
 
-                <div className='px-32 space-y-5 flex flex-col justify-center items-center'>
-                    <h1 className='text-[8rem] leading-tight font-bold text-hero'>
+                <div className="p-32 space-y-5 flex flex-col justify-center items-center text-white">
+                    <h1 className='text-[8rem] leading-[0.9] font-bold text-hero'>
                         Content Hub <br />
                         For Creators
                     </h1>
                     <p className='text-xl'>Earn via brand integrations in your content</p>
                     <Link to="/artist/dashboard" className="block w-fit">
-                        <button type="button" class="bg-gradient-to-r from-pink-500 to-yellow-500 py-3 px-6 rounded font-semibold text-white">
+                        <button type="button" class="bg-sky-500 py-3 px-5 rounded-full text-sm text-white">
                             Get Started
                         </button>
                     </Link>
@@ -44,21 +44,21 @@ const ArtistLandingPage = () => {
             <section className='mt-40'>
                 <h3 className='text-4xl font-bold text-center mb-10'>Content you can upload to start earning</h3>
                 <div className='w-10/12 mx-auto grid grid-cols-3 gap-5 mb-10'>
-                    <div className='bg-gradient-to-b from-pink-500 to-yellow-300 p-5 flex flex-col justify-between gap-y-3 rounded-xl shadow-lg'>
+                    <div className='bg-gradient-to-b from-sky-500 to-sky-300 p-5 flex flex-col justify-between gap-y-3 rounded-xl shadow-lg'>
                         <h2 className="text-xl font-bold text-white">12 TV/OTT show worthy synopsis scripts (with demo episode, and/or full-length scripts)</h2>
                         <img src="https://cdn.dribbble.com/userupload/8672208/file/original-405339f7a5e65e2e82509593398209ef.png?resize=1024x687&vertical=center" alt="" />
                         <button type="button" class="bg-white py-3 px-6 rounded text-black font-bold">
                             Apply Now
                         </button>
                     </div>
-                    <div className='bg-gradient-to-b from-pink-500 to-yellow-300 p-5 flex flex-col justify-between gap-y-3 rounded-xl shadow-lg'>
+                    <div className='bg-gradient-to-b from-sky-500 to-sky-300 p-5 flex flex-col justify-between gap-y-3 rounded-xl shadow-lg'>
                         <h2 className="text-xl font-bold text-white">12+ advertising short content showcases done for the industry</h2>
                         <img src="https://cdn.dribbble.com/userupload/8672208/file/original-405339f7a5e65e2e82509593398209ef.png?resize=1024x687&vertical=center" alt="" />
                         <button type="button" class="bg-white py-3 px-6 rounded text-black font-bold">
                             Apply Now
                         </button>
                     </div>
-                    <div className='bg-gradient-to-b from-pink-500 to-yellow-300 p-5 flex flex-col justify-between gap-y-3 rounded-xl shadow-lg'>
+                    <div className='bg-gradient-to-b from-sky-500 to-sky-300 p-5 flex flex-col justify-between gap-y-3 rounded-xl shadow-lg'>
                         <h2 className="text-xl font-bold text-white">12+ OTT worthy feature/short films synopsis (with full-length scripts)</h2>
                         <img src="https://cdn.dribbble.com/userupload/8672208/file/original-405339f7a5e65e2e82509593398209ef.png?resize=1024x687&vertical=center" alt="" />
                         <button type="button" class="bg-white py-3 px-6 rounded text-black font-bold">

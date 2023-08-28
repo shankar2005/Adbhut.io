@@ -12,7 +12,7 @@ const Footer = () => {
 
     return (
         <footer className='bg-neutral-800 text-white'>
-            <div className='w-11/12 max-w-screen-xl mx-auto py-8 grid grid-cols-12 justify-between gap-y-8'>
+            <div className='w-10/12 max-w-screen-xl mx-auto py-8 grid grid-cols-12 justify-between gap-y-8'>
                 <div className='col-span-8 md:col-span-4'>
                     <h2 className='uppercase text-sm font-medium mb-4'>Product By</h2>
                     <img className='w-24' src="https://nsnco.in/assets/img/Swaraj.png" alt="" />
@@ -25,9 +25,9 @@ const Footer = () => {
                 <div className='col-span-4 md:col-span-4'>
                     <h1 className='uppercase text-sm font-medium mb-4'>Links</h1>
                     <ul className='text-sm space-y-2'>
-                        <li onClick={() => setIsShowMentor(true)} className='hover:underline'>Mentors</li>
-                        <li className='hover:underline'><Link to="/artists">Artists</Link></li>
-                        <li className='hover:underline'><a target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show'>Hiring</a></li>
+                        <li onClick={() => setIsShowMentor(true)} className='hover:underline w-fit'>Mentors</li>
+                        <li className='hover:underline w-fit'><Link to="/artists">Artists</Link></li>
+                        <li className='hover:underline w-fit'><a target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show'>Hiring</a></li>
                     </ul>
                 </div>
                 <div className='col-span-full md:col-span-4'>

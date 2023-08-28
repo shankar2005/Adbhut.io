@@ -13,6 +13,7 @@ import Brands from '../../Components/Sections/Brands';
 import { useEffect } from 'react';
 import Footer from '../../layouts/Shared/Footer';
 import { IoIosArrowDown } from 'react-icons/io';
+import CTA from './Sections/CTA';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -79,24 +80,7 @@ const Home = () => {
                 </section>
             </header>
 
-            <section className='w-[78%] mx-auto my-20 grid grid-cols-4 gap-10'>
-                <div className='border-l-2 border-orange-300 pl-5'>
-                    <h4 className='text-xl font-semibold mb-2'>Let our AI handle it</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur. Ut elit tellus, luctus nec ullamcorper.</p>
-                </div>
-                <div className='py-5 px-3 shadow-lg flex flex-col items-center gap-2 rounded-lg'>
-                    <img className='w-12' src="https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/artificial-intelligence-15-1.png" alt="" />
-                    <h5 className='font-semibold text-lg'>Image Generator</h5>
-                </div>
-                <div className='py-5 px-3 shadow-lg flex flex-col items-center gap-2 rounded-lg'>
-                    <img className='w-12' src="https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/artificial-intelligence-15-1.png" alt="" />
-                    <h5 className='font-semibold text-lg'>Image Generator</h5>
-                </div>
-                <div className='py-5 px-3 shadow-lg flex flex-col items-center gap-2 rounded-lg'>
-                    <img className='w-12' src="https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/artificial-intelligence-15-1.png" alt="" />
-                    <h5 className='font-semibold text-lg'>Image Generator</h5>
-                </div>
-            </section>
+            <CTA />
 
             <section className='w-9/12 mx-auto grid grid-cols-2 items-center gap-10'>
                 <img className='w-11/12 mr-auto' src="https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/AI-make-Art-2-768x571.png" alt="" />
