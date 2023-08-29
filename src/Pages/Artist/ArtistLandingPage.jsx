@@ -332,6 +332,35 @@ const ArtistLandingPage = () => {
                 </div>
             </section>
 
+            <section className="bg-sky-600 text-white my-20 py-20 ">
+                <div className='w-9/12 mx-auto grid grid-cols-2 items-center gap-10'>
+                    <div>
+                        <h2 className="text-5xl font-extrabold">AN ESPORTS REVOLUTION</h2>
+                        <p className="mt-5 font-bold mb-3">
+                            Esports is coming alive with Rush Media, where we intend to bring daily Valorant tournaments with quality prize pools. Join the hype squad!
+                        </p>
+
+                        <div className='flex items-center'>
+                            <button type="button" class="bg-sky-500 py-1 px-3 rounded text-sm text-white font-semibold mr-2">
+                                Get Started
+                            </button>
+                            <small className='text-sm font-bold inline-flex flex-col'>
+                                Joined <br />
+                                8/256
+                            </small>
+                        </div>
+
+                        <div className='border-l-4 pl-2 border-sky-100 font-bold mt-16'>
+                            15.07.2022. <br />
+                            <small>Belgrade, Serbia</small>
+                        </div>
+                    </div>
+                    <div>
+                        <img className="w-4/5 ml-auto rounded-xl" src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Group.png" alt="" />
+                    </div>
+                </div>
+            </section>
+
 
             {/* <section className='mt-40'>
                 <h3 className='text-4xl font-bold text-center mb-10'>Content you can upload to start earning</h3>
