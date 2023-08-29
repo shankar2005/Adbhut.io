@@ -292,7 +292,7 @@ const ArtistLandingPage = () => {
                 <div className="grid grid-cols-2 mt-10">
                     <div className='relative'>
                         <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
-                            <small className='text-xs w-fit bg-black text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
+                            <small className='text-xs w-fit bg-gray-600 text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
                             <h4 className='text-2xl font-semibold'>Map #1</h4>
                             <p className='text-xs font-semibold'>
                                 This map is used for first three rounds.
@@ -302,7 +302,7 @@ const ArtistLandingPage = () => {
                     </div>
                     <div className='relative'>
                         <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
-                            <small className='text-xs w-fit bg-black text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
+                            <small className='text-xs w-fit bg-gray-600 text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
                             <h4 className='text-2xl font-semibold'>Map #1</h4>
                             <p className='text-xs font-semibold'>
                                 This map is used for first three rounds.
@@ -312,7 +312,7 @@ const ArtistLandingPage = () => {
                     </div>
                     <div className='relative'>
                         <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
-                            <small className='text-xs w-fit bg-black text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
+                            <small className='text-xs w-fit bg-gray-600 text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
                             <h4 className='text-2xl font-semibold'>Map #1</h4>
                             <p className='text-xs font-semibold'>
                                 This map is used for first three rounds.
@@ -322,7 +322,7 @@ const ArtistLandingPage = () => {
                     </div>
                     <div className='relative'>
                         <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
-                            <small className='text-xs w-fit bg-black text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
+                            <small className='text-xs w-fit bg-gray-600 text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
                             <h4 className='text-2xl font-semibold'>Map #1</h4>
                             <p className='text-xs font-semibold'>
                                 This map is used for first three rounds.
@@ -358,6 +358,75 @@ const ArtistLandingPage = () => {
                     </div>
                     <div>
                         <img className="w-4/5 ml-auto rounded-xl" src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Group.png" alt="" />
+                    </div>
+                </div>
+            </section>
+
+
+            <section className="w-9/12 mx-auto my-20">
+                <div className='cols-span-1 text-center'>
+                    <h2 className="text-5xl font-extrabold">PRIZE POOL</h2>
+                    <p className="mt-8 font-bold">Every Friday we give out prizes to our top 3 placements</p>
+                </div>
+                <div className="flex items-end gap-3 mt-16">
+                    <div className='relative rounded-2xl h-fit'>
+                        <div className='absolute top-0 left-0 p-10 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end rounded-2xl text-center'>
+                            <h4 className='text-2xl font-semibold'>Map #1</h4>
+                            <p className='text-xs font-semibold mt-3'>
+                                A mechanical keyboard designed for Valorant, premium piece of gear coming from our partners
+                            </p>
+                            <a className='mt-4 text-xs block font-semibold uppercase' href="#">View More</a>
+                        </div>
+                        <img className='w-full rounded-2xl' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Frame-37-3.jpg" alt="" />
+                    </div>
+                    <div className='relative rounded-2xl h-fit'>
+                        <div className='absolute top-0 left-0 p-10 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end rounded-2xl text-center'>
+                            <h4 className='text-2xl font-semibold'>Map #1</h4>
+                            <p className='text-xs font-semibold mt-3'>
+                                A mechanical keyboard designed for Valorant, premium piece of gear coming from our partners
+                            </p>
+                            <a className='mt-4 text-xs block font-semibold uppercase' href="#">View More</a>
+                        </div>
+                        <img className='w-full rounded-2xl' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Frame-55.jpg" alt="" />
+                    </div>
+                    <div className='relative rounded-2xl h-fit'>
+                        <div className='absolute top-0 left-0 p-10 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end rounded-2xl text-center'>
+                            <h4 className='text-2xl font-semibold'>Map #1</h4>
+                            <p className='text-xs font-semibold mt-3'>
+                                A mechanical keyboard designed for Valorant, premium piece of gear coming from our partners
+                            </p>
+                            <a className='mt-4 text-xs block font-semibold uppercase' href="#">View More</a>
+                        </div>
+                        <img className='w-full rounded-2xl' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Frame-39-3.jpg" alt="" />
+                    </div>
+                </div>
+            </section>
+
+            <section className="w-9/12 mx-auto my-20">
+                <div className='cols-span-1 text-center'>
+                    <h2 className="text-5xl font-extrabold">TOURNAMENT VENUE</h2>
+                    <p className="mt-8 font-bold">We'll be using two locations for the tournament venue depending on the rounds</p>
+                </div>
+                <div className="grid grid-cols-2 mt-10">
+                    <div className='relative'>
+                        <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
+                            <small className='text-xs w-fit bg-gray-600 text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
+                            <h4 className='text-2xl font-semibold'>Map #1</h4>
+                            <p className='text-xs font-semibold'>
+                                This map is used for first three rounds.
+                            </p>
+                        </div>
+                        <img className='w-full' src="https://c.files.bbci.co.uk/131CB/production/_106838287_6838286.jpg" alt="" />
+                    </div>
+                    <div className='relative'>
+                        <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
+                            <small className='text-xs w-fit bg-gray-600 text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
+                            <h4 className='text-2xl font-semibold'>Map #1</h4>
+                            <p className='text-xs font-semibold'>
+                                This map is used for first three rounds.
+                            </p>
+                        </div>
+                        <img className='w-full' src="https://c.files.bbci.co.uk/131CB/production/_106838287_6838286.jpg" alt="" />
                     </div>
                 </div>
             </section>
