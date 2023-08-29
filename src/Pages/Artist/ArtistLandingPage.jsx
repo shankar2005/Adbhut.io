@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import logo from "../../assets/logos/adbhutGIF.gif"
 import { showLogin } from '../../features/dropdown/dropdownSlice';
 import AuthModal from '../Auth/Components/AuthModal';
+import { FaPlus } from "react-icons/fa";
 
 const ArtistLandingPage = () => {
     const dispatch = useDispatch();
@@ -12,12 +13,19 @@ const ArtistLandingPage = () => {
             {/* auth modal */}
             <AuthModal />
 
-            <header className="mica-banner">
+            <header>
                 <nav className='w-10/12 mx-auto px-10 py-5 flex justify-between items-center'>
-                    <Link to="/">
-                        <img className="w-32 rounded-sm" src={logo} alt="" />
-                        {/* <h5 className='text-xl font-bold'>Adbhut.io</h5> */}
-                    </Link>
+                    <div className="flex items-center gap-8">
+                        <Link to="/">
+                            <img className="w-32 rounded-sm" src={logo} alt="" />
+                        </Link>
+                        <img className="w-10 rounded-sm" src="https://img.collegedekhocdn.com/media/img/institute/logo/1432796965.png" alt="" />
+                        <ul className='ml-10 flex gap-x-8 items-center text-sm font-semibold'>
+                            <li>Home</li>
+                            <li>About</li>
+                            <li>Article</li>
+                        </ul>
+                    </div>
                     <ul className='flex gap-x-8 items-center'>
                         <li>
                             <button onClick={() => dispatch(showLogin())} type="button" class="bg-sky-500 py-3 px-5 rounded-full text-sm text-white">
@@ -27,7 +35,7 @@ const ArtistLandingPage = () => {
                     </ul>
                 </nav>
 
-                <div className="p-32 space-y-5 flex flex-col justify-center items-center text-white">
+                <div className="mica-banner p-32 pb-24 space-y-5 flex flex-col justify-center items-center text-white">
                     <h1 className='text-[8rem] leading-[0.9] font-bold text-hero'>
                         Content Hub <br />
                         For Creators
@@ -38,10 +46,243 @@ const ArtistLandingPage = () => {
                             Get Started
                         </button>
                     </Link>
+
+                    <div className='pt-20 flex gap-24'>
+                        <div>
+                            <h2 className="text-5xl font-bold">256</h2>
+                            <p className='text-sm font-semibold text-white/70'>Participants</p>
+                        </div>
+                        <div>
+                            <h2 className="text-5xl font-bold">2.6 BN</h2>
+                            <p className='text-sm font-semibold text-white/70'>Gamers worldwide</p>
+                        </div>
+                        <div>
+                            <h2 className="text-5xl font-bold">12k</h2>
+                            <p className='text-sm font-semibold text-white/70'>Global rush audience</p>
+                        </div>
+                        <div>
+                            <h2 className="text-5xl font-bold">50k</h2>
+                            <p className='text-sm font-semibold text-white/70'>Total prize pool</p>
+                        </div>
+                        <div>
+                            <h2 className="text-5xl font-bold">11</h2>
+                            <p className='text-sm font-semibold text-white/70'>Partners & sponsors</p>
+                        </div>
+                    </div>
                 </div>
             </header>
 
-            <section className='mt-40'>
+            <section className="w-9/12 mx-auto bg-sky-100 px-16 py-8 rounded-lg mt-20">
+                <h2 className="text-4xl font-semibold mb-3">GET ASTRO GEAR</h2>
+                <p className="mb-5">By winning in our tournaments you exclusively open yourself to receiving an <br /> absurd amount of ASTRO gaming gear and jerseys.</p>
+                <button type="button" class="bg-sky-500 py-1 px-5 rounded text-sm text-white font-semibold">
+                    Get Started
+                </button>
+            </section>
+
+            <section className="w-9/12 mx-auto my-20 grid grid-cols-2 items-center gap-10">
+                <div>
+                    <h2 className="text-4xl font-extrabold">Join our summer fiesta tournament 2022</h2>
+                    <p className="mt-10 font-bold">A single-elimination tournament with 256 slots to fill your deepest Valorant desires and a chance to make it to the pro series!</p>
+
+                    <div className='border-l-4 pl-2 border-black font-bold mt-16'>
+                        Location <br />
+                        <small>Belgrade, Serbia</small>
+                    </div>
+                </div>
+
+                <div>
+                    <img className="w-4/5 ml-auto rounded-xl" src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Frame-53-2-1.jpg" alt="" />
+                </div>
+            </section>
+
+            <section className="w-9/12 mx-auto my-20 grid grid-cols-3 items-center gap-10">
+                <div className='cols-span-1'>
+                    <h2 className="text-4xl font-extrabold">FEED</h2>
+                    <p className="text-sm mt-3 font-bold">A single-elimination tournament with 256 slots to fill your deepest Valorant desires and a chance to make it to the pro series!</p>
+                    <button type="button" class="bg-sky-500 py-1 px-5 rounded text-sm text-white font-semibold mt-6">
+                        Get Started
+                    </button>
+                </div>
+                <div className='col-span-2 grid grid-cols-2 gap-2'>
+                    <div className="shadow-lg border p-4 pb-6 rounded-xl">
+                        <div className="flex items-center gap-2">
+                            <img className='w-10' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Rectangle-8-4.png" alt="" />
+                            <div>
+                                <p className='text-sm font-semibold'>RUSH <small className='text-xs w-fit bg-black text-white font-bold px-1 py-0.5 rounded'>STAFF</small></p>
+                                <p className='text-xs text-red-700 font-bold'>July 20, 2022</p>
+                            </div>
+                        </div>
+                        <p className="text-xs font-semibold mt-4">
+                            New 3 months and 1 year subscription plans at great prices! Please check them out by pushing the "Subscribe" button in the space. Enjoy!
+                        </p>
+                    </div>
+                    <div className="shadow-lg border p-4 pb-6 rounded-xl">
+                        <div className="flex items-center gap-2">
+                            <img className='w-10' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Rectangle-8-4.png" alt="" />
+                            <div>
+                                <p className='text-sm font-semibold'>RUSH <small className='text-xs w-fit bg-black text-white font-bold px-1 py-0.5 rounded'>STAFF</small></p>
+                                <p className='text-xs text-red-700 font-bold'>July 20, 2022</p>
+                            </div>
+                        </div>
+                        <p className="text-xs font-semibold mt-4">
+                            New 3 months and 1 year subscription plans at great prices! Please check them out by pushing the "Subscribe" button in the space. Enjoy!
+                        </p>
+                    </div>
+                    <div className="shadow-lg border p-4 pb-6 rounded-xl">
+                        <div className="flex items-center gap-2">
+                            <img className='w-10' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Rectangle-8-4.png" alt="" />
+                            <div>
+                                <p className='text-sm font-semibold'>RUSH <small className='text-xs w-fit bg-black text-white font-bold px-1 py-0.5 rounded'>STAFF</small></p>
+                                <p className='text-xs text-red-700 font-bold'>July 20, 2022</p>
+                            </div>
+                        </div>
+                        <p className="text-xs font-semibold mt-4">
+                            New 3 months and 1 year subscription plans at great prices! Please check them out by pushing the "Subscribe" button in the space. Enjoy!
+                        </p>
+                    </div>
+                    <div className="shadow-lg border p-4 pb-6 rounded-xl">
+                        <div className="flex items-center gap-2">
+                            <img className='w-10' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Rectangle-8-4.png" alt="" />
+                            <div>
+                                <p className='text-sm font-semibold'>RUSH <small className='text-xs w-fit bg-black text-white font-bold px-1 py-0.5 rounded'>STAFF</small></p>
+                                <p className='text-xs text-red-700 font-bold'>July 20, 2022</p>
+                            </div>
+                        </div>
+                        <p className="text-xs font-semibold mt-4">
+                            New 3 months and 1 year subscription plans at great prices! Please check them out by pushing the "Subscribe" button in the space. Enjoy!
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section className="w-9/12 mx-auto bg-sky-100 p-16 rounded-lg my-20">
+                <h2 className="text-4xl font-semibold mb-3">NEW GENERATION OF TOMORROW</h2>
+                <button type="button" class="bg-sky-500 py-1 px-5 rounded text-sm text-white font-semibold">
+                    Get Started
+                </button>
+            </section>
+
+            <section className="w-9/12 mx-auto my-20 grid grid-cols-3 items-start gap-10">
+                <div className='cols-span-1'>
+                    <h2 className="text-4xl font-extrabold">FAQ</h2>
+                    <p className="text-sm mt-3 font-bold">Learn everything you need to know about our tournaments! For more info, please reach out to us.</p>
+                </div>
+                <div className='col-span-2 space-y-1.5'>
+                    <div className="bg-sky-600 text-white p-4 rounded-xl">
+                        <div className="flex items-center justify-between">
+                            <p className='font-semibold'>How to join RUSH tournament? </p>
+                            <FaPlus />
+                        </div>
+                        <p className="text-sm font-semibold mt-4">
+                            New 3 months and 1 year subscription plans at great prices! Please check them out by pushing the "Subscribe" button in the space. Enjoy!
+                        </p>
+                    </div>
+                    <div className="bg-gray-600 text-white p-4 rounded-xl flex justify-between items-center">
+                        <p className='font-semibold'>How to join RUSH tournament? </p>
+                        <FaPlus />
+                    </div>
+                    <div className="bg-gray-600 text-white p-4 rounded-xl flex justify-between items-center">
+                        <p className='font-semibold'>How to join RUSH tournament? </p>
+                        <FaPlus />
+                    </div>
+                    <div className="bg-gray-600 text-white p-4 rounded-xl flex justify-between items-center">
+                        <p className='font-semibold'>How to join RUSH tournament? </p>
+                        <FaPlus />
+                    </div>
+                </div>
+            </section>
+
+            <section className="w-9/12 mx-auto my-20 flex justify-between">
+                <img className='w-24' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Vector-35.png" alt="" />
+                <img className='w-24' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Vector-35.png" alt="" />
+                <img className='w-24' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Vector-35.png" alt="" />
+                <img className='w-24' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Vector-35.png" alt="" />
+                <img className='w-24' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Vector-35.png" alt="" />
+            </section>
+
+            <section className="w-9/12 mx-auto bg-sky-600 py-10 px-16 rounded-lg my-20 text-white">
+                <div className='flex justify-between'>
+                    <h2 className="text-5xl font-extrabold mb-3">TOURNAMENT SCHEDULE</h2>
+                    <p className='font-semibold text-center'>
+                        DAY 1 <br />
+                        1 DAY
+                    </p>
+                </div>
+
+                <div className='grid grid-cols-4 mt-14 gap-10'>
+                    <div>
+                        <h2 className="text-2xl font-bold">Round 1</h2>
+                        <p className='text-sm font-semibold text-white/70'>10:00 AM CET</p>
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-bold">Round 1</h2>
+                        <p className='text-sm font-semibold text-white/70'>10:00 AM CET</p>
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-bold">Round 1</h2>
+                        <p className='text-sm font-semibold text-white/70'>Gamers worldwide</p>
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-bold">Round 1</h2>
+                        <p className='text-sm font-semibold text-white/70'>Global rush audience</p>
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-bold">Round 1</h2>
+                        <p className='text-sm font-semibold text-white/70'>Total prize pool</p>
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-bold">Round 1</h2>
+                        <p className='text-sm font-semibold text-white/70'>Partners & sponsors</p>
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-bold">Round 1</h2>
+                        <p className='text-sm font-semibold text-white/70'>10:00 AM CET</p>
+                    </div>
+                    <div>
+                        <h2 className="text-2xl font-bold">Round 1</h2>
+                        <p className='text-sm font-semibold text-white/70'>Partners & sponsors</p>
+                    </div>
+                </div>
+            </section>
+
+
+            <section className="w-9/12 mx-auto bg-gray-600 py-10 px-16 rounded-lg my-20 text-white grid grid-cols-3 gap-20">
+                <div className="col-span-2">
+                    <h2 className="text-5xl font-extrabold mb-3">ALL THE DETAILS FOR THE RUSH TOURNEY</h2>
+                    <p className="mb-5 font-bold">A single-elimination tournament with 256 slots to fill your deepest Valorant desires and a chance to make it to the pro series!</p>
+                    <button type="button" class="bg-white text-black py-1 px-5 rounded text-sm font-semibold">
+                        Get Started
+                    </button>
+                </div>
+
+                <div className='col-span-1 gap-24'>
+                    <div className='border-b border-white/60 pb-3 mb-3'>
+                    </div>
+                    <div className='border-b border-white/60 pb-3 mb-3'>
+                        <h2 className="text-2xl font-bold">256</h2>
+                        <p className='text-sm font-semibold text-white/70'>Participants</p>
+                    </div>
+                    <div className='border-b border-white/60 pb-3 mb-3'>
+                        <h2 className="text-2xl font-bold">2.6 BN</h2>
+                        <p className='text-sm font-semibold text-white/70'>Gamers worldwide</p>
+                    </div>
+                    <div className='border-b border-white/60 pb-3 mb-3'>
+                        <h2 className="text-2xl font-bold">12k</h2>
+                        <p className='text-sm font-semibold text-white/70'>Global rush audience</p>
+                    </div>
+                    <div className='border-b border-white/60 pb-3 mb-3'>
+                        <h2 className="text-2xl font-bold">50k</h2>
+                        <p className='text-sm font-semibold text-white/70'>Total prize pool</p>
+                    </div>
+                    <div className='border-b border-white/60 pb-3 mb-3'>
+                        <h2 className="text-2xl font-bold">11</h2>
+                        <p className='text-sm font-semibold text-white/70'>Partners & sponsors</p>
+                    </div>
+                </div>
+            </section>
+
+            {/* <section className='mt-40'>
                 <h3 className='text-4xl font-bold text-center mb-10'>Content you can upload to start earning</h3>
                 <div className='w-10/12 mx-auto grid grid-cols-3 gap-5 mb-10'>
                     <div className='bg-gradient-to-b from-sky-500 to-sky-300 p-5 flex flex-col justify-between gap-y-3 rounded-xl shadow-lg'>
@@ -66,9 +307,9 @@ const ArtistLandingPage = () => {
                         </button>
                     </div>
                 </div>
-            </section>
+            </section> */}
 
-            <section className="w-10/12 gap-28 max-w-screen-xl mx-auto flex flex-col md:flex-row items-center py-20">
+            {/* <section className="w-10/12 gap-28 max-w-screen-xl mx-auto flex flex-col md:flex-row items-center py-20">
                 <div className="text-center md:text-left">
                     <h2 className='text-4xl font-bold mb-10'>
                         Requested task
@@ -109,7 +350,7 @@ const ArtistLandingPage = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> */}
         </div>
     );
 };
