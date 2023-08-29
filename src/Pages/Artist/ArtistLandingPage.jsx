@@ -4,6 +4,7 @@ import logo from "../../assets/logos/adbhutGIF.gif"
 import { showLogin } from '../../features/dropdown/dropdownSlice';
 import AuthModal from '../Auth/Components/AuthModal';
 import { FaPlus } from "react-icons/fa";
+import Footer from "../../layouts/Shared/Footer";
 
 const ArtistLandingPage = () => {
     const dispatch = useDispatch();
@@ -431,6 +432,8 @@ const ArtistLandingPage = () => {
                     </div>
                 </div>
             </section> */}
+
+            <Footer />
         </div>
     );
 };
