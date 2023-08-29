@@ -282,6 +282,57 @@ const ArtistLandingPage = () => {
                 </div>
             </section>
 
+
+            <section className="w-9/12 mx-auto my-20">
+                <div className='cols-span-1 text-center'>
+                    <h2 className="text-5xl font-extrabold">PLAYING FIELD</h2>
+                    <p className="mt-8 font-bold">The maps below are used for playing during the tournamnet each map has its own number of rounds.</p>
+                </div>
+                <div className="grid grid-cols-2 mt-10">
+                    <div className='relative'>
+                        <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
+                            <small className='text-xs w-fit bg-black text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
+                            <h4 className='text-2xl font-semibold'>Map #1</h4>
+                            <p className='text-xs font-semibold'>
+                                This map is used for first three rounds.
+                            </p>
+                        </div>
+                        <img className='w-full' src="https://c.files.bbci.co.uk/131CB/production/_106838287_6838286.jpg" alt="" />
+                    </div>
+                    <div className='relative'>
+                        <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
+                            <small className='text-xs w-fit bg-black text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
+                            <h4 className='text-2xl font-semibold'>Map #1</h4>
+                            <p className='text-xs font-semibold'>
+                                This map is used for first three rounds.
+                            </p>
+                        </div>
+                        <img className='w-full' src="https://c.files.bbci.co.uk/131CB/production/_106838287_6838286.jpg" alt="" />
+                    </div>
+                    <div className='relative'>
+                        <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
+                            <small className='text-xs w-fit bg-black text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
+                            <h4 className='text-2xl font-semibold'>Map #1</h4>
+                            <p className='text-xs font-semibold'>
+                                This map is used for first three rounds.
+                            </p>
+                        </div>
+                        <img className='w-full' src="https://c.files.bbci.co.uk/131CB/production/_106838287_6838286.jpg" alt="" />
+                    </div>
+                    <div className='relative'>
+                        <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
+                            <small className='text-xs w-fit bg-black text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
+                            <h4 className='text-2xl font-semibold'>Map #1</h4>
+                            <p className='text-xs font-semibold'>
+                                This map is used for first three rounds.
+                            </p>
+                        </div>
+                        <img className='w-full' src="https://c.files.bbci.co.uk/131CB/production/_106838287_6838286.jpg" alt="" />
+                    </div>
+                </div>
+            </section>
+
+
             {/* <section className='mt-40'>
                 <h3 className='text-4xl font-bold text-center mb-10'>Content you can upload to start earning</h3>
                 <div className='w-10/12 mx-auto grid grid-cols-3 gap-5 mb-10'>
