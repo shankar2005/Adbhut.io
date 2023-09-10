@@ -1,10 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import logo from "../../assets/logos/adbhutGIF.gif"
 import { showLogin } from '../../features/dropdown/dropdownSlice';
 import AuthModal from '../Auth/Components/AuthModal';
 import { FaPlus } from "react-icons/fa";
 import Footer from "../../layouts/Shared/Footer";
+import HeroSection from '../MICA/HeroSection';
 
 const ArtistLandingPage = () => {
     const dispatch = useDispatch();
@@ -35,42 +36,7 @@ const ArtistLandingPage = () => {
                         </li>
                     </ul>
                 </nav>
-
-                <div className="mica-banner p-32 pb-24 space-y-5 flex flex-col justify-center items-center text-white">
-                    <h1 className='text-[8rem] leading-[0.9] font-bold text-hero'>
-                        Content Hub <br />
-                        For Creators
-                    </h1>
-                    <p className='text-xl'>Earn via brand integrations in your content</p>
-                    <Link to="/artist/dashboard" className="block w-fit">
-                        <button type="button" class="bg-sky-500 py-3 px-5 rounded-full text-sm text-white">
-                            Get Started
-                        </button>
-                    </Link>
-
-                    <div className='pt-20 flex gap-24'>
-                        <div>
-                            <h2 className="text-5xl font-bold">256</h2>
-                            <p className='text-sm font-semibold text-white/70'>Participants</p>
-                        </div>
-                        <div>
-                            <h2 className="text-5xl font-bold">2.6 BN</h2>
-                            <p className='text-sm font-semibold text-white/70'>Gamers worldwide</p>
-                        </div>
-                        <div>
-                            <h2 className="text-5xl font-bold">12k</h2>
-                            <p className='text-sm font-semibold text-white/70'>Global rush audience</p>
-                        </div>
-                        <div>
-                            <h2 className="text-5xl font-bold">50k</h2>
-                            <p className='text-sm font-semibold text-white/70'>Total prize pool</p>
-                        </div>
-                        <div>
-                            <h2 className="text-5xl font-bold">11</h2>
-                            <p className='text-sm font-semibold text-white/70'>Partners & sponsors</p>
-                        </div>
-                    </div>
-                </div>
+                <HeroSection />
             </header>
 
             <section className="w-9/12 mx-auto bg-sky-100 px-16 py-8 rounded-lg mt-20">
