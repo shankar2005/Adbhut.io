@@ -40,7 +40,7 @@ const ArtistLandingPage = () => {
                 <HeroSection />
             </header>
 
-            <section className="w-9/12 mx-auto bg-sky-100 px-16 py-8 rounded-lg mt-20">
+            <section className="w-10/12 md:w-9/12 mx-auto bg-sky-100 px-16 py-8 rounded-lg mt-20">
                 <h2 className="text-4xl font-semibold mb-3">Creator Fellowship Program</h2>
                 <p className="mb-5">
                     An initiative of MICA, CMES hosted by Adbhut.io to bring together academia, industry and community for offering a space to Media and Entertainment industries to facilitate research based solutions for enduring content needs.
@@ -110,7 +110,7 @@ const ArtistLandingPage = () => {
                 </div>
             </section>
 
-            <section className="w-9/12 mx-auto bg-sky-100 p-16 rounded-lg my-20">
+            <section className="w-10/12 md:w-9/12 mx-auto bg-sky-100 p-16 rounded-lg my-20">
                 <h2 className="text-4xl font-semibold mb-3">NEW GENERATION OF TOMORROW</h2>
                 <p className="mb-5">
                     Pro series for starting great careers
@@ -157,34 +157,34 @@ const ArtistLandingPage = () => {
             </section>
 
 
-            <section className="w-9/12 mx-auto bg-sky-600 py-10 px-16 rounded-lg my-20 text-white">
+            <section className="w-10/12 md:w-9/12 mx-auto bg-sky-600 py-10 px-8 md:px-16 rounded-lg my-20 text-white">
                 <div className='flex justify-between'>
-                    <h2 className="text-5xl font-extrabold mb-3">ON-GOING PROJECTS</h2>
+                    <h2 className="text-4xl md:text-5xl font-extrabold mb-3">ON-GOING PROJECTS</h2>
                     <p className='font-semibold text-center'>
                         30 DAYS
                     </p>
                 </div>
 
-                <div className='grid grid-cols-3 mt-14 gap-10'>
+                <div className='grid grid-cols-1 md:grid-cols-3 mt-14 gap-10'>
                     <div>
-                        <h2 className="text-2xl font-bold">TV/OTT show</h2>
+                        <h2 className="text-xl md:text-2xl font-bold">TV/OTT show</h2>
                         <p className='text-sm font-semibold text-white/70'>12 Spots Open</p>
                     </div>
                     <div>
-                        <h2 className="text-2xl font-bold">Advertising content</h2>
+                        <h2 className="text-xl md:text-2xl font-bold">Advertising content</h2>
                         <p className='text-sm font-semibold text-white/70'>12 Spots Open</p>
                     </div>
                     <div>
-                        <h2 className="text-2xl font-bold">Feature/short films</h2>
+                        <h2 className="text-xl md:text-2xl font-bold">Feature/short films</h2>
                         <p className='text-sm font-semibold text-white/70'>12 Spots Open</p>
                     </div>
                 </div>
             </section>
 
 
-            <section className="w-9/12 mx-auto bg-gray-600 py-10 px-16 rounded-lg my-20 text-white grid grid-cols-3 gap-20">
+            <section className="w-10/12 md:w-9/12 mx-auto bg-gray-600 py-10 px-10 md:px-16 rounded-lg my-20 text-white grid grid-cols-1 md:grid-cols-3 gap-20">
                 <div className="col-span-2">
-                    <h2 className="text-5xl font-extrabold mb-3">ALL THE DETAILS FOR CREATOR FELLOWSHIP PROGRAM</h2>
+                    <h2 className="text-4xl md:text-5xl font-extrabold mb-3">ALL THE DETAILS FOR CREATOR FELLOWSHIP PROGRAM</h2>
                     <p className="mb-5 font-bold">
                         An ongoing, no elimination, content tournament with 250 open slots of entry to your deepest Creative desires and a chance to make it to the pro series!
                     </p>
@@ -197,23 +197,23 @@ const ArtistLandingPage = () => {
                     <div className='border-b border-white/60 pb-3 mb-3'>
                     </div>
                     <div className='border-b border-white/60 pb-3 mb-3'>
-                        <h2 className="text-2xl font-bold">756</h2>
+                        <h2 className="text-xl md:text-2xl font-bold">756</h2>
                         <p className='text-sm font-semibold text-white/70'>Creators</p>
                     </div>
                     <div className='border-b border-white/60 pb-3 mb-3'>
-                        <h2 className="text-2xl font-bold">7.6 Bn</h2>
+                        <h2 className="text-xl md:text-2xl font-bold">7.6 Bn</h2>
                         <p className='text-sm font-semibold text-white/70'>Content Views worldwide</p>
                     </div>
                     <div className='border-b border-white/60 pb-3 mb-3'>
-                        <h2 className="text-2xl font-bold">21</h2>
+                        <h2 className="text-xl md:text-2xl font-bold">21</h2>
                         <p className='text-sm font-semibold text-white/70'>Satisfied Brand Partners</p>
                     </div>
                     <div className='border-b border-white/60 pb-3 mb-3'>
-                        <h2 className="text-2xl font-bold">2500k INR</h2>
+                        <h2 className="text-xl md:text-2xl font-bold">2500k INR</h2>
                         <p className='text-sm font-semibold text-white/70'>Total prize pool</p>
                     </div>
                     <div className='border-b border-white/60 pb-3 mb-3'>
-                        <h2 className="text-2xl font-bold">Multiple</h2>
+                        <h2 className="text-xl md:text-2xl font-bold">Multiple</h2>
                         <p className='text-sm font-semibold text-white/70'>Partners & sponsors</p>
                     </div>
                 </div>
@@ -227,11 +227,11 @@ const ArtistLandingPage = () => {
                         The maps below are used for playing during the tournamnet each map has its own number of rounds. - The mappings shown below are used for content evaluating during the program with each map having its own number of rounds.
                     </p>
                 </div>
-                <div className="grid grid-cols-2 mt-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 mt-10">
                     <div className='relative'>
                         <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
                             <small className='text-xs w-fit bg-gray-600 text-white font-bold px-2 py-0.5 rounded'>BEST STRUCTURED OUTPUT</small>
-                            <h4 className='text-2xl font-semibold'>Ai/ML analysis </h4>
+                            <h4 className='text-xl md:text-2xl font-semibold'>Ai/ML analysis </h4>
                             <p className='text-xs font-semibold'>
                                 This map is used for first three rounds of content evaluation.
                             </p>
@@ -241,7 +241,7 @@ const ArtistLandingPage = () => {
                     <div className='relative'>
                         <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
                             <small className='text-xs w-fit bg-gray-600 text-white font-bold px-2 py-0.5 rounded'>BEST OF MONTH</small>
-                            <h4 className='text-2xl font-semibold'>MICA CMES Shortlists</h4>
+                            <h4 className='text-xl md:text-2xl font-semibold'>MICA CMES Shortlists</h4>
                             <p className='text-xs font-semibold'>
                                 This map is used for last round.
                             </p>
@@ -252,7 +252,7 @@ const ArtistLandingPage = () => {
             </section>
 
             <section className="bg-sky-600 text-white my-20 py-20 ">
-                <div className='w-9/12 mx-auto grid grid-cols-2 items-center gap-10'>
+                <div className='w-9/12 mx-auto md:grid grid-cols-2 items-center gap-10'>
                     <div>
                         <h2 className="text-5xl font-extrabold uppercase">AI/ML CONTENT Evaluation</h2>
                         <p className="mt-5 font-bold mb-3">
@@ -274,7 +274,7 @@ const ArtistLandingPage = () => {
                             <small>Adbhut.io</small>
                         </div>
                     </div>
-                    <div>
+                    <div className='hidden md:block'>
                         <img className="w-4/5 ml-auto rounded-xl" src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Group.png" alt="" />
                     </div>
                 </div>
@@ -282,14 +282,14 @@ const ArtistLandingPage = () => {
 
 
             <section className="w-10/12 md:w-9/12 mx-auto my-20">
-                <div className='cols-span-1 text-center'>
+                <div className='text-center'>
                     <h2 className="text-5xl font-extrabold">MONTHLY SHOWCASE</h2>
                     <p className="mt-8 font-bold">Top 3 Artists of the month contributing maximum to the fellowship program</p>
                 </div>
                 <div className="flex flex-col md:flex-row items-end gap-3 mt-16">
                     <div className='relative rounded-2xl h-fit'>
                         <div className='absolute top-0 left-0 p-10 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end rounded-2xl text-center backdrop-blur-lg'>
-                            <h4 className='text-2xl font-semibold'>Upcoming</h4>
+                            <h4 className='text-xl md:text-2xl font-semibold'>Upcoming</h4>
                             <p className='text-xs font-semibold mt-3'>
                                 A mechanical keyboard designed for Valorant, premium piece of gear coming from our partners
                             </p>
@@ -299,7 +299,7 @@ const ArtistLandingPage = () => {
                     </div>
                     <div className='relative rounded-2xl h-fit'>
                         <div className='absolute top-0 left-0 p-10 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end rounded-2xl text-center backdrop-blur-lg'>
-                            <h4 className='text-2xl font-semibold'>Upcoming</h4>
+                            <h4 className='text-xl md:text-2xl font-semibold'>Upcoming</h4>
                             <p className='text-xs font-semibold mt-3'>
                                 A mechanical keyboard designed for Valorant, premium piece of gear coming from our partners
                             </p>
@@ -309,7 +309,7 @@ const ArtistLandingPage = () => {
                     </div>
                     <div className='relative rounded-2xl h-fit'>
                         <div className='absolute top-0 left-0 p-10 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end rounded-2xl text-center backdrop-blur-lg'>
-                            <h4 className='text-2xl font-semibold'>Upcoming</h4>
+                            <h4 className='text-xl md:text-2xl font-semibold'>Upcoming</h4>
                             <p className='text-xs font-semibold mt-3'>
                                 A mechanical keyboard designed for Valorant, premium piece of gear coming from our partners
                             </p>
@@ -329,7 +329,7 @@ const ArtistLandingPage = () => {
                     <div className='relative'>
                         <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
                             <small className='text-xs w-fit bg-gray-600 text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
-                            <h4 className='text-2xl font-semibold'>Upcoming</h4>
+                            <h4 className='text-xl md:text-2xl font-semibold'>Upcoming</h4>
                             <p className='text-xs font-semibold'>
                                 This map is used for first three rounds.
                             </p>
@@ -339,7 +339,7 @@ const ArtistLandingPage = () => {
                     <div className='relative'>
                         <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
                             <small className='text-xs w-fit bg-gray-600 text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
-                            <h4 className='text-2xl font-semibold'>Upcoming</h4>
+                            <h4 className='text-xl md:text-2xl font-semibold'>Upcoming</h4>
                             <p className='text-xs font-semibold'>
                                 This map is used for first three rounds.
                             </p>
