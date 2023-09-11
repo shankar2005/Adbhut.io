@@ -103,18 +103,18 @@ const Brands = ({ setIsHovered }) => {
     ]
 
     return (
-        <section className='fixed top-16 left-0 w-full bg-white shadow border p-5 pb-16 z-10 rounded-b-lg h-screen overflow-auto'>
-            <RxCross1 onClick={() => setIsHovered(false)} className='absolute right-5 top-5 z-20 cursor-pointer' size={25} />
+        // <section className='fixed top-16 left-0 w-full bg-white shadow border p-5 pb-16 z-10 rounded-b-lg h-screen overflow-auto'>
+        //     <RxCross1 onClick={() => setIsHovered(false)} className='absolute right-5 top-5 z-20 cursor-pointer' size={25} />
 
-            <div className='w-full md:w-3/12 font-hero mb-8'>
-                <h1 className='text-2xl font-semibold'>Client Projects</h1>
-            </div>
+        //     <div className='w-full md:w-3/12 font-hero mb-8'>
+        //         <h1 className='text-2xl font-semibold'>Client Projects</h1>
+        //     </div>
 
             <Swiper
                 ref={brandSwiperRef}
                 className="select-none relative"
                 spaceBetween={5}
-                slidesPerView={6}
+                slidesPerView={5}
                 breakpoints={{
                     // when window width is >= 320px
                     320: {
@@ -126,7 +126,7 @@ const Brands = ({ setIsHovered }) => {
                     },
                     // when window width is >= 640px
                     640: {
-                        slidesPerView: 6,
+                        slidesPerView: 5,
                     }
                 }}
             >
@@ -141,38 +141,38 @@ const Brands = ({ setIsHovered }) => {
                 <button onClick={brandNextSlide} className="bg-gray-400 rounded-full text-white absolute top-1/2 -translate-y-1/2 right-0 z-10"><BiChevronRight size={30} /></button>
             </Swiper>
 
-            <div className="text-center text-2xl mt-10 space-x-1">
-                <span className="bg-green-600 text-white p-2 font-semibold"><CountUp end={74} duration={3} /></span>
-                <span>trees planted</span>
-            </div>
+        //     <div className="text-center text-2xl mt-10 space-x-1">
+        //         <span className="bg-green-600 text-white p-2 font-semibold"><CountUp end={74} duration={3} /></span>
+        //         <span>trees planted</span>
+        //     </div>
 
-            <Swiper
-                ref={swiperRef}
-                slidesPerView={1}
-                className="w-full lg:w-3/6 mt-5 relative"
-                modules={[Pagination]}
-                pagination={{ clickable: true }}
-            >
-                {certificates.map(certificate => (
-                    <SwiperSlide>
-                        <iframe className="w-full aspect-video border" src={certificate.replace("/view", "/preview")} allow="autoplay"></iframe>
-                    </SwiperSlide>
-                ))}
-                <div className='absolute top-1/2 -translate-y-1/2 z-10 left-0 flex justify-between w-full '>
-                    <button onClick={prevSlide} className="bg-gray-100 p-2 ml-2 rounded-full"><BiChevronLeft size={20} /></button>
-                    <button onClick={nextSlide} className="bg-gray-100 p-2 mr-2 rounded-full"><BiChevronRight size={20} /></button>
-                </div>
-            </Swiper>
+        //     <Swiper
+        //         ref={swiperRef}
+        //         slidesPerView={1}
+        //         className="w-full lg:w-3/6 mt-5 relative"
+        //         modules={[Pagination]}
+        //         pagination={{ clickable: true }}
+        //     >
+        //         {certificates.map(certificate => (
+        //             <SwiperSlide>
+        //                 <iframe className="w-full aspect-video border" src={certificate.replace("/view", "/preview")} allow="autoplay"></iframe>
+        //             </SwiperSlide>
+        //         ))}
+        //         <div className='absolute top-1/2 -translate-y-1/2 z-10 left-0 flex justify-between w-full '>
+        //             <button onClick={prevSlide} className="bg-gray-100 p-2 ml-2 rounded-full"><BiChevronLeft size={20} /></button>
+        //             <button onClick={nextSlide} className="bg-gray-100 p-2 mr-2 rounded-full"><BiChevronRight size={20} /></button>
+        //         </div>
+        //     </Swiper>
 
-            <a target="_blank" href="https://thhs.in/invite"><img className="w-96 mx-auto my-20" src={thhs} alt="" /></a>
+        //     <a target="_blank" href="https://thhs.in/invite"><img className="w-96 mx-auto my-20" src={thhs} alt="" /></a>
 
-            {/* {isPlay && <Modal onClick={() => setIsPlay(false)}>
-                <div className="bg-white p-5 w-full">
-                    <WorkDemo demo_type="Google Drive" demo_link="https://drive.google.com/file/d/1YFIeUZ09mqFKFMHBodKS1JYIylDDEv8-/view?usp=sharing" />
-                </div>
-            </Modal>} */}
+        //     {/* {isPlay && <Modal onClick={() => setIsPlay(false)}>
+        //         <div className="bg-white p-5 w-full">
+        //             <WorkDemo demo_type="Google Drive" demo_link="https://drive.google.com/file/d/1YFIeUZ09mqFKFMHBodKS1JYIylDDEv8-/view?usp=sharing" />
+        //         </div>
+        //     </Modal>} */}
 
-        </section>
+        // </section>
     );
 };
 

@@ -31,11 +31,11 @@ const HeroSection = () => {
                         <img src={ott} alt="" />
                     </div>
                     {/* <p className='text-xl'>Earn via brand integrations in your content</p> */}
-                    {/* <Link to="/artist/dashboard" className="block w-fit">
+                    <Link to="/artist/dashboard" className="block w-fit">
                         <button type="button" class="bg-sky-500 py-3 px-5 rounded-full text-sm text-white">
                             Get Started
                         </button>
-                    </Link> */}
+                    </Link>
                 </div>
             </SwiperSlide>
             <SwiperSlide>
@@ -47,11 +47,11 @@ const HeroSection = () => {
                         <img src={advertisement} alt="" />
                     </div>
                     {/* <p className='text-xl'>Earn via brand integrations in your content</p> */}
-                    {/* <Link to="/artist/dashboard" className="block w-fit">
+                    <Link to="/artist/dashboard" className="block w-fit">
                         <button type="button" class="bg-sky-500 py-3 px-5 rounded-full text-sm text-white">
                             Get Started
                         </button>
-                    </Link> */}
+                    </Link>
                 </div>
             </SwiperSlide>
             <SwiperSlide>
@@ -63,11 +63,11 @@ const HeroSection = () => {
                         <img src={film} alt="" />
                     </div>
                     {/* <p className='text-xl'>Earn via brand integrations in your content</p> */}
-                    {/* <Link to="/artist/dashboard" className="block w-fit">
+                    <Link to="/artist/dashboard" className="block w-fit">
                         <button type="button" class="bg-sky-500 py-3 px-5 rounded-full text-sm text-white">
                             Get Started
                         </button>
-                    </Link> */}
+                    </Link>
                 </div>
             </SwiperSlide>
         </Swiper>

@@ -6,6 +6,7 @@ import AuthModal from '../Auth/Components/AuthModal';
 import { FaPlus } from "react-icons/fa";
 import Footer from "../../layouts/Shared/Footer";
 import HeroSection from '../MICA/HeroSection';
+import Brands from '../../Components/Sections/Brands';
 
 const ArtistLandingPage = () => {
     const dispatch = useDispatch();
@@ -40,32 +41,36 @@ const ArtistLandingPage = () => {
             </header>
 
             <section className="w-9/12 mx-auto bg-sky-100 px-16 py-8 rounded-lg mt-20">
-                <h2 className="text-4xl font-semibold mb-3">GET ASTRO GEAR</h2>
-                <p className="mb-5">By winning in our tournaments you exclusively open yourself to receiving an <br /> absurd amount of ASTRO gaming gear and jerseys.</p>
+                <h2 className="text-4xl font-semibold mb-3">Creator Fellowship Program</h2>
+                <p className="mb-5">
+                    An initiative of MICA, CMES hosted by Adbhut.io to bring together academia, industry and community for offering a space to Media and Entertainment industries to facilitate research based solutions for enduring content needs.
+                </p>
                 <button type="button" class="bg-sky-500 py-1 px-5 rounded text-sm text-white font-semibold">
-                    Get Started
+                    Sign up as Creator
                 </button>
             </section>
 
             <section className="w-9/12 mx-auto my-20 grid grid-cols-2 items-center gap-10">
                 <div>
-                    <h2 className="text-4xl font-extrabold">Join our summer fiesta tournament 2022</h2>
-                    <p className="mt-10 font-bold">A single-elimination tournament with 256 slots to fill your deepest Valorant desires and a chance to make it to the pro series!</p>
+                    <h2 className="text-4xl font-extrabold">Join our Creator Fellowship Program 2023</h2>
+                    <p className="mt-10 font-bold">
+                        Single or multiple entry allowed with upto 250 slots for each artist to submit their content entries. Elimination basis MICA team shortlists to bring out the pro-series participants!
+                    </p>
 
                     <div className='border-l-4 pl-2 border-black font-bold mt-16'>
-                        Location <br />
-                        <small>Belgrade, Serbia</small>
+                        Know more <br />
+                        <small>MICA CMES</small>
                     </div>
                 </div>
 
                 <div>
-                    <img className="w-4/5 ml-auto rounded-xl" src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Frame-53-2-1.jpg" alt="" />
+                    <img className="w-4/5 h-[500px] object-cover object-left-bottom ml-auto rounded-xl" src="https://www.mbarendezvous.com/images/top-stories-img/bannerimage_1597143579.jpg" alt="" />
                 </div>
             </section>
 
             <section className="w-9/12 mx-auto my-20 grid grid-cols-3 items-center gap-10">
                 <div className='cols-span-1'>
-                    <h2 className="text-4xl font-extrabold">FEED</h2>
+                    <h2 className="text-4xl font-extrabold">START EARNING</h2>
                     <p className="text-sm mt-3 font-bold">A single-elimination tournament with 256 slots to fill your deepest Valorant desires and a chance to make it to the pro series!</p>
                     <button type="button" class="bg-sky-500 py-1 px-5 rounded text-sm text-white font-semibold mt-6">
                         Get Started
@@ -76,8 +81,10 @@ const ArtistLandingPage = () => {
                         <div className="flex items-center gap-2">
                             <img className='w-10' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Rectangle-8-4.png" alt="" />
                             <div>
-                                <p className='text-sm font-semibold'>RUSH <small className='text-xs w-fit bg-black text-white font-bold px-1 py-0.5 rounded'>STAFF</small></p>
-                                <p className='text-xs text-red-700 font-bold'>July 20, 2022</p>
+                                <p className='text-sm font-semibold'>2000 <small className='text-xs w-fit bg-black text-white font-bold px-1 py-0.5 rounded'>INR</small></p>
+                                <p className='text-xs text-red-700 font-bold'>
+                                    Recognition Honorarium per content IP registration
+                                </p>
                             </div>
                         </div>
                         <p className="text-xs font-semibold mt-4">
@@ -88,36 +95,14 @@ const ArtistLandingPage = () => {
                         <div className="flex items-center gap-2">
                             <img className='w-10' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Rectangle-8-4.png" alt="" />
                             <div>
-                                <p className='text-sm font-semibold'>RUSH <small className='text-xs w-fit bg-black text-white font-bold px-1 py-0.5 rounded'>STAFF</small></p>
-                                <p className='text-xs text-red-700 font-bold'>July 20, 2022</p>
+                                <p className='text-sm font-semibold'>40,000 <small className='text-xs w-fit bg-black text-white font-bold px-1 py-0.5 rounded'>INR</small></p>
+                                <p className='text-xs text-red-700 font-bold'>
+                                    Development fee per content IP registration
+                                </p>
                             </div>
                         </div>
                         <p className="text-xs font-semibold mt-4">
-                            New 3 months and 1 year subscription plans at great prices! Please check them out by pushing the "Subscribe" button in the space. Enjoy!
-                        </p>
-                    </div>
-                    <div className="shadow-lg border p-4 pb-6 rounded-xl">
-                        <div className="flex items-center gap-2">
-                            <img className='w-10' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Rectangle-8-4.png" alt="" />
-                            <div>
-                                <p className='text-sm font-semibold'>RUSH <small className='text-xs w-fit bg-black text-white font-bold px-1 py-0.5 rounded'>STAFF</small></p>
-                                <p className='text-xs text-red-700 font-bold'>July 20, 2022</p>
-                            </div>
-                        </div>
-                        <p className="text-xs font-semibold mt-4">
-                            New 3 months and 1 year subscription plans at great prices! Please check them out by pushing the "Subscribe" button in the space. Enjoy!
-                        </p>
-                    </div>
-                    <div className="shadow-lg border p-4 pb-6 rounded-xl">
-                        <div className="flex items-center gap-2">
-                            <img className='w-10' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Rectangle-8-4.png" alt="" />
-                            <div>
-                                <p className='text-sm font-semibold'>RUSH <small className='text-xs w-fit bg-black text-white font-bold px-1 py-0.5 rounded'>STAFF</small></p>
-                                <p className='text-xs text-red-700 font-bold'>July 20, 2022</p>
-                            </div>
-                        </div>
-                        <p className="text-xs font-semibold mt-4">
-                            New 3 months and 1 year subscription plans at great prices! Please check them out by pushing the "Subscribe" button in the space. Enjoy!
+                            Given for full-length script final development work for OTT/TV/ Media syndication pitches
                         </p>
                     </div>
                 </div>
@@ -161,54 +146,30 @@ const ArtistLandingPage = () => {
             </section>
 
             <section className="w-9/12 mx-auto my-20 flex justify-between">
-                <img className='w-24' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Vector-35.png" alt="" />
-                <img className='w-24' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Vector-35.png" alt="" />
-                <img className='w-24' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Vector-35.png" alt="" />
-                <img className='w-24' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Vector-35.png" alt="" />
-                <img className='w-24' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Vector-35.png" alt="" />
+                <Brands />
             </section>
+
 
             <section className="w-9/12 mx-auto bg-sky-600 py-10 px-16 rounded-lg my-20 text-white">
                 <div className='flex justify-between'>
-                    <h2 className="text-5xl font-extrabold mb-3">TOURNAMENT SCHEDULE</h2>
+                    <h2 className="text-5xl font-extrabold mb-3">ON-GOING PROJECTS</h2>
                     <p className='font-semibold text-center'>
-                        DAY 1 <br />
-                        1 DAY
+                        30 DAYS
                     </p>
                 </div>
 
-                <div className='grid grid-cols-4 mt-14 gap-10'>
+                <div className='grid grid-cols-3 mt-14 gap-10'>
                     <div>
-                        <h2 className="text-2xl font-bold">Round 1</h2>
-                        <p className='text-sm font-semibold text-white/70'>10:00 AM CET</p>
+                        <h2 className="text-2xl font-bold">TV/OTT show</h2>
+                        <p className='text-sm font-semibold text-white/70'>12 Spots Open</p>
                     </div>
                     <div>
-                        <h2 className="text-2xl font-bold">Round 1</h2>
-                        <p className='text-sm font-semibold text-white/70'>10:00 AM CET</p>
+                        <h2 className="text-2xl font-bold">Advertising content</h2>
+                        <p className='text-sm font-semibold text-white/70'>12 Spots Open</p>
                     </div>
                     <div>
-                        <h2 className="text-2xl font-bold">Round 1</h2>
-                        <p className='text-sm font-semibold text-white/70'>Gamers worldwide</p>
-                    </div>
-                    <div>
-                        <h2 className="text-2xl font-bold">Round 1</h2>
-                        <p className='text-sm font-semibold text-white/70'>Global rush audience</p>
-                    </div>
-                    <div>
-                        <h2 className="text-2xl font-bold">Round 1</h2>
-                        <p className='text-sm font-semibold text-white/70'>Total prize pool</p>
-                    </div>
-                    <div>
-                        <h2 className="text-2xl font-bold">Round 1</h2>
-                        <p className='text-sm font-semibold text-white/70'>Partners & sponsors</p>
-                    </div>
-                    <div>
-                        <h2 className="text-2xl font-bold">Round 1</h2>
-                        <p className='text-sm font-semibold text-white/70'>10:00 AM CET</p>
-                    </div>
-                    <div>
-                        <h2 className="text-2xl font-bold">Round 1</h2>
-                        <p className='text-sm font-semibold text-white/70'>Partners & sponsors</p>
+                        <h2 className="text-2xl font-bold">Feature/short films</h2>
+                        <p className='text-sm font-semibold text-white/70'>12 Spots Open</p>
                     </div>
                 </div>
             </section>
@@ -259,7 +220,7 @@ const ArtistLandingPage = () => {
                     <div className='relative'>
                         <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
                             <small className='text-xs w-fit bg-gray-600 text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
-                            <h4 className='text-2xl font-semibold'>Map #1</h4>
+                            <h4 className='text-2xl font-semibold'>Upcoming</h4>
                             <p className='text-xs font-semibold'>
                                 This map is used for first three rounds.
                             </p>
@@ -269,7 +230,7 @@ const ArtistLandingPage = () => {
                     <div className='relative'>
                         <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
                             <small className='text-xs w-fit bg-gray-600 text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
-                            <h4 className='text-2xl font-semibold'>Map #1</h4>
+                            <h4 className='text-2xl font-semibold'>Upcoming</h4>
                             <p className='text-xs font-semibold'>
                                 This map is used for first three rounds.
                             </p>
@@ -279,7 +240,7 @@ const ArtistLandingPage = () => {
                     <div className='relative'>
                         <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
                             <small className='text-xs w-fit bg-gray-600 text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
-                            <h4 className='text-2xl font-semibold'>Map #1</h4>
+                            <h4 className='text-2xl font-semibold'>Upcoming</h4>
                             <p className='text-xs font-semibold'>
                                 This map is used for first three rounds.
                             </p>
@@ -289,7 +250,7 @@ const ArtistLandingPage = () => {
                     <div className='relative'>
                         <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
                             <small className='text-xs w-fit bg-gray-600 text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
-                            <h4 className='text-2xl font-semibold'>Map #1</h4>
+                            <h4 className='text-2xl font-semibold'>Upcoming</h4>
                             <p className='text-xs font-semibold'>
                                 This map is used for first three rounds.
                             </p>
@@ -302,7 +263,7 @@ const ArtistLandingPage = () => {
             <section className="bg-sky-600 text-white my-20 py-20 ">
                 <div className='w-9/12 mx-auto grid grid-cols-2 items-center gap-10'>
                     <div>
-                        <h2 className="text-5xl font-extrabold">AN ESPORTS REVOLUTION</h2>
+                        <h2 className="text-5xl font-extrabold uppercase">AI/ML CONTENT Evaluation</h2>
                         <p className="mt-5 font-bold mb-3">
                             Esports is coming alive with Rush Media, where we intend to bring daily Valorant tournaments with quality prize pools. Join the hype squad!
                         </p>
@@ -331,44 +292,44 @@ const ArtistLandingPage = () => {
 
             <section className="w-9/12 mx-auto my-20">
                 <div className='cols-span-1 text-center'>
-                    <h2 className="text-5xl font-extrabold">PRIZE POOL</h2>
-                    <p className="mt-8 font-bold">Every Friday we give out prizes to our top 3 placements</p>
+                    <h2 className="text-5xl font-extrabold">MONTHLY SHOWCASE</h2>
+                    <p className="mt-8 font-bold">Top 3 Artists of the month contributing maximum to the fellowship program</p>
                 </div>
                 <div className="flex items-end gap-3 mt-16">
                     <div className='relative rounded-2xl h-fit'>
                         <div className='absolute top-0 left-0 p-10 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end rounded-2xl text-center'>
-                            <h4 className='text-2xl font-semibold'>Map #1</h4>
+                            <h4 className='text-2xl font-semibold'>Upcoming</h4>
                             <p className='text-xs font-semibold mt-3'>
                                 A mechanical keyboard designed for Valorant, premium piece of gear coming from our partners
                             </p>
-                            <a className='mt-4 text-xs block font-semibold uppercase' href="#">View More</a>
+                            <a className='mt-4 text-xs block font-semibold uppercase' href="#">TV/OTT show</a>
                         </div>
                         <img className='w-full rounded-2xl' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Frame-37-3.jpg" alt="" />
                     </div>
                     <div className='relative rounded-2xl h-fit'>
                         <div className='absolute top-0 left-0 p-10 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end rounded-2xl text-center'>
-                            <h4 className='text-2xl font-semibold'>Map #1</h4>
+                            <h4 className='text-2xl font-semibold'>Upcoming</h4>
                             <p className='text-xs font-semibold mt-3'>
                                 A mechanical keyboard designed for Valorant, premium piece of gear coming from our partners
                             </p>
-                            <a className='mt-4 text-xs block font-semibold uppercase' href="#">View More</a>
+                            <a className='mt-4 text-xs block font-semibold uppercase' href="#">Advertising content</a>
                         </div>
                         <img className='w-full rounded-2xl' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Frame-55.jpg" alt="" />
                     </div>
                     <div className='relative rounded-2xl h-fit'>
                         <div className='absolute top-0 left-0 p-10 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end rounded-2xl text-center'>
-                            <h4 className='text-2xl font-semibold'>Map #1</h4>
+                            <h4 className='text-2xl font-semibold'>Upcoming</h4>
                             <p className='text-xs font-semibold mt-3'>
                                 A mechanical keyboard designed for Valorant, premium piece of gear coming from our partners
                             </p>
-                            <a className='mt-4 text-xs block font-semibold uppercase' href="#">View More</a>
+                            <a className='mt-4 text-xs block font-semibold uppercase' href="#">Feature/short films</a>
                         </div>
                         <img className='w-full rounded-2xl' src="https://rush-theme.pxsquad.com/demo1/wp-content/uploads/2022/07/Frame-39-3.jpg" alt="" />
                     </div>
                 </div>
             </section>
 
-            <section className="w-9/12 mx-auto my-20">
+            {/* <section className="w-9/12 mx-auto my-20">
                 <div className='cols-span-1 text-center'>
                     <h2 className="text-5xl font-extrabold">TOURNAMENT VENUE</h2>
                     <p className="mt-8 font-bold">We'll be using two locations for the tournament venue depending on the rounds</p>
@@ -377,7 +338,7 @@ const ArtistLandingPage = () => {
                     <div className='relative'>
                         <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
                             <small className='text-xs w-fit bg-gray-600 text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
-                            <h4 className='text-2xl font-semibold'>Map #1</h4>
+                            <h4 className='text-2xl font-semibold'>Upcoming</h4>
                             <p className='text-xs font-semibold'>
                                 This map is used for first three rounds.
                             </p>
@@ -387,7 +348,7 @@ const ArtistLandingPage = () => {
                     <div className='relative'>
                         <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
                             <small className='text-xs w-fit bg-gray-600 text-white font-bold px-2 py-0.5 rounded'>BEST OF OUT 1</small>
-                            <h4 className='text-2xl font-semibold'>Map #1</h4>
+                            <h4 className='text-2xl font-semibold'>Upcoming</h4>
                             <p className='text-xs font-semibold'>
                                 This map is used for first three rounds.
                             </p>
@@ -395,7 +356,7 @@ const ArtistLandingPage = () => {
                         <img className='w-full' src="https://c.files.bbci.co.uk/131CB/production/_106838287_6838286.jpg" alt="" />
                     </div>
                 </div>
-            </section>
+            </section> */}
 
 
             {/* <section className='mt-40'>
