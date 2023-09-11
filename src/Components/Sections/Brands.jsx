@@ -122,7 +122,7 @@ const Brands = ({ setIsHovered }) => {
                     },
                     // when window width is >= 480px
                     480: {
-                        slidesPerView: 4,
+                        slidesPerView: 3,
                     },
                     // when window width is >= 640px
                     640: {

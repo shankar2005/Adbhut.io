@@ -17,13 +17,13 @@ const ArtistLandingPage = () => {
             <AuthModal />
 
             <header>
-                <nav className='w-10/12 mx-auto px-10 py-5 flex justify-between items-center'>
+                <nav className='w-10/12 mx-auto md:px-10 py-5 flex justify-between items-center'>
                     <div className="flex items-center gap-8">
-                        <Link to="/">
-                            <img className="w-32 rounded-sm" src={logo} alt="" />
+                        <Link className="w-32" to="/">
+                            <img className="w-full rounded-sm" src={logo} alt="" />
                         </Link>
                         <img className="w-10 rounded-sm" src="https://img.collegedekhocdn.com/media/img/institute/logo/1432796965.png" alt="" />
-                        <ul className='ml-10 flex gap-x-8 items-center text-sm font-semibold'>
+                        <ul className='hidden ml-10 md:flex gap-x-8 items-center text-sm font-semibold'>
                             <li>Home</li>
                             <li>About</li>
                             <li>Article</li>
@@ -50,7 +50,7 @@ const ArtistLandingPage = () => {
                 </button>
             </section>
 
-            <section className="w-9/12 mx-auto my-20 grid grid-cols-2 items-center gap-10">
+            <section className="w-10/12 md:w-9/12 mx-auto my-20 grid grid-cols-1 md:grid-cols-2 items-center gap-10">
                 <div>
                     <h2 className="text-4xl font-extrabold">Join our Creator Fellowship Program 2023</h2>
                     <p className="mt-10 font-bold">
@@ -63,12 +63,12 @@ const ArtistLandingPage = () => {
                     </div>
                 </div>
 
-                <div>
+                <div className="hidden md:block">
                     <img className="w-4/5 h-[500px] object-cover object-left-bottom ml-auto rounded-xl" src="https://www.mbarendezvous.com/images/top-stories-img/bannerimage_1597143579.jpg" alt="" />
                 </div>
             </section>
 
-            <section className="w-9/12 mx-auto my-20 grid grid-cols-3 items-center gap-10">
+            <section className="w-10/12 md:w-9/12 mx-auto my-20 grid grid-cols-1 md:grid-cols-3 items-center gap-10">
                 <div className='cols-span-1'>
                     <h2 className="text-4xl font-extrabold">START EARNING</h2>
                     <p className="text-sm mt-3 font-bold">
@@ -78,7 +78,7 @@ const ArtistLandingPage = () => {
                         Get Started
                     </button>
                 </div>
-                <div className='col-span-2 grid grid-cols-2 gap-2'>
+                <div className='col-span-2 grid grid-cols-1 md:grid-cols-2 gap-2'>
                     <div className="shadow-lg border p-4 pb-6 rounded-xl">
                         <div className="flex items-center gap-2">
                             <img className='w-6' src="https://static.vecteezy.com/system/resources/thumbnails/018/251/257/small/indian-rupee-currency-symbol-icon-on-transparent-background-free-png.png" alt="" />
@@ -120,7 +120,7 @@ const ArtistLandingPage = () => {
                 </button>
             </section>
 
-            <section className="w-9/12 mx-auto my-20 grid grid-cols-3 items-start gap-10">
+            <section className="w-10/12 md:w-9/12 mx-auto my-20 grid grid-cols-1 md:grid-cols-3 items-start gap-10">
                 <div className='cols-span-1'>
                     <h2 className="text-4xl font-extrabold">FAQ</h2>
                     <p className="text-sm mt-3 font-bold">
@@ -152,7 +152,7 @@ const ArtistLandingPage = () => {
                 </div>
             </section>
 
-            <section className="w-9/12 mx-auto my-20 flex justify-between">
+            <section className="w-10/12 md:w-9/12 mx-auto my-20 flex justify-between">
                 <Brands />
             </section>
 
@@ -220,7 +220,7 @@ const ArtistLandingPage = () => {
             </section>
 
 
-            <section className="w-9/12 mx-auto my-20">
+            <section className="w-10/12 md:w-9/12 mx-auto my-20">
                 <div className='cols-span-1 text-center'>
                     <h2 className="text-5xl font-extrabold">LEVEL PLAYING FIELD</h2>
                     <p className="mt-8 font-bold">
@@ -281,12 +281,12 @@ const ArtistLandingPage = () => {
             </section>
 
 
-            <section className="w-9/12 mx-auto my-20">
+            <section className="w-10/12 md:w-9/12 mx-auto my-20">
                 <div className='cols-span-1 text-center'>
                     <h2 className="text-5xl font-extrabold">MONTHLY SHOWCASE</h2>
                     <p className="mt-8 font-bold">Top 3 Artists of the month contributing maximum to the fellowship program</p>
                 </div>
-                <div className="flex items-end gap-3 mt-16">
+                <div className="flex flex-col md:flex-row items-end gap-3 mt-16">
                     <div className='relative rounded-2xl h-fit'>
                         <div className='absolute top-0 left-0 p-10 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end rounded-2xl text-center backdrop-blur-lg'>
                             <h4 className='text-2xl font-semibold'>Upcoming</h4>
@@ -320,7 +320,7 @@ const ArtistLandingPage = () => {
                 </div>
             </section>
 
-            {/* <section className="w-9/12 mx-auto my-20">
+            {/* <section className="w-10/12 md:w-9/12 mx-auto my-20">
                 <div className='cols-span-1 text-center'>
                     <h2 className="text-5xl font-extrabold">TOURNAMENT VENUE</h2>
                     <p className="mt-8 font-bold">We'll be using two locations for the tournament venue depending on the rounds</p>

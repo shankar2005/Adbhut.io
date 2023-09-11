@@ -46,7 +46,7 @@ const Home = () => {
                         } */}
 
                         <div className='flex items-center gap-8'>
-                            <Link className='text-sm font-semibold' to="/artist">Creator Fellowship</Link>
+                            <Link className='text-sm font-semibold' to="/MicaCreatorFellowship">Creator Fellowship</Link>
                             {
                                 user?.email
                                     ? <Link to="/projects/readydemos"><button className='bg-sky-500 py-3 px-5 rounded-full text-sm text-white'>Get Started</button></Link>
