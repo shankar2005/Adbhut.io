@@ -132,7 +132,7 @@ const router = createBrowserRouter([
         ],
     },
     {
-        path: '/MicaCreatorFellowship',
+        path: '/CreatorFellowship',
         element: <ArtistLandingPage />
     },
     {

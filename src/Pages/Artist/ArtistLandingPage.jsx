@@ -22,7 +22,7 @@ const ArtistLandingPage = () => {
                         <Link className="w-32" to="/">
                             <img className="w-full rounded-sm" src={logo} alt="" />
                         </Link>
-                        <img className="w-10 rounded-sm" src="https://img.collegedekhocdn.com/media/img/institute/logo/1432796965.png" alt="" />
+                        {/* <img className="w-10 rounded-sm" src="https://img.collegedekhocdn.com/media/img/institute/logo/1432796965.png" alt="" /> */}
                         <ul className='hidden ml-10 md:flex gap-x-8 items-center text-sm font-semibold'>
                             <li>Home</li>
                             <li>About</li>
@@ -43,7 +43,7 @@ const ArtistLandingPage = () => {
             <section className="w-10/12 md:w-9/12 mx-auto bg-sky-100 px-16 py-8 rounded-lg mt-20">
                 <h2 className="text-4xl font-semibold mb-3">Creator Fellowship Program</h2>
                 <p className="mb-5">
-                    An initiative of MICA, CMES hosted by Adbhut.io to bring together academia, industry and community for offering a space to Media and Entertainment industries to facilitate research based solutions for enduring content needs.
+                    An initiative of [COMPANY], hosted by Adbhut.io to bring together academia, industry and community for offering a space to Media and Entertainment industries to facilitate research based solutions for enduring content needs.
                 </p>
                 <button type="button" class="bg-sky-500 py-1 px-5 rounded text-sm text-white font-semibold">
                     Sign up as Creator
@@ -54,17 +54,17 @@ const ArtistLandingPage = () => {
                 <div>
                     <h2 className="text-4xl font-extrabold">Join our Creator Fellowship Program 2023</h2>
                     <p className="mt-10 font-bold">
-                        Single or multiple entry allowed with upto 250 slots for each artist to submit their content entries. Elimination basis MICA team shortlists to bring out the pro-series participants!
+                        Single or multiple entry allowed with upto 250 slots for each artist to submit their content entries. Elimination basis [Company] team shortlists to bring out the pro-series participants!
                     </p>
 
                     <div className='border-l-4 pl-2 border-black font-bold mt-16'>
                         Know more <br />
-                        <small>MICA CMES</small>
+                        <small>[Company]</small>
                     </div>
                 </div>
 
-                <div className="hidden md:block">
-                    <img className="w-4/5 h-[500px] object-cover object-left-bottom ml-auto rounded-xl" src="https://www.mbarendezvous.com/images/top-stories-img/bannerimage_1597143579.jpg" alt="" />
+                <div className="hidden md:block w-4/5 h-[500px] ml-auto bg-gray-200 rounded-xl">
+                    {/* <img className="w-full h-full object-cover object-left-bottom rounded-xl" src="https://www.mbarendezvous.com/images/top-stories-img/bannerimage_1597143579.jpg" alt="" /> */}
                 </div>
             </section>
 
@@ -241,7 +241,7 @@ const ArtistLandingPage = () => {
                     <div className='relative'>
                         <div className='absolute top-0 left-0 pb-12 pl-8 text-white w-full h-full bg-gradient-to-t from-black to-black/40 flex flex-col justify-end'>
                             <small className='text-xs w-fit bg-gray-600 text-white font-bold px-2 py-0.5 rounded'>BEST OF MONTH</small>
-                            <h4 className='text-xl md:text-2xl font-semibold'>MICA CMES Shortlists</h4>
+                            <h4 className='text-xl md:text-2xl font-semibold'>[Company] Shortlists</h4>
                             <p className='text-xs font-semibold'>
                                 This map is used for last round.
                             </p>
