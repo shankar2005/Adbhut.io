@@ -1,4 +1,4 @@
-import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
+import logo from '../../assets/logos/nsn-logo.png';
 import carbonNeutral from "../../assets/logos/cn.jpeg"
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,9 +33,12 @@ const Home = () => {
     return (
         <div className='font-hero'>
             <header>
-                <nav className='py-5 relative'>
+                <nav className='py-3 relative'>
                     <div className='w-10/12 max-w-screen-xl mx-auto flex items-center justify-between'>
-                        <img src={adbhutGIF} className='w-28 md:w-32' />
+                        <div className="flex items-center gap-2">
+                            <img src={logo} className='w-20' />
+                            <span className="text-3xl font-bold text-cyan-900 tracking-wide">CO</span>
+                        </div>
                         {/* <p onClick={() => setIsHovered(!isHovered)} className='flex items-center gap-2 font-medium font-hero cursor-pointer'>
                             <img className='w-24 cursor-pointer' src={carbonNeutral} alt="" />
                             <SlArrowDown className={`${isHovered && "rotate-180"} duration-200`} size={10} />
@@ -49,8 +52,8 @@ const Home = () => {
                             <Link className='text-sm font-semibold' to="/CreatorFellowship">Creator Fellowship</Link>
                             {
                                 user?.email
-                                    ? <Link to="/projects/readydemos"><button className='bg-sky-500 py-3 px-5 rounded-full text-sm text-white'>Get Started</button></Link>
-                                    : <button onClick={() => dispatch(showLogin())} className='bg-sky-500 py-3 px-5 rounded-full text-sm text-white'>Login</button>
+                                    ? <Link to="/projects/readydemos"><button className='font-semibold bg-sky-500 py-3 px-5 rounded-full text-sm text-white'>Get Started</button></Link>
+                                    : <button onClick={() => dispatch(showLogin())} className='font-semibold bg-sky-500 py-3 px-5 rounded-full text-sm text-white'>Login</button>
                             }
                         </div>
                     </div>
