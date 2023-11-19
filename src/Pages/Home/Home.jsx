@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 import Footer from '../../layouts/Shared/Footer';
 import { IoIosArrowDown } from 'react-icons/io';
 import CTA from './Sections/CTA';
+import apps from "../../assets/apps.png";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -83,7 +84,28 @@ const Home = () => {
                 </section>
             </header>
 
-            <CTA />
+            {/* <CTA /> */}
+
+            <section className="bg-sky-600 text-white my-20 py-20 ">
+                <div className='w-9/12 mx-auto md:grid grid-cols-2 items-center gap-10'>
+                    <div>
+                        <h2 className="text-5xl font-semibold">Integrate with your favourite apps</h2>
+                        <p className="mt-5 mb-3">
+                            Zoho Projects gives you the added advantage of several other Zoho apps and third party apps through seamless integrations.
+                        </p>
+
+                        <div className='border-l-4 pl-2 border-sky-100 font-bold mt-16'>
+                            <button type="button" class="bg-white py-1 px-3 rounded text-sm text-sky-500 font-bold mr-2">
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+                    <div className='hidden md:block'>
+                        <img className="w-4/5 ml-auto rounded-xl" src={apps} alt="" />
+                    </div>
+                </div>
+            </section>
+
 
             <section className='w-9/12 mx-auto grid grid-cols-2 items-center gap-10'>
                 <img className='w-11/12 mr-auto' src="https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/AI-make-Art-2-768x571.png" alt="" />
