@@ -107,6 +107,75 @@ const Home = () => {
             </section>
 
 
+            <section className='w-9/12 mx-auto mb-24'>
+                <h1 className='text-5xl text-center font-semibold mb-16 mt-2'>Flexible pricing that matches your needs</h1>
+                <div className='mx-auto grid grid-cols-2'>
+                    <div className='relative left-20 bg-white border border-gray-300 rounded-3xl p-10 shadow-sm'>
+                        <h6 className='text-2xl font-semibold mb-2'>Basic</h6>
+                        <span className='bg-red-100 p-1 font-semibold rounded-sm'>Limited Features</span>
+
+                        <ul className='border-b border-gray-300 pb-6 mb-6 mt-4 space-y-1'>
+                            <li className='flex items-center gap-2'>
+                                <img src="https://23517574.fs1.hubspotusercontent-na1.net/hubfs/23517574/Imported%20images/pricing-tick-1.svg" alt="" />
+                                <span>Simple use cases</span>
+                            </li>
+                            <li className='flex items-center gap-2'>
+                                <img src="https://23517574.fs1.hubspotusercontent-na1.net/hubfs/23517574/Imported%20images/pricing-tick-1.svg" alt="" />
+                                <span>Internal users</span>
+                            </li>
+                            <li className='flex items-center gap-2'>
+                                <img src="https://kissflow.com/hubfs/kissflow-branding-images/pricing-cross.svg" alt="" />
+                                <span className='line-through decoration-red-600'>External users</span>
+                            </li>
+                            <li className='flex items-center gap-2'>
+                                <img src="https://kissflow.com/hubfs/kissflow-branding-images/pricing-cross.svg" alt="" />
+                                <span className='line-through decoration-red-600'>Private cluster</span>
+                            </li>
+                        </ul>
+
+                        <h6 className='text-2xl font-semibold mb-2 text-pink-500'>Starts at</h6>
+                        <h6 className='text-2xl font-semibold mb-2'>$90/month</h6>
+
+                        <button className='mt-6 border border-blue-600 py-2 px-5 rounded font-semibold text-blue-600'>Get Started</button>
+                    </div>
+
+                    <div className='relative -left-20 z-10 bg-gradient-to-r from-pink-600 to-blue-500 p-0.5 rounded-3xl shadow-sm'>
+                        <div className='p-10 bg-white rounded-3xl'>
+                            <h6 className='text-2xl font-semibold mb-2 flex gap-1'>
+                                <span className='text-blue-600'>Enterprise</span>
+                                <img className='relative -top-2' src="https://kissflow.com/hubfs/KF%20Brand%20Home/pricing-enterprice.svg" alt="" />
+                            </h6>
+                            <span className='bg-green-100 p-1 font-semibold rounded-sm'>Full Features</span>
+
+                            <ul className='border-b border-gray-300 pb-6 mb-6 mt-4 space-y-1'>
+                                <li className='flex items-center gap-2'>
+                                    <img src="https://23517574.fs1.hubspotusercontent-na1.net/hubfs/23517574/Imported%20images/pricing-tick-1.svg" alt="" />
+                                    <span>Simple use cases</span>
+                                </li>
+                                <li className='flex items-center gap-2'>
+                                    <img src="https://23517574.fs1.hubspotusercontent-na1.net/hubfs/23517574/Imported%20images/pricing-tick-1.svg" alt="" />
+                                    <span>Internal users</span>
+                                </li>
+                                <li className='flex items-center gap-2'>
+                                    <img src="https://23517574.fs1.hubspotusercontent-na1.net/hubfs/23517574/Imported%20images/pricing-tick-1.svg" alt="" />
+                                    <span>External users</span>
+                                </li>
+                                <li className='flex items-center gap-2'>
+                                    <img src="https://23517574.fs1.hubspotusercontent-na1.net/hubfs/23517574/Imported%20images/pricing-tick-1.svg" alt="" />
+                                    <span>Private cluster</span>
+                                </li>
+                            </ul>
+
+                            <h6 className='text-2xl font-semibold mb-2 text-pink-500'>Flexible</h6>
+                            <h6 className='text-2xl font-semibold mb-2'>$300/month</h6>
+
+                            <button className='mt-6 border bg-blue-600 py-2 px-5 rounded font-semibold text-white'>Get Started</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
             <section className='w-9/12 mx-auto grid grid-cols-2 items-center gap-10'>
                 <img className='w-11/12 mr-auto' src="https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/AI-make-Art-2-768x571.png" alt="" />
                 <div>
