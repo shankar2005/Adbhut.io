@@ -91,7 +91,7 @@ const Home = () => {
                     <div>
                         <h2 className="text-5xl font-semibold">Integrate with your favourite apps</h2>
                         <p className="mt-5 mb-3">
-                            Zoho Projects gives you the added advantage of several other Zoho apps and third party apps through seamless integrations.
+                            NsNco gives you the added advantage of several other apps and third party apps through seamless integrations.
                         </p>
 
                         <div className='border-l-4 pl-2 border-sky-100 font-bold mt-16'>
@@ -150,7 +150,7 @@ const Home = () => {
                             <ul className='border-b border-gray-300 pb-6 mb-6 mt-4 space-y-1'>
                                 <li className='flex items-center gap-2'>
                                     <img src="https://23517574.fs1.hubspotusercontent-na1.net/hubfs/23517574/Imported%20images/pricing-tick-1.svg" alt="" />
-                                    <span>Simple use cases</span>
+                                    <span>Complex use cases</span>
                                 </li>
                                 <li className='flex items-center gap-2'>
                                     <img src="https://23517574.fs1.hubspotusercontent-na1.net/hubfs/23517574/Imported%20images/pricing-tick-1.svg" alt="" />
@@ -170,6 +170,92 @@ const Home = () => {
                             <h6 className='text-2xl font-semibold mb-2'>$300/month</h6>
 
                             <button className='mt-6 border bg-blue-600 py-2 px-5 rounded font-semibold text-white'>Get Started</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <section className="bg-gray-100 my-20 py-20 overflow-hidden border-y border-gray-100">
+                <div className='relative w-9/12 mx-auto md:grid grid-cols-2 items-center gap-10'>
+                    <div>
+                        <h2 className="text-5xl font-bold">Collaborate with over 700+ artists</h2>
+                        <p className="mt-5 mb-3">
+                            Projects gives you the added advantage of several other apps and third party apps through seamless integrations.
+                        </p>
+
+                        <div className='border-l-4 pl-2 border-sky-500 font-bold mt-16'>
+                            <button type="button" class="bg-white py-1 px-3 rounded text-sm text-sky-500 font-bold mr-2">
+                                Buy Premium
+                            </button>
+                        </div>
+                    </div>
+                    <div className="absolute -right-20 w-1/2 -rotate-12">
+                        <div className='w-[800px] grid grid-cols-3 gap-5'>
+                            <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
+                                <img className='w-12 rounded-full' src="https://i.pravatar.cc/300" alt="" />
+                                <div>
+                                    <strong>Smit Willson</strong>
+                                    <p className="text-sm">Graphic Designer</p>
+                                </div>
+                                <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
+                            </div>
+                            <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
+                                <img className='w-12 rounded-full' src="https://i.pravatar.cc/300" alt="" />
+                                <div>
+                                    <strong>Smit Willson</strong>
+                                    <p className="text-sm">Graphic Designer</p>
+                                </div>
+                                <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
+                            </div>
+                            <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
+                                <img className='w-12 rounded-full' src="https://i.pravatar.cc/300" alt="" />
+                                <div>
+                                    <strong>Smit Willson</strong>
+                                    <p className="text-sm">Graphic Designer</p>
+                                </div>
+                                <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
+                            </div>
+                            <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
+                                <img className='w-12 rounded-full' src="https://i.pravatar.cc/300" alt="" />
+                                <div>
+                                    <strong>Smit Willson</strong>
+                                    <p className="text-sm">Graphic Designer</p>
+                                </div>
+                                <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
+                            </div>
+                            <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
+                                <img className='w-12 rounded-full' src="https://i.pravatar.cc/300" alt="" />
+                                <div>
+                                    <strong>Smit Willson</strong>
+                                    <p className="text-sm">Graphic Designer</p>
+                                </div>
+                                <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
+                            </div>
+                            <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
+                                <img className='w-12 rounded-full' src="https://i.pravatar.cc/300" alt="" />
+                                <div>
+                                    <strong>Smit Willson</strong>
+                                    <p className="text-sm">Graphic Designer</p>
+                                </div>
+                                <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
+                            </div>
+                            <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
+                                <img className='w-12 rounded-full' src="https://i.pravatar.cc/300" alt="" />
+                                <div>
+                                    <strong>Smit Willson</strong>
+                                    <p className="text-sm">Graphic Designer</p>
+                                </div>
+                                <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
+                            </div>
+                            <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
+                                <img className='w-12 rounded-full' src="https://i.pravatar.cc/300" alt="" />
+                                <div>
+                                    <strong>Smit Willson</strong>
+                                    <p className="text-sm">Graphic Designer</p>
+                                </div>
+                                <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
+                            </div>
                         </div>
                     </div>
                 </div>
