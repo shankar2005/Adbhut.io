@@ -22,9 +22,7 @@ import { MdHistory, MdOutlinePayment } from "react-icons/md";
 import { FaSignature } from 'react-icons/fa';
 import chat from '../../assets/chat.png';
 import project from '../../assets/project.png';
-import create_project from '../../assets/create-project.png';
-
-// fix the image.PNG build bug
+import create_project from '../../assets/create_project.png';
 
 const Home = () => {
     const dispatch = useDispatch();
