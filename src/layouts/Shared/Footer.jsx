@@ -35,17 +35,6 @@ const Footer = () => {
                     <div className='space-y-5'>
                         <div className='flex gap-4 items-center'>
                             <div className='bg-neutral-700 p-3 rounded-full flex justify-center items-center'>
-                                <IoLocationSharp size={20} />
-                            </div>
-                            <div>
-                                <h4 className='font-medium text-xl'>Location:</h4>
-                                <p className='text-sm'>
-                                    Block E, South City I, Sector 41, Gurugram, Haryana 122022
-                                </p>
-                            </div>
-                        </div>
-                        <div className='flex gap-4 items-center'>
-                            <div className='bg-neutral-700 p-3 rounded-full flex justify-center items-center'>
                                 <FaEnvelope size={16} />
                             </div>
                             <div>

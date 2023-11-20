@@ -20,6 +20,9 @@ import { GiArcheryTarget } from "react-icons/gi";
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { MdHistory, MdOutlinePayment } from "react-icons/md";
 import { FaSignature } from 'react-icons/fa';
+import chat from '../../assets/chat.png';
+import project from '../../assets/project.png';
+import create_project from '../../assets/create-project.png';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -76,9 +79,9 @@ const Home = () => {
                     </label>
                     <Hero />
                 </section> */}
-                <section className="w-10/12 mx-auto px-16 py-40 rounded-lg bg-[url('https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/bg4.jpg')] bg-cover grid grid-cols-2 items-center justify-between">
+                <section className="w-10/12 mx-auto px-16 py-40 rounded-lg bg-[url('https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/bg4.jpg')] bg-cover grid grid-cols-2 gap-20 items-center justify-between">
                     <div>
-                        <h1 className='text-7xl text-gray-900 font-bold mb-5'>AI Powered Innovation</h1>
+                        <h1 className='text-6xl text-gray-900 font-bold mb-5'>Create your AI Powered Agency in clicks</h1>
                         <button className='bg-sky-500 py-3 px-5 rounded-full text-sm text-white mr-4'>Get Started</button>
                         <button className='bg-white border border-sky-500 py-3 px-5 rounded-full text-sm text-black'>Learn More</button>
                     </div>
@@ -113,7 +116,7 @@ const Home = () => {
 
 
             <section className='w-9/12 mx-auto mb-24'>
-                <h1 className='text-5xl text-center font-semibold mb-16 mt-2'>Flexible pricing that matches your needs</h1>
+                <h1 className='text-5xl text-center font-semibold mb-16 mt-2'>Affordable pricing that matches your needs</h1>
                 <div className='mx-auto grid grid-cols-2'>
                     <div className='relative left-20 bg-white border border-gray-300 rounded-3xl p-10 shadow-sm'>
                         <h6 className='text-2xl font-semibold mb-2'>Basic</h6>
@@ -196,12 +199,22 @@ const Home = () => {
                         </div>
                     </div>
                     <div className="absolute -right-20 w-1/2 -rotate-12">
+                        <div className='absolute top-0 left-0 bg-transparent z-50 w-[800px] h-full'></div>
+
                         <div className='w-[800px] grid grid-cols-3 gap-5'>
                             <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
+                                <img className='w-12 rounded-full' src="https://nsnco-bucket.s3.amazonaws.com/userdata/Aniket%20Saxena_work_files/aniket_saxena.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAU6B7OO4B4RB4PPYJ%2F20231120%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20231120T104317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=efdec1b9c4326ad2e95e2f4014cfc4104e73f0adbd237d4df800c25aa5bde168" alt="" />
+                                <div>
+                                    <strong>Aniket Saxena</strong>
+                                    <p className="text-sm">2D animation Artist</p>
+                                </div>
+                                <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
+                            </div>
+                            <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
                                 <img className='w-12 rounded-full' src="https://i.pravatar.cc/300" alt="" />
                                 <div>
-                                    <strong>Smit Willson</strong>
-                                    <p className="text-sm">Graphic Designer</p>
+                                    <strong>Aditi Gupta</strong>
+                                    <p className="text-sm">Writer</p>
                                 </div>
                                 <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
                             </div>
@@ -214,49 +227,41 @@ const Home = () => {
                                 <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
                             </div>
                             <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
-                                <img className='w-12 rounded-full' src="https://i.pravatar.cc/300" alt="" />
+                                <img className='w-12 rounded-full' src="https://nsnco-bucket.s3.amazonaws.com/userdata/Jyoti%20Gupta_work_files/349212341_642773471051200_2012674058458277402_n.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAU6B7OO4B4RB4PPYJ%2F20231120%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20231120T104317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6bde83a82fc67356baae1c943fb72750c7ac02ce9c464895a9dbc84cca5f1e70" alt="" />
                                 <div>
-                                    <strong>Smit Willson</strong>
+                                    <strong>Jyoti Gupta</strong>
+                                    <p className="text-sm">Video Producer</p>
+                                </div>
+                                <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
+                            </div>
+                            <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
+                                <img className='w-12 rounded-full' src="https://nsnco-bucket.s3.amazonaws.com/userdata/Shubham%20Goyal_work_files/85513438_673998283338198_6162676992166780776_n.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAU6B7OO4B4RB4PPYJ%2F20231120%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20231120T104317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=9b983736809e81fe5a5dd3e1f13356b3892401a2319c01e6c738712f85cd0bbd" alt="" />
+                                <div>
+                                    <strong>Shubham Goyal</strong>
+                                    <p className="text-sm">Actor</p>
+                                </div>
+                                <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
+                            </div>
+                            <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
+                                <img className='w-12 rounded-full' src="https://nsnco-bucket.s3.amazonaws.com/userdata/Minali_work_files/WhatsApp_Image_2023-06-27_at_5.04.34_PM.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAU6B7OO4B4RB4PPYJ%2F20231120%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20231120T104317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=473d7b60e2cdd2ea9480ccea7bd6d42f86f3103844426a36589f035276255241" alt="" />
+                                <div>
+                                    <strong>Minali</strong>
+                                    <p className="text-sm">Video Producer</p>
+                                </div>
+                                <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
+                            </div>
+                            <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
+                                <img className='w-12 rounded-full' src="https://nsnco-bucket.s3.amazonaws.com/userdata/Sudarshan%20Birla_work_files/sudharshan.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAU6B7OO4B4RB4PPYJ%2F20231120%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20231120T104317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=3fbeb986c08719055f906dfe5115f47e001874c5b78c4628c82faa5d49d4f4af" alt="" />
+                                <div>
+                                    <strong>Sudarshan Birla</strong>
                                     <p className="text-sm">Graphic Designer</p>
                                 </div>
                                 <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
                             </div>
                             <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
-                                <img className='w-12 rounded-full' src="https://i.pravatar.cc/300" alt="" />
+                                <img className='w-12 rounded-full' src="https://nsnco-bucket.s3.amazonaws.com/userdata/Divyansh%20Srivastav_work_files/WhatsApp_Image_2023-07-04_at_10.47.59_PM.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAU6B7OO4B4RB4PPYJ%2F20231120%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20231120T104314Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=2bdb9b81e5549e01dd8b4c8b745c4394b0aa01244de790fc77e390f971a23272" alt="" />
                                 <div>
-                                    <strong>Smit Willson</strong>
-                                    <p className="text-sm">Graphic Designer</p>
-                                </div>
-                                <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
-                            </div>
-                            <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
-                                <img className='w-12 rounded-full' src="https://i.pravatar.cc/300" alt="" />
-                                <div>
-                                    <strong>Smit Willson</strong>
-                                    <p className="text-sm">Graphic Designer</p>
-                                </div>
-                                <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
-                            </div>
-                            <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
-                                <img className='w-12 rounded-full' src="https://i.pravatar.cc/300" alt="" />
-                                <div>
-                                    <strong>Smit Willson</strong>
-                                    <p className="text-sm">Graphic Designer</p>
-                                </div>
-                                <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
-                            </div>
-                            <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
-                                <img className='w-12 rounded-full' src="https://i.pravatar.cc/300" alt="" />
-                                <div>
-                                    <strong>Smit Willson</strong>
-                                    <p className="text-sm">Graphic Designer</p>
-                                </div>
-                                <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
-                            </div>
-                            <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
-                                <img className='w-12 rounded-full' src="https://i.pravatar.cc/300" alt="" />
-                                <div>
-                                    <strong>Smit Willson</strong>
+                                    <strong>Divyansh Srivastav</strong>
                                     <p className="text-sm">Graphic Designer</p>
                                 </div>
                                 <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
@@ -323,37 +328,31 @@ const Home = () => {
                 </div>
             </section>
 
-
-            <section className='w-9/12 mx-auto grid grid-cols-2 items-center gap-10'>
-                <img className='w-11/12 mr-auto' src="https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/AI-make-Art-2-768x571.png" alt="" />
-                <div>
-                    <small className='text-orange-500 font-bold'>ABOUT</small>
-                    <h4 className='text-5xl font-semibold mb-4 mt-2'>Cutting-Edge Artificial Intelligence</h4>
-                    <p className='text-gray-500 text-sm mb-6'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sit amet arcu lacus. Maecenas nec diam hendrerit, finibus nunc eget, pharetra ligula. Sed pulvinar ligula dolor, eget elementum massa mollis id. Quisque lobortis est accumsan nunc convallis interdum non eu arcu.</p>
-                    <button className='bg-sky-500 py-3 px-5 rounded-full text-sm text-white'>Get Started</button>
+            <section className='w-9/12 mx-auto grid grid-cols-2 items-center gap-10 py-10'>
+                <div className='w-11/12 mr-auto relative'>
+                    <img className='relative -left-10 rounded-3xl shadow-lg bg-gradient-to-t from-pink-300 via-blue-500 to-pink-400 p-1.5 -rotate-12' src={project} alt="" />
+                    <img className='absolute top-0 left-10 rounded-3xl shadow-lg bg-gradient-to-t from-pink-300 via-blue-500 to-pink-400 p-1.5 rotate-[5deg]' src={create_project} alt="" />
+                </div>
+                <div className='pl-5'>
+                    <small className='text-orange-500 font-bold'>BENIFIT</small>
+                    <h4 className='text-2xl font-semibold mb-4 mt-2'>Organize everything in one system of record</h4>
+                    <p className='text-gray-500 mb-6'>From client assets and project timelines to communications and financial reporting.</p>
                 </div>
             </section>
 
             <section className='w-9/12 mx-auto grid grid-cols-12 items-center gap-5 my-24'>
-                <div className='col-span-5 shadow-lg h-full p-12 rounded-lg'>
+                <div className='col-span-7 rounded-lg'>
                     <small className='text-green-500 font-bold'>WORK ASSISTANT</small>
-                    <h4 className='text-5xl font-semibold mb-4 mt-2'>A Personal Assistant Just For You</h4>
-                    <p className='text-gray-500 text-sm mb-6'>
-                        Pellentesque in erat purus. Morbi quis ornare nisl, a convallis augue. Vestibulum vulputate finibus diam, ac faucibus quam ultricies a. Donec a mauris id urna tincidunt varius porttitor sed mauris. Maecenas ac feugiat augue.
-                        <br />
-                        <br />
-                        Molestie tortor non imperdiet luctus. Duis eleifend turpis ut vehicula placerat. Duis erat nisi, pretium et nisi ut, tincidunt ultrices magna.
-                    </p>
-                    <button className='bg-sky-500 py-3 px-5 rounded-full text-sm text-white'>Get Started</button>
+                    <h4 className='text-2xl font-semibold mb-4 mt-2'>A Personal Assistant Just For You</h4>
+                    <p className='text-gray-500 mb-6'>From client assets and project timelines to communications and financial reporting.</p>
                 </div>
-                <div className='col-span-7 grid grid-cols-2'>
-                    <img src="https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/ai-generated-face-of-young-businessman-in-formalwe-2022-09-29-17-44-01-utc-copy-768x614.jpg" alt="" />
-                    <img src="https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/businessman-phone-and-smile-with-luggage-for-trav-2023-01-27-16-23-38-utc-copy-768x614.jpg" alt="" />
-                    <img className='col-span-2' src="https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/Chat-AI-Mobile-App3-copy-768x387.jpg" alt="" />
+                <div className='col-span-1'></div>
+                <div className='col-span-4 bg-gradient-to-t from-white via-blue-100 to-white -rotate-12'>
+                    <img className='w-full rounded-lg ml-auto rotate-[18deg] shadow-lg border' src={chat} alt="" />
                 </div>
             </section>
 
-            <section className="bg-gray-50 text-black mt-10 py-20">
+            {/* <section className="bg-gray-50 text-black mt-10 py-20">
                 <div className="w-10/12 mx-auto grid grid-cols-2 items-center gap-10">
                     <div>
                         <h1 className='text-4xl font-semibold mb-5'>Revolutionize your content with cutting-edge ML technology</h1>
@@ -362,9 +361,9 @@ const Home = () => {
                     </div>
                     <iframe className='w-full aspect-video' src="https://player.vimeo.com/video/819139346?h=d6fa5efcc3" frameBorder="0" allow="autoplay; fullscreen" allowFullScreen></iframe>
                 </div>
-            </section>
+            </section> */}
 
-            <section className="py-24 bg-sky-100 bg-[url('https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/line.png')] bg-cover">
+            {/* <section className="py-24 bg-sky-100 bg-[url('https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/line.png')] bg-cover">
                 <div className='w-10/12 mx-auto'>
                     <p className='text-sky-500 font-bold mb-2'>Common Queries</p>
                     <h1 className='text-5xl font-semibold mb-3'>Frequently Asked Question</h1>
@@ -396,11 +395,11 @@ const Home = () => {
                         </li>
                     </ul>
                 </div>
-            </section>
+            </section> */}
 
             <section className="py-24 footer-top-section bg-cover text-center">
-                <h1 className='text-4xl font-semibold text-white mb-5'>Get Started with NsNco Software</h1>
-                <button className='bg-yellow-400 py-3 px-5 rounded-full text-gray-800 font-semibold shadow'>Get it free</button>
+                <h1 className='text-4xl font-semibold text-white mb-5'>Get Started with NsNco Today</h1>
+                <button className='bg-yellow-400 py-3 px-5 rounded-full text-gray-800 font-semibold shadow'>Claim your free trial</button>
             </section>
 
             {/* auth modal */}
