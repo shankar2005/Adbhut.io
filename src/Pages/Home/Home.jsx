@@ -92,9 +92,16 @@ const Home = () => {
                 </section>
             </header>
 
+            <section className='w-10/12 mx-auto mt-20 py-10'>
+                <div className='w-4/6 text-gray-700'>
+                    <h1 className='text-5xl font-bold font-serif'>One solution for all your <span className='text-blue-500'>client operations</span> challenges</h1>
+                    <h5 className='text-3xl mt-10 font-sans leading-[1.35]'>Never wonder “Do we have the resources to handle this?”, “Who’s responsible for delivering that?” or “Is this project profitable?” again. All the answers will be available at a glance in <strong>NsNco.in</strong>. Always.</h5>
+                </div>
+            </section>
+
             {/* <CTA /> */}
 
-            <section className="bg-sky-600 text-white my-20 py-20 ">
+            <section className="bg-sky-600 text-white my-20 py-20">
                 <div className='w-9/12 mx-auto md:grid grid-cols-2 items-center gap-10'>
                     <div>
                         <h2 className="text-5xl font-semibold">Integrate with your favourite apps</h2>
