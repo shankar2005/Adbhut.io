@@ -24,6 +24,8 @@ import chat from '../../assets/chat.png';
 import project from '../../assets/project.png';
 import create_project from '../../assets/create-project.png';
 
+// fix the image.PNG build bug
+
 const Home = () => {
     const dispatch = useDispatch();
     const { isFullTime } = useSelector(state => state.viewMode);
