@@ -12,9 +12,14 @@ import Hero from './Sections/Hero';
 import Brands from '../../Components/Sections/Brands';
 import { useEffect } from 'react';
 import Footer from '../../layouts/Shared/Footer';
-import { IoIosArrowDown } from 'react-icons/io';
+import { IoIosArrowDown, IoIosArrowRoundForward } from 'react-icons/io';
 import CTA from './Sections/CTA';
 import apps from "../../assets/apps.png";
+import { BsStars } from 'react-icons/bs';
+import { GiArcheryTarget } from "react-icons/gi";
+import { RiCustomerService2Fill } from "react-icons/ri";
+import { MdHistory, MdOutlinePayment } from "react-icons/md";
+import { FaSignature } from 'react-icons/fa';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -262,6 +267,63 @@ const Home = () => {
             </section>
 
 
+            <section className='w-9/12 mx-auto mb-24'>
+                <h1 className='text-5xl text-center font-semibold mt-2'>What it does for you?</h1>
+                <a href="#" className='text-blue-500 text-lg text-center mt-3 flex justify-center items-center'>Browse all the features <IoIosArrowRoundForward size={30} /></a>
+                <div className='mt-10 grid grid-cols-4 gap-3'>
+                    <div className='p-4 bg-gray-50 border border-gray-100 shadow rounded-xl'>
+                        <div className="flex items-center mb-5">
+                            <span className='bg-purple-100  p-1.5 rounded'><BsStars className='text-purple-600' size={23} /></span>
+                            <h5 className="text-2xl font-semibold ml-2 mr-3">AI</h5>
+                            <small className='bg-purple-100 text-purple-700 px-2 py-.5 rounded-full font-semibold'>Now with Q&A</small>
+                        </div>
+                        <p className='text-sm mb-1'>Ask literally anything. Chatgpt will answer.</p>
+                        <a href="#" className='text-sm font-semibold text-purple-700'>Learn more→</a>
+                    </div>
+                    <div className='p-4 bg-white border border-gray-100 shadow rounded-xl'>
+                        <div className="flex items-center mb-5">
+                            <span className='bg-sky-100 p-1.5 rounded'><GiArcheryTarget className='text-sky-600' size={23} /></span>
+                            <h5 className="text-2xl font-semibold ml-2 mr-3">Project</h5>
+                        </div>
+                        <p className='text-sm mb-1'>Manage complex projects without the chaos.</p>
+                        <a href="#" className='text-sm font-semibold text-sky-700'>Learn more→</a>
+                    </div>
+                    <div className='p-4 bg-white border border-gray-100 shadow rounded-xl'>
+                        <div className="flex items-center mb-5">
+                            <span className='bg-orange-100 p-1.5 rounded'><RiCustomerService2Fill className='text-orange-600' size={23} /></span>
+                            <h5 className="text-2xl font-semibold ml-2 mr-3">Assistant</h5>
+                        </div>
+                        <p className='text-sm mb-1'>Servicing assistant 24/7 for your help with project.</p>
+                        <a href="#" className='text-sm font-semibold text-orange-700'>Learn more→</a>
+                    </div>
+                    <div className='p-4 bg-white border border-gray-100 shadow rounded-xl'>
+                        <div className="flex items-center mb-5">
+                            <span className='bg-lime-100 p-1.5 rounded'><MdHistory className='text-lime-600' size={23} /></span>
+                            <h5 className="text-2xl font-semibold ml-2 mr-3">Tracking</h5>
+                        </div>
+                        <p className='text-sm mb-1'>Keep clear tracking on your project with recorded conversations.</p>
+                        <a href="#" className='text-sm font-semibold text-lime-700'>Learn more→</a>
+                    </div>
+                    <div className='p-4 bg-white border border-gray-100 shadow rounded-xl'>
+                        <div className="flex items-center mb-5">
+                            <span className='bg-yellow-100 p-1.5 rounded'><FaSignature className='text-yellow-600' size={23} /></span>
+                            <h5 className="text-2xl font-semibold ml-2 mr-3">DocuSign</h5>
+                        </div>
+                        <p className='text-sm mb-1'>Legal authorization with digital project signing.</p>
+                        <a href="#" className='text-sm font-semibold text-yellow-700'>Learn more→</a>
+                    </div>
+                    <div className='p-4 bg-white border border-gray-100 shadow rounded-xl'>
+                        <div className="flex items-center mb-5">
+                            <span className='bg-green-100 p-1.5 rounded'><MdOutlinePayment className='text-green-600' size={23} /></span>
+                            <h5 className="text-2xl font-semibold ml-2 mr-3">Payments</h5>
+                        </div>
+                        <p className='text-sm mb-1'>Secure payments method and transaction.</p>
+                        <a href="#" className='text-sm font-semibold text-green-700'>Learn more→</a>
+                    </div>
+                </div>
+            </section>
+
+
             <section className='w-9/12 mx-auto grid grid-cols-2 items-center gap-10'>
                 <img className='w-11/12 mr-auto' src="https://kitpro.site/ailope/wp-content/uploads/sites/173/2023/06/AI-make-Art-2-768x571.png" alt="" />
                 <div>
@@ -337,8 +399,8 @@ const Home = () => {
             </section>
 
             <section className="py-24 footer-top-section bg-cover text-center">
-                <h1 className='text-5xl font-semibold text-white mb-5'>Let's Find Out Who Else Uses <br /> AI Here</h1>
-                <button className='bg-white border border-neutral-400 py-3 px-5 rounded-full text-sm text-black shadow'>Learn More</button>
+                <h1 className='text-4xl font-semibold text-white mb-5'>Get Started with NsNco Software</h1>
+                <button className='bg-yellow-400 py-3 px-5 rounded-full text-gray-800 font-semibold shadow'>Get it free</button>
             </section>
 
             {/* auth modal */}
