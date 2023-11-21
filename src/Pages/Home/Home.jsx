@@ -23,6 +23,12 @@ import { FaSignature } from 'react-icons/fa';
 import chat from '../../assets/chat.png';
 import project from '../../assets/project.png';
 import create_project from '../../assets/create_project.png';
+import minali from '../../assets/artists/minali.jpeg';
+import aniket_saxena from '../../assets/artists/aniket_saxena.jpg';
+import div from '../../assets/artists/div.jpeg';
+import jyoti from '../../assets/artists/jyoti.jpg';
+import shubham from '../../assets/artists/shubham.jpg';
+import sudharshan from '../../assets/artists/sudharshan.jpg';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -104,9 +110,9 @@ const Home = () => {
             <section className="bg-sky-600 text-white my-20 py-20">
                 <div className='w-9/12 mx-auto md:grid grid-cols-2 items-center gap-10'>
                     <div>
-                        <h2 className="text-5xl font-semibold">Integrate with your favourite apps</h2>
+                        <h2 className="text-5xl font-semibold">We integrate with your work flow</h2>
                         <p className="mt-5 mb-3">
-                            NsNco gives you the added advantage of several other apps and third party apps through seamless integrations.
+                            NsNco solution gives you the added advantage of integration with several third party apps seamlessly with our apis.
                         </p>
 
                         <div className='border-l-4 pl-2 border-sky-100 font-bold mt-16'>
@@ -194,9 +200,9 @@ const Home = () => {
             <section className="bg-gray-100 my-20 py-20 overflow-hidden border-y border-gray-100">
                 <div className='relative w-9/12 mx-auto md:grid grid-cols-2 items-center gap-10'>
                     <div>
-                        <h2 className="text-5xl font-bold">Collaborate with over 700+ artists</h2>
+                        <h2 className="text-4xl font-bold">Collaborate with over 700+ growing community of artists/ freelancers/ agencies </h2>
                         <p className="mt-5 mb-3">
-                            Projects gives you the added advantage of several other apps and third party apps through seamless integrations.
+                            Pickup as many projects as come your way getting them done seamlessly by processing them via 3rd party vendors.
                         </p>
 
                         <div className='border-l-4 pl-2 border-sky-500 font-bold mt-16'>
@@ -210,7 +216,7 @@ const Home = () => {
 
                         <div className='w-[800px] grid grid-cols-3 gap-5'>
                             <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
-                                <img className='w-12 rounded-full' src="https://nsnco-bucket.s3.amazonaws.com/userdata/Aniket%20Saxena_work_files/aniket_saxena.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAU6B7OO4B4RB4PPYJ%2F20231120%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20231120T104317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=efdec1b9c4326ad2e95e2f4014cfc4104e73f0adbd237d4df800c25aa5bde168" alt="" />
+                                <img className='w-12 rounded-full' src={aniket_saxena} alt="" />
                                 <div>
                                     <strong>Aniket Saxena</strong>
                                     <p className="text-sm">2D animation Artist</p>
@@ -234,7 +240,7 @@ const Home = () => {
                                 <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
                             </div>
                             <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
-                                <img className='w-12 rounded-full' src="https://nsnco-bucket.s3.amazonaws.com/userdata/Jyoti%20Gupta_work_files/349212341_642773471051200_2012674058458277402_n.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAU6B7OO4B4RB4PPYJ%2F20231120%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20231120T104317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6bde83a82fc67356baae1c943fb72750c7ac02ce9c464895a9dbc84cca5f1e70" alt="" />
+                                <img className='w-12 rounded-full' src={jyoti} alt="" />
                                 <div>
                                     <strong>Jyoti Gupta</strong>
                                     <p className="text-sm">Video Producer</p>
@@ -242,7 +248,7 @@ const Home = () => {
                                 <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
                             </div>
                             <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
-                                <img className='w-12 rounded-full' src="https://nsnco-bucket.s3.amazonaws.com/userdata/Shubham%20Goyal_work_files/85513438_673998283338198_6162676992166780776_n.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAU6B7OO4B4RB4PPYJ%2F20231120%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20231120T104317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=9b983736809e81fe5a5dd3e1f13356b3892401a2319c01e6c738712f85cd0bbd" alt="" />
+                                <img className='w-12 rounded-full' src={shubham} alt="" />
                                 <div>
                                     <strong>Shubham Goyal</strong>
                                     <p className="text-sm">Actor</p>
@@ -250,7 +256,7 @@ const Home = () => {
                                 <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
                             </div>
                             <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
-                                <img className='w-12 rounded-full' src="https://nsnco-bucket.s3.amazonaws.com/userdata/Minali_work_files/WhatsApp_Image_2023-06-27_at_5.04.34_PM.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAU6B7OO4B4RB4PPYJ%2F20231120%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20231120T104317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=473d7b60e2cdd2ea9480ccea7bd6d42f86f3103844426a36589f035276255241" alt="" />
+                                <img className='w-12 rounded-full' src={minali} alt="" />
                                 <div>
                                     <strong>Minali</strong>
                                     <p className="text-sm">Video Producer</p>
@@ -258,7 +264,7 @@ const Home = () => {
                                 <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
                             </div>
                             <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
-                                <img className='w-12 rounded-full' src="https://nsnco-bucket.s3.amazonaws.com/userdata/Sudarshan%20Birla_work_files/sudharshan.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAU6B7OO4B4RB4PPYJ%2F20231120%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20231120T104317Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=3fbeb986c08719055f906dfe5115f47e001874c5b78c4628c82faa5d49d4f4af" alt="" />
+                                <img className='w-12 rounded-full' src={sudharshan} alt="" />
                                 <div>
                                     <strong>Sudarshan Birla</strong>
                                     <p className="text-sm">Graphic Designer</p>
@@ -266,7 +272,7 @@ const Home = () => {
                                 <button className='bg-blue-500 text-white p-1 rounded font-semibold text-xs'>Collaborate</button>
                             </div>
                             <div className='flex flex-col gap-3 bg-white p-3 rounded-lg shadow'>
-                                <img className='w-12 rounded-full' src="https://nsnco-bucket.s3.amazonaws.com/userdata/Divyansh%20Srivastav_work_files/WhatsApp_Image_2023-07-04_at_10.47.59_PM.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAU6B7OO4B4RB4PPYJ%2F20231120%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20231120T104314Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=2bdb9b81e5549e01dd8b4c8b745c4394b0aa01244de790fc77e390f971a23272" alt="" />
+                                <img className='w-12 rounded-full' src={div} alt="" />
                                 <div>
                                     <strong>Divyansh Srivastav</strong>
                                     <p className="text-sm">Graphic Designer</p>
@@ -351,7 +357,7 @@ const Home = () => {
                 <div className='col-span-7 rounded-lg'>
                     <small className='text-green-500 font-bold'>WORK ASSISTANT</small>
                     <h4 className='text-2xl font-semibold mb-4 mt-2'>A Personal Assistant Just For You</h4>
-                    <p className='text-gray-500 mb-6'>From client assets and project timelines to communications and financial reporting.</p>
+                    <p className='text-gray-500 mb-6 pr-20'>GPT driven custom chat engine to support every customer query, with answers to all possible questions and about your company.</p>
                 </div>
                 <div className='col-span-1'></div>
                 <div className='col-span-4 bg-gradient-to-t from-white via-blue-100 to-white -rotate-12'>
