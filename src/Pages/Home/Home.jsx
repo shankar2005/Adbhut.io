@@ -29,6 +29,7 @@ import div from '../../assets/artists/div.jpeg';
 import jyoti from '../../assets/artists/jyoti.jpg';
 import shubham from '../../assets/artists/shubham.jpg';
 import sudharshan from '../../assets/artists/sudharshan.jpg';
+import { HiCursorClick } from "react-icons/hi";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -103,6 +104,7 @@ const Home = () => {
                                             <div className='w-5 h-5 bg-blue-600 rounded'></div>
                                             <div className='w-5 h-5 bg-gray-700 rounded-full'></div>
                                         </div>
+                                        <HiCursorClick className='absolute -bottom-3 left-20 text-gray-400 rotate-90' size={40} />
                                     </div>
                                     <div className='h-44 bg-gradient-to-r from-black/50 to-black/30 rounded p-5 space-y-5 relative'>
                                         <div className='h-5 bg-gray-700 rounded'></div>
