@@ -19,10 +19,10 @@ const MentorSection = () => {
     ];
 
     return (
-        <section className='bg-white p-10 py-16 flex flex-col md:flex-row gap-10 z-50'>
+        <section className='bg-white text-gray-600 p-10 py-16 flex flex-col md:flex-row gap-10 z-50'>
             <div className='w-full md:w-3/12 font-hero'>
                 <h1 className='text-xl font-bold mb-1.5'>Meet Our Mentors</h1>
-                <p className='text-sm text-gray-600'>Let's start with booking a consultancy session for your project from one of these Industry Veterans, and boost its effects!</p>
+                <p className='text-sm'>Let's start with booking a consultancy session for your project from one of these Industry Veterans, and boost its effects!</p>
             </div>
             <div className='w-full md:w-10/12 mx-auto grid grid-cols-1 md:grid-cols-2 gap-12'>
                 {

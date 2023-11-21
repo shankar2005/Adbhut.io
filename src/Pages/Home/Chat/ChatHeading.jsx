@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useRootContext } from '../../../contexts/RootProvider';
 import { useToggleChatGPTMutation } from '../../../features/chat/chatApi';
-import logo from "../../../assets/logos/adbeta.jpeg";
+import logo from "../../../assets/logos/nsn-logo.png";
 
 const ChatHeading = ({ chatbotStatus }) => {
     const { setShowChat, showChat } = useRootContext();

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
+import nsnlogo from '../../assets/logos/nsn-logo.png';
 
 const NoInternetConnection = ({ children }) => {
     if (location.hostname === "localhost") return children;
@@ -30,7 +30,7 @@ export default NoInternetConnection;
 const NoInternetPage = () => {
     return (
         <section>
-            <img src={adbhutGIF} className='absolute top-0 left-0 m-5 w-28 md:w-32 mr-8' />
+            <img src={nsnlogo} className='absolute top-0 left-0 m-5 w-28 md:w-32 mr-8' />
             <div className="h-screen flex items-center justify-center">
                 <div className="font-hero text-center space-y-2">
                     <img src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/noconnection/default_800.png" alt="" />

@@ -25,7 +25,7 @@ const Footer = () => {
                 <div className='col-span-4 md:col-span-4'>
                     <h1 className='uppercase text-sm font-medium mb-4'>Links</h1>
                     <ul className='text-sm space-y-2'>
-                        <li onClick={() => setIsShowMentor(true)} className='hover:underline w-fit'>Mentors</li>
+                        <li onClick={() => setIsShowMentor(true)} className='hover:underline w-fit'>Our Team</li>
                         <li className='hover:underline w-fit'><Link to="/artists">Artists</Link></li>
                         <li className='hover:underline w-fit'><a target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show'>Hiring</a></li>
                     </ul>
@@ -56,7 +56,7 @@ const Footer = () => {
             </div>
 
             <div className='py-2 text-center text-neutral-400 text-sm font-hero'>
-                &copy; Mirashious Technologies Pvt Ltd
+                &copy; Swaraj Enterprises Technologies Pvt Ltd
             </div>
 
             {isShowMentor && <Modal onClick={() => setIsShowMentor(false)} className="w-10/12"><MentorSection /></Modal>}

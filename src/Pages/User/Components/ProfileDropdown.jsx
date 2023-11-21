@@ -2,7 +2,7 @@ import { ImOffice } from 'react-icons/im';
 import { FiLogOut } from 'react-icons/fi';
 import Cookies from 'universal-cookie';
 import Button from '../../../Components/Button/Button';
-import logo from "../../../assets/logos/adbeta.jpeg"
+import logo from "../../../assets/logos/nsn-logo.png"
 import profileCover from "../../../assets/placeholders/profile_cover.png"
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../features/auth/authSlice';

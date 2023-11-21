@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import logo from "../../assets/logos/adbhutGIF.gif"
+import nsnlogo from '../../assets/logos/nsn-logo.png';
 import { showLogin } from '../../features/dropdown/dropdownSlice';
 import AuthModal from '../Auth/Components/AuthModal';
 import { FaPlus } from "react-icons/fa";
@@ -20,7 +20,7 @@ const ArtistLandingPage = () => {
                 <nav className='w-10/12 mx-auto md:px-10 py-5 flex justify-between items-center'>
                     <div className="flex items-center gap-8">
                         <Link className="w-32" to="/">
-                            <img className="w-full rounded-sm" src={logo} alt="" />
+                            <img className="w-full rounded-sm" src={nsnlogo} alt="" />
                         </Link>
                         {/* <img className="w-10 rounded-sm" src="https://img.collegedekhocdn.com/media/img/institute/logo/1432796965.png" alt="" /> */}
                         <ul className='hidden ml-10 md:flex gap-x-8 items-center text-sm font-semibold'>

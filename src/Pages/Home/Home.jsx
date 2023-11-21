@@ -51,7 +51,7 @@ const Home = () => {
         <div className='font-hero overflow-hidden'>
             <header>
                 <nav className='py-3 relative'>
-                    <div className='w-10/12 max-w-screen-xl mx-auto flex items-center justify-between'>
+                    <div className='w-10/12 mx-auto flex items-center justify-between'>
                         <div className="flex items-center gap-2">
                             <img src={logo} className='w-20' />
                             <span className="text-3xl font-bold text-cyan-900 tracking-wide">CO</span>
@@ -87,77 +87,101 @@ const Home = () => {
                     </label>
                     <Hero />
                 </section> */}
-                <section className="relative pt-36 pb-10 bg-gradient-to-b from-sky-800 to-slate-800">
-                    <div className='space-y-32'>
-                        <div className="grid grid-cols-2 gap-20 items-center justify-between">
-                            <div className='w-10/12 ml-auto'>
-                                <h1 className='text-5xl leading-[1.2] text-white font-semibold mb-3'>Create your AI Powered Agency in clicks</h1>
-                                <p className='mb-8 text-white text-xl'>The Future of Problem Solving—even if your team isn’t.</p>
-                                <button className='bg-yellow-400 py-2 px-5 rounded text-gray-800 font-semibold shadow'>Claim your free trial</button>
-                            </div>
-                            {/* <img className='w-full' src="https://wac-cdn.atlassian.com/misc-assets/webp-images/JSW_ProductTour_DarkModeIllustration_Hero.webp" alt="" /> */}
-                            <div className='p-6 relative'>
-                                <div className='rounded space-y-6'>
-                                    <div className='h-44 bg-gradient-to-r from-black/50 to-black/30 rounded p-5 space-y-5 relative'>
-                                        <div className='h-5 bg-gray-700 rounded'></div>
-                                        <div className='h-5 bg-gray-700 rounded mr-32'></div>
-                                        <div className='mt-auto flex justify-between absolute bottom-0 left-0 w-full p-5'>
-                                            <div className='w-5 h-5 bg-blue-600 rounded'></div>
-                                            <div className='w-5 h-5 bg-gray-700 rounded-full'></div>
-                                        </div>
-                                        <HiCursorClick className='absolute -bottom-3 left-20 text-gray-400 rotate-90' size={40} />
-                                    </div>
-                                    <div className='h-44 bg-gradient-to-r from-black/50 to-black/30 rounded p-5 space-y-5 relative'>
-                                        <div className='h-5 bg-gray-700 rounded'></div>
-                                        <div className='h-5 bg-gray-700 rounded mr-32'></div>
-                                        <div className='mt-auto flex justify-between absolute bottom-0 left-0 w-full p-5'>
-                                            <div className='w-5 h-5 bg-yellow-600 rounded'></div>
-                                            <div className='w-5 h-5 bg-gray-700 rounded-full'></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='bg-gradient-to-b from-gray-900 to-[#13324a] rounded absolute w-[400px] top-20 -right-10 pr-10'>
-                                    <div className='border-b border-gray-800 p-3'>
-                                        <img className='w-10 h-10 opacity-80' src="https://freelogopng.com/images/all_img/1681038242chatgpt-logo-png.png" alt="" />
-                                    </div>
-                                    <div className='p-3'>
-                                        <div className='flex gap-x-2'>
-                                            <div className='h-10 w-10 bg-slate-500/30 rounded-full'></div>
-                                            <div className='h-10 bg-slate-500/30 rounded w-2/4 mb-3'></div>
-                                        </div>
-                                        <div className='flex gap-x-2'>
-                                            <div className='h-10 bg-gray-700 rounded w-3/4 ml-auto mb-3'></div>
-                                            <div className='h-10 w-10 bg-slate-500/30 rounded-full'></div>
-                                        </div>
-                                        <div className='flex gap-x-2'>
-                                            <div className='h-10 w-10 bg-slate-500/30 rounded-full'></div>
-                                            <div className='h-10 bg-slate-500/30 rounded w-4/6 mb-3'></div>
-                                        </div>
-                                        <div className='mt-28 flex gap-1.5'>
-                                            <div className='h-10 bg-slate-500/30 rounded w-full'></div>
-                                            <div className='h-10 bg-slate-500/30 rounded w-12 flex items-center justify-center text-gray-500'>
-                                                <IoMdSend size={25} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                {/* <section className="relative pt-36 pb-10 bg-gradient-to-b from-sky-800 to-slate-800">
+                    <div className="grid grid-cols-2 gap-20 items-center justify-between pb-10">
+                        <div className='w-10/12 ml-auto'>
+                            <h1 className='text-5xl leading-[1.2] text-white font-semibold mb-3'>Create your AI Powered Agency in clicks</h1>
+                            <p className='mb-8 text-white text-xl'>The Future of Problem Solving—even if your team isn’t.</p>
+                            <button className='bg-yellow-400 py-2 px-5 rounded text-gray-800 font-semibold shadow'>Claim your free trial</button>
                         </div>
-                        <div className='w-10/12 mx-auto'>
-                            <div className='w-4/6'>
-                                <h1 className='text-5xl font-bold font-serif text-white/90'>One solution for all your <span className='text-blue-500'>client operations</span> challenges</h1>
-                                <h5 className='text-2xl mt-10 leading-[1.35] text-slate-300'>Never wonder “Do we have the resources to handle this?”, “Who’s responsible for delivering that?” or “Is this project profitable?” again. All the answers will be available at a glance in <strong>NsNco.in</strong> Always.</h5>
+                        <img className='w-full' src="https://wac-cdn.atlassian.com/misc-assets/webp-images/JSW_ProductTour_DarkModeIllustration_Hero.webp" alt="" />
+                        <div className='p-6 relative'>
+                            <div className='rounded space-y-6'>
+                                <div className='h-44 bg-gradient-to-r from-black/50 to-black/30 rounded p-5 space-y-5 relative'>
+                                    <div className='h-5 bg-gray-700 rounded'></div>
+                                    <div className='h-5 bg-gray-700 rounded mr-32'></div>
+                                    <div className='mt-auto flex justify-between absolute bottom-0 left-0 w-full p-5'>
+                                        <div className='w-5 h-5 bg-blue-600 rounded'></div>
+                                        <div className='w-5 h-5 bg-gray-700 rounded-full'></div>
+                                    </div>
+                                    <HiCursorClick className='absolute -bottom-3 left-20 text-gray-400 rotate-90' size={40} />
+                                </div>
+                                <div className='h-44 bg-gradient-to-r from-black/50 to-black/30 rounded p-5 space-y-5 relative'>
+                                    <div className='h-5 bg-gray-700 rounded'></div>
+                                    <div className='h-5 bg-gray-700 rounded mr-32'></div>
+                                    <div className='mt-auto flex justify-between absolute bottom-0 left-0 w-full p-5'>
+                                        <div className='w-5 h-5 bg-yellow-600 rounded'></div>
+                                        <div className='w-5 h-5 bg-gray-700 rounded-full'></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='bg-gradient-to-b from-gray-900 to-[#13324a] rounded absolute w-[400px] top-20 -right-10 pr-10'>
+                                <div className='border-b border-gray-800 p-3'>
+                                    <img className='w-10 h-10 opacity-80' src="https://freelogopng.com/images/all_img/1681038242chatgpt-logo-png.png" alt="" />
+                                </div>
+                                <div className='p-3'>
+                                    <div className='flex gap-x-2'>
+                                        <div className='h-10 w-10 bg-slate-500/30 rounded-full'></div>
+                                        <div className='h-10 bg-slate-500/30 rounded w-2/4 mb-3'></div>
+                                    </div>
+                                    <div className='flex gap-x-2'>
+                                        <div className='h-10 bg-gray-700 rounded w-3/4 ml-auto mb-3'></div>
+                                        <div className='h-10 w-10 bg-slate-500/30 rounded-full'></div>
+                                    </div>
+                                    <div className='flex gap-x-2'>
+                                        <div className='h-10 w-10 bg-slate-500/30 rounded-full'></div>
+                                        <div className='h-10 bg-slate-500/30 rounded w-4/6 mb-3'></div>
+                                    </div>
+                                    <div className='mt-28 flex gap-1.5'>
+                                        <div className='h-10 bg-slate-500/30 rounded w-full'></div>
+                                        <div className='h-10 bg-slate-500/30 rounded w-12 flex items-center justify-center text-gray-500'>
+                                            <IoMdSend size={25} />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <svg className='w-full absolute left-0 top-full' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#1e293b" fill-opacity="1" d="M0,96L48,80C96,64,192,32,288,37.3C384,43,480,85,576,122.7C672,160,768,192,864,176C960,160,1056,96,1152,80C1248,64,1344,96,1392,112L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
+                </section> */}
+                <section className="w-10/12 mx-auto px-16 py-40 rounded-lg bg-[url('https://i.ibb.co/2YDNKx2/bg4.png')] bg-cover grid grid-cols-2 gap-10 items-center justify-between">
+                    <div>
+                        <h1 className='text-6xl text-gray-900 font-bold mb-5'>Create your AI Powered Agency in clicks</h1>
+                        <button className='bg-sky-500 py-3 px-5 rounded-full text-sm text-white mr-4'>Get Started</button>
+                        <a target="_blank" href="https://nsnco.in/" className='bg-white border border-sky-500 py-3 px-5 rounded-full text-sm text-black'>About NsNco</a>
+                    </div>
+                    <div className='bg-white p-5 rounded-2xl shadow-lg'>
+                        <h4 className='text-xl font-semibold mb-2'>The Future Of Advertising Management</h4>
+                        <p className='text-sm text-gray-500'>With ever evolving advertising industry needs, agencies are facing a pressure to bring lean process in their management. Managing multiple clients with a small team can be challenging, while there is always a pressure for building more client base. NsNco is here to help you bring business profitability using cutting edge technologies.</p>
+                    </div>
                 </section>
             </header>
 
 
-            <section className='w-9/12 mx-auto mt-64 mb-24'>
+            <section className="bg-sky-600 text-white my-20 py-20">
+                <div className='w-9/12 mx-auto md:grid grid-cols-2 items-center gap-10'>
+                    <div>
+                        <h2 className="text-5xl font-semibold">We integrate with your work flow</h2>
+                        <p className="mt-5 mb-3">
+                            NsNco solution gives you the added advantage of integration with several third party apps seamlessly with our apis.
+                        </p>
+
+                        {/* <div className='border-l-4 pl-2 border-sky-100 font-bold mt-16'>
+                            <button type="button" class="bg-white py-1 px-3 rounded text-sm text-sky-500 font-bold mr-2">
+                                Learn More
+                            </button>
+                        </div> */}
+                    </div>
+                    <div className='hidden md:block'>
+                        <img className="w-4/5 ml-auto rounded-xl" src={apps} alt="" />
+                    </div>
+                </div>
+            </section>
+
+
+            <section className='w-9/12 mx-auto my-24'>
                 <h1 className='text-5xl text-center font-semibold mt-2'>What it does for you?</h1>
-                <a href="#" className='text-blue-500 text-lg text-center mt-3 flex justify-center items-center'>Browse all the features <IoIosArrowRoundForward size={30} /></a>
+                {/* <a href="#" className='text-blue-500 text-lg text-center mt-3 flex justify-center items-center'>Browse all the features <IoIosArrowRoundForward size={30} /></a> */}
                 <div className='mt-10 grid grid-cols-4 gap-3'>
                     <div className='p-4 bg-gray-50 border border-gray-100 shadow rounded-xl'>
                         <div className="flex items-center mb-5">
@@ -166,7 +190,7 @@ const Home = () => {
                             <small className='bg-purple-100 text-purple-700 px-2 py-.5 rounded-full font-semibold'>Now with Q&A</small>
                         </div>
                         <p className='text-sm mb-1'>Ask literally anything. Chatgpt will answer.</p>
-                        <a href="#" className='text-sm font-semibold text-purple-700'>Learn more→</a>
+                        {/* <a href="#" className='text-sm font-semibold text-purple-700'>Learn more→</a> */}
                     </div>
                     <div className='p-4 bg-white border border-gray-100 shadow rounded-xl'>
                         <div className="flex items-center mb-5">
@@ -174,15 +198,15 @@ const Home = () => {
                             <h5 className="text-2xl font-semibold ml-2 mr-3">Project</h5>
                         </div>
                         <p className='text-sm mb-1'>Manage complex projects without the chaos.</p>
-                        <a href="#" className='text-sm font-semibold text-sky-700'>Learn more→</a>
+                        {/* <a href="#" className='text-sm font-semibold text-sky-700'>Learn more→</a> */}
                     </div>
                     <div className='p-4 bg-white border border-gray-100 shadow rounded-xl'>
                         <div className="flex items-center mb-5">
                             <span className='bg-orange-100 p-1.5 rounded'><RiCustomerService2Fill className='text-orange-600' size={23} /></span>
                             <h5 className="text-2xl font-semibold ml-2 mr-3">Assistant</h5>
                         </div>
-                        <p className='text-sm mb-1'>Servicing assistant 24/7 for your help with project.</p>
-                        <a href="#" className='text-sm font-semibold text-orange-700'>Learn more→</a>
+                        <p className='text-sm mb-1'>Servicing assistant 24/7 for your clients help on projects.</p>
+                        {/* <a href="#" className='text-sm font-semibold text-orange-700'>Learn more→</a> */}
                     </div>
                     <div className='p-4 bg-white border border-gray-100 shadow rounded-xl'>
                         <div className="flex items-center mb-5">
@@ -190,23 +214,23 @@ const Home = () => {
                             <h5 className="text-2xl font-semibold ml-2 mr-3">Tracking</h5>
                         </div>
                         <p className='text-sm mb-1'>Keep clear tracking on your project with recorded conversations.</p>
-                        <a href="#" className='text-sm font-semibold text-lime-700'>Learn more→</a>
+                        {/* <a href="#" className='text-sm font-semibold text-lime-700'>Learn more→</a> */}
                     </div>
                     <div className='p-4 bg-white border border-gray-100 shadow rounded-xl'>
                         <div className="flex items-center mb-5">
                             <span className='bg-yellow-100 p-1.5 rounded'><FaSignature className='text-yellow-600' size={23} /></span>
                             <h5 className="text-2xl font-semibold ml-2 mr-3">DocuSign</h5>
                         </div>
-                        <p className='text-sm mb-1'>Legal authorization with digital project signing.</p>
-                        <a href="#" className='text-sm font-semibold text-yellow-700'>Learn more→</a>
+                        <p className='text-sm mb-1'>Legal authorization with digitally protected signing.</p>
+                        {/* <a href="#" className='text-sm font-semibold text-yellow-700'>Learn more→</a> */}
                     </div>
                     <div className='p-4 bg-white border border-gray-100 shadow rounded-xl'>
                         <div className="flex items-center mb-5">
                             <span className='bg-green-100 p-1.5 rounded'><MdOutlinePayment className='text-green-600' size={23} /></span>
                             <h5 className="text-2xl font-semibold ml-2 mr-3">Payments</h5>
                         </div>
-                        <p className='text-sm mb-1'>Secure payments method and transaction.</p>
-                        <a href="#" className='text-sm font-semibold text-green-700'>Learn more→</a>
+                        <p className='text-sm mb-1'>Secure payment methods for content IP transactions.</p>
+                        {/* <a href="#" className='text-sm font-semibold text-green-700'>Learn more→</a> */}
                     </div>
                 </div>
             </section>
@@ -225,60 +249,19 @@ const Home = () => {
                 <div className='pl-5'>
                     <small className='text-orange-500 font-bold'>BENIFIT</small>
                     <h4 className='text-2xl font-semibold mb-4 mt-2'>Organize everything in one system of record</h4>
-                    <p className='text-gray-500 mb-6'>From client assets and project timelines to communications and financial reporting.</p>
+                    <p className='text-gray-500 mb-6'>From client assets and project timelines to communications and project reporting.</p>
                 </div>
             </section>
 
             <section className='w-9/12 mx-auto grid grid-cols-12 items-center gap-5 my-24'>
                 <div className='col-span-7 rounded-lg'>
                     <small className='text-green-500 font-bold'>WORK ASSISTANT</small>
-                    <h4 className='text-2xl font-semibold mb-4 mt-2'>A Personal Assistant Just For You</h4>
+                    <h4 className='text-2xl font-semibold mb-4 mt-2'>Personalised Assistance Product For Your Every Customer Project </h4>
                     <p className='text-gray-500 mb-6 pr-20'>GPT driven custom chat engine to support every customer query, with answers to all possible questions and about your company.</p>
                 </div>
                 <div className='col-span-1'></div>
                 <div className='col-span-4 bg-gradient-to-t from-white via-blue-100 to-white -rotate-12'>
                     <img className='w-full rounded-lg ml-auto rotate-[18deg] shadow-lg border' src={chat} alt="" />
-                </div>
-            </section>
-
-
-            <section className="bg-sky-600 text-white my-20 py-20">
-                <div className='w-9/12 mx-auto md:grid grid-cols-2 items-center gap-10'>
-                    <div>
-                        <h2 className="text-5xl font-semibold">We integrate with your work flow</h2>
-                        <p className="mt-5 mb-3">
-                            NsNco solution gives you the added advantage of integration with several third party apps seamlessly with our apis.
-                        </p>
-
-                        <div className='border-l-4 pl-2 border-sky-100 font-bold mt-16'>
-                            <button type="button" class="bg-white py-1 px-3 rounded text-sm text-sky-500 font-bold mr-2">
-                                Learn More
-                            </button>
-                        </div>
-                    </div>
-                    <div className='hidden md:block'>
-                        <img className="w-4/5 ml-auto rounded-xl" src={apps} alt="" />
-                    </div>
-                </div>
-            </section>
-
-
-            <section className='w-9/12 mx-auto grid grid-cols-12 border shadow-lg rounded-xl font-quote'>
-                <div className='col-span-7 relative flex flex-col justify-between'>
-                    <img className='absolute top-0 left-0' src={quote} alt="" />
-                    <p className='text-2xl leading-[1.5] py-10 px-8'>Whether someone is in the office, working from home, or working on-site with a client, everyone can share context and information through Trello.</p>
-                    <div className='text-lg px-10 py-10 flex justify-between items-end'>
-                        <div>
-                            <div className='h-0.5 w-36 bg-gray-500 mb-5'></div>
-                            <p>NsNco</p>
-                            <p>Product of the Future</p>
-                        </div>
-                        <a className='text-blue-700 underline text-base' href="">Read the story</a>
-                    </div>
-                </div>
-                <div className='col-span-5 bg-gradient-to-r from-purple-600 via-purple-400 to-pink-300 py-10 px-8 rounded-r-xl'>
-                    <p className='text-4xl font-semibold leading-[1.3] text-white mb-60'>81% of customers chose Trello for its ease of use.</p>
-                    <a className='text-white underline' href="">Join with the Community</a>
                 </div>
             </section>
 
@@ -372,7 +355,28 @@ const Home = () => {
 
 
 
-            <section className='w-9/12 mx-auto mb-24'>
+            <section className='w-9/12 mx-auto grid grid-cols-12 border shadow-lg rounded-xl font-quote'>
+                <div className='col-span-7 relative flex flex-col justify-between'>
+                    <img className='absolute top-0 left-0' src={quote} alt="" />
+                    <p className='text-2xl leading-[1.5] py-10 px-8'>Whether you work in an advertising agency, working as a freelancer, or working on a brand as a client, when everyones ask is to be agile now, then manage your projects through NsNco.</p>
+                    <div className='text-lg px-10 py-10 flex justify-between items-end'>
+                        <div>
+                            <div className='h-0.5 w-36 bg-gray-500 mb-5'></div>
+                            <p>NsNco</p>
+                            <p>A Tech Product Building the Future of Advertising</p>
+                        </div>
+                        <a className='text-blue-700 underline text-base' href="#nsnco/about">Background work</a>
+                    </div>
+                </div>
+                <div className='col-span-5 bg-gradient-to-r from-purple-600 via-purple-400 to-pink-300 py-10 pl-8 pr-5 rounded-r-xl'>
+                    <p className='text-4xl font-semibold leading-[1.3] text-white mb-60'>80% of reached customers chose NsNco for its ease of use.</p>
+                    <a className='text-white underline' href="https://thhs.in/" target="_blank">Join with the Community</a>
+                </div>
+            </section>
+
+
+
+            <section className='w-9/12 mx-auto my-24'>
                 <h1 className='text-5xl text-center font-semibold mb-16 mt-2'>Affordable pricing that matches your needs</h1>
                 <div className='mx-auto grid grid-cols-2'>
                     <div className='relative left-20 bg-white border border-gray-300 rounded-3xl p-10 shadow-sm'>
@@ -382,23 +386,23 @@ const Home = () => {
                         <ul className='border-b border-gray-300 pb-6 mb-6 mt-4 space-y-1'>
                             <li className='flex items-center gap-2'>
                                 <img src="https://23517574.fs1.hubspotusercontent-na1.net/hubfs/23517574/Imported%20images/pricing-tick-1.svg" alt="" />
-                                <span>Simple use cases</span>
+                                <span>Simple Project Work Flow</span>
                             </li>
                             <li className='flex items-center gap-2'>
                                 <img src="https://23517574.fs1.hubspotusercontent-na1.net/hubfs/23517574/Imported%20images/pricing-tick-1.svg" alt="" />
-                                <span>Internal users</span>
+                                <span>Single Admin Panel</span>
                             </li>
                             <li className='flex items-center gap-2'>
                                 <img src="https://kissflow.com/hubfs/kissflow-branding-images/pricing-cross.svg" alt="" />
-                                <span className='line-through decoration-red-600'>External users</span>
+                                <span className='line-through decoration-red-600'>Access to External Creative Resources</span>
                             </li>
                             <li className='flex items-center gap-2'>
                                 <img src="https://kissflow.com/hubfs/kissflow-branding-images/pricing-cross.svg" alt="" />
-                                <span className='line-through decoration-red-600'>Private cluster</span>
+                                <span className='line-through decoration-red-600'>Personalised Servicing Chat Engine</span>
                             </li>
                         </ul>
 
-                        <h6 className='text-2xl font-semibold mb-2 text-pink-500'>Starts at</h6>
+                        <h6 className='text-2xl font-semibold mb-2 text-pink-500'>Try at</h6>
                         <h6 className='text-2xl font-semibold mb-2'>$90/month</h6>
 
                         <button className='mt-6 border border-blue-600 py-2 px-5 rounded font-semibold text-blue-600'>Get Started</button>
@@ -415,23 +419,23 @@ const Home = () => {
                             <ul className='border-b border-gray-300 pb-6 mb-6 mt-4 space-y-1'>
                                 <li className='flex items-center gap-2'>
                                     <img src="https://23517574.fs1.hubspotusercontent-na1.net/hubfs/23517574/Imported%20images/pricing-tick-1.svg" alt="" />
-                                    <span>Complex use cases</span>
+                                    <span>Custom Project Work Flows</span>
                                 </li>
                                 <li className='flex items-center gap-2'>
                                     <img src="https://23517574.fs1.hubspotusercontent-na1.net/hubfs/23517574/Imported%20images/pricing-tick-1.svg" alt="" />
-                                    <span>Internal users</span>
+                                    <span>Multiple Admin Panel</span>
                                 </li>
                                 <li className='flex items-center gap-2'>
                                     <img src="https://23517574.fs1.hubspotusercontent-na1.net/hubfs/23517574/Imported%20images/pricing-tick-1.svg" alt="" />
-                                    <span>External users</span>
+                                    <span>Access to External Creative Resources</span>
                                 </li>
                                 <li className='flex items-center gap-2'>
                                     <img src="https://23517574.fs1.hubspotusercontent-na1.net/hubfs/23517574/Imported%20images/pricing-tick-1.svg" alt="" />
-                                    <span>Private cluster</span>
+                                    <span>Personalised Servicing Chat Engine</span>
                                 </li>
                             </ul>
 
-                            <h6 className='text-2xl font-semibold mb-2 text-pink-500'>Flexible</h6>
+                            <h6 className='text-2xl font-semibold mb-2 text-pink-500'>Starting</h6>
                             <h6 className='text-2xl font-semibold mb-2'>$300/month</h6>
 
                             <button className='mt-6 border bg-blue-600 py-2 px-5 rounded font-semibold text-white'>Get Started</button>
@@ -487,10 +491,10 @@ const Home = () => {
                 </div>
             </section> */}
 
-            <section className="py-24 bg-gradient-to-r from-purple-700/90 via-purple-700/90 to-pink-500/80 text-center text-white">
-                <h1 className='text-4xl font-semibold mb-5'>Get started with NsNco today</h1>
-                <input type="text" className='p-3 pl-4 border rounded w-1/4 outline-purple-500' placeholder='Email' />
-                <button className='ml-2 bg-sky-500 py-3 px-5 rounded text-white font-semibold shadow'>Claim your free trial</button>
+            <section className="py-24 footer-top-section text-center text-white">
+                <h1 className='text-4xl font-semibold mb-5'>Grow your business with NsNco today</h1>
+                {/* <input type="text" className='p-3 pl-4 border rounded w-1/4 outline-purple-500 text-black' placeholder='Email' /> */}
+                <button className='ml-2 bg-yellow-500 py-3 px-5 rounded text-gray-800 font-semibold shadow'>Claim your free trial</button>
             </section>
 
             {/* auth modal */}

@@ -6,6 +6,7 @@ import { useRootContext } from '../../contexts/RootProvider';
 import { useGetDemosQuery } from '../../features/demo/demoApi';
 import { setDemo } from '../../features/project/projectSlice';
 import WorkDemo from '../Artist/Components/View/WorkDemo';
+import nsnlogo from "../../assets/logos/nsn-logo.png"
 
 const ReadyDemos = () => {
     const { user } = useSelector(state => state.auth);
@@ -63,7 +64,7 @@ const DemoCard = ({ demo }) => {
     return (
         <div className='mt-3 mb-5 p-5 bg-white rounded-lg shadow-md'>
             <div className='flex items-center gap-2 mb-3'>
-                <img className='w-12 h-12' src="https://adbhut.io/assets/adbeta-a97ec0b9.jpeg" alt="" />
+                <img className='w-12 h-12' src={nsnlogo.png} alt="" />
                 <div className='text-sm'>
                     <p className='text-base font-medium'>Ready to Use</p>
                     <p><span onClick={showProfile} className="hover:underline cursor-pointer">{artist_name}</span>'s demo</p>

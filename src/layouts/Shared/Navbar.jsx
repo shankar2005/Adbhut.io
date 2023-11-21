@@ -2,11 +2,10 @@ import { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { MdArrowBackIosNew } from 'react-icons/md';
 import { useRootContext } from '../../contexts/RootProvider';
-import nsnlogo from '../../assets/logos/adbeta.jpeg';
+import nsnlogo from '../../assets/logos/nsn-logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthModal from '../../Pages/Auth/Components/AuthModal';
 import ProfileDropdown from '../../Pages/User/Components/ProfileDropdown';
-import adbhutGIF from '../../assets/logos/adbhutGIF.gif';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearch } from '../../features/filter/filterSlice';
 import { showAccount, showLogin } from '../../features/dropdown/dropdownSlice';
@@ -44,11 +43,11 @@ const Navbar = ({ setShowToolkit, showToolkit }) => {
     };
 
     return (
-        <nav className='bg-white border-b sticky top-0 z-50 py-2 h-[57px]'>
+        <nav className='bg-white border-b sticky top-0 z-50 py-2'>
             <div className='px-3 flex items-center justify-between'>
                 <div className='flex items-center gap-3'>
-                    <Link to="/" className=''>
-                        <img src={adbhutGIF} className='w-28 md:w-32' />
+                    <Link to="/">
+                        <img src={nsnlogo} className='w-12' />
                     </Link>
                     <form onSubmit={handleSearch} className="hidden md:flex relative">
                         <input type="search" name="search" className='border border-gray-300 py-2 w-72 pl-10 pr-3 outline-0 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm rounded' placeholder='Search your artist here...' required />

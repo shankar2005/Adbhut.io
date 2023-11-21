@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AiFillLinkedin, AiOutlineMail, AiOutlineGoogle } from 'react-icons/ai';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
-import logo from '../../assets/logos/adbeta.jpeg';
+import logo from '../../assets/logos/nsn-logo.png';
 import { RxCross1 } from 'react-icons/rx';
 import { closeLogin } from '../../features/dropdown/dropdownSlice';
 import { useDispatch } from 'react-redux';

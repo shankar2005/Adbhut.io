@@ -3,7 +3,7 @@ import Button from "../../Components/Button/Button";
 import { useRootContext } from "../../contexts/RootProvider";
 import { useGetProjectQuery } from "../../features/project/projectApi";
 import WorkDemo from "../Artist/Components/View/WorkDemo";
-import logo from "../../assets/logos/ad.jpeg"
+import logo from "../../assets/logos/nsn-logo.png"
 
 const ProjectCard = ({ projectId }) => {
     const { avatar } = useRootContext();
