@@ -2,7 +2,7 @@ import React from 'react';
 import { IoLocationSharp } from 'react-icons/io5';
 import { IoMdCall } from 'react-icons/io';
 import { FaEnvelope } from 'react-icons/fa';
-import MentorSection from '../../Pages/Home/Sections/MentorSection';
+import Team from '../../Pages/Home/Sections/Team';
 import Modal from '../../Components/Modal/Modal';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -25,7 +25,7 @@ const Footer = () => {
                 <div className='col-span-4 md:col-span-4'>
                     <h1 className='uppercase text-sm font-medium mb-4'>Links</h1>
                     <ul className='text-sm space-y-2'>
-                        <li onClick={() => setIsShowMentor(true)} className='hover:underline w-fit'>Our Team</li>
+                        <li onClick={() => setIsShowMentor(true)} className='hover:underline w-fit cursor-pointer'>Our Team</li>
                         <li className='hover:underline w-fit'><Link to="/artists">Artists</Link></li>
                         <li className='hover:underline w-fit'><a target="_blank" href='https://www.linkedin.com/company/the-happy-hippies-show'>Hiring</a></li>
                     </ul>
@@ -59,7 +59,7 @@ const Footer = () => {
                 &copy; Swaraj Enterprises Technologies Pvt Ltd
             </div>
 
-            {isShowMentor && <Modal onClick={() => setIsShowMentor(false)} className="w-10/12"><MentorSection /></Modal>}
+            {isShowMentor && <Modal onClick={() => setIsShowMentor(false)} className="w-10/12"><Team /></Modal>}
         </footer>
     );
 };
