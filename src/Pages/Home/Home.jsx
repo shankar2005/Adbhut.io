@@ -29,6 +29,7 @@ import div from '../../assets/artists/div.jpeg';
 import jyoti from '../../assets/artists/jyoti.jpg';
 import shubham from '../../assets/artists/shubham.jpg';
 import sudharshan from '../../assets/artists/sudharshan.jpg';
+import quote from '../../assets/quote.svg';
 import { HiCursorClick } from "react-icons/hi";
 
 const Home = () => {
@@ -262,7 +263,24 @@ const Home = () => {
             </section>
 
 
-
+            <section className='w-9/12 mx-auto grid grid-cols-12 border shadow-lg rounded-xl font-quote'>
+                <div className='col-span-7 relative flex flex-col justify-between'>
+                    <img className='absolute top-0 left-0' src={quote} alt="" />
+                    <p className='text-2xl leading-[1.5] py-10 px-8'>Whether someone is in the office, working from home, or working on-site with a client, everyone can share context and information through Trello.</p>
+                    <div className='text-lg px-10 py-10 flex justify-between items-end'>
+                        <div>
+                            <div className='h-0.5 w-36 bg-gray-500 mb-5'></div>
+                            <p>NsNco</p>
+                            <p>Product of the Future</p>
+                        </div>
+                        <a className='text-blue-700 underline text-base' href="">Read the story</a>
+                    </div>
+                </div>
+                <div className='col-span-5 bg-gradient-to-r from-purple-600 via-purple-400 to-pink-300 py-10 px-8 rounded-r-xl'>
+                    <p className='text-4xl font-semibold leading-[1.3] text-white mb-60'>81% of customers chose Trello for its ease of use.</p>
+                    <a className='text-white underline' href="">Join with the Community</a>
+                </div>
+            </section>
 
 
             <section className="bg-gray-100 my-20 py-20 overflow-hidden border-y border-gray-100">
@@ -469,9 +487,10 @@ const Home = () => {
                 </div>
             </section> */}
 
-            <section className="py-24 footer-top-section bg-cover text-center">
-                <h1 className='text-4xl font-semibold text-white mb-5'>Get Started with NsNco Today</h1>
-                <button className='bg-yellow-400 py-3 px-5 rounded-full text-gray-800 font-semibold shadow'>Claim your free trial</button>
+            <section className="py-24 bg-gradient-to-r from-purple-700/90 via-purple-700/90 to-pink-500/80 text-center text-white">
+                <h1 className='text-4xl font-semibold mb-5'>Get started with NsNco today</h1>
+                <input type="text" className='p-3 pl-4 border rounded w-1/4 outline-purple-500' placeholder='Email' />
+                <button className='ml-2 bg-sky-500 py-3 px-5 rounded text-white font-semibold shadow'>Claim your free trial</button>
             </section>
 
             {/* auth modal */}

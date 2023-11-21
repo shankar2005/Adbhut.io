@@ -11,7 +11,7 @@ const Footer = () => {
     const [isShowMentor, setIsShowMentor] = useState(false);
 
     return (
-        <footer className='bg-neutral-800 text-white'>
+        <footer className='bg-slate-800 text-white'>
             <div className='w-10/12 max-w-screen-xl mx-auto py-8 grid grid-cols-12 justify-between gap-y-8'>
                 <div className='col-span-8 md:col-span-4'>
                     <h2 className='uppercase text-sm font-medium mb-4'>Product By</h2>
@@ -34,7 +34,7 @@ const Footer = () => {
                     <h1 className='uppercase text-sm font-medium mb-4'>Contact</h1>
                     <div className='space-y-5'>
                         <div className='flex gap-4 items-center'>
-                            <div className='bg-neutral-700 p-3 rounded-full flex justify-center items-center'>
+                            <div className='bg-slate-700 p-3 rounded-full flex justify-center items-center'>
                                 <FaEnvelope size={16} />
                             </div>
                             <div>
@@ -43,7 +43,7 @@ const Footer = () => {
                             </div>
                         </div>
                         <div className='flex gap-4 items-center'>
-                            <div className='bg-neutral-700 p-3 rounded-full flex justify-center items-center'>
+                            <div className='bg-slate-700 p-3 rounded-full flex justify-center items-center'>
                                 <IoMdCall size={20} />
                             </div>
                             <div>
