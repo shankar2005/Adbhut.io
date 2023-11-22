@@ -52,9 +52,20 @@ const Home = () => {
             <header>
                 <nav className='py-3 relative'>
                     <div className='w-10/12 mx-auto flex items-center justify-between'>
-                        <div className="flex items-center gap-2">
-                            <img src={logo} className='w-20' />
-                            <span className="text-3xl font-bold text-cyan-900 tracking-wide">CO</span>
+                        <div className="flex items-center gap-8">
+                            <Link className="flex items-center gap-2" to="/">
+                                <img src={logo} className='w-20' />
+                                <span className="text-3xl font-bold text-cyan-900 tracking-wide">CO</span>
+                            </Link>
+                            {/* <img className="w-10 rounded-sm" src="https://img.collegedekhocdn.com/media/img/institute/logo/1432796965.png" alt="" /> */}
+                            <ul className='hidden ml-10 md:flex gap-x-8 items-center text-sm font-semibold'>
+                                <li>
+                                    <Link to="/about">About</Link>
+                                </li>
+                                <li>
+                                    <Link to="/CreatorFellowship">Creator Fellowship</Link>
+                                </li>
+                            </ul>
                         </div>
                         {/* <p onClick={() => setIsHovered(!isHovered)} className='flex items-center gap-2 font-medium font-hero cursor-pointer'>
                             <img className='w-24 cursor-pointer' src={carbonNeutral} alt="" />
@@ -65,14 +76,11 @@ const Home = () => {
                             <Brands setIsHovered={setIsHovered} />
                         } */}
 
-                        <div className='flex items-center gap-8'>
-                            <Link className='text-sm font-semibold' to="/CreatorFellowship">Creator Fellowship</Link>
-                            {
-                                user?.email
-                                    ? <Link to="/projects/readydemos"><button className='font-semibold bg-sky-500 py-3 px-5 rounded-full text-sm text-white'>Get Started</button></Link>
-                                    : <button onClick={() => dispatch(showLogin())} className='font-semibold bg-sky-500 py-3 px-5 rounded-full text-sm text-white'>Login</button>
-                            }
-                        </div>
+                        {
+                            user?.email
+                                ? <Link to="/projects/readydemos"><button className='font-semibold bg-sky-500 py-3 px-5 rounded-full text-sm text-white'>Get Started</button></Link>
+                                : <button onClick={() => dispatch(showLogin())} className='font-semibold bg-sky-500 py-3 px-5 rounded-full text-sm text-white'>Login</button>
+                        }
                     </div>
                 </nav>
 
@@ -148,7 +156,9 @@ const Home = () => {
                     <div>
                         <h1 className='text-6xl text-gray-900 font-bold mb-5'>Create your AI Powered Agency in clicks</h1>
                         <button className='bg-sky-500 py-3 px-5 rounded-full text-sm text-white mr-4'>Get Started</button>
-                        <a target="_blank" href="https://nsnco.in/" className='bg-white border border-sky-500 py-3 px-5 rounded-full text-sm text-black'>About NsNco</a>
+                        <Link to="/about">
+                            <button type='button' className='bg-white border border-sky-500 py-3 px-5 rounded-full text-sm text-black'>About NsNco</button>
+                        </Link>
                     </div>
                     <div className='bg-white p-5 rounded-2xl shadow-lg'>
                         <h4 className='text-xl font-semibold mb-2'>The Future Of Advertising Management</h4>
@@ -365,7 +375,7 @@ const Home = () => {
                             <p>NsNco</p>
                             <p>A Tech Product Building the Future of Advertising</p>
                         </div>
-                        <a className='text-blue-700 underline text-base' href="#nsnco/about">Background work</a>
+                        <Link className='text-blue-700 underline text-base' to="/about">Background work</Link>
                     </div>
                 </div>
                 <div className='col-span-5 bg-gradient-to-r from-purple-600 via-purple-400 to-pink-300 py-10 pl-8 pr-5 rounded-r-xl'>

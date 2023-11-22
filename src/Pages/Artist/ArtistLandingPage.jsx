@@ -17,16 +17,23 @@ const ArtistLandingPage = () => {
             <AuthModal />
 
             <header>
-                <nav className='w-10/12 mx-auto md:px-10 py-5 flex justify-between items-center'>
+                <nav className='w-10/12 mx-auto py-3 flex justify-between items-center'>
                     <div className="flex items-center gap-8">
-                        <Link className="w-32" to="/">
-                            <img className="w-full rounded-sm" src={nsnlogo} alt="" />
+                        <Link className="flex items-center gap-2" to="/">
+                            <img src={nsnlogo} className='w-20' />
+                            <span className="text-3xl font-bold text-cyan-900 tracking-wide">CO</span>
                         </Link>
                         {/* <img className="w-10 rounded-sm" src="https://img.collegedekhocdn.com/media/img/institute/logo/1432796965.png" alt="" /> */}
                         <ul className='hidden ml-10 md:flex gap-x-8 items-center text-sm font-semibold'>
-                            <li>Home</li>
-                            <li>About</li>
-                            <li>Article</li>
+                            <li>
+                                <Link to="/">Home</Link>
+                            </li>
+                            <li>
+                                <Link to="/about">About</Link>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://thhs.in/">Campaign</a>
+                            </li>
                         </ul>
                     </div>
                     <ul className='flex gap-x-8 items-center'>
