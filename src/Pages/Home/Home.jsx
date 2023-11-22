@@ -31,8 +31,10 @@ import shubham from '../../assets/artists/shubham.jpg';
 import sudharshan from '../../assets/artists/sudharshan.jpg';
 import quote from '../../assets/quote.svg';
 import { HiCursorClick } from "react-icons/hi";
+import SubscriptionModal from '../../Components/Modal/SubscriptionModal';
 
 const Home = () => {
+    const [subsModal, setSubsModal] = useState(false);
     const dispatch = useDispatch();
     const { isFullTime } = useSelector(state => state.viewMode);
     const { user } = useSelector(state => state.auth);
@@ -155,7 +157,7 @@ const Home = () => {
                 <section className="w-10/12 mx-auto px-16 py-40 rounded-lg bg-[url('https://i.ibb.co/2YDNKx2/bg4.png')] bg-cover grid grid-cols-2 gap-10 items-center justify-between">
                     <div>
                         <h1 className='text-6xl text-gray-900 font-bold mb-5'>Create your AI Powered Agency in clicks</h1>
-                        <button className='bg-sky-500 py-3 px-5 rounded-full text-sm text-white mr-4'>Get Started</button>
+                        <a href="#pricing"><button className='bg-sky-500 py-3 px-5 rounded-full text-sm text-white mr-4'>Get Started</button></a>
                         <Link to="/about">
                             <button type='button' className='bg-white border border-sky-500 py-3 px-5 rounded-full text-sm text-black'>About NsNco</button>
                         </Link>
@@ -386,7 +388,7 @@ const Home = () => {
 
 
 
-            <section className='w-9/12 mx-auto my-24'>
+            <section id="pricing" className='w-9/12 mx-auto my-20 py-4'>
                 <h1 className='text-5xl text-center font-semibold mb-16 mt-2'>Affordable pricing that matches your needs</h1>
                 <div className='mx-auto grid grid-cols-2'>
                     <div className='relative left-20 bg-white border border-gray-300 rounded-3xl p-10 shadow-sm'>
@@ -415,7 +417,7 @@ const Home = () => {
                         <h6 className='text-2xl font-semibold mb-2 text-pink-500'>Try at</h6>
                         <h6 className='text-2xl font-semibold mb-2'>$90/month</h6>
 
-                        <button className='mt-6 border border-blue-600 py-2 px-5 rounded font-semibold text-blue-600'>Get Started</button>
+                        <button onClick={() => setSubsModal("basic")} className='mt-6 border border-blue-600 py-2 px-5 rounded font-semibold text-blue-600'>Get Started</button>
                     </div>
 
                     <div className='relative -left-20 z-10 bg-gradient-to-r from-pink-600 to-blue-500 p-0.5 rounded-3xl shadow-sm'>
@@ -448,7 +450,7 @@ const Home = () => {
                             <h6 className='text-2xl font-semibold mb-2 text-pink-500'>Starting</h6>
                             <h6 className='text-2xl font-semibold mb-2'>$300/month</h6>
 
-                            <button className='mt-6 border bg-blue-600 py-2 px-5 rounded font-semibold text-white'>Get Started</button>
+                            <button onClick={() => setSubsModal("enterprise")} className='mt-6 border bg-blue-600 py-2 px-5 rounded font-semibold text-white'>Get Started</button>
                         </div>
                     </div>
                 </div>
@@ -509,6 +511,13 @@ const Home = () => {
 
             {/* auth modal */}
             <AuthModal />
+
+            {/* subscription modal */}
+            {subsModal &&
+                <SubscriptionModal
+                    subsModal={subsModal}
+                    setSubsModal={setSubsModal}
+                />}
 
             <Footer />
         </div>
