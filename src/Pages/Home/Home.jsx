@@ -154,9 +154,9 @@ const Home = () => {
                     </div>
                     <svg className='w-full absolute left-0 top-full' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#1e293b" fill-opacity="1" d="M0,96L48,80C96,64,192,32,288,37.3C384,43,480,85,576,122.7C672,160,768,192,864,176C960,160,1056,96,1152,80C1248,64,1344,96,1392,112L1440,128L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
                 </section> */}
-                <section className="w-10/12 mx-auto px-16 py-40 rounded-lg bg-[url('https://i.ibb.co/2YDNKx2/bg4.png')] bg-cover grid grid-cols-2 gap-10 items-center justify-between">
+                <section className="w-10/12 mx-auto px-8 lg:px-16 py-20 lg:py-40 rounded-lg bg-[url('https://i.ibb.co/2YDNKx2/bg4.png')] bg-cover grid grid-cols-1 lg:grid-cols-2 gap-10 items-center justify-between">
                     <div>
-                        <h1 className='text-6xl text-gray-900 font-bold mb-5'>Create your AI Powered Agency in clicks</h1>
+                        <h1 className='text-3xl lg:text-6xl text-gray-900 font-bold mb-5'>Create your AI Powered Agency in clicks</h1>
                         <a href="#pricing"><button className='bg-sky-500 py-3 px-5 rounded-full text-sm text-white mr-4'>Get Started</button></a>
                         <Link to="/about">
                             <button type='button' className='bg-white border border-sky-500 py-3 px-5 rounded-full text-sm text-black'>About NsNco</button>
@@ -171,9 +171,9 @@ const Home = () => {
 
 
             <section className="bg-sky-600 text-white my-20 py-20">
-                <div className='w-9/12 mx-auto md:grid grid-cols-2 items-center gap-10'>
+                <div className='w-10/12 lg:w-9/12 mx-auto md:grid grid-cols-2 items-center gap-10'>
                     <div>
-                        <h2 className="text-5xl font-semibold">We integrate with your work flow</h2>
+                        <h2 className="text-4xl lg:text-5xl font-semibold">We integrate with your work flow</h2>
                         <p className="mt-5 mb-3">
                             NsNco solution gives you the added advantage of integration with several third party apps seamlessly with our apis.
                         </p>
@@ -191,15 +191,15 @@ const Home = () => {
             </section>
 
 
-            <section className='w-9/12 mx-auto my-24'>
+            <section className='w-10/12 lg:w-9/12 mx-auto my-24'>
                 <h1 className='text-5xl text-center font-semibold mt-2'>What it does for you?</h1>
                 {/* <a href="#" className='text-blue-500 text-lg text-center mt-3 flex justify-center items-center'>Browse all the features <IoIosArrowRoundForward size={30} /></a> */}
-                <div className='mt-10 grid grid-cols-4 gap-3'>
+                <div className='mt-10 grid grid-cols-2 lg:grid-cols-4 gap-3'>
                     <div className='p-4 bg-gray-50 border border-gray-100 shadow rounded-xl'>
                         <div className="flex items-center mb-5">
                             <span className='bg-purple-100  p-1.5 rounded'><BsStars className='text-purple-600' size={23} /></span>
                             <h5 className="text-2xl font-semibold ml-2 mr-3">AI</h5>
-                            <small className='bg-purple-100 text-purple-700 px-2 py-.5 rounded-full font-semibold'>Now with Q&A</small>
+                            <small className='bg-purple-100 text-purple-700 px-1 lg:px-2 py-.5 rounded-full font-semibold text-xs lg:text-sm'>Now with Q&A</small>
                         </div>
                         <p className='text-sm mb-1'>Ask literally anything. Chatgpt will answer.</p>
                         {/* <a href="#" className='text-sm font-semibold text-purple-700'>Learn more→</a> */}
@@ -253,19 +253,19 @@ const Home = () => {
 
 
 
-            <section className='w-9/12 mx-auto grid grid-cols-2 items-center gap-10 py-10'>
+            <section className='w-10/12 lg:w-9/12 mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-10 py-10'>
                 <div className='w-11/12 mr-auto relative'>
                     <img className='relative -left-10 rounded-3xl shadow-lg bg-gradient-to-t from-pink-300 via-blue-500 to-pink-400 p-1.5 -rotate-12' src={project} alt="" />
                     <img className='absolute top-0 left-10 rounded-3xl shadow-lg bg-gradient-to-t from-pink-300 via-blue-500 to-pink-400 p-1.5 rotate-[5deg]' src={create_project} alt="" />
                 </div>
-                <div className='pl-5'>
+                <div className='lg:pl-5'>
                     <small className='text-orange-500 font-bold'>BENIFIT</small>
                     <h4 className='text-2xl font-semibold mb-4 mt-2'>Organize everything in one system of record</h4>
                     <p className='text-gray-500 mb-6'>From client assets and project timelines to communications and project reporting.</p>
                 </div>
             </section>
 
-            <section className='w-9/12 mx-auto grid grid-cols-12 items-center gap-5 my-24'>
+            <section className='w-10/12 lg:w-9/12 mx-auto grid grid-cols-1 lg:grid-cols-12 items-center gap-5 my-24'>
                 <div className='col-span-7 rounded-lg'>
                     <small className='text-green-500 font-bold'>WORK ASSISTANT</small>
                     <h4 className='text-2xl font-semibold mb-4 mt-2'>Personalised Assistance Product For Your Every Customer Project </h4>
@@ -279,7 +279,7 @@ const Home = () => {
 
 
             <section className="bg-gray-100 my-20 py-20 overflow-hidden border-y border-gray-100">
-                <div className='relative w-9/12 mx-auto md:grid grid-cols-2 items-center gap-10'>
+                <div className='relative w-10/12 lg:w-9/12 mx-auto md:grid grid-cols-2 items-center gap-10'>
                     <div>
                         <h2 className="text-4xl font-bold">Collaborate with over 700+ growing community of artists/ freelancers/ agencies </h2>
                         <p className="mt-5 mb-3">
@@ -367,7 +367,7 @@ const Home = () => {
 
 
 
-            <section className='w-9/12 mx-auto grid grid-cols-12 border shadow-lg rounded-xl font-quote'>
+            <section className='w-10/12 lg:w-9/12 mx-auto grid grid-cols-1 lg:grid-cols-12 border shadow-lg rounded-xl font-quote'>
                 <div className='col-span-7 relative flex flex-col justify-between'>
                     <img className='absolute top-0 left-0' src={quote} alt="" />
                     <p className='text-2xl leading-[1.5] py-10 px-8'>Whether you work in an advertising agency, working as a freelancer, or working on a brand as a client, when everyones ask is to be agile now, then manage your projects through NsNco.</p>
@@ -380,18 +380,18 @@ const Home = () => {
                         <Link className='text-blue-700 underline text-base' to="/about">Background work</Link>
                     </div>
                 </div>
-                <div className='col-span-5 bg-gradient-to-r from-purple-600 via-purple-400 to-pink-300 py-10 pl-8 pr-5 rounded-r-xl'>
-                    <p className='text-4xl font-semibold leading-[1.3] text-white mb-60'>80% of reached customers chose NsNco for its ease of use.</p>
+                <div className='col-span-5 bg-gradient-to-r from-purple-600 via-purple-400 to-pink-300 py-10 pl-8 pr-5 rounded-b-xl lg:rounded-r-xl'>
+                    <p className='text-4xl font-semibold leading-[1.3] text-white mb-32 lg:mb-60'>80% of reached customers chose NsNco for its ease of use.</p>
                     <a className='text-white underline' href="https://thhs.in/" target="_blank">Join with the Community</a>
                 </div>
             </section>
 
 
 
-            <section id="pricing" className='w-9/12 mx-auto my-20 py-4'>
-                <h1 className='text-5xl text-center font-semibold mb-16 mt-2'>Affordable pricing that matches your needs</h1>
-                <div className='mx-auto grid grid-cols-2'>
-                    <div className='relative left-20 bg-white border border-gray-300 rounded-3xl p-10 shadow-sm'>
+            <section id="pricing" className='w-10/12 lg:w-9/12 mx-auto my-20 py-4'>
+                <h1 className='text-3xl lg:text-5xl text-center font-semibold mb-10 lg:mb-16 mt-2'>Affordable pricing that matches your needs</h1>
+                <div className='mx-auto grid grid-cols-1 lg:grid-cols-2 gap-y-10'>
+                    <div className='lg:relative lg:left-20 bg-white border border-gray-300 rounded-3xl p-10 shadow-sm'>
                         <h6 className='text-2xl font-semibold mb-2'>Basic</h6>
                         <span className='bg-red-100 p-1 font-semibold rounded-sm'>Limited Features</span>
 
@@ -420,7 +420,7 @@ const Home = () => {
                         <button onClick={() => setSubsModal("basic")} className='mt-6 border border-blue-600 py-2 px-5 rounded font-semibold text-blue-600'>Get Started</button>
                     </div>
 
-                    <div className='relative -left-20 z-10 bg-gradient-to-r from-pink-600 to-blue-500 p-0.5 rounded-3xl shadow-sm'>
+                    <div className='lg:relative lg:-left-20 lg:z-10 bg-gradient-to-r from-pink-600 to-blue-500 p-0.5 rounded-3xl shadow-sm'>
                         <div className='p-10 bg-white rounded-3xl'>
                             <h6 className='text-2xl font-semibold mb-2 flex gap-1'>
                                 <span className='text-blue-600'>Enterprise</span>
@@ -504,9 +504,11 @@ const Home = () => {
             </section> */}
 
             <section className="py-24 footer-top-section text-center text-white">
-                <h1 className='text-4xl font-semibold mb-5'>Grow your business with NsNco today</h1>
-                {/* <input type="text" className='p-3 pl-4 border rounded w-1/4 outline-purple-500 text-black' placeholder='Email' /> */}
-                <button className='ml-2 bg-yellow-500 py-3 px-5 rounded text-gray-800 font-semibold shadow'>Claim your free trial</button>
+                <div className="w-10/12 md:9/12 mx-auto">
+                    <h1 className='text-4xl font-semibold mb-5'>Grow your business with NsNco today</h1>
+                    {/* <input type="text" className='p-3 pl-4 border rounded w-1/4 outline-purple-500 text-black' placeholder='Email' /> */}
+                    <button className='ml-2 bg-yellow-500 py-3 px-5 rounded text-gray-800 font-semibold shadow'>Claim your free trial</button>
+                </div>
             </section>
 
             {/* auth modal */}
