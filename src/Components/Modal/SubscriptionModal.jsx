@@ -5,7 +5,7 @@ import logo from "../../assets/logos/nsn-logo.png"
 
 const SubscriptionModal = ({ subsModal, setSubsModal }) => {
     return (
-        <Modal onClick={() => setSubsModal(false)} className='bg-white w-4/5 rounded-lg grid grid-cols-3 overflow-y-auto scroll-none'>
+        <Modal onClick={() => setSubsModal(false)} className='bg-white w-4/5 rounded-lg grid grid-cols-1 lg:grid-cols-3 overflow-y-auto scroll-none'>
             {subsModal === "basic" ? (
                 <div className='col-span-2 p-16'>
                     <h6 className='text-2xl font-semibold mb-2'>Basic</h6>
@@ -67,7 +67,7 @@ const SubscriptionModal = ({ subsModal, setSubsModal }) => {
                     <p className='mt-3 font-semibold text-gray-600 flex items-center gap-2 animate-vibrate hover:translate-x-2 duration-300'>Sign up and get started <BsArrowRight size={25} /></p>
                 </div>
             )}
-            <div className='border-l px-6 py-10'>
+            <div className='border-t lg:border-l px-6 py-10'>
                 <img className='w-16 mx-auto mb-3' src={logo} alt="" />
                 <h2 className="mb-3 text-2xl font-semibold text-center">Sign up an account</h2>
                 <RegisterForm role={"Artist"} />
