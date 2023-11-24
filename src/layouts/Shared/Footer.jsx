@@ -1,4 +1,3 @@
-import React from 'react';
 import { IoLocationSharp } from 'react-icons/io5';
 import { IoMdCall } from 'react-icons/io';
 import { FaEnvelope } from 'react-icons/fa';
@@ -6,6 +5,7 @@ import Team from '../../Pages/Home/Sections/Team';
 import Modal from '../../Components/Modal/Modal';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import swaraj from "../../assets/logos/Swaraj.png"
 
 const Footer = () => {
     const [isShowMentor, setIsShowMentor] = useState(false);
@@ -15,7 +15,7 @@ const Footer = () => {
             <div className='w-10/12 max-w-screen-xl mx-auto py-8 grid grid-cols-12 justify-between gap-y-8'>
                 <div className='col-span-8 md:col-span-4'>
                     <h2 className='uppercase text-sm font-medium mb-4'>Product By</h2>
-                    <img className='w-24' src="https://nsnco.in/assets/img/Swaraj.png" alt="" />
+                    <img className='w-24' src={swaraj} alt="" />
                     <p className='mt-4 text-sm'>
                         26, 2nd Main Road Perumalnagar, <br />
                         Old Pallavaram, Chennai - 600117 <br />
@@ -59,7 +59,7 @@ const Footer = () => {
                 &copy; Swaraj Enterprises Technologies Pvt Ltd
             </div>
 
-            {isShowMentor && <Modal onClick={() => setIsShowMentor(false)} className="w-10/12"><Team /></Modal>}
+            {isShowMentor && <Modal onClick={() => setIsShowMentor(false)} className="w-10/12 overflow-auto"><Team /></Modal>}
         </footer>
     );
 };

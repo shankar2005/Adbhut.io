@@ -14,6 +14,12 @@ const Team = () => {
             profile: maruf,
             title: "Web Application Developer",
             desc: "While frontend development is my primary focus, I also have knowledge across the full stack, including Node.js, Express.js, MongoDB. This well-rounded skill set allows me to collaborate effectively with backend developers and ensure seamless integration of the UI with the backend functionality."
+        },
+        {
+            name: "Ankit Shaw",
+            profile: "https://media.licdn.com/dms/image/D5635AQHrUq57Ll3UAA/profile-framedphoto-shrink_400_400/0/1684009091904?e=1701414000&v=beta&t=GRonbAP5Jj4qObdmS5n_R1sXHdbeOMCOZFda4GtOPFo",
+            title: "Backend Developer and AI Enthusiast",
+            desc: "A B.Tech Final Year student, pursuing Electronics and Communication Engineering from future institute of engineering and management College. 4-Star coder at hackerrank, strong interest in coding and have solved over 200 problems across different platforms. Artificial intelligence experience."
         }
     ];
 
