@@ -19,7 +19,7 @@ const Team = () => {
             name: "Ankit Shaw",
             profile: "https://media.licdn.com/dms/image/D5635AQHrUq57Ll3UAA/profile-framedphoto-shrink_400_400/0/1684009091904?e=1701414000&v=beta&t=GRonbAP5Jj4qObdmS5n_R1sXHdbeOMCOZFda4GtOPFo",
             title: "Backend Developer and AI Enthusiast",
-            desc: "A B.Tech Final Year student, pursuing Electronics and Communication Engineering from future institute of engineering and management College. 4-Star coder at hackerrank, strong interest in coding and have solved over 200 problems across different platforms. Artificial intelligence experience."
+            desc: "A B.Tech Graduate in Electronics and Communication Engineering from future institute of engineering and management College. 4-Star coder at hackerrank, strong interest in coding and have solved over 200 problems across different platforms. Artificial intelligence experience."
         }
     ];
 
