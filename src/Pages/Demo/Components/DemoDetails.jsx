@@ -46,7 +46,7 @@ const DemoDetails = () => {
 
     return (
         <section className="font-hero w-11/12 mx-auto p-3 relative">
-            <Link to="/artists/demos"><Button>Back</Button></Link>
+            <Link to="/projects/artist-requirement"><Button>Back</Button></Link>
             <div className="w-4/6 my-3">
                 <WorkDemo demo_type={demo?.demo_type} demo_link={demo?.link || demo?.document} />
             </div>
@@ -58,10 +58,11 @@ const DemoDetails = () => {
                 </div>
             ) : (
                 <div className="flex-1 my-3">
-                    <div className="flex flex-wrap gap-1">
-                        Keywords: {demo?.comment && JSON.parse(replaceSingleQuotes(demo.comment))?.map(keyword => (
+                    <div className="flex flex-wrap gap-1 font-semibold text-lg bg-gray-200 roundd-xl p-3 shadow-lg">
+                        {(demo?.comment !== "Add your comment here") && demo?.comment?.slice(1, -1)}
+                        {/* Keywords: {demo?.comment && JSON.parse(replaceSingleQuotes(demo.comment))?.map(keyword => (
                             <span className="flex items-center bg-gray-200 rounded-full px-2 py-1 text-sm">{keyword}</span>
-                        ))}
+                        ))} */}
                     </div>
                     {demo?.comment && <small className="text-yellow-600">*Keywords would be mapped to the client briefs</small>}
                 </div>

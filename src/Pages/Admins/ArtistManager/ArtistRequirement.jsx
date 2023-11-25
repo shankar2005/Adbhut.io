@@ -4,15 +4,12 @@ import { useGetArtistCountBySkillsQuery } from "../../../features/utils/utilsApi
 import { useState } from "react";
 import { useGetDemosQuery } from "../../../features/demo/demoApi";
 import { useSelector } from "react-redux";
-import DemoDetails from "../../Demo/Components/DemoDetails";
 import AddNewDemo from "../../Demo/AddNewDemo";
 
 const ArtistRequirement = () => {
     const { data } = useGetArtistRequestsQuery();
     const { data: skills } = useGetArtistCountBySkillsQuery();
     const { data: totalArtist } = useGetTotalArtistQuery();
-    const [isDemoShown, setIsDemoShown] = useState(false);
-    const closeDemo = () => setIsDemoShown(false);
     const [sorted, setSorted] = useState(false);
     const toggleSort = () => setSorted(prev => !prev);
     const { user } = useSelector(state => state.auth);
@@ -90,14 +87,16 @@ const ArtistRequirement = () => {
                     </div>
 
                     <ul className="my-2">
-                        {demos?.map(demo => <li onClick={() => setIsDemoShown(demo.id)} className="text-blue-600 hover:underline underline-offset-2 cursor-pointer w-fit">{demo.Title}</li>)}
+                        {demos?.map(demo => (
+                            <Link key={demo.id} to={`/artists/demos/${demo.id}`}>
+                                <li className="text-blue-600 hover:underline underline-offset-2 cursor-pointer w-fit">{demo.Title}</li>
+                            </Link>))
+                        }
                     </ul>
                     <div className="mt-auto border-t pt-2">
                         <Link to="/projects/readydemos" className="text-blue-600 hover:underline underline-offset-2">View All</Link>
                     </div>
                 </div>
-
-                {isDemoShown && <DemoDetails demoId={isDemoShown} closeDemo={closeDemo} />}
             </div>
 
             {/* <div className="mb-2 w-full overflow-hidden flex">
