@@ -119,7 +119,7 @@ const LeftAside = () => {
     return (
         <section className={`bg-white font-hero shadow border rounded-lg h-[94vh] md:h-[470px] flex flex-col justify-between`}>
             <ChatHeading chatbotStatus={chatbotStatus} />
-            <div ref={chatboxRef} className='h-full overflow-y-hidden overflow-x-hidden relative flex flex-col justify-between'>
+            <div ref={chatboxRef} className='h-full overflow-x-hidden relative flex flex-col justify-between'>
 
                 {messages?.length < 1 && <small className='block border border-yellow-300/5 bg-yellow-100 text-yellow-700 w-fit px-2 py-1 rounded-full mx-auto mt-3'>No messages, send a message to start the conversation</small>}
 
