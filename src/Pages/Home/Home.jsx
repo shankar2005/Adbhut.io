@@ -259,7 +259,7 @@ const Home = () => {
                     <img className='absolute top-0 left-10 rounded-3xl shadow-lg bg-gradient-to-t from-pink-300 via-blue-500 to-pink-400 p-1.5 rotate-[5deg]' src={create_project} alt="" />
                 </div>
                 <div className='lg:pl-5'>
-                    <small className='text-orange-500 font-bold'>BENIFIT</small>
+                     className='bg-white p-5 rounded-xl shadow-lg'<small className='text-orange-500 font-bold'>BENIFIT</small>
                     <h4 className='text-2xl font-semibold mb-4 mt-2'>Organize everything in one system of record</h4>
                     <p className='text-gray-500 mb-6'>From client assets and project timelines to communications and project reporting.</p>
                 </div>
@@ -267,7 +267,7 @@ const Home = () => {
 
             <section className='w-10/12 lg:w-9/12 mx-auto grid grid-cols-1 lg:grid-cols-12 items-center gap-5 my-24'>
                 <div className='col-span-7 rounded-lg'>
-                    <small className='text-green-500 font-bold'>WORK ASSISTANT</small>
+                     className='bg-white p-5 rounded-xl shadow-lg'<small className='text-green-500 font-bold'>WORK ASSISTANT</small>
                     <h4 className='text-2xl font-semibold mb-4 mt-2'>Personalised Assistance Product For Your Every Customer Project </h4>
                     <p className='text-gray-500 mb-6 pr-20'>GPT driven custom chat engine to support every customer query, with answers to all possible questions and about your company.</p>
                 </div>
@@ -383,6 +383,36 @@ const Home = () => {
                 <div className='col-span-5 bg-gradient-to-r from-purple-600 via-purple-400 to-pink-300 py-10 pl-8 pr-5 rounded-b-xl lg:rounded-r-xl'>
                     <p className='text-4xl font-semibold leading-[1.3] text-white mb-32 lg:mb-60'>80% of reached customers chose NsNco for its ease of use.</p>
                     <a className='text-white underline' href="https://thhs.in/" target="_blank">Join with the Community</a>
+                </div>
+            </section>
+
+
+
+            <section id="pricing" className='bg-gray-100 py-10 lg:py-20 my-20'>
+                <div className='w-10/12 lg:w-9/12 mx-auto'>
+                    <h1 className='text-3xl lg:text-5xl text-center font-semibold mb-10'>Use cases for our APIs</h1>
+                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+                        <div className='bg-white p-5 rounded-xl shadow-lg'>
+                            <h4 className='text-2xl font-semibold mb-3'>Automated Content Generation</h4>
+                            <ul className='list-disc ml-5 text-gray-600 text-lg'>
+                                <li>Use natural language processing (NLP) to generate content for product descriptions, blogs, or FAQs.</li>
+                                <li>Improve SEO by regularly updating and optimizing content.</li>
+                            </ul>
+                        </div>
+                        <div className='bg-white p-5 rounded-xl shadow-lg'>
+                            <h4 className='text-2xl font-semibold mb-3'>Customer Support Automation</h4>
+                            <ul className='list-disc ml-5 text-gray-600 text-lg'>
+                                <li>Implement chatbots powered by AI to handle customer inquiries and support.</li>
+                                <li>Provide instant assistance and gather data for further improvements.</li>
+                            </ul>
+                        </div>
+                        <div className='bg-white p-5 rounded-xl shadow-lg'>
+                            <h4 className='text-2xl font-semibold mb-3'>Image Recognition</h4>
+                            <ul className='list-disc ml-5 text-gray-600 text-lg'>
+                                <li>Enable image recognition to enhance search functionality and improve product tagging.</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </section>
 
