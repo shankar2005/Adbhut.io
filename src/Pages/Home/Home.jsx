@@ -394,21 +394,21 @@ const Home = () => {
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
                         <div className='bg-white p-5 rounded-xl shadow-lg'>
                             <h4 className='text-2xl font-semibold mb-3'>Automated Content Generation</h4>
-                            <ul className='list-disc ml-5 text-gray-600 text-lg'>
+                            <ul className='list-disc ml-5 text-gray-600'>
                                 <li>Use natural language processing (NLP) to generate content for product descriptions, blogs, or FAQs.</li>
                                 <li>Improve SEO by regularly updating and optimizing content.</li>
                             </ul>
                         </div>
                         <div className='bg-white p-5 rounded-xl shadow-lg'>
                             <h4 className='text-2xl font-semibold mb-3'>Customer Support Automation</h4>
-                            <ul className='list-disc ml-5 text-gray-600 text-lg'>
+                            <ul className='list-disc ml-5 text-gray-600'>
                                 <li>Implement chatbots powered by AI to handle customer inquiries and support.</li>
                                 <li>Provide instant assistance and gather data for further improvements.</li>
                             </ul>
                         </div>
                         <div className='bg-white p-5 rounded-xl shadow-lg'>
                             <h4 className='text-2xl font-semibold mb-3'>Image Recognition</h4>
-                            <ul className='list-disc ml-5 text-gray-600 text-lg'>
+                            <ul className='list-disc ml-5 text-gray-600'>
                                 <li>Enable image recognition to enhance search functionality and improve product tagging.</li>
                             </ul>
                         </div>
