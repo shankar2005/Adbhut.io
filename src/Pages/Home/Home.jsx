@@ -67,6 +67,9 @@ const Home = () => {
                                 <li>
                                     <Link to="/CreatorFellowship">Creator Fellowship</Link>
                                 </li>
+                                <li>
+                                    <a href="#api">API</a>
+                                </li>
                             </ul>
                         </div>
                         {/* <p onClick={() => setIsHovered(!isHovered)} className='flex items-center gap-2 font-medium font-hero cursor-pointer'>
@@ -388,7 +391,7 @@ const Home = () => {
 
 
 
-            <section id="pricing" className='bg-gray-100 py-10 lg:py-20 my-20'>
+            <section id="api" className='bg-gray-100 py-10 lg:py-20 my-20'>
                 <div className='w-10/12 lg:w-9/12 mx-auto'>
                     <h1 className='text-3xl lg:text-5xl text-center font-semibold mb-10'>Use cases for our APIs</h1>
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
