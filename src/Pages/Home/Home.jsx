@@ -90,7 +90,7 @@ const Home = () => {
                                     : <button onClick={() => dispatch(showLogin())} className='font-semibold bg-sky-500 py-3 px-5 rounded-full text-sm text-white'>Login</button>
                             }
 
-                            {(<button type='button' className='lg:hidden' onClick={() => setShowNav(state => !state)}>
+                            {(<button type='button' className='lg:hidden select-none' onClick={() => setShowNav(state => !state)}>
                                 {showNav ? (
                                     <RxCross1 size={25} />
                                     ) : (
