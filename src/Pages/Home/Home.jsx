@@ -19,7 +19,7 @@ import { BsStars } from 'react-icons/bs';
 import { GiArcheryTarget } from "react-icons/gi";
 import { RiCustomerService2Fill } from "react-icons/ri";
 import { MdHistory, MdOutlinePayment } from "react-icons/md";
-import { FaSignature } from 'react-icons/fa';
+import { FaBars, FaSignature } from 'react-icons/fa';
 import chat from '../../assets/chat.png';
 import project from '../../assets/project.png';
 import create_project from '../../assets/create_project.png';
@@ -32,8 +32,10 @@ import sudharshan from '../../assets/artists/sudharshan.jpg';
 import quote from '../../assets/quote.svg';
 import { HiCursorClick } from "react-icons/hi";
 import SubscriptionModal from '../../Components/Modal/SubscriptionModal';
+import { RxCross1 } from 'react-icons/rx';
 
 const Home = () => {
+    const [showNav, setShowNav] = useState(false);
     const [subsModal, setSubsModal] = useState(false);
     const dispatch = useDispatch();
     const { isFullTime } = useSelector(state => state.viewMode);
@@ -54,7 +56,7 @@ const Home = () => {
             <header>
                 <nav className='py-3 relative'>
                     <div className='w-10/12 mx-auto flex items-center justify-between'>
-                        <div className="flex items-center gap-8">
+                        <div className="relative flex items-center gap-8">
                             <Link className="flex items-center gap-2" to="/">
                                 <img src={logo} className='w-20' />
                                 <span className="text-3xl font-bold text-cyan-900 tracking-wide">CO</span>
@@ -81,13 +83,40 @@ const Home = () => {
                             <Brands setIsHovered={setIsHovered} />
                         } */}
 
-                        {
-                            user?.email
-                                ? <Link to="/projects/readydemos"><button className='font-semibold bg-sky-500 py-3 px-5 rounded-full text-sm text-white'>Get Started</button></Link>
-                                : <button onClick={() => dispatch(showLogin())} className='font-semibold bg-sky-500 py-3 px-5 rounded-full text-sm text-white'>Login</button>
-                        }
+                        <div className='flex items-center gap-5'>
+                            {
+                                user?.email
+                                    ? <Link to="/projects/readydemos"><button className='font-semibold bg-sky-500 py-3 px-5 rounded-full text-sm text-white'>Get Started</button></Link>
+                                    : <button onClick={() => dispatch(showLogin())} className='font-semibold bg-sky-500 py-3 px-5 rounded-full text-sm text-white'>Login</button>
+                            }
+
+                            {(<button type='button' className='lg:hidden' onClick={() => setShowNav(state => !state)}>
+                                {showNav ? (
+                                    <RxCross1 size={25} />
+                                    ) : (
+                                    <FaBars size={25} />
+                                )}
+                            </button>)}
+                        </div>
+
                     </div>
                 </nav>
+
+                {showNav && (
+                    <nav className='lg:hidden w-10/12 mx-auto font-semibold p-5 text-center mb-3'>
+                        <ul>
+                            <li className='pb-2 mb-2 border-b'>
+                                <Link className='hover:text-blue-500' to="/about">About</Link>
+                            </li>
+                            <li className='pb-2 mb-2 border-b'>
+                                <Link className='hover:text-blue-500' to="/CreatorFellowship">Creator Fellowship</Link>
+                            </li>
+                            <li>
+                                <a className='hover:text-blue-500' href="#api">API</a>
+                            </li>
+                        </ul>
+                    </nav>
+                )}
 
                 {/* <section className='w-11/12 md:w-9/12 max-w-screen-xl mx-auto mt-16 py-16'>
                     <h1 className='text-4xl font-bold mb-5'>
@@ -262,7 +291,7 @@ const Home = () => {
                     <img className='absolute top-0 left-10 rounded-3xl shadow-lg bg-gradient-to-t from-pink-300 via-blue-500 to-pink-400 p-1.5 rotate-[5deg]' src={create_project} alt="" />
                 </div>
                 <div className='lg:pl-5'>
-                     className='bg-white p-5 rounded-xl shadow-lg'<small className='text-orange-500 font-bold'>BENIFIT</small>
+                    className='bg-white p-5 rounded-xl shadow-lg'<small className='text-orange-500 font-bold'>BENIFIT</small>
                     <h4 className='text-2xl font-semibold mb-4 mt-2'>Organize everything in one system of record</h4>
                     <p className='text-gray-500 mb-6'>From client assets and project timelines to communications and project reporting.</p>
                 </div>
@@ -270,7 +299,7 @@ const Home = () => {
 
             <section className='w-10/12 lg:w-9/12 mx-auto grid grid-cols-1 lg:grid-cols-12 items-center gap-5 my-24'>
                 <div className='col-span-7 rounded-lg'>
-                     className='bg-white p-5 rounded-xl shadow-lg'<small className='text-green-500 font-bold'>WORK ASSISTANT</small>
+                    className='bg-white p-5 rounded-xl shadow-lg'<small className='text-green-500 font-bold'>WORK ASSISTANT</small>
                     <h4 className='text-2xl font-semibold mb-4 mt-2'>Personalised Assistance Product For Your Every Customer Project </h4>
                     <p className='text-gray-500 mb-6 pr-20'>GPT driven custom chat engine to support every customer query, with answers to all possible questions and about your company.</p>
                 </div>
