@@ -139,17 +139,17 @@ const router = createBrowserRouter([
         path: '/artist/dashboard',
         element: <ArtistDashboardTest />
     },
-    // {
-    //     path: '/about',
-    //     element: <iframe
-    //         title="GitHub Pages"
-    //         src="https://shankar2005.github.io/nsnco.github.io/"
-    //         width="100%"
-    //         className="h-screen"
-    //         frameBorder="0"
-    //         allowFullScreen
-    //     />
-    // }
+    {
+        path: '/about',
+        element: <iframe
+            title="GitHub Pages"
+            src="https://shankar2005.github.io/nsnco.github.io/"
+            width="100%"
+            className="h-screen"
+            frameBorder="0"
+            allowFullScreen
+        />
+    }
 ]);
 
 export default router;
