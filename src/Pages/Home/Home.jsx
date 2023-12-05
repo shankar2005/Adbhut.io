@@ -441,7 +441,7 @@ const Home = () => {
                         <div className='bg-white p-5 rounded-xl shadow-lg'>
                             <h4 className='text-2xl font-semibold mb-3'>Image Recognition</h4>
                             <ul className='list-disc ml-5 text-gray-600'>
-                                <li>Enable image recognition to enhance search functionality and improve product tagging.</li>
+                                <li>Enable image recognition to enhance search functionality and improve product tagging for SEO.</li>
                             </ul>
                         </div>
                     </div>
