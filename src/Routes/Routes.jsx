@@ -24,6 +24,8 @@ import ArtistDashboard from "../Pages/Demo/ArtistDashboard";
 import DemoDetails from "../Pages/Demo/Components/DemoDetails";
 import ArtistLandingPage from "../Pages/Artist/ArtistLandingPage";
 import ArtistDashboardTest from "../Pages/Artist/ArtistDashboard";
+import GenerateText from "../Pages/Generative/GenerateText";
+import ExtractText from "../Pages/Generative/ExtractText";
 
 const router = createBrowserRouter([
     {
@@ -149,7 +151,16 @@ const router = createBrowserRouter([
             frameBorder="0"
             allowFullScreen
         />
-    }
+    },
+
+    {
+        path: "/generate-text",
+        element: <GenerateText />
+    },
+    {
+        path: "/extract-text",
+        element: <ExtractText />
+    },
 ]);
 
 export default router;

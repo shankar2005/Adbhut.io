@@ -93,7 +93,7 @@ const Home = () => {
                             {(<button type='button' className='lg:hidden select-none' onClick={() => setShowNav(state => !state)}>
                                 {showNav ? (
                                     <RxCross1 size={25} />
-                                    ) : (
+                                ) : (
                                     <FaBars size={25} />
                                 )}
                             </button>)}
@@ -445,6 +445,9 @@ const Home = () => {
                             </ul>
                         </div>
                     </div>
+                    <Link to="/generate-text" className="mt-10 block">
+                        <button className='mx-auto w-fit block border bg-blue-600 py-2 px-5 rounded font-semibold text-white'>Try it</button>
+                    </Link>
                 </div>
             </section>
 
