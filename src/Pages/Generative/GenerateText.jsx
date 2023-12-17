@@ -1,28 +1,13 @@
-import { BsStars } from "react-icons/bs";
-import { MdHistory } from "react-icons/md";
-import { FaUser } from "react-icons/fa";
-import { IoMdImage } from "react-icons/io";
-import { IoArrowBack, IoChatbubbleEllipsesSharp } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { useGenerateTextMutation } from "../../features/generative/generativeApi";
 
 const GenerateText = () => {
-    const data = {
-        "product_description": "Samsung Galaxy S22 is a flagship smartphone that combines cutting-edge technology with elegant design. With a powerful processor, stunning display, and professional-grade camera system, it offers unrivaled performance and captures stunning photos and videos. Its sleek and durable build, along with advanced features, make it a top choice for tech enthusiasts.",
-        "product_keywords": [
-            "Samsung Galaxy S22",
-            "flagship smartphone",
-            "cutting-edge technology",
-            "elegant design",
-            "powerful processor",
-            "stunning display",
-            "professional-grade camera system",
-            "unrivaled performance",
-            "captures stunning photos and videos",
-            "sleek and durable build",
-            "advanced features",
-            "top choice",
-            "tech enthusiasts."
-        ]
+    const [generateText, { data, isLoading, isSuccess }] = useGenerateTextMutation();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        generateText({
+            product_title: e.target.product_title.value
+        });
     }
 
     return (
@@ -107,15 +92,28 @@ const GenerateText = () => {
                     <h1 className="text-4xl font-bold mb-3">Generate Product Description</h1>
                     <small className="text-sm">Use our product description generator feature to effortlessly create text from your uploaded images. <br /> Generate accurate descriptions with just a single click!</small>
                 </div>
-                <div className="p-3 shadow-2xl flex gap-2 rounded">
-                    <input className="border border-sky-900/40 rounded w-full p-2 text-center" type="text" placeholder="Enter your product title ..." />
-                    <button className='bg-blue-500 px-5 font-medium text-sm py-2 rounded text-white'>Generate</button>
-                </div>
+                <form onSubmit={handleSubmit} className="p-3 shadow-2xl flex gap-2 rounded">
+                    <input name="product_title" disabled={isLoading} className="border border-sky-900/40 rounded w-full p-2 text-center" type="text" placeholder="Enter your product title ..." />
+                    {isLoading
+                        ? <button disabled type="button" className='bg-gray-300 px-5 font-medium text-sm py-2 rounded text-white cursor-wait'>Generate</button>
+                        : <button type="submit" className='bg-blue-500 px-5 font-medium text-sm py-2 rounded text-white'>Generate</button>}
+                </form>
                 <div className="mt-20 bg-gray-50 p-5 border rounded">
-                    <h5 className="bg-gray-200 px-4 py-2 rounded font-semibold mb-2">Description:</h5>
-                    <p className="font-sans select-all">{data?.product_description}</p>
-                    <h5 className="bg-gray-200 px-4 py-2 rounded font-semibold mb-4 mt-8">Keywords:</h5>
-                    <div className="flex flex-col flex-wrap gap-y-2 gap-x-1">{data?.product_keywords?.map(keyword => <span className="px-3 py-1 bg-white border text-sm rounded-full shadow-sm w-fit select-all">{keyword}</span>)}</div>
+                    {isLoading
+                        ? (
+                            <div className="flex items-center justify-center h-[9rem] gap-2">
+                                <span className="animate-pulse text-gray-600">Generating ... </span>
+                                <div className="w-10 h-10 border-8 border-gray-500 rounded-full border-dashed animate-spin"></div>
+                            </div>
+                        ) : (
+                            isSuccess &&
+                            <>
+                                <h5 className="bg-gray-200 px-4 py-2 rounded font-semibold mb-2">Description:</h5>
+                                <p className="font-sans select-all">{data?.product_description}</p>
+                                <h5 className="bg-gray-200 px-4 py-2 rounded font-semibold mb-4 mt-8">Keywords:</h5>
+                                <div className="flex flex-col flex-wrap gap-y-2 gap-x-1">{data?.product_keywords?.map(keyword => <span className="px-3 py-1 bg-white border text-sm rounded-full shadow-sm w-fit select-all">{keyword}</span>)}</div>
+                            </>
+                        )}
                 </div>
             </main>
         </>

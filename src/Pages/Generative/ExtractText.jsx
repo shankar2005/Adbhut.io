@@ -1,9 +1,3 @@
-import { BsStars } from "react-icons/bs";
-import { MdHistory } from "react-icons/md";
-import { FaUser } from "react-icons/fa";
-import { IoMdImage } from "react-icons/io";
-import { IoArrowBack, IoChatbubbleEllipsesSharp } from "react-icons/io5";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import { GrGallery } from "react-icons/gr";
 
@@ -14,7 +8,6 @@ const ExtractText = () => {
         setFile(e.target.files[0]);
         setFileURL(URL.createObjectURL(e.target.files[0]));
     }
-
 
     const handleSubmit = (e) => {
         const formData = new FormData();
