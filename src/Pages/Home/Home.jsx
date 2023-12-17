@@ -70,7 +70,7 @@ const Home = () => {
                                     <Link to="/CreatorFellowship">Creator Fellowship</Link>
                                 </li>
                                 <li>
-                                    <a href="#api">API</a>
+                                    <Link to="/api">API</Link>
                                 </li>
                             </ul>
                         </div>
@@ -112,7 +112,7 @@ const Home = () => {
                                 <Link className='hover:text-blue-500' to="/CreatorFellowship">Creator Fellowship</Link>
                             </li>
                             <li>
-                                <a className='hover:text-blue-500' href="#api">API</a>
+                                <Link className='hover:text-blue-500' to="/api">API</Link>
                             </li>
                         </ul>
                     </nav>
@@ -417,41 +417,6 @@ const Home = () => {
                     <a className='text-white underline' href="https://thhs.in/" target="_blank">Join with the Community</a>
                 </div>
             </section>
-
-
-
-            <section id="api" className='bg-gray-100 py-10 lg:py-20 my-20'>
-                <div className='w-10/12 lg:w-9/12 mx-auto'>
-                    <h1 className='text-3xl lg:text-5xl text-center font-semibold mb-10'>Use cases for our APIs</h1>
-                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
-                        <div className='bg-white p-5 rounded-xl shadow-lg'>
-                            <h4 className='text-2xl font-semibold mb-3'>Automated Content Generation</h4>
-                            <ul className='list-disc ml-5 text-gray-600'>
-                                <li>Use natural language processing (NLP) to generate content for product descriptions, blogs, or FAQs.</li>
-                                <li>Improve SEO by regularly updating and optimizing content.</li>
-                            </ul>
-                        </div>
-                        <div className='bg-white p-5 rounded-xl shadow-lg'>
-                            <h4 className='text-2xl font-semibold mb-3'>Customer Support Automation</h4>
-                            <ul className='list-disc ml-5 text-gray-600'>
-                                <li>Implement chatbots powered by AI to handle customer inquiries and support.</li>
-                                <li>Provide instant assistance and gather data for further improvements.</li>
-                            </ul>
-                        </div>
-                        <div className='bg-white p-5 rounded-xl shadow-lg'>
-                            <h4 className='text-2xl font-semibold mb-3'>Image Recognition</h4>
-                            <ul className='list-disc ml-5 text-gray-600'>
-                                <li>Enable image recognition to enhance search functionality and improve product tagging for SEO.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <Link to="/generate-text" className="mt-10 block">
-                        <button className='mx-auto w-fit block border bg-blue-600 py-2 px-5 rounded font-semibold text-white'>Try it</button>
-                    </Link>
-                </div>
-            </section>
-
-
 
             <section id="pricing" className='w-10/12 lg:w-9/12 mx-auto my-20 py-4'>
                 <h1 className='text-3xl lg:text-5xl text-center font-semibold mb-10 lg:mb-16 mt-2'>Affordable pricing that matches your needs</h1>

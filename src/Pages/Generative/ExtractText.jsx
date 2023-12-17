@@ -68,25 +68,6 @@ const ExtractText = () => {
 
     return (
         <>
-            <header>
-                <nav className='px-5 py-3 bg-sky-900 text-white'>
-                    <ul className='flex gap-10 items-center text-sm'>
-                        <li>
-                        <Link to="/"><IoArrowBack size={20} /></Link>
-                        </li>
-                        <li>
-                            <Link to="/generate-text" className="flex items-center gap-1.5"><BsStars size={20} /> Text</Link>
-                        </li>
-                        <li>
-                            <Link to="/extract-text" className="flex items-center gap-1.5"><IoMdImage size={20} /> Image</Link>
-                        </li>
-                        <li className='flex items-center gap-1.5 text-gray-400'><IoChatbubbleEllipsesSharp size={20} /> Chat <div className='bg-sky-700 text-xs px-1 rounded-full'>upcoming</div></li>
-
-                        <li className="flex items-center gap-1.5 ml-auto"><MdHistory size={20} /> History</li>
-                        <li className="flex items-center gap-1.5"><FaUser size={15} /> Account</li>
-                    </ul>
-                </nav>
-            </header>
             <main className="max-w-screen-md mx-auto pb-10">
                 <div className="text-center py-10">
                     <h1 className="text-4xl font-bold mb-3">Image To Text</h1>

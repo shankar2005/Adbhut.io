@@ -26,6 +26,8 @@ import ArtistLandingPage from "../Pages/Artist/ArtistLandingPage";
 import ArtistDashboardTest from "../Pages/Artist/ArtistDashboard";
 import GenerateText from "../Pages/Generative/GenerateText";
 import ExtractText from "../Pages/Generative/ExtractText";
+import APIs from "../Pages/Generative/APIs";
+import GenerativeLayout from "../Pages/Generative/GenerativeLayout";
 
 const router = createBrowserRouter([
     {
@@ -154,12 +156,22 @@ const router = createBrowserRouter([
     },
 
     {
-        path: "/generate-text",
-        element: <GenerateText />
-    },
-    {
-        path: "/extract-text",
-        element: <ExtractText />
+        path: "/api",
+        element: <GenerativeLayout />,
+        children: [
+            {
+                path: "/api",
+                element: <APIs />,
+            },
+            {
+                path: "/api/generate-text",
+                element: <GenerateText />
+            },
+            {
+                path: "/api/extract-text",
+                element: <ExtractText />
+            },
+        ]
     },
 ]);
 
