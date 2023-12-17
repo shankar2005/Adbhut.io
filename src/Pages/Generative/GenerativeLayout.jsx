@@ -27,8 +27,8 @@ const GenerativeLayout = () => {
                         </li>
                         <li className='flex items-center gap-1.5 text-gray-400'><IoChatbubbleEllipsesSharp size={20} /> Chat <div className='bg-sky-700 text-xs px-1 rounded-full'>upcoming</div></li>
 
-                        <li className="flex items-center gap-1.5 ml-auto"><MdHistory size={20} /> History</li>
-                        <li className="flex items-center gap-1.5"><FaUser size={15} /> Account</li>
+                        {/* <li className="flex items-center gap-1.5 ml-auto"><MdHistory size={20} /> History</li>
+                        <li className="flex items-center gap-1.5"><FaUser size={15} /> Account</li> */}
                     </ul>
                 </nav>
             </header>

@@ -9,7 +9,14 @@ export const generativeApi = apis.injectEndpoints({
                 body: data
             })
         }),
+        extractText: builder.mutation({
+            query: (data) => ({
+                url: `/extract_text/`,
+                method: 'POST',
+                body: data
+            })
+        }),
     })
 });
 
-export const { useGenerateTextMutation } = generativeApi;
+export const { useGenerateTextMutation, useExtractTextMutation } = generativeApi;

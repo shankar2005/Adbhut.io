@@ -5,6 +5,8 @@ const GenerateText = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // Api logic
         generateText({
             product_title: e.target.product_title.value
         });
@@ -90,7 +92,7 @@ const GenerateText = () => {
             <main className="max-w-screen-md mx-auto pb-10">
                 <div className="text-center py-10">
                     <h1 className="text-4xl font-bold mb-3">Generate Product Description</h1>
-                    <small className="text-sm">Use our product description generator feature to effortlessly create text from your uploaded images. <br /> Generate accurate descriptions with just a single click!</small>
+                    <small className="text-sm">Use our product description generator feature to effortlessly create text from your uploaded images. <br className="hidden lg:block" /> Generate accurate descriptions with just a single click!</small>
                 </div>
                 <form onSubmit={handleSubmit} className="p-3 shadow-2xl flex gap-2 rounded">
                     <input name="product_title" disabled={isLoading} className="border border-sky-900/40 rounded w-full p-2 text-center" type="text" placeholder="Enter your product title ..." />

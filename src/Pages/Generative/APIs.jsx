@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 const APIs = () => {
     return (
         <section id="api" className='bg-gray-100 py-10 lg:py-20'>
-            <div className='w-10/12 lg:w-9/12 mx-auto'>
-                <h1 className='text-3xl lg:text-5xl text-center font-semibold mb-10'>Use cases for our APIs</h1>
+            <div className='w-11/12 lg:w-9/12 mx-auto'>
+                <h1 className='text-3xl lg:text-5xl text-center font-semibold mb-5 lg:mb-10'>Use cases for our APIs</h1>
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
                     <div className='bg-white p-5 rounded-xl shadow-lg'>
                         <h4 className='text-2xl font-semibold mb-3'>Automated Content Generation</h4>
